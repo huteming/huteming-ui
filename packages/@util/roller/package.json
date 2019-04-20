@@ -1,0 +1,13 @@
+{
+  "name": "@huteming/util-roller",
+  "version": "1.2.1-alpha.0",
+  "description": "提供区间概率算法",
+  "main": "dist/util-roller.common.js",
+  "scripts": {
+    "build": "vue-cli-service build --target lib --name util-roller src/index.js"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+  }
+}

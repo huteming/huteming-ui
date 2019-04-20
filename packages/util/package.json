@@ -1,0 +1,36 @@
+{
+  "name": "@huteming/util",
+  "version": "1.2.3",
+  "description": "util 方法统一入口",
+  "main": "dist/huteming-util.common.js",
+  "scripts": {
+    "build": "npm run build:common && npm run build:async",
+    "build:common": "vue-cli-service build --target lib --name huteming-util src/index.js",
+    "build:async": "webpack --config webpack.conf.js",
+    "clean": "rimraf lib",
+    "test:unit": "vue-cli-service test:unit"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@huteming/util-animation": "^1.2.1-alpha.0",
+    "@huteming/util-api": "^1.2.1-alpha.0",
+    "@huteming/util-canvas": "^1.2.1",
+    "@huteming/util-request": "^1.2.1-alpha.0",
+    "@huteming/util-roller": "^1.2.1-alpha.0",
+    "@huteming/util-storage": "^1.2.1-alpha.0",
+    "@huteming/util-tool": "^1.2.1-alpha.0",
+    "@huteming/util-validator": "^1.2.1-alpha.0",
+    "@huteming/util-wx": "^1.2.1-alpha.0"
+  },
+  "devDependencies": {
+    "@vue/cli-plugin-unit-mocha": "^3.4.0",
+    "@vue/cli-service": "^3.4.0",
+    "babel-loader": "^8.0.5",
+    "progress-bar-webpack-plugin": "^1.12.1",
+    "rimraf": "^2.6.3",
+    "sinon": "^7.2.3",
+    "webpack": "^4.29.4",
+    "webpack-cli": "^3.2.3"
+  }
+}

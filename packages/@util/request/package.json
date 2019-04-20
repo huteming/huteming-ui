@@ -1,0 +1,18 @@
+{
+  "name": "@huteming/util-request",
+  "version": "1.2.1-alpha.0",
+  "description": "提供http请求的封装方法",
+  "main": "dist/util-request.common.js",
+  "scripts": {
+    "build": "vue-cli-service build --target lib --name util-request src/index.js"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "axios": "^0.18.0",
+    "jsonp": "^0.2.1",
+    "qs": "^6.6.0"
+  },
+  "devDependencies": {
+  }
+}

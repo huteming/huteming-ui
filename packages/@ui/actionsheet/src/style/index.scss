@@ -1,0 +1,45 @@
+.tm-actions {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index: 2;
+    background-color: #fff;
+
+    &-title {
+        padding: .3rem;
+        font-size: 14px;
+        line-height: 21px;
+        color: #888;
+        text-align: center;
+        border-bottom: 1px solid #ddd;
+    }
+
+    &-menus {
+        padding: .32rem;
+        font-size: 18px;
+        line-height: 1;
+        color: #000;
+        text-align: center;
+        cursor: pointer;
+
+        & + & {
+            border-top: 1px solid #ddd;
+        }
+    }
+
+    &-spacing {
+        height: .12rem;
+        background-color: #F2F2F2;
+    }
+}
+
+.slide-bottom-out-enter,
+.slide-bottom-out-leave-to {
+    transform: translateY(100%);
+}
+
+.slide-bottom-out-enter-active,
+.slide-bottom-out-leave-active {
+    transition: .3s cubic-bezier(.55, 0, .1, 1);
+}

@@ -1,0 +1,26 @@
+{
+  "name": "@huteming/cli-git",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "directories": {
+    "lib": "lib"
+  },
+  "scripts": {
+    "test:unit": "vue-cli-service test:unit"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "fs-extra": "^7.0.1"
+  },
+  "devDependencies": {
+    "@vue/cli-plugin-eslint": "^3.5.1",
+    "@vue/cli-plugin-unit-mocha": "^3.5.1",
+    "@vue/cli-service": "^3.5.1",
+    "@vue/eslint-config-standard": "^4.0.0",
+    "babel-eslint": "^10.0.1",
+    "eslint": "^5.15.2",
+    "tmp": "^0.0.33"
+  }
+}

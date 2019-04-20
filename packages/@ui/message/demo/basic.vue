@@ -1,0 +1,74 @@
+<template>
+<div class="page">
+    <button @click="handleCinfig">config</button>
+    <button @click="handleAlert">alert</button>
+    <button @click="handleConfirm">confirm</button>
+    <button @click="handlePrompt">prompt</button>
+</div>
+</template>
+
+<script>
+export default {
+    methods: {
+        handleCinfig () {
+            this.$message({
+                title: 'Welcome',
+                message: '欢迎使用 Ant Design ！！',
+
+                confirmButtonText: '知道了',
+                confirmButtonHighlight: true,
+
+                showCancelButton: true,
+                cancelButtonText: 'cancel',
+                cancelButtonHighlight: true,
+
+                showInput: true,
+                inputType: 'password',
+                inputValue: 'password',
+                inputPlaceholder: 'password',
+
+                // beforeClose (data, done) {
+                //     console.log(data)
+                //     setTimeout(done, 1500)
+                // },
+                closeOnClickModal: true
+            })
+                .then(res => {
+                    console.log(res)
+                })
+                .catch(res => {
+                    console.log(res)
+                })
+        },
+        handleAlert () {
+            this.$message.alert(`
+                <img src="http://img.zcool.cn/community/0117e2571b8b246ac72538120dd8a4.jpg@1280w_1l_2o_100sh.jpg" width="100" height="100" />
+            `, '')
+                .then(res => {
+                    console.log(res)
+                })
+        },
+        handleConfirm () {
+            this.$message.confirm('确定执行此操作?', '')
+                .then(res => {
+                    console.log(res)
+                })
+                .catch(res => {
+                    console.log(res)
+                })
+        },
+        handlePrompt () {
+            this.$message.prompt('', '请输入')
+                .then(res => {
+                    console.log(res)
+                })
+                .catch(res => {
+                    console.log(res)
+                })
+        }
+    },
+}
+</script>
+
+<style lang="scss" scoped>
+</style>

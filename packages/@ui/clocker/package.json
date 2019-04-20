@@ -1,0 +1,15 @@
+{
+  "name": "@huteming/ui-clocker",
+  "version": "1.2.2-alpha.1",
+  "description": "倒计时",
+  "main": "dist/ui-clocker.common.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "vue-cli-service build --target lib --name ui-clocker index.js"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@vue/cli-service": "^3.4.0"
+  }
+}

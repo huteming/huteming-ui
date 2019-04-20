@@ -1,0 +1,37 @@
+{
+  "name": "@huteming/cli-publish",
+  "version": "1.0.0",
+  "description": "",
+  "main": "lib/index.js",
+  "private": false,
+  "scripts": {
+    "test": "mocha -t 8000 --recursive test",
+    "unit": "cross-env NODE_DEBUG=info,error mocha -t 8000 test/include/include.spec.js",
+    "help": "node bin/tommy-version --help"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "commander": "^2.19.0",
+    "email-addresses": "^3.0.3",
+    "filenamify-url": "^1.0.0",
+    "fs-extra": "^7.0.1",
+    "globby": "^9.0.0",
+    "moment": "^2.23.0",
+    "shelljs": "^0.8.3"
+  },
+  "devDependencies": {
+    "chai": "^4.2.0",
+    "cross-env": "^5.2.0",
+    "dir-compare": "^1.6.0",
+    "eslint": "^5.12.0",
+    "eslint-config-tschaub": "^12.0.1",
+    "mocha": "^5.2.0",
+    "sinon": "^7.2.2",
+    "tmp": "^0.0.33"
+  },
+  "bin": {
+    "tommy-version": "bin/tommy-version.js",
+    "tommy-version-clean": "bin/tommy-version-clean.js"
+  }
+}
