@@ -5,5 +5,8 @@
   "main": "dist/util-wxsdk.common.js",
   "scripts": {},
   "author": "",
-  "license": "ISC"
+  "license": "ISC",
+  "dependencies": {
+    "@huteming/util-api": "^1.2.3-alpha.0"
+  }
 }
