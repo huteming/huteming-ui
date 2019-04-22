@@ -71,7 +71,7 @@
     "eslint": "^5.8.0",
     "eslint-plugin-vue": "^5.0.0",
     "highlight.js": "^9.14.2",
-    "lerna": "^3.13.0",
+    "lerna": "^3.13.3",
     "markdown-it": "^8.4.2",
     "markdown-it-container": "^2.0.0",
     "node-sass": "^4.9.0",

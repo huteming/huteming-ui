@@ -4,7 +4,6 @@
   "description": "提供工具类方法",
   "main": "dist/util-tool.common.js",
   "scripts": {
-    "build": "vue-cli-service build --target lib --name util-tool src/index.js"
   },
   "author": "",
   "license": "ISC",

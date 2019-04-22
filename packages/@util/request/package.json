@@ -4,7 +4,6 @@
   "description": "提供http请求的封装方法",
   "main": "dist/util-request.common.js",
   "scripts": {
-    "build": "vue-cli-service build --target lib --name util-request src/index.js"
   },
   "author": "",
   "license": "ISC",

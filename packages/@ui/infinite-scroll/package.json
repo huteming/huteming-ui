@@ -4,12 +4,9 @@
   "description": "无限滚动指令",
   "main": "dist/infinite-scroll.common.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "vue-cli-service build --target lib --name infinite-scroll index.js"
   },
   "author": "",
   "license": "ISC",
   "devDependencies": {
-    "@vue/cli-service": "^3.4.0"
   }
 }

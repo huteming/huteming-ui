@@ -4,7 +4,6 @@
   "description": "wxsdk的封装方法",
   "main": "dist/util-wxsdk.common.js",
   "scripts": {
-    "build": "vue-cli-service build --target lib --name util-wxsdk src/index.js"
   },
   "author": "",
   "license": "ISC",
