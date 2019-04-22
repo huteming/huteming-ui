@@ -1,6 +1,6 @@
 {
   "name": "@huteming/util-validator",
-  "version": "1.2.2-alpha.0",
+  "version": "1.2.2-alpha.1",
   "description": "提供验证方法",
   "main": "dist/util-validator.common.js",
   "scripts": {},
