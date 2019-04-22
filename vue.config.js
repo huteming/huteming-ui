@@ -12,9 +12,9 @@ module.exports = {
         port: 80,
     },
 
-    publicPath: process.env.NODE_ENV === 'production'
-        ? '/web/'
-        : '/',
+    // publicPath: process.env.NODE_ENV === 'production'
+    //     ? '/web/'
+    //     : '/',
 
     configureWebpack: {
         resolve: {
