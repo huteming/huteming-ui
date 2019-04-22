@@ -1,6 +1,6 @@
 {
   "name": "@huteming/ui",
-  "version": "1.2.3",
+  "version": "1.2.4-alpha.0",
   "description": "ui 组件的统一入口",
   "main": "dist/huteming-ui.common.js",
   "scripts": {
@@ -9,7 +9,6 @@
     "build:async": "webpack --config webpack.conf.js",
     "build:s1": "npm run b:clo && npm run b:fle && npm run b:fli && npm run b:tab && npm run b:tac && npm run b:tap && npm run b:inf",
     "build:s2": "npm run b:car && npm run b:cai && npm run b:inp && npm run b:pop && npm run b:pia && npm run b:pid && npm run b:pir",
-
     "b:clo": "vue-cli-service build --target lib --name clocker --dest lib/clocker --no-clean src/async/clocker.js",
     "b:fle": "vue-cli-service build --target lib --name flex --dest lib/flex --no-clean src/async/flex.js",
     "b:fli": "vue-cli-service build --target lib --name flex-item --dest lib/flex-item --no-clean src/async/flex-item.js",
@@ -24,14 +23,13 @@
     "b:pia": "vue-cli-service build --target lib --name picker-address --dest lib/picker-address --no-clean src/async/picker-address.js",
     "b:pid": "vue-cli-service build --target lib --name picker-datetime --dest lib/picker-datetime --no-clean src/async/picker-datetime.js",
     "b:pir": "vue-cli-service build --target lib --name picker-range --dest lib/picker-range --no-clean src/async/picker-range.js",
-
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "@huteming/ui-clocker": "^1.2.2-alpha.1",
-    "@huteming/ui-flex": "^1.2.2-alpha.1",
+    "@huteming/ui-clocker": "^1.2.3-alpha.0",
+    "@huteming/ui-flex": "^1.2.3-alpha.0",
     "@huteming/ui-flex-item": "^1.2.1-alpha.0"
   },
   "devDependencies": {
