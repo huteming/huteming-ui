@@ -1,7 +1,9 @@
 {
   "packages": [
     "packages/@util/*",
-    "packages/util"
+    "packages/util",
+    "packages/@ui/*",
+    "packages/ui"
   ],
   "version": "independent"
 }

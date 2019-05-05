@@ -3,13 +3,10 @@
   "version": "1.2.4-alpha.0",
   "description": "ui 组件的统一入口",
   "main": "dist/huteming-ui.common.js",
-  "scripts": {
-  },
+  "scripts": {},
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "@huteming/ui-clocker": "^1.2.3-alpha.0"
-  },
-  "devDependencies": {
+    "@huteming/ui-infinite-scroll": "^1.0.2-alpha.0"
   }
 }

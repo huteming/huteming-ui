@@ -25,7 +25,7 @@
     "clo": "cross-env BUILD_MODE=lib vue-cli-service build --target lib --report --name clocker --dest packages/ui/dist-lib/clocker packages/@ui/clocker/index.js",
     "fle": "cross-env BUILD_MODE=lib vue-cli-service build --target lib --report --name flex --dest packages/ui/dist-lib/flex packages/@ui/flex/index.js",
     "fli": "cross-env BUILD_MODE=lib vue-cli-service build --target lib --report --name flex-item --dest packages/ui/dist-lib/flex-item packages/@ui/flex-item/index.js",
-    "inf": "cross-env BUILD_MODE=lib vue-cli-service build --target lib --report --name infinite-scroll --dest packages/ui/dist-lib/infinite-scroll packages/@ui/infinite-scroll/index.js",
+    "inf": "cross-env BUILD_MODE=lib vue-cli-service build --target lib --report --name infinite-scroll --dest packages/@ui/infinite-scroll/dist packages/@ui/infinite-scroll/index.js",
     "inp": "cross-env BUILD_MODE=lib vue-cli-service build --target lib --report --name input --dest packages/ui/dist-lib/input packages/@ui/input/index.js",
     "pia": "cross-env BUILD_MODE=lib vue-cli-service build --target lib --report --name picker-address --dest packages/ui/dist-lib/picker-address packages/@ui/picker-address/index.js",
     "pid": "cross-env BUILD_MODE=lib vue-cli-service build --target lib --report --name picker-datetime --dest packages/ui/dist-lib/picker-datetime packages/@ui/picker-datetime/index.js",
