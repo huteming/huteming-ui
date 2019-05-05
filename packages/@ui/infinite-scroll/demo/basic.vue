@@ -1,6 +1,6 @@
 <template>
 <div class="page">
-    <div class="container" v-infinite-scroll.immediate="{ callback: handleReachBottom, disabled }" data-infinite-scroll-event="on-emit">
+    <div class="container" v-infinite-scroll="{ callback: handleReachBottom, disabled }">
         <div class="item" v-for="item in lists" :key="item">{{ item }}</div>
     </div>
 
