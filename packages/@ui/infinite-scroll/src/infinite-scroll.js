@@ -1,3 +1,6 @@
+import element from 'web-util/element'
+
+const { attached, getScrollTop, getScrollEventTarget } = element
 const CTX = '@@InfiniteScroll'
 const defaults = {
     callback (done) {
@@ -35,34 +38,7 @@ export default {
 
         const self = el[CTX]
 
-        const cb = function () {
-            self.vm.$nextTick(function () {
-                if (isAttached(el)) {
-                    doBind.call(self)
-                }
-
-                self.bindTryCount = 0
-
-                const tryBind = function () {
-                    if (self.bindTryCount > 10) return
-
-                    self.bindTryCount++
-                    if (isAttached(el)) {
-                        doBind.call(self)
-                    } else {
-                        setTimeout(tryBind, 50)
-                    }
-                }
-
-                tryBind()
-            })
-        }
-
-        if (self.vm._isMounted) {
-            cb()
-            return
-        }
-        self.vm.$on('hook:mounted', cb)
+        attached(el, doBind.bind(self))
     },
 
     update (el, binding) {
@@ -136,17 +112,6 @@ function checkReachBottom () {
     }
 }
 
-/**
- * 获取滚动条位置
- */
-function getScrollTop (element) {
-    if (element === window) {
-        return Math.max(window.pageYOffset || 0, document.documentElement.scrollTop)
-    }
-
-    return element.scrollTop
-}
-
 function getElementTop (element) {
     if (element === window) {
         return getScrollTop(window)
@@ -165,53 +130,6 @@ function getVisibleHeight (element) {
 
     return element.clientHeight
 }
-
-/**
- * 获取需要绑定事件的元素
- */
-function getScrollEventTarget (element) {
-    let currentNode = element
-    const getComputedStyle = document.defaultView.getComputedStyle
-
-    while (currentNode && currentNode.tagName !== 'HTML' && currentNode.tagName !== 'BODY' && currentNode.nodeType === 1) {
-        const overflowY = getComputedStyle(currentNode).overflowY
-        if (overflowY === 'scroll' || overflowY === 'auto') {
-            return currentNode
-        }
-        currentNode = currentNode.parentNode
-    }
-    return window
-}
-
-/**
- * 防抖动函数
- */
-// function debounce (fn, delay) {
-//     let now
-//     let lastExec
-//     let context
-//     let args
-
-//     const execute = function () {
-//         lastExec = now
-//         fn.apply(context, args)
-//     }
-
-//     return function () {
-//         context = this
-//         args = arguments
-
-//         now = Date.now()
-
-//         if (lastExec) {
-//             if (now - lastExec > delay) {
-//                 execute()
-//             }
-//         } else {
-//             execute()
-//         }
-//     }
-// }
 
 /**
  * 节流函数
@@ -252,20 +170,4 @@ function throttle (fn, delay) {
             execute()
         }
     }
-}
-
-function isAttached (element) {
-    var currentNode = element.parentNode
-
-    while (currentNode) {
-        if (currentNode.tagName === 'HTML') {
-            return true
-        }
-        if (currentNode.nodeType === 11) {
-            return false
-        }
-        currentNode = currentNode.parentNode
-    }
-
-    return false
 }
