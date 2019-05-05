@@ -1,12 +1,9 @@
 {
   "name": "@huteming/ui-infinite-scroll",
-  "version": "1.0.2-alpha.0",
+  "version": "1.0.2-alpha.1",
   "description": "无限滚动指令",
   "main": "dist/infinite-scroll.common.js",
-  "scripts": {
-  },
+  "scripts": {},
   "author": "",
-  "license": "ISC",
-  "devDependencies": {
-  }
+  "license": "ISC"
 }
