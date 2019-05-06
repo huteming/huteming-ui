@@ -6,7 +6,7 @@
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build --report",
     "build:lib": "npm run build:ui && npm run build:util",
-    "publish": "npm run build && cross-env NODE_DEBUG=info node publish.js",
+    "del:publish": "npm run build && cross-env NODE_DEBUG=info node publish.js",
     "lint": "vue-cli-service lint",
     "test:e2e": "vue-cli-service test:e2e",
     "test:unit": "vue-cli-service test:unit",
