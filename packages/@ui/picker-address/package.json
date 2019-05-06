@@ -1,0 +1,10 @@
+{
+  "name": "@huteming/ui-picker-address",
+  "version": "1.0.0",
+  "description": "地址选择器",
+  "main": "dist/picker-address.common.js",
+  "scripts": {
+  },
+  "author": "",
+  "license": "ISC"
+}
