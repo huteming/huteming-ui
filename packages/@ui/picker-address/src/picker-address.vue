@@ -14,13 +14,9 @@
 
 <script>
 import TmPopup from 'web-ui/popup/index.js'
-import Picker from 'web-ui/picker/index.js'
-import PickerItem from 'web-ui/picker-item/index.js'
-import Toolbar from 'web-ui/toolbar/index.js'
-
-import provinceOptions from './json/provinces.json'
-import citieOptions from './json/cities.json'
-import areaOptions from './json/areas.json'
+import TmPicker from 'web-ui/picker/index.js'
+import TmPickerItem from 'web-ui/picker-item/index.js'
+import TmToolbar from 'web-ui/toolbar/index.js'
 
 export default {
     name: 'TmPickerAddress',
@@ -48,21 +44,25 @@ export default {
             provinceCode: '',
             cityCode: '',
             areaCode: '',
+
+            provinceOptions: [],
+            citieOptions: [],
+            areaOptions: [],
         }
     },
 
     computed: {
         // 省级
         provinces () {
-            return provinceOptions
+            return this.provinceOptions
         },
         // 城市
         cities () {
-            return citieOptions.filter(item => item.provinceCode === this.provinceCode)
+            return this.citieOptions.filter(item => item.provinceCode === this.provinceCode)
         },
         // 地区
         areas () {
-            return areaOptions.filter(item => item.cityCode === this.cityCode)
+            return this.areaOptions.filter(item => item.cityCode === this.cityCode)
         },
     },
 
@@ -77,6 +77,24 @@ export default {
                 this.initValue()
             }
         },
+    },
+
+    created () {
+        const promises = [
+            import('./json/provinces.min.json'),
+            import('./json/cities.min.json'),
+            import('./json/areas.min.json'),
+        ]
+
+        Promise.all(promises)
+            .then(([provinceOptions, citieOptions, areaOptions]) => {
+                this.provinceOptions = provinceOptions.default
+                this.citieOptions = citieOptions.default
+                this.areaOptions = areaOptions.default
+            })
+            .catch(err => {
+                console.log(err)
+            })
     },
 
     methods: {
@@ -144,9 +162,9 @@ export default {
 
     components: {
         TmPopup,
-        TmPicker: Picker,
-        TmPickerItem: PickerItem,
-        TmToolbar: Toolbar,
+        TmPicker,
+        TmPickerItem,
+        TmToolbar,
     },
 }
 </script>
