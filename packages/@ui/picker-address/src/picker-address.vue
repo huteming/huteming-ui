@@ -18,6 +18,10 @@ import TmPicker from 'web-ui/picker/index.js'
 import TmPickerItem from 'web-ui/picker-item/index.js'
 import TmToolbar from 'web-ui/toolbar/index.js'
 
+import provinceOptions from './json/provinces.min.json'
+import citieOptions from './json/cities.min.json'
+import areaOptions from './json/areas.min.json'
+
 export default {
     name: 'TmPickerAddress',
 
@@ -44,25 +48,21 @@ export default {
             provinceCode: '',
             cityCode: '',
             areaCode: '',
-
-            provinceOptions: [],
-            citieOptions: [],
-            areaOptions: [],
         }
     },
 
     computed: {
         // 省级
         provinces () {
-            return this.provinceOptions
+            return provinceOptions
         },
         // 城市
         cities () {
-            return this.citieOptions.filter(item => item.provinceCode === this.provinceCode)
+            return citieOptions.filter(item => item.provinceCode === this.provinceCode)
         },
         // 地区
         areas () {
-            return this.areaOptions.filter(item => item.cityCode === this.cityCode)
+            return areaOptions.filter(item => item.cityCode === this.cityCode)
         },
     },
 
@@ -80,21 +80,6 @@ export default {
     },
 
     created () {
-        const promises = [
-            import('./json/provinces.min.json'),
-            import('./json/cities.min.json'),
-            import('./json/areas.min.json'),
-        ]
-
-        Promise.all(promises)
-            .then(([provinceOptions, citieOptions, areaOptions]) => {
-                this.provinceOptions = provinceOptions.default
-                this.citieOptions = citieOptions.default
-                this.areaOptions = areaOptions.default
-            })
-            .catch(err => {
-                console.log(err)
-            })
     },
 
     methods: {
