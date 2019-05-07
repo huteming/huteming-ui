@@ -1,12 +1,40 @@
 /**
+ * 设置滚动条位置，兼容原生scrollTo
+ * @param {*Node} element
+ * @param {Number} x x轴方向
+ * @param {Number} y y轴方向
+ */
+export function scrollX (element, x) {
+    if (element === window) {
+        document.body.scrollLeft = x
+        document.documentElement.scrollLeft = x
+        return true
+    }
+    element.scrollLeft = x
+}
+
+export function scrollY (element, x) {
+    if (element === window) {
+        document.body.scrollTop = x
+        document.documentElement.scrollTop = x
+        return true
+    }
+    element.scrollTop = x
+}
+
+export function scrollTo (element, x, y) {
+    scrollX(element, x)
+    scrollY(element, y)
+}
+
+/**
  * 获取需要绑定事件的元素
  */
 export function getScrollEventTarget (element) {
     let currentNode = element
 
     while (currentNode && currentNode.tagName !== 'HTML' && currentNode.tagName !== 'BODY' && currentNode.nodeType === 1) {
-        const overflowY = getComputedStyle(currentNode).overflowY
-        if (overflowY === 'scroll' || overflowY === 'auto') {
+        if (isYScrollable(currentNode)) {
             return currentNode
         }
         currentNode = currentNode.parentNode
@@ -66,5 +94,21 @@ function isAttached (element) {
         currentNode = currentNode.parentNode
     }
 
+    return false
+}
+
+export function isYScrollable (element) {
+    const overflowY = getComputedStyle(element).overflowY
+    if (overflowY === 'scroll' || overflowY === 'auto') {
+        return true
+    }
+    return false
+}
+
+export function isXScrollable (element) {
+    const overflowX = getComputedStyle(element).overflowX
+    if (overflowX === 'scroll' || overflowX === 'auto') {
+        return true
+    }
     return false
 }
