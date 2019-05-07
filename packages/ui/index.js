@@ -60,7 +60,7 @@ export const Popup = _Popup
 export const Actionsheet = _Actionsheet
 export const Message = _Message
 
-export const PickerAddress = _PickerAddress
+export const TmPickerAddress = _PickerAddress
 export const PickerDatetime = _PickerDatetime
 export const PickerRange = _PickerRange
 
