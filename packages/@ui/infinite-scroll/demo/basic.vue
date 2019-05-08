@@ -29,7 +29,7 @@ export default {
             console.log('reach')
             setTimeout(() => {
                 const length = this.lists.length
-                for (let i = 1; i < 10; i++) {
+                for (let i = 1; i < 15; i++) {
                     this.lists.push(length + i)
                 }
                 done()
