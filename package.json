@@ -22,7 +22,7 @@
     "b:3": "npm run ani && npm run api && npm run cad && npm run req && npm run rol && npm run sto && npm run too && npm run val && npm run wxd",
     "car": "cross-env BUILD_MODE=lib vue-cli-service build --target lib --report --name carousel --dest packages/ui/dist-lib/carousel packages/@ui/carousel/index.js",
     "cai": "cross-env BUILD_MODE=lib vue-cli-service build --target lib --report --name carousel-item --dest packages/ui/dist-lib/carousel-item packages/@ui/carousel-item/index.js",
-    "clo": "cross-env BUILD_MODE=lib vue-cli-service build --target lib --report --name clocker --dest packages/ui/dist-lib/clocker packages/@ui/clocker/index.js",
+    "clo": "cross-env BUILD_MODE=lib vue-cli-service build --target lib --report --name clocker --dest packages/@ui/clocker/dist packages/@ui/clocker/index.js",
     "fle": "cross-env BUILD_MODE=lib vue-cli-service build --target lib --report --name flex --dest packages/ui/dist-lib/flex packages/@ui/flex/index.js",
     "fli": "cross-env BUILD_MODE=lib vue-cli-service build --target lib --report --name flex-item --dest packages/ui/dist-lib/flex-item packages/@ui/flex-item/index.js",
     "inf": "cross-env BUILD_MODE=lib vue-cli-service build --target lib --report --name infinite-scroll --dest packages/@ui/infinite-scroll/dist packages/@ui/infinite-scroll/index.js",

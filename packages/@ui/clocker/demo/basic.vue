@@ -1,6 +1,6 @@
 <template>
 <div class="page-example">
-    <tm-divider>倒计时结束</tm-divider>
+    <h1>倒计时结束</h1>
 
     <tm-clocker :start-time="maps[1].start" :end-time="maps[1].end" @end="handleEnd">
         <template slot-scope="scope">
@@ -12,7 +12,7 @@
         </template>
     </tm-clocker>
 
-    <tm-divider>持续进行</tm-divider>
+    <h2>持续进行</h2>
 
     <tm-clocker :start-time="maps[0].start" :end-time="maps[0].end">
         <template slot-scope="scope">
@@ -27,7 +27,7 @@
 </template>
 
 <script>
-import { TmClocker, TmDivider } from '@huteming/ui'
+import TmClocker from '../index'
 
 export default {
     data () {
@@ -66,7 +66,6 @@ export default {
 
     components: {
         TmClocker,
-        TmDivider,
     }
 }
 </script>

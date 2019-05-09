@@ -54,7 +54,7 @@ export default {
     install,
 }
 
-export const Clocker = _Clocker
+export const TmClocker = _Clocker
 export const Input = _Input
 export const Popup = _Popup
 export const Actionsheet = _Actionsheet
