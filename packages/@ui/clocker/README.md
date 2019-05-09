@@ -17,6 +17,7 @@ Vue.use(TmClocker)
 <tm-clocker :start-time="start" :end-time="end" @end="handleEnd">
     <template slot-scope="scope">
         <div>{{ scope.whole }}</div>
+        <div>{{ scope.total }}</div>
         <div>{{ scope.days }}</div>
         <div>{{ scope.hours }}</div>
         <div>{{ scope.minutes }}</div>
@@ -38,10 +39,11 @@ Vue.use(TmClocker)
 | 参数 | 说明 | 类型 | 可选值 | 默认值 |
 |------|-------|---------|-------|--------|
 | whole | 完整时间，根据 format 格式化得到 | String | | |
+| total | 总共剩余秒 | Number | | |
 | days | 剩余天数 | Number | | |
-| hours | 剩余小时 | Number | | |
-| minutes | 剩余分钟 | Number | | |
-| seconds | 剩余秒 | Number | | |
+| hours | 剩余小时，24小时以内 | Number | | |
+| minutes | 剩余分钟，60分钟以内 | Number | | |
+| seconds | 剩余秒，60秒以内 | Number | | |
 
 ## Events
 

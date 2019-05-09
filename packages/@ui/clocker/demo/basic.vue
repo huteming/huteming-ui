@@ -5,6 +5,7 @@
     <tm-clocker :start-time="maps[1].start" :end-time="maps[1].end" @end="handleEnd">
         <template slot-scope="scope">
             <div>{{ scope.whole }}</div>
+            <div>{{ scope.total }}</div>
             <div>{{ scope.days }}</div>
             <div>{{ scope.hours }}</div>
             <div>{{ scope.minutes }}</div>
@@ -17,6 +18,20 @@
     <tm-clocker :start-time="maps[0].start" :end-time="maps[0].end">
         <template slot-scope="scope">
             <div>{{ scope.whole }}</div>
+            <div>{{ scope.total }}</div>
+            <div>{{ scope.days }}</div>
+            <div>{{ scope.hours }}</div>
+            <div>{{ scope.minutes }}</div>
+            <div>{{ scope.seconds }}</div>
+        </template>
+    </tm-clocker>
+
+    <h2>已结束</h2>
+
+    <tm-clocker :start-time="maps[2].start" :end-time="maps[2].end">
+        <template slot-scope="scope">
+            <div>{{ scope.whole }}</div>
+            <div>{{ scope.total }}</div>
             <div>{{ scope.days }}</div>
             <div>{{ scope.hours }}</div>
             <div>{{ scope.minutes }}</div>

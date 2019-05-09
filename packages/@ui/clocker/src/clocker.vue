@@ -2,6 +2,7 @@
 <section class="tm-clocker">
     <slot
         :whole="whole"
+        :total="total"
         :days="days"
         :hours="hours"
         :minutes="minutes"
@@ -53,20 +54,23 @@ export default {
             return Math.floor(this.milliseconds / (24 * 3600 * 1000))
         },
         hours () {
-            return Math.floor(this.milliseconds / (3600 * 1000))
+            return Math.floor(this.milliseconds / (3600 * 1000)) % 24
         },
         minutes () {
-            return Math.floor(this.milliseconds / (60 * 1000))
+            return Math.floor(this.milliseconds / (60 * 1000)) % 60
         },
         seconds () {
+            return Math.ceil(this.milliseconds / 1000) % 60
+        },
+        total () {
             return Math.ceil(this.milliseconds / 1000)
         },
         whole () {
             const values = {
                 'D+': this.days,
-                'H+': this.hours % 24,
-                'M+': this.minutes % 60,
-                'S+': this.seconds % 60
+                'H+': this.hours,
+                'M+': this.minutes,
+                'S+': this.seconds,
             }
 
             let res = this.format
