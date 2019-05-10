@@ -23,6 +23,8 @@ import _PickerItem from 'web-ui/picker-item/index.js'
 
 import _InfiniteScroll from 'web-ui/infinite-scroll/index.js'
 
+import _BtnPay from 'web-ui/btn-pay/index.js'
+
 function install (Vue, config = {}) {
     Vue.component(_Clocker.name, _Clocker)
     Vue.component(_Flex.name, _Flex)
@@ -44,6 +46,8 @@ function install (Vue, config = {}) {
     Vue.component(_Picker.name, _Picker)
     Vue.component(_PickerItem.name, _PickerItem)
 
+    Vue.component(_BtnPay.name, _BtnPay)
+
     Vue.directive(_InfiniteScroll.name, _InfiniteScroll)
 
     Vue.use(_Actionsheet)
@@ -55,26 +59,28 @@ export default {
 }
 
 export const TmClocker = _Clocker
-export const Input = _Input
-export const Popup = _Popup
+export const TmInput = _Input
+export const TmPopup = _Popup
 export const Actionsheet = _Actionsheet
 export const Message = _Message
 
 export const TmPickerAddress = _PickerAddress
-export const PickerDatetime = _PickerDatetime
-export const PickerRange = _PickerRange
+export const TmPickerDatetime = _PickerDatetime
+export const TmPickerRange = _PickerRange
 
-export const Flex = _Flex
-export const FlexItem = _FlexItem
+export const TmFlex = _Flex
+export const TmFlexItem = _FlexItem
 
-export const Tab = _Tab
-export const TabContainer = _TabContainer
-export const TabPane = _TabPane
+export const TmTab = _Tab
+export const TmTabContainer = _TabContainer
+export const TmTabPane = _TabPane
 
-export const Carousel = _Carousel
-export const CarouselItem = _CarouselItem
+export const TmCarousel = _Carousel
+export const TmCarouselItem = _CarouselItem
 
-export const Picker = _Picker
-export const PickerItem = _PickerItem
+export const TmPicker = _Picker
+export const TmPickerItem = _PickerItem
 
 export const InfiniteScroll = _InfiniteScroll
+
+export const TmBtnPay = _BtnPay

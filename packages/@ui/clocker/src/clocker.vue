@@ -129,6 +129,14 @@ export default {
         }
     },
 
+    beforeDestroy () {
+        clearInterval(this.timer)
+    },
+
+    deactivated () {
+        clearInterval(this.timer)
+    },
+
     methods: {
         execute () {
             if (!this.normalizedEndTime || !this.normalizedStartTime) return

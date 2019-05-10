@@ -10,5 +10,11 @@ export default [
         title: '倒计时 clocker',
         docs: () => import('web-ui/clocker/README.md'),
         example: () => import('web-ui/clocker/demo/basic.vue'),
-    }
+    },
+    {
+        path: 'btn-pay',
+        title: '支付按钮 btn-pay',
+        docs: () => import('web-ui/btn-pay/README.md'),
+        example: () => import('web-ui/btn-pay/demo/basic.vue'),
+    },
 ]

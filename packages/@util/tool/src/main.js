@@ -1,4 +1,21 @@
 /**
+ * @param {Number|String} value 数据
+ * @param {Number} fractionDigits 保留位数
+ * @param {Boolean} toNumber 是否转为数字
+ */
+export function tofixed (value, fractionDigits = 2, toNumber = false) {
+    value = Number(value)
+
+    if (isNaN(value)) {
+        return 0
+    }
+
+    value = value.toFixed(fractionDigits)
+
+    return toNumber ? Number(value) : value
+}
+
+/**
  * 批量加载图片
  * @argument {Array} urls
  */

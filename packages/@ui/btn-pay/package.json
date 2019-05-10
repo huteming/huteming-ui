@@ -1,0 +1,10 @@
+{
+  "name": "@huteming/ui-btn-pay",
+  "version": "1.0.0",
+  "description": "支付按钮",
+  "main": "dist/btn-pay.common.js",
+  "scripts": {
+  },
+  "author": "",
+  "license": "ISC"
+}
