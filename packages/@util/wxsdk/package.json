@@ -1,12 +1,12 @@
 {
   "name": "@huteming/util-wx",
-  "version": "1.2.3-alpha.2",
+  "version": "1.2.3-alpha.3",
   "description": "wxsdk的封装方法",
   "main": "dist/util-wxsdk.common.js",
   "scripts": {},
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "@huteming/util-api": "^1.2.3-alpha.2"
+    "@huteming/util-api": "^1.2.3-alpha.3"
   }
 }

@@ -1,13 +1,13 @@
 {
   "name": "@huteming/util-request",
-  "version": "1.2.3-alpha.2",
+  "version": "1.2.3-alpha.3",
   "description": "提供http请求的封装方法",
   "main": "dist/util-request.common.js",
   "scripts": {},
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "@huteming/util-tool": "^1.2.3-alpha.0",
+    "@huteming/util-tool": "^1.2.3-alpha.1",
     "axios": "^0.18.0",
     "jsonp": "^0.2.1",
     "qs": "^6.6.0"
