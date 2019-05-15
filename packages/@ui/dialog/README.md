@@ -5,7 +5,7 @@
 ## 引入
 
 ```javascript
-import { TmDialog } from '@huteming/ui-dialog'
+import { TmDialog } from '@huteming/ui'
 
 Vue.use(TmDialog)
 // Vue.component(TmDialog.name, TmDialog)
