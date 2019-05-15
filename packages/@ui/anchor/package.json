@@ -1,0 +1,12 @@
+{
+  "name": "@huteming/ui-anchor",
+  "version": "1.0.0",
+  "description": "锚点",
+  "main": "dist/anchor.common.js",
+  "scripts": {},
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "intersection-observer": "^0.7.0"
+  }
+}
