@@ -7,8 +7,10 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@huteming/ui-anchor": "^1.0.2-alpha.1",
+    "@huteming/ui-btn-pay": "^1.0.1-alpha.0",
     "@huteming/ui-clocker": "^1.0.1-alpha.2",
-    "@huteming/ui-dialog": "^1.0.1-alpha.2",
+    "@huteming/ui-dialog": "^1.0.2-alpha.1",
     "@huteming/ui-infinite-scroll": "^1.0.2-alpha.2",
     "@huteming/ui-picker-address": "^1.0.1-alpha.1"
   }
