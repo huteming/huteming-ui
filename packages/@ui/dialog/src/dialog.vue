@@ -1,6 +1,6 @@
 <template>
 <transition name="tm-dialog">
-    <div class="tm-dialog" v-show="visible" :style="styles">
+    <div class="tm-dialog" v-show="normalizedVisible" :style="styles">
         <div class="tm-dialog-content">
             <slot></slot>
         </div>
@@ -44,6 +44,7 @@ export default {
         return {
             zIndex: 9999,
             visible: this.value,
+            normalizedVisible: false,
         }
     },
 
@@ -71,6 +72,7 @@ export default {
             this.$_openModal({
                 callbackClick: this.handleClickModal,
             }, this.$el)
+            this.normalizedVisible = true
 
             // 必须在调用 openModal 之后
             // 为了获取动态 zindex
@@ -83,6 +85,7 @@ export default {
                 this.$_closeModal({
                     callbackAfterLeave: this.handleAfterLeave,
                 })
+                this.normalizedVisible = false
 
                 this.$emit('close')
             }

@@ -2,7 +2,7 @@
 <div class="page-example">
     <button @click="visibleDialog = true">open</button>
 
-    <tm-dialog v-model="visibleDialog" @close="handleClose" @closed="handleClosed">
+    <tm-dialog v-model="visibleDialog" :before-close="handleBeforeClose" @close="handleClose" @closed="handleClosed" :close-on-click-modal="false" close-position="bottom">
         <img src="./jinghaokefu.png" alt="" class="image" />
     </tm-dialog>
 </div>
