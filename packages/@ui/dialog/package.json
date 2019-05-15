@@ -1,0 +1,10 @@
+{
+  "name": "@huteming/ui-dialog",
+  "version": "1.0.0",
+  "description": "> 对话框",
+  "main": "dist/dialog.common.js",
+  "scripts": {
+  },
+  "author": "",
+  "license": "ISC"
+}

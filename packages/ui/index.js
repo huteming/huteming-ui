@@ -24,6 +24,7 @@ import _PickerItem from 'web-ui/picker-item/index.js'
 import _InfiniteScroll from 'web-ui/infinite-scroll/index.js'
 
 import _BtnPay from 'web-ui/btn-pay/index.js'
+import _Dialog from 'web-ui/dialog/index.js'
 
 function install (Vue, config = {}) {
     Vue.component(_Clocker.name, _Clocker)
@@ -47,6 +48,7 @@ function install (Vue, config = {}) {
     Vue.component(_PickerItem.name, _PickerItem)
 
     Vue.component(_BtnPay.name, _BtnPay)
+    Vue.component(_Dialog.name, _Dialog)
 
     Vue.directive(_InfiniteScroll.name, _InfiniteScroll)
 
@@ -84,3 +86,4 @@ export const TmPickerItem = _PickerItem
 export const InfiniteScroll = _InfiniteScroll
 
 export const TmBtnPay = _BtnPay
+export const TmDialog = _Dialog

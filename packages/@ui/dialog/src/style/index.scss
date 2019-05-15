@@ -1,0 +1,63 @@
+.tm-dialog {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-flow: column wrap;
+    transition: .3s cubic-bezier(0.4, 0.0, 0.2, 1);
+
+    &-content {
+        position: relative;
+    }
+
+    &-footer {
+        width: 100%;
+        margin-top: 20px;
+    }
+
+    &-cancel {
+        line-height: 1;
+
+        &_out-right {
+            position: absolute;
+            top: 0;
+            right: 0;
+            transform: translate(100%, -100%);
+        }
+
+        &_out-left {
+            position: absolute;
+            top: 0;
+            left: 0;
+            transform: translate(-100%, -100%);
+        }
+
+        &_in-right {
+            position: absolute;
+            top: 0;
+            right: 0;
+            transform: translate(-50%, 50%);
+        }
+
+        &_in-left {
+            position: absolute;
+            top: 0;
+            left: 0;
+            transform: translate(50%, 50%);
+        }
+
+        &_bottom {
+            position: relative;
+            margin-top: 25px;
+        }
+    }
+}
+
+.tm-dialog-enter,
+.tm-dialog-leave-to {
+    transform: translate(-50%, calc(-100% - 50vh));
+    opacity: 0;
+}
