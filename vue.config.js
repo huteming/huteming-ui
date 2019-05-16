@@ -1,10 +1,14 @@
 const path = require('path')
 const markdown = require('markdown-it')()
 const MarkdownItContainer = require('markdown-it-container')
+const gitsha = require('child_process').execSync('git rev-parse HEAD').toString().trim()
 
 function resolve (dir) {
     return path.join(__dirname, '.', dir)
 }
+
+// 设置应用环境变量
+process.env.VUE_APP_RELEASE = gitsha
 
 module.exports = {
     devServer: {
