@@ -121,6 +121,10 @@ export default {
         this.clientWidth = this.$el.clientWidth
     },
 
+    beforeDestroy () {
+        this.stopTimer()
+    },
+
     methods: {
         handleTouchstart (event) {
             if (this.disabledTouch) {

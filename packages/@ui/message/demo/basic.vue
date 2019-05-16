@@ -8,10 +8,12 @@
 </template>
 
 <script>
+import Message from '../index'
+
 export default {
     methods: {
         handleCinfig () {
-            this.$message({
+            Message({
                 title: 'Welcome',
                 message: '欢迎使用 Ant Design ！！',
 
@@ -41,7 +43,7 @@ export default {
                 })
         },
         handleAlert () {
-            this.$message.alert(`
+            Message.alert(`
                 <img src="http://img.zcool.cn/community/0117e2571b8b246ac72538120dd8a4.jpg@1280w_1l_2o_100sh.jpg" width="100" height="100" />
             `, '')
                 .then(res => {
@@ -49,7 +51,7 @@ export default {
                 })
         },
         handleConfirm () {
-            this.$message.confirm('确定执行此操作?', '')
+            Message.confirm('确定执行此操作?', '')
                 .then(res => {
                     console.log(res)
                 })
@@ -58,7 +60,7 @@ export default {
                 })
         },
         handlePrompt () {
-            this.$message.prompt('', '请输入')
+            Message.prompt('', '请输入')
                 .then(res => {
                     console.log(res)
                 })
