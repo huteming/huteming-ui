@@ -7,6 +7,5 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "@huteming/util-api": "^1.2.3-alpha.3"
   }
 }
