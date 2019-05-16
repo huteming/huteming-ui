@@ -10,16 +10,10 @@ import './assets/style/markdown.scss'
 import './registerServiceWorker'
 import './assets/iconfont/iconfont.css'
 import './assets/style/main.scss'
-import ui from 'web/ui/index.js'
-// import * as util from 'web/util/index.js'
-
 import 'normalize.css'
 
 Vue.use(ElementUI)
-Vue.use(ui)
 Vue.config.productionTip = false
-
-// console.log(util)
 
 new Vue({
     router,

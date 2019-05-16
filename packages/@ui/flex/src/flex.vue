@@ -51,12 +51,6 @@ export default {
     },
 
     computed: {
-        normalizedFlexWrap () {
-            if (this.wrap) {
-                return 'wrap'
-            }
-            return this.flexWrap
-        },
         classes () {
             const _wrap = this.wrap === true ? 'wrap' : this.wrap
 
