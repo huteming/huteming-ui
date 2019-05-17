@@ -29,11 +29,19 @@ export default {
                 inputValue: 'password',
                 inputPlaceholder: 'password',
 
-                // beforeClose (data, done) {
-                //     console.log(data)
-                //     setTimeout(done, 1500)
+                // beforeConfirm (data, done) {
+                //     console.log('beforeConfirm', data)
+                //     done()
                 // },
-                closeOnClickModal: true
+                // beforeCancel (data, done) {
+                //     console.log('beforeCancel', data)
+                //     done()
+                // },
+                // beforeClose (data, done) {
+                //     console.log('beforeClose', data)
+                //     done()
+                // },
+                closeOnClickModal: true,
             })
                 .then(res => {
                     console.log(res)

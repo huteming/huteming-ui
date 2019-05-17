@@ -93,6 +93,8 @@ export default {
 
         // 关闭前的回调，会暂停 message 的关闭。done 用于关闭 message
         beforeClose: Function,
+        beforeConfirm: Function,
+        beforeCancel: Function,
         // 是否在点击遮罩时关闭提示框(alert 为 false)
         closeOnClickModal: {
             type: Boolean,
@@ -153,11 +155,12 @@ export default {
             this.zIndex = zindexManager.zIndex
             this.visible = true
         },
-        hide (action) {
+        async hide (action) {
             const data = {
                 action,
                 inputValue: this.normalizedInputValue
             }
+            const _beforeAction = action === 'confirm' ? this.beforeConfirm : this.beforeCancel
 
             const done = () => {
                 this.$_closeModal({
@@ -169,11 +172,18 @@ export default {
 
                 this.visible = false
             }
+            const _beforeClose = () => {
+                if (typeof this.beforeClose === 'function') {
+                    this.beforeClose(data, done)
+                } else {
+                    done()
+                }
+            }
 
-            if (typeof this.beforeClose === 'function') {
-                this.beforeClose(data, done)
+            if (typeof _beforeAction === 'function') {
+                _beforeAction(data, _beforeClose)
             } else {
-                done()
+                _beforeClose()
             }
         },
         getCallback (action) {
