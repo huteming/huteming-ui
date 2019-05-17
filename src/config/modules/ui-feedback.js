@@ -17,4 +17,10 @@ export default [
         docs: () => import('web-ui/dialog/README.md'),
         example: () => import('web-ui/dialog/demo/basic.vue'),
     },
+    {
+        path: 'toast',
+        title: '提示 Toast',
+        docs: () => import('web-ui/toast/README.md'),
+        example: () => import('web-ui/toast/demo/basic.vue'),
+    },
 ]

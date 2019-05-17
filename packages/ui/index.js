@@ -3,6 +3,7 @@ import _Input from 'web-ui/input/index.js'
 import _Popup from 'web-ui/popup/index.js'
 import _Actionsheet from 'web-ui/actionsheet/index.js'
 import _Message from 'web-ui/message/index.js'
+import _Toast from 'web-ui/toast/index.js'
 
 import _PickerAddress from 'web-ui/picker-address/index.js'
 import _PickerDatetime from 'web-ui/picker-datetime/index.js'
@@ -56,6 +57,7 @@ function install (Vue, config = {}) {
 
     Vue.use(_Actionsheet)
     Vue.use(_Message)
+    Vue.use(_Toast)
 }
 
 export default {
@@ -67,6 +69,7 @@ export const TmInput = _Input
 export const TmPopup = _Popup
 export const Actionsheet = _Actionsheet
 export const Message = _Message
+export const Toast = _Toast
 
 export const TmPickerAddress = _PickerAddress
 export const TmPickerDatetime = _PickerDatetime
