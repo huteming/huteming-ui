@@ -5,16 +5,17 @@
 ## 引入
 
 ```javascript
-import { PickerDatetime } from '@huteming/ui'
+import { TmPickerDatetime } from '@huteming/ui'
 
-Vue.component(PickerDatetime.name, PickerDatetime)
+Vue.use(TmPickerDatetime)
+// Vue.component(TmPickerDatetime.name, TmPickerDatetime)
 ```
 
 ## 例子
 
 `v-model` 属性为组件的绑定值。
 
-`type` 属性表示 `datetime-picker` 组件的类型，它有三个可能的值：
+`mode` 属性表示 `datetime-picker` 组件的类型，它有三个可能的值：
 *  `datetime`: 日期时间选择器，可选择年、月、日、时、分，`value` 值为一个 `Date` 对象
 *  `date`: 日期选择器，可选择年、月、日，`value` 值为一个 `Date` 对象
 *  `time`: 时间选择器，可选择时、分，`value` 值为一个格式为 `HH:mm` 的字符串

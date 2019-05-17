@@ -34,7 +34,7 @@
     "inf": "cross-env BUILD_MODE=lib vue-cli-service build --target lib --report --name infinite-scroll --dest packages/@ui/infinite-scroll/dist packages/@ui/infinite-scroll/index.js",
     "inp": "cross-env BUILD_MODE=lib vue-cli-service build --target lib --report --name input --dest packages/ui/dist-lib/input packages/@ui/input/index.js",
     "pia": "cross-env BUILD_MODE=lib vue-cli-service build --target lib --report --name picker-address --dest packages/@ui/picker-address/dist packages/@ui/picker-address/index.js",
-    "pid": "cross-env BUILD_MODE=lib vue-cli-service build --target lib --report --name picker-datetime --dest packages/ui/dist-lib/picker-datetime packages/@ui/picker-datetime/index.js",
+    "pid": "cross-env BUILD_MODE=lib vue-cli-service build --target lib --report --name picker-datetime --dest packages/@ui/picker-datetime/dist packages/@ui/picker-datetime/index.js",
     "pir": "cross-env BUILD_MODE=lib vue-cli-service build --target lib --report --name picker-range --dest packages/ui/dist-lib/picker-range packages/@ui/picker-range/index.js",
     "pic": "cross-env BUILD_MODE=lib vue-cli-service build --target lib --report --name picker --dest packages/ui/dist-lib/picker packages/@ui/picker/index.js",
     "pii": "cross-env BUILD_MODE=lib vue-cli-service build --target lib --report --name picker-item --dest packages/ui/dist-lib/picker-item packages/@ui/picker-item/index.js",

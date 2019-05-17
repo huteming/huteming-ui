@@ -1,31 +1,31 @@
 <template>
-<base-popup v-model="normalizedVisible" position="bottom">
+<tm-popup v-model="normalizedVisible" position="bottom">
     <div class="tm-datetime">
         <div class="tm-datetime-toolbar">
             <div class="tm-datetime-toolbar__action" @click="handleCancel">{{ cancelText }}</div>
             <div class="tm-datetime-toolbar__action" @click="handleConfirm">{{ confirmText }}</div>
         </div>
 
-        <base-picker>
+        <tm-picker>
             <template v-if="mode === 'datetime' || mode === 'date'">
-                <base-picker-item :options="yearOptions" v-model="yearCurrent"></base-picker-item>
-                <base-picker-item :options="monthOptions" v-model="monthCurrent"></base-picker-item>
-                <base-picker-item :options="dateOptions" v-model="dateCurrent"></base-picker-item>
+                <tm-picker-item :options="yearOptions" v-model="yearCurrent"></tm-picker-item>
+                <tm-picker-item :options="monthOptions" v-model="monthCurrent"></tm-picker-item>
+                <tm-picker-item :options="dateOptions" v-model="dateCurrent"></tm-picker-item>
             </template>
 
             <template v-if="mode === 'datetime' || mode === 'time'">
-                <base-picker-item :options="hourOptions" v-model="hourCurrent"></base-picker-item>
-                <base-picker-item :options="minuteOptions" v-model="minuteCurrent"></base-picker-item>
+                <tm-picker-item :options="hourOptions" v-model="hourCurrent"></tm-picker-item>
+                <tm-picker-item :options="minuteOptions" v-model="minuteCurrent"></tm-picker-item>
             </template>
-        </base-picker>
+        </tm-picker>
     </div>
-</base-popup>
+</tm-popup>
 </template>
 
 <script>
-import BasePopup from 'web-ui/popup/index.js'
-import Picker from 'web-ui/picker/index.js'
-import PickerItem from 'web-ui/picker-item/index.js'
+import TmPopup from 'web-ui/popup/index.js'
+import TmPicker from 'web-ui/picker/index.js'
+import TmPickerItem from 'web-ui/picker-item/index.js'
 
 const NOW = new Date()
 const CURRENT_YEAR = NOW.getFullYear()
@@ -229,6 +229,7 @@ export default {
 
     methods: {
         handleConfirm () {
+            console.log('confirm', this.current)
             this.$emit('input', this.current)
             this.normalizedVisible = false
 
@@ -237,6 +238,7 @@ export default {
             })
         },
         handleCancel () {
+            console.log('cancel')
             this.normalizedVisible = false
         },
         // 获取当月最后一天日期
@@ -249,9 +251,9 @@ export default {
     },
 
     components: {
-        BasePopup,
-        BasePicker: Picker,
-        BasePickerItem: PickerItem,
+        TmPopup,
+        TmPicker,
+        TmPickerItem,
     }
 }
 </script>
