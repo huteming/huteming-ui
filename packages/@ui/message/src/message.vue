@@ -29,7 +29,7 @@ import MixinsModal from 'web-ui/modal/index.js'
 import zindexManager from 'web/assets/js/zindex-manager'
 
 export default {
-    name: 'message',
+    name: 'Message',
     mixins: [MixinsModal],
 
     props: {
