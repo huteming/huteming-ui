@@ -1,6 +1,6 @@
 {
   "name": "@huteming/util-api",
-  "version": "1.2.3-alpha.4",
+  "version": "1.2.3-alpha.5",
   "description": "提供一些项目内常用的 http 请求",
   "main": "dist/util-api.common.js",
   "scripts": {},
