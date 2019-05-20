@@ -8,17 +8,21 @@ export const request = requestFactory()
  * @param {Object} options 配置项
  */
 const defaultSign = {
-    type: '', // 可选值 share
+    type: '', // 可选值 share, click
 }
+const mapPrefix = new Map([
+    ['share', 'SHARE#'],
+    ['click', 'CLICK#']
+])
 
 export function sign (itemSign, itemRemark, options = {}) {
     itemSign = itemSign || window.location.href.replace(window.location.origin, '')
     itemRemark = itemRemark || document.title || ''
 
-    options = Object.assign({}, defaultSign, options)
+    const { type } = Object.assign({}, defaultSign, options)
 
-    if (options.type === 'share') {
-        itemSign = 'SHARE#' + itemSign
+    if (mapPrefix.has(type)) {
+        itemSign = mapPrefix.get(type) + itemSign
     }
 
     const params = {

@@ -2,6 +2,7 @@ import sinon from 'sinon'
 import assert from 'assert'
 
 const href = 'http://127.0.0.1/#/docs/flex?hello=lll'
+const origin = 'http://127.0.0.1'
 let api = null
 
 describe('api', () => {
@@ -10,6 +11,7 @@ describe('api', () => {
         global.window = {
             location: {
                 href,
+                origin,
             },
         }
 
@@ -47,7 +49,7 @@ describe('api', () => {
             await api.sign()
 
             const data = {
-                itemSign: `${location.pathname}${location.search}`,
+                itemSign: href.replace(origin, ''),
                 itemRemark: document.title
             }
 
