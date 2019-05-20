@@ -1,9 +1,10 @@
 <template>
 <div id="app">
     <div id="nav">
-        <router-link to="/test/wxsdk/share">Share</router-link> |
+        <router-link to="/test/wxsdk/share?mainUnion=hello&subUnion=world">Share</router-link> |
         <router-link to="/test/wxsdk/hide">Hide</router-link> |
-        <router-link to="/test/wxsdk/location">Location</router-link>
+        <router-link to="/test/wxsdk/location">Location</router-link> |
+        <router-link to="/test/wxsdk/pay">pay</router-link> |
     </div>
 
     <img alt="Vue logo" src="@/assets/images/logo.png">
@@ -28,6 +29,7 @@ export default {
     },
 
     async mounted () {
+        window.__wxjs_is_wkwebview = true
         wxSave()
         wxConfig(['location'], 'test_tommy')
     },

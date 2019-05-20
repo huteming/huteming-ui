@@ -12,4 +12,9 @@ describe('wxsdk', () => {
         cy.visit('#/test/wxsdk')
         cy.contains('h1', 'Welcome to Your Vue.js App')
     })
+    /**
+     * 手动测试项: wxConfig, wxSave, wxLocation, wxShare, wxHide, wxpay
+     * 
+     * wxShare额外需要测试项: channel, query, 统计请求
+     */
 })

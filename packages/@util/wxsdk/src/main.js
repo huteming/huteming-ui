@@ -1,4 +1,5 @@
 import api from 'web-util/api/index.js'
+import qs from 'qs'
 
 // wx配置方法
 const mapApis = new Map([
@@ -74,6 +75,7 @@ export const wxSave = (() => {
 
 /**
  * 获取定位信息
+ * 返回数据说明:http://api.map.baidu.com/lbsapi/cloud/geocoding-api.htm
  */
 export async function wxLocation () {
     await wxConfig(false)
@@ -97,7 +99,7 @@ export async function wxShare (options) {
 
     // link
     if (!options.link.startsWith('http')) {
-        options.link = `${location.origin}${options.link}`
+        options.link = `${window.location.origin}${options.link}`
     }
 
     // success
@@ -107,6 +109,16 @@ export async function wxShare (options) {
         api.sign('', '', { type: 'share' })
 
         success()
+    }
+
+    // 添加渠道参数
+    if (options.channel) {
+        options.link = setChannelToLink(options)
+    }
+
+    // 添加自定义查询参数
+    if (Array.isArray(options.query)) {
+        options.link = setQueryToLink(options)
     }
 
     await wxConfig(false)
@@ -251,15 +263,48 @@ function onBridgeReady (paramsStr, resolve, reject) {
             'getBrandWCPayRequest',
             JSON.parse(paramsStr),
             function (res) {
+                console.log(res)
                 switch (res.err_msg) {
                 case 'get_brand_wcpay_request:ok': //  支付成功
                     resolve()
                     break
                 default: // 统一认为支付失败（可能为取消支付）
-                    reject(res.err_msg)
+                    reject(new Error(`支付失败,可能原因:${res.err_msg}`))
                     break
                 }
             }
         )
     }
+}
+
+// 添加地址栏中的查询参数(渠道参数)到分享地址中
+function setChannelToLink ({ link }) {
+    const [_url, _search] = link.split('?')
+    const _query = qs.parse(_search)
+
+    const { mainUnion = '', subUnion = '' } = qs.parse(window.location.href.split('?')[1], { ignoreQueryPrefix: true })
+
+    _query['mainUnion'] = mainUnion
+    _query['subUnion'] = subUnion
+
+    return [_url, '?', qs.stringify(_query)].join('')
+}
+
+// 自定义查询参数
+function setQueryToLink ({ link, query }) {
+    const [_url, _search] = link.split('?')
+    const _query = qs.parse(_search)
+
+    query.forEach(({ key, value, force }) => {
+        if (force) {
+            _query[key] = value
+            return
+        }
+
+        if (!_query[key]) {
+            _query[key] = value
+        }
+    })
+
+    return [_url, '?', qs.stringify(_query)].join('')
 }

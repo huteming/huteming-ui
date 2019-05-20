@@ -53,6 +53,7 @@ export default [
             { 'wxsdk/hide': () => import('web-util/wxsdk/tests/hide.vue') },
             { 'wxsdk/location': () => import('web-util/wxsdk/tests/location.vue') },
             { 'wxsdk/share': () => import('web-util/wxsdk/tests/share.vue') },
+            { 'wxsdk/pay': () => import('web-util/wxsdk/tests/pay.vue') },
         ],
     },
 ]

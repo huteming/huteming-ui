@@ -5,5 +5,8 @@
   "main": "dist/util-wxsdk.common.js",
   "scripts": {},
   "author": "",
-  "license": "ISC"
+  "license": "ISC",
+  "dependencies": {
+    "qs": "^6.7.0"
+  }
 }

@@ -13,6 +13,26 @@ export default {
         wxShare({
             title: 'hello',
             desc: 'world',
+            success () {
+                console.log('hello world')
+            },
+            channel: true,
+            query: [
+                {
+                    key: 'hello',
+                    value: 'world',
+                },
+                {
+                    key: 'mainUnion',
+                    value: 'test_force',
+                    force: true,
+                },
+                {
+                    key: 'subUnion',
+                    value: 'no_force',
+                    force: false,
+                },
+            ],
         })
     },
 }

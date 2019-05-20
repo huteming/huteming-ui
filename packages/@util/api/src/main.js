@@ -12,7 +12,7 @@ const defaultSign = {
 }
 
 export function sign (itemSign, itemRemark, options = {}) {
-    itemSign = itemSign || `${location.pathname}${location.search}`
+    itemSign = itemSign || window.location.href.replace(window.location.origin, '')
     itemRemark = itemRemark || document.title || ''
 
     options = Object.assign({}, defaultSign, options)
@@ -26,9 +26,6 @@ export function sign (itemSign, itemRemark, options = {}) {
         itemRemark,
     }
     return request.post('api/system/pageStat', params)
-        .catch(err => {
-            console.log(err)
-        })
 }
 
 /**
@@ -80,9 +77,5 @@ export function parseGeocoder ({ lng, lat, type }) {
     return request.jsonp('https://api.map.baidu.com/geocoder/v2/', params)
         .then(data => {
             return data.result
-        })
-        .catch(err => {
-            console.log(err)
-            throw new Error('定位失败')
         })
 }
