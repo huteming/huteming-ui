@@ -1,0 +1,10 @@
+{
+  "name": "@huteming/util-element",
+  "version": "1.0.0",
+  "description": "",
+  "main": "dist/element.common.js",
+  "scripts": {
+  },
+  "author": "",
+  "license": "ISC"
+}

@@ -51,6 +51,7 @@
     "too": "cross-env BUILD_MODE=lib vue-cli-service build --target lib --report --name tool --dest packages/@util/tool/dist packages/@util/tool/index.js",
     "val": "cross-env BUILD_MODE=lib vue-cli-service build --target lib --report --name validator --dest packages/@util/validator/dist packages/@util/validator/index.js",
     "wxd": "cross-env BUILD_MODE=lib vue-cli-service build --target lib --report --name wxsdk --dest packages/@util/wxsdk/dist packages/@util/wxsdk/index.js",
+    "ele": "cross-env BUILD_MODE=lib vue-cli-service build --target lib --report --name element --dest packages/@util/element/dist packages/@util/element/index.js",
     "demo": "vue-cli-service help test:unit"
   },
   "dependencies": {
