@@ -4,6 +4,7 @@
 
     <div>json: <span id="json-a">{{ jsonA }}</span></div>
     <div>query: <span id="query-a">{{ queryA }}</span></div>
+    <div>is weixin browser（需要在微信开发者工具中查看结果）: <span id="weixin">{{ weixin }}</span></div>
 </div>
 </template>
 
@@ -17,6 +18,7 @@ export default {
         return {
             jsonA: '',
             queryA: '',
+            weixin: 'unknown',
         }
     },
 
@@ -24,6 +26,7 @@ export default {
         this.initImage()
         this.initJson()
         this.initQuery()
+        this.isWeixinBrowser()
     },
 
     methods: {
@@ -46,6 +49,9 @@ export default {
         },
         initQuery () {
             this.queryA = parseQuery('a')
+        },
+        isWeixinBrowser () {
+            this.weixin = String(tool.isWeixinBrowser())
         },
     },
 }

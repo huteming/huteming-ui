@@ -7,6 +7,10 @@ describe('tool', () => {
         cy.visit(`#/test/tool?a=${queryA}`)
     })
 
+    it('isWeixinBrowser', () => {
+        cy.get('#weixin').contains('false')
+    })
+
     it('loadImages', () => {
         cy
             .get('img')

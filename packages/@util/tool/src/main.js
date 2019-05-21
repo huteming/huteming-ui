@@ -1,18 +1,55 @@
 /**
+ * 是否微信内
+ */
+export function isWeixinBrowser () {
+    return /micromessenger/.test(navigator.userAgent.toLowerCase())
+}
+
+/**
+ * 小数点之前补齐的位数
+ * @param {Number|String} value 数据
+ * @param {Number} fractionDigits 保留位数
+ */
+export function tofilled (value, fractionDigits = 0) {
+    if (value === null || value === undefined) {
+        throw new Error('value不能为空')
+    }
+
+    let _value = Number(value)
+
+    if (isNaN(_value)) {
+        throw new Error(`value必须可转为number类型,实际为 ${value}`)
+    }
+
+    _value = _value.toString()
+    const diff = fractionDigits - _value.split('.')[0].length
+
+    for (let i = 0; i < diff; i++) {
+        _value = `0${_value}`
+    }
+
+    return _value
+}
+
+/**
  * @param {Number|String} value 数据
  * @param {Number} fractionDigits 保留位数
  * @param {Boolean} toNumber 是否转为数字
  */
 export function tofixed (value, fractionDigits = 2, toNumber = false) {
-    value = Number(value)
-
-    if (isNaN(value)) {
-        return 0
+    if (value === null || value === undefined) {
+        throw new Error('value不能为空')
     }
 
-    value = value.toFixed(fractionDigits)
+    let _value = Number(value)
 
-    return toNumber ? Number(value) : value
+    if (isNaN(value)) {
+        throw new Error(`value必须可转为number类型,实际为 ${value}`)
+    }
+
+    _value = _value.toFixed(fractionDigits)
+
+    return toNumber ? Number(_value) : _value
 }
 
 /**
