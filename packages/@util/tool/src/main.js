@@ -8,20 +8,18 @@ export function isWeixinBrowser () {
 /**
  * 小数点之前补齐的位数
  * @param {Number|String} value 数据
- * @param {Number} fractionDigits 保留位数
+ * @param {Number} fractionDigits 小数点前保留位数
  */
 export function tofilled (value, fractionDigits = 0) {
     if (value === null || value === undefined) {
         throw new Error('value不能为空')
     }
 
-    let _value = Number(value)
-
-    if (isNaN(_value)) {
+    if (isNaN(Number(value))) {
         throw new Error(`value必须可转为number类型,实际为 ${value}`)
     }
 
-    _value = _value.toString()
+    let _value = value.toString()
     const diff = fractionDigits - _value.split('.')[0].length
 
     for (let i = 0; i < diff; i++) {
@@ -33,7 +31,7 @@ export function tofilled (value, fractionDigits = 0) {
 
 /**
  * @param {Number|String} value 数据
- * @param {Number} fractionDigits 保留位数
+ * @param {Number} fractionDigits 小数点后保留位数
  * @param {Boolean} toNumber 是否转为数字
  */
 export function tofixed (value, fractionDigits = 2, toNumber = false) {
@@ -41,13 +39,14 @@ export function tofixed (value, fractionDigits = 2, toNumber = false) {
         throw new Error('value不能为空')
     }
 
-    let _value = Number(value)
-
-    if (isNaN(value)) {
+    if (isNaN(Number(value))) {
         throw new Error(`value必须可转为number类型,实际为 ${value}`)
     }
 
-    _value = _value.toFixed(fractionDigits)
+    let _value = value.toString()
+    const _beforeDigits = _value.split('.')[0].length
+    _value = Number(_value).toFixed(fractionDigits)
+    _value = tofilled(_value, _beforeDigits)
 
     return toNumber ? Number(_value) : _value
 }

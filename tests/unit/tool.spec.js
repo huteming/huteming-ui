@@ -15,6 +15,10 @@ describe('tool', () => {
             assert.strictEqual(tool.tofilled(1), '1')
         })
 
+        it('保留小数点后位数', () => {
+            assert.strictEqual(tool.tofilled('1.00', 2), '01.00')
+        })
+
         it('返回字符串类型', () => {
             const res = tool.tofilled(111)
             assert.strictEqual(typeof res, 'string')
@@ -48,6 +52,10 @@ describe('tool', () => {
 
         it('默认保留2位', () => {
             assert.strictEqual(tool.tofixed(1), '1.00')
+        })
+
+        it('保留小数点前位数', () => {
+            assert.strictEqual(tool.tofixed('01', 2), '01.00')
         })
 
         it('返回字符串类型', () => {
