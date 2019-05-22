@@ -11,6 +11,7 @@
     "test:e2e": "vue-cli-service test:e2e",
     "test:unit": "vue-cli-service test:unit --timeout 4000",
     "# 打包组件指令 #": "",
+    "build:common": "npm run build:uicommon && npm run build:utilcommon",
     "build:ui": "npm run build:uicommon && npm run build:uilib",
     "build:util": "npm run build:utilcommon && npm run build:utillib",
     "build:uicommon": "vue-cli-service build --target lib --report --name huteming-ui --dest packages/ui/dist --report packages/ui/index.js",

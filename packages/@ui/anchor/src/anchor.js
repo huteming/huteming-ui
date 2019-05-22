@@ -1,6 +1,6 @@
 import 'intersection-observer'
-import animation from 'web-util/animation'
-import ele from 'web-util/element'
+import { easeOut } from 'web-util/animation/src/main'
+import { attached, getScrollEventTarget, getScrollTop } from 'web-util/element/src/main'
 const ELEMENT_ATTR_NAME = '@@Anchor'
 
 const defaults = {
@@ -45,9 +45,9 @@ export default {
             self,
         }
 
-        ele.attached(el, () => {
+        attached(el, () => {
             self.clickEventTarget = document.querySelector(selector)
-            self.scrollEventTarget = container ? document.querySelector(container) : ele.getScrollEventTarget(el)
+            self.scrollEventTarget = container ? document.querySelector(container) : getScrollEventTarget(el)
             el.addEventListener('click', handlerClick)
             tryObserve.call(self)
         })
@@ -75,11 +75,11 @@ function handleClick () {
 
     // 结束位置
     const top = this.options.top * document.body.clientWidth / 750
-    const _to = getElementTop(this.clickEventTarget) - getElementTop(this.scrollEventTarget) + ele.getScrollTop(this.scrollEventTarget) - top
+    const _to = getElementTop(this.clickEventTarget) - getElementTop(this.scrollEventTarget) + getScrollTop(this.scrollEventTarget) - top
     // 滚动条当前滚动位置
-    const _from = ele.getScrollTop(this.scrollEventTarget)
+    const _from = getScrollTop(this.scrollEventTarget)
 
-    animation.easeOut(_from, _to, position => {
+    easeOut(_from, _to, position => {
         this.scrollEventTarget.scrollTop = position
     })
 }
@@ -113,8 +113,8 @@ function tryObserve () {
 
 function getElementTop (element) {
     if (element === window) {
-        return ele.getScrollTop(window)
+        return getScrollTop(window)
     }
 
-    return element.getBoundingClientRect().top + ele.getScrollTop(window)
+    return element.getBoundingClientRect().top + getScrollTop(window)
 }

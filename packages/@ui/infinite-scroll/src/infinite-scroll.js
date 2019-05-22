@@ -1,6 +1,4 @@
-import element from 'web-util/element'
-
-const { attached, getScrollTop, getScrollEventTarget } = element
+import { attached, getScrollTop, getScrollEventTarget } from 'web-util/element/src/main'
 const CTX = '@@InfiniteScroll'
 const defaults = {
     callback (done) {

@@ -11,6 +11,11 @@ import './registerServiceWorker'
 import './assets/iconfont/iconfont.css'
 import './assets/style/main.scss'
 import 'normalize.css'
+import * as ui from 'web/ui'
+import * as util from 'web/util'
+
+console.log(ui)
+console.log(util)
 
 Vue.use(ElementUI)
 Vue.config.productionTip = false
