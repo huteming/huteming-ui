@@ -1,6 +1,6 @@
 {
   "name": "@huteming/util",
-  "version": "1.2.5-alpha.8",
+  "version": "1.2.5-alpha.9",
   "description": "util 方法统一入口",
   "main": "dist/huteming-util.common.js",
   "scripts": {},
@@ -8,10 +8,10 @@
   "license": "ISC",
   "dependencies": {
     "@huteming/util-animation": "^1.2.2-alpha.2",
-    "@huteming/util-api": "^1.2.3-alpha.6",
+    "@huteming/util-api": "^1.2.3-alpha.8",
     "@huteming/util-canvas": "^1.2.1",
     "@huteming/util-element": "^1.0.1-alpha.0",
-    "@huteming/util-request": "^1.2.3-alpha.4",
+    "@huteming/util-request": "^1.2.3",
     "@huteming/util-roller": "^1.2.3-alpha.0",
     "@huteming/util-storage": "^1.2.3-alpha.0",
     "@huteming/util-tool": "^1.2.3-alpha.3",
