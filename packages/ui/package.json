@@ -1,6 +1,6 @@
 {
   "name": "@huteming/ui",
-  "version": "1.2.5-alpha.7",
+  "version": "1.2.5-alpha.8",
   "description": "ui 组件的统一入口",
   "main": "dist/huteming-ui.common.js",
   "scripts": {},
