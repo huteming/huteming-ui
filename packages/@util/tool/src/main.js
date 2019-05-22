@@ -6,17 +6,14 @@ export function isWeixinBrowser () {
 }
 
 /**
- * 小数点之前补齐的位数
+ * 小数点之前补0
  * @param {Number|String} value 数据
  * @param {Number} fractionDigits 小数点前保留位数
  */
 export function tofilled (value, fractionDigits = 0) {
-    if (value === null || value === undefined) {
-        throw new Error('value不能为空')
-    }
-
-    if (isNaN(Number(value))) {
-        throw new Error(`value必须可转为number类型,实际为 ${value}`)
+    const allowType = new Set(['string', 'number'])
+    if (!allowType.has(typeof value) || value === '' || isNaN(Number(value))) {
+        return ''
     }
 
     let _value = value.toString()
@@ -30,17 +27,15 @@ export function tofilled (value, fractionDigits = 0) {
 }
 
 /**
+ * 保留小数点后位数
  * @param {Number|String} value 数据
  * @param {Number} fractionDigits 小数点后保留位数
  * @param {Boolean} toNumber 是否转为数字
  */
 export function tofixed (value, fractionDigits = 2, toNumber = false) {
-    if (value === null || value === undefined) {
-        throw new Error('value不能为空')
-    }
-
-    if (isNaN(Number(value))) {
-        throw new Error(`value必须可转为number类型,实际为 ${value}`)
+    const allowType = new Set(['string', 'number'])
+    if (!allowType.has(typeof value) || value === '' || isNaN(Number(value))) {
+        return ''
     }
 
     let _value = value.toString()
