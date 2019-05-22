@@ -12,7 +12,7 @@ const mapHost = new Map([
 ])
 
 const defaults = {
-    baseURL: mapHost.get(location.host) || '//jhtest.jinghao.com',
+    baseURL: mapHost.get(window.location.host) || '//jhtest.jinghao.com',
     timeout: 8000,
     withCredentials: true,
     headers: {
@@ -21,15 +21,17 @@ const defaults = {
 
     // 自定义配置，非 axios 官方
     // 响应拦截器
-    resSuccess () {},
-    resError () {
-    },
+    _resSuccess () {},
+    _resError () {},
     // 消息提示，拦截器错误处理中有使用
-    toast: console.log,
+    _toast: console.log,
     // 弹窗提示，拦截器错误处理中有使用
-    message: console.log,
+    _message: console.log,
     // 页面未登录重定向配置
-    accountAlias: '',
+    _accountAlias: '',
+    // 重发请求
+    _retry: 2,
+    _retryDelay: 1000,
 }
 
 function createInstance (options = {}) {
@@ -40,7 +42,7 @@ function createInstance (options = {}) {
     options = Object.assign({}, defaults, options)
 
     const instance = axios.create(options)
-    const _interceptor = new Interceptor(options)
+    const _interceptor = new Interceptor(options, instance)
 
     // 添加请求拦截器
     // 暂时只处理 data(post 请求数据体)，并修改对应 headers
@@ -66,6 +68,16 @@ function createInstance (options = {}) {
             return config
         }
 
+        // json => string
+        if (!data._type || data._type === 'string') {
+            delete data._type
+
+            config.data = qs.stringify(data)
+            config.headers['Content-Type'] = 'application/x-www-form-urlencoded'
+
+            return config
+        }
+
         // json 不转换
         if (data._type === 'json') {
             delete data._type
@@ -85,9 +97,6 @@ function createInstance (options = {}) {
             return config
         }
 
-        config.data = qs.stringify(data)
-        config.headers['Content-Type'] = 'application/x-www-form-urlencoded'
-
         return config
     }, function (error) {
         // 对请求错误做些什么
@@ -96,10 +105,10 @@ function createInstance (options = {}) {
 
     // 添加响应拦截器
     instance.interceptors.response.use(function (res) {
-        options.resSuccess(res)
+        options._resSuccess(res)
         return _interceptor.resSuccess(res)
     }, function (err) {
-        options.resError(err)
+        options._resError(err)
         return _interceptor.resError(err)
     })
 

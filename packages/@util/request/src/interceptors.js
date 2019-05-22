@@ -1,3 +1,6 @@
+import { CustomError } from './custom_error'
+import axios from 'axios'
+
 const mapHost = new Map([
     ['fejh.jinghao.com', '//r1001.jinghao.com'],
     ['fejhdemo.jinghao.com', '//api.jinghao.com'],
@@ -6,27 +9,27 @@ const mapHost = new Map([
 ])
 
 export default class Interceptor {
-    constructor (options = {}) {
+    constructor (options = {}, instance) {
         this._options = options
+        this._instance = instance
 
         this._mapErrorHandler = new Map([
             [-100, this._unLogin.bind(this)], // 未登录
             [-1, this._notifier.bind(this)], // 消息类错误
         ])
 
-        this._toast = options.toast
-        this._message = options.message
+        this._toast = typeof options._toast === 'function' ? options._toast : function () {}
+        this._message = typeof options._message === 'function' ? options._message : function () {}
     }
 
-    resSuccess (res) {
+    async resSuccess (res) {
         const { flag, hash } = res.data
 
         // 七牛上传
-        if (res.request && res.request.responseURL && res.request.responseURL.indexOf('up.qbox.me') > -1) {
+        if (res.config && res.config.url.indexOf('up.qbox.me') > -1) {
             if (!hash) {
-                this._message('上传失败，刷新页面后重新上传', function () {
-                    // location.reload()
-                }, { cancelFlag: 'hide' })
+                this._message('上传失败，刷新页面后重新上传', function () {}, { cancelFlag: 'hide' })
+                return Promise.reject(res)
             }
             return res
         }
@@ -37,27 +40,51 @@ export default class Interceptor {
         }
 
         // 页面错误处理
-        const handler = this._mapErrorHandler.get(flag)
-        if (typeof handler === 'function') {
-            handler(res, this._options)
-        }
+        const handler = this._mapErrorHandler.get(flag) || function () {}
+        const _customError = handler(res, this._options)
 
-        throw res
+        return Promise.reject(_customError || res)
     }
 
-    resError (err) {
-        return Promise.reject(err)
+    async resError (err) {
+        const config = err.config
+
+        if (err.message === 'Network Error') {
+            return Promise.reject(err)
+        }
+
+        if (axios.isCancel(err)) {
+            return Promise.reject(new CustomError('请求取消'))
+        }
+
+        if (!config) {
+            return Promise.reject(err)
+        }
+
+        config.__retryCount = config.__retryCount || 0
+
+        if (config.__retryCount >= config._retry) {
+            return Promise.reject(err)
+        }
+
+        config.__retryCount += 1
+
+        await new Promise((resolve, reject) => setTimeout(resolve, config._retryDelay))
+
+        return this._instance(config)
     }
 
     _unLogin (res, options) {
-        const { accountAlias } = options
+        const { _accountAlias } = options
         const origin = mapHost.get(window.location.host) || '//r1001.jinghao.com'
 
-        window.location.replace(`${origin}/api/redirect/back?backUrl=${encodeURIComponent(window.location.href)}&accountAlias=${accountAlias}`)
+        window.location.replace(`${origin}/api/redirect/back?backUrl=${encodeURIComponent(window.location.href)}&accountAlias=${_accountAlias}`)
+        return new CustomError('未登录', -100)
     }
 
     _notifier (res, options) {
         const { msg } = res.data
         this._toast(msg)
+        return new CustomError('消息类异常', -1)
     }
 }
