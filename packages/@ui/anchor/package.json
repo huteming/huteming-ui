@@ -4,7 +4,7 @@
   "description": "锚点",
   "main": "dist/anchor.common.js",
   "scripts": {
-    "prepublishOnly": "node ../../../publish.js anchor"
+    "prepublishOnly": "node ../../../prepublishOnly.js anchor"
   },
   "author": "",
   "license": "ISC",
