@@ -1,9 +1,6 @@
-#!/usr/bin/env node
-
 const name = process.argv[2]
-const exec = require('child_process').exec
+const shell = require('shelljs')
+const path = require('path')
 
-exec('npm run ' + name, function (err, stdout, stderr) {
-    if (err) throw err
-    console.log(stdout)
-})
+shell.cd(path.resolve(__dirname))
+shell.exec(`npm run ${name}`)
