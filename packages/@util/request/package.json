@@ -1,6 +1,6 @@
 {
   "name": "@huteming/util-request",
-  "version": "1.2.3",
+  "version": "1.2.4-alpha.0",
   "description": "提供http请求的封装方法",
   "main": "dist/request.common.js",
   "scripts": {},

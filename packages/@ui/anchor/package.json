@@ -1,13 +1,13 @@
 {
   "name": "@huteming/ui-anchor",
-  "version": "1.0.2-alpha.3",
+  "version": "1.0.2-alpha.4",
   "description": "锚点",
   "main": "dist/anchor.common.js",
   "scripts": {},
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "@huteming/util-tool": "^1.2.3",
+    "@huteming/util-tool": "^1.2.4-alpha.0",
     "intersection-observer": "^0.7.0"
   }
 }
