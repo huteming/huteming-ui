@@ -1,9 +1,11 @@
 {
   "name": "@huteming/ui-dialog",
   "version": "1.0.2-alpha.3",
-  "description": "> 对话框",
+  "description": "对话框",
   "main": "dist/dialog.common.js",
-  "scripts": {},
+  "scripts": {
+    "prepublishOnly": "node ../../../prepublishOnly.js dialog"
+  },
   "author": "",
   "license": "ISC"
 }
