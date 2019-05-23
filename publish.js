@@ -1,8 +1,9 @@
-const cli = require('./packages/@cli/publish')
+#!/usr/bin/env node
 
-cli.publish('dist', function(err) {
-    if (err) {
-        console.log(err)
-        return
-    }
+const name = process.argv[2]
+const exec = require('child_process').exec
+
+exec('npm run ' + name, function (err, stdout, stderr) {
+    if (err) throw err
+    console.log(stdout)
 })

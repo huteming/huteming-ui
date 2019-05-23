@@ -24,7 +24,7 @@
     "b:4": "npm run btp && npm run dia && npm run anc && npm run toa && npm run mes",
     "mes": "cross-env BUILD_MODE=lib vue-cli-service build --target lib --report --name message --dest packages/@ui/message/dist packages/@ui/message/index.js",
     "toa": "cross-env BUILD_MODE=lib vue-cli-service build --target lib --report --name toast --dest packages/@ui/toast/dist packages/@ui/toast/index.js",
-    "anc": "cross-env BUILD_MODE=lib vue-cli-service build --target lib --report --name anchor --dest packages/@ui/anchor/dist packages/@ui/anchor/index.js",
+    "anchor": "cross-env BUILD_MODE=lib vue-cli-service build --target lib --report --name anchor --dest packages/@ui/anchor/dist packages/@ui/anchor/index.js",
     "dia": "cross-env BUILD_MODE=lib vue-cli-service build --target lib --report --name dialog --dest packages/@ui/dialog/dist packages/@ui/dialog/index.js",
     "btp": "cross-env BUILD_MODE=lib vue-cli-service build --target lib --report --name btn-pay --dest packages/@ui/btn-pay/dist packages/@ui/btn-pay/index.js",
     "car": "cross-env BUILD_MODE=lib vue-cli-service build --target lib --report --name carousel --dest packages/@ui/carousel/dist packages/@ui/carousel/index.js",

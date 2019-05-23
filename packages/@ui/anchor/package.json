@@ -3,7 +3,9 @@
   "version": "1.0.2-alpha.4",
   "description": "锚点",
   "main": "dist/anchor.common.js",
-  "scripts": {},
+  "scripts": {
+    "prepublishOnly": "node ../../../publish.js anchor"
+  },
   "author": "",
   "license": "ISC",
   "dependencies": {
