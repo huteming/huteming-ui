@@ -2,7 +2,7 @@
   "name": "@huteming/util-request",
   "version": "1.2.3",
   "description": "提供http请求的封装方法",
-  "main": "dist/util-request.common.js",
+  "main": "dist/request.common.js",
   "scripts": {},
   "author": "",
   "license": "ISC",
