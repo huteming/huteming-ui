@@ -46,7 +46,7 @@
     "animation": "cross-env BUILD_MODE=lib vue-cli-service build --target lib --report --name animation --dest packages/@util/animation/dist packages/@util/animation/index.js",
     "api": "cross-env BUILD_MODE=lib vue-cli-service build --target lib --report --name api --dest packages/@util/api/dist packages/@util/api/index.js",
     "canvasdraw": "cross-env BUILD_MODE=lib vue-cli-service build --target lib --report --name canvas-draw --dest packages/@util/canvas-draw/dist packages/@util/canvas-draw/index.js",
-    "req": "cross-env BUILD_MODE=lib vue-cli-service build --target lib --report --name request --dest packages/@util/request/dist packages/@util/request/index.js",
+    "request": "cross-env BUILD_MODE=lib vue-cli-service build --target lib --report --name request --dest packages/@util/request/dist packages/@util/request/index.js",
     "rol": "cross-env BUILD_MODE=lib vue-cli-service build --target lib --report --name roller --dest packages/@util/roller/dist packages/@util/roller/index.js",
     "sto": "cross-env BUILD_MODE=lib vue-cli-service build --target lib --report --name storage --dest packages/@util/storage/dist packages/@util/storage/index.js",
     "too": "cross-env BUILD_MODE=lib vue-cli-service build --target lib --report --name tool --dest packages/@util/tool/dist packages/@util/tool/index.js",
