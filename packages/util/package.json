@@ -3,7 +3,9 @@
   "version": "1.2.7-alpha.2",
   "description": "util 方法统一入口",
   "main": "dist/huteming-util.common.js",
-  "scripts": {},
+  "scripts": {
+    "prepublishOnly": "node ../../../prepublishOnly.js util"
+  },
   "author": "",
   "license": "ISC",
   "dependencies": {
