@@ -1,13 +1,13 @@
 {
   "name": "@huteming/util",
-  "version": "1.2.7-alpha.1",
+  "version": "1.2.7-alpha.2",
   "description": "util 方法统一入口",
   "main": "dist/huteming-util.common.js",
   "scripts": {},
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "@huteming/util-animation": "^1.2.2-alpha.3",
+    "@huteming/util-animation": "^1.2.2",
     "@huteming/util-api": "^1.2.3-alpha.9",
     "@huteming/util-canvas-draw": "^1.2.3-alpha.1",
     "@huteming/util-element": "^1.0.1-alpha.0",
