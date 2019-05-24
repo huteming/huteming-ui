@@ -1,132 +1,242 @@
 import sinon from 'sinon'
 import assert from 'assert'
+import api from 'web-util/api/index'
 
-const href = 'http://127.0.0.1/#/docs/flex?hello=lll'
-const origin = 'http://127.0.0.1'
-let api = null
+const originHref = window.location.href
+const host = '192.168.0.220'
+const origin = `http://${host}`
+const link = '/#/docs/flex?hello=lll'
+const href = `${origin}${link}`
+const title = 'title'
+let post
+let jsonp
 
 describe('api', () => {
-    before(() => {
+    beforeEach(() => {
         // eslint-disable-next-line
         global.window = {
             location: {
+                host,
                 href,
                 origin,
             },
         }
+        global.document = {
+            title,
+        }
 
-        api = require('web-util/api/index').default
+        post = sinon.fake()
+        jsonp = sinon.fake.resolves({ result: 'success' })
 
         sinon.replace(
             api.request,
             'jsonp',
-            sinon.fake.returns(new Promise(resolve => resolve({ result: 'result' })))
+            jsonp
         )
         sinon.replace(
             api.request,
             'post',
-            sinon.fake.returns(new Promise(resolve => resolve({ result: 'result' })))
+            post
         )
     })
 
-    after(function () {
+    afterEach(() => {
         sinon.restore()
     })
 
     describe('sign', () => {
-        before(() => {
-            global.location = {
-                pathname: 'pathname',
-                search: 'search',
-            }
+        it('请求地址', () => {
+            api.sign()
 
-            global.document = {
-                title: 'title',
-            }
+            const spyCall = post.getCall(0)
+
+            assert.strictEqual(spyCall.args[0], '/api/system/pageStat')
         })
 
-        it('default', async () => {
-            await api.sign()
+        it('默认参数', () => {
+            api.sign()
 
-            const data = {
-                itemSign: href.replace(origin, ''),
-                itemRemark: document.title
-            }
+            const spyCall = post.getCall(0)
 
-            assert(api.request.post.calledWithMatch('api/system/pageStat', data))
+            assert.deepStrictEqual(spyCall.args[1], {
+                itemSign: link,
+                itemRemark: title,
+            })
         })
 
-        it('normal', async () => {
+        it('自定义参数', async () => {
             const itemSign = 'hello'
             const itemRemark = 'world'
-            await api.sign(itemSign, itemRemark, { type: 'share' })
+            api.sign(itemSign, itemRemark)
 
-            const data = {
+            const spyCall = post.getCall(0)
+
+            assert.deepStrictEqual(spyCall.args[1], {
+                itemSign,
+                itemRemark,
+            })
+        })
+
+        it('点击事件', () => {
+            const itemSign = 'hello'
+            const itemRemark = 'world'
+            api.sign(itemSign, itemRemark, { type: 'click' })
+
+            const spyCall = post.getCall(0)
+
+            assert.deepStrictEqual(spyCall.args[1], {
+                itemSign: `CLICK#${itemSign}`,
+                itemRemark,
+            })
+        })
+
+        it('分享事件', () => {
+            const itemSign = 'hello'
+            const itemRemark = 'world'
+            api.sign(itemSign, itemRemark, { type: 'share' })
+
+            const spyCall = post.getCall(0)
+
+            assert.deepStrictEqual(spyCall.args[1], {
                 itemSign: `SHARE#${itemSign}`,
                 itemRemark,
-            }
-
-            assert(api.request.post.calledWithMatch('api/system/pageStat', data))
+            })
         })
     })
 
     describe('getPayConfig', () => {
-        it('normal', async () => {
-            const params = 'this is random string'
-            await api.getPayConfig(params)
+        it('请求地址', async () => {
+            api.getPayConfig('bbb')
 
-            assert(api.request.post.calledWithMatch('/api/weixin/getPayParameters', params))
+            const spyCall = post.getCall(0)
+
+            assert.strictEqual(spyCall.args[0], '/api/weixin/getPayParameters')
+        })
+
+        it('自定义参数', async () => {
+            const data = {
+                a: 'a',
+                b: 'c',
+            }
+            api.getPayConfig(data)
+
+            const spyCall = post.getCall(0)
+
+            assert.strictEqual(spyCall.args[1], data)
         })
     })
 
     describe('getWxConfig', () => {
-        it('normal', async () => {
+        it('请求地址', async () => {
+            api.getWxConfig({
+                flag: 'flag',
+                url: 'url'
+            })
+
+            const spyCall = post.getCall(0)
+
+            assert.strictEqual(spyCall.args[0], '/api/user/shareParam')
+        })
+
+        it('自定义参数', async () => {
             const params = {
                 flag: 'flag',
                 url: 'url',
             }
-            await api.getWxConfig(params)
+            api.getWxConfig(params)
 
-            assert(api.request.post.calledWithMatch('/api/user/shareParam', params))
+            const spyCall = post.getCall(0)
+
+            assert.deepStrictEqual(spyCall.args[1], params)
         })
 
-        it('必填参数 flag', async () => {
-            try {
-                await api.getWxConfig()
-                throw new Error('expect error but got success')
-            } catch (err) {
-                assert.strictEqual(err.message, '参数缺失[flag]', 'flag缺失文案错误')
-            }
-        })
+        it('默认参数', async () => {
+            api.getWxConfig()
 
-        it('必填参数 url', async () => {
-            try {
-                await api.getWxConfig({ flag: 'flag' })
-                throw new Error('expect error but got success')
-            } catch (err) {
-                assert.strictEqual(err.message, '参数缺失[url]', 'url缺失文案错误')
-            }
+            const spyCall = post.getCall(0)
+
+            assert.deepStrictEqual(spyCall.args[1], {
+                flag: 'test_tommy',
+                url: originHref.split('#')[0],
+            })
         })
     })
 
     describe('parseGeocoder', () => {
-        it('normal', async () => {
+        it('请求地址', async () => {
+            const lng = 'lng'
+            const lat = 'lat'
+            const type = 'type'
+            const options = { lng, lat, type }
+            api.parseGeocoder(options)
+
+            const spyCall = jsonp.getCall(0)
+
+            assert.strictEqual(spyCall.args[0], 'https://api.map.baidu.com/geocoder/v2/')
+        })
+
+        it('自定义参数', () => {
             const lng = 'lng'
             const lat = 'lat'
             const type = 'type'
             const options = { lng, lat, type }
 
-            const res = await api.parseGeocoder(options)
+            api.parseGeocoder(options)
 
-            assert(api.request.jsonp.calledWithMatch('https://api.map.baidu.com/geocoder/v2/', {
+            const spyCall = jsonp.getCall(0)
+
+            assert.deepStrictEqual(spyCall.args[1], {
                 location: `${lat},${lng}`,
                 coordtype: type,
                 output: 'json',
                 pois: '1',
                 ak: 'xoXvW1BdjKimErNQYg7IXseGd36gzplp',
-            }))
+            })
+        })
 
-            assert(res === 'result')
+        it('经度参数缺失异常', async () => {
+            const lng = ''
+            const lat = 'lat'
+            const type = 'type'
+            const options = { lng, lat, type }
+            const errMessage = '非期望异常'
+
+            try {
+                await api.parseGeocoder(options)
+                throw new Error(errMessage)
+            } catch (err) {
+                assert.strictEqual(err.message, '经度参数缺失[lng]')
+            }
+        })
+
+        it('纬度参数缺失异常', async () => {
+            const lng = 'lng'
+            const lat = ''
+            const type = 'type'
+            const options = { lng, lat, type }
+            const errMessage = '非期望异常'
+
+            try {
+                await api.parseGeocoder(options)
+                throw new Error(errMessage)
+            } catch (err) {
+                assert.strictEqual(err.message, '纬度参数缺失[lat]')
+            }
+        })
+
+        it('坐标参数缺失异常', async () => {
+            const lng = 'lng'
+            const lat = 'lat'
+            const type = ''
+            const options = { lng, lat, type }
+            const errMessage = '非期望异常'
+
+            try {
+                await api.parseGeocoder(options)
+                throw new Error(errMessage)
+            } catch (err) {
+                assert.strictEqual(err.message, '坐标类型参数缺失[type]')
+            }
         })
     })
 })
