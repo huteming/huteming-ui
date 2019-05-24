@@ -1,5 +1,3 @@
-import './compatible'
-
 /*
  * t: current time（当前时间）；
  * b: beginning value（初始值）；
@@ -25,6 +23,22 @@ export const tween = {
     },
 }
 
+export function linear (...args) {
+    animation('linear', ...args)
+}
+
+export function easeIn (...args) {
+    animation('easeIn', ...args)
+}
+
+export function easeOut (...args) {
+    animation('easeOut', ...args)
+}
+
+export function easeInOut (...args) {
+    animation('easeInOut', ...args)
+}
+
 /**
  * 通用动画函数
  * @param {*Number} from 开始位置
@@ -32,7 +46,13 @@ export const tween = {
  * @param {*Function} callback 变化的位置回调, 支持两个参数, value和isEnding, 表示当前的位置值（数值）以及是否动画结束了（布尔值）
  * @param {*Number} duration 总持续时间毫秒数
  */
-export function animation (type, from, to, callback, duration = 300) {
+function animation (type, from, to, callback, duration = 300) {
+    if (!window.requestAnimationFrame) {
+        window.requestAnimationFrame = function (callback) {
+            setTimeout(callback, 17)
+        }
+    }
+
     from = Number(from)
     to = Number(to)
 
@@ -75,20 +95,4 @@ export function animation (type, from, to, callback, duration = 300) {
     }
 
     step()
-}
-
-export function linear (...args) {
-    animation('linear', ...args)
-}
-
-export function easeIn (...args) {
-    animation('easeIn', ...args)
-}
-
-export function easeOut (...args) {
-    animation('easeOut', ...args)
-}
-
-export function easeInOut (...args) {
-    animation('easeInOut', ...args)
 }

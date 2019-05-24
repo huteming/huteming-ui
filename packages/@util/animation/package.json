@@ -3,7 +3,9 @@
   "version": "1.2.2-alpha.3",
   "description": "提供动画的简单算法",
   "main": "dist/animation.common.js",
-  "scripts": {},
+  "scripts": {
+    "prepublishOnly": "node ../../../prepublishOnly.js animation"
+  },
   "author": "",
   "license": "ISC"
 }
