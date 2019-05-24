@@ -1,6 +1,6 @@
 {
   "name": "@huteming/ui",
-  "version": "1.2.7-alpha.3",
+  "version": "1.2.7-alpha.4",
   "description": "ui 组件的统一入口",
   "main": "dist/huteming-ui.common.js",
   "scripts": {
@@ -9,7 +9,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "@huteming/ui-anchor": "^1.0.2-alpha.6",
+    "@huteming/ui-anchor": "^1.0.2-alpha.7",
     "@huteming/ui-btn-pay": "^1.0.1-alpha.2",
     "@huteming/ui-clocker": "^1.0.1-alpha.2",
     "@huteming/ui-dialog": "^1.0.2-alpha.4",
