@@ -3,7 +3,9 @@
   "version": "1.2.4-alpha.0",
   "description": "提供工具类方法",
   "main": "dist/tool.common.js",
-  "scripts": {},
+  "scripts": {
+    "prepublishOnly": "node ../../../prepublishOnly.js tool"
+  },
   "author": "",
   "license": "ISC"
 }

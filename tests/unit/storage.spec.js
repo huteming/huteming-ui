@@ -45,7 +45,7 @@ describe('storage', () => {
 
             ins.getLocal(key)
 
-            assert(getItem.calledWith(`_${key}`))
+            assert(getItem.calledWithExactly(`_${key}`))
         })
     })
 
@@ -53,14 +53,14 @@ describe('storage', () => {
         it('instance', () => {
             const res = instance.getLocal(key)
 
-            assert(getItem.calledWith(`${prefix}_${key}`))
+            assert(getItem.calledWithExactly(`${prefix}_${key}`))
             assert.deepStrictEqual(res, value)
         })
 
         it('static', () => {
             const res = Storage.getLocal(key)
 
-            assert(getItem.calledWith(key))
+            assert(getItem.calledWithExactly(key))
             assert.deepStrictEqual(res, value)
         })
     })
@@ -69,13 +69,13 @@ describe('storage', () => {
         it('instance', () => {
             instance.setLocal(key, value)
 
-            assert(setItem.calledWith(`${prefix}_${key}`, JSON.stringify(value)))
+            assert(setItem.calledWithExactly(`${prefix}_${key}`, JSON.stringify(value)))
         })
 
         it('static', () => {
             Storage.setLocal(key, value)
 
-            assert(setItem.calledWith(key, JSON.stringify(value)))
+            assert(setItem.calledWithExactly(key, JSON.stringify(value)))
         })
     })
 
@@ -83,13 +83,13 @@ describe('storage', () => {
         it('instance', () => {
             instance.removeLocal(key)
 
-            assert(removeItem.calledWith(`${prefix}_${key}`))
+            assert(removeItem.calledWithExactly(`${prefix}_${key}`))
         })
 
         it('static', () => {
             Storage.removeLocal(key)
 
-            assert(removeItem.calledWith(key))
+            assert(removeItem.calledWithExactly(key))
         })
     })
 
@@ -97,13 +97,13 @@ describe('storage', () => {
         it('instance', () => {
             instance.clearLocal()
 
-            assert(clear.calledWith())
+            assert(clear.calledWithExactly())
         })
 
         it('static', () => {
             Storage.clearLocal()
 
-            assert(clear.calledWith())
+            assert(clear.calledWithExactly())
         })
     })
 
@@ -111,14 +111,14 @@ describe('storage', () => {
         it('instance', () => {
             const res = instance.getSession(key)
 
-            assert(getItem.calledWith(`${prefix}_${key}`))
+            assert(getItem.calledWithExactly(`${prefix}_${key}`))
             assert.deepStrictEqual(res, value)
         })
 
         it('static', () => {
             const res = Storage.getSession(key)
 
-            assert(getItem.calledWith(key))
+            assert(getItem.calledWithExactly(key))
             assert.deepStrictEqual(res, value)
         })
     })
@@ -127,13 +127,13 @@ describe('storage', () => {
         it('instance', () => {
             instance.setSession(key, value)
 
-            assert(setItem.calledWith(`${prefix}_${key}`, JSON.stringify(value)))
+            assert(setItem.calledWithExactly(`${prefix}_${key}`, JSON.stringify(value)))
         })
 
         it('static', () => {
             Storage.setSession(key, value)
 
-            assert(setItem.calledWith(key, JSON.stringify(value)))
+            assert(setItem.calledWithExactly(key, JSON.stringify(value)))
         })
     })
 
@@ -141,13 +141,13 @@ describe('storage', () => {
         it('instance', () => {
             instance.removeSession(key)
 
-            assert(removeItem.calledWith(`${prefix}_${key}`))
+            assert(removeItem.calledWithExactly(`${prefix}_${key}`))
         })
 
         it('static', () => {
             Storage.removeSession(key)
 
-            assert(removeItem.calledWith(key))
+            assert(removeItem.calledWithExactly(key))
         })
     })
 
@@ -155,13 +155,13 @@ describe('storage', () => {
         it('instance', () => {
             instance.clearSession()
 
-            assert(clear.calledWith())
+            assert(clear.calledWithExactly())
         })
 
         it('static', () => {
             Storage.clearSession()
 
-            assert(clear.calledWith())
+            assert(clear.calledWithExactly())
         })
     })
 })

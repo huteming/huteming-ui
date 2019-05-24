@@ -3,7 +3,9 @@
   "version": "1.2.3-alpha.6",
   "description": "wxsdk的封装方法",
   "main": "dist/wxsdk.common.js",
-  "scripts": {},
+  "scripts": {
+    "prepublishOnly": "node ../../../prepublishOnly.js wxsdk"
+  },
   "author": "",
   "license": "ISC",
   "dependencies": {

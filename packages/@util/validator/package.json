@@ -3,7 +3,9 @@
   "version": "1.2.3-alpha.1",
   "description": "提供验证方法",
   "main": "dist/validator.common.js",
-  "scripts": {},
+  "scripts": {
+    "prepublishOnly": "node ../../../prepublishOnly.js validator"
+  },
   "author": "",
   "license": "ISC"
 }
