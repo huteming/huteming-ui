@@ -3,7 +3,9 @@
   "version": "1.2.3-alpha.1",
   "description": "提供区间概率算法",
   "main": "dist/roller.common.js",
-  "scripts": {},
+  "scripts": {
+    "prepublishOnly": "node ../../../prepublishOnly.js roller"
+  },
   "author": "",
   "license": "ISC"
 }
