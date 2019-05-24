@@ -3,7 +3,9 @@
   "version": "1.2.7-alpha.3",
   "description": "ui 组件的统一入口",
   "main": "dist/huteming-ui.common.js",
-  "scripts": {},
+  "scripts": {
+    "prepublishOnly": "node ../../../prepublishOnly.js ui"
+  },
   "author": "",
   "license": "ISC",
   "dependencies": {
