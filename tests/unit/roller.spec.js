@@ -39,4 +39,26 @@ describe('roller', () => {
 
         assert(num === count)
     })
+
+    it('rate非数字异常提示', done => {
+        try {
+            const roller = new Roller()
+            roller.add('1', 'a')
+            done(new Error('非期望异常'))
+        } catch (err) {
+            assert.strictEqual(err.message, '所占区间比例rate必须可转为数字;实际:a')
+            done()
+        }
+    })
+
+    it('rate不大于0异常提示', done => {
+        try {
+            const roller = new Roller()
+            roller.add('1', -1)
+            done(new Error('非期望异常'))
+        } catch (err) {
+            assert.strictEqual(err.message, '所占区间比例rate必须大于0;实际-1')
+            done()
+        }
+    })
 })

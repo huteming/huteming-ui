@@ -11,17 +11,17 @@ export default class Roller {
      * @param {Number} rate 占据区间, 任意数字
      */
     add (value, rate) {
-        rate = Number(rate)
+        const _rate = Number(rate)
 
-        if (isNaN(rate)) {
-            throw new Error('rate must be a Number')
+        if (isNaN(_rate)) {
+            throw new Error(`所占区间比例rate必须可转为数字;实际:${rate}`)
         }
 
-        if (rate <= 0) {
-            throw new Error('require rate>0')
+        if (_rate <= 0) {
+            throw new Error(`所占区间比例rate必须大于0;实际${rate}`)
         }
 
-        this._ranges.push({ value, rate })
+        this._ranges.push({ value, rate: _rate })
     }
 
     done () {
@@ -39,7 +39,5 @@ export default class Roller {
             }
             start = end // 当前区间的结束，作为下一个区间的开始
         }
-
-        return null
     }
 }
