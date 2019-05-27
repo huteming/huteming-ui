@@ -33,6 +33,20 @@ module.exports = {
     },
 
     chainWebpack: config => {
+        if (process.env.NODE_ENV !== 'production') {
+            config.devtool('eval')
+            config.module
+                .rule('istanbul')
+                    .test(/\.(js|vue)$/)
+                    .enforce('post')
+                    .include
+                    .add(resolve(__dirname, 'packages'))
+                    .end()
+                    .use('istanbul-instrumenter-loader')
+                    .loader('istanbul-instrumenter-loader')
+                    .options({ esModules: true })
+          }
+
         /**
          * 读取 md 文件
          * https://github.com/QingWei-Li/vue-markdown-loader

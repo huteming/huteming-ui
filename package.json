@@ -5,17 +5,13 @@
   "scripts": {
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build --report",
-    "build:lib": "npm run build:ui && npm run build:util",
-    "del:publish": "npm run build && cross-env NODE_DEBUG=info node publish.js",
     "lint": "vue-cli-service lint",
     "test:e2e": "vue-cli-service test:e2e",
     "test:unit": "vue-cli-service test:unit --timeout 4000",
+    "cover": "nyc vue-cli-service test:unit --timeout 4000",
     "# lerna 钩子指令 #": "",
     "prepublishOnly": "npm run test:unit",
     "# 打包组件指令 #": "",
-    "build:common": "npm run build:uicommon && npm run build:utilcommon",
-    "build:ui": "npm run build:uicommon && npm run build:uilib",
-    "build:util": "npm run build:utilcommon && npm run build:utillib",
     "ui": "vue-cli-service build --target lib --report --name huteming-ui --dest packages/ui/dist --report packages/ui/index.js",
     "build:uilib": "npm run b:1 && npm run b:2 && npm run b:4",
     "util": "vue-cli-service build --target lib --report --name huteming-util --dest packages/util/dist --report packages/util/index.js",
@@ -55,7 +51,31 @@
     "validator": "cross-env BUILD_MODE=lib vue-cli-service build --target lib --report --name validator --dest packages/@util/validator/dist packages/@util/validator/index.js",
     "wxsdk": "cross-env BUILD_MODE=lib vue-cli-service build --target lib --report --name wxsdk --dest packages/@util/wxsdk/dist packages/@util/wxsdk/index.js",
     "ele": "cross-env BUILD_MODE=lib vue-cli-service build --target lib --report --name element --dest packages/@util/element/dist packages/@util/element/index.js",
-    "demo": "vue-cli-service help test:unit"
+    "help:inspect": "vue-cli-service inspect --mode development",
+    "help:unit": "vue-cli-service test:unit help"
+  },
+  "nyc": {
+    "check-coverage": true,
+    "per-file": true,
+    "lines": 90,
+    "statements": 90,
+    "functions": 90,
+    "branches": 90,
+    "include": [
+      "packages/@util/**/src/main.js"
+    ],
+    "exclude": [
+    ],
+    "reporter": [
+      "lcov",
+      "text",
+      "text-summary"
+    ],
+    "extension": [
+      ".js"
+    ],
+    "cache": true,
+    "all": true
   },
   "dependencies": {
     "register-service-worker": "^1.5.2",
@@ -72,7 +92,9 @@
     "@vue/cli-service": "^3.4.0",
     "@vue/eslint-config-standard": "^4.0.0",
     "@vue/test-utils": "^1.0.0-beta.20",
+    "axios": "^0.18.0",
     "babel-eslint": "^10.0.1",
+    "babel-plugin-istanbul": "^5.1.4",
     "babel-plugin-transform-imports": "^1.5.1",
     "chai": "^4.1.2",
     "cross-env": "^5.2.0",
@@ -80,12 +102,15 @@
     "eslint": "^5.8.0",
     "eslint-plugin-vue": "^5.0.0",
     "highlight.js": "^9.14.2",
+    "istanbul-instrumenter-loader": "^3.0.1",
     "lerna": "^3.13.3",
     "markdown-it": "^8.4.2",
     "markdown-it-container": "^2.0.0",
     "moxios": "^0.4.0",
     "node-sass": "^4.9.0",
     "normalize.css": "^8.0.1",
+    "nyc": "^14.1.1",
+    "qs": "^6.7.0",
     "sass-loader": "^7.1.0",
     "shelljs": "^0.8.3",
     "sinon": "^7.2.4",
