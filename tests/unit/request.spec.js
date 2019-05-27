@@ -12,6 +12,7 @@ describe('request', () => {
     let request
     let resSuccess
     let resError
+    let reqSuccess
     let toast
     let message
 
@@ -27,16 +28,19 @@ describe('request', () => {
         requestFactory = require('web-util/request/index.js').default
         resSuccess = sinon.fake()
         resError = sinon.fake()
+        reqSuccess = sinon.fake()
         toast = sinon.fake()
         message = sinon.fake()
         request = requestFactory({
             _resSuccess: resSuccess,
             _resError: resError,
+            _reqSuccess: reqSuccess,
             _toast: toast,
             _message: message,
             _retry: 1,
             _retryDelay: 500,
             _accountAlias: '_accountAlias',
+            timeout: 3000,
         })
         moxios.install(request)
 
@@ -45,7 +49,7 @@ describe('request', () => {
             response: { message: 'invalid data' },
         })
 
-        moxios.stubRequest('http://www.somesite.com/success', {
+        moxios.stubRequest(/http:\/\/www.somesite.com\/success.*/, {
             status: 200,
             response: { flag: 1, msg: '', data: {} },
         })
@@ -72,8 +76,22 @@ describe('request', () => {
     })
 
     describe('options', () => {
+        it('reqSuccess', done => {
+            const data = {
+                hello: 'world',
+            }
+            request.post('http://www.somesite.com/success', data)
+                .then(res => {
+                    const spyCall = reqSuccess.getCall(0)
+                    res.config.data = JSON.stringify(data)
+                    assert.deepStrictEqual(spyCall.args[0], res.config)
+                    done()
+                })
+                .catch(done)
+        })
+
         it('resSuccess', done => {
-            request.get('http://www.somesite.com/success')
+            request.find('http://www.somesite.com/success')
                 .then(res => {
                     assert.ok(resSuccess.calledWith(res))
                     done()
@@ -82,7 +100,7 @@ describe('request', () => {
         })
 
         it('resError', done => {
-            request.get('http://www.somesite.com/error')
+            request.find('http://www.somesite.com/error')
                 .then(() => {
                     done(new Error('非期望异常'))
                 })
@@ -93,7 +111,7 @@ describe('request', () => {
         })
 
         it('toast', done => {
-            request.get('http://www.somesite.com/1')
+            request.find('http://www.somesite.com/1')
                 .then(() => {
                     done(new Error('非期望异常'))
                 })
@@ -104,7 +122,7 @@ describe('request', () => {
         })
 
         it('message', done => {
-            request.get('http://up.qbox.me')
+            request.find('http://up.qbox.me')
                 .then(() => {
                     done(new Error('非期望异常'))
                 })
@@ -115,7 +133,7 @@ describe('request', () => {
         })
 
         it('accountAlias', done => {
-            request.get('http://www.somesite.com/100')
+            request.find('http://www.somesite.com/100')
                 .then(() => {
                     done(new Error('非期望异常'))
                 })
@@ -127,7 +145,7 @@ describe('request', () => {
 
         it('retry', done => {
             const start = Date.now()
-            request.get('http://www.somesite.com/error')
+            request.find('http://www.somesite.com/error')
                 .then(() => {
                     done(new Error('非期望异常'))
                 })
@@ -234,13 +252,26 @@ describe('request', () => {
                 })
                 .catch(done)
         })
+
+        it('不处理未知类型', done => {
+            const data = {
+                _type: 'hello',
+                other: 'other',
+            }
+            request.post('http://www.somesite.com/success', data)
+                .then(res => {
+                    assert.strictEqual(res.config.data, JSON.stringify(data))
+                    done()
+                })
+                .catch(done)
+        })
     })
 
     it('取消请求,返回自定义异常', done => {
         const CancelToken = axios.CancelToken
         const source = CancelToken.source()
 
-        request.get('http://www.somesite.com/success', {}, {
+        request.find('http://www.somesite.com/success', {}, {
             cancelToken: source.token,
         })
             .then(() => {
@@ -254,5 +285,20 @@ describe('request', () => {
             })
 
         source.cancel('Operation canceled by the user.')
+    })
+
+    it('get方法重写为参数格式同post', done => {
+        const data = {
+            hello: 'world',
+        }
+        request.find('http://www.somesite.com/success', data, {
+            headers: { 'X-Requested-With': 'XMLHttpRequest' },
+        })
+            .then(res => {
+                assert.deepStrictEqual(res.config.params, data)
+                assert.strictEqual(res.config.headers['X-Requested-With'], 'XMLHttpRequest')
+                done()
+            })
+            .catch(done)
     })
 })

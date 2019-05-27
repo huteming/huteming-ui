@@ -20,9 +20,8 @@ const defaults = {
     },
 
     // 自定义配置，非 axios 官方
-    // 响应拦截器
-    _resSuccess () {},
-    _resError () {},
+    // 请求拦截器: _reqSuccess
+    // 响应拦截器: _resSuccess, _resError
     // 消息提示，拦截器错误处理中有使用
     _toast: console.log,
     // 弹窗提示，拦截器错误处理中有使用
@@ -48,6 +47,9 @@ function createInstance (options = {}) {
     // 暂时只处理 data(post 请求数据体)，并修改对应 headers
     instance.interceptors.request.use(function (config) {
         // 在发送请求之前做些什么
+        if (typeof options._reqSuccess === 'function') {
+            options._reqSuccess(config)
+        }
 
         const data = config.data
 
@@ -98,22 +100,23 @@ function createInstance (options = {}) {
         }
 
         return config
-    }, function (error) {
-        // 对请求错误做些什么
-        return Promise.reject(error)
     })
 
     // 添加响应拦截器
     instance.interceptors.response.use(function (res) {
-        options._resSuccess(res)
+        if (typeof options._resSuccess === 'function') {
+            options._resSuccess(res)
+        }
         return _interceptor.resSuccess(res)
     }, function (err) {
-        options._resError(err)
+        if (typeof options._resError === 'function') {
+            options._resError(err)
+        }
         return _interceptor.resError(err)
     })
 
     instance.jsonp = requestJsonp
-    instance.get = requestGet(instance.get)
+    instance.find = requestGet(instance.get)
 
     return instance
 }

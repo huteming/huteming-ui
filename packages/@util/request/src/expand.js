@@ -19,8 +19,8 @@ export const requestJsonp = (url, params = {}) => {
     })
 }
 
-export const requestGet = (handler) => {
-    const _handler = handler
+export const requestGet = (get) => {
+    const _handler = get
     return function (url, params, config = {}) {
         return _handler(url, Object.assign({ params }, config))
     }
