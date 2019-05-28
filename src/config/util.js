@@ -33,11 +33,6 @@ export default [
         path: 'tool',
         title: '工具函数 Tool',
         docs: () => import('web-util/tool/README.md'),
-        test: [
-            {
-                'tool': () => import('web-util/tool/tests/basic.vue'),
-            },
-        ],
     },
     {
         path: 'request',

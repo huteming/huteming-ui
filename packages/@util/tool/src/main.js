@@ -2,7 +2,7 @@
  * 是否微信内
  */
 export function isWeixinBrowser () {
-    return /micromessenger/.test(navigator.userAgent.toLowerCase())
+    return /micromessenger/.test(window.navigator.userAgent.toLowerCase())
 }
 
 /**
@@ -48,19 +48,24 @@ export function tofixed (value, fractionDigits = 2, toNumber = false) {
 
 /**
  * 批量加载图片
- * @argument {Array} urls
+ * @param {Array|String} urls 图片地址
+ * @param {Boolean} useCache 是否使用缓存
+ *
+ * @returns {Promise<Array|String>}
  */
-export function loadImages (urls) {
+export function loadImages (urls, useCache = true) {
     if (Array.isArray(urls)) {
-        const promises = urls.map(loadImageSingle)
+        const promises = urls.map(url => loadImageSingle(url, useCache))
         return Promise.all(promises)
     }
-    return loadImageSingle(urls)
+    return loadImageSingle(urls, useCache)
 }
 
 /**
  * json => form
  * @param {*Object} data json数据
+ *
+ * @returns {FormData}
  */
 export const jsonToForm = (data) => {
     const params = new FormData()
@@ -90,19 +95,22 @@ export function parseQuery (target) {
     return ''
 }
 
-function loadImageSingle (url) {
+function loadImageSingle (url, useCache) {
     return new Promise((resolve, reject) => {
         const img = new Image()
-        const separator = url.indexOf('?') > -1 ? '&' : '?'
+        if (!useCache) {
+            const separator = url.indexOf('?') > -1 ? '&' : '?'
+            url = `${url}${separator}timestamp=${Date.now()}`
+        }
         img.setAttribute('crossOrigin', 'anonymous')
 
         img.onload = function () {
             resolve(img)
         }
         img.onerror = function () {
-            reject(new Error(`渲染地址错误[${url}]`))
+            reject(new Error(`渲染地址错误;实际:${url}`))
         }
 
-        img.src = `${url}${separator}timestamp=${Date.now()}`
+        img.src = url
     })
 }
