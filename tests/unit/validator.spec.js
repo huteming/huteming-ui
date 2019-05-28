@@ -8,171 +8,462 @@ describe('validator', () => {
         v = new Validator()
     })
 
-    describe('required', () => {
-        describe('undefined', () => {
-            it('expect error', () => {
-                v.add(undefined, 'required', 'hello')
-                assert(v.done() === 'hello')
-            })
+    describe('type', () => {
+        it('type异常提示', done => {
+            try {
+                v.add('', 'hel', { type: 'hello' })
+                done(new Error('非期望异常'))
+            } catch (err) {
+                assert.strictEqual(err.message, 'type类型错误')
+                done()
+            }
         })
 
-        describe('null', () => {
-            it('expect error', () => {
-                v.add(null, 'required', 'hello')
-                assert(v.done() === 'hello')
-            })
-        })
-
-        describe('string', () => {
-            it('空字符串 失败', () => {
-                v.add('', 'required', 'hello')
-                assert(v.done() === 'hello')
-            })
-
-            it('非空字符串 成功', () => {
-                v.add('hello', 'required', 'hello')
-                assert(v.done() === '')
-            })
-        })
-
-        describe('number', () => {
-            it('所有数字 成功', () => {
-                v.add(0, 'required', 'hello')
-                v.add(1, 'required', 'hello')
-                v.add(2, 'required', 'hello')
-
-                assert(v.done() === '')
-            })
-        })
-
-        describe('boolean', () => {
-            it('布尔值 成功', () => {
-                v.add(false, 'required', 'hello')
-                v.add(true, 'required', 'hello')
-
-                assert(v.done() === '')
-            })
-        })
-
-        describe('array', () => {
-            it('空数组 失败', () => {
-                v.add([], 'required', 'hello')
-
-                assert(v.done() === 'hello')
-            })
-
-            it('非空数组 成功', () => {
-                v.add([1], 'required', 'hello')
-
-                assert(v.done() === '')
-            })
+        it('type默认为string', () => {
+            v.add('', 'hel')
+            v.add(1, '数字')
+            const msg = v.done()
+            assert.strictEqual(msg, '数字')
         })
     })
 
-    describe('email', () => {
-        it('错误地址 失败', () => {
-            v.add('hello', 'email', 'hello')
-
-            assert(v.done() === 'hello')
+    describe('string', () => {
+        it('非必填 && empty', () => {
+            v.add(null, 'hel', { type: 'string', required: false })
+            const msg = v.done()
+            assert.strictEqual(msg, '')
         })
 
-        it('邮箱地址 成功', () => {
-            v.add('549270031@qq.com', 'email', 'hello')
-
-            assert(v.done() === '')
-        })
-    })
-
-    describe('mobile', () => {
-        it('非11位错误号码 失败', () => {
-            v.add('1111111111', 'mobile', 'hello')
-
-            assert(v.done() === 'hello')
+        it('非必填 && no-empty && 非字符串', () => {
+            v.add(123, 'hel', { type: 'string', required: false })
+            const msg = v.done()
+            assert.strictEqual(msg, 'hel')
         })
 
-        it('11位号码 成功', () => {
-            v.add('18755555555', 'mobile', 'hello')
+        it('非必填 && no-empty && 字符串', () => {
+            v.add('123', 'hel', { type: 'string', required: false })
+            const msg = v.done()
+            assert.strictEqual(msg, '')
+        })
 
-            assert(v.done() === '')
+        it('必填 && empty', () => {
+            v.add(null, 'hel', { type: 'string', required: true })
+            const msg = v.done()
+            assert.strictEqual(msg, 'hel')
+        })
+
+        it('必填 && no-empty && 非字符串', () => {
+            v.add(123, 'hel', { type: 'string', required: true })
+            const msg = v.done()
+            assert.strictEqual(msg, 'hel')
+        })
+
+        it('必填 && no-empty && 字符串', () => {
+            v.add('123', 'hel', { type: 'string', required: true })
+            const msg = v.done()
+            assert.strictEqual(msg, '')
         })
     })
 
     describe('number', () => {
-        it('布尔值 失败', () => {
-            v.add(false, 'number', 'hello')
-
-            assert(v.done() === 'hello')
+        it('非必填 && empty', () => {
+            v.add(null, 'hel', { type: 'number', required: false })
+            const msg = v.done()
+            assert.strictEqual(msg, '')
         })
 
-        it('非数字字符串 失败', () => {
-            v.add('aaa', 'number', 'hello')
-
-            assert(v.done() === 'hello')
+        it('非必填 && no-empty && 非数字', () => {
+            v.add('aaa', 'hel', { type: 'number', required: false })
+            const msg = v.done()
+            assert.strictEqual(msg, 'hel')
         })
 
-        it('数字字符串 成功', () => {
-            v.add('1', 'number', 'hello')
-
-            assert(v.done() === 'hello')
+        it('非必填 && no-empty && 数字', () => {
+            v.add(123, 'hel', { type: 'number', required: false })
+            const msg = v.done()
+            assert.strictEqual(msg, '')
         })
 
-        it('数字 成功', () => {
-            v.add(1, 'number', 'hello')
+        it('非必填 && no-empty && 字符串数字', () => {
+            v.add('123', 'hel', { type: 'number', required: false })
+            const msg = v.done()
+            assert.strictEqual(msg, '')
+        })
 
-            assert(v.done() === '')
+        it('必填 && empty', () => {
+            v.add(null, 'hel', { type: 'number', required: true })
+            const msg = v.done()
+            assert.strictEqual(msg, 'hel')
+        })
+
+        it('必填 && no-empty && 非数字', () => {
+            v.add('aa', 'hel', { type: 'number', required: true })
+            const msg = v.done()
+            assert.strictEqual(msg, 'hel')
+        })
+
+        it('必填 && no-empty && 数字', () => {
+            v.add(123, 'hel', { type: 'number', required: true })
+            const msg = v.done()
+            assert.strictEqual(msg, '')
+        })
+
+        it('必填 && no-empty && 字符串数字', () => {
+            v.add('123', 'hel', { type: 'number', required: true })
+            const msg = v.done()
+            assert.strictEqual(msg, '')
         })
     })
 
-    describe('equal', () => {
-        it('不同类型 失败', () => {
-            v.add('', 'equal', 'hello', 1)
-
-            assert(v.done() === 'hello')
+    describe('boolean', () => {
+        it('非必填 && empty', () => {
+            v.add(null, 'hel', { type: 'boolean', required: false })
+            const msg = v.done()
+            assert.strictEqual(msg, '')
         })
 
-        it('相同类型不同数据 失败', () => {
-            v.add('', 'equal', 'hello', '1')
-
-            assert(v.done() === 'hello')
+        it('非必填 && no-empty && 非布尔', () => {
+            v.add('aaa', 'hel', { type: 'boolean', required: false })
+            const msg = v.done()
+            assert.strictEqual(msg, 'hel')
         })
 
-        it('相同类型相同数据 成功', () => {
-            v.add('1', 'equal', 'hello', '1')
+        it('非必填 && no-empty && 布尔', () => {
+            v.add(false, 'hel', { type: 'boolean', required: false })
+            const msg = v.done()
+            assert.strictEqual(msg, '')
+        })
 
-            assert(v.done() === '')
+        it('必填 && empty', () => {
+            v.add(null, 'hel', { type: 'boolean', required: true })
+            const msg = v.done()
+            assert.strictEqual(msg, 'hel')
+        })
+
+        it('必填 && no-empty && 非布尔', () => {
+            v.add('aa', 'hel', { type: 'boolean', required: true })
+            const msg = v.done()
+            assert.strictEqual(msg, 'hel')
+        })
+
+        it('必填 && no-empty && 布尔', () => {
+            v.add(true, 'hel', { type: 'boolean', required: true })
+            const msg = v.done()
+            assert.strictEqual(msg, '')
         })
     })
 
-    describe('length', () => {
-        it('value不存在 失败', () => {
-            v.add('', 'length', 'hello', 1)
-
-            assert(v.done(), 'hello')
+    describe('regexp', () => {
+        it('非必填 && empty', () => {
+            v.add(null, 'hel', { type: 'regexp', required: false, regexp: /.js/ })
+            const msg = v.done()
+            assert.strictEqual(msg, '')
         })
-        it('转换成 string 后再比较', () => {
-            v.add('1', 'length', 'hello', 1, 1)
-            v.add(12, 'length', 'hello', 2, 2)
 
-            assert(v.done() === '')
+        it('非必填 && no-empty && 字符串', () => {
+            v.add('aaa', 'hel', { type: 'regexp', required: false, regexp: 'aaa' })
+            const msg = v.done()
+            assert.strictEqual(msg, '')
+        })
+
+        it('非必填 && no-empty && 正则', () => {
+            v.add('aaa', 'hel', { type: 'regexp', required: false, regexp: /.js/ })
+            const msg = v.done()
+            assert.strictEqual(msg, 'hel')
+        })
+
+        it('必填 && empty', () => {
+            v.add(null, 'hel', { type: 'regexp', required: true, regexp: /.js/ })
+            const msg = v.done()
+            assert.strictEqual(msg, 'hel')
+        })
+
+        it('必填 && no-empty && 正则', () => {
+            v.add('.js', 'hel', { type: 'regexp', required: true, regexp: /.js/ })
+            const msg = v.done()
+            assert.strictEqual(msg, '')
+        })
+
+        it('必填 && no-empty && 字符串', () => {
+            v.add('.js', 'hel', { type: 'regexp', required: true, regexp: '.js' })
+            const msg = v.done()
+            assert.strictEqual(msg, '')
+        })
+    })
+
+    describe('array', () => {
+        it('非必填 && empty', () => {
+            v.add(null, 'hel', { type: 'array', required: false })
+            const msg = v.done()
+            assert.strictEqual(msg, '')
+        })
+
+        it('非必填 && no-empty && 非数组', () => {
+            v.add('aaa', 'hel', { type: 'array', required: false })
+            const msg = v.done()
+            assert.strictEqual(msg, 'hel')
+        })
+
+        it('非必填 && no-empty && 空数组', () => {
+            v.add([], 'hel', { type: 'array', required: false })
+            const msg = v.done()
+            assert.strictEqual(msg, '')
+        })
+
+        it('非必填 && no-empty && 非空数组', () => {
+            v.add([1], 'hel', { type: 'array', required: false })
+            const msg = v.done()
+            assert.strictEqual(msg, '')
+        })
+
+        it('必填 && empty', () => {
+            v.add(null, 'hel', { type: 'array', required: true })
+            const msg = v.done()
+            assert.strictEqual(msg, 'hel')
+        })
+
+        it('必填 && no-empty && 非数组', () => {
+            v.add('aa', 'hel', { type: 'array', required: true })
+            const msg = v.done()
+            assert.strictEqual(msg, 'hel')
+        })
+
+        it('必填 && no-empty && 空数组', () => {
+            v.add([], 'hel', { type: 'array', required: true })
+            const msg = v.done()
+            assert.strictEqual(msg, 'hel')
+        })
+
+        it('必填 && no-empty && 非空数组', () => {
+            v.add([1], 'hel', { type: 'array', required: true })
+            const msg = v.done()
+            assert.strictEqual(msg, '')
+        })
+    })
+
+    describe('enum', () => {
+        it('非必填 && empty', () => {
+            v.add(null, 'hel', { type: 'array', required: false, enum: ['hello'] })
+            const msg = v.done()
+            assert.strictEqual(msg, '')
+        })
+
+        it('非必填 && no-empty && error-type', () => {
+            v.add('hello', 'hel', { type: 'array', required: false, enum: ['hello'] })
+            const msg = v.done()
+            assert.strictEqual(msg, 'hel')
+        })
+
+        it('非必填 && no-empty && success-type && error-enum', () => {
+            v.add(['hel'], 'hel', { type: 'array', required: false, enum: ['hello'] })
+            const msg = v.done()
+            assert.strictEqual(msg, 'hel')
+        })
+
+        it('非必填 && no-empty && success-type && array-enum', () => {
+            v.add(['hello'], 'hel', { type: 'array', required: false, enum: ['hello'] })
+            const msg = v.done()
+            assert.strictEqual(msg, '')
+        })
+
+        it('非必填 && no-empty && success-type && no-array-enum', () => {
+            v.add('hello', 'hel', { type: 'string', required: false, enum: ['hello'] })
+            const msg = v.done()
+            assert.strictEqual(msg, '')
+        })
+    })
+
+    describe('date', () => {
+        it('非必填 && empty', () => {
+            v.add(null, 'hel', { type: 'date', required: false })
+            const msg = v.done()
+            assert.strictEqual(msg, '')
+        })
+
+        it('非必填 && no-empty && 非日期', () => {
+            v.add(123, 'hel', { type: 'date', required: false })
+            const msg = v.done()
+            assert.strictEqual(msg, 'hel')
+        })
+
+        it('非必填 && no-empty && 日期', () => {
+            v.add(new Date(), 'hel', { type: 'date', required: false })
+            const msg = v.done()
+            assert.strictEqual(msg, '')
+        })
+
+        it('必填 && empty', () => {
+            v.add(null, 'hel', { type: 'date', required: true })
+            const msg = v.done()
+            assert.strictEqual(msg, 'hel')
+        })
+
+        it('必填 && no-empty && 非日期', () => {
+            v.add(123, 'hel', { type: 'date', required: true })
+            const msg = v.done()
+            assert.strictEqual(msg, 'hel')
+        })
+
+        it('必填 && no-empty && 日期', () => {
+            v.add(new Date(), 'hel', { type: 'date', required: true })
+            const msg = v.done()
+            assert.strictEqual(msg, '')
+        })
+    })
+
+    describe('email', () => {
+        it('非必填 && empty', () => {
+            v.add(null, 'hel', { type: 'email', required: false })
+            const msg = v.done()
+            assert.strictEqual(msg, '')
+        })
+
+        it('非必填 && no-empty && 非邮箱', () => {
+            v.add('549270031@qq', 'hel', { type: 'email', required: false })
+            const msg = v.done()
+            assert.strictEqual(msg, 'hel')
+        })
+
+        it('非必填 && no-empty && 邮箱', () => {
+            v.add('549270031@qq.com', 'hel', { type: 'email', required: false })
+            const msg = v.done()
+            assert.strictEqual(msg, '')
+        })
+
+        it('必填 && empty', () => {
+            v.add(null, 'hel', { type: 'email', required: true })
+            const msg = v.done()
+            assert.strictEqual(msg, 'hel')
+        })
+
+        it('必填 && no-empty && 非邮箱', () => {
+            v.add('549270031@qq', 'hel', { type: 'email', required: true })
+            const msg = v.done()
+            assert.strictEqual(msg, 'hel')
+        })
+
+        it('必填 && no-empty && 邮箱', () => {
+            v.add('549270031@qq.com', 'hel', { type: 'email', required: true })
+            const msg = v.done()
+            assert.strictEqual(msg, '')
+        })
+    })
+
+    describe('mobile', () => {
+        it('非必填 && empty', () => {
+            v.add(null, 'hel', { type: 'mobile', required: false })
+            const msg = v.done()
+            assert.strictEqual(msg, '')
+        })
+
+        it('非必填 && no-empty && 非手机', () => {
+            v.add('1877777777', 'hel', { type: 'mobile', required: false })
+            const msg = v.done()
+            assert.strictEqual(msg, 'hel')
+        })
+
+        it('非必填 && no-empty && 手机', () => {
+            v.add('18777777777', 'hel', { type: 'mobile', required: false })
+            const msg = v.done()
+            assert.strictEqual(msg, '')
+        })
+
+        it('必填 && empty', () => {
+            v.add(null, 'hel', { type: 'mobile', required: true })
+            const msg = v.done()
+            assert.strictEqual(msg, 'hel')
+        })
+
+        it('必填 && no-empty && 非手机', () => {
+            v.add('187777777', 'hel', { type: 'mobile', required: true })
+            const msg = v.done()
+            assert.strictEqual(msg, 'hel')
+        })
+
+        it('必填 && no-empty && 手机', () => {
+            v.add('18777777777', 'hel', { type: 'mobile', required: true })
+            const msg = v.done()
+            assert.strictEqual(msg, '')
         })
     })
 
     describe('range', () => {
-        it('不能转为数字 失败', () => {
-            v.add('aa', 'range', 'hello', 1)
-
-            assert(v.done(), 'hello')
-        })
-        it('转换成 number 后再比较', () => {
-            v.add('1', 'range', 'hello', 0, 2)
-
-            assert.strictEqual(v.done(), '')
+        it('非必填 && empty', () => {
+            v.add(null, 'hel', { type: 'array', required: false, min: 1, max: 5 })
+            const msg = v.done()
+            assert.strictEqual(msg, '')
         })
 
-        it('相等验证成功', () => {
-            v.add('1', 'range', 'hello', 1, 1)
+        it('非必填 && no-empty && error-type', () => {
+            v.add('hello', 'hel', { type: 'array', required: false, min: 1, max: 5 })
+            const msg = v.done()
+            assert.strictEqual(msg, 'hel')
+        })
 
-            assert(v.done() === '')
+        it('非必填 && no-empty && success-type && error-range', () => {
+            v.add(['hel', 'a', 'b'], 'hel', { type: 'array', required: false, min: 1, max: 2 })
+            const msg = v.done()
+            assert.strictEqual(msg, 'hel')
+        })
+
+        it('array && error-min', () => {
+            v.add(['hello', 'a'], 'hel', { type: 'array', required: true, min: 3, max: 3 })
+            const msg = v.done()
+            assert.strictEqual(msg, 'hel')
+        })
+
+        it('array && error-max', () => {
+            v.add(['hello', 'a', 'b'], 'hel', { type: 'array', required: true, min: 1, max: 2 })
+            const msg = v.done()
+            assert.strictEqual(msg, 'hel')
+        })
+
+        it('array && success-min-max', () => {
+            v.add(['hello', 'a'], 'hel', { type: 'array', required: true, min: 1, max: 3 })
+            const msg = v.done()
+            assert.strictEqual(msg, '')
+        })
+
+        it('string && error-min', () => {
+            v.add('aa', 'hel', { type: 'string', required: true, min: 3, max: 3 })
+            const msg = v.done()
+            assert.strictEqual(msg, 'hel')
+        })
+
+        it('string && error-max', () => {
+            v.add('aaa', 'hel', { type: 'string', required: true, min: 1, max: 2 })
+            const msg = v.done()
+            assert.strictEqual(msg, 'hel')
+        })
+
+        it('string && success-min-max', () => {
+            v.add('aa', 'hel', { type: 'string', required: true, min: 1, max: 3 })
+            const msg = v.done()
+            assert.strictEqual(msg, '')
+        })
+
+        it('number && error-min', () => {
+            v.add(2, 'hel', { type: 'number', required: true, min: 3, max: 3 })
+            const msg = v.done()
+            assert.strictEqual(msg, 'hel')
+        })
+
+        it('number && error-max', () => {
+            v.add(3, 'hel', { type: 'number', required: true, min: 1, max: 2 })
+            const msg = v.done()
+            assert.strictEqual(msg, 'hel')
+        })
+
+        it('number && success-min-max', () => {
+            v.add(2, 'hel', { type: 'number', required: true, min: 1, max: 3 })
+            const msg = v.done()
+            assert.strictEqual(msg, '')
+        })
+
+        it('string-number && 字符串异常 + 数字正常', () => {
+            v.add('20', 'hel', { type: 'number', required: true, min: 10 })
+            const msg = v.done()
+            assert.strictEqual(msg, '')
         })
     })
 })
