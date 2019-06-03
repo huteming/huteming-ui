@@ -1,8 +1,8 @@
-import api from 'web-util/api/index.js'
+import { parseGeocoder, sign, getPayConfig, getWxConfig } from 'web-util/api/src/main'
 import qs from 'qs'
 
 // wx配置方法
-const mapApis = new Map([
+export const mapApis = new Map([
     [
         'default',
         [
@@ -80,7 +80,7 @@ export const wxSave = (() => {
 export async function wxLocation () {
     await wxConfig(false)
     const data = await getLocation()
-    const result = await api.parseGeocoder(data)
+    const result = await parseGeocoder(data)
     return result
 }
 
@@ -90,7 +90,7 @@ export async function wxLocation () {
 export async function wxShare (options) {
     const defaultOption = {
         link: window.location.href, // 分享链接，该链接域名或路径必须与当前页面对应的公众号JS安全域名一致
-        imgUrl: 'http://jhsy-img.caizhu.com/jhsy/images/logo-white.png?d=0121', // 分享图标
+        imgUrl: 'http://jhsy-img.caizhu.com/jhsy/images/logo-white.png', // 分享图标
         success () {
             console.log('share success')
         },
@@ -106,7 +106,7 @@ export async function wxShare (options) {
     const success = options.success
     options.success = () => {
         // 自己的统计
-        api.sign('', '', { type: 'share' })
+        sign('', '', { type: 'share' })
 
         success()
     }
@@ -140,12 +140,12 @@ export async function wxShare (options) {
  */
 export function wxpay (params) {
     return new Promise((resolve, reject) => {
-        api.getPayConfig(params)
+        getPayConfig(params)
             .then(res => {
                 const { data } = res.data
                 const payHandler = onBridgeReady(data, resolve, reject)
 
-                if (typeof WeixinJSBridge === 'undefined') {
+                if (typeof window.WeixinJSBridge === 'undefined') {
                     if (document.addEventListener) {
                         document.addEventListener('WeixinJSBridgeReady', payHandler, false)
                     } else if (document.attachEvent) {
@@ -201,7 +201,7 @@ function register (flag, jsApiList) {
         url: wxSave(),
     }
 
-    return api.getWxConfig(options)
+    return getWxConfig(options)
         .then(res => {
             const { data } = res.data
 
@@ -221,12 +221,14 @@ function register (flag, jsApiList) {
  */
 function waiting () {
     return new Promise((resolve, reject) => {
+        const delay = process.env.NODE_ENV === 'test' ? 5 : 800
+
         wx.error(err => {
             reject(new Error(`签名失败; ${err.errMsg}`))
         })
 
         wx.ready(() => {
-            setTimeout(resolve, 800)
+            setTimeout(resolve, delay)
         })
     })
 }
@@ -247,8 +249,8 @@ function getLocation () {
                 })
             },
 
-            fail () {
-                reject(new Error('定位失败'))
+            fail (err) {
+                reject(new Error(`定位失败;${err.errMsg || err.message}`))
             },
         })
     })
@@ -259,7 +261,7 @@ function getLocation () {
  */
 function onBridgeReady (paramsStr, resolve, reject) {
     return function () {
-        WeixinJSBridge.invoke(
+        window.WeixinJSBridge.invoke(
             'getBrandWCPayRequest',
             JSON.parse(paramsStr),
             function (res) {

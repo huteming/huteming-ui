@@ -1,4 +1,4 @@
-import Roller from 'web-util/roller/index'
+import Roller from 'web-util/roller/src/main'
 import assert from 'assert'
 
 describe('roller', () => {

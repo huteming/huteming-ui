@@ -1,4 +1,4 @@
-import requestFactory from 'web-util/request/index.js'
+import requestFactory from 'web-util/request/src/main'
 
 // 导出只是为了方便测试
 export const request = requestFactory()

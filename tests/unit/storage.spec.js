@@ -1,4 +1,4 @@
-import Storage from 'web-util/storage/index.js'
+import Storage from 'web-util/storage/src/main'
 import sinon from 'sinon'
 import assert from 'assert'
 
@@ -12,9 +12,7 @@ let removeItem
 let clear
 
 describe('storage', () => {
-    before(() => {
-    })
-
+    let originWindow
     beforeEach(() => {
         instance = new Storage(prefix)
         setItem = sinon.fake()
@@ -22,7 +20,7 @@ describe('storage', () => {
         removeItem = sinon.fake()
         clear = sinon.fake()
 
-        // eslint-disable-next-line
+        originWindow = global.window
         global.window = {
             localStorage: {
                 setItem,
@@ -37,6 +35,10 @@ describe('storage', () => {
                 clear,
             },
         }
+    })
+
+    afterEach(() => {
+        global.window = originWindow
     })
 
     describe('构造函数默认参数', () => {

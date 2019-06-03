@@ -2,7 +2,7 @@ import axios from 'axios'
 import qs from 'qs'
 import Interceptor from './interceptors'
 import { requestJsonp, requestGet } from './expand.js'
-import tool from 'web-util/tool/index.js'
+import * as tool from 'web-util/tool/src/main'
 
 const mapHost = new Map([
     ['fejh.jinghao.com', '//jhtest.jinghao.com'],
@@ -22,10 +22,6 @@ const defaults = {
     // 自定义配置，非 axios 官方
     // 请求拦截器: _reqSuccess
     // 响应拦截器: _resSuccess, _resError
-    // 消息提示，拦截器错误处理中有使用
-    _toast: console.log,
-    // 弹窗提示，拦截器错误处理中有使用
-    _message: console.log,
     // 页面未登录重定向配置
     _accountAlias: '',
     // 重发请求

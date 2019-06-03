@@ -1,6 +1,6 @@
 import sinon from 'sinon'
 import assert from 'assert'
-import api from 'web-util/api/index'
+import * as api from 'web-util/api/src/main'
 
 const originHref = window.location.href
 const host = '192.168.0.220'
@@ -12,8 +12,11 @@ let post
 let jsonp
 
 describe('api', () => {
+    let originWindow
+
     beforeEach(() => {
-        // eslint-disable-next-line
+        originWindow = global.window
+
         global.window = {
             location: {
                 host,
@@ -42,6 +45,7 @@ describe('api', () => {
 
     afterEach(() => {
         sinon.restore()
+        global.window = originWindow
     })
 
     describe('sign', () => {

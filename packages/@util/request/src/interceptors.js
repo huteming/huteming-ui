@@ -17,9 +17,6 @@ export default class Interceptor {
             [-100, this._unLogin.bind(this)], // 未登录
             [-1, this._notifier.bind(this)], // 消息类错误
         ])
-
-        this._toast = typeof options._toast === 'function' ? options._toast : function () {}
-        this._message = typeof options._message === 'function' ? options._message : function () {}
     }
 
     async resSuccess (res) {
@@ -28,7 +25,8 @@ export default class Interceptor {
         // 七牛上传
         if (res.config && res.config.url.indexOf('up.qbox.me') > -1) {
             if (!hash) {
-                this._message('上传失败，刷新页面后重新上传', function () {}, { cancelFlag: 'hide' })
+                const _log = typeof window.definedPrompt === 'function' ? window.definedPrompt : console.error
+                _log('上传失败，刷新页面后重新上传', function () {}, { cancelFlag: 'hide' })
                 return Promise.reject(res)
             }
             return res
@@ -42,6 +40,7 @@ export default class Interceptor {
         // 页面错误处理
         const handler = this._mapErrorHandler.get(flag) || function () {}
         const _customError = handler(res, this._options)
+        this._final()
 
         return Promise.reject(_customError || res)
     }
@@ -84,7 +83,14 @@ export default class Interceptor {
 
     _notifier (res, options) {
         const { msg } = res.data
-        this._toast(msg)
+        const _log = typeof window.definedToast === 'function' ? window.definedToast : console.error
+        _log(msg)
         return new CustomError('消息类异常', -1)
+    }
+
+    _final () {
+        if (window.definedAjaxing) {
+            window.definedAjaxing.flag = false
+        }
     }
 }

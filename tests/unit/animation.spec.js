@@ -1,13 +1,9 @@
 import sinon from 'sinon'
 import assert from 'assert'
 import { sleep } from '../helper'
-import animation from 'web-util/animation/index'
+import * as animation from 'web-util/animation/src/main'
 
 describe('animation', () => {
-    before(() => {
-        global.window = {}
-    })
-
     it('默认持续时间300ms', async () => {
         async function handler (type) {
             const from = 0

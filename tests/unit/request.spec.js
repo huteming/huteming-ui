@@ -9,15 +9,14 @@ const replace = sinon.fake()
 let requestFactory = null
 
 describe('request', () => {
+    let originWindow
     let request
     let resSuccess
     let resError
     let reqSuccess
-    let toast
-    let message
 
     beforeEach(() => {
-        // eslint-disable-next-line
+        originWindow = global.window
         global.window = {
             location: {
                 href,
@@ -29,14 +28,10 @@ describe('request', () => {
         resSuccess = sinon.fake()
         resError = sinon.fake()
         reqSuccess = sinon.fake()
-        toast = sinon.fake()
-        message = sinon.fake()
         request = requestFactory({
             _resSuccess: resSuccess,
             _resError: resError,
             _reqSuccess: reqSuccess,
-            _toast: toast,
-            _message: message,
             _retry: 1,
             _retryDelay: 500,
             _accountAlias: '_accountAlias',
@@ -71,7 +66,7 @@ describe('request', () => {
     })
 
     afterEach(() => {
-        global.window = undefined
+        global.window = originWindow
         moxios.uninstall(request)
     })
 
@@ -106,28 +101,6 @@ describe('request', () => {
                 })
                 .catch(err => {
                     assert.ok(resError.calledWith(err))
-                    done()
-                })
-        })
-
-        it('toast', done => {
-            request.find('http://www.somesite.com/1')
-                .then(() => {
-                    done(new Error('非期望异常'))
-                })
-                .catch(() => {
-                    assert.ok(toast.calledWith('消息异常'))
-                    done()
-                })
-        })
-
-        it('message', done => {
-            request.find('http://up.qbox.me')
-                .then(() => {
-                    done(new Error('非期望异常'))
-                })
-                .catch(() => {
-                    assert.ok(message.calledWith('上传失败，刷新页面后重新上传'))
                     done()
                 })
         })

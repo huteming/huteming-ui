@@ -1,6 +1,5 @@
 import assert from 'assert'
-import sinon from 'sinon'
-import tool from 'web-util/tool/index.js'
+import * as tool from 'web-util/tool/src/main'
 const LOAD_FAILURE_SRC = 'LOAD_FAILURE_SRC'
 const LOAD_SUCCESS_SRC = 'LOAD_SUCCESS_SRC'
 
