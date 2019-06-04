@@ -1,18 +1,25 @@
 <template>
-<div class="t-pay">
-    <template v-if="price">
-        <div class="t-pay-prefix">￥</div>
-        <div class="t-pay-price">{{ price | tofixed(2, true) }}</div>
+<div class="tm-pay">
+    <template v-if="!btnOnly">
+        <template v-if="price">
+            <div class="tm-pay-prefix">{{ pricePrefix }}</div>
+            <div class="tm-pay-price">{{ price | tofixed(2, true) }}</div>
+        </template>
+        <template v-else>
+            <div class="tm-pay-title">{{ title }}</div>
+        </template>
+
+        <div class="tm-pay-group">
+            <div class="tm-pay-text" v-if="tip">{{ tip }}</div>
+            <div class="tm-pay-through" v-else>{{ through }}</div>
+
+            <div class="tm-pay-text" :style="descStyle">{{ desc }}</div>
+        </div>
     </template>
 
-    <div class="t-pay-group">
-        <div class="t-pay-through" v-if="through">{{ through }}</div>
-        <div class="t-pay-text" v-else-if="tip">{{ tip }}</div>
-
-        <div class="t-pay-text">{{ text }}</div>
+    <div class="tm-pay-btn" :style="btnStyle" @click="handleClick">
+        <slot name="btn">{{ btn }}</slot>
     </div>
-
-    <div class="t-pay-btn" :style="styleBtn" @click="handleClick">{{ btn }}</div>
 </div>
 </template>
 
@@ -23,20 +30,32 @@ export default {
     name: 'TmBtnPay',
 
     props: {
-        price: [String, Number],
+        pricePrefix: {
+            type: String,
+            default: '￥',
+        },
+        price: Number,
+        title: String,
         through: String,
         tip: String,
-        text: String,
+        desc: String,
+        descStyle: {
+            type: Object,
+            default () {
+                return {}
+            },
+        },
         btn: String,
-        btnBackground: String,
+        btnStyle: {
+            type: Object,
+            default () {
+                return {}
+            },
+        },
+        btnOnly: Boolean,
     },
 
     computed: {
-        styleBtn () {
-            return {
-                background: this.btnBackground,
-            }
-        },
     },
 
     methods: {
@@ -52,17 +71,20 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.t-pay {
+.tm-pay {
     position: relative;
     width: 100%;
-    height: 1rem;
-    margin-top: .2rem;
-    padding: .18rem 3rem .16rem .48rem;
+    height: 1.2rem;
     display: flex;
     align-items: center;
     background-color: #fff;
     box-shadow: 0 -.08rem .2rem -.2rem rgba(99,150,247,0.6);
     box-sizing: border-box;
+
+    &-container {
+        padding: .18rem .4rem .16rem .48rem;
+        box-shadow: 0 -.08rem .2rem -.2rem rgba(99,150,247,0.6);
+    }
 
     &-prefix {
         font-size: .4rem;
@@ -71,9 +93,15 @@ export default {
     }
 
     &-price {
-        margin-right: .25rem;
         font-size: .56rem;
         line-height: .56rem;
+        color: rgba(34, 34, 34, 1);
+        font-weight: bold;
+    }
+
+    &-title {
+        font-size: .36rem;
+        line-height: .5rem;
         color: rgba(34, 34, 34, 1);
         font-weight: bold;
     }
@@ -114,7 +142,7 @@ export default {
         font-size: .34rem;
         line-height: .48rem;
         color: rgba(255, 255, 255, 1);
-        background: linear-gradient(154deg,rgba(84,171,255,1) 0%,rgba(42,115,253,1) 100%);
+        background: linear-gradient(153deg, rgba(78,173,243,1) 0%, rgba(157,230,255,1) 100%);
         border-radius: .22rem .22rem 0 0;
         box-sizing: border-box;
     }
@@ -122,6 +150,7 @@ export default {
     &-group {
         display: flex;
         flex-direction: column;
+        margin-left: .25rem;
     }
 }
 </style>
