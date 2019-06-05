@@ -1,5 +1,5 @@
 <template>
-<div class="page-example">
+<div class="page-example" @click="handleTest">
     <button @click="visibleDialog = true">open</button>
 
     <tm-dialog v-model="visibleDialog" :before-close="handleBeforeClose" @close="handleClose" @closed="handleClosed" :close-on-click-modal="false" close-position="bottom">
@@ -19,6 +19,9 @@ export default {
     },
 
     methods: {
+        handleTest () {
+            console.log('test')
+        },
         handleOpen () {
             console.log('open')
         },

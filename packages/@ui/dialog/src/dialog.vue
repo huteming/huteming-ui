@@ -1,6 +1,6 @@
 <template>
 <transition name="tm-dialog">
-    <div class="tm-dialog" v-show="normalizedVisible" :style="styles">
+    <div class="tm-dialog" v-show="normalizedVisible" :style="styles" @click.stop>
         <div class="tm-dialog-content">
             <slot></slot>
         </div>
