@@ -36,7 +36,8 @@
         :price="79"
         tip="加入VIP"
         desc="可减20元"
-        btn="支付学费" />
+        btn="支付学费"
+        @click="handleClick" />
 </div>
 </template>
 
