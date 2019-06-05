@@ -25,7 +25,7 @@
     "toa": "cross-env BUILD_MODE=lib vue-cli-service build --target lib --report --name toast --dest packages/@ui/toast/dist packages/@ui/toast/index.js",
     "anchor": "cross-env BUILD_MODE=lib vue-cli-service build --target lib --report --name anchor --dest packages/@ui/anchor/dist packages/@ui/anchor/index.js",
     "dialog": "cross-env BUILD_MODE=lib vue-cli-service build --target lib --report --name dialog --dest packages/@ui/dialog/dist packages/@ui/dialog/index.js",
-    "btp": "cross-env BUILD_MODE=lib vue-cli-service build --target lib --report --name btn-pay --dest packages/@ui/btn-pay/dist packages/@ui/btn-pay/index.js",
+    "btnpay": "cross-env BUILD_MODE=lib vue-cli-service build --target lib --report --name btn-pay --dest packages/@ui/btn-pay/dist packages/@ui/btn-pay/index.js",
     "car": "cross-env BUILD_MODE=lib vue-cli-service build --target lib --report --name carousel --dest packages/@ui/carousel/dist packages/@ui/carousel/index.js",
     "cai": "cross-env BUILD_MODE=lib vue-cli-service build --target lib --report --name carousel-item --dest packages/@ui/carousel-item/dist packages/@ui/carousel-item/index.js",
     "clo": "cross-env BUILD_MODE=lib vue-cli-service build --target lib --report --name clocker --dest packages/@ui/clocker/dist packages/@ui/clocker/index.js",
@@ -51,7 +51,7 @@
     "tool": "cross-env BUILD_MODE=lib vue-cli-service build --target lib --report --name tool --dest packages/@util/tool/dist packages/@util/tool/index.js",
     "validator": "cross-env BUILD_MODE=lib vue-cli-service build --target lib --report --name validator --dest packages/@util/validator/dist packages/@util/validator/index.js",
     "wxsdk": "cross-env BUILD_MODE=lib vue-cli-service build --target lib --report --name wxsdk --dest packages/@util/wxsdk/dist packages/@util/wxsdk/index.js",
-    "ele": "cross-env BUILD_MODE=lib vue-cli-service build --target lib --report --name element --dest packages/@util/element/dist packages/@util/element/index.js",
+    "element": "cross-env BUILD_MODE=lib vue-cli-service build --target lib --report --name element --dest packages/@util/element/dist packages/@util/element/index.js",
     "help:inspect": "vue-cli-service inspect --mode development",
     "help:unit": "vue-cli-service test:unit help"
   },

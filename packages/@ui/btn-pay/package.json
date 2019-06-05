@@ -3,7 +3,9 @@
   "version": "1.0.1-alpha.2",
   "description": "支付按钮",
   "main": "dist/btn-pay.common.js",
-  "scripts": {},
+  "scripts": {
+    "prepublishOnly": "node ../../../prepublishOnly.js btnpay"
+  },
   "author": "",
   "license": "ISC"
 }
