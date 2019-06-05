@@ -1,6 +1,6 @@
 <template>
 <div class="tm-pay">
-    <template v-if="!btnOnly">
+    <div class="tm-pay-container" v-if="!btnOnly">
         <template v-if="price">
             <div class="tm-pay-prefix">{{ pricePrefix }}</div>
             <div class="tm-pay-price">{{ price | tofixed(2, true) }}</div>
@@ -10,14 +10,14 @@
         </template>
 
         <div class="tm-pay-group">
-            <div class="tm-pay-text" v-if="tip">{{ tip }}</div>
+            <div class="tm-pay-desc" v-if="tip">{{ tip }}</div>
             <div class="tm-pay-through" v-else>{{ through }}</div>
 
-            <div class="tm-pay-text" :style="descStyle">{{ desc }}</div>
+            <div class="tm-pay-desc" :style="descStyle">{{ desc }}</div>
         </div>
-    </template>
+    </div>
 
-    <div class="tm-pay-btn" :style="btnStyle" @click="handleClick">
+    <div class="tm-pay-btn" :style="normalizedBtnStyle" @click="handleClick">
         <slot name="btn">{{ btn }}</slot>
     </div>
 </div>
@@ -56,6 +56,16 @@ export default {
     },
 
     computed: {
+        normalizedBtnStyle () {
+            const _style = {}
+
+            // 只显示按钮时，默认没有圆角
+            if (this.btnOnly) {
+                _style['border-radius'] = 0
+            }
+
+            return Object.assign(_style, this.btnStyle)
+        },
     },
 
     methods: {
@@ -76,14 +86,33 @@ export default {
     width: 100%;
     height: 1.2rem;
     display: flex;
-    align-items: center;
+    align-items: flex-end;
     background-color: #fff;
-    box-shadow: 0 -.08rem .2rem -.2rem rgba(99,150,247,0.6);
     box-sizing: border-box;
 
     &-container {
-        padding: .18rem .4rem .16rem .48rem;
+        width: calc(100% - 2.58rem);
+        height: 1rem;
+        display: flex;
+        align-items: center;
+        padding: 0 .4rem 0 .48rem;
         box-shadow: 0 -.08rem .2rem -.2rem rgba(99,150,247,0.6);
+        box-sizing: border-box;
+    }
+
+    &-btn {
+        flex: 1;
+        height: 1.2rem;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: .34rem;
+        line-height: .48rem;
+        color: rgba(255, 255, 255, 1);
+        font-weight: 500;
+        background: linear-gradient(153deg, rgba(78,173,243,1) 0%, rgba(157,230,255,1) 100%);
+        border-radius: .22rem .22rem 0 0;
+        box-sizing: border-box;
     }
 
     &-prefix {
@@ -123,33 +152,17 @@ export default {
         }
     }
 
-    &-text {
+    &-desc {
         font-size: .26rem;
         line-height: .4rem;
         color: rgba(34, 34, 34, 1);
-        letter-spacing: 1px;
-    }
-
-    &-btn {
-        position: absolute;
-        right: 0;
-        bottom: 0;
-        width: 2.58rem;
-        height: 1.2rem;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        font-size: .34rem;
-        line-height: .48rem;
-        color: rgba(255, 255, 255, 1);
-        background: linear-gradient(153deg, rgba(78,173,243,1) 0%, rgba(157,230,255,1) 100%);
-        border-radius: .22rem .22rem 0 0;
-        box-sizing: border-box;
+        letter-spacing: .5px;
     }
 
     &-group {
         display: flex;
         flex-direction: column;
+        align-items: flex-start;
         margin-left: .25rem;
     }
 }
