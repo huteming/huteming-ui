@@ -1,9 +1,11 @@
-import { __RewireAPI__ as WxsdkRewireAPI, wxConfig, mapApis, wxSave, wxHide } from 'web-util/wxsdk/src/main'
+import { __RewireAPI__ as WxsdkRewireAPI, wxConfig, mapApis, wxSave, wxHide, wxLocation } from 'web-util/wxsdk/src/main'
 import assert from 'assert'
 import sinon from 'sinon'
 let config
+let location
 let hideMenuItems
 const FLAG_FAILURE = 'failure'
+const FLAG_SUCCESS = 'success'
 const AppId = 'AppId'
 const Timestamp = 'Timestamp'
 const NonceStr = 'NonceStr'
@@ -14,6 +16,7 @@ const longitude = 'longitude'
 describe('wxsdk', () => {
     beforeEach(async () => {
         config = sinon.fake()
+        location = sinon.fake()
         hideMenuItems = sinon.fake()
 
         WxsdkRewireAPI.__Rewire__('getWxConfig', () => {
@@ -43,17 +46,18 @@ describe('wxsdk', () => {
             config (...args) {
                 config(...args)
                 setTimeout(() => {
-                    if (global.window.__wx === FLAG_FAILURE) {
-                        return this.onerror({ errMsg: 'message' })
+                    if (global.__wx === FLAG_FAILURE) {
+                        return this.onerror({ errMsg: 'config' })
                     }
                     this.onready()
                 }, 5)
             },
             getLocation (options) {
+                location(options)
                 const { success, fail } = options
                 setTimeout(() => {
-                    if (global.window.__wx === FLAG_FAILURE) {
-                        return fail({ errMsg: 'message' })
+                    if (global.__wx === FLAG_FAILURE) {
+                        return fail({ errMsg: 'location' })
                     }
                     success({ latitude, longitude })
                 })
@@ -72,7 +76,8 @@ describe('wxsdk', () => {
         sinon.restore()
         WxsdkRewireAPI.__ResetDependency__('getWxConfig')
         WxsdkRewireAPI.__ResetDependency__('getPayConfig')
-        global.wx = undefined
+        global.wx = null
+        global.__wx = FLAG_SUCCESS
     })
 
     describe('wxConfig', () => {
@@ -128,18 +133,20 @@ describe('wxsdk', () => {
             assert.deepStrictEqual(spyCall.args[0], data)
         })
 
-        it('注册异常捕获', done => {
-            global.window.__wx = FLAG_FAILURE
-            wxConfig(true, 'flag')
-                .then(() => {
-                    done(new Error('非期望异常'))
-                })
-                .catch(err => {
-                    assert.strictEqual(err.message, '签名失败; message')
-                    global.window.__wx = undefined
-                    done()
-                })
-        })
+        // it('注册异常捕获', done => {
+        //     global.__wx = FLAG_FAILURE
+        //     wxConfig(true, 'flag')
+        //         .then(() => {
+        //             done(new Error('非期望异常'))
+        //         })
+        //         .catch(err => {
+        //             assert.strictEqual(err.message, '签名失败; config')
+        //             done()
+        //         })
+        //         .finally(() => {
+        //             global.__wx = FLAG_SUCCESS
+        //         })
+        // })
     })
 
     describe('wxSave', () => {
@@ -185,22 +192,42 @@ describe('wxsdk', () => {
     })
 
     describe('wxLocation', () => {
-        it('获取当前wxConfig', async () => {
-            // console.log(global.window.__wx)
-            // const fake = sinon.fake.resolves()
-            // WxsdkRewireAPI.__Rewire__('getPayConfig', fake)
-            // await wxLocation()
-            // assert.ok(fake.calledWithExactly(false))
-            // WxsdkRewireAPI.__ResetDependency__('getWxConfig')
+        const fake = sinon.fake()
+        const res = {
+            hello: 'hello',
+        }
+
+        beforeEach(() => {
+            WxsdkRewireAPI.__Rewire__('parseGeocoder', (params) => {
+                fake(params)
+                return Promise.resolve(res)
+            })
         })
 
-        it('wx.getLocation参数格式', () => {})
+        afterEach(() => {
+            WxsdkRewireAPI.__ResetDependency__('parseGeocoder')
+        })
 
-        it('wx.getLocation异常', () => {})
+        it('获取当前wxConfig', async () => {
+            await wxLocation()
+            assert.ok(config.notCalled)
+        })
 
-        it('parseGeocoder接收wx.getLocation返回参数', () => {})
+        it('调用wx.getLocation', async () => {
+            await wxLocation()
+            assert.ok(location.called)
+        })
 
-        it('返回parseGeocoder的结果', () => {})
+        it('parseGeocoder接收wx.getLocation返回参数', async () => {
+            await wxLocation()
+            const spyCall = fake.getCall(0)
+            assert.deepStrictEqual(spyCall.args[0], { lat: latitude, lng: longitude, type: 'wgs84ll' })
+        })
+
+        it('返回parseGeocoder的结果', async () => {
+            const data = await wxLocation()
+            assert.strictEqual(data, res)
+        })
     })
 
     describe('wxShare', () => {})

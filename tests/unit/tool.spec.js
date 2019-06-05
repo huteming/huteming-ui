@@ -2,6 +2,7 @@ import assert from 'assert'
 import * as tool from 'web-util/tool/src/main'
 const LOAD_FAILURE_SRC = 'LOAD_FAILURE_SRC'
 const LOAD_SUCCESS_SRC = 'LOAD_SUCCESS_SRC'
+const IMG_SUFFIX = 'tommy'
 
 describe('tool', () => {
     describe('isWeixinBrowser', () => {
@@ -170,20 +171,40 @@ describe('tool', () => {
             assert.strictEqual(img.getAttribute('crossOrigin'), 'anonymous')
         })
 
-        it('默认使用缓存', async () => {
+        it('添加时间戳查询参数', async () => {
             const img = await tool.loadImages(LOAD_SUCCESS_SRC)
-            assert.strictEqual(img.getAttribute('src'), LOAD_SUCCESS_SRC)
+            const src = img.getAttribute('src')
+            assert.strictEqual(src, `${LOAD_SUCCESS_SRC}?timestamp=${IMG_SUFFIX}`)
+        })
+
+        it('默认使用缓存', async () => {
+            const img1 = await tool.loadImages(LOAD_SUCCESS_SRC)
+            const src1 = img1.getAttribute('src')
+
+            const img2 = await tool.loadImages(LOAD_SUCCESS_SRC)
+            const src2 = img2.getAttribute('src')
+
+            assert.strictEqual(src1, src2)
         })
 
         it('使用缓存', async () => {
-            const img = await tool.loadImages(LOAD_SUCCESS_SRC, true)
-            assert.strictEqual(img.getAttribute('src'), LOAD_SUCCESS_SRC)
+            const img1 = await tool.loadImages(LOAD_SUCCESS_SRC, true)
+            const src1 = img1.getAttribute('src')
+
+            const img2 = await tool.loadImages(LOAD_SUCCESS_SRC, true)
+            const src2 = img2.getAttribute('src')
+
+            assert.strictEqual(src1, src2)
         })
 
-        it('添加时间戳禁止缓存', async () => {
-            const img = await tool.loadImages(LOAD_SUCCESS_SRC, false)
-            const src = img.getAttribute('src')
-            assert.ok(src.startsWith(`${LOAD_SUCCESS_SRC}?timestamp=`))
+        it('禁止缓存', async () => {
+            const img1 = await tool.loadImages(LOAD_SUCCESS_SRC, false)
+            const src1 = img1.getAttribute('src')
+
+            const img2 = await tool.loadImages(LOAD_SUCCESS_SRC, false)
+            const src2 = img2.getAttribute('src')
+
+            assert.notStrictEqual(src1, src2)
         })
 
         it('查询参数分隔符', async () => {
@@ -195,15 +216,12 @@ describe('tool', () => {
         it('加载一张图片', async () => {
             const img = await tool.loadImages(LOAD_SUCCESS_SRC)
             assert.ok(img instanceof HTMLImageElement)
-            assert.strictEqual(img.src, LOAD_SUCCESS_SRC)
         })
 
         it('加载多张图片', async () => {
             const [img1, img2] = await tool.loadImages([LOAD_SUCCESS_SRC, LOAD_SUCCESS_SRC])
             assert.ok(img1 instanceof HTMLImageElement)
             assert.ok(img2 instanceof HTMLImageElement)
-            assert.strictEqual(img1.src, LOAD_SUCCESS_SRC)
-            assert.strictEqual(img2.src, LOAD_SUCCESS_SRC)
         })
 
         it('异常处理', done => {
@@ -212,7 +230,7 @@ describe('tool', () => {
                     done(new Error('非期望异常'))
                 })
                 .catch(err => {
-                    assert.strictEqual(err.message, `渲染地址错误;实际:${LOAD_FAILURE_SRC}`)
+                    assert.strictEqual(err.message, `渲染地址错误;实际:${LOAD_FAILURE_SRC}?timestamp=${IMG_SUFFIX}`)
                     done()
                 })
         })

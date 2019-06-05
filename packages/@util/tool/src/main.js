@@ -1,3 +1,5 @@
+const IMG_SUFFIX = 'tommy'
+
 /**
  * 是否微信内
  */
@@ -98,11 +100,10 @@ export function parseQuery (target) {
 function loadImageSingle (url, useCache) {
     return new Promise((resolve, reject) => {
         const img = new Image()
-        if (!useCache) {
-            const separator = url.indexOf('?') > -1 ? '&' : '?'
-            url = `${url}${separator}timestamp=${Date.now()}`
-        }
         img.setAttribute('crossOrigin', 'anonymous')
+
+        const separator = url.indexOf('?') > -1 ? '&' : '?'
+        url = `${url}${separator}timestamp=${useCache ? IMG_SUFFIX : Date.now()}`
 
         img.onload = function () {
             resolve(img)
