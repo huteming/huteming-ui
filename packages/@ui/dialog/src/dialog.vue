@@ -10,7 +10,7 @@
         </div>
 
         <div class="tm-dialog-cancel" :class="`tm-dialog-cancel_${closePosition}`" @click="handleClose" v-if="closePosition">
-            <img src="./images/close.png" alt="" style="display: block; width: 25px; height: 25px;" />
+            <img src="./images/icon-close.png" alt="" style="display: block; width: 100%;" />
         </div>
     </div>
 </transition>

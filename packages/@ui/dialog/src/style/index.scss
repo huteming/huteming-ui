@@ -15,17 +15,20 @@
 
     &-footer {
         width: 100%;
-        margin-top: 20px;
+        margin-top: .4rem;
     }
 
     &-cancel {
-        line-height: 1;
+        width: .74rem;
+        height: .74rem;
 
         &_out-right {
             position: absolute;
             top: 0;
             right: 0;
             transform: translate(100%, -100%);
+            width: .5rem;
+            height: .5rem;
         }
 
         &_out-left {
@@ -33,6 +36,8 @@
             top: 0;
             left: 0;
             transform: translate(-100%, -100%);
+            width: .5rem;
+            height: .5rem;
         }
 
         &_in-right {
@@ -40,6 +45,8 @@
             top: 0;
             right: 0;
             transform: translate(-50%, 50%);
+            width: .5rem;
+            height: .5rem;
         }
 
         &_in-left {
@@ -47,11 +54,13 @@
             top: 0;
             left: 0;
             transform: translate(50%, 50%);
+            width: .5rem;
+            height: .5rem;
         }
 
         &_bottom {
             position: relative;
-            margin-top: 25px;
+            margin-top: .4rem;
         }
     }
 }
