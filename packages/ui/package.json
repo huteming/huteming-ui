@@ -1,6 +1,6 @@
 {
   "name": "@huteming/ui",
-  "version": "1.2.7",
+  "version": "1.2.8",
   "description": "ui 组件的统一入口",
   "main": "dist/huteming-ui.common.js",
   "scripts": {
@@ -12,7 +12,7 @@
     "@huteming/ui-anchor": "^1.0.2",
     "@huteming/ui-btn-pay": "^1.0.1",
     "@huteming/ui-clocker": "^1.0.1-alpha.2",
-    "@huteming/ui-dialog": "^1.0.2-alpha.4",
+    "@huteming/ui-dialog": "^1.0.2",
     "@huteming/ui-infinite-scroll": "^1.0.2-alpha.3",
     "@huteming/ui-message": "^1.0.1-alpha.1",
     "@huteming/ui-picker-address": "^1.0.1-alpha.1",
