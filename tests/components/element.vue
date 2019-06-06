@@ -1,0 +1,31 @@
+<template>
+<div class="element">
+    <div class="empty" ref="empty"></div>
+
+    <div id="container" class="container" ref="container" style="width: 100px; height: 100px; overflow: auto;">
+        <div class="container-over" ref="over" style="width: 400px; height: 400px;"></div>
+    </div>
+
+    <button id="scrollX" ref="scrollX" @click="handleScrollX">scrollX</button>
+    <button id="scrollY" @click="handleScrollY">scrollY</button>
+    <button id="scroll" @click="handleScroll">scroll</button>
+</div>
+</template>
+
+<script>
+import { scrollX, scrollY, scrollTo } from 'web-util/element/src/main'
+
+export default {
+    methods: {
+        handleScrollX () {
+            scrollX(this.$refs.container, 20)
+        },
+        handleScrollY () {
+            scrollY(this.$refs.container, 20)
+        },
+        handleScroll () {
+            scrollTo(this.$refs.container, 40, 40)
+        },
+    },
+}
+</script>

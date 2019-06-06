@@ -98,16 +98,22 @@ function isAttached (element) {
 }
 
 export function isYScrollable (element) {
-    const overflowY = getComputedStyle(element).overflowY
-    if (overflowY === 'scroll' || overflowY === 'auto') {
+    const { overflow, overflowY } = window.getComputedStyle(element)
+    const inOverflow = overflow === 'scroll' || overflow === 'auto'
+    const inOverflowY = overflowY === 'scroll' || overflowY === 'auto'
+
+    if (inOverflow || inOverflowY) {
         return true
     }
     return false
 }
 
 export function isXScrollable (element) {
-    const overflowX = getComputedStyle(element).overflowX
-    if (overflowX === 'scroll' || overflowX === 'auto') {
+    const { overflow, overflowX } = window.getComputedStyle(element)
+    const inOverflow = overflow === 'scroll' || overflow === 'auto'
+    const inOverflowX = overflowX === 'scroll' || overflowX === 'auto'
+
+    if (inOverflow || inOverflowX) {
         return true
     }
     return false
