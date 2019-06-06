@@ -1,9 +1,14 @@
-import { __RewireAPI__ as WxsdkRewireAPI, wxConfig, mapApis, wxSave, wxHide, wxLocation } from 'web-util/wxsdk/src/main'
+import { __RewireAPI__ as WxsdkRewireAPI, wxConfig, mapApis, wxSave, wxHide, wxShare } from 'web-util/wxsdk/src/main'
 import assert from 'assert'
 import sinon from 'sinon'
+import qs from 'qs'
 let config
 let location
 let hideMenuItems
+let showMenuItems
+let onShare
+let invoke
+let mockSign
 const FLAG_FAILURE = 'failure'
 const FLAG_SUCCESS = 'success'
 const AppId = 'AppId'
@@ -12,12 +17,29 @@ const NonceStr = 'NonceStr'
 const Signature = 'Signature'
 const latitude = 'latitude'
 const longitude = 'longitude'
+const resGetPayConfig = {
+    b: 'a',
+    j: 'e',
+}
+const href = `http://localhost?mainUnion=mainUnionaaa&subUnion=subUnionaaa`
+let originWindow
 
 describe('wxsdk', () => {
     beforeEach(async () => {
+        originWindow = global.window
         config = sinon.fake()
         location = sinon.fake()
         hideMenuItems = sinon.fake()
+        showMenuItems = sinon.fake()
+        onShare = sinon.fake()
+        invoke = sinon.fake()
+        mockSign = sinon.fake.resolves()
+
+        const _onShare = (options) => {
+            onShare(options)
+            const { success } = options
+            success()
+        }
 
         WxsdkRewireAPI.__Rewire__('getWxConfig', () => {
             return Promise.resolve({
@@ -28,15 +50,29 @@ describe('wxsdk', () => {
         })
 
         WxsdkRewireAPI.__Rewire__('getPayConfig', () => {
+            // setTimeout(() => {
+            //     const event = new Event('WeixinJSBridgeReady')
+            //     document.dispatchEvent(event)
+            // }, 5)
             return Promise.resolve({
                 data: {
-                    data: { AppId, Timestamp, NonceStr, Signature },
+                    data: JSON.stringify(resGetPayConfig),
                 }
             })
         })
 
-        global.WeixinJSBridge = {
+        WxsdkRewireAPI.__Rewire__('sign', mockSign)
 
+        global.window = {
+            WeixinJSBridge: {
+                invoke (str, obj, fn) {
+                    invoke(...arguments)
+                    fn({ err_msg: 'get_brand_wcpay_request:ok' })
+                },
+            },
+            location: {
+                href,
+            },
         }
 
         global.wx = {
@@ -69,6 +105,9 @@ describe('wxsdk', () => {
                 this.onready = callback
             },
             hideMenuItems,
+            showMenuItems,
+            onMenuShareTimeline: onShare,
+            onMenuShareAppMessage: _onShare,
         }
     })
 
@@ -76,8 +115,10 @@ describe('wxsdk', () => {
         sinon.restore()
         WxsdkRewireAPI.__ResetDependency__('getWxConfig')
         WxsdkRewireAPI.__ResetDependency__('getPayConfig')
+        WxsdkRewireAPI.__ResetDependency__('sign')
         global.wx = null
         global.__wx = FLAG_SUCCESS
+        global.window = originWindow
     })
 
     describe('wxConfig', () => {
@@ -133,41 +174,28 @@ describe('wxsdk', () => {
             assert.deepStrictEqual(spyCall.args[0], data)
         })
 
-        // it('注册异常捕获', done => {
-        //     global.__wx = FLAG_FAILURE
-        //     wxConfig(true, 'flag')
-        //         .then(() => {
-        //             done(new Error('非期望异常'))
-        //         })
-        //         .catch(err => {
-        //             assert.strictEqual(err.message, '签名失败; config')
-        //             done()
-        //         })
-        //         .finally(() => {
-        //             global.__wx = FLAG_SUCCESS
-        //         })
-        // })
+        it('注册异常捕获', done => {
+            global.__wx = FLAG_FAILURE
+            wxConfig(true, 'flag')
+                .then(() => {
+                    done(new Error('非期望异常'))
+                })
+                .catch(err => {
+                    assert.strictEqual(err.message, '签名失败; config')
+                    done()
+                })
+                .finally(() => {
+                    // 因为 wxConfig 是一个闭包，这里还原内部 Promise 为 resolve 状态
+                    global.__wx = FLAG_SUCCESS
+                    wxConfig(true, 'flag')
+                })
+        })
     })
 
     describe('wxSave', () => {
-        let originWindow
-
-        before(() => {
-            originWindow = global.window
-            global.window = {
-                location: {
-                    href: 'before#after'
-                },
-            }
-        })
-
-        after(() => {
-            global.window = originWindow
-        })
-
         it('默认获取浏览器地址', () => {
             const url = wxSave()
-            assert.strictEqual(url, 'before')
+            assert.strictEqual(url, href)
         })
 
         it('安卓环境 + url = href', () => {
@@ -175,7 +203,7 @@ describe('wxsdk', () => {
             wxSave('hello')
 
             const url = wxSave()
-            assert.strictEqual(url, 'before')
+            assert.strictEqual(url, href)
 
             global.window.__wxjs_is_wkwebview = undefined
         })
@@ -191,53 +219,82 @@ describe('wxsdk', () => {
         })
     })
 
-    describe('wxLocation', () => {
-        const fake = sinon.fake()
-        const res = {
-            hello: 'hello',
-        }
-
-        beforeEach(() => {
-            WxsdkRewireAPI.__Rewire__('parseGeocoder', (params) => {
-                fake(params)
-                return Promise.resolve(res)
-            })
-        })
-
-        afterEach(() => {
-            WxsdkRewireAPI.__ResetDependency__('parseGeocoder')
-        })
-
+    describe('wxShare', () => {
         it('获取当前wxConfig', async () => {
-            await wxLocation()
+            await wxShare()
             assert.ok(config.notCalled)
         })
 
-        it('调用wx.getLocation', async () => {
-            await wxLocation()
-            assert.ok(location.called)
+        it('调用wx.showMenuItems', async () => {
+            await wxShare()
+            const spyCall = showMenuItems.getCall(0)
+            assert.deepStrictEqual(spyCall.args[0], {
+                menuList: [
+                    'menuItem:share:timeline',
+                    'menuItem:share:appMessage'
+                ]
+            })
         })
 
-        it('parseGeocoder接收wx.getLocation返回参数', async () => {
-            await wxLocation()
-            const spyCall = fake.getCall(0)
-            assert.deepStrictEqual(spyCall.args[0], { lat: latitude, lng: longitude, type: 'wgs84ll' })
+        it('调用wx.onMenuShareTimeline && wx.onMenuShareAppMessage', async () => {
+            await wxShare()
+            assert.strictEqual(onShare.callCount, 2)
         })
 
-        it('返回parseGeocoder的结果', async () => {
-            const data = await wxLocation()
-            assert.strictEqual(data, res)
+        it('绝对路径自动补全', async () => {
+            const link = '/test/test'
+            const options = {
+                link,
+            }
+            const resOptions = await wxShare(options)
+            assert.strictEqual(resOptions.link, `${global.window.location.origin}${link}`)
         })
-    })
 
-    describe('wxShare', () => {})
+        it('调用自定义统计', async () => {
+            await wxShare()
+            const spyCall = mockSign.getCall(0)
+            assert.strictEqual(spyCall.args[0], '')
+            assert.strictEqual(spyCall.args[1], '')
+            assert.deepStrictEqual(spyCall.args[2], { type: 'share' })
+        })
 
-    describe('wxpay', () => {
-        it('onBridgeReady:success', () => {})
+        it('自定义success回调', async () => {
+            const success = sinon.fake()
+            await wxShare({ success })
+            assert.ok(success.called)
+        })
 
-        it('onBridgeReady:error', () => {})
+        it('添加渠道参数', async () => {
+            const resOptions = await wxShare({ channel: true, link: '/hello' })
+            const { mainUnion, subUnion } = qs.parse(resOptions.link.split('?')[1], { ignoreQueryPrefix: true })
+            assert.strictEqual(mainUnion, 'mainUnionaaa')
+            assert.strictEqual(subUnion, 'subUnionaaa')
+        })
 
-        it('getPayConfig:error', () => {})
+        it('添加查询参数', async () => {
+            const query = [
+                {
+                    key: 'qq',
+                    value: 'qq',
+                },
+            ]
+            const resOptions = await wxShare({ query })
+            const { qq } = qs.parse(resOptions.link.split('?')[1], { ignoreQueryPrefix: true })
+            assert.strictEqual(qq, 'qq')
+        })
+
+        it('查询参数可以强制覆盖渠道参数', async () => {
+            const query = [
+                {
+                    key: 'mainUnion',
+                    value: 'qq',
+                    force: true,
+                },
+            ]
+            const resOptions = await wxShare({ query, channel: true })
+            const { mainUnion } = qs.parse(resOptions.link.split('?')[1], { ignoreQueryPrefix: true })
+            assert.strictEqual(mainUnion, 'qq')
+        })
     })
 
     describe('wxHide', () => {

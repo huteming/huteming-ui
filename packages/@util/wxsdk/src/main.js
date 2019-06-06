@@ -85,16 +85,14 @@ export async function wxLocation () {
 }
 
 /**
- * 分享
+ * 分享。jssdk说明文档：https://mp.weixin.qq.com/wiki?t=resource/res_main&id=mp1421141115
  */
+const defaultOption = {
+    link: window.location.href, // 分享链接，该链接域名或路径必须与当前页面对应的公众号JS安全域名一致
+    imgUrl: 'http://jhsy-img.caizhu.com/jhsy/images/logo-white.png', // 分享图标
+}
+
 export async function wxShare (options) {
-    const defaultOption = {
-        link: window.location.href, // 分享链接，该链接域名或路径必须与当前页面对应的公众号JS安全域名一致
-        imgUrl: 'http://jhsy-img.caizhu.com/jhsy/images/logo-white.png', // 分享图标
-        success () {
-            console.log('share success')
-        },
-    }
     options = Object.assign({}, defaultOption, options)
 
     // link
@@ -108,7 +106,9 @@ export async function wxShare (options) {
         // 自己的统计
         sign('', '', { type: 'share' })
 
-        success()
+        if (typeof success === 'function') {
+            success()
+        }
     }
 
     // 添加渠道参数
@@ -133,6 +133,8 @@ export async function wxShare (options) {
     // wx.updateTimelineShareData(options)
     wx.onMenuShareAppMessage(options)
     // wx.updateAppMessageShareData(options)
+
+    return options
 }
 
 /**
@@ -250,7 +252,7 @@ function getLocation () {
             },
 
             fail (err) {
-                reject(new Error(`定位失败;${err.errMsg || err.message}`))
+                reject(new Error(`定位失败: ${err.errMsg || err.message}`))
             },
         })
     })
@@ -265,13 +267,12 @@ function onBridgeReady (paramsStr, resolve, reject) {
             'getBrandWCPayRequest',
             JSON.parse(paramsStr),
             function (res) {
-                console.log(res)
                 switch (res.err_msg) {
                 case 'get_brand_wcpay_request:ok': //  支付成功
                     resolve()
                     break
                 default: // 统一认为支付失败（可能为取消支付）
-                    reject(new Error(`支付失败,可能原因:${res.err_msg}`))
+                    reject(new Error(`支付失败: ${res.err_msg}`))
                     break
                 }
             }

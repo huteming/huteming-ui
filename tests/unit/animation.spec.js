@@ -17,7 +17,9 @@ describe('animation', () => {
             await sleep(defaultDuration + 10)
 
             for (let i = 1; i <= count; i++) {
-                assert(callback.calledWithMatch(animation.tween[type](i, from, to - from, count), i === count), `第 ${i} 次回调位置错误`)
+                const [position, isDone] = callback.getCall(i - 1).args
+                assert.strictEqual(position, animation.tween[type](i, from, to - from, count), `第 ${i} 次回调位置错误`)
+                assert.strictEqual(isDone, i === count, `第 ${i} 次完成状况错误`)
             }
         }
 
@@ -78,5 +80,43 @@ describe('animation', () => {
         await sleep(20)
 
         assert(callback.called === false)
+    })
+
+    it('利用requestAnimationFrame进行动画', () => {
+        const originWindow = global.window
+        const mockAnimation = sinon.fake()
+
+        global.window = {
+            requestAnimationFrame: (callback) => {
+                mockAnimation(callback)
+            },
+        }
+        animation.linear(0, 10, sinon.fake(), 20)
+        assert.strictEqual(mockAnimation.callCount, 1)
+
+        global.window = originWindow
+    })
+
+    it('requestAnimationFrame兼容', () => {
+        const originWindow = global.window
+        const originTimeout = global.setTimeout
+        const mockTimeout = sinon.fake()
+        const mockFn = sinon.fake()
+
+        global.window = {
+            requestAnimationFrame: null
+        }
+        global.setTimeout = mockTimeout
+
+        animation.linear(0, 10, sinon.fake(), 10)
+        global.window.requestAnimationFrame(mockFn)
+
+        const spyCall = mockTimeout.getCall(0)
+        const [arg1, arg2] = spyCall.args
+        assert.strictEqual(arg1, mockFn)
+        assert.strictEqual(arg2, 17)
+
+        global.window = originWindow
+        global.setTimeout = originTimeout
     })
 })
