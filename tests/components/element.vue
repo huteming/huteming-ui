@@ -6,20 +6,20 @@
         <div class="container-over" ref="over" style="width: 400px; height: 400px;"></div>
     </div>
 
-    <button id="scrollX" ref="scrollX" @click="handleScrollX">scrollX</button>
-    <button id="scrollY" @click="handleScrollY">scrollY</button>
-    <button id="scroll" @click="handleScroll">scroll</button>
+    <button id="scrollY" ref="scrollY" @click="handleScrollY">scrollY</button>
+    <button id="scroll" ref="scroll" @click="handleScroll">scroll</button>
+
+    <div style="height: 120vh;"></div>
+
+    <div class="footer">footer</div>
 </div>
 </template>
 
 <script>
-import { scrollX, scrollY, scrollTo } from 'web-util/element/src/main'
+import { scrollY, scrollTo } from 'web-util/element/src/main'
 
 export default {
     methods: {
-        handleScrollX () {
-            scrollX(this.$refs.container, 20)
-        },
         handleScrollY () {
             scrollY(this.$refs.container, 20)
         },

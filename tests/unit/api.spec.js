@@ -13,9 +13,11 @@ let jsonp
 
 describe('api', () => {
     let originWindow
+    let originDocument
 
     beforeEach(() => {
         originWindow = global.window
+        originDocument = global.document
 
         global.window = {
             location: {
@@ -46,6 +48,7 @@ describe('api', () => {
     afterEach(() => {
         sinon.restore()
         global.window = originWindow
+        global.document = originDocument
     })
 
     describe('sign', () => {

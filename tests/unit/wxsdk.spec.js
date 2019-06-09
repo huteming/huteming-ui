@@ -50,10 +50,6 @@ describe('wxsdk', () => {
         })
 
         WxsdkRewireAPI.__Rewire__('getPayConfig', () => {
-            // setTimeout(() => {
-            //     const event = new Event('WeixinJSBridgeReady')
-            //     document.dispatchEvent(event)
-            // }, 5)
             return Promise.resolve({
                 data: {
                     data: JSON.stringify(resGetPayConfig),
