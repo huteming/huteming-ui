@@ -226,7 +226,7 @@ function waiting () {
         const delay = 800
 
         wx.error(err => {
-            reject(new Error(`签名失败; ${err.errMsg}`))
+            reject(new Error(`签名失败: ${err.errMsg}`))
         })
 
         wx.ready(() => {

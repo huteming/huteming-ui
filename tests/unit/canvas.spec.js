@@ -59,7 +59,7 @@ describe('canvas', () => {
         })
     })
 
-    describe('done',  () => {
+    describe('done', () => {
         it('第一个参数为图片类型', () => {
             const canvas = new CanvasDraw()
             const toDataURL = sinon.fake()
