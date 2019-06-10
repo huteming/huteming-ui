@@ -1,3 +1,5 @@
+import log from 'web/assets/js/log'
+
 /**
  * @argument {*Number} width 设计稿上画布宽度
  * @argument {*Number} height 设计稿上画布高度
@@ -5,7 +7,7 @@
  * @argument {Number} designWidth 设计稿标准宽度
  */
 export default class Canvas {
-    constructor (width, height, { designWidth = 750 } = {}) {
+    constructor (width = 750, height = 1206, { designWidth = 750 } = {}) {
         const { context, canvas, canvasWidth, canvasHeight, ratio } = getCanvasObject(width, height, designWidth)
 
         this.context = context
@@ -33,17 +35,17 @@ export default class Canvas {
             height: this.canvasHeight
         }
 
-        console.log('------------- start -------------')
+        log('------------- start -------------')
         this.context.save()
 
         callback.call(self, self)
 
         this.context.restore()
-        console.log('------------- end -------------')
+        log('------------- end -------------')
     }
 
     done (type = 'png') {
-        console.log('done')
+        log('done')
         return this.canvas.toDataURL(`image/${type}`, 1.0)
     }
 }
@@ -55,9 +57,9 @@ export default class Canvas {
  * @argument {Number} width 设计稿上画布宽度
  * @argument {Number} height 设计稿上画布高度
  *
- * @return {Object} context, canvas, canvasWidth, canvasHeight, ratio
+ * @returns {Object} context, canvas, canvasWidth, canvasHeight, ratio
  */
-function getCanvasObject (width, height, designWidth) {
+export function getCanvasObject (width, height, designWidth) {
     const canvas = document.createElement('canvas')
     const context = canvas.getContext('2d')
 
@@ -81,17 +83,10 @@ function getCanvasObject (width, height, designWidth) {
         canvas,
         canvasWidth: width * ratio,
         canvasHeight: height * ratio,
-        ratio
+        ratio,
     }
 }
 
-/**
- * @argument {*Number} x 左上角 x 坐标
- * @argument {*Number} y 左上角 y 坐标
- * @argument {*Number} r 半径
- *
- * @argument {Object} options 配置
- */
 const defaultArc = {
     startDegrees: 0, // 开始角度
     endDegrees: 360, // 结束角度
@@ -102,11 +97,19 @@ const defaultArc = {
     shadowOffsetY: 0,
     shadowBlur: 2,
     color: '#fff', // 画笔颜色
-    type: 'stroke' // 闭合方式
+    type: 'stroke', // 闭合方式
 }
-
+/**
+ * 绘画圆弧
+ * @argument {*Number} x 左上角 x 坐标
+ * @argument {*Number} y 左上角 y 坐标
+ * @argument {*Number} r 半径
+ * @argument {Object} options 配置
+ *
+ * @returns {Object} options
+ */
 function drawArc (x, y, r, options = {}) {
-    console.log(`draw arc *** x:${x} *** y: ${y} *** r: ${r}`)
+    log(`draw arc *** x:${x} *** y: ${y} *** r: ${r}`)
     const { context, ratio } = this
     const radians = Math.PI / 180
     options = Object.assign({}, defaultArc, options)
@@ -138,28 +141,31 @@ function drawArc (x, y, r, options = {}) {
     context.beginPath()
     context.arc(x, y, r, radians * startDegrees, radians * endDegrees, direction)
     context[type]()
+
+    return options
 }
 
+const defaultRect = {
+    r: 0, // 圆角半径
+    lineWidth: 1,
+    color: '#fff',
+    type: 'fill',
+}
 /**
  * @argument {*Number} x 矩形左上角 x 坐标
  * @argument {*Number} y 矩形左上角 y 坐标
  * @argument {*Number} width 绘制宽度
  * @argument {*Number} height 绘制高度
- * @argument {Number} r 圆角半径
- *
  * @argument {Object} options
+ *
+ * @returns {Object} options
  */
-const defaultRect = {
-    r: 0, // 圆角半径
-    lineWidth: 1,
-    color: '#fff',
-    type: 'fill'
-}
-
 function drawRect (x, y, width, height, options = {}) {
-    console.log(`draw rect *** x: ${x} *** y: ${y} *** width: ${width} *** height: ${height}`)
+    log(`draw rect *** x: ${x} *** y: ${y} *** width: ${width} *** height: ${height}`)
     const { context, ratio } = this
-    let { type, color, r, lineWidth } = Object.assign({}, defaultRect, options)
+    options = Object.assign({}, defaultRect, options)
+
+    let { type, color, r, lineWidth } = options
 
     x *= ratio
     y *= ratio
@@ -183,15 +189,10 @@ function drawRect (x, y, width, height, options = {}) {
     context.arcTo(ptD.x, ptD.y, ptE.x, ptE.y, r)
     context.arcTo(ptE.x, ptE.y, ptA.x, ptA.y, r)
     context[type]()
+
+    return options
 }
 
-/**
- * @argument {*String} text 文本
- * @argument {*Number} x x 坐标
- * @argument {*Number} y y 坐标
- *
- * @argument {Object} options
- */
 const defaultText = {
     prefix: '', // 前缀
     suffix: '', // 后缀
@@ -214,9 +215,16 @@ const defaultText = {
     color: '#000',
     type: 'fill',
 }
-
+/**
+ * @argument {*String} text 文本
+ * @argument {*Number} x x 坐标
+ * @argument {*Number} y y 坐标
+ * @argument {Object} options
+ *
+ * @returns {Object} options
+ */
 function drawText (text, x, y, options = {}) {
-    console.log(`draw text *** text: ${text} *** x: ${x} *** y: ${y}`)
+    log(`draw text *** text: ${text} *** x: ${x} *** y: ${y}`)
     const { context, ratio } = this
     options = Object.assign({}, defaultText, options)
 
@@ -254,6 +262,7 @@ function drawText (text, x, y, options = {}) {
         const prefixWidth = getArrayTextWidth.call(this, prefixArray, letterSpacing, true)
         const suffixWidth = getArrayTextWidth.call(this, suffixArray, letterSpacing, true)
         const textWidth = getArrayTextWidth.call(this, textArray, letterSpacing)
+        // console.log(prefixWidth + suffixWidth + textWidth, context.measureText(fix).width, maxWidth)
 
         if (prefixWidth + suffixWidth + textWidth > maxWidth) {
             const residueWidth = maxWidth - prefixWidth - suffixWidth - context.measureText(fix).width
@@ -288,11 +297,12 @@ function drawText (text, x, y, options = {}) {
     text.forEach((letter) => {
         const letterWidth = context.measureText(letter).width
 
-        if (actualX + letterWidth > maxWidth + x) { // 另起一行画
+        // 另起一行画
+        if (actualX + letterWidth > maxWidth + x) {
             actualX = x
             actualY = actualY + lineHeight
-        } else { // 当前行画
         }
+        // 当前行画
 
         context[`${type}Text`](letter, actualX, actualY)
         actualX += letterWidth + letterSpacing
@@ -300,9 +310,12 @@ function drawText (text, x, y, options = {}) {
 
     // 对齐方式还原
     context.textAlign = align
+
+    return options
 }
 
 function stringToArray (string) {
+    string = string.toString()
     let start = -1
     let end = -1
     const res = []
@@ -331,7 +344,7 @@ function stringToArray (string) {
     return res
 }
 
-function getArrayTextWidth (array, letterSpacing, fix = false) {
+export function getArrayTextWidth (array, letterSpacing, fix = false) {
     const { context } = this
     const length = array.length
     let width = 0
@@ -348,23 +361,25 @@ function getArrayTextWidth (array, letterSpacing, fix = false) {
     return width
 }
 
+const defaultLine = {
+    lineWidth: 1, // 画笔宽度
+    color: '#000',
+}
 /**
  * @argument {*Number} startX 线条开始 x 坐标
  * @argument {*Number} startY 线条开始 y 坐标
  * @argument {*Number} endX 线条结束 y 坐标
  * @argument {*Number} endY 线条结束 y 坐标
- *
  * @argument {Object} options
+ *
+ * @returns {Object} options
  */
-const defaultLine = {
-    lineWidth: 1, // 画笔宽度
-    color: '#000',
-}
-
 function drawLine (startX, startY, endX, endY, options = {}) {
-    console.log(`draw line *** (${startX}, ${startY}) *** (${endX}, ${endY})`)
+    log(`draw line *** (${startX}, ${startY}) *** (${endX}, ${endY})`)
     const { context, ratio } = this
-    const { color, lineWidth } = Object.assign({}, defaultLine, options)
+    options = Object.assign({}, defaultLine, options)
+
+    const { color, lineWidth } = options
 
     startX *= ratio
     startY *= ratio
@@ -373,35 +388,43 @@ function drawLine (startX, startY, endX, endY, options = {}) {
 
     context.strokeStyle = color
     context.lineWidth = lineWidth
+
     context.beginPath()
     context.moveTo(startX, startY)
     context.lineTo(endX, endY)
     context.stroke()
+
+    return options
 }
 
-/**
- * @argument {*Image} image 图片对象
- * @argument {*Number} x 图片左上角 x 坐标
- * @argument {*Number} y 图片左上角 y 坐标
- * @argument {*Number} width 绘制宽度
- * @argument {*Number} height 绘制高度
- */
 const defaultImage = {
     shadowColor: 'rgba(89, 87, 88, 0.79)',
     shadowOffsetX: 0,
     shadowOffsetY: 0,
     shadowBlur: 2,
 }
-
-function drawImage (image, x, y, width, height, options) {
-    console.log(`draw image *** x: ${x} *** y: ${y} *** width: ${width} *** height: ${height} *** ${image.src}`)
+/**
+ * @argument {*Image} image 图片对象
+ * @argument {*Number} x 图片左上角 x 坐标
+ * @argument {*Number} y 图片左上角 y 坐标
+ * @argument {*Number} width 绘制宽度
+ * @argument {*Number} height 绘制高度
+ * @argument {Object} options
+ *
+ * @returns {Object} options
+ */
+function drawImage (image, x, y, width, height, options = {}) {
+    log(`draw image *** x: ${x} *** y: ${y} *** width: ${width} *** height: ${height} *** ${image.src}`)
     const { context, ratio } = this
-    options = Object.assign({}, defaultImage, options || {})
+    options = Object.assign({}, defaultImage, options)
 
     x *= ratio
     y *= ratio
     width *= ratio
     height *= ratio
+    options.shadowOffsetX *= ratio
+    options.shadowOffsetY *= ratio
+    options.shadowBlur *= ratio
 
     const { shadowColor, shadowOffsetX, shadowOffsetY, shadowBlur } = options
 
@@ -411,4 +434,6 @@ function drawImage (image, x, y, width, height, options) {
     context.shadowBlur = shadowBlur
 
     context.drawImage(image, x, y, width, height)
+
+    return options
 }

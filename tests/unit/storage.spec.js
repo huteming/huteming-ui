@@ -79,6 +79,15 @@ describe('storage', () => {
 
             assert(setItem.calledWithExactly(key, JSON.stringify(value)))
         })
+
+        it('value不是对象', () => {
+            const str = 'value'
+            Storage.setLocal(key, str)
+            const [_key, _value] = setItem.getCall(0).args
+
+            assert.strictEqual(_key, key)
+            assert.strictEqual(_value, str)
+        })
     })
 
     describe('removeLocal', () => {
@@ -136,6 +145,15 @@ describe('storage', () => {
             Storage.setSession(key, value)
 
             assert(setItem.calledWithExactly(key, JSON.stringify(value)))
+        })
+
+        it('value不是对象', () => {
+            const str = 'value'
+            Storage.setSession(key, str)
+            const [_key, _value] = setItem.getCall(0).args
+
+            assert.strictEqual(_key, key)
+            assert.strictEqual(_value, str)
         })
     })
 

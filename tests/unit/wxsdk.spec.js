@@ -1,4 +1,4 @@
-import { __RewireAPI__ as WxsdkRewireAPI, wxConfig, mapApis, wxSave, wxHide, wxShare } from 'web-util/wxsdk/src/main'
+import { __RewireAPI__ as WxsdkRewireAPI, wxConfig, mapApis, wxHide, wxShare } from 'web-util/wxsdk/src/main'
 import assert from 'assert'
 import sinon from 'sinon'
 import qs from 'qs'
@@ -17,10 +17,6 @@ const NonceStr = 'NonceStr'
 const Signature = 'Signature'
 const latitude = 'latitude'
 const longitude = 'longitude'
-const resGetPayConfig = {
-    b: 'a',
-    j: 'e',
-}
 const href = `http://localhost?mainUnion=mainUnionaaa&subUnion=subUnionaaa`
 let originWindow
 
@@ -45,14 +41,6 @@ describe('wxsdk', () => {
             return Promise.resolve({
                 data: {
                     data: { AppId, Timestamp, NonceStr, Signature },
-                }
-            })
-        })
-
-        WxsdkRewireAPI.__Rewire__('getPayConfig', () => {
-            return Promise.resolve({
-                data: {
-                    data: JSON.stringify(resGetPayConfig),
                 }
             })
         })
@@ -110,7 +98,6 @@ describe('wxsdk', () => {
     afterEach(() => {
         sinon.restore()
         WxsdkRewireAPI.__ResetDependency__('getWxConfig')
-        WxsdkRewireAPI.__ResetDependency__('getPayConfig')
         WxsdkRewireAPI.__ResetDependency__('sign')
         global.wx = null
         global.__wx = FLAG_SUCCESS
@@ -131,6 +118,12 @@ describe('wxsdk', () => {
 
         it('空注册', async () => {
             await wxConfig(true, 'flag')
+            const spyCall = config.getCall(0)
+            assert.deepStrictEqual(spyCall.args[0].jsApiList, mapApis.get('default'))
+        })
+
+        it('不存在的类型返回空数组', async () => {
+            await wxConfig(['hello'], 'flag')
             const spyCall = config.getCall(0)
             assert.deepStrictEqual(spyCall.args[0].jsApiList, mapApis.get('default'))
         })
@@ -188,33 +181,6 @@ describe('wxsdk', () => {
         })
     })
 
-    describe('wxSave', () => {
-        it('默认获取浏览器地址', () => {
-            const url = wxSave()
-            assert.strictEqual(url, href)
-        })
-
-        it('安卓环境 + url = href', () => {
-            global.window.__wxjs_is_wkwebview = false
-            wxSave('hello')
-
-            const url = wxSave()
-            assert.strictEqual(url, href)
-
-            global.window.__wxjs_is_wkwebview = undefined
-        })
-
-        it('ios + url = url', () => {
-            global.window.__wxjs_is_wkwebview = true
-            wxSave('hello')
-
-            const url = wxSave()
-            assert.strictEqual(url, 'hello')
-
-            global.window.__wxjs_is_wkwebview = undefined
-        })
-    })
-
     describe('wxShare', () => {
         it('获取当前wxConfig', async () => {
             await wxShare()
@@ -267,16 +233,35 @@ describe('wxsdk', () => {
             assert.strictEqual(subUnion, 'subUnionaaa')
         })
 
+        it('地址渠道参数为空', async () => {
+            const _originHref = global.window.location.href
+            global.window.location.href = 'http://localhost'
+
+            try {
+                const resOptions = await wxShare({ channel: true, link: '/hello' })
+                const { mainUnion, subUnion } = qs.parse(resOptions.link.split('?')[1], { ignoreQueryPrefix: true })
+                assert.strictEqual(mainUnion, '')
+                assert.strictEqual(subUnion, '')
+            } finally {
+                global.window.location.href = _originHref
+            }
+        })
+
         it('添加查询参数', async () => {
             const query = [
                 {
                     key: 'qq',
                     value: 'qq',
                 },
+                {
+                    key: 'mainUnion',
+                    value: 'force',
+                },
             ]
-            const resOptions = await wxShare({ query })
-            const { qq } = qs.parse(resOptions.link.split('?')[1], { ignoreQueryPrefix: true })
+            const resOptions = await wxShare({ query, channel: true })
+            const { qq, mainUnion } = qs.parse(resOptions.link.split('?')[1], { ignoreQueryPrefix: true })
             assert.strictEqual(qq, 'qq')
+            assert.strictEqual(mainUnion, 'mainUnionaaa')
         })
 
         it('查询参数可以强制覆盖渠道参数', async () => {

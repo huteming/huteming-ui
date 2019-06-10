@@ -155,14 +155,12 @@ describe('element', () => {
                     done(new Error('非期望异常'))
                 },
                 {
-                    maxCount: 2,
+                    maxCount: -1,
                     timeout: 5,
-                    fail (tryCount) {
-                        assert.strictEqual(tryCount, 3)
-                        done()
-                    },
                 }
             )
+
+            setTimeout(done, 10)
         })
 
         it('没有parentNode失败', done => {

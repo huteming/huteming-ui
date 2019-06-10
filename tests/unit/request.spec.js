@@ -70,68 +70,6 @@ describe('request', () => {
         moxios.uninstall(request)
     })
 
-    describe('options', () => {
-        it('reqSuccess', done => {
-            const data = {
-                hello: 'world',
-            }
-            request.post('http://www.somesite.com/success', data)
-                .then(res => {
-                    const spyCall = reqSuccess.getCall(0)
-                    res.config.data = JSON.stringify(data)
-                    assert.deepStrictEqual(spyCall.args[0], res.config)
-                    done()
-                })
-                .catch(done)
-        })
-
-        it('resSuccess', done => {
-            request.find('http://www.somesite.com/success')
-                .then(res => {
-                    assert.ok(resSuccess.calledWith(res))
-                    done()
-                })
-                .catch(done)
-        })
-
-        it('resError', done => {
-            request.find('http://www.somesite.com/error')
-                .then(() => {
-                    done(new Error('非期望异常'))
-                })
-                .catch(err => {
-                    assert.ok(resError.calledWith(err))
-                    done()
-                })
-        })
-
-        it('accountAlias', done => {
-            request.find('http://www.somesite.com/100')
-                .then(() => {
-                    done(new Error('非期望异常'))
-                })
-                .catch(() => {
-                    assert.ok(replace.calledWith(`//r1001.jinghao.com/api/redirect/back?backUrl=${encodeURIComponent(href)}&accountAlias=_accountAlias`))
-                    done()
-                })
-        })
-
-        it('retry', done => {
-            const start = Date.now()
-            request.find('http://www.somesite.com/error')
-                .then(() => {
-                    done(new Error('非期望异常'))
-                })
-                .catch(err => {
-                    const end = Date.now()
-                    assert.ok(end - start >= 500)
-                    assert.ok(end - start <= 600)
-                    assert.strictEqual(err.config.__retryCount, 1, '重发次数错误')
-                    done()
-                })
-        })
-    })
-
     describe('转换请求体格式', () => {
         it('不处理空数据体', done => {
             const data = null

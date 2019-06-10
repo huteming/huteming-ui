@@ -204,7 +204,7 @@ describe('tool', () => {
             const img2 = await tool.loadImages(LOAD_SUCCESS_SRC, false)
             const src2 = img2.getAttribute('src')
 
-            assert.notStrictEqual(src1, src2)
+            assert.ok(src1 !== src2)
         })
 
         it('查询参数分隔符', async () => {

@@ -17,7 +17,7 @@ const mapPrefix = new Map([
 
 export function sign (itemSign, itemRemark, options = {}) {
     itemSign = itemSign || window.location.href.replace(window.location.origin, '')
-    itemRemark = itemRemark || document.title || ''
+    itemRemark = itemRemark || document.title
 
     const { type } = Object.assign({}, defaultSign, options)
 

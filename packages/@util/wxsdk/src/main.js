@@ -63,7 +63,7 @@ export const wxSave = (() => {
     let _url = ''
 
     return (url) => {
-        if (url) {
+        if (url !== null && url !== undefined) {
             _url = url
         }
 
@@ -182,7 +182,7 @@ export function wxHide () {
  * 获取配置接口数组
  * 类型枚举: image, location
  */
-function getApiList (apis = []) {
+function getApiList (apis) {
     if (typeof apis === 'string') {
         apis = [apis]
     }
@@ -223,7 +223,7 @@ function register (flag, jsApiList) {
  */
 function waiting () {
     return new Promise((resolve, reject) => {
-        const delay = process.env.NODE_ENV === 'test' ? 5 : 800
+        const delay = 800
 
         wx.error(err => {
             reject(new Error(`签名失败; ${err.errMsg}`))
@@ -252,7 +252,7 @@ function getLocation () {
             },
 
             fail (err) {
-                reject(new Error(`定位失败: ${err.errMsg || err.message}`))
+                reject(new Error(`定位失败: ${err.errMsg}`))
             },
         })
     })
