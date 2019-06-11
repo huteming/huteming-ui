@@ -26,7 +26,7 @@ export default class Interceptor {
         if (res.config && res.config.url.indexOf('up.qbox.me') > -1) {
             if (!hash) {
                 const _log = typeof window.definedPrompt === 'function' ? window.definedPrompt : console.error
-                _log('上传失败，刷新页面后重新上传', function () {}, { cancelFlag: 'hide' })
+                _log('上传失败，刷新页面后重新上传', null, { cancelFlag: 'hide' })
                 return Promise.reject(res)
             }
             return res

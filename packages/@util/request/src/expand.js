@@ -1,15 +1,21 @@
 import jsonp from 'jsonp'
+import qs from 'qs'
 
-export const requestJsonp = (url, params = {}) => {
-    const splitor = url.indexOf('?') > -1 ? '&' : '?'
-    url += splitor
+/**
+ * jsonp npm仓库: https://github.com/webmodules/jsonp
+ */
+export const requestJsonp = (url, params = {}, config = {}) => {
+    const [_url, _search] = url.split('?')
+    const _query = qs.parse(_search, { ignoreQueryPrefix: true })
 
     for (let key in params) {
-        url += `${key}=${params[key]}&`
+        _query[key] = params[key]
     }
 
+    url = [_url, '?', qs.stringify(_query)].join('')
+
     return new Promise((resolve, reject) => {
-        jsonp(url, null, (err, data) => {
+        jsonp(url, config, (err, data) => {
             if (err) {
                 return reject(err)
             }
@@ -20,8 +26,7 @@ export const requestJsonp = (url, params = {}) => {
 }
 
 export const requestGet = (get) => {
-    const _handler = get
     return function (url, params, config = {}) {
-        return _handler(url, Object.assign({ params }, config))
+        return get(url, Object.assign({ params }, config))
     }
 }

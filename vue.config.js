@@ -44,7 +44,7 @@ module.exports = {
                     .end()
                     .use('istanbul-instrumenter-loader')
                     .loader('istanbul-instrumenter-loader')
-                    .options({ esModules: true })
+                    .options({ esModules: false }) // 设为 true，好像无法识别 class 的覆盖率？
           }
 
         /**
