@@ -281,7 +281,7 @@ describe('validator', () => {
         })
 
         it('非必填 && no-empty && 非日期', () => {
-            v.add(123, 'hel', { type: 'date', required: false })
+            v.add('123', 'hel', { type: 'date', required: false })
             const msg = v.done()
             assert.strictEqual(msg, 'hel')
         })
@@ -299,7 +299,7 @@ describe('validator', () => {
         })
 
         it('必填 && no-empty && 非日期', () => {
-            v.add(123, 'hel', { type: 'date', required: true })
+            v.add('123', 'hel', { type: 'date', required: true })
             const msg = v.done()
             assert.strictEqual(msg, 'hel')
         })

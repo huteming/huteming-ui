@@ -6,16 +6,27 @@ export function required (value) {
     if (value === undefined || value === null) {
         return false
     }
-    if (Array.isArray(value) && !value.length) {
-        return false
+    if (value instanceof Date) {
+        return true
     }
+    value = value.valueOf()
     if (typeof value === 'string' && !value) {
         return false
+    }
+    if (typeof value === 'function') {
+        return true
+    }
+    if (value instanceof Object) {
+        return !!Object.keys(value).length
     }
     return true
 }
 
 export function string (value, options) {
+    if (value === null || value === undefined) {
+        return false
+    }
+    value = value.valueOf()
     return typeof value === 'string'
 }
 
@@ -23,6 +34,10 @@ export function string (value, options) {
  * 允许 字符串数字，数字
  */
 export function number (value, options) {
+    if (value === null || value === undefined || value instanceof Date) {
+        return false
+    }
+    value = value.valueOf()
     if (typeof value === 'number') {
         return true
     }
@@ -34,6 +49,10 @@ export function number (value, options) {
 }
 
 export function boolean (value, options) {
+    if (value === null || value === undefined) {
+        return false
+    }
+    value = value.valueOf()
     return typeof value === 'boolean'
 }
 
@@ -62,7 +81,7 @@ export function enumer (value, options) {
 }
 
 export function date (value) {
-    return value instanceof Date
+    return new Date(value).valueOf() > 0
 }
 
 export function email (value) {
@@ -84,7 +103,7 @@ export function range (value, options) {
         max = Infinity
     }
 
-    if (options.type !== 'number') {
+    if (options.type === 'string' || options.type === 'array') {
         value = value.length
     }
 
