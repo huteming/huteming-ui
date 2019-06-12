@@ -1,18 +1,12 @@
 <template>
 <div class="tm-pay">
     <div class="tm-pay-container" v-if="!btnOnly">
-        <template v-if="price">
-            <div class="tm-pay-prefix">{{ pricePrefix }}</div>
-            <div class="tm-pay-price">{{ price | tofixed(2, true) }}</div>
-        </template>
-        <template v-else>
-            <div class="tm-pay-title">{{ title }}</div>
-        </template>
+        <div class="tm-pay-prefix">{{ titlePrefix }}</div>
+
+        <div :class="[typeof title === 'number' ? 'tm-pay-price' : 'tm-pay-title']" :style="titleStyle">{{ title | fixed(2, true) }}</div>
 
         <div class="tm-pay-group">
-            <div class="tm-pay-desc" v-if="tip">{{ tip }}</div>
-            <div class="tm-pay-through" v-else>{{ through }}</div>
-
+            <div class="tm-pay-desc" :class="{ 'through': tipThrough }" :style="tipStyle">{{ tip }}</div>
             <div class="tm-pay-desc" :style="descStyle">{{ desc }}</div>
         </div>
     </div>
@@ -30,21 +24,14 @@ export default {
     name: 'TmBtnPay',
 
     props: {
-        pricePrefix: {
-            type: String,
-            default: '￥',
-        },
-        price: Number,
-        title: String,
-        through: String,
+        title: [String, Number],
+        titlePrefix: String,
+        titleStyle: Object,
         tip: String,
+        tipStyle: Object,
+        tipThrough: Boolean,
         desc: String,
-        descStyle: {
-            type: Object,
-            default () {
-                return {}
-            },
-        },
+        descStyle: Object,
         btn: String,
         btnStyle: {
             type: Object,
@@ -75,7 +62,12 @@ export default {
     },
 
     filters: {
-        tofixed,
+        fixed (val, digits, toNumber) {
+            if (typeof val === 'string') {
+                return val
+            }
+            return tofixed(val, digits, toNumber)
+        },
     },
 }
 </script>
@@ -135,28 +127,26 @@ export default {
         font-weight: bold;
     }
 
-    &-through {
-        position: relative;
-        font-size: .26rem;
-        line-height: .36rem;
-        color: rgba(153, 153, 153, 1);
-
-        &:after {
-            content: ' ';
-            position: absolute;
-            left: 0;
-            right: 0;
-            top: 50%;
-            height: 1px;
-            background-color: rgba(153, 153, 153, 1);
-        }
-    }
-
     &-desc {
+        position: relative;
         font-size: .26rem;
         line-height: .4rem;
         color: rgba(34, 34, 34, 1);
         letter-spacing: .5px;
+
+        &.through {
+            color: rgba(153, 153, 153, 1);
+
+            &:after {
+                content: ' ';
+                position: absolute;
+                left: 0;
+                right: 0;
+                top: 50%;
+                height: 1px;
+                background-color: rgba(153, 153, 153, 1);
+            }
+        }
     }
 
     &-group {

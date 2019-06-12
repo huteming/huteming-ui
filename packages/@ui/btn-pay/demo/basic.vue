@@ -7,13 +7,16 @@
 
     <div class="spacing"></div>
 
-    <TmBtnPay
-        :price="79"
-        through="原价：99元"
+    <tm-btn-pay
+        titlePrefix="$"
+        :title="79"
+        tip="原价：99元"
+        tipThrough
         desc="VIP已减20元"
         :desc-style="{ color: 'rgba(217, 166, 47, 1)' }"
-        btn="支付学费"
-        :btn-style="{ background: 'linear-gradient(137deg,rgba(245,226,147,1) 0%,rgba(230,186,90,1) 100%)', color: 'rgba(128, 79, 36, 1)' }"         />
+        :btn-style="{ background: 'linear-gradient(137deg,rgba(245,226,147,1) 0%,rgba(230,186,90,1) 100%)', color: 'rgba(128, 79, 36, 1)' }" >
+        <span slot="btn">支付学费</span>
+    </tm-btn-pay>
 
     <div class="spacing"></div>
 
@@ -33,7 +36,8 @@
     <div class="spacing"></div>
 
     <TmBtnPay
-        :price="79"
+        titlePrefix="￥"
+        :title="79"
         tip="加入VIP"
         desc="可减20元"
         btn="支付学费"

@@ -21,19 +21,21 @@ Vue.use(TmBtnPay)
 </tm-btn-pay>
 
 <tm-btn-pay
-    :price="79"
-    through="原价：99元"
+    titlePrefix="$"
+    :title="79"
+    tip="原价：99元"
+    tipThrough
     desc="VIP已减20元"
     :desc-style="{ color: 'rgba(217, 166, 47, 1)' }"
-    btn="支付学费"
     :btn-style="{ background: 'linear-gradient(137deg,rgba(245,226,147,1) 0%,rgba(230,186,90,1) 100%)', color: 'rgba(128, 79, 36, 1)' }" >
+    <span slot="btn">支付学费</span>
 </tm-btn-pay>
 
 <tm-btn-pay
     title="VIP已过期"
     btn="支付学费"
-    :btn-style="{ background: 'linear-gradient(137deg,rgba(245,226,147,1) 0%,rgba(230,186,90,1) 100%)' }" >
-    <img src="./btn-xuefei.png" alt="" style="width: 76px;" slot="btn">
+    :btn-style="{ background: 'linear-gradient(137deg,rgba(245,226,147,1) 0%,rgba(230,186,90,1) 100%)' }"        >
+    <img src="./btn.png" alt="" style="width: 76px;" slot="btn">
 </tm-btn-pay>
 
 <tm-btn-pay
@@ -42,10 +44,12 @@ Vue.use(TmBtnPay)
 </tm-btn-pay>
 
 <tm-btn-pay
-    :price="79"
+    titlePrefix="￥"
+    :title="79"
     tip="加入VIP"
     desc="可减20元"
-    btn="支付学费" >
+    btn="支付学费"
+    @click="handleClick" >
 </tm-btn-pay>
 ```
 
@@ -53,11 +57,12 @@ Vue.use(TmBtnPay)
 
 | 参数 | 说明 | 类型 | 可选值 | 默认值 |
 |------|-------|---------|-------|--------|
-| price | 左侧价格，保留两位小数并转为数字 | Number | | |
-| pricePrefix | 左侧价格前缀 | String | | `￥` |
-| title | 左侧显示文案，代替`price` | String | | |
-| through | 显示删除样式的文案 | String | | |
-| tip | 和through同一位置，只是正常显示，没有删除样式 | String | | |
+| title | 左侧显示文案，如果类型是数字，保留两位小数并转为数字 | `String`, `Number` | | |
+| titlePrefix | 前缀 | String | | |
+| titleStyle | title自定义样式 | Object | | |
+| tip | 中间上方文案 | String | | |
+| tipThrough | 中间上方文案添加删除线 | Boolean | | `false` |
+| tipStyle | tip自定义样式 | Object | | |
 | desc | `through`下方文案 | String | | |
 | descStyle | `desc`的自定义样式 | Object | | |
 | btn | 按钮文案 | String | | |
