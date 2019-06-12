@@ -4,15 +4,22 @@
 
     <tm-carousel :loop="loop" :play="play">
         <tm-carousel-item name="first">
-            <div class="swiper swiper-blue">1</div>
+            <img :src="img1" alt="" class="img-block" :key="img1">
+            <!-- <div class="swiper swiper-blue">1</div> -->
         </tm-carousel-item>
 
         <tm-carousel-item name="second">
-            <div class="swiper swiper-yellow">2</div>
+            <img :src="img2" alt="" class="img-block" :key="img2">
+            <!-- <div class="swiper swiper-yellow">2</div> -->
         </tm-carousel-item>
 
         <tm-carousel-item name="third">
-            <div class="swiper swiper-pink">3</div>
+            <img :src="img3" alt="" class="img-block" :key="img3">
+            <!-- <div class="swiper swiper-pink">3</div> -->
+        </tm-carousel-item>
+
+        <tm-carousel-item name="forth">
+            <img :src="img4" alt="" class="img-block" :key="img4">
         </tm-carousel-item>
     </tm-carousel>
 
@@ -58,6 +65,10 @@
 <script>
 import TmCarousel from 'web-ui/carousel/index.js'
 import TmCarouselItem from 'web-ui/carousel-item/index.js'
+import img1 from './images/img1.jpg'
+import img2 from './images/img2.jpg'
+import img3 from './images/img3.jpg'
+import img4 from './images/img4.jpg'
 
 export default {
     data () {
@@ -65,6 +76,10 @@ export default {
             loop: true,
             play: true,
             current: 0,
+            img1,
+            img2,
+            img3,
+            img4,
         }
     },
 
