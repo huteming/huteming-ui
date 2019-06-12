@@ -1,64 +1,52 @@
 <template>
 <div class="test-carousel">
-    <h3 class="text-center">基础用法</h3>
+    <h3 class="text-center">async items</h3>
 
-    <tm-carousel :loop="loop" :play="play">
-        <tm-carousel-item name="first">
-            <img :src="img1" alt="" class="img-block" :key="img1">
-            <!-- <div class="swiper swiper-blue">1</div> -->
-        </tm-carousel-item>
-
-        <tm-carousel-item name="second">
-            <img :src="img2" alt="" class="img-block" :key="img2">
-            <!-- <div class="swiper swiper-yellow">2</div> -->
-        </tm-carousel-item>
-
-        <tm-carousel-item name="third">
-            <img :src="img3" alt="" class="img-block" :key="img3">
-            <!-- <div class="swiper swiper-pink">3</div> -->
-        </tm-carousel-item>
-
-        <tm-carousel-item name="forth">
-            <img :src="img4" alt="" class="img-block" :key="img4">
+    <tm-carousel height="6rem">
+        <tm-carousel-item  v-for="item in asyncItems" :key="item.name">
+            <div class="swiper" :class="item.classes">{{ item.name }}</div>
         </tm-carousel-item>
     </tm-carousel>
 
-<!--
-    <tm-divider>分组</tm-divider>
-    <tm-carousel :loop="loop" :play="play">
-        <tm-carousel-item name="first" class="swiper-container">
-            <div class="swiper swiper-small swiper-blue">1</div>
-            <div class="swiper swiper-small swiper-blue">1</div>
-        </tm-carousel-item>
+    <h3 class="text-center">initial</h3>
 
-        <tm-carousel-item name="second" class="swiper-container">
-            <div class="swiper swiper-small swiper-yellow">2</div>
-            <div class="swiper swiper-small swiper-yellow">2</div>
-        </tm-carousel-item>
-
-        <tm-carousel-item name="third" class="swiper-container">
-            <div class="swiper swiper-small swiper-pink">3</div>
-            <div class="swiper swiper-small swiper-pink">3</div>
+    <tm-carousel initial="3">
+        <tm-carousel-item  v-for="item in items" :key="item.name">
+            <div class="swiper" :class="item.classes">{{ item.name }}</div>
         </tm-carousel-item>
     </tm-carousel>
--->
 
-    <!-- <tm-divider>禁止手势</tm-divider>
-    <tm-carousel v-model="current" :loop="loop" :play="false" disabled-touch>
-        <tm-carousel-item name="first">
-            <div class="swiper swiper-blue">1</div>
-        </tm-carousel-item>
+    <h3 class="text-center">loop false</h3>
 
-        <tm-carousel-item name="second">
-            <div class="swiper swiper-yellow">2</div>
-        </tm-carousel-item>
-
-        <tm-carousel-item name="third">
-            <div class="swiper swiper-pink">3</div>
+    <tm-carousel :loop="false">
+        <tm-carousel-item  v-for="item in items" :key="item.name">
+            <div class="swiper" :class="item.classes">{{ item.name }}</div>
         </tm-carousel-item>
     </tm-carousel>
-    <button @click="current - 1">prev</button>
-    <button @click="current + 1">next</button> -->
+
+    <h3 class="text-center">autoplay</h3>
+
+    <tm-carousel autoplay>
+        <tm-carousel-item  v-for="item in items" :key="item.name">
+            <div class="swiper" :class="item.classes">{{ item.name }}</div>
+        </tm-carousel-item>
+    </tm-carousel>
+
+    <h3 class="text-center">interval 1500</h3>
+
+    <tm-carousel :interval="1500" autoplay>
+        <tm-carousel-item  v-for="item in items" :key="item.name">
+            <div class="swiper" :class="item.classes">{{ item.name }}</div>
+        </tm-carousel-item>
+    </tm-carousel>
+
+    <h3 class="text-center">disabledTouch</h3>
+
+    <tm-carousel disabled-touch autoplay>
+        <tm-carousel-item  v-for="item in items" :key="item.name">
+            <div class="swiper" :class="item.classes">{{ item.name }}</div>
+        </tm-carousel-item>
+    </tm-carousel>
 </div>
 </template>
 
@@ -76,10 +64,19 @@ export default {
             loop: true,
             play: true,
             current: 0,
+            currentStr: '1',
             img1,
             img2,
             img3,
             img4,
+
+            items: [
+                { name: '1', classes: 'swiper-blue' },
+                { name: '2', classes: 'swiper-yellow' },
+                { name: '3', classes: 'swiper-pink' },
+                { name: '4', classes: 'swiper-yellow' },
+            ],
+            asyncItems: [],
         }
     },
 
@@ -94,7 +91,12 @@ export default {
 
     mounted () {
         setTimeout(() => {
-            // this.text = 'bbb'
+            this.asyncItems = [
+                { name: '1', classes: 'swiper-blue' },
+                { name: '2', classes: 'swiper-yellow' },
+                { name: '3', classes: 'swiper-pink' },
+                { name: '4', classes: 'swiper-yellow' },
+            ]
         }, 1000)
     },
 
@@ -107,7 +109,7 @@ export default {
 
 <style lang="scss" scoped>
 .swiper {
-    height: 200px;
+    height: 100%;
     width: 7.5rem;
     line-height: 200px;
     text-align: center;

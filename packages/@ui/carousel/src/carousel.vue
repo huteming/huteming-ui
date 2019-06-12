@@ -1,37 +1,33 @@
-<script>
-import CarouselGroup from './carousel-group'
+<template>
+<div class="tm-carousel" :style="styles" @touchstart="handleTouchstart" @touchmove="handleTouchmove" @touchend="handleTouchend">
+    <slot></slot>
+</div>
+</template>
 
+<script>
 export default {
     name: 'TmCarousel',
 
     props: {
-        /**
-         */
-        value: {
-            type: Number,
+        height: {
+            type: String,
+        },
+        initial: {
+            type: [Number, String],
             default: 0,
         },
         loop: {
             type: Boolean,
-            default: false,
+            default: true,
         },
-        /**
-         * 是否播放
-         */
-        play: {
+        autoplay: {
             type: Boolean,
             default: false,
         },
-        /**
-         * 自动播放的时间间隔
-         */
         interval: {
             type: Number,
             default: 3000,
         },
-        /**
-         * 禁止手势
-         */
         disabledTouch: {
             type: Boolean,
             default: false,
@@ -40,108 +36,159 @@ export default {
 
     data () {
         return {
-            active: this.value,
-            totalGroup: 0,
-            clientWidth: 0,
-
-            currentPlay: this.play,
+            currentIndex: -1,
+            // carousel-item 组件
+            items: [],
             timer: null,
+
             // 在 touchstart 时标记是否需要重新启动定时器
             restart: false,
-
             startX: 0,
             startY: 0,
             moveX: 0,
-            direction: '' // '', vertical, across
+            direction: '', // '', vertical, across
+            needRespond: false,
         }
+    },
+
+    computed: {
+        styles () {
+            return {
+                height: this.height,
+            }
+        },
     },
 
     watch: {
-        value (val) {
-            this.active = val
+        initial (val) {
+            if (this.items.length > 0) {
+                this.setActiveItem(val)
+                this.startTimer()
+            }
         },
-        active (val) {
-            this.$emit('input', val)
+        items (val) {
+            if (val.length > 0) {
+                this.setActiveItem(this.initial)
+                this.startTimer()
+            }
         },
-        play (val) {
-            this.currentPlay = val
+        currentIndex (val, oldVal) {
+            this.updateItemsPosition(val, oldVal)
+
+            this.$emit('change', val, oldVal)
         },
-        currentPlay: {
-            handler (val) {
-                // console.log('currentPlay', val)
-                this.$emit('update:play', val)
-
-                if (val) {
-                    this.startTimer()
-                } else {
-                    this.stopTimer()
-                }
-            },
-            immediate: true,
-        },
-    },
-
-    render (h) {
-        // console.log('render')
-        const { handleTouchstart, handleTouchmove, handleTouchend, moveX, getRenderData, clientWidth } = this
-
-        const defaults = this.$slots.default || []
-        const panes = defaults.filter(item => /CarouselItem/.test(item.tag))
-
-        this.totalGroup = panes.length
-        const { prev, current, next } = getRenderData(panes)
-
-        const styleContainer = {
-            transform: `translateX(${-clientWidth + moveX}px)`,
-        }
-
-        return (
-            <div class="tm-carousel">
-                <div class="tm-carousel-container" ref="container" style={ styleContainer }
-                    onTouchstart={ handleTouchstart }
-                    onTouchmove={ handleTouchmove }
-                    onTouchend={ handleTouchend }>
-                    <carousel-group ref="prev">
-                        { prev }
-                    </carousel-group>
-
-                    <carousel-group>
-                        { current }
-                    </carousel-group>
-
-                    <carousel-group ref="next">
-                        { next }
-                    </carousel-group>
-                </div>
-            </div>
-        )
     },
 
     mounted () {
-        this.clientWidth = this.$el.clientWidth
+        this.updateItems()
     },
 
     beforeDestroy () {
-        this.stopTimer()
+        this.pauseTimer()
     },
 
     methods: {
+        // 指定活跃item
+        setActiveItem (index) {
+            let _index = index
+
+            if (typeof _index === 'string') {
+                const filteredItems = this.items.filter(item => item.name === _index)
+                if (filteredItems.length > 0) {
+                    _index = this.items.indexOf(filteredItems[0])
+                }
+            }
+
+            _index = Number(_index)
+            if (isNaN(_index) || _index !== Math.floor(_index)) {
+                console.warn('[@huteming/ui Warn][Carousel]value is invalid: ', index)
+                return
+            }
+
+            const total = this.items.length
+
+            if (_index < 0) {
+                this.currentIndex = this.loop ? total - 1 : 0
+            } else if (_index >= total) {
+                this.currentIndex = this.loop ? 0 : total - 1
+            } else {
+                this.currentIndex = _index
+            }
+        },
+        // 更新子元素
+        updateItems () {
+            this.items = this.$children.filter(item => item.$options.name === 'TmCarouselItem')
+        },
+        // 改变子元素位置
+        updateItemsPosition (activeIndex, oldIndex) {
+            this.items.forEach((item, index) => {
+                item.translateItem(index, activeIndex, oldIndex)
+            })
+        },
+        prev () {
+            this.setActiveItem(this.currentIndex - 1)
+        },
+        next () {
+            this.setActiveItem(this.currentIndex + 1)
+        },
+        /**
+         * @argument {Boolean} direction true: 回滚到右边; false: 回滚到左边
+         */
+        moveItemsPosition (activeIndex, move, direction) {
+            this.items.forEach((item, index) => item.moveItem(index, activeIndex, move, direction))
+        },
+
+        playSlides () {
+            const total = this.items.length
+
+            // 提前判断是否还有下一张，没有的话，则停止计时
+            if (!this.loop && this.currentIndex === total - 2) {
+                this.pauseTimer()
+            }
+
+            if (this.currentIndex < total - 1) {
+                this.currentIndex++
+                return true
+            }
+
+            if (this.loop) {
+                this.currentIndex = 0
+                return true
+            }
+        },
+
+        pauseTimer () {
+            if (this.timer) {
+                clearInterval(this.timer)
+                this.timer = null
+            }
+        },
+
+        startTimer () {
+            if (this.interval <= 0 || !this.autoplay || this.timer) {
+                return false
+            }
+
+            this.timer = setInterval(this.playSlides, this.interval)
+        },
+        // 手势
         handleTouchstart (event) {
             if (this.disabledTouch) {
                 return false
             }
 
             const finger = event.changedTouches[0]
-            this.restart = this.currentPlay
-            this.currentPlay = false
+            this.restart = this.timer !== null
+            this.pauseTimer()
 
             this.startX = finger.pageX
             this.startY = finger.pageY
-
-            this.hasPrev = this.$refs.prev.$children.length
-            this.hasNext = this.$refs.next.$children.length
         },
         handleTouchmove (event) {
+            if (this.disabledTouch) {
+                return false
+            }
+
             const finger = event.changedTouches[0]
             const moveX = finger.pageX - this.startX
             const moveY = finger.pageY - this.startY
@@ -155,192 +202,56 @@ export default {
                 this.direction = Math.abs(moveX) / Math.abs(moveY) > 1 ? 'across' : 'vertical'
             }
 
-            this.isRespond = (() => {
-                if (this.disabledTouch) {
-                    return false
-                }
+            this.needRespond = (() => {
                 if (this.direction === 'vertical') {
                     return false
                 }
-                if (moveX > 0 && !this.hasPrev) {
+                if (moveX > 0 && !this.loop && this.currentIndex === 0) {
                     return false
                 }
-                if (moveX < 0 && !this.hasNext) {
+                if (moveX < 0 && !this.loop && this.currentIndex === this.items.length - 1) {
                     return false
                 }
                 return true
             })()
 
-            if (!this.isRespond) {
+            if (!this.needRespond) {
                 return
             }
             event.preventDefault()
 
             this.moveX = moveX
+            this.moveItemsPosition(this.activeIndex, moveX)
         },
-        async handleTouchend (event) {
-            const { isRespond } = this
+        handleTouchend (event) {
+            if (this.disabledTouch || !this.needRespond) {
+                return false
+            }
+
             this.direction = ''
 
-            if (!isRespond) {
-                return
+            if (this.moveX < -100) {
+                this.next()
+            } else if (this.moveX > 100) {
+                this.prev()
+            } else {
+                this.moveItemsPosition(this.currentIndex, 0, this.moveX < 0)
             }
 
-            const translateAction = (() => {
-                if (this.moveX < -70) {
-                    return 'next'
-                }
-                if (this.moveX > 70) {
-                    return 'prev'
-                }
-                return ''
-            })()
-
-            this.translate(translateAction, () => {
-                this.currentPlay = this.restart
-            })
+            if (this.restart) {
+                this.startTimer()
+            }
         },
-        /**
-         * 可选值: 'next', 'prev', '', [number]
-         * @returns {Number} -2: 子元素总个数为 0; -1: 子元素总个数为 1
-         */
-        getCurrentActive (action) {
-            const total = this.totalGroup
-
-            if (total <= 1) {
-                return total - 2
-            }
-
-            let currentActive = (() => {
-                if (typeof action === 'number') {
-                    return action
-                }
-
-                switch (action) {
-                case 'next':
-                    return this.active + 1
-                case 'prev':
-                    return this.active - 1
-                default:
-                    return this.active
-                }
-            })()
-            currentActive = currentActive % total
-
-            return currentActive >= 0 ? currentActive : currentActive + total
-        },
-        getRenderData (panes) {
-            const { loop, totalGroup } = this
-            const currentActive = this.getCurrentActive()
-
-            function getGroup (start) {
-                return panes.slice(start * 1, start * 1 + 1)
-            }
-
-            if (currentActive === -2) {
-                return { prev: null, current: null, next: null }
-            }
-            if (currentActive === -1) {
-                return { prev: null, current: getGroup(0), next: null }
-            }
-
-            const prev = (() => {
-                if (currentActive > 0) {
-                    return getGroup(currentActive - 1)
-                }
-                if (loop) {
-                    return getGroup(totalGroup - 1)
-                }
-                return null
-            })()
-            const current = getGroup(currentActive)
-            const next = (() => {
-                if (currentActive < totalGroup - 1) {
-                    return getGroup(currentActive + 1)
-                }
-                if (loop) {
-                    return getGroup(0)
-                }
-                return null
-            })()
-
-            return { prev, current, next }
-        },
-        /**
-         * 开始播放
-         */
-        startTimer () {
-            // 如果不是循环且没有下一张，不开始播放
-            if (this.tryStopTimer()) {
-                return
-            }
-
-            this.timer = setInterval(() => {
-                this.translate('next', this.tryStopTimer)
-            }, this.interval)
-        },
-        /**
-         * 停止播放
-         */
-        stopTimer () {
-            clearInterval(this.timer)
-        },
-        /**
-         * 尝试提前暂停timer
-         */
-        tryStopTimer () {
-            // 提前判断是否还有下一张，没有的话，则停止计时
-            if (!this.loop && this.active === this.totalGroup - 1) {
-                this.currentPlay = false
-                return true
-            }
-            return false
-        },
-        /**
-         * 下一张
-         * action: next, prev, ''
-         */
-        translate (action, callback) {
-            if (!action) {
-                this.moveX = 0
-                callback()
-                return
-            }
-
-            const oldActive = this.active
-
-            this.$refs.container.classList.add('tm-carousel-transition')
-            this.moveX = action === 'next' ? -this.clientWidth : this.clientWidth
-
-            const self = this
-            this.$refs.container.addEventListener('webkitTransitionEnd', function handler () {
-                self.$refs.container.removeEventListener('webkitTransitionEnd', handler)
-                self.active = self.getCurrentActive(action)
-
-                self.moveX = 0
-                self.$refs.container.classList.remove('tm-carousel-transition')
-
-                callback()
-                self.$emit('change', self.active, oldActive)
-            })
-        },
-        setActiveItem (_active) {},
-    },
-
-    components: {
-        CarouselGroup,
     },
 }
 </script>
 
 <style lang="scss" scoped>
 .tm-carousel {
+    position: relative;
     width: 100%;
+    height: 4rem;
     overflow: hidden;
-
-    &-container {
-        display: flex;
-    }
 
     &-transition {
         transition: transform 300ms ease-in-out;

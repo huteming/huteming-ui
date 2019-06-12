@@ -1,5 +1,5 @@
 <template>
-<div class="tm-carousel-item">
+<div class="tm-carousel-item" :class="{ 'is-animating': animating }" :style="styles" v-show="ready">
     <slot></slot>
 </div>
 </template>
@@ -8,15 +8,106 @@
 export default {
     name: 'TmCarouselItem',
 
+    props: {
+        name: String,
+    },
+
     data () {
         return {
+            styles: {},
+            animating: false,
+            translate: 0,
+            ready: false,
         }
+    },
+
+    computed: {
+    },
+
+    created () {
+        this.$parent && this.$parent.updateItems()
+    },
+
+    destroyed () {
+        this.$parent && this.$parent.updateItems()
+    },
+
+    methods: {
+        processIndex (index, activeIndex, length) {
+            if (activeIndex === 0 && index === length - 1) {
+                return -1
+            } else if (activeIndex === length - 1 && index === 0) {
+                return length
+            } else if (index < activeIndex - 1 && activeIndex - index >= length / 2) {
+                return length + 1
+            } else if (index > activeIndex + 1 && index - activeIndex >= length / 2) {
+                return -2
+            }
+            return index
+        },
+
+        translateItem (index, activeIndex, oldIndex) {
+            const { offsetWidth } = this.$parent.$el
+            const length = this.$parent.items.length
+
+            if (oldIndex !== undefined) {
+                this.animating = index === activeIndex || index === oldIndex
+            }
+
+            if (index !== activeIndex && length > 2 && this.$parent.loop) {
+                index = this.processIndex(index, activeIndex, length)
+            }
+
+            const translate = offsetWidth * (index - activeIndex)
+
+            this.styles = {
+                transform: `translateX(${translate}px)`,
+            }
+            this.translate = translate
+            this.ready = true
+        },
+        /**
+         * @argument {Boolean} direction true: 回滚到右边; false: 回滚到左边
+         */
+        moveItem (index, activeIndex, move, direction) {
+            const total = this.$parent.items.length
+            const loop = this.$parent.loop
+            const self = index === activeIndex
+
+            this.animating = (() => {
+                if (move !== 0) {
+                    return false
+                }
+                if (direction) {
+                    if (loop && activeIndex === total - 1) {
+                        return self || index === 0
+                    }
+                    return self || index === activeIndex + 1
+                }
+                if (loop && activeIndex === 0) {
+                    return self || index === total - 1
+                }
+                return self || index === activeIndex - 1
+            })()
+
+            this.styles = {
+                transform: `translateX(${this.translate + move}px)`
+            }
+        },
     },
 }
 </script>
 
 <style lang="scss" scoped>
 .tm-carousel-item {
+    position: absolute;
+    top: 0;
+    left: 0;
     width: 100%;
+    height: 100%;
+
+    &.is-animating {
+        transition: transform 300ms ease-in-out;
+    }
 }
 </style>
