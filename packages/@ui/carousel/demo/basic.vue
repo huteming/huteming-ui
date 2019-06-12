@@ -1,16 +1,29 @@
 <template>
 <div class="test-carousel">
-    <h3 class="text-center">async items</h3>
+    <button @click="handleDirectionChange">toggle direction: {{ direction }}</button>
 
-    <tm-carousel height="6rem">
+    <h3 class="text-center">async items</h3>
+    <button @click="$refs.carousel.setActiveItem(2)">set item 2</button>
+    <button @click="$refs.carousel.next()">next</button>
+    <button @click="$refs.carousel.prev()">prev</button>
+
+    <tm-carousel height="6rem" :direction="direction" @change="handleChange" ref="carousel">
         <tm-carousel-item  v-for="item in asyncItems" :key="item.name">
             <div class="swiper" :class="item.classes">{{ item.name }}</div>
         </tm-carousel-item>
     </tm-carousel>
 
-    <h3 class="text-center">initial</h3>
+    <h3 class="text-center">initial name</h3>
 
-    <tm-carousel initial="3">
+    <tm-carousel initial="hello" :direction="direction">
+        <tm-carousel-item  v-for="item in items" :key="item.name" :name="item.name">
+            <div class="swiper" :class="item.classes">{{ item.name }}</div>
+        </tm-carousel-item>
+    </tm-carousel>
+
+    <h3 class="text-center">initial index</h3>
+
+    <tm-carousel :initial="3" :direction="direction">
         <tm-carousel-item  v-for="item in items" :key="item.name">
             <div class="swiper" :class="item.classes">{{ item.name }}</div>
         </tm-carousel-item>
@@ -18,15 +31,16 @@
 
     <h3 class="text-center">loop false</h3>
 
-    <tm-carousel :loop="false">
+    <tm-carousel :loop="false" :direction="direction">
         <tm-carousel-item  v-for="item in items" :key="item.name">
             <div class="swiper" :class="item.classes">{{ item.name }}</div>
         </tm-carousel-item>
     </tm-carousel>
 
     <h3 class="text-center">autoplay</h3>
+    <button @click="autoplay = !autoplay">toggle</button>
 
-    <tm-carousel autoplay>
+    <tm-carousel :autoplay="autoplay" :direction="direction">
         <tm-carousel-item  v-for="item in items" :key="item.name">
             <div class="swiper" :class="item.classes">{{ item.name }}</div>
         </tm-carousel-item>
@@ -34,7 +48,7 @@
 
     <h3 class="text-center">interval 1500</h3>
 
-    <tm-carousel :interval="1500" autoplay>
+    <tm-carousel :interval="1500" autoplay :direction="direction">
         <tm-carousel-item  v-for="item in items" :key="item.name">
             <div class="swiper" :class="item.classes">{{ item.name }}</div>
         </tm-carousel-item>
@@ -42,7 +56,7 @@
 
     <h3 class="text-center">disabledTouch</h3>
 
-    <tm-carousel disabled-touch autoplay>
+    <tm-carousel disabled-touch autoplay :direction="direction">
         <tm-carousel-item  v-for="item in items" :key="item.name">
             <div class="swiper" :class="item.classes">{{ item.name }}</div>
         </tm-carousel-item>
@@ -62,27 +76,22 @@ export default {
     data () {
         return {
             loop: true,
-            play: true,
+            autoplay: true,
             current: 0,
             currentStr: '1',
             img1,
             img2,
             img3,
             img4,
+            direction: sessionStorage.getItem('carousel-direction') || 'horizontal',
 
             items: [
                 { name: '1', classes: 'swiper-blue' },
                 { name: '2', classes: 'swiper-yellow' },
-                { name: '3', classes: 'swiper-pink' },
+                { name: 'hello', classes: 'swiper-pink' },
                 { name: '4', classes: 'swiper-yellow' },
             ],
             asyncItems: [],
-        }
-    },
-
-    methods: {
-        handleChange (...val) {
-            console.log('change', val)
         }
     },
 
@@ -98,6 +107,16 @@ export default {
                 { name: '4', classes: 'swiper-yellow' },
             ]
         }, 1000)
+    },
+
+    methods: {
+        handleDirectionChange () {
+            sessionStorage.setItem('carousel-direction', this.direction === 'vertical' ? 'horizontal' : 'vertical')
+            location.reload()
+        },
+        handleChange (...val) {
+            console.log('change', val)
+        }
     },
 
     components: {

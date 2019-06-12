@@ -1,3 +1,23 @@
+export function autoprefixer (style) {
+    if (typeof style !== 'object') {
+        return style
+    }
+
+    const rules = ['transform', 'transition', 'animation']
+    const prefixes = ['ms-', 'webkit-']
+
+    rules.forEach(rule => {
+        const value = style[rule]
+        if (rule && value) {
+            prefixes.forEach(prefix => {
+                style[prefix + rule] = value
+            })
+        }
+    })
+
+    return style
+}
+
 /**
  * 设置滚动条位置，兼容原生scrollTo
  * @param {*Node} element

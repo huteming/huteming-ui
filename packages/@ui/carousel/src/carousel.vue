@@ -28,6 +28,14 @@ export default {
             type: Number,
             default: 3000,
         },
+        // 走马灯展示的方向
+        direction: {
+            type: String,
+            default: 'horizontal',
+            validator (val) {
+                return ['horizontal', 'vertical'].indexOf(val) > -1
+            },
+        },
         disabledTouch: {
             type: Boolean,
             default: false,
@@ -45,8 +53,8 @@ export default {
             restart: false,
             startX: 0,
             startY: 0,
-            moveX: 0,
-            direction: '', // '', vertical, across
+            move: 0,
+            moveDirection: '', // '', vertical, horizontal
             needRespond: false,
         }
     },
@@ -65,6 +73,9 @@ export default {
                 this.setActiveItem(val)
                 this.startTimer()
             }
+        },
+        autoplay (val) {
+            val ? this.startTimer() : this.pauseTimer()
         },
         items (val) {
             if (val.length > 0) {
@@ -90,6 +101,10 @@ export default {
     methods: {
         // 指定活跃item
         setActiveItem (index) {
+            if (!this.items.length) {
+                return false
+            }
+
             let _index = index
 
             if (typeof _index === 'string') {
@@ -101,7 +116,7 @@ export default {
 
             _index = Number(_index)
             if (isNaN(_index) || _index !== Math.floor(_index)) {
-                console.warn('[@huteming/ui Warn][Carousel]value is invalid: ', index)
+                console.warn('[@huteming/ui Warn][Carousel]index is invalid: ', index)
                 return
             }
 
@@ -132,7 +147,7 @@ export default {
             this.setActiveItem(this.currentIndex + 1)
         },
         /**
-         * @argument {Boolean} direction true: 回滚到右边; false: 回滚到左边
+         * @argument {Boolean} direction true: 回滚到右边/下边; false: 回滚到左边/上边
          */
         moveItemsPosition (activeIndex, move, direction) {
             this.items.forEach((item, index) => item.moveItem(index, activeIndex, move, direction))
@@ -193,49 +208,51 @@ export default {
             const moveX = finger.pageX - this.startX
             const moveY = finger.pageY - this.startY
 
-            if (!this.direction) {
+            if (!this.moveDirection) {
                 // 滑动幅度太小，不处理
                 if (Math.abs(moveX) < 4 && Math.abs(moveY) < 4) {
-                    return
+                    return false
                 }
 
-                this.direction = Math.abs(moveX) / Math.abs(moveY) > 1 ? 'across' : 'vertical'
+                this.moveDirection = Math.abs(moveX) / Math.abs(moveY) > 1 ? 'horizontal' : 'vertical'
             }
+            const move = this.moveDirection === 'horizontal' ? moveX : moveY
 
             this.needRespond = (() => {
-                if (this.direction === 'vertical') {
+                if (this.moveDirection !== this.direction) {
                     return false
                 }
-                if (moveX > 0 && !this.loop && this.currentIndex === 0) {
+                if (move > 0 && !this.loop && this.currentIndex === 0) {
                     return false
                 }
-                if (moveX < 0 && !this.loop && this.currentIndex === this.items.length - 1) {
+                if (move < 0 && !this.loop && this.currentIndex === this.items.length - 1) {
                     return false
                 }
                 return true
             })()
 
             if (!this.needRespond) {
-                return
+                return false
             }
             event.preventDefault()
 
-            this.moveX = moveX
-            this.moveItemsPosition(this.activeIndex, moveX)
+            this.moveItemsPosition(this.activeIndex, move)
+            this.move = move
         },
         handleTouchend (event) {
+            const distance = this.$el[this.direction === 'vertical' ? 'offsetHeight' : 'offsetWidth']
+            this.moveDirection = ''
+
             if (this.disabledTouch || !this.needRespond) {
                 return false
             }
 
-            this.direction = ''
-
-            if (this.moveX < -100) {
+            if (this.move < distance / -3) {
                 this.next()
-            } else if (this.moveX > 100) {
+            } else if (this.move > distance / 3) {
                 this.prev()
             } else {
-                this.moveItemsPosition(this.currentIndex, 0, this.moveX < 0)
+                this.moveItemsPosition(this.currentIndex, 0, this.move < 0)
             }
 
             if (this.restart) {

@@ -5,6 +5,8 @@
 </template>
 
 <script>
+import { autoprefixer } from 'web-util/element/src/main'
+
 export default {
     name: 'TmCarouselItem',
 
@@ -14,14 +16,25 @@ export default {
 
     data () {
         return {
-            styles: {},
             animating: false,
             translate: 0,
+            move: 0,
             ready: false,
         }
     },
 
     computed: {
+        parentDirection () {
+            return this.$parent.direction
+        },
+        styles () {
+            const translateType = this.parentDirection === 'vertical' ? 'translateY' : 'translateX'
+            const _style = {
+                transform: `${translateType}(${this.translate + this.move}px)`
+            }
+
+            return autoprefixer(_style)
+        },
     },
 
     created () {
@@ -47,8 +60,8 @@ export default {
         },
 
         translateItem (index, activeIndex, oldIndex) {
-            const { offsetWidth } = this.$parent.$el
             const length = this.$parent.items.length
+            const distance = this.$parent.$el[this.parentDirection === 'vertical' ? 'offsetHeight' : 'offsetWidth']
 
             if (oldIndex !== undefined) {
                 this.animating = index === activeIndex || index === oldIndex
@@ -58,16 +71,12 @@ export default {
                 index = this.processIndex(index, activeIndex, length)
             }
 
-            const translate = offsetWidth * (index - activeIndex)
-
-            this.styles = {
-                transform: `translateX(${translate}px)`,
-            }
-            this.translate = translate
+            this.translate = distance * (index - activeIndex)
+            this.move = 0
             this.ready = true
         },
         /**
-         * @argument {Boolean} direction true: 回滚到右边; false: 回滚到左边
+         * @argument {Boolean} direction true: 回滚到右边/下边; false: 回滚到左边/上边
          */
         moveItem (index, activeIndex, move, direction) {
             const total = this.$parent.items.length
@@ -90,9 +99,7 @@ export default {
                 return self || index === activeIndex - 1
             })()
 
-            this.styles = {
-                transform: `translateX(${this.translate + move}px)`
-            }
+            this.move = move
         },
     },
 }
