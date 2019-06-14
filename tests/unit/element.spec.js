@@ -2,7 +2,7 @@ import { mount } from '@vue/test-utils'
 import WorkComponent from '../components/element'
 import BasicComponent from '../components/basic'
 import assert from 'assert'
-import { getScrollEventTarget, scrollX, scrollY, attached, getScrollTop, getScrollLeft, isXScrollable, isYScrollable } from 'web-util/element/src/main'
+import { autoprefixer, getScrollEventTarget, scrollX, scrollY, attached, getScrollTop, getScrollLeft, isXScrollable, isYScrollable } from 'web-util/element/src/main'
 const wrapper = mount(WorkComponent)
 const eleContainer = wrapper.vm.$refs.container
 const eleEmpty = wrapper.vm.$refs.empty
@@ -18,6 +18,57 @@ describe('element', () => {
 
     afterEach(() => {
         wrapperBasic && wrapperBasic.destroy()
+    })
+
+    describe('autoprefixer', () => {
+        it('不是对象不处理', () => {
+            const data = 'hello'
+            const res = autoprefixer(data)
+
+            assert.strictEqual(res, data)
+        })
+
+        it('transform添加前缀', () => {
+            const value = 'value'
+            const data = {
+                transform: value,
+            }
+            const res = autoprefixer(data)
+
+            assert.deepStrictEqual(res, {
+                'transform': value,
+                'ms-transform': value,
+                'webkit-transform': value,
+            })
+        })
+
+        it('transition添加前缀', () => {
+            const value = 'value'
+            const data = {
+                transition: value,
+            }
+            const res = autoprefixer(data)
+
+            assert.deepStrictEqual(res, {
+                'transition': value,
+                'ms-transition': value,
+                'webkit-transition': value,
+            })
+        })
+
+        it('animation添加前缀', () => {
+            const value = 'value'
+            const data = {
+                animation: value,
+            }
+            const res = autoprefixer(data)
+
+            assert.deepStrictEqual(res, {
+                'animation': value,
+                'ms-animation': value,
+                'webkit-animation': value,
+            })
+        })
     })
 
     describe('isYScrollable', () => {
