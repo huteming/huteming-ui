@@ -34,6 +34,13 @@ describe('wxsdk > wxShare', () => {
         global.wx = null
     })
 
+    it('默认配置参数', async () => {
+        const { link, imgUrl } = await wxShare()
+
+        assert.strictEqual(link, window.location.href)
+        assert.strictEqual(imgUrl, 'http://jhsy-img.caizhu.com/fejhsy/images/logo.png')
+    })
+
     it('获取当前wxConfig', async () => {
         await wxShare()
 
