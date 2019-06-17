@@ -89,7 +89,8 @@ export async function wxLocation () {
  */
 const defaultOption = {
     link: window.location.href, // 分享链接，该链接域名或路径必须与当前页面对应的公众号JS安全域名一致
-    imgUrl: 'http://jhsy-img.caizhu.com/jhsy/images/logo-white.png', // 分享图标
+    // imgUrl: 'http://jhsy-img.caizhu.com/jhsy/images/logo-white.png', // 静好教育
+    imgUrl: 'http://jhsy-img.caizhu.com/fejhsy/images/logo.png', // 静好书院
 }
 
 export async function wxShare (options) {
