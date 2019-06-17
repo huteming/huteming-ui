@@ -1,6 +1,6 @@
 {
   "name": "@huteming/util",
-  "version": "1.2.10",
+  "version": "1.2.11",
   "description": "util 方法统一入口",
   "main": "dist/huteming-util.common.js",
   "scripts": {
@@ -18,6 +18,6 @@
     "@huteming/util-storage": "^1.2.3",
     "@huteming/util-tool": "^1.2.7",
     "@huteming/util-validator": "^1.2.5",
-    "@huteming/util-wxsdk": "^1.2.5"
+    "@huteming/util-wxsdk": "^1.2.6"
   }
 }
