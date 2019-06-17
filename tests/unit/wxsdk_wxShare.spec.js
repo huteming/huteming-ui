@@ -10,15 +10,15 @@ describe('wxsdk > wxShare', () => {
     let mockSign
 
     beforeEach(async () => {
-        onConfig = sinon.fake()
+        onConfig = sinon.fake.resolves()
         onShowMenuItems = sinon.fake()
         onShare = sinon.fake()
         mockSign = sinon.fake.resolves()
 
         WxsdkRewireAPI.__Rewire__('sign', mockSign)
+        WxsdkRewireAPI.__Rewire__('wxConfig', onConfig)
 
         global.wx = {
-            config: onConfig,
             showMenuItems: onShowMenuItems,
             onMenuShareTimeline (options) {
                 onShare(options)
@@ -31,6 +31,7 @@ describe('wxsdk > wxShare', () => {
     afterEach(() => {
         sinon.restore()
         WxsdkRewireAPI.__ResetDependency__('sign')
+        WxsdkRewireAPI.__ResetDependency__('wxConfig')
         global.wx = null
     })
 
@@ -44,7 +45,8 @@ describe('wxsdk > wxShare', () => {
     it('获取当前wxConfig', async () => {
         await wxShare()
 
-        assert.strictEqual(onConfig.callCount, 0)
+        const [isUpdate] = onConfig.getCall(0).args
+        assert.strictEqual(isUpdate, false)
     })
 
     it('调用wx.showMenuItems', async () => {

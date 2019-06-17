@@ -1,43 +1,40 @@
 import sinon from 'sinon'
 import assert from 'assert'
 import { sleep } from '../helper'
-import * as animation from 'web-util/animation/src/main'
+import { linear, easeIn, easeOut, easeInOut, tween } from 'web-util/animation/src/main'
+const mapHandler = { linear, easeIn, easeOut, easeInOut }
 
 describe('animation', () => {
-    it('默认持续时间300ms', async () => {
-        async function handler (type) {
+    it('默认持续时间300ms', () => {
+        const originAnimation = window.requestAnimationFrame
+        window.requestAnimationFrame = (fn) => {
+            fn()
+        }
+
+        function handler (type) {
             const from = 0
-            const to = 5
+            const to = 50
             const callback = sinon.fake()
-            const defaultDuration = 300
-            const count = Math.ceil(defaultDuration / 17)
+            const count = Math.ceil(300 / 17)
 
-            animation[type](from, to, callback)
-
-            await sleep(defaultDuration + 10)
+            mapHandler[type](from, to, callback)
 
             for (let i = 1; i <= count; i++) {
                 const [position, isDone] = callback.getCall(i - 1).args
-                assert.strictEqual(position, animation.tween[type](i, from, to - from, count), `第 ${i} 次回调位置错误`)
+                assert.strictEqual(position, tween[type](i, from, to - from, count), `第 ${i} 次回调位置错误`)
                 assert.strictEqual(isDone, i === count, `第 ${i} 次完成状况错误`)
             }
         }
 
-        const promises = [
-            handler('linear'),
-            handler('easeIn'),
-            handler('easeOut'),
-            handler('easeInOut'),
-        ]
-
-        await Promise.all(promises)
+        void ['linear', 'easeIn', 'easeOut', 'easeInOut'].forEach(type => handler(type))
+        window.requestAnimationFrame = originAnimation
     })
 
     it('from 非数字抛错', done => {
         const errorMessage = 'from类型错误。起始位置参数必须为数字'
 
         try {
-            animation.linear('a', 'a', sinon.fake())
+            linear('a', 'a', sinon.fake())
 
             done(new Error(`Expected error "${errorMessage}" but got success`))
         } catch (err) {
@@ -50,7 +47,7 @@ describe('animation', () => {
         const errorMessage = 'to类型错误。结束位置参数必须为数字'
 
         try {
-            animation.linear('0', 'a', sinon.fake())
+            linear('0', 'a', sinon.fake())
 
             done(new Error(`Expected error "${errorMessage}" but got success`))
         } catch (err) {
@@ -63,7 +60,7 @@ describe('animation', () => {
         const errorMessage = 'callback 必须是函数'
 
         try {
-            animation.linear('0', '1', '1')
+            linear('0', '1', '1')
 
             done(new Error(`Expected error "${errorMessage}" but got success`))
         } catch (err) {
@@ -75,7 +72,7 @@ describe('animation', () => {
     it('结束位置等于起始位置 立即返回', async () => {
         const callback = sinon.fake()
 
-        animation.linear(0, 0, callback)
+        linear(0, 0, callback)
 
         await sleep(20)
 
@@ -91,7 +88,7 @@ describe('animation', () => {
                 mockAnimation(callback)
             },
         }
-        animation.linear(0, 10, sinon.fake(), 20)
+        linear(0, 10, sinon.fake(), 20)
         assert.strictEqual(mockAnimation.callCount, 1)
 
         global.window = originWindow
@@ -108,7 +105,7 @@ describe('animation', () => {
         }
         global.setTimeout = mockTimeout
 
-        animation.linear(0, 10, sinon.fake(), 10)
+        linear(0, 10, sinon.fake(), 10)
         global.window.requestAnimationFrame(mockFn)
 
         const spyCall = mockTimeout.getCall(0)

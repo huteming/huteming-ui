@@ -116,7 +116,7 @@ describe('element', () => {
             attached('#uniqueID', (tryCount) => {
                 assert.strictEqual(tryCount, 1)
                 done()
-            }, { timeout: 50 })
+            }, { timeout: 5 })
 
             wrapperBasic = mount(BasicComponent, {
                 attachToDocument: true,
