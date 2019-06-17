@@ -1,7 +1,7 @@
 <template>
 <div class="tm-pay">
     <div class="tm-pay-container" v-if="!btnOnly">
-        <div class="tm-pay-prefix">{{ titlePrefix }}</div>
+        <div class="tm-pay-prefix">{{ normalizedPrefix }}</div>
 
         <div :class="[typeof title === 'number' ? 'tm-pay-price' : 'tm-pay-title']" :style="titleStyle">{{ title | fixed(2, true) }}</div>
 
@@ -43,6 +43,15 @@ export default {
     },
 
     computed: {
+        normalizedPrefix () {
+            if (typeof this.title === 'string') {
+                return this.titlePrefix
+            }
+            if (this.titlePrefix === undefined) {
+                return '￥'
+            }
+            return this.titlePrefix
+        },
         normalizedBtnStyle () {
             const _style = {}
 
@@ -79,7 +88,6 @@ export default {
     height: 1.2rem;
     display: flex;
     align-items: flex-end;
-    background-color: #fff;
     box-sizing: border-box;
 
     &-container {
@@ -89,6 +97,7 @@ export default {
         align-items: center;
         padding: 0 .4rem 0 .48rem;
         box-shadow: 0 -.08rem .2rem -.2rem rgba(99,150,247,0.6);
+        background-color: #fff;
         box-sizing: border-box;
     }
 

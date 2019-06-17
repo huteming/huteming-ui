@@ -42,6 +42,24 @@
         desc="可减20元"
         btn="支付学费"
         @click="handleClick" />
+
+    <div class="spacing"></div>
+
+    <TmBtnPay
+        :title="79"
+        tip="加入VIP"
+        desc="可减20元"
+        btn="支付学费"
+        @click="handleClick" />
+
+    <div class="spacing"></div>
+
+    <TmBtnPay
+        title="79"
+        tip="加入VIP"
+        desc="可减20元"
+        btn="支付学费"
+        @click="handleClick" />
 </div>
 </template>
 
@@ -62,6 +80,11 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.demo {
+    min-height: 100vh;
+    background-color: #f6f6f6;
+}
+
 .spacing {
     height: 20px;
 }
