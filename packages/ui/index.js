@@ -10,6 +10,9 @@ import _Anchor from 'web-ui/anchor/index.js'
 
 import _BtnPay from 'web-ui/btn-pay/index.js'
 import _Dialog from 'web-ui/dialog/index.js'
+import _Panel from 'web-ui/panel/index.js'
+import _Carousel from 'web-ui/carousel/index.js'
+import _CarouselItem from 'web-ui/carousel-item/index.js'
 
 function install (Vue, config = {}) {
     Vue.component(_Clocker.name, _Clocker)
@@ -19,6 +22,9 @@ function install (Vue, config = {}) {
 
     Vue.component(_BtnPay.name, _BtnPay)
     Vue.component(_Dialog.name, _Dialog)
+    Vue.component(_Panel.name, _Panel)
+    Vue.component(_Carousel.name, _Carousel)
+    Vue.component(_CarouselItem.name, _CarouselItem)
 
     Vue.directive(_InfiniteScroll.name, _InfiniteScroll)
     Vue.directive(_Anchor.name, _Anchor)
@@ -43,3 +49,6 @@ export const Anchor = _Anchor
 
 export const TmBtnPay = _BtnPay
 export const TmDialog = _Dialog
+export const TmPanel = _Panel
+export const TmCarousel = _Carousel
+export const TmCarouselItem = _CarouselItem

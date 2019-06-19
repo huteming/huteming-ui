@@ -3,6 +3,7 @@ import App from './App.vue'
 import router from './router'
 import store from './store'
 import ElementUI from 'element-ui'
+import AppDivider from './components/Divider'
 import 'element-ui/lib/theme-chalk/index.css'
 import 'sushi-ui'
 import 'highlight.js/styles/github-gist.css'
@@ -17,6 +18,7 @@ import * as util from 'web/util'
 console.log(ui)
 console.log(util)
 
+Vue.component(AppDivider.name, AppDivider)
 Vue.use(ElementUI)
 Vue.config.productionTip = false
 

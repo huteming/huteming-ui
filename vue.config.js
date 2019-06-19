@@ -33,7 +33,7 @@ module.exports = {
     },
 
     chainWebpack: config => {
-        if (process.env.NODE_ENV !== 'production') {
+        if (process.env.NODE_ENV === 'test') {
             config.devtool('eval')
             config.module
                 .rule('istanbul')
@@ -109,8 +109,8 @@ module.exports = {
 
         loaderOptions: {
             sass: {
-                // data: `@import "@/assets/sass/index.scss";`
-            }
+                data: `@import "web/assets/scss/index.scss";`
+            },
         }
     },
 

@@ -1,0 +1,157 @@
+<template>
+<div class="tm-panel">
+    <div class="tm-panel-image">
+        <img :src="image" alt="" class="tm-panel-image-img">
+        <slot name="image"></slot>
+    </div>
+
+    <div class="tm-panel-title">
+        <slot name="title">{{ title }}</slot>
+    </div>
+
+    <div class="tm-panel-description" :class="{ 'is-image': $slots.description }">
+        <div class="tm-panel-description-text" v-if="!$slots.description">{{ description }}</div>
+
+        <div class="tm-panel-description-imgs" v-else>
+            <slot name="description"></slot>
+        </div>
+    </div>
+
+    <div class="tm-panel-tip">{{ tip }}</div>
+
+    <div class="tm-panel-decoration">{{ decoration }}</div>
+
+    <div class="tm-panel-btn">
+        <slot name="btn">{{ btn }}</slot>
+    </div>
+</div>
+</template>
+
+<script>
+export default {
+    name: 'TmPanel',
+
+    props: {
+        image: String,
+        title: String,
+        description: String,
+        tip: String,
+        decoration: String,
+        btn: String,
+    },
+
+    computed: {
+    },
+}
+</script>
+
+<style lang="scss" scoped>
+$image-height: 228;
+$title-height: 80;
+$desc-image-margin-bottom: 8;
+$desc-image-margin-right: 8;
+$footer-height: 36;
+
+.tm-panel {
+    position: relative;
+    width: 100%;
+    padding: rem(40) rem(48) rem(40) rem(32);
+    display: grid;
+    grid-template-columns: auto rem(40) auto 1fr auto;
+    grid-template-rows: rem($title-height) 1fr rem($footer-height);
+    grid-template-areas: "image empty title title title"
+                         "image empty description description description"
+                         "image empty tip decoration btn";
+    background: #fff;
+    box-sizing: border-box;
+
+    &-image {
+        grid-area: image;
+        position: relative;
+
+        &-img {
+            display: block;
+            width: rem(170);
+            height: rem($image-height);
+            border-radius: 0 rem(8) rem(8) 0;
+        }
+    }
+
+    &-title {
+        grid-area: title;
+        font-size: rem(28);
+        line-height: rem(40);
+        color: rgba(37, 44, 54, 1);
+        font-weight: bold;
+        @include ellipsis(2);
+    }
+
+    &-description {
+        grid-area: description;
+
+        &.is-image {
+            margin-bottom: rem(-$desc-image-margin-bottom);
+        }
+
+        &-text {
+            font-size: rem(28);
+            line-height: rem(40);
+            color: rgba(153, 153, 153, 1);
+            @include ellipsis(2);
+        }
+
+        &-imgs {
+            height: 100%;
+            display: flex;
+            flex-wrap: wrap;
+            align-content: center;
+            align-items: center;
+
+            & > img {
+                margin-bottom: rem($desc-image-margin-bottom);
+                margin-right: rem($desc-image-margin-right);
+            }
+        }
+    }
+
+    &-tip {
+        grid-area: tip;
+        align-self: end;
+        font-size: rem(22);
+        line-height: rem(36);
+        color: rgba(178, 186, 196, 1);
+    }
+
+    &-decoration {
+        grid-area: decoration;
+        align-self: end;
+        justify-self: end;
+        padding-right: rem(12);
+        font-size: rem(26);
+        line-height: rem(36);
+        color: rgba(178, 186, 196, 1);
+        text-decoration: line-through;
+    }
+
+    &-btn {
+        grid-area: btn;
+        align-self: end;
+        justify-self: end;
+        font-size: rem(32);
+        line-height: rem(36);
+        color: rgba(58, 149, 250, 1);
+        font-weight: bold;
+    }
+
+    & + &:before {
+        content: ' ';
+        position: absolute;
+        top: 0;
+        left: rem(242);
+        right: rem(32);
+        height: 1px;
+        transform: scaleY(.5);
+        background: rgba(246, 246, 247, 1);
+    }
+}
+</style>

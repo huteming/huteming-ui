@@ -1,0 +1,22 @@
+@mixin ellipsis ($line: 1) {
+    overflow : hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: $line;
+    -webkit-box-orient: vertical;
+}
+
+@mixin placeholder {
+    ::-webkit-input-placeholder { /* WebKit, Blink, Edge */
+        @content;
+    }
+    ::-moz-placeholder { /* Mozilla Firefox 4 to 18 */
+        @content;
+    }
+    ::-moz-placeholder { /* Mozilla Firefox 19+ */
+        @content;
+    }
+    ::-ms-input-placeholder { /* Internet Explorer 10-11 */
+        @content;
+    }
+}

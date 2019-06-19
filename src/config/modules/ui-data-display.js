@@ -17,4 +17,10 @@ export default [
         docs: () => import('web-ui/btn-pay/README.md'),
         example: () => import('web-ui/btn-pay/demo/basic.vue'),
     },
+    {
+        path: 'panel',
+        title: '面板 panel',
+        docs: () => import('web-ui/panel/README.md'),
+        example: () => import('web-ui/panel/demo/basic.vue'),
+    },
 ]

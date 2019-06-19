@@ -7,8 +7,10 @@
 ```javascript
 import { TmCarousel, TmCarouselItem } from '@huteming/ui'
 
-Vue.component(TmCarousel.name, TmCarousel)
-Vue.component(TmCarouselItem.name, TmCarouselItem)
+Vue.use(TmCarousel)
+// Vue.component(TmCarousel.name, TmCarousel)
+Vue.use(TmCarouselItem)
+// Vue.component(TmCarouselItem.name, TmCarouselItem)
 ```
 
 ## 例子
@@ -27,10 +29,12 @@ Vue.component(TmCarouselItem.name, TmCarouselItem)
 
 | 参数 | 说明 | 类型 | 可选值 | 默认值 |
 |------|-------|---------|-------|--------|
-| value | 当前显示 | Number | | `0` |
-| loop | 是否循环 | Boolean | | `false` |
-| play | 是否播放, 支持 sync 修饰符 | Boolean | | `false` |
+| height | 高度 | String | | |
+| initial | 初始索引 | String, Number | | |
+| loop | 是否循环 | Boolean | | `true` |
+| autoplay | 自动播放 | Boolean | | `false` |
 | interval | 自动播放的时间间隔（毫秒） | Number | | `3000` |
+| direction | 轮播方向 | String | `horizontal`, `vertical` | `horizontal` |
 | disabled-touch | 禁止手势 | Boolean | | `false` |
 
 ### Slot
