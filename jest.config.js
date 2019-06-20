@@ -37,7 +37,9 @@ module.exports = {
   // collectCoverage: true,
   collectCoverageFrom: [
     'packages/@util/**/src/*.{js,vue}',
+    // 'packages/@ui/**/src/*.{js,vue}',
     'packages/@ui/btn-pay/src/*.{js,vue}',
+    'packages/@ui/panel/src/*.{js,vue}',
     // '!src/main.js', // No need to cover bootstrap file
   ],
   coverageReporters: ['html', 'text-summary']

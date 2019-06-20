@@ -9,7 +9,7 @@
         <slot name="title">{{ title }}</slot>
     </div>
 
-    <div class="tm-panel-description" :class="{ 'is-image': $slots.description }">
+    <div class="tm-panel-description" :class="{ 'is-custom': $slots.description }">
         <div class="tm-panel-description-text" v-if="!$slots.description">{{ description }}</div>
 
         <div class="tm-panel-description-imgs" v-else>
@@ -89,7 +89,7 @@ $footer-height: 36;
     &-description {
         grid-area: description;
 
-        &.is-image {
+        &.is-custom {
             margin-bottom: rem(-$desc-image-margin-bottom);
         }
 
