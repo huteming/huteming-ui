@@ -24,7 +24,8 @@ module.exports = {
     'jest-serializer-vue'
   ],
   testMatch: [
-    '<rootDir>/tests/unit/**/*.spec.(js|jsx|ts|tsx)|**/__tests__/*.(js|jsx|ts|tsx)'
+    '<rootDir>/tests/unit/**/*.spec.(js|jsx|ts|tsx)|**/__tests__/*.(js|jsx|ts|tsx)',
+    '<rootDir>/tests/ui/**/*.spec.(js|jsx|ts|tsx)|**/__tests__/*.(js|jsx|ts|tsx)',
   ],
   testURL: 'http://localhost/#/hello?mainUnion=mainUnion&subUnion=subUnion&key=value&num=1',
   watchPlugins: [
@@ -36,6 +37,7 @@ module.exports = {
   // collectCoverage: true,
   collectCoverageFrom: [
     'packages/@util/**/src/*.{js,vue}',
+    'packages/@ui/btn-pay/src/*.{js,vue}',
     // '!src/main.js', // No need to cover bootstrap file
   ],
   coverageReporters: ['html', 'text-summary']

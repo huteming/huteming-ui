@@ -6,12 +6,12 @@
         <div :class="[typeof title === 'number' ? 'tm-pay-price' : 'tm-pay-title']" :style="titleStyle">{{ title | fixed(2, true) }}</div>
 
         <div class="tm-pay-group">
-            <div class="tm-pay-desc" :class="{ 'through': tipThrough }" :style="tipStyle">{{ tip }}</div>
+            <div class="tm-pay-tip" :class="{ 'through': tipThrough }" :style="tipStyle">{{ tip }}</div>
             <div class="tm-pay-desc" :style="descStyle">{{ desc }}</div>
         </div>
     </div>
 
-    <div class="tm-pay-btn" :style="normalizedBtnStyle" @click="handleClick">
+    <div class="tm-pay-btn" :style="normalizedBtnStyle" @click.stop="handleClick">
         <slot name="btn">{{ btn }}</slot>
     </div>
 </div>
@@ -136,7 +136,7 @@ export default {
         font-weight: bold;
     }
 
-    &-desc {
+    &-tip {
         position: relative;
         font-size: .26rem;
         line-height: .4rem;
@@ -156,6 +156,14 @@ export default {
                 background-color: rgba(153, 153, 153, 1);
             }
         }
+    }
+
+    &-desc {
+        position: relative;
+        font-size: .26rem;
+        line-height: .4rem;
+        color: rgba(34, 34, 34, 1);
+        letter-spacing: .5px;
     }
 
     &-group {
