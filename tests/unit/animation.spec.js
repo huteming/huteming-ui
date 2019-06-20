@@ -80,29 +80,25 @@ describe('animation', () => {
     })
 
     it('利用requestAnimationFrame进行动画', () => {
-        const originWindow = global.window
+        const originAnimation = window.requestAnimationFrame
         const mockAnimation = sinon.fake()
 
-        global.window = {
-            requestAnimationFrame: (callback) => {
-                mockAnimation(callback)
-            },
+        window.requestAnimationFrame = (callback) => {
+            mockAnimation(callback)
         }
         linear(0, 10, sinon.fake(), 20)
         assert.strictEqual(mockAnimation.callCount, 1)
 
-        global.window = originWindow
+        window.requestAnimationFrame = originAnimation
     })
 
     it('requestAnimationFrame兼容', () => {
-        const originWindow = global.window
+        const originAnimation = window.requestAnimationFrame
         const originTimeout = global.setTimeout
         const mockTimeout = sinon.fake()
         const mockFn = sinon.fake()
 
-        global.window = {
-            requestAnimationFrame: null
-        }
+        window.requestAnimationFrame = null
         global.setTimeout = mockTimeout
 
         linear(0, 10, sinon.fake(), 10)
@@ -113,7 +109,7 @@ describe('animation', () => {
         assert.strictEqual(arg1, mockFn)
         assert.strictEqual(arg2, 17)
 
-        global.window = originWindow
+        window.requestAnimationFrame = originAnimation
         global.setTimeout = originTimeout
     })
 })

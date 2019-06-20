@@ -1,6 +1,6 @@
 import { mount } from '@vue/test-utils'
-import WorkComponent from '../components/element'
-import BasicComponent from '../components/basic'
+import WorkComponent from '../components/element.vue'
+import BasicComponent from '../components/basic.vue'
 import assert from 'assert'
 import { autoprefixer, getScrollEventTarget, scrollX, scrollY, attached, getScrollTop, getScrollLeft, isXScrollable, isYScrollable } from 'web-util/element/src/main'
 const wrapper = mount(WorkComponent)

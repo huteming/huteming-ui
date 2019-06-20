@@ -11,3 +11,20 @@ export const jsonToForm = (data) => {
 export async function sleep (time) {
     await new Promise(resolve => setTimeout(resolve, time))
 }
+
+export function mockWindowProperty (property, value) {
+    const { [property]: originalProperty } = window
+    delete window[property]
+
+    beforeAll(() => {
+        Object.defineProperty(window, property, {
+            configurable: true,
+            writable: true,
+            value,
+        })
+    })
+
+    afterAll(() => {
+        window[property] = originalProperty
+    })
+}

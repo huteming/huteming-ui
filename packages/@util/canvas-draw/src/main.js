@@ -262,7 +262,7 @@ function drawText (text, x, y, options = {}) {
         const prefixWidth = getArrayTextWidth.call(this, prefixArray, letterSpacing, true)
         const suffixWidth = getArrayTextWidth.call(this, suffixArray, letterSpacing, true)
         const textWidth = getArrayTextWidth.call(this, textArray, letterSpacing)
-        // console.log(prefixWidth + suffixWidth + textWidth, context.measureText(fix).width, maxWidth)
+        // console.log(prefixWidth, suffixWidth, textWidth, context.measureText(fix).width, maxWidth)
 
         if (prefixWidth + suffixWidth + textWidth > maxWidth) {
             const residueWidth = maxWidth - prefixWidth - suffixWidth - context.measureText(fix).width

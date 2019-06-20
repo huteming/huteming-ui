@@ -5,7 +5,7 @@ describe('roller', () => {
     const res = {}
     const count = 100000
 
-    before(() => {
+    beforeAll(() => {
         const roller = new Roller()
 
         roller.add(1, 1)

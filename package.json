@@ -7,9 +7,9 @@
     "build": "vue-cli-service build --report",
     "lint": "vue-cli-service lint",
     "test:e2e": "vue-cli-service test:e2e",
-    "test:unit": "vue-cli-service test:unit --timeout 4000",
-    "test:watch": "vue-cli-service test:unit --timeout 4000 --watch",
-    "cover": "nyc vue-cli-service test:unit --timeout 4000",
+    "test:unit": "vue-cli-service test:unit",
+    "test:watch": "vue-cli-service test:unit --watch",
+    "cover": "vue-cli-service test:unit --coverage",
     "# lerna 钩子指令 #": "",
     "prepublishOnly": "npm run test:unit",
     "# 打包组件指令 #": "",
@@ -52,49 +52,30 @@
     "validator": "cross-env BUILD_MODE=lib vue-cli-service build --target lib --report --name validator --dest packages/@util/validator/dist packages/@util/validator/index.js",
     "wxsdk": "cross-env BUILD_MODE=lib vue-cli-service build --target lib --report --name wxsdk --dest packages/@util/wxsdk/dist packages/@util/wxsdk/index.js",
     "element": "cross-env BUILD_MODE=lib vue-cli-service build --target lib --report --name element --dest packages/@util/element/dist packages/@util/element/index.js",
-    "help:inspect": "vue-cli-service inspect --mode development",
+    "help:inspect": "vue-cli-service inspect --mode test",
     "help:unit": "vue-cli-service test:unit help"
-  },
-  "nyc": {
-    "check-coverage": true,
-    "per-file": true,
-    "lines": 90,
-    "statements": 90,
-    "functions": 90,
-    "branches": 90,
-    "include": [
-      "packages/@util/**/src/*"
-    ],
-    "exclude": [],
-    "reporter": [
-      "lcov",
-      "text",
-      "text-summary"
-    ],
-    "extension": [
-      ".js"
-    ],
-    "cache": true,
-    "all": true
   },
   "dependencies": {
     "clipboard": "^2.0.4",
+    "core-js": "^2.6.5",
     "register-service-worker": "^1.5.2",
     "vue": "^2.5.22",
     "vue-router": "^3.0.1",
     "vuex": "^3.0.1"
   },
   "devDependencies": {
-    "@vue/cli-plugin-babel": "^3.4.0",
-    "@vue/cli-plugin-e2e-cypress": "^3.4.0",
-    "@vue/cli-plugin-eslint": "^3.4.0",
+    "@vue/cli-plugin-babel": "^3.8.0",
+    "@vue/cli-plugin-e2e-cypress": "^3.8.0",
+    "@vue/cli-plugin-eslint": "^3.8.0",
     "@vue/cli-plugin-pwa": "^3.4.0",
-    "@vue/cli-plugin-unit-mocha": "^3.4.0",
-    "@vue/cli-service": "^3.4.0",
+    "@vue/cli-plugin-unit-jest": "^3.8.0",
+    "@vue/cli-service": "^3.8.4",
     "@vue/eslint-config-standard": "^4.0.0",
-    "@vue/test-utils": "^1.0.0-beta.20",
+    "@vue/test-utils": "^1.0.0-beta.29",
     "axios": "^0.18.0",
+    "babel-core": "7.0.0-bridge.0",
     "babel-eslint": "^10.0.1",
+    "babel-jest": "^23.6.0",
     "babel-plugin-istanbul": "^5.1.4",
     "babel-plugin-rewire": "^1.2.0",
     "babel-plugin-transform-imports": "^1.5.1",
@@ -102,10 +83,11 @@
     "chai": "^4.1.2",
     "cross-env": "^5.2.0",
     "element-ui": "^2.4.6",
-    "eslint": "^5.8.0",
+    "eslint": "^5.16.0",
     "eslint-plugin-vue": "^5.0.0",
     "highlight.js": "^9.14.2",
     "istanbul-instrumenter-loader": "^3.0.1",
+    "jest-canvas-mock": "^2.1.0",
     "jsdom": "^15.1.1",
     "lerna": "^3.13.3",
     "markdown-it": "^8.4.2",
@@ -121,6 +103,6 @@
     "sushi-ui": "^0.8.2",
     "velocity-animate": "^1.5.2",
     "vue-markdown-loader": "^2.4.1",
-    "vue-template-compiler": "^2.5.21"
+    "vue-template-compiler": "^2.6.10"
   }
 }

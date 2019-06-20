@@ -195,14 +195,9 @@ describe('request > interceptors', () => {
                     msg: errorMsg,
                 },
             }
-            const originWindow = global.window
+            const originReplace = window.location.replace
             const mockReplace = sinon.fake()
-            global.window = {
-                location: {
-                    href: 'href',
-                    replace: mockReplace,
-                },
-            }
+            window.location.replace = mockReplace
 
             int.resSuccess(res)
                 .then(() => {
@@ -214,7 +209,7 @@ describe('request > interceptors', () => {
                     done()
                 })
                 .finally(() => {
-                    global.window = originWindow
+                    window.location.replace = originReplace
                 })
         })
 

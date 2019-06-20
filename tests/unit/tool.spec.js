@@ -1,29 +1,20 @@
 import assert from 'assert'
+import sinon from 'sinon'
 import * as tool from 'web-util/tool/src/main'
 const LOAD_FAILURE_SRC = 'LOAD_FAILURE_SRC'
 const LOAD_SUCCESS_SRC = 'LOAD_SUCCESS_SRC'
 const IMG_SUFFIX = 'tommy'
 
 describe('tool', () => {
-    describe('isWeixinBrowser', () => {
-        let originWindow
+    afterEach(() => {
+        sinon.restore()
+    })
 
-        before(() => {
-            originWindow = global.window
-            global.window = {
-                navigator: {
-                    userAgent: 'AppleWebKit/537.36 (KHTML, like Gecko) Mobile Safari/537.36 MicroMessenger/7.0.4.1420(0x2700043B)',
-                }
-            }
+    it('isWeixinBrowser', () => {
+        sinon.replaceGetter(window.navigator, 'userAgent', () => {
+            return 'AppleWebKit/537.36 (KHTML, like Gecko) Mobile Safari/537.36 MicroMessenger/7.0.4.1420(0x2700043B)'
         })
-
-        after(() => {
-            global.window = originWindow
-        })
-
-        it('忽略大小写', () => {
-            assert.ok(tool.isWeixinBrowser())
-        })
+        assert.strictEqual(tool.isWeixinBrowser(), true)
     })
 
     describe('tofilled', () => {
@@ -150,7 +141,7 @@ describe('tool', () => {
     })
 
     describe('loadImages', () => {
-        before(() => {
+        beforeAll(() => {
             Object.defineProperty(global.Image.prototype, 'src', {
                 set (src) {
                     if (src.indexOf(LOAD_FAILURE_SRC) > -1) {
@@ -248,21 +239,6 @@ describe('tool', () => {
     })
 
     describe('parseQuery', () => {
-        let originWindow
-
-        before(() => {
-            originWindow = global.window
-            global.window = {
-                location: {
-                    href: 'http://localhost/#/hello?key=value&num=1',
-                },
-            }
-        })
-
-        after(() => {
-            global.window = originWindow
-        })
-
         it('解析hash路由', () => {
             const _value = tool.parseQuery('key')
             assert.strictEqual(_value, 'value')

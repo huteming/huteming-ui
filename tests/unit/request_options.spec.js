@@ -1,27 +1,24 @@
 import sinon from 'sinon'
 import assert from 'assert'
 import moxios from 'moxios'
+const { testURL } = require('../../jest.config')
 
-const href = 'http://localhost'
-const replace = sinon.fake()
 let requestFactory = null
 
 describe('request > options', () => {
-    let originWindow
+    let mockReplace
+    let originReplace
     let request
     let resSuccess
     let resError
     let reqSuccess
 
     describe('callback is a function', () => {
+
         beforeEach(() => {
-            originWindow = global.window
-            global.window = {
-                location: {
-                    href,
-                    replace,
-                },
-            }
+            mockReplace = sinon.fake()
+            originReplace = window.location.replace
+            window.location.replace = mockReplace
 
             requestFactory = require('web-util/request/index.js').default
             resSuccess = sinon.fake()
@@ -65,7 +62,7 @@ describe('request > options', () => {
         })
 
         afterEach(() => {
-            global.window = originWindow
+            window.location.replace = originReplace
             moxios.uninstall(request)
         })
 
@@ -108,7 +105,9 @@ describe('request > options', () => {
                     done(new Error('非期望异常'))
                 })
                 .catch(() => {
-                    assert.ok(replace.calledWith(`//r1001.jinghao.com/api/redirect/back?backUrl=${encodeURIComponent(href)}&accountAlias=_accountAlias`))
+                    const replaceURL = `//r1001.jinghao.com/api/redirect/back?backUrl=${encodeURIComponent(testURL)}&accountAlias=_accountAlias`
+                    const [actualURL] = mockReplace.getCall(0).args
+                    assert.strictEqual(actualURL, replaceURL)
                     done()
                 })
         })
@@ -127,13 +126,9 @@ describe('request > options', () => {
 
     describe('callback is not a function', () => {
         beforeEach(() => {
-            originWindow = global.window
-            global.window = {
-                location: {
-                    href,
-                    replace,
-                },
-            }
+            mockReplace = sinon.fake()
+            originReplace = window.location.replace
+            window.location.replace = mockReplace
 
             requestFactory = require('web-util/request/index.js').default
             resSuccess = sinon.fake()
@@ -161,7 +156,7 @@ describe('request > options', () => {
         })
 
         afterEach(() => {
-            global.window = originWindow
+            window.location.replace = originReplace
             moxios.uninstall(request)
         })
 

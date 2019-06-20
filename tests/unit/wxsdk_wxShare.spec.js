@@ -94,37 +94,23 @@ describe('wxsdk > wxShare', () => {
     })
 
     it('添加渠道参数', async () => {
-        const originWindow = global.window
-        const _mainUnion = 'aaaa'
-        const _subUnion = 'bbbb'
-        global.window = {
-            location: {
-                href: `http://localhost?mainUnion=${_mainUnion}&subUnion=${_subUnion}`,
-            },
-        }
+        const resOptions = await wxShare({ channel: true, link: '/hello' })
 
-        try {
-            const resOptions = await wxShare({ channel: true, link: '/hello' })
-
-            const { mainUnion, subUnion } = qs.parse(resOptions.link.split('?')[1], { ignoreQueryPrefix: true })
-
-            assert.strictEqual(mainUnion, _mainUnion)
-            assert.strictEqual(subUnion, _subUnion)
-        } finally {
-            global.window = originWindow
-        }
+        const { mainUnion, subUnion } = qs.parse(resOptions.link.split('?')[1], { ignoreQueryPrefix: true })
+        assert.strictEqual(mainUnion, 'mainUnion')
+        assert.strictEqual(subUnion, 'subUnion')
     })
 
     it('地址渠道参数为空', async () => {
-        const originWindow = global.window
-        global.window = {
-            location: {
-                href: `http://localhost`,
+        const originLocation = window.location
+        Object.defineProperty(window, 'location', {
+            configurable: true,
+            writable: true,
+            value: {
+                href: 'http://testurl',
             },
-        }
-
+        })
         try {
-            global.window.location.href = `http://localhost`
             const resOptions = await wxShare({ channel: true, link: '/hello' })
 
             const { mainUnion, subUnion } = qs.parse(resOptions.link.split('?')[1], { ignoreQueryPrefix: true })
@@ -132,12 +118,11 @@ describe('wxsdk > wxShare', () => {
             assert.strictEqual(mainUnion, '')
             assert.strictEqual(subUnion, '')
         } finally {
-            global.window = originWindow
+            window.location = originLocation
         }
     })
 
     it('添加查询参数', async () => {
-        const originWindow = global.window
         const key1 = 'qq'
         const key2 = 'force'
         const query = [
@@ -150,26 +135,14 @@ describe('wxsdk > wxShare', () => {
                 value: key2,
             },
         ]
-        global.window = {
-            location: {
-                href: `http://localhost?mainUnion=${key2}`,
-            },
-        }
+        const resOptions = await wxShare({ query, channel: true })
 
-        try {
-            global.window.location.href = `http://localhost?mainUnion=${key2}`
-            const resOptions = await wxShare({ query, channel: true })
-
-            const { qq, mainUnion } = qs.parse(resOptions.link.split('?')[1], { ignoreQueryPrefix: true })
-            assert.strictEqual(qq, key1)
-            assert.strictEqual(mainUnion, key2)
-        } finally {
-            global.window = originWindow
-        }
+        const { qq, mainUnion } = qs.parse(resOptions.link.split('?')[1], { ignoreQueryPrefix: true })
+        assert.strictEqual(qq, key1)
+        assert.strictEqual(mainUnion, 'mainUnion')
     })
 
     it('查询参数可以强制覆盖渠道参数', async () => {
-        const originWindow = global.window
         const key2 = 'force'
         const query = [
             {
@@ -178,20 +151,10 @@ describe('wxsdk > wxShare', () => {
                 force: true,
             },
         ]
-        global.window = {
-            location: {
-                href: `http://localhost?mainUnion=${key2}`,
-            },
-        }
 
-        try {
-            global.window.location.href = `http://localhost?mainUnion=${key2}`
-            const resOptions = await wxShare({ query, channel: true })
+        const resOptions = await wxShare({ query, channel: true })
 
-            const { mainUnion } = qs.parse(resOptions.link.split('?')[1], { ignoreQueryPrefix: true })
-            assert.strictEqual(mainUnion, key2)
-        } finally {
-            global.window = originWindow
-        }
+        const { mainUnion } = qs.parse(resOptions.link.split('?')[1], { ignoreQueryPrefix: true })
+        assert.strictEqual(mainUnion, key2)
     })
 })

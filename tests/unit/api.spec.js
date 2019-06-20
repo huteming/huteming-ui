@@ -56,19 +56,22 @@ describe('api', () => {
             api.sign()
 
             const spyCall = post.getCall(0)
-
             assert.strictEqual(spyCall.args[0], '/api/system/pageStat')
         })
 
         it('默认参数', () => {
+            const originTitle = document.title
+            const title = 'sdkjslf'
+            document.title = title
             api.sign()
 
             const spyCall = post.getCall(0)
 
             assert.deepStrictEqual(spyCall.args[1], {
-                itemSign: link,
+                itemSign: window.location.href.replace(window.location.origin, ''),
                 itemRemark: title,
             })
+            document.title = originTitle
         })
 
         it('自定义参数', async () => {
