@@ -1,4 +1,3 @@
-import 'intersection-observer'
 import { easeOut } from 'web-util/animation/src/main'
 import { attached, getScrollEventTarget, getScrollTop } from 'web-util/element/src/main'
 const ELEMENT_ATTR_NAME = '@@Anchor'
@@ -6,7 +5,6 @@ const ELEMENT_ATTR_NAME = '@@Anchor'
 const defaults = {
     selector: '',
     container: '',
-    observe: null,
     top: 0,
 }
 
@@ -31,9 +29,6 @@ export default {
 
             scrollEventTarget: null,
             clickEventTarget: null,
-
-            io: null,
-            lastVisible: false,
         }
 
         // 主要执行操作
@@ -42,25 +37,19 @@ export default {
         // 更新生命周期共享数据
         el[ELEMENT_ATTR_NAME] = {
             handlerClick,
-            self,
         }
 
         attached(el, () => {
             self.clickEventTarget = document.querySelector(selector)
             self.scrollEventTarget = container ? document.querySelector(container) : getScrollEventTarget(el)
             el.addEventListener('click', handlerClick)
-            tryObserve.call(self)
         })
     },
 
     unbind (el) {
-        const { handlerClick, self: { io } } = el[ELEMENT_ATTR_NAME]
+        const { handlerClick } = el[ELEMENT_ATTR_NAME]
 
-        el.addEventListener('click', handlerClick)
-
-        if (io) {
-            io.disconnect()
-        }
+        el.removeEventListener('click', handlerClick)
     },
 }
 
@@ -82,33 +71,6 @@ function handleClick () {
     easeOut(_from, _to, position => {
         this.scrollEventTarget.scrollTop = position
     })
-}
-
-function tryObserve () {
-    const { options: { observe }, clickEventTarget, scrollEventTarget, el } = this
-    if (!clickEventTarget || typeof observe !== 'function' || this.io) {
-        return false
-    }
-
-    const optionsIO = {
-        threshold: [0, 1],
-    }
-    if (scrollEventTarget !== window) {
-        optionsIO.root = scrollEventTarget
-    }
-
-    const io = new IntersectionObserver(entries => {
-        const visible = entries[0].intersectionRatio >= 1
-
-        if (visible !== this.lastVisible) {
-            observe(visible, el)
-            this.lastVisible = visible
-        }
-    }, optionsIO)
-
-    io.observe(clickEventTarget)
-
-    this.io = io
 }
 
 function getElementTop (element) {

@@ -23,7 +23,7 @@ module.exports = {
     configureWebpack: config => {
         config.resolve = {
             alias: {
-                'src': resolve('src'),
+                '@': resolve('src'),
                 'web': resolve('./packages'),
                 'web-ui': resolve('./packages/@ui'),
                 'web-util': resolve('./packages/@util'),

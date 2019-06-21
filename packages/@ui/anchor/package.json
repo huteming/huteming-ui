@@ -9,7 +9,6 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "@huteming/util-tool": "^1.2.7",
-    "intersection-observer": "^0.7.0"
+    "@huteming/util-tool": "^1.2.7"
   }
 }

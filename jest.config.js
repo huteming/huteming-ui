@@ -37,10 +37,11 @@ module.exports = {
   // collectCoverage: true,
   collectCoverageFrom: [
     'packages/@util/**/src/*.{js,vue}',
-    // 'packages/@ui/**/src/*.{js,vue}',
-    'packages/@ui/btn-pay/src/*.{js,vue}',
-    'packages/@ui/panel/src/*.{js,vue}',
-    // '!src/main.js', // No need to cover bootstrap file
+    'packages/@ui/**/src/*.{js,vue}',
+    '!packages/@ui/actionsheet/src/*.{js,vue}',
+    '!packages/@ui/flex/src/*.{js,vue}',
+    '!packages/@ui/input/src/*.{js,vue}',
+    '!packages/@ui/tab/src/*.{js,vue}',
   ],
   coverageReporters: ['html', 'text-summary']
 }
