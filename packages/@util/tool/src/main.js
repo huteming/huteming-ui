@@ -102,8 +102,10 @@ function loadImageSingle (url, useCache) {
         const img = new Image()
         img.setAttribute('crossOrigin', 'anonymous')
 
-        const separator = url.indexOf('?') > -1 ? '&' : '?'
-        url = `${url}${separator}timestamp=${useCache ? IMG_SUFFIX : Date.now() * Math.random()}`
+        if (!/^data:/i.test(url)) {
+            const separator = url.indexOf('?') > -1 ? '&' : '?'
+            url = `${url}${separator}timestamp=${useCache ? IMG_SUFFIX : Date.now() * Math.random()}`
+        }
 
         img.onload = function () {
             resolve(img)

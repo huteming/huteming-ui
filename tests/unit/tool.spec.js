@@ -1,6 +1,7 @@
 import assert from 'assert'
 import sinon from 'sinon'
 import * as tool from 'web-util/tool/src/main'
+import { imgURI } from '../constant'
 const LOAD_FAILURE_SRC = 'LOAD_FAILURE_SRC'
 const LOAD_SUCCESS_SRC = 'LOAD_SUCCESS_SRC'
 const IMG_SUFFIX = 'tommy'
@@ -146,7 +147,7 @@ describe('tool', () => {
                 set (src) {
                     if (src.indexOf(LOAD_FAILURE_SRC) > -1) {
                         setTimeout(() => this.onerror(new Error('mocked error')))
-                    } else if (src.indexOf(LOAD_SUCCESS_SRC) > -1) {
+                    } else if (src.indexOf(LOAD_SUCCESS_SRC) > -1 || src === imgURI) {
                         setTimeout(() => this.onload())
                     }
                     this.setAttribute('src', src)
@@ -155,6 +156,13 @@ describe('tool', () => {
                     return this.getAttribute('src')
                 },
             })
+        })
+
+        it('base64位字符串', async () => {
+            const img = await tool.loadImages(imgURI)
+            const src = img.getAttribute('src')
+
+            assert.strictEqual(src, imgURI)
         })
 
         it('设置跨域属性', async () => {
