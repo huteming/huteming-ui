@@ -1,11 +1,13 @@
 import { easeOut } from 'web-util/animation/src/main'
-import { attached, getScrollEventTarget, getScrollTop } from 'web-util/element/src/main'
+import { attached, getScrollEventTarget, getScrollTop, getElementTop } from 'web-util/element/src/main'
 const ELEMENT_ATTR_NAME = '@@Anchor'
 
 const defaults = {
     selector: '',
     container: '',
     top: 0,
+    duration: 300,
+    done: null,
 }
 
 export default {
@@ -37,6 +39,7 @@ export default {
         // 更新生命周期共享数据
         el[ELEMENT_ATTR_NAME] = {
             handlerClick,
+            self,
         }
 
         attached(el, () => {
@@ -62,21 +65,17 @@ function handleClick () {
         return
     }
 
-    // 结束位置
     const top = this.options.top * document.body.clientWidth / 750
-    const _to = getElementTop(this.clickEventTarget) - getElementTop(this.scrollEventTarget) + getScrollTop(this.scrollEventTarget) - top
     // 滚动条当前滚动位置
     const _from = getScrollTop(this.scrollEventTarget)
+    // 结束位置
+    const _to = getElementTop(this.clickEventTarget) - getElementTop(this.scrollEventTarget) + getScrollTop(this.scrollEventTarget) - top
 
-    easeOut(_from, _to, position => {
+    easeOut(_from, _to, (position, isFinish) => {
         this.scrollEventTarget.scrollTop = position
-    })
-}
 
-function getElementTop (element) {
-    if (element === window) {
-        return getScrollTop(window)
-    }
-
-    return element.getBoundingClientRect().top + getScrollTop(window)
+        if (isFinish && typeof this.options.done === 'function') {
+            this.options.done(_to)
+        }
+    }, this.options.duration)
 }

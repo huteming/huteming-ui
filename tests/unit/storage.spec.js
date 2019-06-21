@@ -1,48 +1,14 @@
 import Storage from 'web-util/storage/src/main'
 import sinon from 'sinon'
 import assert from 'assert'
-import { mockWindowProperty } from '../helper'
+import { mockProperty } from '../helper'
 
 const prefix = 'prefix'
 const key = 'key'
 const value = { hello: 'world' }
 
 describe('storage', () => {
-    let originLocalStorage
-    let originSessionStorage
-    let instance
-    let setItem
-    let getItem
-    let removeItem
-    let clear
-
-    beforeEach(() => {
-        instance = new Storage(prefix)
-        setItem = sinon.fake()
-        getItem = sinon.fake.returns(JSON.stringify(value))
-        removeItem = sinon.fake()
-        clear = sinon.fake()
-
-        originLocalStorage = window.localStorage
-        originSessionStorage = window.sessionStorage
-
-        // window.localStorage = {
-        //     setItem,
-        //     getItem,
-        //     removeItem,
-        //     clear,
-        // }
-        // window.sessionStorage = {
-        //     setItem,
-        //     getItem,
-        //     removeItem,
-        // }
-    })
-
-    afterEach(() => {
-        window.localStorage = originLocalStorage
-        window.sessionStorage = originSessionStorage
-    })
+    const instance = new Storage(prefix)
 
     describe('构造函数默认参数', () => {
         it('prefix = ""', () => {
@@ -54,7 +20,7 @@ describe('storage', () => {
     })
 
     describe('getLocal', () => {
-        mockWindowProperty('localStorage', {
+        mockProperty('localStorage', {
             getItem: sinon.fake.returns(JSON.stringify(value)),
         })
 
@@ -74,7 +40,7 @@ describe('storage', () => {
     })
 
     describe('setLocal', () => {
-        mockWindowProperty('localStorage', {
+        mockProperty('localStorage', {
             setItem: sinon.fake(),
         })
 
@@ -101,7 +67,7 @@ describe('storage', () => {
     })
 
     describe('removeLocal', () => {
-        mockWindowProperty('localStorage', {
+        mockProperty('localStorage', {
             removeItem: sinon.fake(),
         })
 
@@ -119,7 +85,7 @@ describe('storage', () => {
     })
 
     describe('clearLocal', () => {
-        mockWindowProperty('localStorage', {
+        mockProperty('localStorage', {
             clear: sinon.fake(),
         })
 
@@ -137,7 +103,7 @@ describe('storage', () => {
     })
 
     describe('getSession', () => {
-        mockWindowProperty('sessionStorage', {
+        mockProperty('sessionStorage', {
             getItem: sinon.fake.returns(JSON.stringify(value)),
         })
 
@@ -157,7 +123,7 @@ describe('storage', () => {
     })
 
     describe('setSession', () => {
-        mockWindowProperty('sessionStorage', {
+        mockProperty('sessionStorage', {
             setItem: sinon.fake(),
         })
 
@@ -184,7 +150,7 @@ describe('storage', () => {
     })
 
     describe('removeSession', () => {
-        mockWindowProperty('sessionStorage', {
+        mockProperty('sessionStorage', {
             removeItem: sinon.fake(),
         })
 
@@ -202,7 +168,7 @@ describe('storage', () => {
     })
 
     describe('clearSession', () => {
-        mockWindowProperty('sessionStorage', {
+        mockProperty('sessionStorage', {
             clear: sinon.fake(),
         })
 

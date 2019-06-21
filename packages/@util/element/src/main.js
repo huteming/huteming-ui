@@ -72,6 +72,17 @@ export function getScrollTop (element) {
 }
 
 /**
+ * 获取dom距离屏幕上端的位置
+ */
+export function getElementTop (element) {
+    if (element === window) {
+        return getScrollTop(window)
+    }
+
+    return element.getBoundingClientRect().top + getScrollTop(window)
+}
+
+/**
  * 获取需要绑定事件的元素
  */
 export function getScrollEventTarget (element) {

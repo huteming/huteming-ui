@@ -12,12 +12,12 @@ export async function sleep (time) {
     await new Promise(resolve => setTimeout(resolve, time))
 }
 
-export function mockWindowProperty (property, value) {
-    const { [property]: originalProperty } = window
-    delete window[property]
+export function mockProperty (property, value, target = window) {
+    const { [property]: originalProperty } = target
+    delete target[property]
 
     beforeAll(() => {
-        Object.defineProperty(window, property, {
+        Object.defineProperty(target, property, {
             configurable: true,
             writable: true,
             value,
@@ -25,6 +25,6 @@ export function mockWindowProperty (property, value) {
     })
 
     afterAll(() => {
-        window[property] = originalProperty
+        target[property] = originalProperty
     })
 }

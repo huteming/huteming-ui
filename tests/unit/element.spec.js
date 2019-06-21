@@ -2,7 +2,8 @@ import { mount } from '@vue/test-utils'
 import WorkComponent from '../components/element.vue'
 import BasicComponent from '../components/basic.vue'
 import assert from 'assert'
-import { autoprefixer, getScrollEventTarget, scrollX, scrollY, attached, getScrollTop, getScrollLeft, isXScrollable, isYScrollable } from 'web-util/element/src/main'
+import sinon from 'sinon'
+import { autoprefixer, getScrollEventTarget, scrollX, scrollY, attached, getScrollTop, getScrollLeft, isXScrollable, isYScrollable, getElementTop, __RewireAPI__ as RewireAPI } from 'web-util/element/src/main'
 const wrapper = mount(WorkComponent)
 const eleContainer = wrapper.vm.$refs.container
 const eleEmpty = wrapper.vm.$refs.empty
@@ -18,6 +19,42 @@ describe('element', () => {
 
     afterEach(() => {
         wrapperBasic && wrapperBasic.destroy()
+    })
+
+    describe('getElementTop', () => {
+        let mockGetScrollTop
+
+        beforeEach(() => {
+            mockGetScrollTop = sinon.fake()
+            RewireAPI.__Rewire__('getScrollTop', (...args) => {
+                mockGetScrollTop(...args)
+                return -1
+            })
+        })
+
+        afterEach(() => {
+            RewireAPI.__ResetDependency__('getScrollTop')
+        })
+
+        it('window', () => {
+            const res = getElementTop(window)
+
+            assert.strictEqual(res, -1)
+            assert.strictEqual(mockGetScrollTop.getCall(0).args[0], window)
+        })
+
+        it('element', () => {
+            const mockElement = {
+                getBoundingClientRect () {
+                    return {
+                        top: -2,
+                    }
+                },
+            }
+            const res = getElementTop(mockElement)
+
+            assert.strictEqual(res, -3)
+        })
     })
 
     describe('autoprefixer', () => {
