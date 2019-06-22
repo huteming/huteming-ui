@@ -1,3 +1,6 @@
+export const IMG_FAILURE_SRC = 'LOAD_FAILURE_SRC'
+export const IMG_SUCCESS_SRC = 'LOAD_SUCCESS_SRC'
+
 export const imgURL = 'http://jhsy-img.caizhu.com/Fr2mInO7RA7KfVwpO6EcL1E7NyE5'
 
 export const imgURI = `data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAANIAAAEsCAYAAAC2du2fAAAABGdBTUEAALGPC/xhBQAAACBjSFJNAAB6JgAAgIQAAPoAAACA6AAAdTAAAOpgAAA6mAAAF

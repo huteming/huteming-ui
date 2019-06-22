@@ -1,7 +1,7 @@
 import CompAnchor from '../components/anchor'
 import { mount } from '@vue/test-utils'
 import assert from 'assert'
-import { sleep, mockProperty } from '../helper'
+import { sleep } from '../helper'
 import { __RewireAPI__ as WxsdkRewireAPI } from 'web-ui/anchor/src/anchor'
 import sinon from 'sinon'
 

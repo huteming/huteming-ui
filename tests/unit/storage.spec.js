@@ -20,8 +20,10 @@ describe('storage', () => {
     })
 
     describe('getLocal', () => {
-        mockProperty('localStorage', {
-            getItem: sinon.fake.returns(JSON.stringify(value)),
+        mockProperty(window, 'localStorage', {
+            value: {
+                getItem: sinon.fake.returns(JSON.stringify(value)),
+            },
         })
 
         it('instance', () => {
@@ -40,8 +42,10 @@ describe('storage', () => {
     })
 
     describe('setLocal', () => {
-        mockProperty('localStorage', {
-            setItem: sinon.fake(),
+        mockProperty(window, 'localStorage', {
+            value: {
+                setItem: sinon.fake(),
+            }
         })
 
         it('instance', () => {
@@ -67,8 +71,10 @@ describe('storage', () => {
     })
 
     describe('removeLocal', () => {
-        mockProperty('localStorage', {
-            removeItem: sinon.fake(),
+        mockProperty(window, 'localStorage', {
+            value: {
+                removeItem: sinon.fake(),
+            }
         })
 
         it('instance', () => {
@@ -85,8 +91,10 @@ describe('storage', () => {
     })
 
     describe('clearLocal', () => {
-        mockProperty('localStorage', {
-            clear: sinon.fake(),
+        mockProperty(window, 'localStorage', {
+            value: {
+                clear: sinon.fake(),
+            }
         })
 
         it('instance', () => {
@@ -103,8 +111,10 @@ describe('storage', () => {
     })
 
     describe('getSession', () => {
-        mockProperty('sessionStorage', {
-            getItem: sinon.fake.returns(JSON.stringify(value)),
+        mockProperty(window, 'sessionStorage', {
+            value: {
+                getItem: sinon.fake.returns(JSON.stringify(value)),
+            }
         })
 
         it('instance', () => {
@@ -123,8 +133,10 @@ describe('storage', () => {
     })
 
     describe('setSession', () => {
-        mockProperty('sessionStorage', {
-            setItem: sinon.fake(),
+        mockProperty(window, 'sessionStorage', {
+            value: {
+                setItem: sinon.fake(),
+            }
         })
 
         it('instance', () => {
@@ -150,8 +162,10 @@ describe('storage', () => {
     })
 
     describe('removeSession', () => {
-        mockProperty('sessionStorage', {
-            removeItem: sinon.fake(),
+        mockProperty(window, 'sessionStorage', {
+            value: {
+                removeItem: sinon.fake(),
+            }
         })
 
         it('instance', () => {
@@ -168,8 +182,10 @@ describe('storage', () => {
     })
 
     describe('clearSession', () => {
-        mockProperty('sessionStorage', {
-            clear: sinon.fake(),
+        mockProperty(window, 'sessionStorage', {
+            value: {
+                clear: sinon.fake(),
+            }
         })
 
         it('instance', () => {

@@ -4,28 +4,28 @@
         <tm-divider :key="`${fit}-divider`">{{ fit }}</tm-divider>
 
         <TmImage
-            style="width: 100px; height: 100px"
+            class="demo-img"
             :src="url"
             :fit="fit"
             :key="`${fit}-image`" />
     </template>
 
     <tm-divider>占位内容</tm-divider>
-    <tm-image :src="src" style="width: 100px; height: 100px">
+    <tm-image :src="src" class="demo-img">
         <div slot="placeholder">
             加载中<span class="dot">...</span>
         </div>
     </tm-image>
 
     <tm-divider>加载失败</tm-divider>
-    <tm-image style="width: 100px; height: 100px">
+    <tm-image class="demo-img">
         <div slot="error" class="demo-slot" style="color: #909399; font-size: 30px;">
             <i class="el-icon-picture-outline"></i>
         </div>
     </tm-image>
 
     <tm-divider>懒加载</tm-divider>
-    <TmImage style="width: 100px; height: 100px" v-for="url in urls" :key="url" :src="url" lazy />
+    <TmImage class="demo-img" v-for="url in urls" :key="url" :src="url" lazy />
 </div>
 </template>
 
@@ -61,5 +61,11 @@ export default {
 <style lang="scss" scoped>
 .demo {
     // background: #f6f6f6;
+
+    &-img {
+        width: 2rem;
+        height: 2rem;
+        margin: 0 auto;
+    }
 }
 </style>

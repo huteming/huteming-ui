@@ -10,7 +10,7 @@
 
     <img
         v-else
-        class="el-image__inner"
+        class="tm-image__inner"
         v-bind="$attrs"
         v-on="$listeners"
         :src="src"
@@ -102,6 +102,7 @@ export default {
             this.imageWidth = img.width
             this.imageHeight = img.height
             this.loading = false
+            this.$emit('load', e)
         },
         handleError (e) {
             this.loading = false
@@ -147,9 +148,8 @@ export default {
 
 <style lang="scss" scoped>
 .tm-image {
-    width: 100%;
-    margin-left: auto;
-    margin-right: auto;
+    position: relative;
+    overflow: hidden;
 
     &__placeholder {
         background: #f5f7fa;
@@ -164,12 +164,15 @@ export default {
         vertical-align: middle;
     }
 
+    &__inner {
+        vertical-align: top;
+    }
+
     &__placeholder,
     &__error,
     &__inner {
         width: 100%;
         height: 100%;
-        display: block;
     }
 }
 </style>
