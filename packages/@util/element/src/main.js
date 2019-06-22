@@ -1,6 +1,61 @@
 const SPECIAL_CHARS_REGEXP = /([:\-_]+(.))/g
 const MOZ_HACK_REGEXP = /^moz([A-Z])/
 
+export function isInContainer (el, container) {
+    if (!el || !container) return false
+
+    const elRect = el.getBoundingClientRect()
+    let containerRect
+
+    if ([window, document, document.documentElement, null, undefined].includes(container)) {
+        containerRect = {
+            top: 0,
+            right: window.innerWidth,
+            bottom: window.innerHeight,
+            left: 0
+        }
+    } else {
+        containerRect = container.getBoundingClientRect()
+    }
+
+    return elRect.top < containerRect.bottom &&
+        elRect.bottom > containerRect.top &&
+        elRect.right > containerRect.left &&
+        elRect.left < containerRect.right
+}
+
+export const on = (function () {
+    if (document.addEventListener) {
+        return function (element, event, handler) {
+            if (element && event && handler) {
+                element.addEventListener(event, handler, false)
+            }
+        }
+    } else {
+        return function (element, event, handler) {
+            if (element && event && handler) {
+                element.attachEvent('on' + event, handler)
+            }
+        }
+    }
+})()
+
+export const off = (function () {
+    if (document.removeEventListener) {
+        return function (element, event, handler) {
+            if (element && event) {
+                element.removeEventListener(event, handler, false)
+            }
+        }
+    } else {
+        return function (element, event, handler) {
+            if (element && event) {
+                element.detachEvent('on' + event, handler)
+            }
+        }
+    }
+})()
+
 export function autoprefixer (style) {
     if (typeof style !== 'object') {
         return style

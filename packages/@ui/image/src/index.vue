@@ -1,0 +1,175 @@
+<template>
+<div class="tm-image">
+    <slot v-if="loading" name="placeholder">
+        <div class="tm-image__placeholder"></div>
+    </slot>
+
+    <slot v-else-if="error" name="error">
+        <div class="tm-image__error">加载失败</div>
+    </slot>
+
+    <img
+        v-else
+        class="el-image__inner"
+        v-bind="$attrs"
+        v-on="$listeners"
+        :src="src"
+        :style="imageStyle">
+</div>
+</template>
+
+<script>
+import { isHtmlElement, isString } from 'web-util/types/src'
+import { getScrollContainer, on, off, isInContainer } from 'web-util/element/src/main'
+import throttle from 'throttle-debounce/throttle'
+
+export default {
+    name: 'TmImage',
+
+    inheritAttrs: false,
+
+    props: {
+        src: String,
+        fit: String,
+        lazy: Boolean,
+        scrollContainer: {}
+    },
+
+    data () {
+        return {
+            loading: true,
+            error: false,
+            show: !this.lazy,
+            imageWidth: 0,
+            imageHeight: 0,
+        }
+    },
+
+    computed: {
+        imageStyle () {
+            const { fit } = this
+            const styles = {}
+
+            if (fit) {
+                styles['object-fit'] = fit
+            }
+
+            return styles
+        },
+    },
+
+    watch: {
+        src (val) {
+            this.show && this.loadImage()
+        },
+        show (val) {
+            val && this.loadImage()
+        },
+    },
+
+    mounted () {
+        if (this.lazy) {
+            this.addLazyLoadListener()
+        } else {
+            this.loadImage()
+        }
+    },
+
+    beforeDestroy () {
+        this.lazy && this.removeLazyLoadListener()
+    },
+
+    methods: {
+        loadImage () {
+            // 重置状态
+            this.loading = true
+            this.error = false
+
+            const img = new Image()
+            img.onload = e => this.handleLoad(e, img)
+            img.onerror = e => this.handleError(e)
+
+            Object
+                .keys(this.$attrs)
+                .forEach((key) => {
+                    const value = this.$attrs[key]
+                    img.setAttribute(key, value)
+                })
+
+            img.src = this.src
+        },
+        handleLoad (e, img) {
+            this.imageWidth = img.width
+            this.imageHeight = img.height
+            this.loading = false
+        },
+        handleError (e) {
+            this.loading = false
+            this.error = true
+            this.$emit('error', e)
+        },
+        addLazyLoadListener () {
+            const { scrollContainer } = this
+            let _scrollContainer = null
+
+            if (isHtmlElement(scrollContainer)) {
+                _scrollContainer = scrollContainer
+            } else if (isString(scrollContainer)) {
+                _scrollContainer = document.querySelector(scrollContainer)
+            } else {
+                _scrollContainer = getScrollContainer(this.$el)
+            }
+
+            if (_scrollContainer) {
+                this._scrollContainer = _scrollContainer
+                this._lazyLoadHandler = throttle(200, this.lazyLoad)
+                on(_scrollContainer, 'scroll', this._lazyLoadHandler)
+                this.lazyLoad()
+            }
+        },
+        removeLazyLoadListener () {
+            const { _scrollContainer, _lazyLoadHandler } = this
+            if (!_scrollContainer || !_lazyLoadHandler) return
+
+            off(_scrollContainer, 'scroll', _lazyLoadHandler)
+            this._scrollContainer = null
+            this._lazyLoadHandler = null
+        },
+        lazyLoad () {
+            if (isInContainer(this.$el, this._scrollContainer)) {
+                this.show = true
+                this.removeLazyLoadListener()
+            }
+        },
+    },
+}
+</script>
+
+<style lang="scss" scoped>
+.tm-image {
+    width: 100%;
+    margin-left: auto;
+    margin-right: auto;
+
+    &__placeholder {
+        background: #f5f7fa;
+    }
+
+    &__error {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-size: 14px;
+        color: #c0c4cc;
+        vertical-align: middle;
+    }
+
+    &__placeholder,
+    &__error,
+    &__inner {
+        width: 100%;
+        height: 100%;
+        display: block;
+    }
+}
+</style>

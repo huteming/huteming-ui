@@ -23,4 +23,10 @@ export default [
         docs: () => import('web-ui/panel/README.md'),
         example: () => import('web-ui/panel/demo/basic.vue'),
     },
+    {
+        path: 'image',
+        title: '图片容器 image',
+        docs: () => import('web-ui/image/README.md'),
+        example: () => import('web-ui/image/demo/basic.vue'),
+    },
 ]
