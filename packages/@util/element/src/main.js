@@ -1,3 +1,6 @@
+const SPECIAL_CHARS_REGEXP = /([:\-_]+(.))/g
+const MOZ_HACK_REGEXP = /^moz([A-Z])/
+
 export function autoprefixer (style) {
     if (typeof style !== 'object') {
         return style
@@ -83,22 +86,6 @@ export function getElementTop (element) {
 }
 
 /**
- * 获取需要绑定事件的元素
- */
-export function getScrollEventTarget (element) {
-    let currentNode = element
-
-    while (currentNode && currentNode.tagName !== 'HTML' && currentNode.tagName !== 'BODY' && currentNode.nodeType === 1) {
-        if (isYScrollable(currentNode)) {
-            return currentNode
-        }
-        currentNode = currentNode.parentNode
-    }
-
-    return window
-}
-
-/**
  * 检测 element 是否已插入文档
  * @param {Element} element 待插入文档的dom
  * @param {Function} success 成功回调函数
@@ -167,24 +154,56 @@ function isAttached (element) {
     return false
 }
 
-export function isYScrollable (element) {
-    const { overflow, overflowY } = window.getComputedStyle(element)
-    const inOverflow = overflow === 'scroll' || overflow === 'auto'
-    const inOverflowY = overflowY === 'scroll' || overflowY === 'auto'
-
-    if (inOverflow || inOverflowY) {
-        return true
-    }
-    return false
+export function camelCase (name) {
+    return name
+        .replace(SPECIAL_CHARS_REGEXP, function (_, separator, letter, offset) {
+            return offset ? letter.toUpperCase() : letter
+        })
+        .replace(MOZ_HACK_REGEXP, 'Moz$1')
 }
 
-export function isXScrollable (element) {
-    const { overflow, overflowX } = window.getComputedStyle(element)
-    const inOverflow = overflow === 'scroll' || overflow === 'auto'
-    const inOverflowX = overflowX === 'scroll' || overflowX === 'auto'
+export function getStyle (element, styleName) {
+    if (!element || !styleName) return null
 
-    if (inOverflow || inOverflowX) {
-        return true
+    styleName = camelCase(styleName)
+    if (styleName === 'float') {
+        styleName = 'cssFloat'
     }
-    return false
+
+    try {
+        const computed = document.defaultView.getComputedStyle(element)
+        return element.style[styleName] || computed ? computed[styleName] : null
+    } catch (e) {
+        return element.style[styleName]
+    }
+}
+
+export function isScroll (el, vertical) {
+    const determinedDirection = vertical !== null && vertical !== undefined
+    const overflow = determinedDirection
+        ? vertical
+            ? getStyle(el, 'overflow-y')
+            : getStyle(el, 'overflow-x')
+        : getStyle(el, 'overflow')
+
+    return overflow.match(/(scroll|auto)/)
+}
+
+/**
+ * 最近一个 overflow 值为 auto 或 scroll 的父元素
+ */
+export function getScrollContainer (el, vertical) {
+    let parent = el
+
+    while (parent) {
+        if ([window, document, document.documentElement].includes(parent)) {
+            return window
+        }
+        if (isScroll(parent, vertical)) {
+            return parent
+        }
+        parent = parent.parentNode
+    }
+
+    return parent
 }

@@ -1,4 +1,4 @@
-import { attached, getScrollTop, getScrollEventTarget } from 'web-util/element/src/main'
+import { attached, getScrollTop, getScrollContainer } from 'web-util/element/src/main'
 const CTX = '@@InfiniteScroll'
 const defaults = {
     callback (done) {
@@ -62,7 +62,7 @@ function doBind () {
 
     const directive = this
 
-    directive.scrollEventTarget = getScrollEventTarget(directive.el)
+    directive.scrollEventTarget = getScrollContainer(directive.el)
     directive.beforeScrollTop = getScrollTop(directive.scrollEventTarget)
     directive.scrollListener = throttle(checkReachBottom.bind(directive), 200)
     directive.scrollEventTarget.addEventListener('scroll', directive.scrollListener)

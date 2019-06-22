@@ -1,5 +1,5 @@
 import { easeOut } from 'web-util/animation/src/main'
-import { attached, getScrollEventTarget, getScrollTop, getElementTop } from 'web-util/element/src/main'
+import { attached, getScrollContainer, getScrollTop, getElementTop } from 'web-util/element/src/main'
 const ELEMENT_ATTR_NAME = '@@Anchor'
 
 const defaults = {
@@ -44,7 +44,7 @@ export default {
 
         attached(el, () => {
             self.clickEventTarget = document.querySelector(selector)
-            self.scrollEventTarget = container ? document.querySelector(container) : getScrollEventTarget(el)
+            self.scrollEventTarget = container ? document.querySelector(container) : getScrollContainer(el)
             el.addEventListener('click', handlerClick)
         })
     },

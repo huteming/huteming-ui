@@ -3,10 +3,9 @@ import WorkComponent from '../components/element.vue'
 import BasicComponent from '../components/basic.vue'
 import assert from 'assert'
 import sinon from 'sinon'
-import { autoprefixer, getScrollEventTarget, scrollX, scrollY, attached, getScrollTop, getScrollLeft, isXScrollable, isYScrollable, getElementTop, __RewireAPI__ as RewireAPI } from 'web-util/element/src/main'
+import { autoprefixer, getScrollContainer, scrollX, scrollY, attached, getScrollTop, getScrollLeft, getElementTop, __RewireAPI__ as RewireAPI } from 'web-util/element/src/main'
 const wrapper = mount(WorkComponent)
 const eleContainer = wrapper.vm.$refs.container
-const eleEmpty = wrapper.vm.$refs.empty
 let wrapperBasic
 
 describe('element', () => {
@@ -108,30 +107,6 @@ describe('element', () => {
         })
     })
 
-    describe('isYScrollable', () => {
-        it('可滚动区域', () => {
-            const result = isYScrollable(eleContainer)
-            assert.strictEqual(result, true)
-        })
-
-        it('不可滚动区域', () => {
-            const result = isYScrollable(eleEmpty)
-            assert.strictEqual(result, false)
-        })
-    })
-
-    describe('isXScrollable', () => {
-        it('可滚动区域', () => {
-            const result = isXScrollable(eleContainer)
-            assert.strictEqual(result, true)
-        })
-
-        it('不可滚动区域', () => {
-            const result = isXScrollable(eleEmpty)
-            assert.strictEqual(result, false)
-        })
-    })
-
     describe('scrollX', () => {
         it('window', () => {
             scrollX(window, 10)
@@ -165,20 +140,30 @@ describe('element', () => {
         assert.strictEqual(eleContainer.scrollTop, 40)
     })
 
-    describe('getScrollEventTarget', () => {
+    describe('getScrollContainer', () => {
         it('获取滚动元素', () => {
+            const wrapper = mount(WorkComponent, {
+                attachToDocument: true,
+            })
             const eleContainer = wrapper.vm.$refs.container
             const eleOver = wrapper.vm.$refs.over
 
-            const actual = getScrollEventTarget(eleOver)
+            const actual = getScrollContainer(eleOver)
             assert.strictEqual(actual, eleContainer)
+
+            wrapper.destroy()
         })
 
         it('获取window元素', () => {
+            const wrapper = mount(WorkComponent, {
+                attachToDocument: true,
+            })
             const eleEmpty = wrapper.vm.$refs.empty
 
-            const actual = getScrollEventTarget(eleEmpty)
+            const actual = getScrollContainer(eleEmpty)
             assert.strictEqual(actual, window)
+
+            wrapper.destroy()
         })
     })
 
