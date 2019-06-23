@@ -33,7 +33,7 @@ export default {
         format: {
             type: String,
             default: 'D 天 H 时 M 分 S'
-        }
+        },
     },
 
     data () {
@@ -111,7 +111,7 @@ export default {
 
             // 时间戳
             return endTime
-        }
+        },
     },
 
     watch: {
@@ -126,7 +126,7 @@ export default {
                 clearInterval(this.timer)
                 this.$emit('end')
             }
-        }
+        },
     },
 
     beforeDestroy () {
