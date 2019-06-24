@@ -1,5 +1,10 @@
 {
+  "private": true,
   "name": "@huteming/ui-btn-pay",
+  "publishConfig": {
+    "access": "public",
+    "private": true
+  },
   "version": "1.0.4",
   "description": "支付按钮",
   "main": "dist/btn-pay.common.js",
