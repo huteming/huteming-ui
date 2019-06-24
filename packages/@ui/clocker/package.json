@@ -3,7 +3,9 @@
   "version": "1.0.1-alpha.2",
   "description": "倒计时",
   "main": "dist/clocker.common.js",
-  "scripts": {},
+  "scripts": {
+    "prepublishOnly": "node ../../../prepublishOnly.js clocker"
+  },
   "author": "",
   "license": "ISC"
 }
