@@ -1,6 +1,6 @@
 {
-  "name": "web",
-  "short_name": "web",
+  "name": "web-common",
+  "short_name": "web-common",
   "icons": [
     {
       "src": "./img/icons/android-chrome-192x192.png",
