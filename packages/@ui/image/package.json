@@ -2,7 +2,7 @@
   "name": "@huteming/ui-image",
   "version": "1.0.1",
   "description": "",
-  "main": "index.js",
+  "main": "dist/image.common.js",
   "scripts": {
     "prepublishOnly": "node ../../../prepublishOnly.js image"
   },
