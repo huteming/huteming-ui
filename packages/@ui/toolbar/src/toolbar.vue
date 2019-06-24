@@ -1,7 +1,7 @@
 <template>
 <div class="tm-toolbar">
-    <div class="tm-toolbar-action tm-toolbar-action-cancel" @click="handleCancel">{{ cancelText }}</div>
-    <div class="tm-toolbar-action tm-toolbar-action-confirm" @click="handleConfirm">{{ confirmText }}</div>
+    <div class="tm-toolbar-action tm-toolbar-action-cancel" @click.stop="handleCancel">{{ cancelText }}</div>
+    <div class="tm-toolbar-action tm-toolbar-action-confirm" @click.stop="handleConfirm">{{ confirmText }}</div>
 </div>
 </template>
 
