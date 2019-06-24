@@ -1,4 +1,10 @@
 {
+  "npmClient": "npm",
+  "command": {
+    "publish": {
+      "ignoreChanges": ["*.md"]
+    }
+  },
   "packages": [
     "packages/@util/*",
     "packages/util",
