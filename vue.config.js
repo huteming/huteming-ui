@@ -20,14 +20,16 @@ module.exports = {
     //     ? '/web/'
     //     : '/',
 
-    configureWebpack: config => {
-        config.resolve.alias = {
-            '@': resolve('src'),
-            'web': resolve('./packages'),
-            'web-ui': resolve('./packages/@ui'),
-            'web-util': resolve('./packages/@util'),
-            'web-cli': resolve('./packages/@cli'),
-        }
+    configureWebpack: {
+        resolve: {
+            alias: {
+                '@': resolve('src'),
+                'web': resolve('./packages'),
+                'web-ui': resolve('./packages/@ui'),
+                'web-util': resolve('./packages/@util'),
+                'web-cli': resolve('./packages/@cli'),
+            },
+        },
     },
 
     chainWebpack: config => {
