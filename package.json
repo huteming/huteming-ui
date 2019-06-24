@@ -11,6 +11,7 @@
     "test:watch": "vue-cli-service test:unit --watch",
     "cover": "vue-cli-service test:unit --coverage",
     "# lerna 钩子指令 #": "",
+    "publish": "lerna publish",
     "prepublishOnly": "npm run test:unit",
     "# 打包组件指令 #": "",
     "ui": "vue-cli-service build --target lib --report --name huteming-ui --dest packages/ui/dist --report packages/ui/index.js",
