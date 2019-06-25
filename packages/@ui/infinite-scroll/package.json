@@ -1,6 +1,6 @@
 {
   "name": "@huteming/ui-infinite-scroll",
-  "version": "1.0.2",
+  "version": "1.0.2-alpha.1",
   "description": "无限滚动指令",
   "main": "dist/infinite-scroll.common.js",
   "scripts": {

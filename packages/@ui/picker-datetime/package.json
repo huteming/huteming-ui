@@ -1,6 +1,6 @@
 {
   "name": "@huteming/ui-picker-datetime",
-  "version": "1.0.1-alpha.0",
+  "version": "1.0.1-alpha.1",
   "description": "> 日期时间选择器，支持自定义类型。",
   "main": "dist/picker-datetime.common.js",
   "scripts": {},

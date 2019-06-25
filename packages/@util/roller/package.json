@@ -1,6 +1,6 @@
 {
   "name": "@huteming/util-roller",
-  "version": "1.2.4",
+  "version": "1.2.4-alpha.1",
   "description": "提供区间概率算法",
   "main": "dist/roller.common.js",
   "scripts": {

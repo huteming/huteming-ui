@@ -1,6 +1,6 @@
 {
   "name": "@huteming/ui-image",
-  "version": "1.1.0",
+  "version": "1.1.0-alpha.1",
   "description": "",
   "main": "dist/image.common.js",
   "scripts": {

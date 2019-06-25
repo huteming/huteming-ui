@@ -4,7 +4,7 @@
   "publishConfig": {
     "access": "public"
   },
-  "version": "1.0.5",
+  "version": "1.0.5-alpha.1",
   "description": "支付按钮",
   "main": "dist/btn-pay.common.js",
   "scripts": {
