@@ -3,7 +3,9 @@
   "version": "1.4.0",
   "description": "> 简短的消息提示框，支持自定义位置、持续时间和样式。",
   "main": "dist/toast.common.js",
-  "scripts": {},
+  "scripts": {
+    "prepublishOnly": "node ../../../prepublishOnly.js toast"
+  },
   "author": "",
   "license": "ISC"
 }

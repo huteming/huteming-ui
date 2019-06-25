@@ -3,7 +3,9 @@
   "version": "1.4.0",
   "description": "> 日期时间选择器，支持自定义类型。",
   "main": "dist/picker-datetime.common.js",
-  "scripts": {},
+  "scripts": {
+    "prepublishOnly": "node ../../../prepublishOnly.js pickerDatetime"
+  },
   "author": "",
   "license": "ISC"
 }
