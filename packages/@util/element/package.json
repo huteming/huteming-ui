@@ -1,6 +1,6 @@
 {
   "name": "@huteming/util-element",
-  "version": "1.0.3-alpha.1",
+  "version": "1.4.0",
   "description": "",
   "main": "dist/element.common.js",
   "scripts": {

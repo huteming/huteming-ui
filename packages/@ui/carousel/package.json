@@ -1,6 +1,6 @@
 {
   "name": "@huteming/ui-carousel",
-  "version": "1.0.1-alpha.1",
+  "version": "1.4.0",
   "description": "> 轮播图，可自定义轮播时间间隔、动画时长等。",
   "main": "dist/carousel.common.js",
   "scripts": {
