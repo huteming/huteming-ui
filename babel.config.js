@@ -6,7 +6,12 @@ if (process.env.NODE_ENV === 'test') {
 
 module.exports = {
     presets: [
-        '@vue/app'
+        [
+            '@vue/app',
+            {
+                useBuiltIns: process.env.NODE_ENV === 'production' ? false : 'usage',
+            },
+        ]
     ],
     plugins,
     sourceType: 'unambiguous',
