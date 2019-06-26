@@ -10,10 +10,9 @@ const open = function (options) {
     }
 
     instance = new ToastConstructor({
-        el: document.createElement('div'),
         propsData: options
     })
-    document.body.appendChild(instance.$el)
+    document.body.appendChild(instance.$mount().$el)
 
     Vue.nextTick(() => {
         instance.open()
