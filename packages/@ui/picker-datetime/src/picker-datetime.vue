@@ -1,10 +1,7 @@
 <template>
-<tm-popup v-model="normalizedVisible" position="bottom">
+<tm-popup v-model="normalizedVisible" position="bottom" ref="popup">
     <div class="tm-datetime">
-        <div class="tm-datetime-toolbar">
-            <div class="tm-datetime-toolbar__action" @click="handleCancel">{{ cancelText }}</div>
-            <div class="tm-datetime-toolbar__action" @click="handleConfirm">{{ confirmText }}</div>
-        </div>
+        <TmToolbar @confirm="handleConfirm" @cancel="handleCancel" />
 
         <tm-picker>
             <template v-if="mode === 'datetime' || mode === 'date'">
@@ -26,6 +23,7 @@
 import TmPopup from 'web-ui/popup/index.js'
 import TmPicker from 'web-ui/picker/index.js'
 import TmPickerItem from 'web-ui/picker-item/index.js'
+import TmToolbar from 'web-ui/toolbar/index.js'
 
 const NOW = new Date()
 const CURRENT_YEAR = NOW.getFullYear()
@@ -254,10 +252,10 @@ export default {
         TmPopup,
         TmPicker,
         TmPickerItem,
+        TmToolbar,
     }
 }
 </script>
 
 <style lang="scss" scoped>
-@import './style/index.scss';
 </style>

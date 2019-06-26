@@ -1,5 +1,5 @@
 <template>
-<tm-popup v-model="normalizedVisible" position="bottom">
+<tm-popup v-model="normalizedVisible" position="bottom" ref="popup">
     <div class="tm-picker-address">
         <TmToolbar @confirm="handleConfirm" @cancel="handleCancel" />
 

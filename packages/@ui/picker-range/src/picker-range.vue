@@ -1,5 +1,5 @@
 <template>
-<base-popup v-model="normalizedVisible" position="bottom">
+<base-popup v-model="normalizedVisible" position="bottom" ref="popup">
     <div class="tm-picker-range">
         <BaseToolbar @confirm="handleConfirm" @cancel="handleCancel" />
 
