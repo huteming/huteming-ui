@@ -20,12 +20,11 @@ export default {
         const Constructor = Vue.extend(Component)
 
         const instance = new Constructor({
-            el: document.createElement('div'),
             data: {},
         })
 
         const node = element ? element.parentNode : document.body
-        node.appendChild(instance.$el)
+        node.appendChild(instance.$mount().$el)
 
         instance.setZIndex(zindexManager.zIndex)
 
