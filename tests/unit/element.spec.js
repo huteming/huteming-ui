@@ -165,6 +165,12 @@ describe('element', () => {
 
             wrapper.destroy()
         })
+
+        it('element不存在', () => {
+            const element = ''
+            const res = getScrollContainer(element)
+            assert.strictEqual(res, element)
+        })
     })
 
     describe('getScrollTop', () => {

@@ -7,7 +7,7 @@ export function isInContainer (el, container) {
     const elRect = el.getBoundingClientRect()
     let containerRect
 
-    if ([window, document, document.documentElement, null, undefined].includes(container)) {
+    if ([window, document, document.documentElement].includes(container)) {
         containerRect = {
             top: 0,
             right: window.innerWidth,
@@ -24,37 +24,17 @@ export function isInContainer (el, container) {
         elRect.left < containerRect.right
 }
 
-export const on = (function () {
-    if (document.addEventListener) {
-        return function (element, event, handler) {
-            if (element && event && handler) {
-                element.addEventListener(event, handler, false)
-            }
-        }
-    } else {
-        return function (element, event, handler) {
-            if (element && event && handler) {
-                element.attachEvent('on' + event, handler)
-            }
-        }
+export function on (element, event, handler) {
+    if (element && event && handler) {
+        element.addEventListener(event, handler, false)
     }
-})()
+}
 
-export const off = (function () {
-    if (document.removeEventListener) {
-        return function (element, event, handler) {
-            if (element && event) {
-                element.removeEventListener(event, handler, false)
-            }
-        }
-    } else {
-        return function (element, event, handler) {
-            if (element && event) {
-                element.detachEvent('on' + event, handler)
-            }
-        }
+export function off (element, event, handler) {
+    if (element && event) {
+        element.removeEventListener(event, handler, false)
     }
-})()
+}
 
 export function autoprefixer (style) {
     if (typeof style !== 'object') {
@@ -234,14 +214,18 @@ export function getStyle (element, styleName) {
 }
 
 export function isScroll (el, vertical) {
-    const determinedDirection = vertical !== null && vertical !== undefined
-    const overflow = determinedDirection
-        ? vertical
-            ? getStyle(el, 'overflow-y')
-            : getStyle(el, 'overflow-x')
-        : getStyle(el, 'overflow')
+    let styleName
 
-    return overflow.match(/(scroll|auto)/)
+    if (vertical === null || vertical === undefined) {
+        styleName = 'overflow'
+    } else if (vertical) {
+        styleName = 'overflow-y'
+    } else {
+        styleName = 'overflow-x'
+    }
+    const overflow = getStyle(el, styleName)
+
+    return /(scroll|auto)/.test(overflow)
 }
 
 /**

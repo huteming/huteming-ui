@@ -14,19 +14,32 @@ export async function sleep (time = 50) {
     await new Promise(resolve => setTimeout(resolve, time))
 }
 
+export class Mock {
+    constructor (target, property, define) {
+        this.target = target
+        this.property = property
+        this.originDescriptor = Object.getOwnPropertyDescriptor(target, property)
+        this.defineDescriptor = Object.assign({ configurable: true }, define)
+    }
+
+    replace () {
+        Object.defineProperty(this.target, this.property, this.defineDescriptor)
+    }
+
+    restore () {
+        Object.defineProperty(this.target, this.property, this.originDescriptor)
+    }
+}
+
 export function mockProperty (target, property, define) {
-    // const { [property]: originalProperty } = target
-    const originDescriptor = Object.getOwnPropertyDescriptor(target, property)
-    // delete target[property]
-    define = Object.assign({ configurable: true }, define)
+    const mock = new Mock(target, property, define)
 
     beforeAll(() => {
-        Object.defineProperty(target, property, define)
+        mock.replace()
     })
 
     afterAll(() => {
-        // target[property] = originalProperty
-        Object.defineProperty(target, property, originDescriptor)
+        mock.restore()
     })
 }
 
