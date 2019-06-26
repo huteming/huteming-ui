@@ -5,7 +5,6 @@ const MessageConstructor = Vue.extend(MessageComponent)
 
 function open ({ params, resolve, reject }) {
     const instance = new MessageConstructor({
-        el: document.createElement('div'),
         propsData: params,
         data: {
             resolve,
@@ -13,7 +12,7 @@ function open ({ params, resolve, reject }) {
         }
     })
 
-    document.body.appendChild(instance.$el)
+    document.body.appendChild(instance.$mount().$el)
 
     Vue.nextTick(() => {
         instance.show()
