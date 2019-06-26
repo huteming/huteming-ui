@@ -1,3 +1,5 @@
+import { isString } from 'web-util/types/src'
+
 /**
  * 判断是否存在，忽略对象
  * @param {*Any} value
@@ -23,11 +25,7 @@ export function required (value) {
 }
 
 export function string (value, options) {
-    if (value === null || value === undefined) {
-        return false
-    }
-    value = value.valueOf()
-    return typeof value === 'string'
+    return isString(value)
 }
 
 /**
