@@ -34,5 +34,24 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@import './style/index.scss';
+.tm-toolbar {
+    display: flex;
+    border-bottom: 1px solid #eaeaea;
+
+    &-action {
+        flex: 1;
+        padding: 14px 0 10px;
+        text-align: center;
+        font-size: 16px;
+        line-height: 1;
+
+        &-confirm {
+            color: #4597FF;
+        }
+
+        &-cancel {
+            color: #999;
+        }
+    }
+}
 </style>
