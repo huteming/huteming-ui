@@ -4,6 +4,8 @@
 
 <script>
 export default {
+    name: 'TmBasic',
+
     data () {
         return {}
     },

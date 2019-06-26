@@ -33,7 +33,7 @@ const expandMethods = {
     },
     loading: {
         icon: 'loading',
-        duration: 0
+        duration: 0,
     }
 }
 

@@ -1,5 +1,5 @@
 <template>
-<transition name="fade" @after-leave="handleAfterLeave">
+<transition name="fade" @after-leave="handleAfterLeave" ref="transition">
     <div class="tm-toast" :class="classes" :style="styles" v-show="visible">
         <div class="tm-toast-content" v-if="message" v-html="message">
         </div>
@@ -15,6 +15,7 @@ export default {
 
     props: {
         message: String,
+        icon: String,
         position: {
             type: String,
             default: 'middle',
