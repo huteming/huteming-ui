@@ -138,7 +138,7 @@ export default {
             } else {
                 done()
             }
-        }
+        },
     },
 }
 </script>
