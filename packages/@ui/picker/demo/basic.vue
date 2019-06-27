@@ -1,7 +1,7 @@
 <template>
 <div class="page">
     <tm-picker>
-        <tm-picker-item :options="[]" v-model="yearCurrent"></tm-picker-item>
+        <tm-picker-item :options="asyncOptions" v-model="asyncValue"></tm-picker-item>
     </tm-picker>
 
     <tm-picker>
@@ -32,6 +32,8 @@ import PickerItem from 'web-ui/picker-item/index.js'
 export default {
     data () {
         return {
+            asyncOptions: [],
+            asyncValue: 2019,
             yearCurrent: 20196,
             year1: 2019,
             year2: 2020,
@@ -57,6 +59,10 @@ export default {
             const next = this.year3 + 1
             this.year3 = next > 2027 ? 2018 : next
         }, 1500)
+
+        setTimeout(() => {
+            this.asyncOptions = this.yearOptions
+        }, 1000)
     },
 
     components: {

@@ -1,8 +1,8 @@
 <template>
 <div class="page">
-    <TmPickerRange :visible.sync="visible" :options="yearOptions" v-model="yearCurrent" />
+    <TmPickerRange :visible.sync="visible" :options="asyncOptions" v-model="asyncValue" />
 
-    <div class="desc">出生年份: {{ yearCurrent[0] }}</div>
+    <div class="desc">出生年份: {{ asyncValue[0] }}</div>
 
     <button @click="visible = true">open</button>
 </div>
@@ -15,9 +15,8 @@ export default {
     data () {
         return {
             visible: false,
-            yearCurrent: [2018],
-            yearCurrent2: [2019, 2020],
-            year3: [2020],
+            asyncOptions: [],
+            asyncValue: [],
         }
     },
 
@@ -35,10 +34,23 @@ export default {
     },
 
     mounted () {
-        // setInterval(() => {
-        //     const next = [this.year3] + 1
-        //     this.year3 = next > 2027 ? [2018] : [next]
-        // }, 1500)
+        setTimeout(() => {
+            this.asyncValue = ['2']
+            this.asyncOptions = [[
+                {
+                    label: '1',
+                    value: '1',
+                },
+                {
+                    label: '2',
+                    value: '2',
+                },
+                {
+                    label: '3',
+                    value: '3',
+                },
+            ]]
+        }, 1000)
     },
 
     components: {

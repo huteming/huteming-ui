@@ -52,7 +52,47 @@ describe('picker', () => {
         assert.strictEqual(wrapperPiece.length, wrapperItem.length * 18)
     })
 
-    it('empty options', () => {
+    it('async props', async () => {
+        const wrapper = mount({
+            template: `
+                <tm-picker>
+                    <tm-picker-item :options="picker" v-model="value"></tm-picker-item>
+                </tm-picker>
+            `,
+            data () {
+                return {
+                    picker: [],
+                    value: '',
+                }
+            },
+            components: {
+                TmPicker,
+                TmPickerItem,
+            },
+        })
+        await sleep()
+        wrapper.setData({
+            value: '2',
+            picker: [
+                {
+                    label: '1',
+                    value: '1',
+                },
+                {
+                    label: '2',
+                    value: '2',
+                },
+                {
+                    label: '3',
+                    value: '3',
+                },
+            ],
+        })
+        const wrapperContainer = wrapper.find('.tm-picker-item__container')
+        assert.strictEqual(wrapperContainer.attributes('style'), 'transform: rotateX(20deg);')
+    })
+
+    it('options empty', () => {
         const wrapper = mount({
             template: `
                 <tm-picker>
@@ -72,7 +112,7 @@ describe('picker', () => {
         assert.ok(!wrapperContainer.exists())
     })
 
-    it('error value', () => {
+    it('value error', () => {
         const wrapper = mount({
             template: `
                 <tm-picker>

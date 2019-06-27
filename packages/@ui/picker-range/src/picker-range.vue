@@ -26,9 +26,7 @@ export default {
         },
         options: {
             type: Array,
-            default () {
-                return []
-            },
+            required: true,
         },
         value: {
             type: Array,
