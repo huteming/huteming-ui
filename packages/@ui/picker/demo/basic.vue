@@ -1,6 +1,10 @@
 <template>
 <div class="page">
     <tm-picker>
+        <tm-picker-item :options="[]" v-model="yearCurrent"></tm-picker-item>
+    </tm-picker>
+
+    <tm-picker>
         <tm-picker-item :options="yearOptions" v-model="yearCurrent"></tm-picker-item>
     </tm-picker>
 
@@ -28,7 +32,7 @@ import PickerItem from 'web-ui/picker-item/index.js'
 export default {
     data () {
         return {
-            yearCurrent: 2018,
+            yearCurrent: 20196,
             year1: 2019,
             year2: 2020,
             year3: 2020

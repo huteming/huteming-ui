@@ -6,7 +6,7 @@
     <div class="tm-picker-item__line is-top"></div>
     <div class="tm-picker-item__line is-bottom"></div>
 
-    <div class="tm-picker-item__container" :style="styleContainer">
+    <div class="tm-picker-item__container" :style="styleContainer" v-if="!disabled">
         <div class="tm-picker-item__container-piece"
             v-for="(item, index) in renderOptions"
             :key="index"
@@ -30,9 +30,6 @@ export default {
          */
         options: {
             type: Array,
-            default () {
-                return []
-            },
             required: true
         },
         value: {}
@@ -51,20 +48,31 @@ export default {
     },
 
     computed: {
-        currentIndex: {
+        disabled () {
+            return !(this.options && this.options.length)
+        },
+        validValue: {
             get () {
                 const index = this.options.findIndex(item => item.value === this.currentValue)
 
+                // 传递的 value 值不存在选项，默认渲染第一个
                 if (index === -1 && this.options.length) {
-                    // eslint-disable-next-line
-                    this.currentValue = this.options[0].value
+                    return this.options[0].value
                 }
 
-                return index > -1 ? index : 0
+                return this.currentValue
             },
             set (val) {
-                this.currentValue = this.options[val].value
-            }
+                this.currentValue = val
+            },
+        },
+        currentIndex: {
+            get () {
+                return this.options.findIndex(item => item.value === this.validValue)
+            },
+            set (val) {
+                this.validValue = this.options[val].value
+            },
         },
         prevMoveY: {
             get () {
@@ -72,7 +80,7 @@ export default {
             },
             set (val) {
                 this.currentIndex = Math.round(val / ITEM_HEIGHT)
-            }
+            },
         },
         /**
          * 根据当前值计算滑过的角度
@@ -125,13 +133,16 @@ export default {
         value (val) {
             this.currentValue = val
         },
-        currentValue (val) {
+        currentValue (val, oldVal) {
             this.$emit('input', val)
-        }
+            this.$emit('change', val, oldVal)
+        },
     },
 
     methods: {
         handleTouchStart (event) {
+            if (this.disabled) return
+
             const finger = event.changedTouches[0]
 
             this.duration = 0
@@ -139,11 +150,15 @@ export default {
             this.startTime = event.timestamp || Date.now()
         },
         handleTouchMove (event) {
+            if (this.disabled) return
+
             const finger = event.changedTouches[0]
 
             this.currentMoveY = this.dealEdge(this.startY - finger.pageY)
         },
         handleTouchEnd (event) {
+            if (this.disabled) return
+
             const finger = event.changedTouches[0]
 
             let move = this.startY - finger.pageY
