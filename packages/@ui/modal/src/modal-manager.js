@@ -3,6 +3,8 @@ import Vue from 'vue'
 import Component from './modal.vue'
 import zindexManager from 'web/assets/js/zindex-manager'
 
+const ModalConstructor = Vue.extend(Component)
+
 export default {
     /**
      * @param {Number} id
@@ -10,20 +12,18 @@ export default {
      */
     _instances: [],
 
-    open (id, options, element) {
+    open (id, options, brotherElement) {
         const one = this._instances.find(item => item.id === id)
         if (one) {
             one.instance.setZIndex(zindexManager.zIndex)
             return one.instance
         }
 
-        const Constructor = Vue.extend(Component)
-
-        const instance = new Constructor({
+        const instance = new ModalConstructor({
             data: {},
         })
 
-        const node = element ? element.parentNode : document.body
+        const node = brotherElement ? brotherElement.parentNode : document.body
         node.appendChild(instance.$mount().$el)
 
         instance.setZIndex(zindexManager.zIndex)

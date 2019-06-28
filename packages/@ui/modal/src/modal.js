@@ -1,4 +1,5 @@
 import modalManager from './modal-manager.js'
+let modalID = 1
 
 export default {
     data () {
@@ -8,24 +9,24 @@ export default {
     },
 
     created () {
-        this.modalID++
+        this.modalID = modalID++
     },
 
     methods: {
         /**
          * 打开时，传入一个id，若id不存在，创建一个dom[modal]
          */
-        $_openModal (options, element) {
+        $_openModal (options, brotherElement) {
             if (typeof options === 'function') {
                 options = {
                     callbackClick: options
                 }
             }
 
-            modalManager.open(this.modalID, options, element)
+            return modalManager.open(this.modalID, options, brotherElement)
         },
         $_closeModal (options) {
-            modalManager.close(this.modalID, options)
+            return modalManager.close(this.modalID, options)
         },
     },
 }
