@@ -1,5 +1,9 @@
 import { IMG_FAILURE_SRC, IMG_SUCCESS_SRC } from './constant'
 
+export function getLastDateOfMonth (year, month) {
+    return new Date(year, month + 1, 0).getDate()
+}
+
 export const jsonToForm = (data) => {
     const params = new FormData()
 

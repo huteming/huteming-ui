@@ -112,7 +112,7 @@ export default {
                 this.dateCurrent = val.getDate()
                 this.hourCurrent = val.getHours()
                 this.minuteCurrent = val.getMinutes()
-            }
+            },
         },
         /**
          * @argument normalizedMin
@@ -242,7 +242,7 @@ export default {
         // 获取当月最后一天日期
         getLastDateOfMonth (year, month) {
             return new Date(year, month + 1, 0).getDate()
-        }
+        },
     },
 
     created () {
