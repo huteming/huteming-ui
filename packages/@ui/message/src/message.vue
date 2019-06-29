@@ -99,7 +99,7 @@ export default {
         closeOnClickModal: {
             type: Boolean,
             default: true
-        }
+        },
     },
 
     data () {
@@ -174,14 +174,14 @@ export default {
             }
             const _beforeClose = () => {
                 if (typeof this.beforeClose === 'function') {
-                    this.beforeClose(data, done)
+                    this.beforeClose(done, data)
                 } else {
                     done()
                 }
             }
 
             if (typeof _beforeAction === 'function') {
-                _beforeAction(data, _beforeClose)
+                _beforeAction(_beforeClose, data)
             } else {
                 _beforeClose()
             }
@@ -197,7 +197,7 @@ export default {
         destroyElement () {
             this.$destroy(true)
             this.$el.parentNode.removeChild(this.$el)
-        }
+        },
     },
 
     mounted () {

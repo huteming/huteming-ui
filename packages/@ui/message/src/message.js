@@ -31,7 +31,7 @@ const expandMethods = {
     prompt: {
         showCancelButton: true,
         showInput: true
-    }
+    },
 }
 
 function MessageBox (message, title, options = {}, expandOptions = {}) {
