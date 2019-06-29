@@ -19,6 +19,7 @@ module.exports = {
     configureWebpack: {
         resolve: {
             alias: {
+                // 'vue$': 'vue/dist/vue.esm.js',
                 '@': resolve('src'),
                 'web': resolve('./packages'),
                 'web-ui': resolve('./packages/@ui'),

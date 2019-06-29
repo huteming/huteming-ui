@@ -1,9 +1,7 @@
-import { attached, getScrollTop, getScrollContainer } from 'web-util/element/src/main'
+import { attached, getScrollTop, getScrollContainer, getElementTop } from 'web-util/element/src/main'
 const CTX = '@@InfiniteScroll'
 const defaults = {
-    callback (done) {
-        console.log('请传递回调函数')
-    },
+    callback: null,
     distance: 50,
     timeout: 1000,
     disabled: false,
@@ -53,7 +51,7 @@ export default {
         if (el[CTX] && el[CTX].scrollEventTarget) {
             el[CTX].scrollEventTarget.removeEventListener('scroll', el[CTX].scrollListener)
         }
-    }
+    },
 }
 
 function doBind () {
@@ -101,21 +99,13 @@ function checkReachBottom () {
         shouldTrigger = viewportBottom >= elementBottom
     }
 
-    if (shouldTrigger) {
+    if (shouldTrigger && typeof this.options.callback === 'function') {
         this.loading = true
 
         this.options.callback(() => {
             this.loading = false
         })
     }
-}
-
-function getElementTop (element) {
-    if (element === window) {
-        return getScrollTop(window)
-    }
-
-    return element.getBoundingClientRect().top + getScrollTop(window)
 }
 
 /**
