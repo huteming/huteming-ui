@@ -2,28 +2,36 @@
 
 -------------
 
-## 引入
+## 全局引入
+
+```javascript
+import { Message } from '@huteming/ui'
+Vue.use(Message)
+
+this.$message(options)
+this.$message(message, options)
+this.$message(message, title, options)
+```
+
+## 单独使用
 
 ```javascript
 import { Message } from '@huteming/ui'
 
-Vue.use(Message)
+Message(options)
+Message(message, options)
+Message(message, title, options)
 ```
 
-## 例子
+## 便捷方式（推荐）
 
-以标题与内容字符串为参数进行调用
+这里定义了三种常用类型各自的方法。要注意的是，因为从外部表现来看，调用类型是无关紧要的，所以 `Message` 配置对象并没有提供类似 `type` 的参数去定义类型，内部会根据传参的种类进行判断。
+例如：有输入框 (`showInput`)，代表 `prompt`; 显示取消按钮 (`showCancelButton`)，代表 `confirm`；其余代表 `alert`，`alert` 类型时，会禁用 `closeOnClickModal`
 
 ```javascript
-this.$message(options)
-this.$message(message, options)
-this.$message(message, title, options)
-
-this.$message.alert(options)
-this.$message.confirm(options)
-this.$message.prompt(options)
-
-Message(options)
+Message.alert(options)
+Message.confirm(options)
+Message.prompt(options)
 ```
 
 ## API
