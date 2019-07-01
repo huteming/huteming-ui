@@ -77,8 +77,9 @@ export default {
         autoplay (val) {
             val ? this.startTimer() : this.pauseTimer()
         },
-        items (val) {
+        async items (val) {
             if (val.length > 0) {
+                await this.$nextTick()
                 this.setActiveItem(this.initial)
                 this.startTimer()
             }
@@ -117,18 +118,20 @@ export default {
             _index = Number(_index)
             if (isNaN(_index) || _index !== Math.floor(_index)) {
                 console.warn('[@huteming/ui Warn][Carousel]index is invalid: ', index)
-                return
+                return false
             }
 
             const total = this.items.length
 
             if (_index < 0) {
-                this.currentIndex = this.loop ? total - 1 : 0
+                this.currentIndex = this.loop ? _index + total : 0
             } else if (_index >= total) {
-                this.currentIndex = this.loop ? 0 : total - 1
+                this.currentIndex = this.loop ? _index % total : total - 1
             } else {
                 this.currentIndex = _index
             }
+
+            return true
         },
         // 更新子元素
         updateItems () {
@@ -141,10 +144,10 @@ export default {
             })
         },
         prev () {
-            this.setActiveItem(this.currentIndex - 1)
+            return this.setActiveItem(this.currentIndex - 1)
         },
         next () {
-            this.setActiveItem(this.currentIndex + 1)
+            return this.setActiveItem(this.currentIndex + 1)
         },
         /**
          * @argument {Boolean} direction true: 回滚到右边/下边; false: 回滚到左边/上边
@@ -173,10 +176,8 @@ export default {
         },
 
         pauseTimer () {
-            if (this.timer) {
-                clearInterval(this.timer)
-                this.timer = null
-            }
+            clearInterval(this.timer)
+            this.timer = null
         },
 
         startTimer () {
