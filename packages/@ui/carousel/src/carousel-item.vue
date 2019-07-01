@@ -63,7 +63,7 @@ export default {
             const length = this.$parent.items.length
             const distance = this.$parent.$el[this.parentDirection === 'vertical' ? 'offsetHeight' : 'offsetWidth']
 
-            if (oldIndex !== undefined) {
+            if (oldIndex !== -1) {
                 this.animating = index === activeIndex || index === oldIndex
             }
 

@@ -173,6 +173,7 @@ export default {
                 this.currentIndex = 0
                 return true
             }
+            return false
         },
 
         pauseTimer () {
