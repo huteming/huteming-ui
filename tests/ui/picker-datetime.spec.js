@@ -124,7 +124,7 @@ describe('picker-datetime', () => {
         wrapper.setData({ current: minDate })
         const expectOptionsYear = Array.from({ length: nowYear + 10 - 2018 + 1 }, (value, index) => ({ label: 2018 + index, value: 2018 + index }))
         const expectOptionsMonth = Array.from({ length: 11 - 5 + 1 }, (value, index) => ({ label: 5 + index + 1, value: 5 + index }))
-        const expectOptionsDate = Array.from({ length: getLastDateOfMonth(nowYear, nowMonth) - 28 + 1 }, (value, index) => ({ label: 28 + index, value: 28 + index }))
+        const expectOptionsDate = Array.from({ length: getLastDateOfMonth(2018, 5) - 28 + 1 }, (value, index) => ({ label: 28 + index, value: 28 + index }))
         const expectOptionsHour = Array.from({ length: 23 - 12 + 1 }, (value, index) => ({ label: 12 + index, value: 12 + index }))
         const expectOptionsMinute = Array.from({ length: 59 - 12 + 1 }, (value, index) => ({ label: 12 + index, value: 12 + index }))
 

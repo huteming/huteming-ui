@@ -1,6 +1,6 @@
 import CompImage, { __RewireAPI__ as RewireAPI } from 'web-ui/image/src'
 import assert from 'assert'
-import { mount, shallowMount } from '@vue/test-utils'
+import { mount, shallowMount, createWrapper } from '@vue/test-utils'
 import { IMG_SUCCESS_SRC, IMG_FAILURE_SRC } from '../constant'
 import { sleep, mockImage } from '../helper'
 import sinon from 'sinon'
@@ -155,5 +155,200 @@ describe('Image', () => {
         await sleep()
         assert.strictEqual(isClick, true)
         assert.strictEqual(isLoad, true)
+    })
+
+    it('scrollContainer is String', async () => {
+        let flag = false
+        RewireAPI.__Rewire__('isInContainer', () => {
+            flag = !flag
+            return flag
+        })
+
+        const wrapper = mount({
+            template: `
+                <div ref="container" id="container" style="height: 200px; overflow: auto;">
+                    <TmImage
+                        :src="src"
+                        ref="image1"
+                        style="display: block; width: 200px; height: 200px;"
+                        scroll-container="#container"
+                        lazy />
+
+                    <TmImage
+                        :src="src"
+                        ref="image2"
+                        style="display: block; width: 200px; height: 200px;"
+                        scroll-container="#container"
+                        lazy />
+                </div>
+            `,
+            data () {
+                return {
+                    src: IMG_SUCCESS_SRC,
+                }
+            },
+
+            methods: {
+                getState (ref, property) {
+                    return this.$refs[ref][property]
+                },
+            },
+
+            components: {
+                TmImage: CompImage,
+            },
+        }, { attachToDocument: true })
+        const { image1, image2 } = wrapper.vm.$refs
+
+        try {
+            await sleep()
+            assert.strictEqual(image1.loading, false)
+            assert.strictEqual(image2.loading, true)
+
+            const events = new Event('scroll')
+            image2._scrollContainer.dispatchEvent(events)
+
+            await sleep()
+            assert.strictEqual(image2.loading, false)
+        } finally {
+            wrapper.destroy()
+            RewireAPI.__ResetDependency__('isInContainer')
+        }
+    })
+
+    it('scrollContainer is HTMLElement', async () => {
+        let flag = false
+        RewireAPI.__Rewire__('isInContainer', () => {
+            flag = !flag
+            return flag
+        })
+        RewireAPI.__Rewire__('isHtmlElement', () => {
+            return true
+        })
+        const events = new Event('scroll')
+
+        const wrapper = mount({
+            template: `
+                <div ref="container" style="height: 200px; overflow: auto;">
+                    <TmImage
+                        :src="src"
+                        ref="image1"
+                        style="display: block; width: 200px; height: 200px;"
+                        :scroll-container="scrollContainer"
+                        lazy />
+
+                    <TmImage
+                        :src="src"
+                        ref="image2"
+                        style="display: block; width: 200px; height: 200px;"
+                        :scroll-container="scrollContainer"
+                        lazy />
+                </div>
+            `,
+            data () {
+                return {
+                    src: IMG_SUCCESS_SRC,
+                    scrollContainer: window,
+                }
+            },
+
+            methods: {
+                getState (ref, property) {
+                    return this.$refs[ref][property]
+                },
+            },
+
+            components: {
+                TmImage: CompImage,
+            },
+        }, { attachToDocument: true })
+        const { image1, image2 } = wrapper.vm.$refs
+
+        try {
+            await sleep()
+            assert.strictEqual(image1.loading, false)
+            assert.strictEqual(image2.loading, true)
+
+            window.dispatchEvent(events)
+
+            await sleep()
+            assert.strictEqual(image2.loading, false)
+        } finally {
+            wrapper.destroy()
+            RewireAPI.__ResetDependency__('isInContainer')
+            RewireAPI.__ResetDependency__('isHtmlElement')
+        }
+    })
+
+    it('scrollContainer is invalid', async () => {
+        RewireAPI.__Rewire__('isInContainer', () => {
+            return false
+        })
+        const mockLog = sinon.fake()
+        sinon.replace(console, 'warn', mockLog)
+
+        const wrapper = mount({
+            template: `
+                <div ref="container" style="height: 200px;">
+                    <TmImage
+                        :src="src"
+                        ref="image1"
+                        style="display: block; width: 200px; height: 200px;"
+                        lazy />
+                </div>
+            `,
+            data () {
+                return {
+                    src: IMG_SUCCESS_SRC,
+                }
+            },
+
+            components: {
+                TmImage: CompImage,
+            },
+        })
+        const { image1 } = wrapper.vm.$refs
+
+        try {
+            await sleep()
+            assert.strictEqual(image1.loading, true)
+            assert.ok(mockLog.called)
+            assert.deepStrictEqual(mockLog.getCall(0).args, ['未找到可滚动区域'])
+        } finally {
+        }
+    })
+
+    it('async src', async () => {
+        let wrapperImage
+        RewireAPI.__Rewire__('isInContainer', () => {
+            return false
+        })
+
+        const wrapper = mount({
+            template: `
+                <div ref="container" style="height: 200px;">
+                    <TmImage
+                        :src="src"
+                        ref="image1"
+                        style="display: block; width: 200px; height: 200px;" />
+                </div>
+            `,
+            data () {
+                return {
+                    src: '',
+                }
+            },
+
+            components: {
+                TmImage: CompImage,
+            },
+        })
+        wrapperImage = wrapper.find('.tm-image__inner')
+
+        assert.ok(!wrapperImage.exists())
+        wrapper.setData({ src: IMG_SUCCESS_SRC })
+        await sleep()
+        wrapperImage = wrapper.find('.tm-image__inner')
+        assert.ok(wrapperImage.exists())
     })
 })

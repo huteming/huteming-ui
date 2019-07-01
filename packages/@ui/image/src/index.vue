@@ -126,6 +126,8 @@ export default {
                 this._lazyLoadHandler = throttle(200, this.lazyLoad)
                 on(_scrollContainer, 'scroll', this._lazyLoadHandler)
                 this.lazyLoad()
+            } else {
+                console.warn('未找到可滚动区域')
             }
         },
         removeLazyLoadListener () {
