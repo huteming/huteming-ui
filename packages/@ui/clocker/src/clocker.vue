@@ -86,7 +86,7 @@ export default {
             const startTime = this.startTime
 
             // 不存在
-            if (!startTime) return 0
+            if (!startTime) return NOW
 
             // 时间对象
             if (startTime instanceof Date) return Date.parse(startTime)
@@ -116,10 +116,7 @@ export default {
 
     watch: {
         normalizedStartTime: 'execute',
-        normalizedEndTime: {
-            handler: 'execute',
-            immediate: true
-        },
+        normalizedEndTime: 'execute',
         currentTime (val) {
             // console.log('current', val, this.normalizedEndTime)
             if (this.normalizedEndTime <= val) {
@@ -129,11 +126,11 @@ export default {
         },
     },
 
-    beforeDestroy () {
-        clearInterval(this.timer)
+    mounted () {
+        this.execute()
     },
 
-    deactivated () {
+    beforeDestroy () {
         clearInterval(this.timer)
     },
 
