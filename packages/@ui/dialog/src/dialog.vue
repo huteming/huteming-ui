@@ -37,7 +37,7 @@ export default {
         closeOnClickModal: {
             type: Boolean,
             default: true,
-        }
+        },
     },
 
     data () {
@@ -65,6 +65,12 @@ export default {
 
             this.$emit('input', val)
         },
+    },
+
+    mounted () {
+        if (this.value) {
+            this.show()
+        }
     },
 
     methods: {
@@ -113,12 +119,6 @@ export default {
         handleAfterLeave () {
             this.$emit('closed')
         },
-    },
-
-    mounted () {
-        if (this.value) {
-            this.show()
-        }
     },
 }
 </script>
