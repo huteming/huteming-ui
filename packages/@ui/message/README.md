@@ -34,7 +34,24 @@ Message.confirm(options)
 Message.prompt(options)
 ```
 
+## 注册回调
+
+`Message` 方法返回的是 `Promise`, resolve 状态代表确定，reject 状态代表取消
+
+```javascript
+Message(options)
+    // 确定
+    .then(res => {
+        const { inputValue, action } = res
+    })
+    // 取消
+    .catch(res => {
+        const { inputValue, action } = res
+    })
+```
+
 ## API
+
 | 参数 | 说明 | 类型 | 可选值 | 默认值 |
 |------|-------|---------|-------|--------|
 | title | 提示框的标题 | String | | |
@@ -48,5 +65,7 @@ Message.prompt(options)
 | inputType | 输入框的类型 | String | | `text` |
 | inputValue | 输入框的值 | String | | |
 | inputPlaceholder | 输入框的占位符 | String | | `请输入` |
-| beforeClose | 关闭前的回调，会暂停 message 的关闭。done 用于关闭 message | Function(done) | | |
+| beforeConfirm | 确定前的回调，会暂停 message 的关闭。done 用于关闭 message | Function(done, res) | | |
+| beforeCancel | 取消前的回调，会暂停 message 的关闭。done 用于关闭 message | Function(done, res) | | |
+| beforeClose | 关闭前的回调，会暂停 message 的关闭。done 用于关闭 message | Function(done, res) | | |
 | closeOnClickModal | 是否在点击遮罩时关闭提示框(alert 为 false) | Boolean | | `true` |
