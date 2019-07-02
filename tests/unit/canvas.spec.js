@@ -13,7 +13,49 @@ describe('canvas', () => {
     })
 
     describe('callback', () => {
-        it('自定义this', () => {
+        it('自定义异常处理', () => {
+            const mockLog = sinon.fake()
+            const mockHandler = sinon.fake()
+            const mockError = new Error('非期望异常')
+            sinon.replace(console, 'error', mockLog)
+            const canvas = new CanvasDraw()
+            canvas.add(() => {
+                throw mockError
+            })
+            canvas.onerror(mockHandler)
+            canvas.done()
+
+            assert.strictEqual(mockLog.callCount, 0)
+            assert.ok(mockHandler.calledWithExactly(mockError))
+        })
+
+        it('默认的异常处理', () => {
+            const mockLog = sinon.fake()
+            const mockFn = sinon.fake()
+            const mockError = new Error('非期望异常')
+            sinon.replace(console, 'error', mockLog)
+            sinon.replace(console, 'log', mockFn)
+            const canvas = new CanvasDraw()
+            canvas.add(() => {
+                throw mockError
+            })
+            canvas.add(mockFn)
+            canvas.done()
+
+            assert.ok(mockLog.calledWithExactly(mockError))
+            assert.strictEqual(mockFn.callCount, 1)
+        })
+
+        it('callback在done中执行', () => {
+            const mockCallback = sinon.fake()
+            const canvas = new CanvasDraw()
+            canvas.add(mockCallback)
+
+            assert.strictEqual(mockCallback.callCount, 0)
+        })
+
+        it('第一个参数 === this', () => {
+            const mockCallback = sinon.fake()
             const canvas = new CanvasDraw()
             const self = {
                 context: canvas.context,
@@ -22,40 +64,43 @@ describe('canvas', () => {
                 width: canvas.canvasWidth,
                 height: canvas.canvasHeight
             }
-            function callback () {
-                assert.deepStrictEqual(this, self)
-            }
-            canvas.add(callback)
+
+            canvas.add(mockCallback)
+            canvas.done()
+
+            assert.ok(mockCallback.calledWithExactly(self))
         })
 
-        it('第一个参数 === this', () => {
+        it('callback执行save、restore', () => {
             const canvas = new CanvasDraw()
-            function callback (arg) {
-                assert.strictEqual(arg, this)
-            }
-            canvas.add(callback)
+            const mockSave = sinon.fake()
+            const mockRestore = sinon.fake()
+            const mockCallback = sinon.fake()
+            sinon.replace(canvas.context, 'save', mockSave)
+            sinon.replace(canvas.context, 'restore', mockRestore)
+
+            canvas.add(mockCallback)
+            canvas.done()
+
+            assert.ok(mockSave.calledBefore(mockCallback))
+            assert.ok(mockRestore.calledAfter(mockCallback))
         })
 
-        it('callback之前执行save', () => {
+        it('每次callback都会执行save、restore', () => {
             const canvas = new CanvasDraw()
-            const save = sinon.fake()
-            sinon.replace(canvas.context, 'save', save)
+            const mockSave = sinon.fake()
+            const mockRestore = sinon.fake()
+            const mockCallback = sinon.fake()
+            sinon.replace(canvas.context, 'save', mockSave)
+            sinon.replace(canvas.context, 'restore', mockRestore)
 
-            function callback () {
-                assert.strictEqual(save.callCount, 1)
-            }
-            canvas.add(callback)
-        })
+            canvas.add(mockCallback)
+            canvas.add(mockCallback)
+            canvas.done()
 
-        it('callback之后执行restore', () => {
-            const canvas = new CanvasDraw()
-            const restore = sinon.fake()
-            sinon.replace(canvas.context, 'restore', restore)
-            function callback () {
-                assert.strictEqual(restore.callCount, 0)
-            }
-            canvas.add(callback)
-            assert.strictEqual(restore.callCount, 1)
+            assert.strictEqual(mockSave.callCount, 2)
+            assert.strictEqual(mockCallback.callCount, 2)
+            assert.strictEqual(mockRestore.callCount, 2)
         })
     })
 

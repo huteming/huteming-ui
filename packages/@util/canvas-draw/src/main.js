@@ -10,6 +10,9 @@ export default class Canvas {
     constructor (width = 750, height = 1206, { designWidth = 750 } = {}) {
         const { context, canvas, canvasWidth, canvasHeight, ratio } = getCanvasObject(width, height, designWidth)
 
+        this._onerror = console.error // 异常处理
+        this._callbacks = [] // 绘图函数
+
         this.context = context
         this.ratio = ratio
         this.canvas = canvas
@@ -35,18 +38,31 @@ export default class Canvas {
             height: this.canvasHeight
         }
 
-        log('------------- start -------------')
-        this.context.save()
+        this._callbacks.push(() => {
+            log('------------- start -------------')
+            this.context.save()
 
-        callback.call(self, self)
+            try {
+                callback(self)
+            } catch (err) {
+                this._onerror(err)
+            }
 
-        this.context.restore()
-        log('------------- end -------------')
+            this.context.restore()
+            log('------------- end -------------')
+        })
+    }
+
+    onerror (callback) {
+        this._onerror = callback
     }
 
     done (type = 'png') {
-        log('done')
-        return this.canvas.toDataURL(`image/${type}`, 1.0)
+        this._callbacks.forEach(fn => fn())
+        const dataURL = this.canvas.toDataURL(`image/${type}`, 1.0)
+        log('------------- done -------------')
+
+        return dataURL
     }
 }
 
