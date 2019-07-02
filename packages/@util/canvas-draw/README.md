@@ -8,9 +8,9 @@ CanvasDraw 为构造函数。主要是解决了 canvas 在不同分辨率中显�
 
 ```javascript
 import { CanvasDraw } from '@huteming/util'
-
 const instance = new CanvasDraw(375, 500)
 
+instance.onerror(console.error)
 instance.add(({ context, canvas, ratio, width, height }) => {
     instance.drawText('hello world', 24, 93)
 })
@@ -30,8 +30,9 @@ const src = instance.done()
 
 | name | 描述 | 参数 |
 |------|--------|-------|
-| add | 执行callback前后分别执行 save, restore 方法 | Function: callbackDraw |
-| done | 导出图片 | Object: resDone |
+| add | 执行callback前后分别执行 save, restore 方法 | Function: callbackDraw({ context, canvas, ratio, width, height }) |
+| onerror | 异常处理.默认为 `console.error` | Error |
+| done | 导出图片 | Object: optionsDone |
 
 | name | 描述 | 参数 |
 |------|--------|-------|
@@ -41,13 +42,7 @@ const src = instance.done()
 | drawLine | 直线 | startX, startY, endX, endY, optionsLine |
 | drawImage | 图片 | image, x, y, width, height |
 
-### callbackDraw
-
-| name | 描述 | 参数 |
-|------|--------|-------|
-| | canvas画图方法 | { context, canvas, ratio, width, height } |
-
-### resDone
+### optionsDone
 
 | 参数 | 描述 | 默认值 |
 |----------|----------|-----------|
