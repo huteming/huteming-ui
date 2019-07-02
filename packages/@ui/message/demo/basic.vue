@@ -59,7 +59,7 @@ export default {
                 })
         },
         handleConfirm () {
-            Message.confirm('确定执行此操作?', '')
+            Message.confirm('确定执行此操作?')
                 .then(res => {
                     console.log(res)
                 })

@@ -3,28 +3,28 @@
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    width: 5.4rem;
-    color: #000;
-    text-align: center;
-    letter-spacing: .5px;
-    border-radius: 7px;
+    width: rem(630);
+    border-radius: rem(16);
     background: #fff;
     overflow: hidden;
 
     &-container {
-        padding: .42rem .42rem .3rem;
+        padding: rem(40);
     }
 
     &-title {
-        font-size: 18px;
-        line-height: 1;
+        font-size: rem(36);
+        line-height: rem(50);
+        color: rgba(0, 0, 0, 1);
         font-weight: 400;
+        text-align: center;
     }
 
     &-subtitle {
-        font-size: 15px;
-        line-height: 23px;
-        color: #888;
+        font-size: rem(32);
+        line-height: rem(48);
+        color: rgba(93, 93, 103, 1);
+        text-align: center;
         font-weight: 400;
     }
 
@@ -54,7 +54,7 @@
     }
 
     &-title + &-subtitle {
-        margin-top: .18rem;
+        margin-top: rem(18);
     }
 
     &-title + &-field {
@@ -66,24 +66,49 @@
     }
 
     &-footer {
+        position: relative;
         display: flex;
         align-items: center;
-        border-top: 1px solid #ddd;
 
         &-btn {
             flex: 1;
-            padding: .32rem 0;
-            font-size: 18px;
-            line-height: 1;
+            height: rem(100);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: rem(34);
+            line-height: rem(48);
 
             &__cancel {
-                color: #000;
-                border-right: 2px solid #DCDEE3;
+                position: relative;
+                color: rgba(32, 38, 49, 1);
+
+                &:after {
+                    content: ' ';
+                    position: absolute;
+                    right: 0;
+                    top: 0;
+                    bottom: 0;
+                    width: 1px;
+                    transform: scaleX(.5);
+                    background: rgba(227, 227, 227, 1);
+                }
             }
 
             &__confirm {
-                color: #108EE9;
+                color: rgba(58, 149, 250, 1);
             }
+        }
+
+        &:before {
+            content: ' ';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 1px;
+            transform: scaleY(.5);
+            background: rgba(227, 227, 227, 1);
         }
     }
 }

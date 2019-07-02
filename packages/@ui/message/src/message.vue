@@ -12,11 +12,11 @@
         </div>
 
         <div class="tm-message-footer">
-            <div class="tm-message-footer-btn tm-message-footer-btn__cancel" :class="{ 'text-bold': cancelButtonHighlight }" v-if="showCancelButton" @click="handleClose('cancel')">
+            <div class="tm-message-footer-btn tm-message-footer-btn__cancel" :class="{ 'text-bold': cancelButtonHighlight }" v-if="showCancelButton" @click.stop="handleClose('cancel')">
                 {{ cancelButtonText }}
             </div>
 
-            <div class="tm-message-footer-btn tm-message-footer-btn__confirm" :class="{ 'text-bold': confirmButtonHighlight }" @click="handleClose('confirm')">
+            <div class="tm-message-footer-btn tm-message-footer-btn__confirm" :class="{ 'text-bold': confirmButtonHighlight }" @click.stop="handleClose('confirm')">
                 {{ confirmButtonText }}
             </div>
         </div>
