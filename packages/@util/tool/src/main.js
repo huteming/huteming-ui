@@ -8,7 +8,7 @@ export function isWeixinBrowser () {
 }
 
 /**
- * 小数点之前补0
+ * 数字之前补0
  * @param {Number|String} value 数据
  * @param {Number} fractionDigits 小数点前保留位数
  */
