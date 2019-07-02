@@ -1,10 +1,13 @@
 const SPECIAL_CHARS_REGEXP = /([:\-_]+(.))/g
 const MOZ_HACK_REGEXP = /^moz([A-Z])/
 
-export function isInContainer (el, container) {
-    if (!el || !container) return false
+/**
+ * 检测是否在容器内可视
+ */
+export function isInContainer (element, container) {
+    if (!element || !container) return false
 
-    const elRect = el.getBoundingClientRect()
+    const elRect = element.getBoundingClientRect()
     let containerRect
 
     if ([window, document, document.documentElement].includes(container)) {
@@ -24,18 +27,27 @@ export function isInContainer (el, container) {
         elRect.left < containerRect.right
 }
 
+/**
+ * 监听事件
+ */
 export function on (element, event, handler) {
     if (element && event && handler) {
         element.addEventListener(event, handler, false)
     }
 }
 
+/**
+ * 移除监听
+ */
 export function off (element, event, handler) {
     if (element && event) {
         element.removeEventListener(event, handler, false)
     }
 }
 
+/**
+ * 添加样式前缀，一般在自定义 style 时使用
+ */
 export function autoprefixer (style) {
     if (typeof style !== 'object') {
         return style
@@ -189,6 +201,9 @@ function isAttached (element) {
     return false
 }
 
+/**
+ * 转换为驼峰命名
+ */
 export function camelCase (name) {
     return name
         .replace(SPECIAL_CHARS_REGEXP, function (_, separator, letter, offset) {
@@ -213,7 +228,10 @@ export function getStyle (element, styleName) {
     }
 }
 
-export function isScroll (el, vertical) {
+/**
+ * 检测是否支持滚动
+ */
+export function isScroll (element, vertical) {
     let styleName
 
     if (vertical === null || vertical === undefined) {
@@ -223,7 +241,7 @@ export function isScroll (el, vertical) {
     } else {
         styleName = 'overflow-x'
     }
-    const overflow = getStyle(el, styleName)
+    const overflow = getStyle(element, styleName)
 
     return /(scroll|auto)/.test(overflow)
 }
@@ -231,8 +249,8 @@ export function isScroll (el, vertical) {
 /**
  * 最近一个 overflow 值为 auto 或 scroll 的父元素
  */
-export function getScrollContainer (el, vertical) {
-    let parent = el
+export function getScrollContainer (element, vertical) {
+    let parent = element
 
     while (parent) {
         if ([window, document, document.documentElement].includes(parent)) {

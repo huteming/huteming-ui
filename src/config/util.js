@@ -51,4 +51,9 @@ export default [
             { 'wxsdk/pay': () => import('web-util/wxsdk/tests/pay.vue') },
         ],
     },
+    {
+        path: 'element',
+        title: 'DOM辅助函数 element',
+        docs: () => import('web-util/element/README.md'),
+    },
 ]
