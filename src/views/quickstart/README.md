@@ -12,35 +12,62 @@
 
 ```javascript
 import ui from '@huteming/ui'
-import '@huteming/ui/dist/huteming-ui.css'
 
 Vue.use(ui)
 ```
 
 ``` javascript
-// { animation, api, CanvssDraw, request, Roller, storage, tool, Validator, wxsdk }
 import * as util from '@huteming/util'
 
-console.log(util)
+const { animation, api, CanvssDraw, request, Roller, storage, tool, Validator, wxsdk } = util
 ```
 
 以上代码便完成了 @huteming/* 的引入。
 
 ### 按需引入
 
-```javascript
-// 如果你只希望引入部分组件，比如 Picker 和 Flex
-import { Picker, Flex } from '@huteming/ui'
+借助 `babel-plugin-transform-imports`，我们可以只引入需要的组件。
 
-Vue.use(Button)
-Vue.use(Cell)
+首先，安装 `babel-plugin-transform-imports`：
+
+```javascript
+npm install --save-dev babel-plugin-transform-imports
 ```
 
-```javascript
-// 如果只需要引入部分函数
-import { api } from '@huteming/util'
+然后，将 `.babelrc` 修改为：
 
-console.log(api)
+```javascript
+{
+    "plugins": [
+        [
+            "transform-imports",
+            {
+                "@huteming/util": {
+                    "transform": "@huteming/util/lib/${member}",
+                    "preventFullImport": true,
+                    "kebabCase": true
+                },
+                "@huteming/ui": {
+                    "transform": "@huteming/ui/lib/${member}",
+                    "preventFullImport": true,
+                    "kebabCase": true
+                },
+            }
+        ],
+    ]
+}
+```
+
+接下来，如果你只希望引入部分组件，那么可以在需要的组件页面内这么写：
+
+```javascript
+import { TmCarousel, TmCarouselItem } from '@huteming/ui'
+import { element, CanvasDraw } from '@huteming/util'
+
+// Vue.component(TmCarousel.name, TmCarousel)
+Vue.use(TmCarousel)
+// Vue.component(TmCarouselItem.name, TmCarouselItem)
+Vue.use(TmCarouselItem)
 ```
 
 各个组件的使用方法请参阅它们各自的文档。
