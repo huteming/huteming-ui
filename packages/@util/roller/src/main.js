@@ -8,7 +8,7 @@ export default class Roller {
 
     /**
      * @param {Any} value 内部不关心该数据，会在获取随机数后返回给外部
-     * @param {Number} rate 占据区间, 任意数字
+     * @param {Number} rate 占据比例, 任意数字
      */
     add (value, rate) {
         const _rate = Number(rate)
