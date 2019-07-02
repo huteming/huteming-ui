@@ -24,6 +24,38 @@ export function required (value) {
     return true
 }
 
+/**
+ * 允许 数组，其他
+ * 如果是数组，要求每一项都在enum中
+ */
+export function enumer (value, options) {
+    if (!Array.isArray(value)) {
+        value = [value]
+    }
+
+    return value.every(item => options.enum.includes(item))
+}
+
+export function range (value, options) {
+    let { min, max } = options
+
+    if (typeof min !== 'number') {
+        min = -Infinity
+    }
+
+    if (typeof max !== 'number') {
+        max = Infinity
+    }
+
+    if (options.type === 'string' || options.type === 'array') {
+        value = value.length
+    }
+
+    return value >= min && value <= max
+}
+
+// --------------------------- 以下都是 type 的可能值
+
 export function string (value, options) {
     return isString(value)
 }
@@ -66,18 +98,6 @@ export function array (value) {
     return Array.isArray(value)
 }
 
-/**
- * 允许 数组，其他
- * 如果是数组，要求每一项都在enum中
- */
-export function enumer (value, options) {
-    if (!Array.isArray(value)) {
-        value = [value]
-    }
-
-    return value.every(item => options.enum.includes(item))
-}
-
 export function date (value) {
     return new Date(value).valueOf() > 0
 }
@@ -88,22 +108,4 @@ export function email (value) {
 
 export function mobile (value) {
     return /^[1][3,4,5,6,7,8,9][0-9]{9}$/.test(value)
-}
-
-export function range (value, options) {
-    let { min, max } = options
-
-    if (typeof min !== 'number') {
-        min = -Infinity
-    }
-
-    if (typeof max !== 'number') {
-        max = Infinity
-    }
-
-    if (options.type === 'string' || options.type === 'array') {
-        value = value.length
-    }
-
-    return value >= min && value <= max
 }
