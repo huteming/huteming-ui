@@ -7,9 +7,9 @@
 ```javascript
 const request = requestFactory(options)
 
-request.get(url, params, config)
+request.find(url, params, config)
 request.post(url, params, config)
-request.jsonp(url, params)
+request.jsonp(url, params, config)
 ```
 
 ## options 对象详解
@@ -20,8 +20,9 @@ request.jsonp(url, params)
 | timeout | 超时时间毫秒数 | `8000` |
 | withCredentials | 表示跨域请求时是否需要使用凭证 | `true` |
 | headers | 被发送的自定义请求头 | |
-| resSuccess | 响应正确拦截器 | |
-| resError | 响应错误拦截器 | |
-| toast | 消息提示，拦截器错误处理中有使用 | `console.log` |
-| message | 弹窗提示，拦截器错误处理中有使用 | `console.log` |
-| accountAlias | 页面未登录重定向配置 | |
+| _reqSuccess | 请求config处理器 | |
+| _resSuccess | 响应正确拦截器 | |
+| _resError | 响应错误拦截器 | |
+| _accountAlias | 页面未登录重定向配置 | |
+| _retry | 重发次数 | `2` |
+| _retryDelay | 重发延迟 | `1000` |
