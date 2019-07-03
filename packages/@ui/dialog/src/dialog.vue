@@ -1,6 +1,6 @@
 <template>
 <transition name="tm-dialog">
-    <div class="tm-dialog" v-show="normalizedVisible" :style="styles" @click.stop>
+    <div class="tm-dialog" v-show="normalizedVisible" :style="styles" @click.stop @touchmove.stop.prevent>
         <div class="tm-dialog-content">
             <slot></slot>
         </div>
@@ -32,11 +32,11 @@ export default {
          */
         closePosition: {
             type: String,
-            default: '',
+            default: 'bottom',
         },
         closeOnClickModal: {
             type: Boolean,
-            default: true,
+            default: false,
         },
     },
 

@@ -2,7 +2,7 @@ import { createWrapper, config } from '@vue/test-utils'
 import Message from 'web-ui/message/src/message.js'
 import TmMessage from 'web-ui/message/src/message.vue'
 import assert from 'assert'
-import { sleep } from '../helper'
+import { sleep, Mock } from '../helper'
 import sinon from 'sinon'
 
 config.stubs.transition = false
@@ -40,7 +40,7 @@ describe('message', async () => {
         sinon.restore()
     })
 
-    it('click冒泡', async () => {
+    it('禁止click冒泡', async () => {
         const mockClickBody = sinon.fake()
         window.addEventListener('click', mockClickBody)
         Message('hello')
@@ -51,7 +51,13 @@ describe('message', async () => {
         window.removeEventListener('click', mockClickBody)
     })
 
-    it('touchmove冒泡', async () => {
+    it('禁止touchmove冒泡 && 禁止滚动', async () => {
+        const mockPrevent = sinon.fake()
+        const mock = new Mock(Event.prototype, 'preventDefault', {
+            value: mockPrevent,
+        })
+        mock.replace()
+
         const mockMoveBody = sinon.fake()
         window.addEventListener('touchmove', mockMoveBody)
         Message('hello')
@@ -60,6 +66,9 @@ describe('message', async () => {
         wrapperMessage.trigger('touchmove')
         assert.strictEqual(mockMoveBody.callCount, 0)
         window.removeEventListener('touchmove', mockMoveBody)
+        assert.ok(mockPrevent.called)
+
+        mock.restore()
     })
 
     it('create', (done) => {

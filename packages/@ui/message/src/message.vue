@@ -1,6 +1,6 @@
 <template>
 <transition name="bounce">
-    <section class="tm-message" :style="styles" v-show="visible" ref="msgbox" @click.stop @touchmove.prevent.stop>
+    <section class="tm-message" :style="styles" v-show="visible" ref="msgbox" @click.stop @touchmove.stop.prevent>
         <div class="tm-message-container">
             <div class="tm-message-title" v-if="title">{{ title }}</div>
 

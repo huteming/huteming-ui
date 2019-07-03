@@ -1,8 +1,9 @@
 <template>
-<div class="page-example" @click="handleTest">
+<div class="page-example">
     <button @click="visibleDialog = true">open</button>
+    <button @click="beforeClose = handleBeforeClose; visibleDialog = true">before close</button>
 
-    <tm-dialog v-model="visibleDialog" :before-close="handleBeforeClose" @close="handleClose" @closed="handleClosed" :close-on-click-modal="false" close-position="bottom">
+    <tm-dialog v-model="visibleDialog" :before-close="beforeClose" @close="handleClose" @closed="handleClosed">
         <img src="./jinghaokefu.png" alt="" class="image" />
     </tm-dialog>
 </div>
@@ -10,18 +11,20 @@
 
 <script>
 import TmDialog from '../index'
+import Toast from 'web-ui/toast'
 
 export default {
     data () {
         return {
-            visibleDialog: false
+            visibleDialog: false,
+            beforeClose: null,
         }
     },
 
+    mounted () {
+    },
+
     methods: {
-        handleTest () {
-            console.log('test')
-        },
         handleOpen () {
             console.log('open')
         },
@@ -32,9 +35,9 @@ export default {
             console.log('closed')
         },
         handleBeforeClose (done) {
-            console.log('close 2s later')
+            Toast('close 2s later')
             setTimeout(done, 2000)
-        }
+        },
     },
 
     components: {
@@ -44,9 +47,15 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.wrapper {
+    height: 100px;
+    overflow: auto;
+}
+
 .image {
     display: block;
     width: 100%;
+    height: 200px;
     border: none;
 }
 </style>
