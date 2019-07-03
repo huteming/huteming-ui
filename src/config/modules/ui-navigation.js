@@ -1,7 +1,7 @@
 export default [
     {
         path: 'tab',
-        title: 'Tab 选项卡',
+        title: '选项卡 Tab',
         docs: () => import('web-ui/tab/README.md'),
         example: () => import('web-ui/tab/demo/basic.vue'),
     },
@@ -22,12 +22,6 @@ export default [
         title: '选择器 PickerRange',
         docs: () => import('web-ui/picker-range/README.md'),
         example: () => import('web-ui/picker-range/demo/basic.vue'),
-    },
-    {
-        path: 'popup',
-        title: '弹出窗 Popup',
-        docs: () => import('web-ui/popup/README.md'),
-        example: () => import('web-ui/popup/demo/basic.vue'),
     },
     {
         path: 'picker',

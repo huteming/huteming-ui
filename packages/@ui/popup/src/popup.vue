@@ -1,6 +1,6 @@
 <template>
 <transition :name="transition" @after-leave="handleAfterLeave">
-    <div class="tm-popup" v-show="visible" :class="classes" :style="styles">
+    <div class="tm-popup" v-show="visible" :class="classes" :style="styles" v-smart-scroll>
         <slot></slot>
     </div>
 </transition>
@@ -9,6 +9,7 @@
 <script>
 import MixinsModal from 'web-ui/modal/index.js'
 import zindexManager from 'web/assets/js/zindex-manager'
+import SmartScroll from 'web-ui/smart-scroll/index'
 
 export default {
     name: 'TmPopup',
@@ -139,6 +140,10 @@ export default {
                 done()
             }
         },
+    },
+
+    directives: {
+        SmartScroll,
     },
 }
 </script>

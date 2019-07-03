@@ -1,13 +1,14 @@
-> 弹出框，可自定义内容。
+> 弹出层，可自定义内容。
 
 -------------
 
 ## 引入
 
 ```javascript
-import { Popup } from '@huteming/ui'
+import { TmPopup } from '@huteming/ui'
 
-Vue.component(Popup.name, Popup)
+Vue.use(TmPopup)
+// Vue.component(TmPopup.name, TmPopup)
 ```
 
 ## 例子
@@ -17,9 +18,9 @@ Vue.component(Popup.name, Popup)
 将 `v-model` 绑定到一个本地变量，通过操作这个变量即可控制 `popup` 的显示与隐藏。
 
 ```html
-<base-popup v-model="visible" position="bottom">
+<tm-popup v-model="visible" position="bottom">
     ...
-</base-popup>
+</tm-popup>
 ```
 
 ## API

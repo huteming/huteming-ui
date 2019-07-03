@@ -23,4 +23,10 @@ export default [
         docs: () => import('web-ui/toast/README.md'),
         example: () => import('web-ui/toast/demo/basic.vue'),
     },
+    {
+        path: 'popup',
+        title: '弹出层 Popup',
+        docs: () => import('web-ui/popup/README.md'),
+        example: () => import('web-ui/popup/demo/basic.vue'),
+    },
 ]

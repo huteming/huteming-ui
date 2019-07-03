@@ -33,7 +33,7 @@
     "pir": "cross-env BUILD_MODE=lib vue-cli-service build --target lib --report --name picker-range --dest packages/@ui/picker-range/dist packages/@ui/picker-range/index.js",
     "pic": "cross-env BUILD_MODE=lib vue-cli-service build --target lib --report --name picker --dest packages/@ui/picker/dist packages/@ui/picker/index.js",
     "pii": "cross-env BUILD_MODE=lib vue-cli-service build --target lib --report --name picker-item --dest packages/@ui/picker-item/dist packages/@ui/picker-item/index.js",
-    "pop": "cross-env BUILD_MODE=lib vue-cli-service build --target lib --report --name popup --dest packages/@ui/popup/dist packages/@ui/popup/index.js",
+    "popup": "cross-env BUILD_MODE=lib vue-cli-service build --target lib --report --name popup --dest packages/@ui/popup/dist packages/@ui/popup/index.js",
     "tab": "cross-env BUILD_MODE=lib vue-cli-service build --target lib --report --name tab --dest packages/@ui/tab/dist packages/@ui/tab/index.js",
     "tap": "cross-env BUILD_MODE=lib vue-cli-service build --target lib --report --name tab-pane --dest packages/@ui/tab-pane/dist packages/@ui/tab-pane/index.js",
     "tac": "cross-env BUILD_MODE=lib vue-cli-service build --target lib --report --name tab-container --dest packages/@ui/tab-container/dist packages/@ui/tab-container/index.js",

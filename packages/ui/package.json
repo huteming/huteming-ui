@@ -20,6 +20,7 @@
     "@huteming/ui-panel": "^1.0.2",
     "@huteming/ui-picker-address": "^1.4.1",
     "@huteming/ui-picker-datetime": "^1.4.1",
+    "@huteming/ui-popup": "^1.0.0",
     "@huteming/ui-toast": "^1.4.1"
   }
 }

@@ -33,6 +33,8 @@
 
     <tm-popup class="left" v-model="visibleLeft" position="left">
         <button type="primary" @click="visibleLeft = !visibleLeft">close</button>
+
+        <div style="height: 200vh;">empty</div>
     </tm-popup>
 
     <!-- right -->
@@ -50,6 +52,8 @@
     <tm-popup class="event" v-model="visibleEvent" position="right" @open="handleOpen" @close="handleClose" @closed="handleClosed" :before-close="handleBeforeClose">
         <button type="primary" @click="visibleEvent = !visibleEvent">close</button>
     </tm-popup>
+
+    <div style="height: 100vh;">empty</div>
 </div>
 </template>
 

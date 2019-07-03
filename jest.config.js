@@ -42,6 +42,8 @@ module.exports = {
     '!packages/@ui/flex/src/*.{js,vue}',
     '!packages/@ui/input/src/*.{js,vue}',
     '!packages/@ui/tab/src/*.{js,vue}',
+    '!packages/@ui/popup/src/*.{js,vue}',
+    '!packages/@ui/smart-scroll/src/*.{js,vue}',
   ],
   coverageReporters: ['html', 'text-summary']
 }
