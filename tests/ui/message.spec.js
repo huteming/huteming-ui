@@ -40,24 +40,63 @@ describe('message', async () => {
         sinon.restore()
     })
 
-    it('create', async () => {
+    it('click冒泡', async () => {
+        const mockClickBody = sinon.fake()
+        window.addEventListener('click', mockClickBody)
+        Message('hello')
+        await sleep()
+        const wrapperMessage = wrapper.find('.tm-message')
+        wrapperMessage.trigger('click')
+        assert.strictEqual(mockClickBody.callCount, 0)
+        window.removeEventListener('click', mockClickBody)
+    })
+
+    it('touchmove冒泡', async () => {
+        const mockMoveBody = sinon.fake()
+        window.addEventListener('touchmove', mockMoveBody)
+        Message('hello')
+        await sleep()
+        const wrapperMessage = wrapper.find('.tm-message')
+        wrapperMessage.trigger('touchmove')
+        assert.strictEqual(mockMoveBody.callCount, 0)
+        window.removeEventListener('touchmove', mockMoveBody)
+    })
+
+    it('create', (done) => {
+        let wrapperContainer
         const title = 'a title'
         const message = 'a message'
-        const options = {}
+        const options = {
+            showCancelButton: true,
+        }
         Message(message, title, options)
-        await sleep(320)
-        const wrapperMessage = wrapper.find('.tm-message')
-        const wrapperTitle = wrapper.find('.tm-message-title')
-        const wrapperSubtitle = wrapper.find('.tm-message-subtitle')
-        assert.ok(wrapperMessage.exists())
-        assert.strictEqual(wrapperTitle.text(), title)
-        assert.strictEqual(wrapperSubtitle.text(), message)
+            .then(() => {
+                done(new Error('expect cancel'))
+            })
+            .catch(() => {
+                wrapperContainer = wrapper.find('.tm-message')
+                assert.ok(!wrapperContainer.exists())
+                done()
+            })
+
+        sleep()
+            .then(() => {
+                wrapperContainer = wrapper.find('.tm-message')
+                const wrapperTitle = wrapper.find('.tm-message-title')
+                const wrapperSubtitle = wrapper.find('.tm-message-subtitle')
+                const wrapperModal = wrapper.find('.tm-modal')
+                assert.ok(wrapperContainer.isVisible())
+                assert.strictEqual(wrapperTitle.text(), title)
+                assert.strictEqual(wrapperSubtitle.text(), message)
+
+                wrapperModal.trigger('click')
+            })
     })
 
     it('alert', async () => {
         let wrapperMessage
         Message.alert('hhh')
-        await sleep(320)
+        await sleep()
         wrapperMessage = wrapper.find('.tm-message')
         const wrapperConfirm = wrapper.find('.tm-message-footer-btn__confirm')
         const wrapperCancel = wrapper.find('.tm-message-footer-btn__cancel')
@@ -68,46 +107,32 @@ describe('message', async () => {
         assert.ok(!wrapperCancel.exists())
 
         wrapperModal.trigger('click')
-        await sleep(320)
+        await sleep()
 
         wrapperMessage = wrapper.find('.tm-message')
         assert.ok(wrapperMessage.exists())
     })
 
     it('confirm', async () => {
-        let wrapperMessage
         Message.confirm('hhh', { closeOnClickModal: true })
-            .catch(err => {})
-        await sleep(320)
-        wrapperMessage = wrapper.find('.tm-message')
-        const wrapperCancel = wrapper.find('.tm-message-footer-btn__cancel')
-        const wrapperModal = wrapper.find('.tm-modal')
+        await sleep()
 
+        const wrapperConfirm = wrapper.find('.tm-message-footer-btn__confirm')
+        const wrapperCancel = wrapper.find('.tm-message-footer-btn__cancel')
         assert.ok(wrapperCancel.exists())
-        wrapperModal.trigger('click')
-        await sleep(350)
-        wrapperMessage = wrapper.find('.tm-message')
-        assert.ok(!wrapperMessage.exists())
+        assert.ok(wrapperConfirm.exists())
     })
 
     it('prompt', async () => {
-        let wrapperMessage
         Message.prompt('hhh', { closeOnClickModal: true })
-            .catch(() => {
-                console.log('catch an error')
-            })
-        await sleep(320)
+        await sleep()
 
-        wrapperMessage = wrapper.find('.tm-message')
         const wrapperInput = wrapper.find('.tm-message-field')
+        const wrapperConfirm = wrapper.find('.tm-message-footer-btn__confirm')
         const wrapperCancel = wrapper.find('.tm-message-footer-btn__cancel')
-        const wrapperModal = wrapper.find('.tm-modal')
-        assert.ok(wrapperCancel.exists())
         assert.ok(wrapperInput.exists())
-        wrapperModal.trigger('click')
-        await sleep(350)
-        wrapperMessage = wrapper.find('.tm-message')
-        assert.ok(!wrapperMessage.exists())
+        assert.ok(wrapperCancel.exists())
+        assert.ok(wrapperConfirm.exists())
     })
 
     it('第一个参数是对象', () => {
@@ -134,7 +159,7 @@ describe('message', async () => {
                 assert.strictEqual(inputValue, value)
                 done()
             })
-        sleep(320)
+        sleep()
             .then(() => {
                 const wrapperInput = wrapper.find('.tm-message-field__input')
                 const wrapperConfirm = wrapper.find('.tm-message-footer-btn__confirm')
@@ -150,7 +175,7 @@ describe('message', async () => {
                 assert.strictEqual(inputValue, '')
                 done()
             })
-        sleep(320)
+        sleep()
             .then(() => {
                 const wrapperConfirm = wrapper.find('.tm-message-footer-btn__confirm')
                 wrapperConfirm.trigger('click')
@@ -182,7 +207,7 @@ describe('message', async () => {
 
                 done()
             })
-        sleep(320)
+        sleep()
             .then(() => {
                 const wrapperCancel = wrapper.find('.tm-message-footer-btn__cancel')
                 wrapperCancel.trigger('click')
@@ -214,7 +239,7 @@ describe('message', async () => {
 
                 done()
             })
-        sleep(320)
+        sleep()
             .then(() => {
                 const wrapperCancel = wrapper.find('.tm-message-footer-btn__confirm')
                 wrapperCancel.trigger('click')

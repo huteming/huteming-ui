@@ -1,6 +1,6 @@
 <template>
 <transition name="bounce">
-    <section class="tm-message" :style="styles" v-show="visible" ref="msgbox">
+    <section class="tm-message" :style="styles" v-show="visible" ref="msgbox" @click.stop @touchmove.prevent.stop>
         <div class="tm-message-container">
             <div class="tm-message-title" v-if="title">{{ title }}</div>
 
@@ -12,12 +12,12 @@
         </div>
 
         <div class="tm-message-footer">
-            <div class="tm-message-footer-btn tm-message-footer-btn__cancel" :class="{ 'text-bold': cancelButtonHighlight }" v-if="showCancelButton" @click.stop="handleClose('cancel')">
-                {{ cancelButtonText }}
+            <div class="tm-message-footer-btn tm-message-footer-btn__cancel" :class="{ 'text-bold': cancelButtonHighlight }" v-if="showCancelButton" @click="handleClose('cancel')">
+                <span>{{ cancelButtonText }}</span>
             </div>
 
-            <div class="tm-message-footer-btn tm-message-footer-btn__confirm" :class="{ 'text-bold': confirmButtonHighlight }" @click.stop="handleClose('confirm')">
-                {{ confirmButtonText }}
+            <div class="tm-message-footer-btn tm-message-footer-btn__confirm" :class="{ 'text-bold': confirmButtonHighlight }" @click="handleClose('confirm')">
+                <span>{{ confirmButtonText }}</span>
             </div>
         </div>
     </section>
@@ -199,9 +199,6 @@ export default {
             this.$el.parentNode.removeChild(this.$el)
         },
     },
-
-    mounted () {
-    }
 }
 </script>
 

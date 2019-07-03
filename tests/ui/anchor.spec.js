@@ -44,7 +44,7 @@ describe('anchor', () => {
             wrapperBtn.trigger('click')
             await sleep(400)
 
-            assert.strictEqual(scrollContainer.scrollTop, 7)
+            assert.strictEqual(Math.round(scrollContainer.scrollTop), 7)
         } finally {
             wrapper.destroy()
         }

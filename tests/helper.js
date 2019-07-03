@@ -14,7 +14,7 @@ export const jsonToForm = (data) => {
     return params
 }
 
-export async function sleep (time = 50) {
+export async function sleep (time = 20) {
     await new Promise(resolve => setTimeout(resolve, time))
 }
 

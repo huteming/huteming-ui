@@ -10,6 +10,9 @@
 
     &-container {
         padding: rem(40);
+        display: flex;
+        flex-flow: column wrap;
+        align-items: center;
     }
 
     &-title {
@@ -17,19 +20,17 @@
         line-height: rem(50);
         color: rgba(0, 0, 0, 1);
         font-weight: 400;
-        text-align: center;
     }
 
     &-subtitle {
         font-size: rem(32);
         line-height: rem(48);
         color: rgba(93, 93, 103, 1);
-        text-align: center;
         font-weight: 400;
     }
 
     &-field {
-        text-align: left;
+        width: 100%;
 
         input {
             width: 100%;

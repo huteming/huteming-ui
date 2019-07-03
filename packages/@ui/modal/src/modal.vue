@@ -5,7 +5,7 @@
     @after-enter="handleAfterEnter"
     @before-leave="handleBeforeLeave"
     @after-leave="handleAfterLeave">
-    <div class="tm-modal" :style="styles" v-show="visible" @click.stop="handleClick" @touchmove.self.prevent></div>
+    <div class="tm-modal" :style="styles" v-show="visible" @click.stop="handleClick" @touchmove.prevent.stop></div>
 </transition>
 </template>
 

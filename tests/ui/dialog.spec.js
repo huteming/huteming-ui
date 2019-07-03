@@ -1,6 +1,7 @@
 import TmDialog from 'web-ui/dialog/src/dialog'
+import WorkBasic from '../components/basic'
 import assert from 'assert'
-import { mount, config, TransitionStub } from '@vue/test-utils'
+import { mount, config, TransitionStub, shallowMount } from '@vue/test-utils'
 import { sleep } from '../helper'
 
 config.stubs.transition = false
@@ -15,7 +16,7 @@ describe('dialog', () => {
             `,
             data () {
                 return {
-                    visible: true,
+                    visible: false,
                     open: false,
                     clsoe: false,
                 }
@@ -34,39 +35,23 @@ describe('dialog', () => {
         })
         const wrapperDialog = wrapper.find(TmDialog)
         await sleep()
-        assert.strictEqual(wrapperDialog.isVisible(), true)
-        assert.strictEqual(wrapper.vm.open, true)
-        wrapper.setData({ visible: false })
-        await sleep()
-        assert.strictEqual(wrapperDialog.isVisible(), false)
-        assert.strictEqual(wrapper.vm.close, true)
-    })
 
-    it('async visible', async () => {
-        const wrapper = mount({
-            template: `
-                <div>
-                    <TmDialog v-model="visible" />
-                </div>
-            `,
-            data () {
-                return {
-                    visible: false,
-                }
-            },
-            components: {
-                TmDialog,
-            },
-        })
-        const wrapperDialog = wrapper.find(TmDialog)
-        await sleep()
-        assert.strictEqual(wrapperDialog.isVisible(), false)
+        assert.ok(!wrapperDialog.isVisible())
         wrapper.setData({ visible: true })
         await sleep()
-        assert.strictEqual(wrapperDialog.isVisible(), true)
+
+        assert.ok(wrapperDialog.isVisible())
+        assert.ok(wrapperDialog.emitted('open'))
+        wrapper.setData({ visible: false })
+        await sleep(50)
+
+        assert.ok(!wrapperDialog.isVisible())
+        assert.ok(wrapperDialog.emitted('close'))
+
         const emitInput = wrapperDialog.emitted('input')
-        assert.ok(emitInput)
+        assert.strictEqual(emitInput.length, 2)
         assert.deepStrictEqual(emitInput[0], [true])
+        assert.deepStrictEqual(emitInput[1], [false])
     })
 
     it('before close', async () => {
@@ -120,7 +105,7 @@ describe('dialog', () => {
         const wrapperClose = wrapperDialog.find('.tm-dialog-cancel')
         await sleep()
         wrapperClose.trigger('click')
-        await sleep()
+        await sleep(310)
         assert.strictEqual(wrapperDialog.isVisible(), false)
     })
 
@@ -145,9 +130,11 @@ describe('dialog', () => {
         const wrapperDialog = wrapper.find(TmDialog)
         const wrapperModal = wrapper.find('.tm-modal')
         await sleep()
+        assert.ok(wrapperDialog.isVisible())
         wrapperModal.trigger('click')
-        await sleep()
-        assert.strictEqual(wrapperDialog.isVisible(), false)
+        await sleep(310)
+        assert.ok(!wrapperDialog.isVisible())
+        assert.ok(wrapperDialog.emitted('closed'))
     })
 
     it('点击遮层不关闭', async () => {
@@ -171,33 +158,9 @@ describe('dialog', () => {
         const wrapperDialog = wrapper.find(TmDialog)
         const wrapperModal = wrapper.find('.tm-modal')
         await sleep()
+        assert.ok(wrapperDialog.isVisible())
         wrapperModal.trigger('click')
-        await sleep()
-        assert.strictEqual(wrapperDialog.isVisible(), true)
-    })
-
-    it('event closed', async () => {
-        const wrapper = mount({
-            template: `
-                <div>
-                    <TmDialog v-model="visible" />
-                </div>
-            `,
-            data () {
-                return {
-                    visible: true,
-                }
-            },
-            methods: {
-            },
-            components: {
-                TmDialog,
-            },
-        })
-        const wrapperDialog = wrapper.find(TmDialog)
-        await sleep()
-        wrapper.setData({ visible: false })
-        await sleep()
-        assert.ok(wrapperDialog.emitted('closed'))
+        await sleep(310)
+        assert.ok(wrapperDialog.isVisible())
     })
 })

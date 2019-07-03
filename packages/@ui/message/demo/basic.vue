@@ -11,6 +11,9 @@
 import Message from '../index'
 
 export default {
+    mounted () {
+    },
+
     methods: {
         handleCinfig () {
             Message({
@@ -59,7 +62,7 @@ export default {
                 })
         },
         handleConfirm () {
-            Message.confirm('确定执行此操作?')
+            Message.confirm('确定执行此操作?确定执行此操作?确定执行此操作?确定执行此操作?确定执行此操作?确定执行此操作?确定执行此操作?')
                 .then(res => {
                     console.log(res)
                 })
