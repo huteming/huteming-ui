@@ -1,6 +1,6 @@
 {
   "name": "@huteming/ui-picker-range",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "> 选择器的封装",
   "main": "dist/picker-range.common.js",
   "scripts": {
