@@ -29,4 +29,10 @@ export default [
         docs: () => import('web-ui/image/README.md'),
         example: () => import('web-ui/image/demo/basic.vue'),
     },
+    {
+        path: 'empty',
+        title: '空状态 empty',
+        docs: () => import('web-ui/empty/README.md'),
+        example: () => import('web-ui/empty/demo/basic.vue'),
+    },
 ]
