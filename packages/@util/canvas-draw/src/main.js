@@ -321,6 +321,13 @@ function drawText (text, x, y, options = {}) {
         // 当前行画
 
         context[`${type}Text`](letter, actualX, actualY)
+        // 这里记录实际x轴最大值
+        const _actualMaxWidth = options.actualMaxWidth
+        const _expectMaxWidth = (actualX + letterWidth) / ratio
+        if (!_actualMaxWidth || _expectMaxWidth > _actualMaxWidth) {
+            options.actualMaxWidth = _expectMaxWidth
+        }
+        // x轴位置累加
         actualX += letterWidth + letterSpacing
     })
 
