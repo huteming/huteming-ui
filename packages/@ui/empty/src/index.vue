@@ -11,8 +11,6 @@
 </template>
 
 <script>
-import imgDefault from './images/default.png'
-
 export default {
     name: 'TmEmpty',
 
@@ -21,7 +19,7 @@ export default {
     props: {
         image: {
             type: String,
-            default: imgDefault,
+            default: 'http://jhsy-img.caizhu.com/empty-default.png',
         },
         imageStyle: {},
         description: {

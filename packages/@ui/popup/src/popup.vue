@@ -13,6 +13,7 @@ import SmartScroll from 'web-ui/smart-scroll/index'
 
 export default {
     name: 'TmPopup',
+    inheritAttrs: false,
     mixins: [MixinsModal],
 
     props: {

@@ -30,6 +30,7 @@ const ITEM_HEIGHT = 34
 
 export default {
     name: 'TmPickerItem',
+    inheritAttrs: false,
 
     props: {
         /**

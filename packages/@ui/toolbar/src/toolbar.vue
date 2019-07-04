@@ -15,7 +15,6 @@
 <script>
 export default {
     name: 'TmToolbar',
-
     inheritAttrs: false,
 
     props: {

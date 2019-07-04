@@ -18,6 +18,7 @@ import TmToolbar from 'web-ui/toolbar/index.js'
 
 export default {
     name: 'TmPickerRange',
+    inheritAttrs: false,
 
     props: {
         visible: {
