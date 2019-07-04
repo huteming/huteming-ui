@@ -30,7 +30,7 @@
     "inp": "cross-env BUILD_MODE=lib vue-cli-service build --target lib --report --name input --dest packages/@ui/input/dist packages/@ui/input/index.js",
     "pickerAddress": "cross-env BUILD_MODE=lib vue-cli-service build --target lib --report --name picker-address --dest packages/@ui/picker-address/dist packages/@ui/picker-address/index.js",
     "pickerDatetime": "cross-env BUILD_MODE=lib vue-cli-service build --target lib --report --name picker-datetime --dest packages/@ui/picker-datetime/dist packages/@ui/picker-datetime/index.js",
-    "pir": "cross-env BUILD_MODE=lib vue-cli-service build --target lib --report --name picker-range --dest packages/@ui/picker-range/dist packages/@ui/picker-range/index.js",
+    "pickerRange": "cross-env BUILD_MODE=lib vue-cli-service build --target lib --report --name picker-range --dest packages/@ui/picker-range/dist packages/@ui/picker-range/index.js",
     "pic": "cross-env BUILD_MODE=lib vue-cli-service build --target lib --report --name picker --dest packages/@ui/picker/dist packages/@ui/picker/index.js",
     "pii": "cross-env BUILD_MODE=lib vue-cli-service build --target lib --report --name picker-item --dest packages/@ui/picker-item/dist packages/@ui/picker-item/index.js",
     "popup": "cross-env BUILD_MODE=lib vue-cli-service build --target lib --report --name popup --dest packages/@ui/popup/dist packages/@ui/popup/index.js",
