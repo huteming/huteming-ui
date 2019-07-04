@@ -35,4 +35,10 @@ export default [
         docs: () => import('web-ui/empty/README.md'),
         example: () => import('web-ui/empty/demo/basic.vue'),
     },
+    {
+        path: 'toolbar',
+        title: '操作栏 toolbar',
+        docs: () => import('web-ui/toolbar/README.md'),
+        example: () => import('web-ui/toolbar/demo/basic.vue'),
+    },
 ]
