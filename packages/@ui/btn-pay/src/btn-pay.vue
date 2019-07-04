@@ -18,8 +18,6 @@
 </template>
 
 <script>
-import { tofixed } from 'web-util/tool/src/main.js'
-
 export default {
     name: 'TmBtnPay',
 
@@ -71,11 +69,19 @@ export default {
     },
 
     filters: {
-        fixed (val, digits, toNumber) {
-            if (typeof val === 'string') {
-                return val
+        fixed (value, digits, toNumber) {
+            if (typeof value === 'string') {
+                return value
             }
-            return tofixed(val, digits, toNumber)
+            const _value = Number(value)
+
+            if (isNaN(_value)) {
+                return ''
+            }
+
+            const hasPoint = _value.toString().split('.').length > 1
+
+            return hasPoint ? _value.toFixed(2) : _value.toString()
         },
     },
 }

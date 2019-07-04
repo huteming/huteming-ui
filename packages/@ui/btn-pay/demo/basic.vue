@@ -60,6 +60,22 @@
         desc="可减20元"
         btn="支付学费"
         @click="handleClick" />
+
+    <tm-divider>价格格式化</tm-divider>
+
+    <TmBtnPay
+        :title="79.1"
+        tip="加入VIP"
+        desc="可减20元"
+        btn="支付学费" />
+
+    <div class="spacing"></div>
+
+    <TmBtnPay
+        :title="79.01234"
+        tip="加入VIP"
+        desc="可减20元"
+        btn="支付学费" />
 </div>
 </template>
 
