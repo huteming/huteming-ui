@@ -182,14 +182,28 @@ function drawRect (x, y, width, height, options = {}) {
     options = Object.assign({}, defaultRect, options)
 
     let { type, color, r, lineWidth } = options
+    let r1 = 0
+    let r2 = 0
+    let r3 = 0
+    let r4 = 0
+    // 当r是字符串时，认为是四个圆角用空格分离，顺序 左上、右上、右下、左下
+    // 格式: '1 2 3 4'
+    if (typeof r === 'string') {
+        [r1 = 0, r2 = 0, r3 = 0, r4 = 0] = r.split(' ')
+    } else {
+        r1 = r2 = r3 = r4 = r
+    }
 
     x *= ratio
     y *= ratio
     width *= ratio
     height *= ratio
-    r *= ratio
+    r1 *= ratio
+    r2 *= ratio
+    r3 *= ratio
+    r4 *= ratio
 
-    const ptA = { x: x + r, y: y }
+    const ptA = { x: x + r1, y: y }
     const ptB = { x: x + width, y: y }
     const ptC = { x: x + width, y: y + height }
     const ptD = { x: x, y: y + height }
@@ -200,10 +214,10 @@ function drawRect (x, y, width, height, options = {}) {
 
     context.beginPath()
     context.moveTo(ptA.x, ptA.y)
-    context.arcTo(ptB.x, ptB.y, ptC.x, ptC.y, r)
-    context.arcTo(ptC.x, ptC.y, ptD.x, ptD.y, r)
-    context.arcTo(ptD.x, ptD.y, ptE.x, ptE.y, r)
-    context.arcTo(ptE.x, ptE.y, ptA.x, ptA.y, r)
+    context.arcTo(ptB.x, ptB.y, ptC.x, ptC.y, r2)
+    context.arcTo(ptC.x, ptC.y, ptD.x, ptD.y, r3)
+    context.arcTo(ptD.x, ptD.y, ptE.x, ptE.y, r4)
+    context.arcTo(ptE.x, ptE.y, ptA.x, ptA.y, r1)
     context[type]()
 
     return options
