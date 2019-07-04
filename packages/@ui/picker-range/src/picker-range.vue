@@ -4,7 +4,7 @@
         <BaseToolbar @confirm="handleConfirm" @cancel="handleCancel" />
 
         <base-picker>
-            <base-picker-item :options="item" v-model="current[index]" v-for="(item, index) in options" :key="index"></base-picker-item>
+            <base-picker-item v-bind="$attrs" :options="item" v-model="current[index]" v-for="(item, index) in options" :key="index"></base-picker-item>
         </base-picker>
     </div>
 </base-popup>

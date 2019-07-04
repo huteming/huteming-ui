@@ -5,6 +5,10 @@
     <div class="desc">出生年份: {{ asyncValue[0] }}</div>
 
     <button @click="visible = true">open</button>
+
+    <tm-divider>空状态</tm-divider>
+    <button @click="visibleEmpty = true">open</button>
+    <TmPickerRange :visible.sync="visibleEmpty" :options="[[]]" hello="hello" description="empty" />
 </div>
 </template>
 
@@ -17,6 +21,8 @@ export default {
             visible: false,
             asyncOptions: [],
             asyncValue: [],
+
+            visibleEmpty: false,
         }
     },
 

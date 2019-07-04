@@ -3,22 +3,29 @@
     @touchstart.prevent="handleTouchStart"
     @touchmove.prevent="handleTouchMove"
     @touchend.prevent="handleTouchEnd">
-    <div class="tm-picker-item__line is-top"></div>
-    <div class="tm-picker-item__line is-bottom"></div>
+    <template  v-if="!disabled">
+        <div class="tm-picker-item__line is-top"></div>
+        <div class="tm-picker-item__line is-bottom"></div>
 
-    <div class="tm-picker-item__container" :style="styleContainer" v-if="!disabled">
-        <div class="tm-picker-item__container-piece"
-            v-for="(item, index) in renderOptions"
-            :key="index"
-            :class="item.class"
-            :style="item.style">
-            {{ item.label }}
+        <div class="tm-picker-item__container" :style="styleContainer">
+            <div class="tm-picker-item__container-piece"
+                v-for="(item, index) in renderOptions"
+                :key="index"
+                :class="item.class"
+                :style="item.style">
+                {{ item.label }}
+            </div>
         </div>
-    </div>
+    </template>
+
+    <template v-else>
+        <tm-empty v-bind="$attrs"><slot></slot></tm-empty>
+    </template>
 </div>
 </template>
 
 <script>
+import TmEmpty from 'web-ui/empty/index'
 const ITEM_HEIGHT = 34
 
 export default {
@@ -191,8 +198,9 @@ export default {
         }
     },
 
-    mounted () {
-    }
+    components: {
+        TmEmpty,
+    },
 }
 </script>
 

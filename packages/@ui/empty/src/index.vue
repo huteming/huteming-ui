@@ -16,6 +16,8 @@ import imgDefault from './images/default.png'
 export default {
     name: 'TmEmpty',
 
+    inheritAttrs: false,
+
     props: {
         image: {
             type: String,
