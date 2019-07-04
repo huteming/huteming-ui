@@ -11,6 +11,28 @@ describe('picker-range', () => {
         wrapper && wrapper.destroy()
     })
 
+    it('没有选项时，没有确定按钮', async () => {
+        const wrapper = mount({
+            template: `
+                <div>
+                    <TmPickerRange :visible.sync="visible" :options="[[]]" />
+                </div>
+            `,
+            data () {
+                return {
+                    visible: true,
+                }
+            },
+            components: {
+                TmPickerRange,
+            },
+        })
+        await sleep()
+        const wrapperConfirm = wrapper.find('.tm-toolbar-action-confirm')
+        assert.ok(wrapperConfirm.isEmpty())
+        wrapper.setData({ visible: false })
+    })
+
     it('create', async () => {
         wrapper = mount(TmPickerRange, {
             attachToDocument: true,

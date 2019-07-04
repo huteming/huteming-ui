@@ -109,7 +109,11 @@ describe('picker', () => {
             },
         })
         const wrapperContainer = wrapper.findAll('.tm-picker-item__container')
+        const wrapperLine = wrapper.findAll('.tm-picker-item__line')
+        const wrapperEmpty = wrapper.find('.tm-empty')
         assert.ok(!wrapperContainer.exists())
+        assert.ok(!wrapperLine.exists())
+        assert.ok(wrapperEmpty.exists())
     })
 
     it('value error', () => {

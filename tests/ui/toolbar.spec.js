@@ -11,19 +11,30 @@ describe('toolbar', () => {
         assert.strictEqual(wrapperConfirm.text(), '确定')
     })
 
-    describe('event', () => {
-        it('confirm', () => {
-            const wrapper = mount(TmToolbar)
-            const wrapperConfirm = wrapper.find('.tm-toolbar-action-confirm')
-            wrapperConfirm.trigger('click')
-            assert.ok(wrapper.emitted().confirm)
-        })
+    it('confirm', () => {
+        const wrapper = mount(TmToolbar)
+        const wrapperConfirm = wrapper.find('.tm-toolbar-action-confirm')
+        wrapperConfirm.trigger('click')
+        assert.ok(wrapper.emitted().confirm)
+    })
 
-        it('confirm', () => {
-            const wrapper = mount(TmToolbar)
-            const wrapperCancel = wrapper.find('.tm-toolbar-action-cancel')
-            wrapperCancel.trigger('click')
-            assert.ok(wrapper.emitted().cancel)
+    it('cancel', () => {
+        const wrapper = mount(TmToolbar)
+        const wrapperCancel = wrapper.find('.tm-toolbar-action-cancel')
+        wrapperCancel.trigger('click')
+        assert.ok(wrapper.emitted().cancel)
+    })
+
+    it('隐藏确认按钮', () => {
+        const wrapper = mount(TmToolbar, {
+            propsData: {
+                showConfirm: false,
+            },
         })
+        const wrapperConfirm = wrapper.find('.tm-toolbar-action-confirm')
+        assert.ok(wrapperConfirm.isEmpty())
+
+        wrapperConfirm.trigger('click')
+        assert.ok(!wrapper.emitted('confirm'))
     })
 })

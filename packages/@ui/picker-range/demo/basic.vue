@@ -8,12 +8,13 @@
 
     <tm-divider>空状态</tm-divider>
     <button @click="visibleEmpty = true">open</button>
-    <TmPickerRange :visible.sync="visibleEmpty" :options="[[]]" hello="hello" title="标题" description="empty" />
+    <TmPickerRange :visible.sync="visibleEmpty" :options="[[]]" hello="hello" title="优惠券" :image="imgYou" description="暂无优惠券" />
 </div>
 </template>
 
 <script>
 import TmPickerRange from 'web-ui/picker-range/index.js'
+import imgYou from './youhuiquan.png'
 
 export default {
     data () {
@@ -23,6 +24,7 @@ export default {
             asyncValue: [],
 
             visibleEmpty: false,
+            imgYou,
         }
     },
 
