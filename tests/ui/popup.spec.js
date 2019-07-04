@@ -1,3 +1,6 @@
+/**
+ * 由于 modal 是只会创建一个实例，所以必须在每个测试结束关闭 modal
+ */
 import { mount } from '@vue/test-utils'
 import TmPopup from 'web-ui/popup/src/popup'
 import assert from 'assert'
@@ -5,72 +8,12 @@ import { sleep } from '../helper'
 import sinon from 'sinon'
 
 describe('popup', () => {
-    let wrapper
-
     afterEach(() => {
         sinon.restore()
-        wrapper && wrapper.destroy()
     })
 
     it('create', async () => {
-        wrapper = mount(TmPopup, {
-            attachToDocument: true,
-            propsData: {
-                value: true,
-            },
-        })
-        await sleep()
-        const wrapperContainer = wrapper.find('.tm-popup')
-        assert.ok(wrapperContainer.isVisible())
-        assert.ok(wrapper.emitted('open'))
-    })
-
-    it('close', async () => {
-        wrapper = mount(TmPopup, {
-            propsData: {
-                value: false,
-            },
-            attachToDocument: true,
-            stubs: {
-                transition: false,
-            },
-        })
-        const wrapperPopup = wrapper.find('.tm-popup')
-        assert.ok(!wrapperPopup.isVisible())
-        await sleep(400)
-        wrapper.setProps({ value: true })
-        await sleep(400)
-        assert.ok(wrapperPopup.isVisible())
-        wrapper.setProps({ value: false })
-        await sleep(400)
-        assert.ok(!wrapperPopup.isVisible())
-        assert.ok(wrapper.emitted('close'))
-        assert.ok(wrapper.emitted('closed'))
-    })
-
-    it('beforeClose', async () => {
-        const onClose = sinon.fake()
-        wrapper = mount(TmPopup, {
-            attachToDocument: true,
-            propsData: {
-                value: true,
-                beforeClose (done) {
-                    onClose()
-                    done()
-                },
-            },
-        })
-        const wrapperContainer = wrapper.find('.tm-popup')
-        await sleep()
-        wrapper.setProps({ value: false })
-        await sleep()
-        assert.strictEqual(wrapperContainer.isVisible(), false)
-        assert.ok(wrapper.emitted('close'))
-        assert.strictEqual(onClose.callCount, 1)
-    })
-
-    it('closeOnClickModal', async () => {
-        wrapper = mount({
+        const wrapper = mount({
             template: `
                 <div>
                     <TmPopup v-model="visible" position="bottom" />
@@ -84,90 +27,193 @@ describe('popup', () => {
             components: {
                 TmPopup,
             },
-        }, { attachToDocument: true })
-        const wrapperContainer = wrapper.find('.tm-popup')
-        const wrapperModal = wrapper.find('.tm-modal')
+        }, {
+        })
+        await sleep()
         const wrapperPopup = wrapper.find(TmPopup)
-        await sleep()
-        assert.strictEqual(wrapperContainer.isVisible(), true)
-        wrapperPopup.setProps({ closeOnClickModal: false })
-        wrapperModal.trigger('click')
-        await sleep()
-        assert.strictEqual(wrapperContainer.isVisible(), true)
-        wrapperPopup.setProps({ closeOnClickModal: true })
-        wrapperModal.trigger('click')
-        await sleep()
-        assert.strictEqual(wrapperContainer.isVisible(), false)
+        assert.ok(wrapperPopup.isVisible())
+        assert.ok(wrapperPopup.emitted('open'))
+        wrapper.setData({ visible: false })
+        // await sleep()
+        assert.ok(!wrapperPopup.isVisible())
+        assert.ok(wrapperPopup.emitted('close'))
     })
 
-    it('duration', async () => {
-        wrapper = mount(TmPopup, {
-            attachToDocument: true,
-            propsData: {
-                value: true,
-                position: 'top',
-                duration: 500,
+    it('beforeClose', async () => {
+        const onClose = sinon.fake()
+        const wrapper = mount({
+            template: `
+                <div>
+                    <TmPopup v-model="visible" :before-close="beforeClose" />
+                </div>
+            `,
+            data () {
+                return {
+                    visible: true,
+                    beforeClose (done) {
+                        onClose()
+                        done()
+                    },
+                }
             },
+            components: {
+                TmPopup,
+            },
+        }, {
         })
-        const wrapperContainer = wrapper.find('.tm-popup')
+        // await sleep()
+        const wrapperPopup = wrapper.find(TmPopup)
+        wrapper.setData({ visible: false })
+        // await sleep()
+        assert.strictEqual(onClose.callCount, 1)
+    })
+
+    it('closeOnClickModal', async () => {
+        const wrapper = mount({
+            template: `
+                <div>
+                    <TmPopup v-model="visible" position="bottom" :close-on-click-modal="closeOnClickModal" />
+                </div>
+            `,
+            data () {
+                return {
+                    visible: true,
+                    closeOnClickModal: false,
+                }
+            },
+            components: {
+                TmPopup,
+            },
+        }, {
+        })
         await sleep()
-        assert.ok(wrapperContainer.isVisible())
-        await sleep(500)
-        assert.strictEqual(wrapperContainer.isVisible(), false)
+        const wrapperModal = wrapper.find('.tm-modal')
+        const wrapperPopup = wrapper.find(TmPopup)
+        wrapperModal.trigger('click')
+        // await sleep()
+        assert.ok(wrapperPopup.isVisible())
+        wrapper.setData({ closeOnClickModal: true })
+        wrapperModal.trigger('click')
+        // await sleep()
+        assert.ok(!wrapperPopup.isVisible())
     })
 
     it('top', async () => {
-        wrapper = mount(TmPopup, {
-            attachToDocument: true,
-            propsData: {
-                value: true,
-                position: 'top',
+        const wrapper = mount({
+            template: `
+                <div>
+                    <TmPopup v-model="visible" position="top" :duration="30" />
+                </div>
+            `,
+            data () {
+                return {
+                    visible: true,
+                    closeOnClickModal: false,
+                }
             },
+            components: {
+                TmPopup,
+            },
+        }, {
         })
-        assert.strictEqual(wrapper.vm.transition, 'popup-slide-top')
+        await sleep()
+        const wrapperPopup = wrapper.find(TmPopup)
+        assert.ok(wrapperPopup.isVisible())
+        assert.strictEqual(wrapperPopup.vm.transition, 'popup-slide-top')
+        await sleep(35)
+        assert.ok(!wrapperPopup.isVisible())
     })
 
     it('bottom', async () => {
-        wrapper = mount(TmPopup, {
-            attachToDocument: true,
-            propsData: {
-                value: true,
-                position: 'bottom',
+        const wrapper = mount({
+            template: `
+                <div>
+                    <TmPopup v-model="visible" position="bottom" />
+                </div>
+            `,
+            data () {
+                return {
+                    visible: true,
+                }
             },
+            components: {
+                TmPopup,
+            },
+        }, {
         })
-        assert.strictEqual(wrapper.vm.transition, 'popup-slide-bottom')
+        await sleep()
+        const wrapperPopup = wrapper.find(TmPopup)
+        assert.strictEqual(wrapperPopup.vm.transition, 'popup-slide-bottom')
+        wrapper.setData({ visible: false })
     })
 
     it('left', async () => {
-        wrapper = mount(TmPopup, {
-            attachToDocument: true,
-            propsData: {
-                value: true,
-                position: 'left',
+        const wrapper = mount({
+            template: `
+                <div>
+                    <TmPopup v-model="visible" position="left" />
+                </div>
+            `,
+            data () {
+                return {
+                    visible: true,
+                }
             },
+            components: {
+                TmPopup,
+            },
+        }, {
         })
-        assert.strictEqual(wrapper.vm.transition, 'popup-slide-left')
+        await sleep()
+        const wrapperPopup = wrapper.find(TmPopup)
+        assert.strictEqual(wrapperPopup.vm.transition, 'popup-slide-left')
+        wrapper.setData({ visible: false })
     })
 
     it('right', async () => {
-        wrapper = mount(TmPopup, {
-            attachToDocument: true,
-            propsData: {
-                value: true,
-                position: 'right',
+        const wrapper = mount({
+            template: `
+                <div>
+                    <TmPopup v-model="visible" position="right" />
+                </div>
+            `,
+            data () {
+                return {
+                    visible: true,
+                }
             },
+            components: {
+                TmPopup,
+            },
+        }, {
         })
-        assert.strictEqual(wrapper.vm.transition, 'popup-slide-right')
+        await sleep()
+        const wrapperPopup = wrapper.find(TmPopup)
+        assert.strictEqual(wrapperPopup.vm.transition, 'popup-slide-right')
+        wrapper.setData({ visible: false })
     })
 
     it('middle', async () => {
-        wrapper = mount(TmPopup, {
-            attachToDocument: true,
-            propsData: {
-                value: true,
-                position: 'middle',
+        const wrapper = mount({
+            template: `
+                <div>
+                    <TmPopup v-model="visible" position="middle" />
+                </div>
+            `,
+            data () {
+                return {
+                    visible: true,
+                    closeOnClickModal: false,
+                }
             },
+            components: {
+                TmPopup,
+            },
+        }, {
         })
-        assert.strictEqual(wrapper.vm.transition, 'popup-fade')
+        await sleep()
+        const wrapperPopup = wrapper.find(TmPopup)
+        assert.strictEqual(wrapperPopup.vm.transition, 'popup-fade')
+        wrapper.setData({ visible: false })
     })
 })

@@ -1,5 +1,5 @@
 <template>
-<transition name="tm-dialog">
+<transition name="tm-dialog" @after-leave="handleAfterLeave">
     <div class="tm-dialog" v-show="normalizedVisible" :style="styles" @click.stop @touchmove.stop.prevent>
         <div class="tm-dialog-content">
             <slot></slot>
@@ -88,9 +88,7 @@ export default {
         },
         hide () {
             const done = () => {
-                this.$_closeModal({
-                    callbackAfterLeave: this.handleAfterLeave,
-                })
+                this.$_closeModal()
                 this.normalizedVisible = false
 
                 this.$emit('close')

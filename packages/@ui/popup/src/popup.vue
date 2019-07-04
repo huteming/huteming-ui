@@ -1,6 +1,6 @@
 <template>
 <transition :name="transition" @after-leave="handleAfterLeave">
-    <div class="tm-popup" v-show="visible" :class="classes" :style="styles" v-smart-scroll>
+    <div class="tm-popup" v-show="normalizedVisible" :class="classes" :style="styles" v-smart-scroll>
         <slot></slot>
     </div>
 </transition>
@@ -49,7 +49,7 @@ export default {
             zIndex: 9999,
 
             visible: this.value,
-            maskInstance: null
+            normalizedVisible: false,
         }
     },
 
@@ -82,10 +82,11 @@ export default {
 
     watch: {
         value (val) {
-            // this.visible = val
-            val ? (this.show()) : (this.hide())
+            this.visible = val
         },
         visible (val) {
+            val ? (this.show()) : (this.hide())
+
             this.$emit('input', val)
         },
     },
@@ -111,25 +112,22 @@ export default {
                     callbackClick: this.handleClickModal,
                 }, this.$el)
             }
-
-            if (this.position === 'top') {
-                setTimeout(() => {
-                    this.visible = false
-                }, this.duration)
-            }
+            this.normalizedVisible = true
 
             // 必须在调用 openModal 之后
             // 为了获取动态 zindex
             this.zIndex = zindexManager.zIndex
 
-            this.visible = true
+            if (this.position === 'top') {
+                setTimeout(this.hide, this.duration)
+            }
 
             this.$emit('open')
         },
         hide () {
             const done = () => {
                 this.$_closeModal()
-                this.visible = false
+                this.normalizedVisible = false
 
                 this.$emit('close')
             }

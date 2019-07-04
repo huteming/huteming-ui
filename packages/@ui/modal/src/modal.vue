@@ -36,9 +36,6 @@ export default {
     },
 
     methods: {
-        setZIndex (zIndex) {
-            this.zIndex = zIndex
-        },
         handleClick () {
             if (typeof this.callbackClick === 'function') {
                 this.callbackClick()
@@ -73,23 +70,24 @@ export default {
          * helper ------------------
          */
         show (options = {}) {
-            for (let key in options) {
-                this[key] = options[key]
-            }
-
+            this.setData(options)
             this.visible = true
         },
         hide (options = {}) {
-            for (let key in options) {
-                this[key] = options[key]
-            }
-
+            this.setData(options)
             this.visible = false
+        },
+        setData (data) {
+            for (let key in this.$data) {
+                if (data.hasOwnProperty(key)) {
+                    this[key] = data[key]
+                }
+            }
         },
         handleElementDestroy () {
             this.$destroy(true)
             this.$el.parentNode.removeChild(this.$el)
-        }
+        },
     }
 }
 </script>

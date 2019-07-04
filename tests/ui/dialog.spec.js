@@ -1,3 +1,6 @@
+/**
+ * 由于 modal 是只会创建一个实例，所以必须在每个测试结束关闭 modal
+ */
 import TmDialog from 'web-ui/dialog/src/dialog'
 import WorkBasic from '../components/basic'
 import assert from 'assert'
@@ -33,6 +36,7 @@ describe('dialog', () => {
         const { closePosition, closeOnClickModal } = wrapperDialog.vm
         assert.strictEqual(closePosition, 'bottom')
         assert.strictEqual(closeOnClickModal, false)
+        wrapper.setData({ visible: false })
     })
 
     it('click冒泡', async () => {
@@ -64,6 +68,7 @@ describe('dialog', () => {
         const wrapperBasic = wrapper.find(WorkBasic)
         wrapperBasic.trigger('click')
         assert.strictEqual(wrapper.vm.isCapture, false)
+        wrapper.setData({ visible: false })
     })
 
     it('禁止touchmove冒泡 && 禁止滚动', async () => {
@@ -102,6 +107,7 @@ describe('dialog', () => {
         wrapperBasic.trigger('touchmove')
         assert.strictEqual(wrapper.vm.isCapture, false)
         assert.ok(mockPrevent.called)
+        wrapper.setData({ visible: false })
 
         mock.restore()
     })
@@ -167,7 +173,8 @@ describe('dialog', () => {
                 }
             },
             methods: {
-                handleBeforeClose () {
+                handleBeforeClose (done) {
+                    done()
                     this.beforeClose = true
                 },
             },

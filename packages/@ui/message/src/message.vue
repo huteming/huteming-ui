@@ -1,5 +1,5 @@
 <template>
-<transition name="bounce">
+<transition name="bounce" @after-leave="handleAfterLeave">
     <section class="tm-message" :style="styles" v-show="visible" ref="msgbox" @click.stop @touchmove.stop.prevent>
         <div class="tm-message-container">
             <div class="tm-message-title" v-if="title">{{ title }}</div>
@@ -110,7 +110,8 @@ export default {
             normalizedInputValue: this.inputValue,
 
             resolve: null,
-            reject: null
+            reject: null,
+            res: {},
         }
     },
 
@@ -134,6 +135,19 @@ export default {
     },
 
     methods: {
+        handleAfterLeave () {
+            const { action } = this.res
+            const _callback = (() => {
+                switch (this.instanceType) {
+                case 'alert':
+                    return this.resolve
+                default:
+                    return action === 'confirm' ? this.resolve : this.reject
+                }
+            })()
+            _callback(this.res)
+            this.destroyElement()
+        },
         handleInput (evt) {
             this.normalizedInputValue = evt.target.value
         },
@@ -156,42 +170,28 @@ export default {
             this.visible = true
         },
         async hide (action) {
-            const data = {
+            this.res = {
                 action,
                 inputValue: this.normalizedInputValue
             }
             const _beforeAction = action === 'confirm' ? this.beforeConfirm : this.beforeCancel
 
             const done = () => {
-                this.$_closeModal({
-                    callbackAfterLeave: () => {
-                        this.getCallback(action)(data)
-                        this.destroyElement()
-                    },
-                })
-
+                this.$_closeModal()
                 this.visible = false
             }
             const _beforeClose = () => {
                 if (typeof this.beforeClose === 'function') {
-                    this.beforeClose(done, data)
+                    this.beforeClose(done, this.res)
                 } else {
                     done()
                 }
             }
 
             if (typeof _beforeAction === 'function') {
-                _beforeAction(_beforeClose, data)
+                _beforeAction(_beforeClose, this.res)
             } else {
                 _beforeClose()
-            }
-        },
-        getCallback (action) {
-            switch (this.instanceType) {
-            case 'alert':
-                return this.resolve
-            default:
-                return action === 'confirm' ? this.resolve : this.reject
             }
         },
         destroyElement () {

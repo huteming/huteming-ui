@@ -9,6 +9,7 @@
 
 <script>
 import Message from '../index'
+import Toast from 'web-ui/toast/index'
 
 export default {
     mounted () {
@@ -54,11 +55,19 @@ export default {
                 })
         },
         handleAlert () {
+            const options = {
+                beforeClose: (done) => {
+                    Message.confirm('确定执行此操作?')
+                        .then(done)
+                        .catch(res => {
+                        })
+                },
+            }
             Message.alert(`
                 <img src="http://img.zcool.cn/community/0117e2571b8b246ac72538120dd8a4.jpg@1280w_1l_2o_100sh.jpg" width="100" height="100" />
-            `, '')
+            `, '', options)
                 .then(res => {
-                    console.log(res)
+                    Toast('已关闭')
                 })
         },
         handleConfirm () {

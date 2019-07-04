@@ -18,6 +18,7 @@ describe('picker-datetime', () => {
                 visible: true,
             },
         })
+        await sleep()
         const wrapperPopup = wrapper.find('.tm-popup')
         const wrapperToolbar = wrapper.find('.tm-toolbar')
         const wrapperPicker = wrapper.find('.tm-picker')

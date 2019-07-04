@@ -1,21 +1,21 @@
-import modalManager from './modal-manager.js'
-let modalID = 1
+import Vue from 'vue'
+import Component from './modal.vue'
+import zindexManager from 'web/assets/js/zindex-manager'
+const ModalConstructor = Vue.extend(Component)
+
+let currentInstance = null
+const renderedInstanceData = [] // 渲染过的实例数据
 
 export default {
     data () {
         return {
-            modalID: 1,
         }
     },
 
     created () {
-        this.modalID = modalID++
     },
 
     methods: {
-        /**
-         * 打开时，传入一个id，若id不存在，创建一个dom[modal]
-         */
         $_openModal (options, brotherElement) {
             if (typeof options === 'function') {
                 options = {
@@ -23,10 +23,37 @@ export default {
                 }
             }
 
-            return modalManager.open(this.modalID, options, brotherElement)
+            if (currentInstance) {
+                // 保存旧的实例属性
+                renderedInstanceData.push(Object.assign({}, currentInstance.$data))
+                // 设置新的属性
+                currentInstance.setData(Object.assign({ zIndex: zindexManager.zIndex }, options))
+                return currentInstance
+            }
+
+            const instance = new ModalConstructor({
+                data: {},
+            })
+
+            const parent = brotherElement ? brotherElement.parentNode : document.body
+            parent.appendChild(instance.$mount().$el)
+
+            instance.setData(Object.assign({ zIndex: zindexManager.zIndex }, options))
+            instance.show()
+
+            // 保持只渲染一个
+            currentInstance = instance
+
+            return instance
         },
         $_closeModal (options) {
-            return modalManager.close(this.modalID, options)
+            const prev = renderedInstanceData.pop()
+            if (prev) {
+                currentInstance.setData(prev)
+            } else if (currentInstance) {
+                currentInstance.hide(options)
+                currentInstance = null
+            }
         },
     },
 }

@@ -26,6 +26,10 @@ describe('message', async () => {
     })
 
     afterEach(() => {
+        sinon.restore()
+    })
+
+    afterAll(() => {
         const el = document.querySelector('.tm-modal')
         if (!el) return
         if (el.parentNode) {
@@ -34,10 +38,6 @@ describe('message', async () => {
         if (el.__vue__) {
             el.__vue__.$destroy()
         }
-    })
-
-    afterEach(() => {
-        sinon.restore()
     })
 
     it('禁止click冒泡', async () => {
@@ -77,6 +77,7 @@ describe('message', async () => {
         const message = 'a message'
         const options = {
             showCancelButton: true,
+            closeOnClickModal: true,
         }
         Message(message, title, options)
             .then(() => {
