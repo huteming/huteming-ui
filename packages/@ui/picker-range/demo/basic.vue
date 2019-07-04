@@ -1,6 +1,6 @@
 <template>
 <div class="page">
-    <TmPickerRange :visible.sync="visible" :options="asyncOptions" v-model="asyncValue" />
+    <TmPickerRange :visible.sync="visible" :options="asyncOptions" v-model="asyncValue" hello="hello" title="标题" />
 
     <div class="desc">出生年份: {{ asyncValue[0] }}</div>
 
@@ -8,7 +8,7 @@
 
     <tm-divider>空状态</tm-divider>
     <button @click="visibleEmpty = true">open</button>
-    <TmPickerRange :visible.sync="visibleEmpty" :options="[[]]" hello="hello" description="empty" />
+    <TmPickerRange :visible.sync="visibleEmpty" :options="[[]]" hello="hello" title="标题" description="empty" />
 </div>
 </template>
 

@@ -16,6 +16,8 @@
 export default {
     name: 'TmToolbar',
 
+    inheritAttrs: false,
+
     props: {
         title: String,
         // 确定按钮文本

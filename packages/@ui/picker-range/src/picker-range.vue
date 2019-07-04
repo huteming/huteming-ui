@@ -1,7 +1,7 @@
 <template>
 <base-popup v-model="normalizedVisible" position="bottom" ref="popup">
     <div class="tm-picker-range">
-        <BaseToolbar @confirm="handleConfirm" @cancel="handleCancel" />
+        <TmToolbar v-bind="$attrs" @confirm="handleConfirm" @cancel="handleCancel" :show-confirm="isValid" />
 
         <base-picker>
             <base-picker-item v-bind="$attrs" :options="item" v-model="current[index]" v-for="(item, index) in options" :key="index"></base-picker-item>
@@ -14,7 +14,7 @@
 import BasePopup from 'web-ui/popup/index.js'
 import Picker from 'web-ui/picker/index.js'
 import PickerItem from 'web-ui/picker-item/index.js'
-import BaseToolbar from 'web-ui/toolbar/index.js'
+import TmToolbar from 'web-ui/toolbar/index.js'
 
 export default {
     name: 'TmPickerRange',
@@ -44,6 +44,9 @@ export default {
     },
 
     computed: {
+        isValid () {
+            return !!this.options.length && this.options.every(item => item.length)
+        },
     },
 
     watch: {
@@ -79,7 +82,7 @@ export default {
         BasePopup,
         BasePicker: Picker,
         BasePickerItem: PickerItem,
-        BaseToolbar,
+        TmToolbar,
     },
 }
 </script>
