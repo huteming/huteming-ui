@@ -70,6 +70,62 @@ describe('canvas > drawRect', () => {
         assert.deepStrictEqual(arcTo.getCall(3).args, [x, y, x + r, y, r])
     })
 
+    it('圆角为字符串', () => {
+        const canvas = new CanvasDraw()
+        canvas.ratio = 2
+        const moveTo = sinon.fake()
+        const arcTo = sinon.fake()
+        const _r = '10 20 30 40'
+        sinon.replace(canvas.context, 'moveTo', moveTo)
+        sinon.replace(canvas.context, 'arcTo', arcTo)
+        const options = {
+            r: _r,
+        }
+        canvas.drawRect(0, 0, 10, 10, options)
+
+        const x = 0 * 2
+        const y = 0 * 2
+        const r1 = 10 * 2
+        const r2 = 20 * 2
+        const r3 = 30 * 2
+        const r4 = 40 * 2
+        const width = 10 * 2
+        const height = 10 * 2
+
+        assert.deepStrictEqual(moveTo.getCall(0).args, [x + r1, y])
+        assert.deepStrictEqual(arcTo.getCall(0).args, [x + width, y, x + width, y + height, r2])
+        assert.deepStrictEqual(arcTo.getCall(1).args, [x + width, y + height, x, y + height, r3])
+        assert.deepStrictEqual(arcTo.getCall(2).args, [x, y + height, x, y, r4])
+        assert.deepStrictEqual(arcTo.getCall(3).args, [x, y, x + r1, y, r1])
+    })
+
+    it('圆角为空字符串', () => {
+        const canvas = new CanvasDraw()
+        canvas.ratio = 2
+        const moveTo = sinon.fake()
+        const arcTo = sinon.fake()
+        const _r = ''
+        sinon.replace(canvas.context, 'moveTo', moveTo)
+        sinon.replace(canvas.context, 'arcTo', arcTo)
+        const options = {
+            r: _r,
+        }
+        canvas.drawRect(0, 0, 10, 10, options)
+
+        const x = 0 * 2
+        const y = 0 * 2
+        const r = 0
+        const r4 = 40 * 2
+        const width = 10 * 2
+        const height = 10 * 2
+
+        assert.deepStrictEqual(moveTo.getCall(0).args, [x + r, y])
+        assert.deepStrictEqual(arcTo.getCall(0).args, [x + width, y, x + width, y + height, r])
+        assert.deepStrictEqual(arcTo.getCall(1).args, [x + width, y + height, x, y + height, r])
+        assert.deepStrictEqual(arcTo.getCall(2).args, [x, y + height, x, y, r])
+        assert.deepStrictEqual(arcTo.getCall(3).args, [x, y, x + r, y, r])
+    })
+
     it('闭合方法调用', () => {
         const canvas = new CanvasDraw()
         const _type = 'stroke'

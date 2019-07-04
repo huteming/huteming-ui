@@ -189,7 +189,8 @@ function drawRect (x, y, width, height, options = {}) {
     // 当r是字符串时，认为是四个圆角用空格分离，顺序 左上、右上、右下、左下
     // 格式: '1 2 3 4'
     if (typeof r === 'string') {
-        [r1 = 0, r2 = 0, r3 = 0, r4 = 0] = r.split(' ')
+        [r1, r2 = 0, r3 = 0, r4 = 0] = r.split(' ')
+        r1 = r1 || 0
     } else {
         r1 = r2 = r3 = r4 = r
     }
