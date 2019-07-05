@@ -81,6 +81,12 @@ function handleTouchstart (event) {
 }
 
 function handleTouchmove (event) {
+    if (!this.scrollable) {
+        if (event.cancelable) {
+            event.preventDefault()
+        }
+        return
+    }
     const finger = event.changedTouches[0]
     const maxscroll = this.scrollable.scrollHeight - this.scrollable.clientHeight
     // 当前的滚动高度

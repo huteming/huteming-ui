@@ -1,6 +1,6 @@
 <template>
 <transition name="tm-dialog" @after-leave="handleAfterLeave">
-    <div class="tm-dialog" v-show="normalizedVisible" :style="styles" @click.stop @touchmove.stop.prevent>
+    <div class="tm-dialog" v-show="normalizedVisible" :style="styles" @click.stop v-smart-scroll>
         <div class="tm-dialog-content">
             <slot></slot>
         </div>
@@ -19,6 +19,7 @@
 <script>
 import MixinsModal from 'web-ui/modal/index.js'
 import zindexManager from 'web/assets/js/zindex-manager'
+import SmartScroll from 'web-ui/smart-scroll/index'
 
 export default {
     name: 'TmDialog',
@@ -117,6 +118,10 @@ export default {
         handleAfterLeave () {
             this.$emit('closed')
         },
+    },
+
+    directives: {
+        SmartScroll,
     },
 }
 </script>
