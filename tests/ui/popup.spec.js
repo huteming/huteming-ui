@@ -28,15 +28,19 @@ describe('popup', () => {
                 TmPopup,
             },
         }, {
+            stubs: {
+                transition: false,
+            },
         })
         await sleep()
         const wrapperPopup = wrapper.find(TmPopup)
         assert.ok(wrapperPopup.isVisible())
         assert.ok(wrapperPopup.emitted('open'))
         wrapper.setData({ visible: false })
-        // await sleep()
+        await sleep(310)
         assert.ok(!wrapperPopup.isVisible())
         assert.ok(wrapperPopup.emitted('close'))
+        assert.ok(wrapperPopup.emitted('closed'))
     })
 
     it('beforeClose', async () => {
