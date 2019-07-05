@@ -10,7 +10,7 @@ describe('canvas > drawText', () => {
         const options = ins.drawText(111, 1, 1)
 
         assert.deepStrictEqual(options, {
-            actualMaxWidth: 2.5,
+            actualMaxWidth: 1.5,
             prefix: '',
             suffix: '',
             fix: '.... ',

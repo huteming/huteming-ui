@@ -324,27 +324,33 @@ function drawText (text, x, y, options = {}) {
 
     let actualX = x
     let actualY = y
+    let _expectMaxWidth = 0
+    let _actualMaxWidth = 0
     // 开始逐字绘制
     text.forEach((letter) => {
         const letterWidth = context.measureText(letter).width
 
         // 另起一行画
         if (actualX + letterWidth > maxWidth + x) {
+            _expectMaxWidth = 0
             actualX = x
             actualY = actualY + lineHeight
         }
         // 当前行画
 
         context[`${type}Text`](letter, actualX, actualY)
-        // 这里记录实际x轴最大值
-        const _actualMaxWidth = options.actualMaxWidth
-        const _expectMaxWidth = (actualX + letterWidth) / ratio
-        if (!_actualMaxWidth || _expectMaxWidth > _actualMaxWidth) {
-            options.actualMaxWidth = _expectMaxWidth
-        }
+
+        // 最大宽度累加
+        _expectMaxWidth += (letterSpacing + letterWidth)
         // x轴位置累加
-        actualX += letterWidth + letterSpacing
+        actualX += (letterWidth + letterSpacing)
+
+        // 这里记录实际x轴最大值
+        _actualMaxWidth = Math.max(_actualMaxWidth, _expectMaxWidth)
     })
+
+    // 最大宽度应该减去最后的字体间距
+    options.actualMaxWidth = (_actualMaxWidth - letterSpacing) / ratio
 
     // 对齐方式还原
     context.textAlign = align
