@@ -1,10 +1,23 @@
 import { mount } from '@vue/test-utils'
 import CompBtnPay from 'web-ui/btn-pay/src/btn-pay'
-import CompBasic from '../components/basic'
+import WorkBasic from '../components/basic'
 import assert from 'assert'
 import sinon from 'sinon'
 
 describe('btn-pay', () => {
+    it('disabled', () => {
+        const wrapper = mount(CompBtnPay, {
+            propsData: {
+                btn: 'btn',
+                disabled: true,
+            },
+        })
+        const wrapperBtn = wrapper.find('.tm-pay-btn')
+        assert.strictEqual(wrapperBtn.attributes('style'), `background: rgb(201, 204, 212);`)
+        wrapperBtn.trigger('click')
+        assert.ok(!wrapper.emitted('click'))
+    })
+
     describe('title', () => {
         it('string类型title', () => {
             const title = 'this is an title'
@@ -19,7 +32,7 @@ describe('btn-pay', () => {
             assert.strictEqual(wrapperTitle.text(), title)
         })
     
-        it('double类型title', () => {
+        it('title小数点大于2位', () => {
             const title = 1.23456
             const wrapper = mount(CompBtnPay, {
                 propsData: {
@@ -29,10 +42,23 @@ describe('btn-pay', () => {
     
             const wrapperTitle = wrapper.find('.tm-pay-price')
             assert.ok(wrapperTitle.exists())
-            assert.strictEqual(wrapperTitle.text(), '1.23')
+            assert.strictEqual(wrapperTitle.text(), title.toFixed(2))
         })
     
-        it('int类型title', () => {
+        it('title小数点等于1位', () => {
+            const title = 1.2
+            const wrapper = mount(CompBtnPay, {
+                propsData: {
+                    title,
+                },
+            })
+    
+            const wrapperTitle = wrapper.find('.tm-pay-price')
+            assert.ok(wrapperTitle.exists())
+            assert.strictEqual(wrapperTitle.text(), '1.20')
+        })
+    
+        it('title是int类型', () => {
             const title = 10
             const wrapper = mount(CompBtnPay, {
                 propsData: {
@@ -47,7 +73,7 @@ describe('btn-pay', () => {
     })
 
     describe('titlePrefix', () => {
-        it('string类型title不处理titlePrefix', () => {
+        it('title类型string,不处理titlePrefix', () => {
             const titlePrefix = 'ppp'
             const wrapper = mount(CompBtnPay, {
                 propsData: {
@@ -60,7 +86,7 @@ describe('btn-pay', () => {
             assert.strictEqual(wrapperTitle.text(), titlePrefix)
         })
     
-        it('number类型titlePrefix默认为￥', () => {
+        it('title类型number,titlePrefix默认为￥', () => {
             const wrapper = mount(CompBtnPay, {
                 propsData: {
                     title: 1,
@@ -71,12 +97,14 @@ describe('btn-pay', () => {
             assert.strictEqual(wrapperTitle.text(), '￥')
         })
     
-        it('number类型titlePrefix不为空', () => {
+        it('title类型插槽,不处理titlePrefix', () => {
             const titlePrefix = 'llll'
             const wrapper = mount(CompBtnPay, {
                 propsData: {
-                    title: 1,
                     titlePrefix,
+                },
+                slots: {
+                    title: WorkBasic,
                 },
             })
     
@@ -171,6 +199,19 @@ describe('btn-pay', () => {
         })
     })
 
+    describe('descThrough', () => {
+        it('desc添加class', () => {
+            const wrapper = mount(CompBtnPay, {
+                propsData: {
+                    descThrough: true,
+                },
+            })
+
+            const wrapperTip = wrapper.find('.tm-pay-desc')
+            assert.ok(wrapperTip.classes('through'))
+        })
+    })
+
     describe('btn', () => {
         it('不处理', () => {
             const btn = 'llll'
@@ -243,11 +284,11 @@ describe('btn-pay', () => {
         it('btn', () => {
             const wrapper = mount(CompBtnPay, {
                 slots: {
-                    btn: CompBasic,
+                    btn: WorkBasic,
                 }
             })
 
-            assert.strictEqual(wrapper.contains(CompBasic), true)
+            assert.strictEqual(wrapper.contains(WorkBasic), true)
         })
     })
 
@@ -258,11 +299,10 @@ describe('btn-pay', () => {
                     btn: 'btn',
                 },
             })
-            const mockClick = sinon.fake()
-            wrapper.vm.$on('click', mockClick)
-            wrapper.find('.tm-pay-btn').trigger('click')
-
-            assert.strictEqual(mockClick.callCount, 1)
+            const wrapperBtn = wrapper.find('.tm-pay-btn')
+            wrapperBtn.trigger('click')
+    
+            assert.ok(wrapper.emitted('click'))
         })
     })
 })
