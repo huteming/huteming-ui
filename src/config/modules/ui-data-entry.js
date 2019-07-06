@@ -1,9 +1,9 @@
 export default [
     {
-        path: 'input',
-        title: '输入框 Input',
-        docs: () => import('web-ui/input/README.md'),
-        example: () => import('web-ui/input/demo/basic.vue'),
+        path: 'field',
+        title: '输入框 Field',
+        docs: () => import('web-ui/field/README.md'),
+        example: () => import('web-ui/field/demo/basic.vue'),
     },
     {
         path: 'image-picker',
