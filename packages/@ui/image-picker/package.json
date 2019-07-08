@@ -1,0 +1,11 @@
+{
+  "name": "@huteming/ui-image-picker",
+  "version": "1.0.0",
+  "description": "> 图片选择器",
+  "main": "dist/image-picker.common.js",
+  "scripts": {
+    "prepublishOnly": "node ../../../prepublishOnly.js imagePicker"
+  },
+  "author": "",
+  "license": "ISC"
+}

@@ -1,5 +1,6 @@
 import Vue from 'vue'
 import ComponentInput from './image-picker.vue'
+import { getStyle } from 'web-util/element/src/main'
 
 const CTX = '$$ImagePicker'
 
@@ -17,7 +18,7 @@ export default {
     name: 'ImagePicker',
 
     inserted (el, binding) {
-        const stylePosition = getComputedStyle(el).getPropertyValue('position')
+        const stylePosition = getStyle(el, 'position')
         if (!stylePosition || stylePosition === 'static') {
             console.warn('[@huteming/ui Warn][image-picker]元素定位异常: ', stylePosition)
         }

@@ -43,7 +43,6 @@ module.exports = {
     '!packages/@ui/input/src/*.{js,vue}',
     '!packages/@ui/tab/src/*.{js,vue}',
     '!packages/@ui/smart-scroll/src/*.{js,vue}',
-    '!packages/@ui/image-picker/src/*.{js,vue}',
   ],
   coverageReporters: ['html', 'text-summary']
 }

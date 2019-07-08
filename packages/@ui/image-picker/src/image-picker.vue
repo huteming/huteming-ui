@@ -37,9 +37,7 @@ export default {
             if (!files.length) return
 
             if (this.multiple) {
-                if (this.max) {
-                    files = files.slice(0, this.max)
-                }
+                files = files.slice(0, this.max)
             } else {
                 files = files[0]
             }
@@ -48,7 +46,8 @@ export default {
                 .then(this.onload)
                 .catch(this.onerror)
 
-            event.target.value = '' // fix 选中相同图片时，不触发 change 事件
+            // fix 选中相同图片时，不触发 change 事件
+            event.target.value = ''
         },
         preview (files) {
             if (Array.isArray(files)) {
