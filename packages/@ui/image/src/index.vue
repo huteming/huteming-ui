@@ -1,15 +1,21 @@
 <template>
 <div class="tm-image">
-    <slot v-if="loading" name="placeholder">
+    <slot v-if="state === 'hold'" name="placeholder">
         <div class="tm-image__placeholder"></div>
     </slot>
 
-    <slot v-else-if="error" name="error">
+    <slot v-if="state === 'loading'" name="loading">
+        <div class="tm-image__loading">
+            <div class="tm-icon-loading"></div>
+        </div>
+    </slot>
+
+    <slot v-if="state === 'error'" name="error">
         <div class="tm-image__error">加载失败</div>
     </slot>
 
     <img
-        v-else
+        v-if="state === 'success'"
         class="tm-image__inner"
         v-bind="$attrs"
         v-on="$listeners"
@@ -32,14 +38,14 @@ export default {
         src: String,
         fit: String,
         lazy: Boolean,
+        hold: Boolean,
         scrollContainer: {}
     },
 
     data () {
         return {
-            loading: true,
-            error: false,
-            show: !this.lazy,
+            state: this.hold ? 'hold' : 'loading',
+            readyToShow: !this.lazy,
             imageWidth: 0,
             imageHeight: 0,
         }
@@ -60,9 +66,9 @@ export default {
 
     watch: {
         src (val) {
-            this.show && this.loadImage()
+            this.readyToShow && this.loadImage()
         },
-        show (val) {
+        readyToShow (val) {
             val && this.loadImage()
         },
     },
@@ -70,7 +76,7 @@ export default {
     mounted () {
         if (this.lazy) {
             this.addLazyLoadListener()
-        } else if (this.src) {
+        } else if (this.state !== 'hold') {
             this.loadImage()
         }
     },
@@ -82,8 +88,7 @@ export default {
     methods: {
         loadImage () {
             // 重置状态
-            this.loading = true
-            this.error = false
+            this.state = 'loading'
 
             const img = new Image()
             img.onload = e => this.handleLoad(e, img)
@@ -101,12 +106,12 @@ export default {
         handleLoad (e, img) {
             this.imageWidth = img.width
             this.imageHeight = img.height
-            this.loading = false
+
+            this.state = 'success'
             this.$emit('load', e)
         },
         handleError (e) {
-            this.loading = false
-            this.error = true
+            this.state = 'error'
             this.$emit('error', e)
         },
         addLazyLoadListener () {
@@ -140,7 +145,7 @@ export default {
         },
         lazyLoad () {
             if (isInContainer(this.$el, this._scrollContainer)) {
-                this.show = true
+                this.readyToShow = true
                 this.removeLazyLoadListener()
             }
         },
@@ -149,6 +154,8 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+@import 'web/assets/style/icon.scss';
+
 .tm-image {
     position: relative;
     overflow: hidden;
@@ -183,6 +190,12 @@ export default {
         }
     }
 
+    &__loading {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
     &__error {
         display: flex;
         justify-content: center;
@@ -197,6 +210,7 @@ export default {
     }
 
     &__placeholder,
+    &__loading,
     &__error,
     &__inner {
         width: 100%;

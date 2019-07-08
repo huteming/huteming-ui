@@ -20,10 +20,12 @@ describe('Image', () => {
             },
         })
         const wrapperHolder = wrapper.find('.tm-image__placeholder')
+        const wrapperLoading = wrapper.find('.tm-image__loading')
         const wrapperError = wrapper.find('.tm-image__error')
         let wrapperInner = wrapper.find('.tm-image__inner')
 
-        assert.ok(wrapperHolder.exists())
+        assert.ok(!wrapperHolder.exists())
+        assert.ok(wrapperLoading.exists())
         assert.ok(!wrapperError.exists())
         assert.ok(!wrapperInner.exists())
 
@@ -86,14 +88,14 @@ describe('Image', () => {
 
         try {
             await sleep()
-            assert.strictEqual(image1.loading, false)
-            assert.strictEqual(image2.loading, true)
+            assert.strictEqual(image1.state, 'success')
+            assert.strictEqual(image2.state, 'loading')
 
             const events = new Event('scroll')
             image2._scrollContainer.dispatchEvent(events)
 
             await sleep()
-            assert.strictEqual(image2.loading, false)
+            assert.strictEqual(image2.state, 'success')
         } finally {
             wrapper.destroy()
             RewireAPI.__ResetDependency__('isInContainer')
@@ -202,14 +204,14 @@ describe('Image', () => {
 
         try {
             await sleep()
-            assert.strictEqual(image1.loading, false)
-            assert.strictEqual(image2.loading, true)
+            assert.strictEqual(image1.state, 'success')
+            assert.strictEqual(image2.state, 'loading')
 
             const events = new Event('scroll')
             image2._scrollContainer.dispatchEvent(events)
 
             await sleep()
-            assert.strictEqual(image2.loading, false)
+            assert.strictEqual(image2.state, 'success')
         } finally {
             wrapper.destroy()
             RewireAPI.__ResetDependency__('isInContainer')
@@ -253,9 +255,6 @@ describe('Image', () => {
             },
 
             methods: {
-                getState (ref, property) {
-                    return this.$refs[ref][property]
-                },
             },
 
             components: {
@@ -266,13 +265,13 @@ describe('Image', () => {
 
         try {
             await sleep()
-            assert.strictEqual(image1.loading, false)
-            assert.strictEqual(image2.loading, true)
+            assert.strictEqual(image1.state, 'success')
+            assert.strictEqual(image2.state, 'loading')
 
             window.dispatchEvent(events)
 
             await sleep()
-            assert.strictEqual(image2.loading, false)
+            assert.strictEqual(image2.state, 'success')
         } finally {
             wrapper.destroy()
             RewireAPI.__ResetDependency__('isInContainer')
@@ -311,10 +310,11 @@ describe('Image', () => {
 
         try {
             await sleep()
-            assert.strictEqual(image1.loading, true)
+            assert.strictEqual(image1.state, 'loading')
             assert.ok(mockLog.called)
             assert.deepStrictEqual(mockLog.getCall(0).args, ['未找到可滚动区域'])
         } finally {
+            RewireAPI.__ResetDependency__('isInContainer')
         }
     })
 
@@ -350,5 +350,42 @@ describe('Image', () => {
         await sleep()
         wrapperImage = wrapper.find('.tm-image__inner')
         assert.ok(wrapperImage.exists())
+    })
+
+    it('props.hold', async () => {
+        const wrapper = mount(CompImage, {
+            propsData: {
+                src: '',
+                fit: 'fill',
+                hold: true,
+            },
+        })
+        let wrapperHolder
+        let wrapperLoading
+        let wrapperError
+        let wrapperInner
+
+        wrapperHolder = wrapper.find('.tm-image__placeholder')
+        wrapperLoading = wrapper.find('.tm-image__loading')
+        wrapperError = wrapper.find('.tm-image__error')
+        wrapperInner = wrapper.find('.tm-image__inner')
+
+        assert.ok(wrapperHolder.exists())
+        assert.ok(!wrapperLoading.exists())
+        assert.ok(!wrapperError.exists())
+        assert.ok(!wrapperInner.exists())
+
+        wrapper.setProps({ src: IMG_SUCCESS_SRC })
+        await sleep()
+
+        wrapperHolder = wrapper.find('.tm-image__placeholder')
+        wrapperLoading = wrapper.find('.tm-image__loading')
+        wrapperError = wrapper.find('.tm-image__error')
+        wrapperInner = wrapper.find('.tm-image__inner')
+
+        assert.ok(!wrapperHolder.exists())
+        assert.ok(!wrapperLoading.exists())
+        assert.ok(!wrapperError.exists())
+        assert.ok(wrapperInner.exists())
     })
 })
