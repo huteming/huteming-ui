@@ -11,17 +11,11 @@
     </template>
 
     <tm-divider>占位内容</tm-divider>
-    <tm-image :src="src" class="demo-img">
-        <div slot="placeholder">
-            加载中<span class="dot">...</span>
-        </div>
+    <tm-image class="demo-img">
     </tm-image>
 
     <tm-divider>加载失败</tm-divider>
-    <tm-image class="demo-img">
-        <div slot="error" class="demo-slot" style="color: #909399; font-size: 30px;">
-            <i class="el-icon-picture-outline"></i>
-        </div>
+    <tm-image src="hello" class="demo-img">
     </tm-image>
 
     <tm-divider>懒加载</tm-divider>

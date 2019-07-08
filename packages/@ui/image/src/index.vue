@@ -70,7 +70,7 @@ export default {
     mounted () {
         if (this.lazy) {
             this.addLazyLoadListener()
-        } else {
+        } else if (this.src) {
             this.loadImage()
         }
     },
@@ -154,7 +154,33 @@ export default {
     overflow: hidden;
 
     &__placeholder {
-        background: #f5f7fa;
+        position: relative;
+        border-radius: 3px;
+        border: 1px solid #ddd;
+        background-color: #fff;
+        box-sizing: border-box;
+
+        &:before {
+            content: " ";
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 1px;
+            height: 25px;
+            transform: translate(-50%,-50%);
+            background-color: #ccc;
+        }
+
+        &:after {
+            content: " ";
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 25px;
+            height: 1px;
+            transform: translate(-50%,-50%);
+            background-color: #ccc;
+        }
     }
 
     &__error {
