@@ -1,0 +1,12 @@
+{
+  "private": false,
+  "name": "@huteming/ui-empty",
+  "version": "1.0.0",
+  "description": "> 空状态",
+  "main": "dist/empty.common.js",
+  "scripts": {
+    "prepublishOnly": "node ../../../prepublishOnly.js empty"
+  },
+  "author": "",
+  "license": "ISC"
+}

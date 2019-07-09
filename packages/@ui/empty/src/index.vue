@@ -13,7 +13,6 @@
 <script>
 export default {
     name: 'TmEmpty',
-
     inheritAttrs: false,
 
     props: {

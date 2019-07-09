@@ -14,6 +14,7 @@
     "@huteming/ui-carousel": "^1.4.1",
     "@huteming/ui-clocker": "^1.4.1",
     "@huteming/ui-dialog": "^1.4.3",
+    "@huteming/ui-empty": "^1.0.0",
     "@huteming/ui-image": "^1.4.1",
     "@huteming/ui-image-picker": "^1.0.0",
     "@huteming/ui-infinite-scroll": "^1.4.1",
