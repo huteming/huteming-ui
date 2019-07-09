@@ -19,7 +19,7 @@
     </tm-image>
 
     <tm-divider>懒加载</tm-divider>
-    <TmImage class="demo-img" v-for="url in urls" :key="url" :src="url" lazy />
+    <TmImage class="demo-img" v-for="url in urls" :key="url" :src="url" lazy @load="handleLoad" />
 </div>
 </template>
 
@@ -51,6 +51,12 @@ export default {
         // setTimeout(() => {
         //     this.asyncUrl = this.url
         // }, 1500)
+    },
+
+    methods: {
+        handleLoad (event) {
+            console.log('load', event)
+        },
     },
 
     components: {

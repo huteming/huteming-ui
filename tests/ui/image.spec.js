@@ -129,11 +129,10 @@ describe('Image', () => {
 
     it('pass event listeners', async() => {
         let isClick = false
-        let isLoad = false
 
         const wrapper = mount({
             template: `
-                <TmImage ref="image" @click="handleClick" @load="handleLoad" :src="src" />
+                <TmImage ref="image" @click="handleClick" :src="src" />
             `,
             data() {
                 return {
@@ -144,19 +143,15 @@ describe('Image', () => {
                 handleClick (e) {
                     isClick = true
                 },
-                handleLoad () {
-                    isLoad = true
-                },
             },
             components: {
                 TmImage: CompImage,
             },
         })
         await sleep()
-        wrapper.find(CompImage).find('.tm-image__inner').trigger('click')
-        await sleep()
+        const wrapperImage = wrapper.find('.tm-image__inner')
+        wrapperImage.trigger('click')
         assert.strictEqual(isClick, true)
-        assert.strictEqual(isLoad, true)
     })
 
     it('scrollContainer is String', async () => {

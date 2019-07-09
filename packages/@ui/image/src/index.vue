@@ -31,7 +31,6 @@ import throttle from 'throttle-debounce/throttle'
 
 export default {
     name: 'TmImage',
-
     inheritAttrs: false,
 
     props: {
@@ -108,7 +107,6 @@ export default {
             this.imageHeight = img.height
 
             this.state = 'success'
-            this.$emit('load', e)
         },
         handleError (e) {
             this.state = 'error'
