@@ -3,7 +3,8 @@
     <input
         v-if="type !== 'textarea'"
         ref="input"
-        :class="['tm-field__input', classInput]"
+        class="tm-field__input"
+        :style="inputStyle"
         v-bind="$attrs"
         :type="type"
         :value="nativeInputValue"
@@ -20,7 +21,8 @@
     <textarea
         v-else
         ref="textarea"
-        :class="['tm-field__textarea', classInput]"
+        class="tm-field__textarea"
+        :style="inputStyle"
         :value="nativeInputValue"
         @compositionstart="handleComposition"
         @compositionupdate="handleComposition"
@@ -47,7 +49,7 @@ export default {
         },
         value: [String, Number],
         label: String,
-        classInput: String,
+        inputStyle: Object,
     },
 
     data () {

@@ -5,16 +5,17 @@
 ## 引入
 
 ```javascript
-import { Input } from '@huteming/ui'
+import { TmField } from '@huteming/ui'
 
-Vue.component(Input.name, Input)
-// Vue.use(Input)
+Vue.use(TmField)
+// Vue.component(TmField.name, TmField)
 ```
 
 ## 例子
 
 ```html
-<tm-input placeholder="hello world" ></tm-input>
+<tm-field type="textarea" rows="3" v-model="value" @focus="handleLog" @blur="handleLog" @change="handleLog">
+</tm-field>
 ```
 
 ### Attributes
@@ -23,7 +24,9 @@ Vue.component(Input.name, Input)
 |------|-------|---------|-------|--------|
 | type | 类型 | String | `text`, `textarea` 和其他 原生 input 的 type 值 | `text` |
 | value | 绑定指 | String, Number | - | - |
-| classInput | 输入框类名 | String | - | - |
+| label | 输入框关联的label文字 | string | | |
+| inputStyle | 输入框样式 | Object | | |
+| | 其他输入框原生属性；如：rows | | | |
 
 ### Events
 

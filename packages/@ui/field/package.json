@@ -1,0 +1,11 @@
+{
+  "name": "@huteming/ui-field",
+  "version": "1.0.0",
+  "description": "> 输入框",
+  "main": "dist/field.common.js",
+  "scripts": {
+    "prepublishOnly": "node ../../../prepublishOnly.js field"
+  },
+  "author": "",
+  "license": "ISC"
+}
