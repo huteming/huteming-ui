@@ -5,7 +5,8 @@
     <TmImage
          v-image-picker="{ onload: handleLoad, disabled: disabled }"
         :src="image"
-        style="width: 100px; height: 100px; margin: 0 auto;" />
+        style="width: 100px; height: 100px; margin: 0 auto;"
+        hold />
 
     <!-- <base-divider>压缩后</base-divider> -->
     <!-- <img :src="imageCompressed" alt="" style="max-width: 100%;" /> -->

@@ -72,5 +72,5 @@ export default {
 | multiple | 是否多选 | Boolean | | `false` |
 | max | 多选时，最多选择数量。当达到最大数量时，点击动作会"无响应"，可能需要自己配合隐藏按钮。支持动态更新 | Number | | `Infinity` |
 | disabled | 禁用。支持动态更新 | Boolean | | `false` |
-| onload | 加载完成的回调函数。参数只有一个函数时的默认值 | Function(data) | | |
+| onload | 加载完成的回调函数。参数只有一个函数时的默认值 | Function(dataURI) | | |
 | onerror | 加载失败的回调函数 | Function(event) | | |

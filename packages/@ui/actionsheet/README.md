@@ -17,6 +17,10 @@ this.$actionsheet(options)
 this.$actionsheet(menus)
 
 Actionsheet(options)
+    // 点击菜单关闭
+    .then(value => {})
+    // 点击取消或遮层关闭
+    .catch(() => {})
 ```
 
 ## API
