@@ -16,9 +16,9 @@ Vue.use(TmCarouselItem)
 ## 例子
 
 ```html
-<tm-carousel v-model="current" :loop="loop" :play="play" :group="1">
+<tm-carousel height="6rem" @change="handleChange">
     <tm-carousel-item>
-        <div class="swiper swiper-blue">1</div>
+        <div class="swiper">item</div>
     </tm-carousel-item>
 </tm-carousel>
 ```
