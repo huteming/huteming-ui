@@ -5,18 +5,20 @@
 ## 引入
 
 ```javascript
-import { Picker, PickerItem } from '@huteming/ui'
+import { TmPicker, TmPickerItem } from '@huteming/ui'
 
-Vue.component(Picker.name, Picker)
-Vue.component(PickerItem.name, PickerItem)
+Vue.use(TmPicker)
+// Vue.component(TmPicker.name, TmPicker)
+Vue.use(TmPickerItem)
+// Vue.component(TmPickerItem.name, TmPickerItem)
 ```
 
 ## 例子
 
 ```html
-<base-picker>
-    <base-picker-item :options="options"></base-picker-item>
-</base-picker>
+<tm-picker>
+    <tm-picker-item :options="options" v-model="value"></tm-picker-item>
+</tm-picker>
 ```
 
 ## Picker
@@ -35,3 +37,4 @@ Vue.component(PickerItem.name, PickerItem)
 |-----|--------|------|-------|--------|
 | options | 选择项, `label`, `value` 组成的对象数组 | Array |  |  |
 | value | 选中返回值 | Any | | |
+| | 其他 empty 属性 | | | |

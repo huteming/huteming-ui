@@ -1,6 +1,6 @@
 <template>
 <div class="basic">
-    <div v-anchor="{ selector: '#target', container: '.basic2' }">锚点</div>
+    <div v-anchor="{ selector: '#target', container: '.basic2', top: 40 }">锚点</div>
 
     <div class="basic2">
         <pre style="height: 120vh;"></pre>

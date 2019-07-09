@@ -3,7 +3,6 @@ const CTX = '@@InfiniteScroll'
 const defaults = {
     callback: null,
     distance: 50,
-    timeout: 1000,
     disabled: false,
 }
 

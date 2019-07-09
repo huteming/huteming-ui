@@ -7,13 +7,13 @@
 ```javascript
 import { InfiniteScroll } from '@huteming/ui'
 
-Vue.directive(InfiniteScroll.name, InfiniteScroll)
-// Vue.use(InfiniteScroll)
+Vue.use(InfiniteScroll)
+// Vue.directive(InfiniteScroll.name, InfiniteScroll)
 ```
 
 ## 例子
 
-为 HTML 元素添加 `v-infinite-scroll` 指令即可使用无限滚动。滚动该元素，当其底部与被滚动元素底部的距离小于给定的阈值（通过 `infinite-scroll-distance` 设置）时，绑定到 `v-infinite-scroll` 指令的方法就会被触发。
+为 HTML 元素添加 `v-infinite-scroll` 指令即可使用无限滚动。滚动该元素，当其底部与被滚动元素底部的距离小于给定的阈值时，绑定到 `v-infinite-scroll` 指令的方法就会被触发。
 
 ```html
 <ul v-infinite-scroll="loadMore">
@@ -39,7 +39,7 @@ loadMore (done) {
 
 | 参数 | 说明 | 类型 | 可选值 | 默认值 |
 |------|-------|---------|-------|--------|
-| callback | 触发的回调函数 | Function(done) | | |
+| callback | 触发的回调函数。指令参数是function类型时，作为callback | Function(done) | | |
 | distance | 触发加载方法的滚动距离阈值（像素）） | Number | | `50` |
 | disabled | 若为真，则无限滚动不会被触发 | Boolean | | `false` |
 

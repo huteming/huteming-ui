@@ -54,16 +54,6 @@ export default {
                 return ['datetime', 'date', 'time'].indexOf(val) > -1
             }
         },
-        // 确定按钮文本
-        confirmText: {
-            type: String,
-            default: '确定'
-        },
-        // 取消按钮文本
-        cancelText: {
-            type: String,
-            default: '取消'
-        },
         // 日期的最小可选值
         minDate: {
             type: Date,
@@ -77,7 +67,7 @@ export default {
             default () {
                 return new Date(MAX_YEAR, 1, 1, 23, 59, 59)
             }
-        }
+        },
     },
 
     data () {
