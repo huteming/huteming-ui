@@ -56,4 +56,9 @@ export default [
         title: 'DOM辅助函数 element',
         docs: () => import('web-util/element/README.md'),
     },
+    {
+        path: 'api',
+        title: '常用接口 api',
+        docs: () => import('web-util/api/README.md'),
+    },
 ]
