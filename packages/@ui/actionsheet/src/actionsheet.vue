@@ -1,5 +1,5 @@
 <template>
-<transition name="slide-bottom-out">
+<transition name="slide-bottom-out" @after-leave="handleAfterLeave">
     <div class="tm-actions" :style="styles" v-show="visible">
         <div class="tm-actions-title" v-if="title">{{ title }}</div>
 
@@ -7,14 +7,14 @@
             v-for="item in menus"
             :key="item.value"
             @click="handleClickMenu(item.value)">
-            {{ item.label }}
+            <span>{{ item.label }}</span>
         </div>
 
         <template v-if="cancelText">
             <div class="tm-actions-spacing"></div>
 
-            <div class="tm-actions-menus" @click="handleClickMenu('')">
-                {{ cancelText }}
+            <div class="tm-actions-menus" id="tm-actions-cancel" @click="handleClickMenu('')">
+                <span>{{ cancelText }}</span>
             </div>
         </template>
     </div>
@@ -26,16 +26,14 @@ import MixinsModal from 'web-ui/modal/index.js'
 import zindexManager from 'web/assets/js/zindex-manager'
 
 export default {
-    name: 'actionsheet',
+    name: 'TmActionsheet',
     mixins: [MixinsModal],
 
     props: {
         title: String,
         menus: {
             type: Array,
-            default () {
-                return []
-            }
+            required: true,
         },
         cancelText: {
             type: String,
@@ -44,7 +42,7 @@ export default {
         closeOnClickModal: {
             type: Boolean,
             default: true
-        }
+        },
     },
 
     data () {
@@ -73,6 +71,9 @@ export default {
                 this.close()
             }
         },
+        handleAfterLeave () {
+            this.destroyElement()
+        },
         open () {
             this.$_openModal({
                 callbackClick: this.handleClickModal,
@@ -84,15 +85,10 @@ export default {
             this.visible = true
         },
         close (actionValue) {
-            this.$_closeModal({
-                callbackAfterLeave: () => {
-                    actionValue ? this.resolve(actionValue) : this.reject()
-
-                    this.destroyElement()
-                }
-            })
-
+            this.$_closeModal()
             this.visible = false
+
+            actionValue ? this.resolve(actionValue) : this.reject()
         },
         /**
          * 销毁dom

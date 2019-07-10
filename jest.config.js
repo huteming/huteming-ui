@@ -38,7 +38,6 @@ module.exports = {
   collectCoverageFrom: [
     'packages/@util/**/src/*.{js,vue}',
     'packages/@ui/**/src/*.{js,vue}',
-    '!packages/@ui/actionsheet/src/*.{js,vue}',
     '!packages/@ui/flex/src/*.{js,vue}',
     '!packages/@ui/tab/src/*.{js,vue}',
     '!packages/@ui/smart-scroll/src/*.{js,vue}',

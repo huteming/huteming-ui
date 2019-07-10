@@ -9,6 +9,7 @@
 
 <script>
 import Actionsheet from '../index'
+import Toast from 'web-ui/toast/index'
 
 export default {
     methods: {
@@ -20,10 +21,10 @@ export default {
             Actionsheet({ menus, cancelText })
                 .then(value => {
                     const clicked = menus.find(item => item.value === value)
-                    console.log(clicked.label)
+                    Toast(clicked.label)
                 })
                 .catch(() => {
-                    console.log('取消')
+                    Toast('取消')
                 })
         },
         title (title) {

@@ -23,7 +23,7 @@ export default {
                 }
             }
 
-            if (currentInstance) {
+            if (currentInstance && document.querySelector('.tm-modal')) {
                 // 保存旧的实例属性
                 renderedInstanceData.push(Object.assign({}, currentInstance.$data))
                 // 设置新的属性

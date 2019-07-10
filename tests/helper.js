@@ -1,5 +1,16 @@
 import { IMG_FAILURE_SRC, IMG_SUCCESS_SRC } from './constant'
 
+export function cleanModal () {
+    const el = document.querySelector('.tm-modal')
+    if (!el) return
+    if (el.parentNode) {
+        el.parentNode.removeChild(el)
+    }
+    if (el.__vue__) {
+        el.__vue__.$destroy()
+    }
+}
+
 export function getLastDateOfMonth (year, month) {
     return new Date(year, month + 1, 0).getDate()
 }

@@ -5,7 +5,6 @@ const ActionsConstructor = Vue.extend(ActionsComponent)
 
 function show ({ options, resolve, reject }) {
     const instance = new ActionsConstructor({
-        el: document.createElement('div'),
         propsData: options,
         data: {
             resolve,
@@ -13,7 +12,7 @@ function show ({ options, resolve, reject }) {
         }
     })
 
-    document.body.appendChild(instance.$el)
+    document.body.appendChild(instance.$mount().$el)
 
     Vue.nextTick(() => {
         instance.open()
