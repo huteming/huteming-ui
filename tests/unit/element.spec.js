@@ -3,7 +3,7 @@ import WorkComponent from '../components/element.vue'
 import BasicComponent from '../components/basic.vue'
 import assert from 'assert'
 import sinon from 'sinon'
-import { autoprefixer, getScrollContainer, scrollX, scrollY, attached, getScrollTop, getScrollLeft, getElementTop, __RewireAPI__ as RewireAPI } from 'web-util/element/src/main'
+import { autoprefixer, scrollX, scrollY, attached, getScrollTop, getScrollLeft, getElementTop, __RewireAPI__ as RewireAPI } from 'web-util/element/src/main'
 const wrapper = mount(WorkComponent)
 const eleContainer = wrapper.vm.$refs.container
 let wrapperBasic
@@ -138,39 +138,6 @@ describe('element', () => {
         const eleContainer = wrapper.vm.$refs.container
         assert.strictEqual(eleContainer.scrollLeft, 40)
         assert.strictEqual(eleContainer.scrollTop, 40)
-    })
-
-    describe('getScrollContainer', () => {
-        it('获取滚动元素', () => {
-            const wrapper = mount(WorkComponent, {
-                attachToDocument: true,
-            })
-            const eleContainer = wrapper.vm.$refs.container
-            const eleOver = wrapper.vm.$refs.over
-
-            const actual = getScrollContainer(eleOver)
-            assert.strictEqual(actual, eleContainer)
-
-            wrapper.destroy()
-        })
-
-        it('获取window元素', () => {
-            const wrapper = mount(WorkComponent, {
-                attachToDocument: true,
-            })
-            const eleEmpty = wrapper.vm.$refs.empty
-
-            const actual = getScrollContainer(eleEmpty)
-            assert.strictEqual(actual, window)
-
-            wrapper.destroy()
-        })
-
-        it('element不存在', () => {
-            const element = ''
-            const res = getScrollContainer(element)
-            assert.strictEqual(res, element)
-        })
     })
 
     describe('getScrollTop', () => {

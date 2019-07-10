@@ -21,7 +21,10 @@ describe('element > isScroll', () => {
     })
 
     it('vertical', () => {
-        const el = 'el'
+        const el = {
+            scrollHeight: 100,
+            clientHeight: 10,
+        }
         const valid = isScroll(el, true)
         const [_el, styleName] = mockGetStyle.getCall(0).args
         assert.strictEqual(valid, true)
@@ -30,7 +33,10 @@ describe('element > isScroll', () => {
     })
 
     it('horizontal', () => {
-        const el = 'el'
+        const el = {
+            scrollHeight: 100,
+            clientHeight: 10,
+        }
         const valid = isScroll(el, false)
         const [_el, styleName] = mockGetStyle.getCall(0).args
         assert.strictEqual(valid, true)
@@ -39,7 +45,10 @@ describe('element > isScroll', () => {
     })
 
     it('vertical 或者 horizontal', () => {
-        const el = 'el'
+        const el = {
+            scrollHeight: 100,
+            clientHeight: 10,
+        }
         const valid = isScroll(el)
         const [_el, styleName] = mockGetStyle.getCall(0).args
         assert.strictEqual(valid, false)

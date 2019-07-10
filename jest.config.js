@@ -40,7 +40,6 @@ module.exports = {
     'packages/@ui/**/src/*.{js,vue}',
     '!packages/@ui/flex/src/*.{js,vue}',
     '!packages/@ui/tab/src/*.{js,vue}',
-    '!packages/@ui/smart-scroll/src/*.{js,vue}',
   ],
   coverageReporters: ['html', 'text-summary']
 }

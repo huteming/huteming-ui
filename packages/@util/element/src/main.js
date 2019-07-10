@@ -248,11 +248,17 @@ export function isScroll (element, vertical) {
 
 /**
  * 最近一个 overflow 值为 auto 或 scroll 的父元素
+ * @argument {HTMLElement} element
+ * @argument {Boolean} vertical 是否限制为垂直方向
+ * @argument {HTMLElement} container 限制顶层容器，默认是window
  */
-export function getScrollContainer (element, vertical) {
+export function getScrollContainer (element, vertical, container) {
     let parent = element
 
     while (parent) {
+        if (container && parent === container) {
+            return container
+        }
         if ([window, document, document.documentElement].includes(parent)) {
             return window
         }

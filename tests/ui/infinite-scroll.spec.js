@@ -11,17 +11,22 @@ describe('infinite-scroll', () => {
 
     beforeAll(() => {
         RewireAPI.__Rewire__('attached', (el, fn) => {
-            setTimeout(fn, 20)
+            setTimeout(fn, 15)
 
             if (tryTimes > 1) {
-                setTimeout(fn, 50)
+                setTimeout(fn, 30)
                 tryTimes = 1
             }
+        })
+
+        RewireAPI.__Rewire__('getScrollContainer', (el) => {
+            return el
         })
     })
 
     afterAll(() => {
         RewireAPI.__ResetDependency__('attached')
+        RewireAPI.__ResetDependency__('getScrollContainer')
     })
 
     afterEach(() => {
@@ -30,9 +35,9 @@ describe('infinite-scroll', () => {
     })
 
     it('create', async () => {
-        wrapper = mount({
+        const wrapper = mount({
             template: `
-                <ul id="container" ref="scrollTarget" v-infinite-scroll="load" style="height: 300px;overflow: auto;">
+                <ul id="container" ref="scrollTarget" v-infinite-scroll="load" style="height: 300px; overflow: auto;">
                     <li v-for="i in count" style="display: flex;height: 50px;">{{ i }}</li>
                 </ul>
             `,
@@ -42,59 +47,30 @@ describe('infinite-scroll', () => {
                 }
             },
             methods: {
-                load () {
+                load (done) {
                     this.count += 2
+                    done()
                 },
             },
             directives: {
                 InfiniteScroll,
             },
         }, {})
+        const wrapperContainer = wrapper.find('#container')
+        const domContainer = wrapperContainer.element
         await sleep()
 
-        const wrapperContainer = wrapper.find('#container')
         assert.strictEqual(wrapperContainer.isEmpty(), true)
 
         const events = new Event('scroll')
-        wrapperContainer.element[scope].scrollEventTarget.dispatchEvent(events)
+        domContainer.dispatchEvent(events)
         assert.strictEqual(wrapperContainer.isEmpty(), false)
     })
 
     it('disabled', async () => {
-        wrapper = mount({
+        const wrapper = mount({
             template: `
-                <ul id="container" ref="scrollTarget" v-infinite-scroll="{ callback: load, disabled: true }" style="height: 300px;overflow: auto;">
-                    <li v-for="i in count" style="display: flex;height: 50px;">{{ i }}</li>
-                </ul>
-            `,
-            data () {
-                return {
-                    count: 0,
-                }
-            },
-            methods: {
-                load () {
-                    this.count += 2
-                },
-            },
-            directives: {
-                InfiniteScroll,
-            },
-        }, {})
-        await sleep()
-
-        const wrapperContainer = wrapper.find('#container')
-        assert.strictEqual(wrapperContainer.isEmpty(), true)
-
-        const events = new Event('scroll')
-        wrapperContainer.element[scope].scrollEventTarget.dispatchEvent(events)
-        assert.strictEqual(wrapperContainer.isEmpty(), true)
-    })
-
-    it('update disabled', async () => {
-        wrapper = mount({
-            template: `
-                <ul id="container" ref="scrollTarget" v-infinite-scroll="{ callback: load, disabled }" style="height: 300px;overflow: auto;">
+                <ul id="container" ref="scrollTarget" v-infinite-scroll="{ callback: load, disabled: disabled }" style="height: 300px;overflow: auto;">
                     <li v-for="i in count" style="display: flex;height: 50px;">{{ i }}</li>
                 </ul>
             `,
@@ -105,8 +81,9 @@ describe('infinite-scroll', () => {
                 }
             },
             methods: {
-                load () {
+                load (done) {
                     this.count += 2
+                    done()
                 },
             },
             directives: {
@@ -116,19 +93,52 @@ describe('infinite-scroll', () => {
         await sleep()
 
         const wrapperContainer = wrapper.find('#container')
-        assert.strictEqual(wrapperContainer.isEmpty(), true)
-        wrapper.setData({ disabled: false })
+        const domContainer = wrapperContainer.element
 
         const events = new Event('scroll')
-        wrapperContainer.element[scope].scrollEventTarget.dispatchEvent(events)
-        assert.strictEqual(wrapperContainer.isEmpty(), false)
+        domContainer.dispatchEvent(events)
+        assert.strictEqual(wrapper.vm.count, 0)
+    })
+
+    it('update disabled', async () => {
+        const wrapper = mount({
+            template: `
+                <ul id="container" ref="scrollTarget" v-infinite-scroll="{ callback: load, disabled: disabled }" style="height: 300px;overflow: auto;">
+                    <li v-for="i in count" style="display: flex;height: 50px;">{{ i }}</li>
+                </ul>
+            `,
+            data () {
+                return {
+                    count: 0,
+                    disabled: true,
+                }
+            },
+            methods: {
+                load (done) {
+                    this.count += 2
+                    done()
+                },
+            },
+            directives: {
+                InfiniteScroll,
+            },
+        }, {})
+        await sleep()
+
+        const wrapperContainer = wrapper.find('#container')
+        const domContainer = wrapperContainer.element
+
+        wrapper.setData({ disabled: false })
+        const events = new Event('scroll')
+        domContainer.dispatchEvent(events)
+        assert.strictEqual(wrapper.vm.count, 2)
     })
 
     it('immediate', async () => {
         const onCheck = sinon.fake()
         RewireAPI.__Rewire__('checkReachBottom', onCheck)
 
-        wrapper = mount({
+        const wrapper = mount({
             template: `
                 <ul id="container" ref="scrollTarget" v-infinite-scroll.immediate="load" style="height: 300px;overflow: auto;">
                     <li v-for="i in count" style="display: flex;height: 50px;">{{ i }}</li>
@@ -152,8 +162,6 @@ describe('infinite-scroll', () => {
         await sleep()
 
         assert.strictEqual(onCheck.callCount, 1)
-        const self = wrapper.vm.$refs.scrollTarget[scope]
-        assert.ok(onCheck.getCall(0).calledOn(self))
 
         RewireAPI.__ResetDependency__('checkReachBottom')
     })
@@ -162,7 +170,7 @@ describe('infinite-scroll', () => {
         const onCheck = sinon.fake()
         RewireAPI.__Rewire__('checkReachBottom', onCheck)
 
-        wrapper = mount({
+        const wrapper = mount({
             template: `
                 <ul id="container" ref="scrollTarget" v-infinite-scroll="load" style="height: 300px;overflow: auto;">
                     <li v-for="i in count" style="display: flex;height: 50px;">{{ i }}</li>
@@ -189,14 +197,12 @@ describe('infinite-scroll', () => {
 
         wrapper.vm.$emit('infinite-scroll')
         assert.strictEqual(onCheck.callCount, 1)
-        const self = wrapper.vm.$refs.scrollTarget[scope]
-        assert.ok(onCheck.getCall(0).calledOn(self))
 
         RewireAPI.__ResetDependency__('checkReachBottom')
     })
 
     it('update invalid options', async () => {
-        wrapper = mount({
+        const wrapper = mount({
             template: `
                 <ul id="container" ref="scrollTarget" v-infinite-scroll="options" style="height: 300px;overflow: auto;">
                     <li v-for="i in count" style="display: flex;height: 50px;">{{ i }}</li>
@@ -222,15 +228,52 @@ describe('infinite-scroll', () => {
         }, {})
         await sleep()
 
+        const wrapperContainer = wrapper.find('#container')
+        const domContainer = wrapperContainer.element
         wrapper.setData({ options: false })
-        assert.strictEqual(wrapper.vm.$refs.scrollTarget[scope].options.disabled, true)
+        assert.strictEqual(domContainer[scope].options.disabled, true)
+    })
+
+    it('移除监听', async () => {
+        const onRemove = sinon.fake()
+        sinon.replace(Element.prototype, 'removeEventListener', onRemove)
+
+        // 这里的 immediate 属性是为了测试覆盖 callback 不是 function 的情况
+        const wrapper = mount({
+            template: `
+                <ul id="container" ref="scrollTarget" v-infinite-scroll.immediate style="height: 300px;overflow: auto;">
+                    <li v-for="i in count" style="display: flex;height: 50px;">{{ i }}</li>
+                </ul>
+            `,
+            data () {
+                return {
+                    count: 0,
+                    options: {
+                        callback: this.load,
+                        disabled: true,
+                    },
+                }
+            },
+            methods: {
+                load () {
+                    this.count += 2
+                },
+            },
+            directives: {
+                InfiniteScroll,
+            },
+        }, {})
+        await sleep()
+
+        wrapper.destroy()
+        assert.strictEqual(onRemove.callCount, 1)
     })
 
     it('无效的移除监听', async () => {
         const onRemove = sinon.fake()
         sinon.replace(Element.prototype, 'removeEventListener', onRemove)
 
-        wrapper = mount({
+        const wrapper = mount({
             template: `
                 <ul id="container" ref="scrollTarget" v-infinite-scroll="options" style="height: 300px;overflow: auto;">
                     <li v-for="i in count" style="display: flex;height: 50px;">{{ i }}</li>
@@ -266,7 +309,7 @@ describe('infinite-scroll', () => {
         const onCheck = sinon.fake()
         RewireAPI.__Rewire__('checkReachBottom', onCheck)
 
-        wrapper = mount({
+        const wrapper = mount({
             template: `
                 <ul id="container" ref="scrollTarget" style="height: 300px; overflow: auto;" v-infinite-scroll.immediate="load">
                     <li v-for="i in count" style="display: block; height: 50px;">{{ i }}</li>
@@ -295,7 +338,7 @@ describe('infinite-scroll', () => {
     })
 
     it('向上滑动', async () => {
-        wrapper = mount({
+        const wrapper = mount({
             template: `
                 <ul id="container" ref="scrollTarget" style="height: 300px; overflow: auto;" v-infinite-scroll="{ callback: load }">
                     <li v-for="i in count" style="display: block; height: 50px;">{{ i }}</li>
@@ -316,50 +359,51 @@ describe('infinite-scroll', () => {
                 InfiniteScroll,
             },
         })
+        const domContainer = wrapper.vm.$refs.scrollTarget
         await sleep()
 
-        const eleContainer = wrapper.vm.$refs.scrollTarget
         // mock 上一次滚动条位置
-        eleContainer[scope].beforeScrollTop = 1000
-        eleContainer[scope].scrollEventTarget.dispatchEvent(new Event('scroll'))
+        domContainer[scope].beforeScrollTop = 1000
+        domContainer.dispatchEvent(new Event('scroll'))
         assert.strictEqual(wrapper.vm.count, 10)
     })
 
     it('scroll in window', async () => {
-        wrapper = mount({
+        const wrapper = mount({
             template: `
-                <ul ref="scrollTarget" id="container" v-infinite-scroll>
+                <ul ref="scrollTarget" id="container" v-infinite-scroll="load">
                     <li v-for="i in count" style="display: flex;height: 50px;">{{ i }}</li>
                 </ul>
             `,
             data () {
                 return {
                     count: 0,
-                    done: null,
                 }
             },
             methods: {
                 load (done) {
-                    this.done = done
                     this.count += 2
-                },
-                restore () {
-                    this.done()
+                    done()
                 },
             },
             directives: {
                 InfiniteScroll,
             },
-        }, { attachToDocument: true })
+        })
+        const domContainer = wrapper.vm.$refs.scrollTarget
+        // mock滚动容器是 window
+        domContainer[scope].el = window
+        window.scrollHeight = 0
         await sleep()
+        // 还原指令绑定dom
+        domContainer[scope].el = domContainer
 
-        const eleContainer = wrapper.vm.$refs.scrollTarget
         window.dispatchEvent(new Event('scroll'))
-        assert.strictEqual(eleContainer[scope].scrollEventTarget, window)
+        assert.strictEqual(wrapper.vm.count, 2)
     })
 
     it('done函数', async () => {
-        wrapper = mount({
+        const wrapper = mount({
             template: `
                 <ul id="container" ref="scrollTarget" style="height: 300px; overflow: auto;" v-infinite-scroll="{ callback: load }">
                     <li v-for="i in count" style="display: block; height: 50px;">{{ i }}</li>
@@ -381,23 +425,22 @@ describe('infinite-scroll', () => {
                 InfiniteScroll,
             },
         })
+        const domContainer = wrapper.vm.$refs.scrollTarget
         await sleep()
 
-        const eleContainer = wrapper.vm.$refs.scrollTarget
         const scrollEvent = new Event('scroll')
-        eleContainer[scope].scrollEventTarget.scrollTop = 1000
-        eleContainer[scope].scrollEventTarget.dispatchEvent(scrollEvent)
+        domContainer.dispatchEvent(scrollEvent)
         assert.strictEqual(wrapper.vm.count, 12)
 
         // 这个延迟是因为滚动事件有 200ms 节流
         await sleep(220)
         // done运行之前再次滚动
-        eleContainer[scope].scrollEventTarget.dispatchEvent(scrollEvent)
+        domContainer.dispatchEvent(scrollEvent)
         assert.strictEqual(wrapper.vm.count, 12)
 
         await sleep(220)
         wrapper.vm.restore()
-        eleContainer[scope].scrollEventTarget.dispatchEvent(scrollEvent)
+        domContainer.dispatchEvent(scrollEvent)
         assert.strictEqual(wrapper.vm.count, 14)
     })
 
@@ -405,9 +448,9 @@ describe('infinite-scroll', () => {
         const onCheck = sinon.fake()
         RewireAPI.__Rewire__('checkReachBottom', onCheck)
 
-        wrapper = mount({
+        const wrapper = mount({
             template: `
-                <ul id="container" ref="scrollTarget" style="height: 300px; overflow: auto;" v-infinite-scroll="{ callback: load }">
+                <ul id="container" ref="scrollTarget" style="height: 300px; overflow: auto;" v-infinite-scroll>
                     <li v-for="i in count" style="display: block; height: 50px;">{{ i }}</li>
                 </ul>
             `,
@@ -417,31 +460,27 @@ describe('infinite-scroll', () => {
                 }
             },
             methods: {
-                load (done) {
-                    done()
-                    this.count += 2
-                },
             },
             directives: {
                 InfiniteScroll,
             },
         })
+        const domContainer = wrapper.vm.$refs.scrollTarget
         await sleep()
 
-        const eleContainer = wrapper.vm.$refs.scrollTarget
         const scrollEvent = new Event('scroll')
         // 立即执行
-        eleContainer[scope].scrollEventTarget.dispatchEvent(scrollEvent)
+        domContainer.dispatchEvent(scrollEvent)
         assert.strictEqual(onCheck.callCount, 1)
 
-        // 距离上次执行 200ms 之后执行
+        // 距离上次执行 200ms 之前执行
         await sleep()
-        eleContainer[scope].scrollEventTarget.dispatchEvent(scrollEvent)
+        domContainer.dispatchEvent(scrollEvent)
         assert.strictEqual(onCheck.callCount, 1)
 
-        // 清除上一次事件，距离上次执行 200ms 之后执行
+        // 清除上一次事件，距离上次执行 200ms 之前执行
         await sleep()
-        eleContainer[scope].scrollEventTarget.dispatchEvent(scrollEvent)
+        domContainer.dispatchEvent(scrollEvent)
         assert.strictEqual(onCheck.callCount, 1)
 
         await sleep(220)

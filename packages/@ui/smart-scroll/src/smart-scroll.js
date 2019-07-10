@@ -1,3 +1,4 @@
+import { getScrollContainer } from 'web-util/element/src/main'
 const ELEMENT_ATTR_NAME = '@@SmartScroll'
 
 export default {
@@ -5,16 +6,11 @@ export default {
 
     bind (el) {
         el[ELEMENT_ATTR_NAME] = {
-            binded: false,
             event: {}
         }
     },
 
     inserted (el) {
-        if (el[ELEMENT_ATTR_NAME].binded) {
-            return
-        }
-
         const self = {
             el,
 
@@ -29,7 +25,6 @@ export default {
         el.addEventListener('touchmove', handlerTouchmove)
         el.addEventListener('touchend', handlerTouchend)
 
-        el[ELEMENT_ATTR_NAME].binded = true
         el[ELEMENT_ATTR_NAME].event = {
             handlerTouchstart,
             handlerTouchmove,
@@ -42,33 +37,7 @@ export default {
         el.removeEventListener('touchstart', handlerTouchstart)
         el.removeEventListener('touchmove', handlerTouchmove)
         el.removeEventListener('touchend', handlerTouchend)
-
-        el[ELEMENT_ATTR_NAME].binded = false
     }
-}
-
-/**
- * 验证是否可以滚动
- */
-function isScrollable (node) {
-    const maxscroll = node.scrollHeight - node.clientHeight
-    const overflowY = getComputedStyle(node).overflowY
-    return maxscroll > 0 && (overflowY === 'scroll' || overflowY === 'auto')
-}
-
-/**
- * 获取需要绑定事件的元素
- */
-function getScrollEventTarget (node, el) {
-    let currentNode = node
-
-    while (currentNode && currentNode !== el) {
-        if (isScrollable(currentNode)) {
-            return currentNode
-        }
-        currentNode = currentNode.parentNode
-    }
-    return el
 }
 
 function handleTouchstart (event) {
@@ -77,15 +46,12 @@ function handleTouchstart (event) {
     // 垂直位置标记
     this.startY = finger.pageY
     // 获取可滚动元素
-    this.scrollable = getScrollEventTarget(event.target, this.el)
+    this.scrollable = getScrollContainer(event.target, this.el)
 }
 
 function handleTouchmove (event) {
     if (!this.scrollable) {
-        if (event.cancelable) {
-            event.preventDefault()
-        }
-        return
+        return event.cancelable && event.preventDefault()
     }
     const finger = event.changedTouches[0]
     const maxscroll = this.scrollable.scrollHeight - this.scrollable.clientHeight
@@ -96,25 +62,17 @@ function handleTouchmove (event) {
 
     // 如果不足于滚动，则禁止触发整个窗体元素的滚动
     if (maxscroll <= 0) {
-        if (event.cancelable) {
-            event.preventDefault()
-        }
-        return
+        return event.cancelable && event.preventDefault()
     }
 
     // 上边缘检测
     if (moveY > 0 && scrollTop === 0) {
-        if (event.cancelable) {
-            event.preventDefault()
-        }
-        return
+        return event.cancelable && event.preventDefault()
     }
 
     // 下边缘检测
     if (moveY < 0 && scrollTop + 1 >= maxscroll) {
-        if (event.cancelable) {
-            event.preventDefault()
-        }
+        return event.cancelable && event.preventDefault()
     }
 }
 

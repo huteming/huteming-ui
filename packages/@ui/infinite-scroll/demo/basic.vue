@@ -12,6 +12,7 @@
 
 <script>
 import InfiniteScroll from '../index'
+import Toast from 'web-ui/toast/index'
 
 export default {
     data () {
@@ -26,7 +27,7 @@ export default {
 
     methods: {
         handleReachBottom (done) {
-            console.log('reach')
+            Toast('reach')
             setTimeout(() => {
                 const length = this.lists.length
                 for (let i = 1; i < 15; i++) {
@@ -36,7 +37,7 @@ export default {
             }, 2000)
         },
         handleEmit () {
-            console.log('emit')
+            Toast('emit')
             this.$emit('infinite-scroll')
         }
     },
@@ -72,5 +73,6 @@ export default {
     position: relative;
     height: 400px;
     overflow: auto;
+    -webkit-overflow-scrolling: touch;
 }
 </style>
