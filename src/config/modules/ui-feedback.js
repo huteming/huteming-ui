@@ -29,4 +29,10 @@ export default [
         docs: () => import('web-ui/popup/README.md'),
         example: () => import('web-ui/popup/demo/basic.vue'),
     },
+    {
+        path: 'loading',
+        title: '加载 Loading',
+        docs: () => import('web-ui/loading/README.md'),
+        example: () => import('web-ui/loading/demo/basic.vue'),
+    },
 ]
