@@ -34,10 +34,10 @@ export default {
         // setTimeout(() => {
         //     this.count = 10
         // }, 10000)
-        // this.loading = false
+        this.loading = false
 
         // setTimeout(() => {
-        //     this.loading = true
+        //     this.loading = false
         // }, 2000)
 
         // setTimeout(() => {

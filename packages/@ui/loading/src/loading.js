@@ -82,7 +82,7 @@ class Loading {
                     _options.target.style.visibility = originVisibility
                     instance.needAnimation = true
                     this._openTime = Date.now()
-                    this._instance.$emit('after-enter')
+                    this._instance.$emit('ready')
                 },
             })
         })
@@ -106,7 +106,7 @@ class Loading {
 
         // _openTime 为 0，表示 dom 未插入文档中，监听事件关闭
         if (this._openTime === 0) {
-            this._instance.once('after-enter', done)
+            this._instance.$once('ready', done)
             return
         }
 
