@@ -17,18 +17,19 @@ const defaults = {
 class Loading {
     constructor () {
         this.name = 'Loading'
-        this._openTime = 0
-        this._timer = null
-        this._instance = null
 
         this.open = this.open.bind(this)
         this.close = this.close.bind(this)
-        this.inserted = this.inserted.bind(this)
+        this.bind = this.bind.bind(this)
         this.update = this.update.bind(this)
         this.unbind = this.unbind.bind(this)
     }
 
-    inserted (el, binding) {
+    bind (el, binding) {
+        this._openTime = 0
+        this._timer = null
+        this._instance = null
+
         if (!(binding.value instanceof Object)) {
             binding.value = {
                 loading: !!binding.value,
@@ -42,14 +43,15 @@ class Loading {
     }
 
     update (el, binding) {
-        if (!(binding.value instanceof Object)) {
-            binding.value = {
-                loading: !!binding.value,
-            }
+        const _value = getOptions(binding.value)
+        const _oldValue = getOptions(binding.oldValue)
+        if (_value.loading === _oldValue.loading) {
+            return
         }
-        const _options = Object.assign({}, binding.value, { target: el })
 
-        binding.value.loading ? this.open(_options) : this.close(_options)
+        const _options = Object.assign(_value, { target: el })
+
+        _options.loading ? this.open(_options) : this.close(_options)
     }
 
     unbind () {
@@ -118,6 +120,15 @@ class Loading {
             this._timer = setTimeout(done, duration - diff)
         }
     }
+}
+
+function getOptions (value) {
+    if (!(value instanceof Object)) {
+        value = {
+            loading: !!value,
+        }
+    }
+    return Object.assign({}, value)
 }
 
 export default new Loading()
