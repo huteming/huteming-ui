@@ -1,7 +1,7 @@
 import Vue from 'vue'
 import CompLoading from './loading.vue'
 import { getStyle } from 'web-util/element/src/main'
-const MIN_DURATION = 1000
+const MIN_DURATION = 700
 
 const ConstructorLoading = Vue.extend(CompLoading)
 
