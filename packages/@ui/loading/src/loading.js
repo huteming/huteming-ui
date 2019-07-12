@@ -9,11 +9,14 @@ const defaults = {
     text: '',
     textStyle: {},
     background: '',
+    needAnimation: true,
 }
 
 class Loading {
     constructor () {
         this.name = 'Loading'
+        this._openTime = 0
+        this._timer = null
         this._instance = null
 
         this.open = this.open.bind(this)
@@ -77,6 +80,7 @@ class Loading {
                     instance.needAnimation = true
                 },
             })
+            this._openTime = Date.now()
         })
 
         this._instance = instance
@@ -84,9 +88,20 @@ class Loading {
     }
 
     close () {
-        if (this._instance) {
-            this._instance.hide()
-            this._instance = null
+        clearTimeout(this._timer)
+
+        const done = () => {
+            if (this._instance) {
+                this._instance.hide()
+                this._instance = null
+            }
+        }
+        // 添加最小持续时间 500ms
+        const diff = this._openTime === 0 ? 0 : Date.now() - this._openTime
+        if (diff > 500) {
+            done()
+        } else {
+            this._timer = setTimeout(done, 500 - diff)
         }
     }
 }

@@ -29,6 +29,18 @@ export default {
         }
     },
 
+    mounted () {
+        this.loading = false
+
+        // setTimeout(() => {
+        //     this.loading = true
+        // }, 1000)
+
+        // setTimeout(() => {
+        //     this.loading = false
+        // }, 3000)
+    },
+
     directives: {
         Loading,
     },
