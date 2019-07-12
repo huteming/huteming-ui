@@ -4,8 +4,10 @@
     @after-enter="handleAfterEnter"
     @after-leave="handleAfterLeave">
     <div class="tm-loading" :class="{ 'tm-loading-transition': needAnimation }" :style="styles" v-show="visible" @click.stop @touchmove.prevent.stop>
-        <div class="tm-loading-icon"></div>
-        <div class="tm-loading-text" :style="textStyle" v-if="text">{{ text }}</div>
+        <div class="tm-loading-content">
+            <div class="tm-loading-icon"></div>
+            <div class="tm-loading-text" :style="textStyle" v-if="text">{{ text }}</div>
+        </div>
     </div>
 </transition>
 </template>
@@ -86,11 +88,15 @@ export default {
     bottom: 0;
     left: 0;
     right: 0;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-direction: column;
     background-color: rgba(255, 255, 255, 1);
+
+    &-content {
+        height: rem(300);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-direction: column;
+    }
 
     &-icon {
         @extend .tm-icon-loading;
