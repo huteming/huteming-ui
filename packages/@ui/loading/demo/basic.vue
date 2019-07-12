@@ -4,7 +4,7 @@
     <button @click="background = !background">toggle background: {{ background }}</button>
     <input type="text" placeholder="text" v-model="text">
 
-    <div v-loading="{ loading, text, background: backgroundStr, duration, needAnimation: false }" style="position: relative;">
+    <div v-loading="{ loading, text, background: backgroundStr, duration }" style="position: relative;">
         <h1 v-for="item in count" :key="item">hello world</h1>
     </div>
 </div>
@@ -34,7 +34,7 @@ export default {
         // setTimeout(() => {
         //     this.count = 10
         // }, 10000)
-        this.loading = false
+        // this.loading = false
 
         // setTimeout(() => {
         //     this.loading = false

@@ -18,22 +18,16 @@ import zindexManager from 'web/assets/js/zindex-manager'
 export default {
     name: 'TmLoading',
 
-    props: {
-        text: String,
-        textStyle: Object,
-        background: String,
-        needAnimation: {
-            type: Boolean,
-            default: true,
-        },
-    },
-
     data () {
         return {
             zIndex: 9999,
             visible: false,
+            openTime: 0,
 
-            callbackAfterEnter: null,
+            text: '',
+            textStyle: {},
+            background: '',
+            needAnimation: true,
         }
     },
 
@@ -48,28 +42,17 @@ export default {
 
     methods: {
         handleAfterEnter () {
-            if (typeof this.callbackAfterEnter === 'function') {
-                this.callbackAfterEnter()
-            }
+            this.$emit('after-enter')
         },
         handleAfterLeave () {
             this.destroyElement()
         },
-        show (options = {}) {
-            this.setData(options)
+        show () {
             this.zIndex = zindexManager.zIndex
             this.visible = true
         },
-        hide (options = {}) {
-            this.setData(options)
+        hide () {
             this.visible = false
-        },
-        setData (data) {
-            for (let key in this.$data) {
-                if (data.hasOwnProperty(key)) {
-                    this[key] = data[key]
-                }
-            }
         },
         destroyElement () {
             this.$destroy(true)
