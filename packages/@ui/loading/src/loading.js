@@ -78,12 +78,13 @@ class Loading {
 
         Vue.nextTick(() => {
             instance.show({
-                callbackAfterEnter () {
+                callbackAfterEnter: () => {
                     _options.target.style.visibility = originVisibility
                     instance.needAnimation = true
+                    this._openTime = Date.now()
+                    this._instance.$emit('after-enter')
                 },
             })
-            this._openTime = Date.now()
         })
 
         this._instance = instance
@@ -91,17 +92,26 @@ class Loading {
     }
 
     close (options) {
+        if (!this._instance) {
+            return false
+        }
+
         const { duration = MIN_DURATION } = options || {}
+        const done = () => {
+            this._instance.hide()
+            this._instance = null
+        }
+
         clearTimeout(this._timer)
 
-        const done = () => {
-            if (this._instance) {
-                this._instance.hide()
-                this._instance = null
-            }
+        // _openTime 为 0，表示 dom 未插入文档中，监听事件关闭
+        if (this._openTime === 0) {
+            this._instance.once('after-enter', done)
+            return
         }
-        // 添加最小持续时间 500ms
-        const diff = this._openTime === 0 ? 0 : Date.now() - this._openTime
+
+        // 添加最小持续时间
+        const diff = Date.now() - this._openTime
         if (diff > duration) {
             done()
         } else {
