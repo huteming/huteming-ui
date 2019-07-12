@@ -4,7 +4,7 @@
     <button @click="background = !background">toggle background: {{ background }}</button>
     <input type="text" placeholder="text" v-model="text">
 
-    <div v-loading="{ loading, text, background: backgroundStr }" style="position: relative; height: 3rem;">
+    <div v-loading="{ loading, text, background: backgroundStr, duration, needAnimation: false }" style="position: relative; height: 3rem;">
         <h1>hello world</h1>
         <h1>hello world</h1>
     </div>
@@ -20,6 +20,7 @@ export default {
             loading: true,
             text: '',
             background: false,
+            duration: 1000,
         }
     },
 
@@ -32,13 +33,13 @@ export default {
     mounted () {
         this.loading = false
 
-        // setTimeout(() => {
-        //     this.loading = true
-        // }, 1000)
+        setTimeout(() => {
+            this.loading = true
+        }, 2000)
 
-        // setTimeout(() => {
-        //     this.loading = false
-        // }, 3000)
+        setTimeout(() => {
+            this.loading = false
+        }, 4000)
     },
 
     directives: {

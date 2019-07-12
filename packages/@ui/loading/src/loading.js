@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import CompLoading from './loading.vue'
 import { getStyle } from 'web-util/element/src/main'
+const MIN_DURATION = 1000
 
 const ConstructorLoading = Vue.extend(CompLoading)
 
@@ -10,6 +11,7 @@ const defaults = {
     textStyle: {},
     background: '',
     needAnimation: true,
+    duration: MIN_DURATION,
 }
 
 class Loading {
@@ -45,8 +47,9 @@ class Loading {
                 loading: !!binding.value,
             }
         }
+        const _options = Object.assign({}, binding.value, { target: el })
 
-        binding.value.loading ? this.open(Object.assign({}, binding.value, { target: el })) : this.close()
+        binding.value.loading ? this.open(_options) : this.close(_options)
     }
 
     unbind () {
@@ -87,7 +90,8 @@ class Loading {
         return instance
     }
 
-    close () {
+    close (options) {
+        const { duration = MIN_DURATION } = options || {}
         clearTimeout(this._timer)
 
         const done = () => {
@@ -98,10 +102,10 @@ class Loading {
         }
         // 添加最小持续时间 500ms
         const diff = this._openTime === 0 ? 0 : Date.now() - this._openTime
-        if (diff > 500) {
+        if (diff > duration) {
             done()
         } else {
-            this._timer = setTimeout(done, 500 - diff)
+            this._timer = setTimeout(done, duration - diff)
         }
     }
 }
