@@ -6,6 +6,7 @@
 
     <div v-loading="{ loading, text, background: backgroundStr }" style="position: relative; height: 3rem;">
         <h1>hello world</h1>
+        <h1>hello world</h1>
     </div>
 </div>
 </template>
@@ -16,7 +17,7 @@ import Loading from '../index'
 export default {
     data () {
         return {
-            loading: false,
+            loading: true,
             text: '',
             background: false,
         }

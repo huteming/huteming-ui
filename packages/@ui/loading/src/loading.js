@@ -1,5 +1,6 @@
 import Vue from 'vue'
 import CompLoading from './loading.vue'
+import { getStyle } from 'web-util/element/src/main'
 
 const ConstructorLoading = Vue.extend(CompLoading)
 
@@ -30,7 +31,8 @@ class Loading {
         }
 
         if (binding.value.loading) {
-            this.open(Object.assign({}, binding.value, { target: el }))
+            // 首次绑定指令时，如果就是loading状态，则不需要动画
+            this.open(Object.assign({}, binding.value, { target: el, needAnimation: false }))
         }
     }
 
@@ -59,10 +61,22 @@ class Loading {
 
         const parent = _options.target
 
+        // 如果不需要动画，需要先隐藏目标dom，否则可能出现“闪频”
+        // 在显示 loading 之后，还原
+        const originVisibility = getStyle(_options.target, 'visibility')
+        if (_options.needAnimation === false) {
+            _options.target.style.visibility = 'hidden'
+        }
+
         parent.appendChild(instance.$mount().$el)
 
         Vue.nextTick(() => {
-            instance.show()
+            instance.show({
+                callbackAfterEnter () {
+                    _options.target.style.visibility = originVisibility
+                    instance.needAnimation = true
+                },
+            })
         })
 
         this._instance = instance

@@ -1,8 +1,9 @@
 <template>
 <transition
     name="loading-fade"
+    @after-enter="handleAfterEnter"
     @after-leave="handleAfterLeave">
-    <div class="tm-loading" :style="styles" v-show="visible" @click.stop @touchmove.prevent.stop>
+    <div class="tm-loading" :class="{ 'tm-loading-transition': needAnimation }" :style="styles" v-show="visible" @click.stop @touchmove.prevent.stop>
         <div class="tm-loading-icon"></div>
         <div class="tm-loading-text" :style="textStyle" v-if="text">{{ text }}</div>
     </div>
@@ -19,12 +20,18 @@ export default {
         text: String,
         textStyle: Object,
         background: String,
+        needAnimation: {
+            type: Boolean,
+            default: true,
+        },
     },
 
     data () {
         return {
             zIndex: 9999,
             visible: false,
+
+            callbackAfterEnter: null,
         }
     },
 
@@ -38,15 +45,29 @@ export default {
     },
 
     methods: {
+        handleAfterEnter () {
+            if (typeof this.callbackAfterEnter === 'function') {
+                this.callbackAfterEnter()
+            }
+        },
         handleAfterLeave () {
             this.destroyElement()
         },
-        show () {
+        show (options = {}) {
+            this.setData(options)
             this.zIndex = zindexManager.zIndex
             this.visible = true
         },
-        hide () {
+        hide (options = {}) {
+            this.setData(options)
             this.visible = false
+        },
+        setData (data) {
+            for (let key in this.$data) {
+                if (data.hasOwnProperty(key)) {
+                    this[key] = data[key]
+                }
+            }
         },
         destroyElement () {
             this.$destroy(true)
@@ -70,7 +91,6 @@ export default {
     justify-content: center;
     flex-direction: column;
     background-color: rgba(255, 255, 255, 1);
-    transition: opacity .3s cubic-bezier(0.4, 0.0, 0.2, 1);
 
     &-icon {
         @extend .tm-icon-loading;
@@ -78,6 +98,10 @@ export default {
 
     &-text {
         margin-top: 3px;
+    }
+
+    &-transition {
+        transition: opacity .3s cubic-bezier(0.4, 0.0, 0.2, 1);
     }
 }
 
