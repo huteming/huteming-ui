@@ -1,9 +1,11 @@
 <template>
 <transition
     name="loading-fade"
+    :enter-active-class="enterActiveClass"
+    :leave-active-class="leaveActiveClass"
     @after-enter="handleAfterEnter"
     @after-leave="handleAfterLeave">
-    <div class="tm-loading" :class="{ 'tm-loading-transition': needAnimation }" :style="styles" v-show="visible" @click.stop @touchmove.prevent.stop>
+    <div class="tm-loading" :style="styles" v-show="visible" @click.stop @touchmove.prevent.stop>
         <div class="tm-loading-content">
             <div class="tm-loading-icon"></div>
             <div class="tm-loading-text" :style="textStyle" v-if="text">{{ text }}</div>
@@ -27,7 +29,8 @@ export default {
             text: '',
             textStyle: {},
             background: '',
-            needAnimation: true,
+            openAnimation: true,
+            closeAnimation: true,
         }
     },
 
@@ -37,6 +40,12 @@ export default {
                 'z-index': this.zIndex,
                 'background': this.background,
             }
+        },
+        enterActiveClass () {
+            return this.openAnimation ? 'tm-loading-transition' : ''
+        },
+        leaveActiveClass () {
+            return this.closeAnimation ? 'tm-loading-transition' : ''
         },
     },
 

@@ -4,7 +4,7 @@
     <button @click="background = !background">toggle background: {{ background }}</button>
     <input type="text" placeholder="text" v-model="text">
 
-    <div v-loading="{ loading, text, background: backgroundStr, duration }" style="position: relative;">
+    <div v-loading="{ loading, text, background: backgroundStr, duration, openAnimation: true, closeAnimation: true }" style="position: relative;">
         <h1 v-for="item in count" :key="item">hello world</h1>
     </div>
 </div>

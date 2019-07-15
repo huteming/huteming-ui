@@ -8,7 +8,8 @@ const defaults = {
     text: '',
     textStyle: {},
     background: '',
-    needAnimation: true,
+    openAnimation: true,
+    closeAnimation: true,
     duration: 700,
 }
 
@@ -27,7 +28,7 @@ async function open (parent, options) {
     // 如果不需要动画，需要先隐藏目标dom，否则可能出现“闪频”
     // 在显示 loading 之后，还原
     const originVisibility = getStyle(parent, 'visibility')
-    if (options.needAnimation === false) {
+    if (options.openAnimation === false) {
         parent.style.visibility = 'hidden'
     }
 
@@ -42,7 +43,6 @@ async function open (parent, options) {
 
         // 插入文档后，记录当前时间
         instance.openTime = Date.now()
-        instance.needAnimation = true
         instance.$emit('ready')
     })
 
@@ -93,7 +93,7 @@ export default {
         const _options = getOptions(binding.value)
 
         // 首次绑定指令时，如果就是loading状态，则不需要动画
-        _options.loading && open(el, Object.assign(_options, { needAnimation: false }))
+        _options.loading && open(el, Object.assign(_options, { openAnimation: false }))
     },
 
     update (el, binding) {
