@@ -10,7 +10,7 @@ const defaults = {
     background: '',
     openAnimation: true,
     closeAnimation: true,
-    duration: 700,
+    duration: 500,
 }
 
 function getOptions (value) {
