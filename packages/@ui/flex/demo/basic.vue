@@ -1,269 +1,114 @@
 <template>
-<div class="page-example">
-    <h3 class="text-center">basic</h3>
-
-    <tm-flex class="mb-20" gutter="8px">
-        <tm-flex-item :grow="1">
-            <div class="placeholder">Block</div>
-        </tm-flex-item>
-        <tm-flex-item :grow="1">
-            <div class="placeholder">Block</div>
-        </tm-flex-item>
-    </tm-flex>
+<div class="demo">
+    <tm-divider>basic</tm-divider>
 
     <tm-flex class="mb-20">
-        <tm-flex-item :grow="1" gutter="8px">
-            <div class="placeholder">Block</div>
+        <tm-flex-item :grow="1">
+            <div class="placeholder">无间距</div>
         </tm-flex-item>
-        <tm-flex-item :grow="1" gutter="8px">
-            <div class="placeholder">Block</div>
+        <tm-flex-item :grow="1">
+            <div class="placeholder">无间距</div>
         </tm-flex-item>
     </tm-flex>
 
-    <tm-flex class="mb-20" gutter="8px">
+    <tm-flex class="mb-20" gutter="0 8px">
         <tm-flex-item :grow="1">
-            <div class="placeholder">Block</div>
-        </tm-flex-item>
-        <tm-flex-item :grow="1" gutter="15px">
-            <div class="placeholder">Block</div>
+            <div class="placeholder">8px间距</div>
         </tm-flex-item>
         <tm-flex-item :grow="1">
-            <div class="placeholder">Block</div>
+            <div class="placeholder">8px间距</div>
         </tm-flex-item>
     </tm-flex>
 
-    <tm-flex>
+    <tm-flex gutter="0 8px">
         <tm-flex-item :grow="1">
-            <div class="placeholder">Block</div>
+            <div class="placeholder">8px</div>
+        </tm-flex-item>
+        <tm-flex-item :grow="1" gutter="0 15px">
+            <div class="placeholder">自定义15px间距</div>
         </tm-flex-item>
         <tm-flex-item :grow="1">
-            <div class="placeholder">Block</div>
-        </tm-flex-item>
-        <tm-flex-item :grow="1">
-            <div class="placeholder">Block</div>
-        </tm-flex-item>
-        <tm-flex-item :grow="1">
-            <div class="placeholder">Block</div>
+            <div class="placeholder">8px</div>
         </tm-flex-item>
     </tm-flex>
 
-    <h3 class="text-center">wrap</h3>
+    <tm-divider>换行</tm-divider>
 
-    <tm-flex wrap="wrap" gutter="15px">
-        <tm-flex-item :grow="1">
-            <div class="placeholder inline">Block</div>
-        </tm-flex-item>
-
-        <tm-flex-item :grow="1">
-            <div class="placeholder inline">Block</div>
-        </tm-flex-item>
-
-        <tm-flex-item :grow="1">
-            <div class="placeholder inline">Block</div>
-        </tm-flex-item>
-
-        <tm-flex-item :grow="1">
-            <div class="placeholder inline">Block</div>
-        </tm-flex-item>
-
-        <tm-flex-item :grow="1">
-            <div class="placeholder inline">Block</div>
-        </tm-flex-item>
-
-        <tm-flex-item :grow="1">
-            <div class="placeholder inline">Block</div>
-        </tm-flex-item>
-
-        <tm-flex-item :grow="1">
-            <div class="placeholder inline">Block</div>
-        </tm-flex-item>
-    </tm-flex>
-
-    <h3 class="text-center">align</h3>
-
-    <tm-flex class="mb-20" align="start">
-        <tm-flex-item :grow="1">
-            <div class="placeholder small">Block</div>
-        </tm-flex-item>
-        <tm-flex-item :grow="1">
-            <div class="placeholder">Block</div>
-        </tm-flex-item>
-        <tm-flex-item :grow="1">
-            <div class="placeholder large">Block</div>
-        </tm-flex-item>
-    </tm-flex>
-
-    <tm-flex class="mb-20" align="center">
-        <tm-flex-item :grow="1">
-            <div class="placeholder small">Block</div>
-        </tm-flex-item>
-        <tm-flex-item :grow="1">
-            <div class="placeholder">Block</div>
-        </tm-flex-item>
-        <tm-flex-item :grow="1">
-            <div class="placeholder large">Block</div>
-        </tm-flex-item>
-    </tm-flex>
-
-    <tm-flex class="mb-20" align="end">
-        <tm-flex-item :grow="1">
-            <div class="placeholder small">Block</div>
-        </tm-flex-item>
-        <tm-flex-item :grow="1">
-            <div class="placeholder">Block</div>
-        </tm-flex-item>
-        <tm-flex-item :grow="1">
-            <div class="placeholder large">Block</div>
-        </tm-flex-item>
-    </tm-flex>
-
-    <tm-flex class="mb-20" align="baseline">
-        <tm-flex-item :grow="1">
-            <div class="placeholder small">Block</div>
-        </tm-flex-item>
-        <tm-flex-item :grow="1">
-            <div class="placeholder">Block</div>
-        </tm-flex-item>
-        <tm-flex-item :grow="1">
-            <div class="placeholder large">Block</div>
-        </tm-flex-item>
-    </tm-flex>
-
-    <tm-flex class="mb-20" align="stretch">
-        <tm-flex-item :grow="1">
-            <div class="placeholder small">Block</div>
-        </tm-flex-item>
-        <tm-flex-item :grow="1">
-            <div class="placeholder">Block</div>
-        </tm-flex-item>
-        <tm-flex-item :grow="1">
-            <div class="placeholder large">Block</div>
-        </tm-flex-item>
-    </tm-flex>
-
-    <h3 class="text-center">justify</h3>
-
-    <tm-flex class="mb-20" justify="start" gutter="8px">
+    <tm-flex wrap="wrap" gutter="0 15px">
         <tm-flex-item>
             <div class="placeholder inline">Block</div>
         </tm-flex-item>
+
         <tm-flex-item>
             <div class="placeholder inline">Block</div>
         </tm-flex-item>
+
+        <tm-flex-item>
+            <div class="placeholder inline">Block</div>
+        </tm-flex-item>
+
         <tm-flex-item>
             <div class="placeholder inline">Block</div>
         </tm-flex-item>
     </tm-flex>
 
-    <tm-flex class="mb-20" justify="center" gutter="8px">
-        <tm-flex-item>
-            <div class="placeholder inline">Block</div>
+    <tm-divider>交叉轴对齐</tm-divider>
+
+    <tm-flex class="mb-20">
+        <tm-flex-item :grow="1">
+            <div class="placeholder small"></div>
         </tm-flex-item>
-        <tm-flex-item>
-            <div class="placeholder inline">Block</div>
+        <tm-flex-item :grow="1">
+            <div class="placeholder"></div>
         </tm-flex-item>
-        <tm-flex-item>
-            <div class="placeholder inline">Block</div>
+        <tm-flex-item :grow="1">
+            <div class="placeholder large">默认 stetch</div>
         </tm-flex-item>
     </tm-flex>
 
-    <tm-flex class="mb-20" justify="end" gutter="8px">
-        <tm-flex-item>
-            <div class="placeholder inline">Block</div>
+    <tm-flex align="center">
+        <tm-flex-item :grow="1">
+            <div class="placeholder small"></div>
         </tm-flex-item>
-        <tm-flex-item>
-            <div class="placeholder inline">Block</div>
+        <tm-flex-item :grow="1">
+            <div class="placeholder"></div>
         </tm-flex-item>
-        <tm-flex-item>
-            <div class="placeholder inline">Block</div>
-        </tm-flex-item>
-    </tm-flex>
-
-    <tm-flex class="mb-20" justify="between" gutter="8px">
-        <tm-flex-item>
-            <div class="placeholder inline">Block</div>
-        </tm-flex-item>
-        <tm-flex-item>
-            <div class="placeholder inline">Block</div>
-        </tm-flex-item>
-        <tm-flex-item>
-            <div class="placeholder inline">Block</div>
+        <tm-flex-item :grow="1">
+            <div class="placeholder large">center</div>
         </tm-flex-item>
     </tm-flex>
 
-    <tm-flex class="mb-20" justify="around" gutter="8px">
+    <tm-divider>主轴对齐</tm-divider>
+
+    <tm-flex class="mb-20" gutter="0 8px">
         <tm-flex-item>
-            <div class="placeholder inline">Block</div>
+            <div class="placeholder inline">默认 start</div>
         </tm-flex-item>
         <tm-flex-item>
-            <div class="placeholder inline">Block</div>
+            <div class="placeholder inline"></div>
         </tm-flex-item>
         <tm-flex-item>
-            <div class="placeholder inline">Block</div>
+            <div class="placeholder inline"></div>
         </tm-flex-item>
     </tm-flex>
 
-    <h3 class="text-center">align content</h3>
-
-    <tm-flex class="container" wrap align-content="start" gutter="8px">
+    <tm-flex justify="center" gutter="0 8px">
         <tm-flex-item>
-            <div class="placeholder inline">Block</div>
+            <div class="placeholder inline">center</div>
         </tm-flex-item>
         <tm-flex-item>
-            <div class="placeholder inline">Block</div>
+            <div class="placeholder inline"></div>
         </tm-flex-item>
         <tm-flex-item>
-            <div class="placeholder inline">Block</div>
-        </tm-flex-item>
-        <tm-flex-item>
-            <div class="placeholder inline">Block</div>
-        </tm-flex-item>
-        <tm-flex-item>
-            <div class="placeholder inline">Block</div>
-        </tm-flex-item>
-    </tm-flex>
-
-    <tm-flex class="container" wrap align-content="center" gutter="8px">
-        <tm-flex-item>
-            <div class="placeholder inline">Block</div>
-        </tm-flex-item>
-        <tm-flex-item>
-            <div class="placeholder inline">Block</div>
-        </tm-flex-item>
-        <tm-flex-item>
-            <div class="placeholder inline">Block</div>
-        </tm-flex-item>
-        <tm-flex-item>
-            <div class="placeholder inline">Block</div>
-        </tm-flex-item>
-        <tm-flex-item>
-            <div class="placeholder inline">Block</div>
-        </tm-flex-item>
-    </tm-flex>
-
-    <tm-flex class="container" wrap align-content="end" gutter="8px">
-        <tm-flex-item>
-            <div class="placeholder inline">Block</div>
-        </tm-flex-item>
-        <tm-flex-item>
-            <div class="placeholder inline">Block</div>
-        </tm-flex-item>
-        <tm-flex-item>
-            <div class="placeholder inline">Block</div>
-        </tm-flex-item>
-        <tm-flex-item>
-            <div class="placeholder inline">Block</div>
-        </tm-flex-item>
-        <tm-flex-item>
-            <div class="placeholder inline">Block</div>
+            <div class="placeholder inline"></div>
         </tm-flex-item>
     </tm-flex>
 </div>
 </template>
 
 <script>
-import TmFlex from 'web-ui/flex/index.js'
-import TmFlexItem from 'web-ui/flex-item/index.js'
+import TmFlex from '../src/flex'
+import TmFlexItem from '../src/flex-item'
 
 export default {
     methods: {
@@ -272,7 +117,7 @@ export default {
     components: {
         TmFlex,
         TmFlexItem,
-    }
+    },
 }
 </script>
 

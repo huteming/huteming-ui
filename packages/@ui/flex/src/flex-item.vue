@@ -11,30 +11,29 @@ export default {
     props: {
         order: {
             type: Number,
-            default: 0
+            default: 0,
         },
         grow: {
             type: Number,
-            default: 0
+            default: 0,
         },
         shrink: {
             type: Number,
-            default: 1
+            default: 0,
         },
         basis: {
             type: String,
-            default: 'auto'
+            default: 'auto',
         },
         align: {
             type: String,
             default: 'auto',
             validator (val) {
                 return ['auto', 'start', 'center', 'end', 'baseline', 'stretch'].indexOf(val) > -1
-            }
+            },
         },
         gutter: {
             type: String,
-            default: '0',
         },
     },
 
@@ -52,7 +51,7 @@ export default {
             return {
                 [`is-self-${this.align}`]: true
             }
-        }
+        },
     }
 }
 </script>

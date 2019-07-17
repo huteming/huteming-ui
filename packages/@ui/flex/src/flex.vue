@@ -1,7 +1,7 @@
 <template>
-<section class="tm-flexbox" :class="classes" :style="styles">
+<div class="tm-flexbox" :class="classes">
     <slot></slot>
-</section>
+</div>
 </template>
 
 <script>
@@ -14,35 +14,35 @@ export default {
             default: 'row',
             validator (val) {
                 return ['row', 'row-reverse', 'column', 'column-reverse'].indexOf(val) > -1
-            }
+            },
         },
         wrap: {
             type: [Boolean, String],
             default: 'nowrap',
             validator (val) {
                 return ['nowrap', 'wrap', 'wrap-reverse', true].indexOf(val) > -1
-            }
+            },
         },
         justify: {
             type: String,
             default: 'start',
             validator (val) {
                 return ['start', 'center', 'end', 'between', 'around'].indexOf(val) > -1
-            }
+            },
         },
         align: {
             type: String,
-            default: 'center',
+            default: 'stretch',
             validator (val) {
                 return ['start', 'center', 'end', 'baseline', 'stretch'].indexOf(val) > -1
-            }
+            },
         },
         alignContent: {
             type: String,
             default: 'stretch',
             validator (val) {
                 return ['start', 'end', 'center', 'between', 'around', 'stretch'].indexOf(val) > -1
-            }
+            },
         },
         gutter: {
             type: String,
@@ -62,10 +62,6 @@ export default {
                 [`is-content-${this.alignContent}`]: true
             }
         },
-        styles () {
-            return {
-            }
-        }
     }
 }
 </script>
