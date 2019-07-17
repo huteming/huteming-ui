@@ -1,8 +1,9 @@
 import assert from 'assert'
 import Loading, { __RewireAPI__ as RewireAPI } from 'web-ui/loading/src/loading.js'
-import { mount, createLocalVue } from '@vue/test-utils'
+import { mount, createLocalVue, createWrapper } from '@vue/test-utils'
 import sinon from 'sinon'
 import { Mock, sleep } from '../helper'
+import flushPromises from 'flush-promises'
 const scope = '@@Loading'
 const localVue = createLocalVue()
 localVue.directive(Loading.name, Loading)
@@ -14,7 +15,7 @@ describe('loading', () => {
 
     beforeAll(() => {
         RewireAPI.__Rewire__('getStyle', () => {
-            return 'visible'
+            return 'custom'
         })
     })
 
@@ -40,16 +41,15 @@ describe('loading', () => {
             `,
         }, {
             localVue,
-            stubs: {
-                transition: false,
-            },
         })
-        // 证明设置了遮层
+        await sleep(50)
+        const wrapperLoading = createWrapper(wrapper.element[scope].instance)
+        assert.strictEqual(wrapperLoading.vm.enterActiveClass, '')
+        assert.ok(wrapperLoading.isVisible())
+
+        assert.strictEqual(mockSet.callCount, 2)
         assert.deepStrictEqual(mockSet.getCall(0).args, ['hidden'])
-        await sleep()
-        // 证明无动画
-        const wrapperLoading = wrapper.find('.tm-loading')
-        assert.ok(!wrapperLoading.classes('tm-loading-transition'))
+        assert.deepStrictEqual(mockSet.getCall(1).args, ['custom'])
     })
 
     it('update', async () => {
@@ -77,7 +77,7 @@ describe('loading', () => {
         assert.ok(wrapperLoading.classes('tm-loading-transition'))
     })
 
-    it('重复打开只会打开一次', async () => {
+    it('子组件更新 && loading为true', async () => {
         const wrapper = mount({
             template: `
                 <div v-loading="loading">{{ text }}</div>
@@ -95,17 +95,13 @@ describe('loading', () => {
             },
         })
         await sleep()
-        const mockOpen = sinon.fake()
-        RewireAPI.__Rewire__('open', mockOpen)
-
         wrapper.setData({ text: 'new text' })
-
-        assert.strictEqual(mockOpen.callCount, 0)
-
-        RewireAPI.__ResetDependency__('open')
+        await sleep()
+        const wrapperLoading = wrapper.findAll('.tm-loading')
+        assert.strictEqual(wrapperLoading.length, 1)
     })
 
-    it('重复关闭只会关闭一次', async () => {
+    it('子组件更新 && loading为false', async () => {
         const wrapper = mount({
             template: `
                 <div v-loading="loading">{{ text }}</div>
@@ -123,36 +119,8 @@ describe('loading', () => {
             },
         })
         await sleep()
-        const mockClose = sinon.fake()
-        RewireAPI.__Rewire__('close', mockClose)
-
         wrapper.setData({ text: 'new text' })
-
-        assert.strictEqual(mockClose.callCount, 0)
-
-        RewireAPI.__ResetDependency__('close')
-    })
-
-    it('超过最小持续时间', async () => {
-        const wrapper = mount({
-            template: `
-                <div v-loading="{ loading, duration, openAnimation: false, closeAnimation: false }">{{ text }}</div>
-            `,
-            data () {
-                return {
-                    loading: true,
-                    duration: 20,
-                    text: 'text',
-                }
-            },
-        }, {
-            localVue,
-            stubs: {
-            },
-        })
-        await sleep(40 + 25)
-        wrapper.setData({ loading: false })
-        await sleep(40)
+        await sleep()
         const wrapperLoading = wrapper.find('.tm-loading')
         assert.ok(!wrapperLoading.exists())
     })
@@ -160,7 +128,40 @@ describe('loading', () => {
     it('监听打开事件延迟关闭', async () => {
         const wrapper = mount({
             template: `
-                <div v-loading="{ loading, duration, closeAnimation: false }">{{ text }}</div>
+                <div v-loading="{ loading, duration, openAnimation: false, closeAnimation: false }">{{ text }}</div>
+            `,
+            data () {
+                return {
+                    loading: true,
+                    duration: 0,
+                    text: 'text',
+                }
+            },
+        }, {
+            localVue,
+            stubs: {
+            },
+        })
+        await sleep()
+        const wrapperLoading = createWrapper(wrapper.element[scope].instance)
+        const mockAfterEnter = sinon.fake()
+        // 模拟方法，防止动画结束自动执行关闭
+        sinon.replace(wrapperLoading.vm, 'handleAfterEnter', mockAfterEnter)
+        // 模拟数据，表示dom为插入文档
+        wrapperLoading.vm.openTime = 0
+
+        wrapper.setData({ loading: false })
+        await sleep(40)
+        assert.ok(wrapperLoading.exists())
+        wrapperLoading.vm.$emit('ready')
+        await sleep(40)
+        assert.ok(!wrapperLoading.exists())
+    })
+
+    it('超过最小持续时间', async () => {
+        const wrapper = mount({
+            template: `
+                <div v-loading="{ loading, duration }">{{ text }}</div>
             `,
             data () {
                 return {
@@ -171,20 +172,18 @@ describe('loading', () => {
             },
         }, {
             localVue,
-            stubs: {
-            },
         })
-        await sleep()
+        await sleep(50 + 25)
         wrapper.setData({ loading: false })
-        await sleep()
+        await sleep(50)
         const wrapperLoading = wrapper.find('.tm-loading')
-        assert.ok(wrapperLoading.exists())
+        assert.ok(!wrapperLoading.exists())
     })
 
     it('等待最小持续时间', async () => {
         const wrapper = mount({
             template: `
-                <div v-loading="{ loading, duration, closeAnimation: false }">{{ text }}</div>
+                <div v-loading="{ loading, duration }">{{ text }}</div>
             `,
             data () {
                 return {
@@ -195,10 +194,8 @@ describe('loading', () => {
             },
         }, {
             localVue,
-            stubs: {
-            },
         })
-        await sleep(40)
+        await sleep(50)
         wrapper.setData({ loading: false })
         await sleep()
         const wrapperLoading = wrapper.find('.tm-loading')
@@ -230,8 +227,45 @@ describe('loading', () => {
         RewireAPI.__ResetDependency__('close')
     })
 
+    it('open', async () => {
+        const mockOpen = sinon.fake()
+        const mockEl = 'el'
+        RewireAPI.__Rewire__('open', mockOpen)
+        Loading.open(mockEl, true)
+        assert.ok(mockOpen.calledWithExactly(mockEl, {
+            text: '',
+            textStyle: {},
+            background: '',
+            openAnimation: true,
+            closeAnimation: true,
+            duration: 500,
+            loading: true,
+        }))
+
+        RewireAPI.__ResetDependency__('open')
+    })
+
+    it('close', () => {
+        const mockClose = sinon.fake()
+        const mockEL = 'el'
+        RewireAPI.__Rewire__('close', mockClose)
+        Loading.close(mockEL, false)
+        assert.ok(mockClose.calledWithExactly(mockEL, {
+            text: '',
+            textStyle: {},
+            background: '',
+            openAnimation: true,
+            closeAnimation: true,
+            duration: 500,
+            loading: false,
+        }))
+
+        RewireAPI.__ResetDependency__('close')
+    })
+
     afterEach(() => {
         mock.restore()
+        sinon.restore()
     })
 
     afterAll(() => {

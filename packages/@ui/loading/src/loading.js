@@ -23,7 +23,7 @@ function getOptions (value) {
 }
 
 async function open (parent, options) {
-    // if (parent[scope].instance) return false
+    if (parent[scope].instance) return false
 
     // 如果不需要动画，需要先隐藏目标dom，否则可能出现“闪频”
     // 在显示 loading 之后，还原
@@ -39,7 +39,9 @@ async function open (parent, options) {
     })
 
     instance.$on('after-enter', () => {
-        parent.style.visibility = originVisibility
+        if (options.openAnimation === false) {
+            parent.style.visibility = originVisibility
+        }
 
         // 插入文档后，记录当前时间
         instance.openTime = Date.now()
@@ -56,7 +58,7 @@ async function open (parent, options) {
 }
 
 function close (parent, { duration }) {
-    // if (!parent[scope].instance) return false
+    if (!parent[scope].instance) return false
 
     const { instance } = parent[scope]
     const { openTime } = instance
@@ -97,19 +99,20 @@ export default {
     update (el, binding) {
         const _options = getOptions(binding.value)
 
-        // 创建过实例，关闭
-        if (el[scope].instance && _options.loading === false) {
-            close(el, _options)
-            return
-        }
-
-        // 之前创建的实例已销毁，需要重新创建
-        if (!el[scope].instance && _options.loading === true) {
-            open(el, _options)
-        }
+        _options.loading ? open(el, _options) : close(el, _options)
     },
 
     unbind (el) {
         close(el, { duration: 0 })
+    },
+
+    open (target, options) {
+        const _options = getOptions(options)
+        open(target, _options)
+    },
+
+    close (target, options) {
+        const _options = getOptions(options)
+        close(target, _options)
     },
 }
