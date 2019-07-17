@@ -23,7 +23,7 @@ function getOptions (value) {
 }
 
 async function open (parent, options) {
-    if (parent[scope].instance) return
+    // if (parent[scope].instance) return false
 
     // 如果不需要动画，需要先隐藏目标dom，否则可能出现“闪频”
     // 在显示 loading 之后，还原
@@ -56,29 +56,27 @@ async function open (parent, options) {
 }
 
 function close (parent, { duration }) {
-    if (!parent[scope].instance) {
-        return false
-    }
+    // if (!parent[scope].instance) return false
+
     const { instance } = parent[scope]
     const { openTime } = instance
     parent[scope].instance = null
 
     const done = () => {
-        instance.hide()
+        // 添加最小持续时间
+        const diff = Date.now() - openTime
+        if (diff > duration) {
+            instance.hide()
+        } else {
+            setTimeout(instance.hide, duration - diff)
+        }
     }
 
     // openTime 为 0，表示 dom 未插入文档中，监听事件关闭
     if (openTime === 0) {
         instance.$on('ready', done)
-        return
-    }
-
-    // 添加最小持续时间
-    const diff = Date.now() - openTime
-    if (diff > duration) {
-        done()
     } else {
-        setTimeout(done, duration - diff)
+        done()
     }
 }
 
@@ -99,9 +97,9 @@ export default {
     update (el, binding) {
         const _options = getOptions(binding.value)
 
-        // 创建过实例，现在只是更新状态
-        if (el[scope].instance && el[scope].instance.loading !== _options.loading) {
-            _options.loading ? open(el, _options) : close(el, _options)
+        // 创建过实例，关闭
+        if (el[scope].instance && _options.loading === false) {
+            close(el, _options)
             return
         }
 
