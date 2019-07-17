@@ -10,13 +10,21 @@ import { Loading } from '@huteming/ui'
 Vue.use(Toast)
 ```
 
-## 例子
+## 指令方式
 
 ```html
 <div v-loading="loading"></div>
 ```
 
+## 服务方式
+
+```javascript
+Loading.open(element, options)
+Loading.close(element, options)
+```
+
 ## API
+
 | 参数 | 说明 | 类型 | 可选值 | 默认值 |
 |------|-------|---------|-------|--------|
 | loading | 是否加载中 | Boolean | | |
