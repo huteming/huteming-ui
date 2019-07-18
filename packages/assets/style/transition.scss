@@ -1,0 +1,27 @@
+/**
+ * name: slide-up
+ * 描述: 从底部滑入，从底部滑出
+ */
+.slide-up-enter,
+.slide-up-leave-to {
+    transform: translateY(100%);
+}
+
+.slide-up-enter-active,
+.slide-up-leave-active {
+    transition: transform .3s cubic-bezier(.55, 0, .1, 1);
+}
+
+/**
+ * name: fade
+ * 描述: 淡入淡出
+ */
+.fade-enter,
+.fade-leave-to {
+    opacity: 0;
+}
+
+.fade-enter-active,
+.fade-leave-active {
+    transition: opacity .3s cubic-bezier(0.4, 0.0, 0.2, 1);
+}

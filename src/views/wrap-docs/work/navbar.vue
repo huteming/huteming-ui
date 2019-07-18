@@ -5,19 +5,6 @@
             <router-link class="nav-spacing-1" :to="{ path: '/docs/quickstart' }">Quickstart</router-link>
         </li>
 
-        <!-- util -->
-        <li class="nav-item-container">
-            <div class="nav-item nav-item-title nav-spacing-1">Util</div>
-
-            <ul class="nav">
-                <li class="nav-item" v-for="item in util" :key="item.path">
-                    <router-link class="nav-spacing-2" :to="`/docs/${item.path}`">
-                        <span class="name">{{ item.title }}</span>
-                    </router-link>
-                </li>
-            </ul>
-        </li>
-
         <!-- components -->
         <li class="nav-item-container">
             <div class="nav-item nav-item-title nav-spacing-1">Components</div>
@@ -33,6 +20,19 @@
                             </router-link>
                         </li>
                     </ul>
+                </li>
+            </ul>
+        </li>
+
+        <!-- util -->
+        <li class="nav-item-container">
+            <div class="nav-item nav-item-title nav-spacing-1">Util</div>
+
+            <ul class="nav">
+                <li class="nav-item" v-for="item in util" :key="item.path">
+                    <router-link class="nav-spacing-2" :to="`/docs/${item.path}`">
+                        <span class="name">{{ item.title }}</span>
+                    </router-link>
                 </li>
             </ul>
         </li>

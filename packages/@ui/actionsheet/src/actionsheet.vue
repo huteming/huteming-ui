@@ -1,5 +1,5 @@
 <template>
-<transition name="slide-bottom-out" @after-leave="handleAfterLeave">
+<transition name="slide-up" @after-leave="handleAfterLeave">
     <div class="tm-actions" :style="styles" v-show="visible">
         <div class="tm-actions-title" v-if="title">{{ title }}</div>
 
@@ -102,5 +102,41 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@import './style/index.scss';
+@import 'web/assets/style/transition.scss';
+
+.tm-actions {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index: 2;
+    background-color: #fff;
+
+    &-title {
+        padding: .3rem;
+        font-size: 14px;
+        line-height: 21px;
+        color: #888;
+        text-align: center;
+        border-bottom: 1px solid #ddd;
+    }
+
+    &-menus {
+        padding: .32rem;
+        font-size: 18px;
+        line-height: 1;
+        color: #000;
+        text-align: center;
+        cursor: pointer;
+
+        & + & {
+            border-top: 1px solid #ddd;
+        }
+    }
+
+    &-spacing {
+        height: .12rem;
+        background-color: #F2F2F2;
+    }
+}
 </style>
