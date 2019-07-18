@@ -1,6 +1,6 @@
 <template>
 <transition
-    name="modal-fade"
+    name="fade"
     @before-enter="handleBeforeEnter"
     @after-enter="handleAfterEnter"
     @before-leave="handleBeforeLeave"
@@ -93,23 +93,14 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+@import 'web/assets/style/transition.scss';
+
 .tm-modal {
     position: fixed;
     top: 0;
     bottom: 0;
     left: 0;
     right: 0;
-    background-color: rgba(0, 0, 0, 0.7);
+    background-color: rgba(0, 0, 0, .5);
 }
-
-.modal-fade-enter,
-.modal-fade-leave-to {
-    opacity: 0;
-}
-
-.modal-fade-enter-active,
-.modal-fade-leave-active {
-    transition: opacity .3s cubic-bezier(0.4, 0.0, 0.2, 1);
-}
-
 </style>

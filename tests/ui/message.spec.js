@@ -94,12 +94,11 @@ describe('message', async () => {
                 wrapperContainer = wrapper.find('.tm-message')
                 const wrapperTitle = wrapper.find('.tm-message-title')
                 const wrapperSubtitle = wrapper.find('.tm-message-subtitle')
-                const wrapperModal = wrapper.find('.tm-modal')
                 assert.ok(wrapperContainer.isVisible())
                 assert.strictEqual(wrapperTitle.text(), title)
                 assert.strictEqual(wrapperSubtitle.text(), message)
 
-                wrapperModal.trigger('click')
+                wrapperContainer.trigger('click')
             })
     })
 
@@ -110,13 +109,12 @@ describe('message', async () => {
         wrapperMessage = wrapper.find('.tm-message')
         const wrapperConfirm = wrapper.find('.tm-message-footer-btn__confirm')
         const wrapperCancel = wrapper.find('.tm-message-footer-btn__cancel')
-        const wrapperModal = wrapper.find('.tm-modal')
 
         assert.ok(wrapperMessage.exists())
         assert.ok(wrapperConfirm.exists())
         assert.ok(!wrapperCancel.exists())
 
-        wrapperModal.trigger('click')
+        wrapperMessage.trigger('click')
         await sleep()
 
         wrapperMessage = wrapper.find('.tm-message')

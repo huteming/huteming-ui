@@ -1,26 +1,28 @@
 <template>
-<transition name="bounce" @after-leave="handleAfterLeave">
-    <section class="tm-message" :style="styles" v-show="visible" ref="msgbox" @click.stop @touchmove.stop.prevent>
-        <div class="tm-message-container">
-            <div class="tm-message-title" v-if="title">{{ title }}</div>
+<transition name="zoom-in" @after-leave="handleAfterLeave">
+    <div class="tm-message" :style="styles" v-show="visible" ref="msgbox" @click.stop.self="handleClickModal" @touchmove.stop.prevent>
+        <div class="tm-message-wrap">
+            <div class="tm-message-container">
+                <div class="tm-message-title" v-if="title">{{ title }}</div>
 
-            <div class="tm-message-subtitle" v-if="message" v-html="message"></div>
+                <div class="tm-message-subtitle" v-if="message" v-html="message"></div>
 
-            <div class="tm-message-field" v-if="showInput">
-                <input class="tm-message-field__input" :type="inputType" :value="normalizedInputValue" @input="handleInput" :placeholder="inputPlaceholder" autofocus />
+                <div class="tm-message-field" v-if="showInput">
+                    <input class="tm-message-field__input" :type="inputType" :value="normalizedInputValue" @input="handleInput" :placeholder="inputPlaceholder" autofocus />
+                </div>
+            </div>
+
+            <div class="tm-message-footer">
+                <div class="tm-message-footer-btn tm-message-footer-btn__cancel" :class="{ 'text-bold': cancelButtonHighlight }" v-if="showCancelButton" @click="handleClose('cancel')">
+                    <span>{{ cancelButtonText }}</span>
+                </div>
+
+                <div class="tm-message-footer-btn tm-message-footer-btn__confirm" :class="{ 'text-bold': confirmButtonHighlight }" @click="handleClose('confirm')">
+                    <span>{{ confirmButtonText }}</span>
+                </div>
             </div>
         </div>
-
-        <div class="tm-message-footer">
-            <div class="tm-message-footer-btn tm-message-footer-btn__cancel" :class="{ 'text-bold': cancelButtonHighlight }" v-if="showCancelButton" @click="handleClose('cancel')">
-                <span>{{ cancelButtonText }}</span>
-            </div>
-
-            <div class="tm-message-footer-btn tm-message-footer-btn__confirm" :class="{ 'text-bold': confirmButtonHighlight }" @click="handleClose('confirm')">
-                <span>{{ confirmButtonText }}</span>
-            </div>
-        </div>
-    </section>
+    </div>
 </transition>
 </template>
 
@@ -160,14 +162,12 @@ export default {
             }
         },
         show () {
-            this.$_openModal({
-                callbackClick: this.handleClickModal,
-            })
+            this.$_openModal()
+            this.visible = true
 
             // 必须在调用 openModal 之后
             // 为了获取动态 zindex
             this.zIndex = zindexManager.zIndex
-            this.visible = true
         },
         async hide (action) {
             this.res = {
@@ -204,4 +204,5 @@ export default {
 
 <style lang="scss" scoped>
 @import './style/index.scss';
+@import 'web/assets/style/transition.scss';
 </style>
