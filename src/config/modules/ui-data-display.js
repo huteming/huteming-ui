@@ -41,4 +41,10 @@ export default [
         docs: () => import('web-ui/toolbar/README.md'),
         example: () => import('web-ui/toolbar/demo/basic.vue'),
     },
+    {
+        path: 'icon',
+        title: '图标 Icon',
+        docs: () => import('web-ui/icon/README.md'),
+        example: () => import('web-ui/icon/demo/basic.vue'),
+    },
 ]

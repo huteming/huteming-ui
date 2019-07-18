@@ -1,0 +1,11 @@
+{
+  "name": "@huteming/ui-icon",
+  "version": "1.0.0",
+  "description": "> 图标",
+  "main": "dist/icon.common.js",
+  "scripts": {
+    "prepublishOnly": "node ../../../prepublishOnly.js icon"
+  },
+  "author": "",
+  "license": "ISC"
+}
