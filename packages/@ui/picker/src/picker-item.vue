@@ -45,7 +45,7 @@ export default {
 
     data () {
         return {
-            currentValue: this.value,
+            currentValue: '',
 
             startY: 0,
             currentMoveY: 0,
@@ -59,27 +59,12 @@ export default {
         disabled () {
             return !(this.options && this.options.length)
         },
-        validValue: {
-            get () {
-                const index = this.options.findIndex(item => item.value === this.currentValue)
-
-                // 传递的 value 值不存在选项，默认渲染第一个
-                if (index === -1 && this.options.length) {
-                    return this.options[0].value
-                }
-
-                return this.currentValue
-            },
-            set (val) {
-                this.currentValue = val
-            },
-        },
         currentIndex: {
             get () {
-                return this.options.findIndex(item => item.value === this.validValue)
+                return this.options.findIndex(item => item.value === this.currentValue)
             },
             set (val) {
-                this.validValue = this.options[val].value
+                this.currentValue = this.options[val].value
             },
         },
         prevMoveY: {
@@ -139,12 +124,19 @@ export default {
 
     watch: {
         value (val) {
-            this.currentValue = val
+            this.currentValue = this.getValidValue(val)
+        },
+        options () {
+            this.currentValue = this.getValidValue(this.currentValue)
         },
         currentValue (val, oldVal) {
             this.$emit('input', val)
             this.$emit('change', val, oldVal)
         },
+    },
+
+    mounted () {
+        this.currentValue = this.getValidValue(this.value)
     },
 
     methods: {
@@ -196,7 +188,16 @@ export default {
                 return -topDistance
             }
             return move
-        }
+        },
+        getValidValue (value) {
+            const index = this.options.findIndex(item => item.value === value)
+
+            if (index === -1 && !this.disabled) {
+                return this.options[0].value
+            }
+
+            return value
+        },
     },
 
     components: {

@@ -1,27 +1,22 @@
 <template>
 <div class="page">
-    <tm-picker>
-        <tm-picker-item :options="asyncOptions" v-model="asyncValue"></tm-picker-item>
-    </tm-picker>
-
-    <tm-picker>
-        <tm-picker-item :options="yearOptions" v-model="yearCurrent"></tm-picker-item>
-    </tm-picker>
-
-    <div class="desc">出生年份: {{ yearCurrent }}</div>
-
-    <tm-picker>
-        <tm-picker-item :options="yearOptions" v-model="year1"></tm-picker-item>
-        <tm-picker-item :options="yearOptions" v-model="year2"></tm-picker-item>
-    </tm-picker>
-
-    <div class="desc">{{ year1 }} ~ {{ year2 }}</div>
+    <div class="desc">出生年份: {{ year3 }}</div>
 
     <tm-picker>
         <tm-picker-item :options="yearOptions" v-model="year3"></tm-picker-item>
     </tm-picker>
 
-    <div class="desc">动态设置: {{ year3 }}</div>
+    <div class="desc">异步options: {{ year1 }}</div>
+
+    <tm-picker>
+        <tm-picker-item :options="asyncOptions" v-model="year1"></tm-picker-item>
+    </tm-picker>
+
+    <div class="desc">异步value: {{ asyncValue }}</div>
+
+    <tm-picker>
+        <tm-picker-item :options="yearOptions" v-model="asyncValue"></tm-picker-item>
+    </tm-picker>
 </div>
 </template>
 
@@ -33,11 +28,9 @@ export default {
     data () {
         return {
             asyncOptions: [],
-            asyncValue: 2019,
-            yearCurrent: 20196,
             year1: 2019,
-            year2: 2020,
-            year3: 2020
+            asyncValue: '',
+            year3: 20196,
         }
     },
 
@@ -55,13 +48,14 @@ export default {
     },
 
     mounted () {
-        setInterval(() => {
-            const next = this.year3 + 1
-            this.year3 = next > 2027 ? 2018 : next
-        }, 1500)
+        // setInterval(() => {
+        //     const next = this.year3 + 1
+        //     this.year3 = next > 2027 ? 2018 : next
+        // }, 1500)
 
         setTimeout(() => {
             this.asyncOptions = this.yearOptions
+            this.asyncValue = 2020
         }, 1000)
     },
 

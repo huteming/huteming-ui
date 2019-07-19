@@ -1,23 +1,14 @@
-import { mount } from '@vue/test-utils'
+import { mount, createWrapper } from '@vue/test-utils'
 import TmPickerAddress from 'web-ui/picker-address/src/picker-address'
 import assert from 'assert'
-import { sleep } from '../helper'
+import { sleep, cleanModal } from '../helper'
 
 describe('picker-address', () => {
     it('create', async () => {
-        const wrapper = mount({
-            template: `
-                <div>
-                    <TmPickerAddress :visible.sync="visible" />
-                </div>
-            `,
-            data () {
-                return {
-                    visible: true,
-                }
-            },
-            components: {
-                TmPickerAddress,
+        const wrapper = mount(TmPickerAddress, {
+            attachToDocument: true,
+            propsData: {
+                visible: true,
             },
         })
         await sleep()
@@ -30,39 +21,31 @@ describe('picker-address', () => {
         assert.ok(wrapperPicker.exists())
         assert.ok(wrapperItem.exists())
         assert.ok(wrapperPopup.isVisible())
-        wrapper.setData({ visible: false })
+
+        wrapper.destroy()
     })
 
     it('visible change', async () => {
         const before = ['12', '1201', '120103'] // 天津市 市辖区 河西区
         const after = ['41', '4103', '410306'] // 河南省 洛阳市 吉利区
-        const wrapper = mount({
-            template: `
-                <div>
-                    <TmPickerAddress :visible.sync="visible" v-model="code" />
-                </div>
-            `,
-            data () {
-                return {
-                    visible: false,
-                    code: before,
-                }
-            },
-            components: {
-                TmPickerAddress,
+        const wrapper = mount(TmPickerAddress, {
+            attachToDocument: true,
+            propsData: {
+                visible: false,
+                value: before,
             },
         })
         await sleep()
-        const wrapperAddress = wrapper.find(TmPickerAddress)
-        wrapper.setData({ code: after })
-        wrapper.setData({ visible: true })
-        const emitUpdate = wrapperAddress.emitted('update:visible')
+        wrapper.setProps({ value: after })
+        wrapper.setProps({ visible: true })
+        const emitUpdate = wrapper.emitted('update:visible')
         assert.ok(emitUpdate)
         assert.deepStrictEqual(emitUpdate[0], [true])
-        assert.strictEqual(wrapperAddress.vm.provinceCode, after[0])
-        assert.strictEqual(wrapperAddress.vm.cityCode, after[1])
-        assert.strictEqual(wrapperAddress.vm.areaCode, after[2])
-        wrapper.setData({ visible: false })
+        assert.strictEqual(wrapper.vm.provinceCode, after[0])
+        assert.strictEqual(wrapper.vm.cityCode, after[1])
+        assert.strictEqual(wrapper.vm.areaCode, after[2])
+
+        wrapper.destroy()
     })
 
     it('confirm', async () => {
@@ -150,6 +133,7 @@ describe('picker-address', () => {
             attachToDocument: true,
             propsData: {
                 visible: false,
+                value: [],
             },
         })
         await sleep()
@@ -160,5 +144,9 @@ describe('picker-address', () => {
         assert.strictEqual(wrapper.vm.areaCode, '110101')
         wrapper.setProps({ visible: false })
         wrapper.destroy()
+    })
+
+    afterEach(() => {
+        cleanModal()
     })
 })

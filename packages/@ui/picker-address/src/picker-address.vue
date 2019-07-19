@@ -84,8 +84,6 @@ export default {
 
     methods: {
         handleConfirm () {
-            console.log('confirm')
-
             const { provinces, provinceCode, cities, cityCode, areas, areaCode } = this
 
             const _values = [provinceCode, cityCode, areaCode]
@@ -104,11 +102,11 @@ export default {
             })
 
             this.normalizedVisible = false
+            console.log('confirm', _values, _valueText)
         },
         handleCancel () {
-            console.log('cancel')
-
             this.normalizedVisible = false
+            console.log('cancel')
         },
         async initValue () {
             let [provinceCodeInit, cityCodeInit, areaCodeInit] = this.value
