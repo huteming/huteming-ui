@@ -22,6 +22,9 @@ describe('picker-address', () => {
         assert.ok(wrapperItem.exists())
         assert.ok(wrapperPopup.isVisible())
 
+        // 默认配置
+        assert.strictEqual(wrapper.vm.title, '请选择区域')
+
         wrapper.destroy()
     })
 

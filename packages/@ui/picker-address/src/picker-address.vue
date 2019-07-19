@@ -1,7 +1,7 @@
 <template>
 <tm-popup v-model="normalizedVisible" position="bottom" ref="popup">
     <div class="tm-picker-address">
-        <TmToolbar @confirm="handleConfirm" @cancel="handleCancel" />
+        <TmToolbar :title="title" @confirm="handleConfirm" @cancel="handleCancel" />
 
         <tm-picker>
             <TmPickerItem :options="provinces" v-model="provinceCode" />
@@ -38,6 +38,10 @@ export default {
             default () {
                 return []
             },
+        },
+        title: {
+            type: String,
+            default: '请选择区域',
         },
     },
 
