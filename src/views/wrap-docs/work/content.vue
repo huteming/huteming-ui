@@ -5,7 +5,7 @@
             <span>{{ meta.title }}</span>
 
             <el-button class="markdown-header-icon" circle>
-                <i class="iconfont icon-qrcode" style="font-size: 14px;" v-popover:qrcode></i>
+                <TmIcon icon="qrcode" v-popover:qrcode />
             </el-button>
 
             <el-button id="copy" class="markdown-header-icon" icon="el-icon-edit" circle :data-clipboard-text="examplePath"></el-button>

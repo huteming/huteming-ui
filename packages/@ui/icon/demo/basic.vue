@@ -26,6 +26,9 @@ export default {
                 {
                     icon: 'loading',
                 },
+                {
+                    icon: 'qrcode',
+                },
             ],
         }
     },

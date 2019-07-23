@@ -11,6 +11,6 @@ describe('icon', () => {
             },
         })
         assert.ok(wrapper.classes('tm-icon'))
-        assert.ok(wrapper.classes(`icon-${icon}`))
+        assert.ok(wrapper.classes(`tm-icon-${icon}`))
     })
 })

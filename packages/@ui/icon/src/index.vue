@@ -15,14 +15,14 @@ export default {
 
     computed: {
         classes () {
-            return `icon-${this.icon}`
+            return `tm-icon-${this.icon}`
         },
     },
 }
 </script>
 
 <style lang="scss" scoped>
-@import url(//at.alicdn.com/t/font_1301011_rb1ygfxghdh.css);
+@import url(//at.alicdn.com/t/font_1301011_3nrsyz8i5k5.css);
 
 .tm-icon {
     display: inline-block;
