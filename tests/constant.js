@@ -1,5 +1,8 @@
-export const IMG_FAILURE_SRC = 'LOAD_FAILURE_SRC'
-export const IMG_SUCCESS_SRC = 'LOAD_SUCCESS_SRC'
+export const IMG_FAILURE_SRC = 'http://LOAD_FAILURE_SRC'
+export const IMG_SUCCESS_SRC = 'http://LOAD_SUCCESS_SRC'
+export const IMG_FAILURE_DATAURI = 'data:failure'
+
+export const BLOG_FAILURE = new Blob()
 
 export const imgURL = 'http://jhsy-img.caizhu.com/Fr2mInO7RA7KfVwpO6EcL1E7NyE5'
 
@@ -132,3 +135,17 @@ ZTptb2RpZnkAMjAxOS0wNi0xN1QwMDowMDoxNiswODowMCgCgN0AAAAgdEVYdHNvZnR3YXJlAGh0dHBz
 RVh0VGh1bWI6OkltYWdlOjpIZWlnaHQAMzUxdmW7jQAAABd0RVh0VGh1bWI6OkltYWdlOjpXaWR0aAAyNDZjKSUFAAAAGXRFWHRUaHVtYjo6TWltZXR5cGUAaW1hZ2UvcG5nP7JWTgAAABd0RVh0VGh1bWI6Ok1UaW1l
 ADE1NjA3MDA4MTYeg79VAAAAE3RFWHRUaHVtYjo6U2l6ZQA2MjA5M0JC4jgKvQAAAEN0RVh0VGh1bWI6OlVSSQBmaWxlOi8vL3RtcC9pbWFnZWxjL2ltZ3ZpZXcyXzdfMTU2MDI0Njg4NDU0OTQyMTlfMzU3X1swXTGe
 2f8AAAAASUVORK5CYII=`
+
+export const IMG_BLOB = (() => {
+    const arr = imgURI.split(',')
+    const type = arr[0].match(/:(.*?);/)[1]
+    const bstr = atob(arr[1])
+    let n = bstr.length
+    const u8arr = new Uint8Array(n)
+
+    while (n--) {
+        u8arr[n] = bstr.charCodeAt(n)
+    }
+
+    return new Blob([u8arr], { type })
+})()

@@ -50,6 +50,7 @@
     "validator": "cross-env BUILD_MODE=lib vue-cli-service build --target lib --report --name validator --dest packages/@util/validator/dist packages/@util/validator/index.js",
     "wxsdk": "cross-env BUILD_MODE=lib vue-cli-service build --target lib --report --name wxsdk --dest packages/@util/wxsdk/dist packages/@util/wxsdk/index.js",
     "element": "cross-env BUILD_MODE=lib vue-cli-service build --target lib --report --name element --dest packages/@util/element/dist packages/@util/element/index.js",
+    "imageconvertor": "cross-env BUILD_MODE=lib vue-cli-service build --target lib --report --name image-convertor --dest packages/@util/image-convertor/dist packages/@util/image-convertor/index.js",
     "help:inspect": "vue-cli-service inspect --mode test",
     "help:unit": "vue-cli-service test:unit help"
   },

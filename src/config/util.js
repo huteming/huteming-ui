@@ -61,4 +61,9 @@ export default [
         title: '常用接口 api',
         docs: () => import('web-util/api/README.md'),
     },
+    {
+        path: 'image-convertor',
+        title: '图片转换器',
+        docs: () => import('web-util/image-convertor/README.md'),
+    },
 ]

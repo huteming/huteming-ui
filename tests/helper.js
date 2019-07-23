@@ -1,4 +1,5 @@
-import { IMG_FAILURE_SRC, IMG_SUCCESS_SRC } from './constant'
+import { IMG_FAILURE_SRC, IMG_SUCCESS_SRC, BLOG_FAILURE, imgURI, IMG_FAILURE_DATAURI } from './constant'
+import sinon from 'sinon'
 
 export function cleanModal () {
     const el = document.querySelector('.tm-modal')
@@ -61,9 +62,9 @@ export function mockProperty (target, property, define) {
 export function mockImage () {
     mockProperty(Image.prototype, 'src', {
         set (src) {
-            if (src && src.indexOf(IMG_FAILURE_SRC) > -1) {
+            if (src && (src.indexOf(IMG_FAILURE_SRC) > -1 || src.indexOf(IMG_FAILURE_DATAURI) > -1)) {
                 setTimeout(() => this.onerror(new Error('mocked image error')))
-            } else if (src && src.indexOf(IMG_SUCCESS_SRC) > -1) {
+            } else {
                 setTimeout(() => this.onload())
             }
             this.setAttribute('src', src)
@@ -71,5 +72,31 @@ export function mockImage () {
         get () {
             return this.getAttribute('src')
         },
+    })
+}
+
+export function mockFileReader () {
+    const mock = new Mock(FileReader.prototype, 'readAsDataURL', {
+        value (file) {
+            if (file && file === BLOG_FAILURE) {
+                setTimeout(() => this.onerror(new Error('mocked FileReader error')))
+            } else {
+                setTimeout(() => {
+                    sinon.replaceGetter(this, 'result', () => {
+                        return imgURI
+                    })
+                    this.onload()
+                })
+            }
+        },
+    })
+
+    beforeAll(() => {
+        mock.replace()
+    })
+
+    afterAll(() => {
+        sinon.restore()
+        mock.restore()
     })
 }

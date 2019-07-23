@@ -13,6 +13,7 @@
     "@huteming/util-api": "^1.4.1",
     "@huteming/util-canvas-draw": "^1.4.4",
     "@huteming/util-element": "^1.4.2",
+    "@huteming/util-image-convertor": "^1.0.0",
     "@huteming/util-request": "^1.4.1",
     "@huteming/util-roller": "^1.4.1",
     "@huteming/util-storage": "^1.2.3",

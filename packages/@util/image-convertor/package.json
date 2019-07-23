@@ -1,0 +1,14 @@
+{
+  "name": "@huteming/util-image-convertor",
+  "version": "1.0.0",
+  "description": "> 图片多种格式间的相互转换",
+  "main": "dist/image-convertor.common.js",
+  "scripts": {
+    "prepublishOnly": "node ../../../prepublishOnly.js imageconvertor"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "exif-js": "^2.3.0"
+  }
+}
