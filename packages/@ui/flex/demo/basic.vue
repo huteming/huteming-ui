@@ -122,37 +122,4 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.mb-20 {
-    margin-bottom: 20px;
-}
-
-.container {
-    height: 100px;
-    margin-bottom: 20px;
-    background: #fff;
-}
-
-.placeholder {
-    background-color: #ebebef;
-    color: #bbb;
-    text-align: center;
-    height: 30px;
-    line-height: 30px;
-    width: 100%;
-
-    &.inline {
-        width: 100px;
-    }
-
-    &.small {
-        font-size: 12px;
-        height: 15px;
-        line-height: 15px;
-    }
-
-    &.large {
-        height: 50px;
-        line-height: 50px;
-    }
-}
 </style>

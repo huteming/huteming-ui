@@ -1,4 +1,6 @@
 .content {
+    position: relative;
+
     h1 {
         margin-top: 8Px;
         margin-bottom: 24Px;
@@ -63,8 +65,10 @@
     }
 
     a {
-        color: #4078c0;
-        text-decoration: none;
+        float: left;
+        margin-left: -20px;
+        opacity: 0;
+        cursor: pointer;
     }
 
     .table {

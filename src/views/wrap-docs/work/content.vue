@@ -1,5 +1,5 @@
 <template>
-<el-scrollbar class="content scrollable" :wrap-class="$style['container-scrollable']">
+<el-scrollbar class="markdown" :wrap-class="$style['scrollable-main']">
     <h1 class="markdown-header">
         <template v-if="isComponent">
             <span>{{ meta.title }}</span>
@@ -95,33 +95,35 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.scrollable {
+.markdown {
     height: 100%;
-}
 
-.markdown-header {
-    display: flex;
-    align-items: center;
+    &-header {
+        display: flex;
+        align-items: center;
 
-    &-icon {
+        &-icon {
+            position: relative;
+            margin-left: 12px;
+            color: #ddd;
+            // transition: color .3s;
+
+            // &:hover {
+            //     color: #2db7f5;
+            // }
+        }
+    }
+
+    &-container {
         position: relative;
-        margin-left: 12px;
-        color: #ddd;
-        // transition: color .3s;
-
-        // &:hover {
-        //     color: #2db7f5;
-        // }
     }
 }
 </style>
 
 <style lang="scss" module>
-.container {
-    &-scrollable {
-        padding: 10px 20px 40px;
-        box-sizing: border-box;
-        overflow-x: auto;
-    }
+.scrollable-main {
+    padding: 10px 20px 40px;
+    box-sizing: border-box;
+    overflow-x: auto;
 }
 </style>
