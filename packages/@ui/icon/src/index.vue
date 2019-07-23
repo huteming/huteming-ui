@@ -29,10 +29,10 @@ export default {
     font-size: inherit;
     line-height: inherit;
     color: inherit;
-}
 
-.icon-loading {
-    animation: loading 1.5s linear infinite;
+    &-loading {
+        animation: loading 1.5s linear infinite;
+    }
 }
 
 @keyframes loading {
