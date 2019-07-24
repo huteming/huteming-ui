@@ -108,10 +108,10 @@ const defaultArc = {
     endDegrees: 360, // 结束角度
     direction: false, // 方向。false: 顺时针, true: 逆时针
     lineWidth: 1,
-    shadowColor: 'rgba(89, 87, 88, 0.79)',
+    shadowColor: '',
     shadowOffsetX: 0,
     shadowOffsetY: 0,
-    shadowBlur: 2,
+    shadowBlur: 0,
     color: '#fff', // 画笔颜色
     type: 'stroke', // 闭合方式
 }
@@ -239,10 +239,10 @@ const defaultText = {
     letterSpacing: 0,
     lineWidth: 1, // 画笔宽度
     wrap: false, // 是否换行
-    shadowColor: 'rgba(89, 87, 88, 0.79)',
+    shadowColor: '',
     shadowOffsetX: 0,
     shadowOffsetY: 0,
-    shadowBlur: 2,
+    shadowBlur: 0,
     color: '#000',
     type: 'fill',
 }
@@ -447,10 +447,10 @@ function drawLine (startX, startY, endX, endY, options = {}) {
 }
 
 const defaultImage = {
-    shadowColor: 'rgba(89, 87, 88, 0.79)',
+    shadowColor: '',
     shadowOffsetX: 0,
     shadowOffsetY: 0,
-    shadowBlur: 2,
+    shadowBlur: 0,
 }
 /**
  * @argument {*Image} image 图片对象
