@@ -7,16 +7,14 @@
 }
 
 @mixin placeholder {
-    ::-webkit-input-placeholder { /* WebKit, Blink, Edge */
+    ::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
+        opacity: 1; /* Firefox */
         @content;
     }
-    ::-moz-placeholder { /* Mozilla Firefox 4 to 18 */
+    :-ms-input-placeholder { /* Internet Explorer 10-11 */
         @content;
     }
-    ::-moz-placeholder { /* Mozilla Firefox 19+ */
-        @content;
-    }
-    ::-ms-input-placeholder { /* Internet Explorer 10-11 */
+    ::-ms-input-placeholder { /* Microsoft Edge */
         @content;
     }
 }

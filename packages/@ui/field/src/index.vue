@@ -2,7 +2,7 @@
 <div class="tm-field">
     <input
         v-if="type !== 'textarea'"
-        ref="input"
+        ref="field"
         class="tm-field__input"
         :style="inputStyle"
         v-bind="$attrs"
@@ -20,7 +20,7 @@
 
     <textarea
         v-else
-        ref="textarea"
+        ref="field"
         class="tm-field__textarea"
         :style="inputStyle"
         :value="nativeInputValue"
@@ -39,6 +39,8 @@
 </template>
 
 <script>
+import { getScrollContainer, getScrollTop, scrollY } from 'web-util/element/src/main'
+
 export default {
     name: 'TmField',
 
@@ -55,6 +57,8 @@ export default {
     data () {
         return {
             isOnComposition: false,
+            scrollTop: -1,
+            scrollContainer: null,
         }
     },
 
@@ -84,9 +88,18 @@ export default {
         },
         handleFocus (event) {
             this.$emit('focus', event)
+
+            // 记录当前滚动条位置
+            this.scrollContainer = getScrollContainer(this.$el, true)
+            if (this.scrollContainer) {
+                this.scrollTop = getScrollTop(this.scrollContainer)
+            }
         },
         handleBlur (event) {
             this.$emit('blur', event)
+
+            // 还原滚动条位置
+            this.scrollTop > -1 && scrollY(this.scrollContainer, this.scrollTop)
         },
         handleChange (event) {
             this.$emit('change', event.target.value)
@@ -101,27 +114,34 @@ export default {
     display: inline-block;
 
     &__input {
-        width: 100%;
         display: inline-block;
-        border: 0;
-        outline: 0;
-        -webkit-appearance: none;
-        background-color: transparent;
-        font-size: inherit;
-        color: inherit;
         height: 1.41176471em;
-        line-height: 1.41176471;
+        -webkit-appearance: none;
     }
 
     &__textarea {
         display: block;
-        width: 100%;
-        border: 0;
         resize: none;
-        font-size: 1em;
-        line-height: inherit;
+    }
+
+    &__input,
+    &__textarea {
+        width: 100%;
+        margin: 0;
+        padding: 0;
+        font-size: inherit;
+        line-height: 1.41176471;
         color: inherit;
+        background-color: transparent;
+        border: 0;
         outline: 0;
+        -webkit-tap-highlight-color: transparent;
+    }
+
+    @include placeholder {
+        margin: 0;
+        padding: 0;
+        color: rgba(178, 186, 196, 1);
     }
 }
 </style>

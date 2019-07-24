@@ -22,13 +22,15 @@
     <div class="demo-header">文本域</div>
 
     <tm-cell>
-        <TmInput type="textarea" rows="3" v-model="value1" placeholder="请输入文本" />
+        <TmInput type="textarea" rows="3" v-model="value1" placeholder="请输入文本" @blur="handleBlur" />
     </tm-cell>
 
     <div class="demo-header">选择</div>
 
     <tm-cell title="国家/地区" description="中国" link>
     </tm-cell>
+
+    <div style="height: 100vh;"></div>
 
     <tm-divider>到底了</tm-divider>
 </div>
@@ -47,11 +49,13 @@ export default {
 
     watch: {
         value1 (val) {
-            console.log('watch', val)
+            console.log('watch', val, val.indexOf('\n'))
         },
     },
 
     methods: {
+        handleBlur () {
+        },
         handleLog (action, ...args) {
             console.log(action)
             // console.log('args', ...args)

@@ -1,11 +1,36 @@
 import assert from 'assert'
 import TmField from 'web-ui/field/src'
 import WorkBasic from '../components/basic'
-import { mount } from '@vue/test-utils'
+import { mount, createLocalVue } from '@vue/test-utils'
+const localVue = createLocalVue()
+localVue.component(TmField.name, TmField)
 
 describe('field', () => {
     it('name', () => {
         assert.strictEqual(TmField.name, 'TmField')
+    })
+
+    it('还原滚动条', () => {
+        const wrapper = mount({
+            template: `
+                <div style="overflow-y: auto;">
+                    <TmField ref="field" />
+                </div>
+            `,
+        }, {
+            localVue,
+        })
+        // 模拟滚动位置
+        wrapper.element.scrollTop = 100
+        const wrapperField = wrapper.find(TmField)
+        wrapperField.vm.$refs.field.focus()
+        // 模拟滚动位置
+        wrapper.element.scrollTop = 200
+        wrapperField.vm.$refs.field.blur()
+
+        assert.strictEqual(wrapperField.vm.scrollContainer, wrapper.element)
+        assert.strictEqual(wrapperField.vm.scrollTop, 100)
+        assert.strictEqual(wrapper.element.scrollTop, 100)
     })
 
     it('value为null、undefined', () => {

@@ -30,17 +30,18 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-// $cell-content-height: rem(111.6);
-$cell-content-padding-top: rem(32);
-$cell-content-padding-left: rem(32);
+$cell-padding-top: rem(32);
+$cell-padding-bottom: rem(32);
+$cell-padding-left: rem(32);
+$cell-padding-right: rem(32);
 
 .tm-cell {
     position: relative;
-    padding: $cell-content-padding-top $cell-content-padding-left;
+    padding: $cell-padding-top $cell-padding-right $cell-padding-bottom $cell-padding-left;
     display: flex;
     align-items: center;
     font-size: rem(34);
-    line-height: 1.4;
+    line-height: 1.41176471;
     background: #fff;
     box-sizing: border-box;
 
@@ -82,7 +83,7 @@ $cell-content-padding-left: rem(32);
     & + &:before {
         content: ' ';
         position: absolute;
-        left: $cell-content-padding-left;
+        left: $cell-padding-left;
         right: 0;
         top: 0;
         height: 1px;
