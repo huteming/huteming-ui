@@ -12,10 +12,10 @@ describe('canvas > drawImage', () => {
         const options = ins.drawImage(img, 0, 0, 200, 200)
 
         assert.deepStrictEqual(options, {
-            shadowColor: 'rgba(89, 87, 88, 0.79)',
+            shadowColor: '',
             shadowOffsetX: 0,
             shadowOffsetY: 0,
-            shadowBlur: 2,
+            shadowBlur: 0,
         })
     })
 

@@ -26,10 +26,10 @@ describe('canvas > drawText', () => {
             letterSpacing: 0,
             lineWidth: 1,
             wrap: false,
-            shadowColor: 'rgba(89, 87, 88, 0.79)',
+            shadowColor: '',
             shadowOffsetX: 0,
             shadowOffsetY: 0,
-            shadowBlur: 2 * _ratio,
+            shadowBlur: 0,
             color: '#000',
             type: 'fill',
         })

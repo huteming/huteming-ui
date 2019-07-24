@@ -16,10 +16,10 @@ describe('canvas > drawArc', () => {
             endDegrees: 360,
             direction: false,
             lineWidth: 1,
-            shadowColor: 'rgba(89, 87, 88, 0.79)',
+            shadowColor: '',
             shadowOffsetX: 0,
             shadowOffsetY: 0,
-            shadowBlur: 2,
+            shadowBlur: 0,
             color: '#fff',
             type: 'stroke',
         })
