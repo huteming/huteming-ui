@@ -1,0 +1,11 @@
+{
+  "name": "@huteming/ui-cell",
+  "version": "1.0.0",
+  "description": "> Cell",
+  "main": "dist/cell.common.js",
+  "scripts": {
+    "prepublishOnly": "node ../../../prepublishOnly.js cell"
+  },
+  "author": "",
+  "license": "ISC"
+}
