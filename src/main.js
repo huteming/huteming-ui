@@ -19,8 +19,8 @@ console.log(util)
 
 Vue.component(AppDivider.name, AppDivider)
 Vue.component(AppDemoBlock.name, AppDemoBlock)
-Vue.use(ElementUI)
 Vue.use(ui)
+Vue.use(ElementUI)
 Vue.config.productionTip = false
 
 new Vue({

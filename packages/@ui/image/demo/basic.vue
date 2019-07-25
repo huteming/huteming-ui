@@ -10,8 +10,12 @@
             :key="`${fit}-image`" />
     </template>
 
-    <tm-divider>占位内容</tm-divider>
+    <tm-divider>占位内容: 初始化为空</tm-divider>
     <tm-image class="demo-img" :src="asyncUrl" hold>
+    </tm-image>
+
+    <tm-divider>占位内容: 初始化不为空</tm-divider>
+    <tm-image class="demo-img" :src="url" hold>
     </tm-image>
 
     <tm-divider>加载失败</tm-divider>

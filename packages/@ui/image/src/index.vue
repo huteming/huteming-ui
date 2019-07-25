@@ -43,7 +43,7 @@ export default {
 
     data () {
         return {
-            state: this.hold ? 'hold' : 'loading',
+            state: this.hold && !this.src ? 'hold' : 'loading',
             readyToShow: !this.lazy,
             imageWidth: 0,
             imageHeight: 0,

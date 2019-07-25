@@ -8,8 +8,23 @@ import sinon from 'sinon'
 describe('Image', () => {
     mockImage()
 
-    afterEach(() => {
-        sinon.restore()
+    it('hold && src不为空', async () => {
+        const wrapper = mount(CompImage, {
+            propsData: {
+                src: IMG_SUCCESS_SRC,
+                hold: true,
+            },
+        })
+        await sleep()
+        const wrapperHolder = wrapper.find('.tm-image__placeholder')
+        const wrapperLoading = wrapper.find('.tm-image__loading')
+        const wrapperError = wrapper.find('.tm-image__error')
+        const wrapperInner = wrapper.find('.tm-image__inner')
+
+        assert.ok(!wrapperHolder.exists())
+        assert.ok(!wrapperLoading.exists())
+        assert.ok(!wrapperError.exists())
+        assert.ok(wrapperInner.exists())
     })
 
     it('create', async () => {
@@ -382,5 +397,9 @@ describe('Image', () => {
         assert.ok(!wrapperLoading.exists())
         assert.ok(!wrapperError.exists())
         assert.ok(wrapperInner.exists())
+    })
+
+    afterEach(() => {
+        sinon.restore()
     })
 })
