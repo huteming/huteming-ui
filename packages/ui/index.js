@@ -94,5 +94,5 @@ export const TmDialog = _Dialog
 export const TmPanel = _Panel
 export const TmCarousel = _Carousel
 export const TmCarouselItem = _CarouselItem
-export const TmCallapse = _Collapse
-export const TmCallapseItem = _CollapseItem
+export const TmCollapse = _Collapse
+export const TmCollapseItem = _CollapseItem

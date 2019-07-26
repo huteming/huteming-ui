@@ -106,6 +106,10 @@ describe('ui entry', () => {
             name: 'Toast',
             lib: 'toast',
         },
+        {
+            name: 'TmCollapse',
+            lib: 'tm-collapse',
+        },
     ]
 
     names.forEach(({ name, lib, child }) => {
@@ -113,6 +117,7 @@ describe('ui entry', () => {
             // 整体打包入口
             const pack = require('web/ui/index')
             const _module = pack[name]
+            assert.strictEqual(typeof pack.default.install, 'function')
             assert.strictEqual(typeof _module.install, 'function')
 
             // 按需加载入口
@@ -125,10 +130,6 @@ describe('ui entry', () => {
 
                 const _libChild = require(`web/ui/lib/${child.lib}/index`)
                 assert.strictEqual(_lib.default.item, _libChild.default)
-
-                // 这里验证 export 有导出
-                assert.ok(_lib[name])
-                assert.ok(_lib[child.name])
             }
         })
     })

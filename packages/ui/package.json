@@ -14,6 +14,7 @@
     "@huteming/ui-carousel": "^1.4.2",
     "@huteming/ui-cell": "^1.1.1",
     "@huteming/ui-clocker": "^1.4.1",
+    "@huteming/ui-collapse": "^1.1.0",
     "@huteming/ui-dialog": "^1.4.3",
     "@huteming/ui-empty": "^1.0.1",
     "@huteming/ui-field": "^1.1.0",
