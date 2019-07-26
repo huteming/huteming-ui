@@ -29,6 +29,12 @@ export default {
                 {
                     icon: 'qrcode',
                 },
+                {
+                    icon: 'expand_less',
+                },
+                {
+                    icon: 'expand_more',
+                },
             ],
         }
     },

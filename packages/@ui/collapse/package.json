@@ -1,0 +1,11 @@
+{
+  "name": "@huteming/ui-collapse",
+  "version": "1.0.0",
+  "description": "",
+  "main": "dist/collapse.common.js",
+  "scripts": {
+    "prepublishOnly": "node ../../../prepublishOnly.js collapse"
+  },
+  "author": "",
+  "license": "ISC"
+}

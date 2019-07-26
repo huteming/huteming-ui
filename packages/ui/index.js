@@ -26,6 +26,8 @@ import _Popup from 'web-ui/popup/index'
 import _SmartScroll from 'web-ui/smart-scroll/index'
 import _Toast from 'web-ui/toast/index.js'
 import _Toolbar from 'web-ui/toolbar/index.js'
+import _Collapse from 'web-ui/collapse/index'
+import _CollapseItem from 'web-ui/collapse-item/index'
 
 function install (Vue, config = {}) {
     Vue.use(_Actionsheet)
@@ -56,6 +58,8 @@ function install (Vue, config = {}) {
     Vue.use(_Toolbar)
     Vue.use(_Message)
     Vue.use(_Toast)
+    Vue.use(_Collapse)
+    Vue.use(_CollapseItem)
 }
 
 export default {
@@ -90,3 +94,5 @@ export const TmDialog = _Dialog
 export const TmPanel = _Panel
 export const TmCarousel = _Carousel
 export const TmCarouselItem = _CarouselItem
+export const TmCallapse = _Collapse
+export const TmCallapseItem = _CollapseItem

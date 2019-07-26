@@ -22,7 +22,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@import url(//at.alicdn.com/t/font_1301011_3nrsyz8i5k5.css);
+@import url(//at.alicdn.com/t/font_1301011_uzcn0eydfps.css);
 
 .tm-icon {
     display: inline-block;

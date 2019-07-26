@@ -47,4 +47,10 @@ export default [
         docs: () => import('web-ui/icon/README.md'),
         example: () => import('web-ui/icon/demo/basic.vue'),
     },
+    {
+        path: 'collapse',
+        title: '折叠面板 Collapse',
+        docs: () => import('web-ui/collapse/README.md'),
+        example: () => import('web-ui/collapse/demo/basic.vue'),
+    },
 ]

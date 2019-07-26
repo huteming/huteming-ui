@@ -1,7 +1,12 @@
-import Component from './src/flex.vue'
+import _Flex from './src/flex.vue'
+import _FlexItem from 'web-ui/flex-item/index.js'
 
-Component.install = (Vue) => {
-    Vue.component(Component.name, Component)
+_Flex.install = (Vue) => {
+    Vue.component(_Flex.name, _Flex)
 }
+_Flex.item = _FlexItem
 
-export default Component
+export const TmFlex = _Flex
+export const TmFlexItem = _FlexItem
+
+export default _Flex

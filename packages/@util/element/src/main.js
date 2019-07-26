@@ -1,6 +1,68 @@
 const SPECIAL_CHARS_REGEXP = /([:\-_]+(.))/g
 const MOZ_HACK_REGEXP = /^moz([A-Z])/
 
+export function generateId () {
+    return Math.floor(Math.random() * 100000)
+}
+
+// export function hasClass (element, cls) {
+//     if (!element || !cls) return false
+
+//     if (cls.indexOf(' ') !== -1) throw new Error('className should not contain space.')
+
+//     if (element.classList) {
+//         return element.classList.contains(cls)
+//     } else {
+//         return (' ' + element.className + ' ').indexOf(' ' + cls + ' ') > -1
+//     }
+// }
+
+// export function addClass (element, cls) {
+//     if (!element) return
+
+//     let curClass = element.className
+//     let classes = (cls || '').split(' ')
+
+//     for (let i = 0, j = classes.length; i < j; i++) {
+//         const clsName = classes[i]
+//         if (!clsName) continue
+
+//         if (element.classList) {
+//             element.classList.add(clsName)
+//         } else if (!hasClass(element, clsName)) {
+//             curClass += ' ' + clsName
+//         }
+//     }
+//     if (!element.classList) {
+//         element.className = curClass
+//     }
+// }
+
+// export function removeClass (element, cls) {
+//     if (!element || !cls) return
+
+//     const classes = cls.split(' ')
+//     let curClass = ' ' + element.className + ' '
+
+//     for (let i = 0, j = classes.length; i < j; i++) {
+//         const clsName = classes[i]
+//         if (!clsName) continue
+
+//         if (element.classList) {
+//             element.classList.remove(clsName)
+//         } else if (hasClass(element, clsName)) {
+//             curClass = curClass.replace(' ' + clsName + ' ', ' ')
+//         }
+//     }
+//     if (!element.classList) {
+//         element.className = trim(curClass)
+//     }
+// }
+
+// function trim (string) {
+//     return (string || '').replace(/^[\s\uFEFF]+|[\s\uFEFF]+$/g, '')
+// }
+
 /**
  * 检测是否在容器内可视
  */

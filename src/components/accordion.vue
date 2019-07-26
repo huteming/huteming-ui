@@ -3,9 +3,7 @@
     <div class="accordion-header" @click="open = !open">
         <div class="accordion-header-name">{{ title }}</div>
 
-        <div class="accordion-header-arrow" :class="{ 'is-reverse': open }">
-            <i class="iconfont icon-arrow-down" ></i>
-        </div>
+        <TmIcon class="accordion-header-arrow" :icon="open ? 'expand_less' : 'expand_more'" />
     </div>
 
     <transition :css="false"
@@ -19,9 +17,7 @@
             <router-link class="accordion-list" tag="div" v-for="item in list" :key="item.path" :to="`/example/${item.path}`">
                 <div class="accordion-list-title">{{ item.title }}</div>
 
-                <div class="accordion-list-arrow">
-                    <i class="iconfont icon-arrow-right"></i>
-                </div>
+                <TmIcon class="accordion-list-arrow" icon="arrow_forward" />
             </router-link>
         </div>
     </transition>
@@ -60,7 +56,7 @@ export default {
             el.style.height = 0
         },
         enter (el, done) {
-            Velocity(el, { height: `${this.list.length * 44}px` }, { duration: 200, easing: 'ease', complete: done })
+            Velocity(el, { height: `${this.list.length * 44}px` }, { duration: 20000, easing: 'ease', complete: done })
         },
         afterEnter (el) {
             el.style.height = ''
@@ -69,7 +65,7 @@ export default {
             el.style.height = `${this.list.length * 44}px`
         },
         leave (el, done) {
-            Velocity(el, { height: 0 }, { duration: 200, easing: 'ease', complete: done })
+            Velocity(el, { height: 0 }, { duration: 20000, easing: 'ease', complete: done })
         },
         afterLeave (el) {
             el.style.height = ''
@@ -101,13 +97,8 @@ export default {
         }
 
         &-arrow {
-            font-size: 14px;
+            font-size: 28px;
             color: #d2d2d6;
-            transition: transform 0.3s;
-
-            &.is-reverse {
-                transform: rotate(-180deg);
-            }
         }
     }
 
@@ -129,7 +120,7 @@ export default {
         }
 
         &-arrow {
-            font-size: 14px;
+            font-size: 28px;
             color: #d2d2d6;
         }
 

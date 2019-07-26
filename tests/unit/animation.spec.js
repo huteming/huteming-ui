@@ -69,14 +69,11 @@ describe('animation', () => {
         }
     })
 
-    it('结束位置等于起始位置 立即返回', async () => {
+    it('结束位置等于起始位置 立即执行回调函数', async () => {
         const callback = sinon.fake()
-
         linear(0, 0, callback)
-
-        await sleep(20)
-
-        assert(callback.called === false)
+        assert.strictEqual(callback.callCount, 1)
+        assert.deepStrictEqual(callback.getCall(0).args, [0, true])
     })
 
     it('利用requestAnimationFrame进行动画', () => {

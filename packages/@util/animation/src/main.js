@@ -69,7 +69,8 @@ function animation (type, from, to, callback, duration = 300) {
     }
 
     if (from === to) {
-        return false
+        callback(to, true)
+        return
     }
 
     let t = 0

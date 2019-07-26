@@ -37,6 +37,7 @@ $cell-padding-right: rem(32);
 
 .tm-cell {
     position: relative;
+    width: 100%;
     padding: $cell-padding-top $cell-padding-right $cell-padding-bottom $cell-padding-left;
     display: flex;
     align-items: center;
