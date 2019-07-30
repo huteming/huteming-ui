@@ -11,4 +11,10 @@ export default [
         docs: () => import('web-ui/anchor/README.md'),
         example: () => import('web-ui/anchor/demo/basic.vue'),
     },
+    {
+        path: 'guide',
+        title: '引导',
+        docs: () => import('web-ui/guide/README.md'),
+        example: () => import('web-ui/guide/demo/basic.vue'),
+    },
 ]

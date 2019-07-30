@@ -1,8 +1,8 @@
 <template>
 <transition :name="transitionName" mode="out-in">
-    <keep-alive>
-        <router-view></router-view>
-    </keep-alive>
+    <!-- <keep-alive> -->
+    <router-view></router-view>
+    <!-- </keep-alive> -->
 </transition>
 </template>
 
