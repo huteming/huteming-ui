@@ -1,6 +1,17 @@
 import { IMG_FAILURE_SRC, IMG_SUCCESS_SRC, BLOG_FAILURE, imgURI, IMG_FAILURE_DATAURI } from './constant'
 import sinon from 'sinon'
 
+export function cleanDom (selector) {
+    const el = document.querySelector(selector)
+    if (!el) return
+    if (el.parentNode) {
+        el.parentNode.removeChild(el)
+    }
+    if (el.__vue__) {
+        el.__vue__.$destroy()
+    }
+}
+
 export function cleanModal () {
     const el = document.querySelector('.tm-modal')
     if (!el) return

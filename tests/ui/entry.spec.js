@@ -19,10 +19,6 @@ describe('ui entry', () => {
             lib: 'loading',
         },
         {
-            name: 'Loading',
-            lib: 'loading',
-        },
-        {
             name: 'Message',
             lib: 'message',
         },
@@ -110,26 +106,39 @@ describe('ui entry', () => {
             name: 'TmCollapse',
             lib: 'tm-collapse',
         },
+        {
+            name: 'TmGuide',
+            lib: 'tm-guide',
+            noInstall: true,
+        },
     ]
 
-    names.forEach(({ name, lib, child }) => {
+    names.forEach(({ name, lib, child, noInstall }) => {
         it(name, () => {
             // 整体打包入口
             const pack = require('web/ui/index')
             const _module = pack[name]
             assert.strictEqual(typeof pack.default.install, 'function')
-            assert.strictEqual(typeof _module.install, 'function')
+            assert.ok(_module)
+            assert.strictEqual(_module.propName || _module.name, name)
+            if (!noInstall) {
+                assert.strictEqual(typeof _module.install, 'function')
+            }
 
             // 按需加载入口
-            const _lib = require(`web/ui/lib/${lib}/index`)
-            assert.strictEqual(typeof _lib.default.install, 'function')
+            const _lib = require(`web/ui/lib/${lib}/index`).default
+            assert.ok(_lib)
+            assert.strictEqual(_lib.propName || _lib.name, name)
+            if (!noInstall) {
+                assert.strictEqual(typeof _lib.install, 'function')
+            }
 
             // 检查子元素
             if (child) {
                 assert.strictEqual(_module.item, pack[child.name])
 
                 const _libChild = require(`web/ui/lib/${child.lib}/index`)
-                assert.strictEqual(_lib.default.item, _libChild.default)
+                assert.strictEqual(_lib.item, _libChild.default)
             }
         })
     })

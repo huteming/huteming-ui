@@ -34,7 +34,7 @@ const expandMethods = {
     },
 }
 
-function MessageBox (message, title, options = {}, expandOptions = {}) {
+function Message (message, title, options = {}, expandOptions = {}) {
     let params = expandOptions
 
     if (message instanceof Object) {
@@ -51,10 +51,12 @@ function MessageBox (message, title, options = {}, expandOptions = {}) {
 }
 
 for (let method in expandMethods) {
-    MessageBox[method] = (...args) => {
+    Message[method] = (...args) => {
         args[3] = expandMethods[method]
-        return MessageBox(...args)
+        return Message(...args)
     }
 }
 
-export default MessageBox
+Message.propName = 'Message'
+
+export default Message

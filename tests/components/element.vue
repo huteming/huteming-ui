@@ -1,5 +1,5 @@
 <template>
-<div class="element">
+<div class="element" id="element">
     <div class="empty" ref="empty"></div>
 
     <div id="container" class="container" ref="container" style="width: 100px; height: 100px; overflow: auto;">

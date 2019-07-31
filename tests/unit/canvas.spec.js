@@ -54,21 +54,22 @@ describe('canvas', () => {
             assert.strictEqual(mockCallback.callCount, 0)
         })
 
-        it('第一个参数 === this', () => {
+        it('第一个参数对象', () => {
             const mockCallback = sinon.fake()
             const canvas = new CanvasDraw()
             const self = {
                 context: canvas.context,
                 ratio: canvas.ratio,
                 canvas: canvas.canvas,
-                width: canvas.canvasWidth,
-                height: canvas.canvasHeight
+                canvasWidth: canvas.canvasWidth,
+                canvasHeight: canvas.canvasHeight,
+                scale: canvas.scale,
             }
 
             canvas.add(mockCallback)
             canvas.done()
 
-            assert.ok(mockCallback.calledWithExactly(self))
+            assert.deepStrictEqual(mockCallback.getCall(0).args, [self])
         })
 
         it('callback执行save、restore', () => {

@@ -6,7 +6,7 @@ const optionsDefault = {
     complete () {},
 }
 
-export default class Guide {
+class Guide {
     constructor (process, options = {}) {
         this._instance = null
 
@@ -45,11 +45,17 @@ export default class Guide {
         this._instance = this._init()
 
         this._instance.open()
+        return this._instance
     }
 
     close () {
         if (!this._instance) return
 
         this._instance.close()
+        return null
     }
 }
+
+Guide.propName = 'TmGuide'
+
+export default Guide

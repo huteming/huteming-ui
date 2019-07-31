@@ -28,6 +28,7 @@ import _Toast from 'web-ui/toast/index.js'
 import _Toolbar from 'web-ui/toolbar/index.js'
 import _Collapse from 'web-ui/collapse/index'
 import _CollapseItem from 'web-ui/collapse-item/index'
+import _Guide from 'web-ui/guide/index'
 
 function install (Vue, config = {}) {
     Vue.use(_Actionsheet)
@@ -96,3 +97,4 @@ export const TmCarousel = _Carousel
 export const TmCarouselItem = _CarouselItem
 export const TmCollapse = _Collapse
 export const TmCollapseItem = _CollapseItem
+export const TmGuide = _Guide

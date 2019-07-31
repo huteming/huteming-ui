@@ -11,7 +11,7 @@ describe('canvas', () => {
         it('返回对象属性', () => {
             const obj = getCanvasObject(10, 10, 10)
             const keys = Object.keys(obj)
-            assert.deepStrictEqual(keys, ['context', 'canvas', 'canvasWidth', 'canvasHeight', 'ratio'])
+            assert.deepStrictEqual(keys, ['context', 'canvas', 'canvasWidth', 'canvasHeight', 'ratio', 'scale'])
         })
 
         it('自适应屏幕大小', () => {

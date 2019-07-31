@@ -30,6 +30,7 @@ export default {
             }
 
             if (!_target) {
+                // 这里不抛错，是因为在创建实例时，activeIndex 总是不存在，在 open 中才会根据 init 修改 activeIndex
                 // throw new Error(`未找到目标dom: ${target}`)
                 return {}
             }
@@ -81,7 +82,6 @@ export default {
                 this.close()
                 return
             }
-            if (index <= -1) return
 
             const { before, after } = this.process[index]
 

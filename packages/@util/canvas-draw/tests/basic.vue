@@ -32,7 +32,7 @@ export default {
     },
 
     async mounted () {
-        const [_bgFilter, _bgTitle] = await loadImages([bgFilter, bgTitle])
+        const [_bgFilter] = await loadImages([bgFilter])
 
         const instance = new CanvasDraw(652, 992)
 
