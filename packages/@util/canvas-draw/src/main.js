@@ -1,5 +1,9 @@
 import log from 'web/assets/js/log'
+import { imageDataRGBA } from 'stackblur-canvas'
 
+const defaultCanvas = {
+    designWidth: 750,
+}
 /**
  * @argument {*Number} width 设计稿上画布宽度
  * @argument {*Number} height 设计稿上画布高度
@@ -7,17 +11,21 @@ import log from 'web/assets/js/log'
  * @argument {Number} designWidth 设计稿标准宽度
  */
 export default class Canvas {
-    constructor (width = 750, height = 1206, { designWidth = 750 } = {}) {
-        const { context, canvas, canvasWidth, canvasHeight, ratio } = getCanvasObject(width, height, designWidth)
+    constructor (width = 750, height = 1206, optionsCanvas = {}) {
+        const _options = Object.assign({}, defaultCanvas, optionsCanvas)
+        const { designWidth } = _options
+        const { context, canvas, canvasWidth, canvasHeight, ratio, scale } = getCanvasObject(width, height, designWidth)
 
         this._onerror = console.error // 异常处理
         this._callbacks = [] // 绘图函数
+        this._options = _options
 
         this.context = context
         this.ratio = ratio
         this.canvas = canvas
         this.canvasWidth = canvasWidth // 画布宽度
         this.canvasHeight = canvasHeight // 画布高度
+        this.scale = scale
 
         this.add = this.add.bind(this)
         this.done = this.done.bind(this)
@@ -27,6 +35,7 @@ export default class Canvas {
         this.drawText = drawText.bind(this)
         this.drawLine = drawLine.bind(this)
         this.drawImage = drawImage.bind(this)
+        this.getBlurryArea = getBlurryArea.bind(this)
     }
 
     add (callback) {
@@ -34,8 +43,9 @@ export default class Canvas {
             context: this.context,
             ratio: this.ratio,
             canvas: this.canvas,
-            width: this.canvasWidth,
-            height: this.canvasHeight
+            canvasWidth: this.canvasWidth,
+            canvasHeight: this.canvasHeight,
+            scale: this.scale,
         }
 
         this._callbacks.push(() => {
@@ -100,7 +110,37 @@ export function getCanvasObject (width, height, designWidth) {
         canvasWidth: width * ratio,
         canvasHeight: height * ratio,
         ratio,
+        scale,
     }
+}
+
+/**
+ * 创建一个新的模糊的canvas
+ * @param {*Number} radius 模糊程度 the radius of the blur
+ * @param {*Number} x 截取区域的左上角 x 坐标
+ * @param {*Number} y 截取区域的左上角 y 坐标
+ * @param {*Number} width 截取区域的宽度
+ * @param {*Number} height 截取区域的高度
+ */
+function getBlurryArea (radius, x, y, width, height) {
+    const { ratio, context, _options, scale } = this
+    const { designWidth } = _options
+
+    const _x = x * ratio * scale
+    const _y = y * ratio * scale
+    const _width = width * ratio * scale
+    const _height = height * ratio * scale
+
+    // 创建相同尺寸参数的 canvas
+    const { canvas: _canvas, context: _context } = getCanvasObject(width, height, designWidth)
+    // 获取需要模糊处理区域图像数据
+    const data = context.getImageData(_x, _y, _width, _height)
+    // 模糊处理
+    imageDataRGBA(data, 0, 0, data.width, data.height, radius)
+    // 将模糊的图像数据再渲染到画布上面
+    _context.putImageData(data, 0, 0)
+
+    return _canvas
 }
 
 const defaultArc = {
@@ -179,6 +219,7 @@ const defaultRect = {
 function drawRect (x, y, width, height, options = {}) {
     log(`draw rect *** x: ${x} *** y: ${y} *** width: ${width} *** height: ${height}`)
     const { context, ratio } = this
+    const radians = Math.PI / 180
     options = Object.assign({}, defaultRect, options)
 
     let { type, color, r, lineWidth } = options
@@ -204,21 +245,54 @@ function drawRect (x, y, width, height, options = {}) {
     r3 *= ratio
     r4 *= ratio
 
-    const ptA = { x: x + r1, y: y }
-    const ptB = { x: x + width, y: y }
-    const ptC = { x: x + width, y: y + height }
-    const ptD = { x: x, y: y + height }
-    const ptE = { x: x, y: y }
-
     context[`${type}Style`] = color
     context.lineWidth = lineWidth
 
     context.beginPath()
-    context.moveTo(ptA.x, ptA.y)
-    context.arcTo(ptB.x, ptB.y, ptC.x, ptC.y, r2)
-    context.arcTo(ptC.x, ptC.y, ptD.x, ptD.y, r3)
-    context.arcTo(ptD.x, ptD.y, ptE.x, ptE.y, r4)
-    context.arcTo(ptE.x, ptE.y, ptA.x, ptA.y, r1)
+    context.moveTo(x, y + Math.abs(r1))
+
+    // 左上圆角
+    if (r1 >= 0) {
+        context.arc(x + r1, y + r1, r1, radians * 180, radians * 270, false)
+    } else {
+        context.arc(x, y, Math.abs(r1), radians * 90, 0, true)
+    }
+
+    // 矩形上边线
+    context.lineTo(x + width - Math.abs(r2), y)
+
+    // 右上圆角
+    if (r2 >= 0) {
+        context.arc(x + width - r2, y + r2, r2, radians * 270, 0, false)
+    } else {
+        context.arc(x + width, y, Math.abs(r2), radians * 180, radians * 90, true)
+    }
+
+    // 矩形右边线
+    context.lineTo(x + width, y + height - Math.abs(r3))
+
+    // 右下圆角
+    if (r3 >= 0) {
+        context.arc(x + width - r3, y + height - r3, r3, 0, radians * 90, false)
+    } else {
+        context.arc(x + width, y + height, Math.abs(r3), radians * 270, radians * 180, true)
+    }
+
+    // 矩形下边线
+    context.lineTo(x + Math.abs(r4), y + height)
+
+    // 左下圆角
+    if (r4 >= 0) {
+        context.arc(x + r4, y + height - r4, r4, radians * 90, radians * 180, false)
+    } else {
+        context.arc(x, y + height, Math.abs(r4), 0, radians * 270, true)
+    }
+
+    // 矩形左边线
+    context.lineTo(x, y + Math.abs(r1))
+
+    context.closePath()
+
     context[type]()
 
     return options

@@ -1,6 +1,12 @@
 <template>
 <div id="app">
     <h1>Welcome to Your Vue.js App</h1>
+
+    <!-- <div style="position: relative;">
+        <img :src="bgFilter" alt="" style="position: absolute; left: 0; width: 326px; height: 496px;">
+        <img :src="bgTitle2" alt="" style="position: absolute; top: 212px; left: 26px; width: 226px; height: 153px; filter: blur(5px);">
+        <div style="position: absolute; top: 212px; left: 26px; width: 226px; height: 153px; background: #fff; filter: blur(1px);"></div>
+    </div> -->
     <img id="png" :src="imgPng" alt="" class="img-block">
     <img id="jpg" :src="imgJpg" alt="" class="img-block">
 </div>
@@ -8,43 +14,44 @@
 
 <script>
 import CanvasDraw from '../index'
-import imgLogo from '@/assets/images/logo.png'
+// import imgLogo from '@/assets/images/logo.png'
+import { loadImages } from 'web-util/tool/src/main'
+import bgFilter from './images/bg-filter.png'
+import bgTitle2 from './images/bg-title2.png'
+import bgTitle from './images/e.png'
 
 export default {
     data () {
         return {
             imgPng: '',
             imgJpg: '',
+            bgFilter,
+            bgTitle,
+            bgTitle2,
         }
     },
 
     async mounted () {
-        const domLogo = await this.loadImage(imgLogo)
-        const instance = new CanvasDraw(750, 500)
+        const [_bgFilter, _bgTitle] = await loadImages([bgFilter, bgTitle])
 
-        // drawArc
-        instance.add(() => {
-            instance.drawArc(0, 0, 100, { color: '#000' })
+        const instance = new CanvasDraw(652, 992)
+        const x = 52
+        const y = 748
+        const width = 552
+        const height = 192
+
+        // 背景
+        instance.add(({ canvas }) => {
+            instance.drawImage(_bgFilter, 0, 0, 652, 992)
         })
 
-        // drawRect
-        instance.add(() => {
-            instance.drawRect(220, 0, 200, 200, { color: '#000', r: 10 })
-        })
-
-        // drawText
-        instance.add(() => {
-            instance.drawText('hello', 0, 220)
-        })
-
-        // drawLine
-        instance.add(() => {
-            instance.drawLine(220, 220, 420, 220, { lineWidth: 2 })
-        })
-
-        // drawImage
-        instance.add(() => {
-            instance.drawImage(domLogo, 0, 250, 200, 200)
+        instance.add(({ context, canvas, ratio, canvasWidth, canvasHeight }) => {
+            const blurryCanvas = instance.getBlurryArea(100, x, y, width, height)
+            // 创建不规则区域然后将模糊图像渲染
+            instance.drawRect(x, y, width, height, { r: '20 20 -20 -20' })
+            context.clip()
+            instance.drawImage(blurryCanvas, x, y, width, height)
+            instance.drawRect(x, y, width, height, { r: '20 20 -20 -20', color: 'rgba(255, 255, 255, 0.62)' })
         })
 
         this.imgPng = instance.done()
@@ -52,22 +59,6 @@ export default {
     },
 
     methods: {
-        loadImage (url) {
-            return new Promise((resolve, reject) => {
-                const img = new Image()
-                const separator = url.indexOf('?') > -1 ? '&' : '?'
-                img.setAttribute('crossOrigin', 'anonymous')
-
-                img.onload = function () {
-                    resolve(img)
-                }
-                img.onerror = function () {
-                    reject(new Error(`渲染地址错误[${url}]`))
-                }
-
-                img.src = `${url}${separator}timestamp=${Date.now()}`
-            })
-        },
     },
 }
 </script>
