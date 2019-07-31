@@ -35,23 +35,63 @@ export default {
         const [_bgFilter, _bgTitle] = await loadImages([bgFilter, bgTitle])
 
         const instance = new CanvasDraw(652, 992)
-        const x = 52
-        const y = 748
-        const width = 552
-        const height = 192
 
         // 背景
         instance.add(({ canvas }) => {
             instance.drawImage(_bgFilter, 0, 0, 652, 992)
         })
 
+        // 高斯模糊
         instance.add(({ context, canvas, ratio, canvasWidth, canvasHeight }) => {
+            const x = 52
+            const y = 424
+            const width = 552
+            const height = 177
+            const r = '20 20 -20 -20'
+
             const blurryCanvas = instance.getBlurryArea(100, x, y, width, height)
             // 创建不规则区域然后将模糊图像渲染
-            instance.drawRect(x, y, width, height, { r: '20 20 -20 -20' })
+            instance.drawRect(x, y, width, height, { r })
             context.clip()
             instance.drawImage(blurryCanvas, x, y, width, height)
-            instance.drawRect(x, y, width, height, { r: '20 20 -20 -20', color: 'rgba(255, 255, 255, 0.62)' })
+            instance.drawRect(x, y, width, height, { r, color: 'rgba(255, 255, 255, 0.62)' })
+        })
+
+        // 高斯模糊
+        instance.add(({ context, canvas, ratio, canvasWidth, canvasHeight }) => {
+            const x = 52
+            const y = 600
+            const width = 552
+            const height = 127
+            const r = '-20 -20 20 20'
+
+            const blurryCanvas = instance.getBlurryArea(100, x, y, width, height)
+            // 创建不规则区域然后将模糊图像渲染
+            instance.drawRect(x, y, width, height, { r })
+            context.clip()
+            instance.drawImage(blurryCanvas, x, y, width, height)
+            instance.drawRect(x, y, width, height, { r, color: 'rgba(255, 255, 255, 0.62)' })
+        })
+
+        // 高斯模糊
+        instance.add(({ context, canvas, ratio, canvasWidth, canvasHeight }) => {
+            const x = 52
+            const y = 748
+            const width = 552
+            const height = 192
+            const r = '20 20 20 20'
+
+            const blurryCanvas = instance.getBlurryArea(100, x, y, width, height)
+            // 创建不规则区域然后将模糊图像渲染
+            instance.drawRect(x, y, width, height, { r })
+            context.clip()
+            instance.drawImage(blurryCanvas, x, y, width, height)
+            instance.drawRect(x, y, width, height, { r, color: 'rgba(255, 255, 255, 0.62)' })
+        })
+
+        // 虚线
+        instance.add(() => {
+            instance.drawLine(72, 601, 584, 601, { color: 'rgba(255, 255, 255, 1)', dashed: [10, 10], lineWidth: 2 })
         })
 
         this.imgPng = instance.done()

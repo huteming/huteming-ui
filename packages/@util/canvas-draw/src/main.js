@@ -485,6 +485,7 @@ export function getArrayTextWidth (array, letterSpacing, fix = false) {
 }
 
 const defaultLine = {
+    dashed: [], // 虚线
     lineWidth: 1, // 画笔宽度
     color: '#000',
 }
@@ -502,7 +503,7 @@ function drawLine (startX, startY, endX, endY, options = {}) {
     const { context, ratio } = this
     options = Object.assign({}, defaultLine, options)
 
-    const { color, lineWidth } = options
+    const { color, lineWidth, dashed } = options
 
     startX *= ratio
     startY *= ratio
@@ -513,6 +514,7 @@ function drawLine (startX, startY, endX, endY, options = {}) {
     context.lineWidth = lineWidth
 
     context.beginPath()
+    context.setLineDash(dashed)
     context.moveTo(startX, startY)
     context.lineTo(endX, endY)
     context.stroke()
