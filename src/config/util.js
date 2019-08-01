@@ -18,6 +18,7 @@ export default [
         path: 'canvas-draw',
         title: 'CanvasDraw',
         docs: () => import('web-util/canvas-draw/README.md'),
+        example: () => import('web-util/canvas-draw/demo/basic.vue'),
         test: [
             {
                 'canvas': () => import('web-util/canvas-draw/tests/basic.vue'),

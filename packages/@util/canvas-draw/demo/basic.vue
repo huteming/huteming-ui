@@ -18,7 +18,10 @@ export default {
         const instance = new CanvasDraw(375, 500)
 
         instance.add(({ context, canvas, ratio, width, height }) => {
-            instance.drawText('hello world', 24, 93)
+            const x = 24
+            const y = 93
+            const { actualMaxWidth, actualMaxHeight } = instance.drawText('这是一段超出最大宽度的文本！这是一段超出最大宽度的文本！', x, y, { wrap: true, maxWidth: 100 })
+            instance.drawRect(x, y, actualMaxWidth, actualMaxHeight, { type: 'stroke', color: 'rgba(0, 0, 0, 1)' })
         })
 
         this.img = instance.done()
