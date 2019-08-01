@@ -29,6 +29,7 @@ import _Toolbar from 'web-ui/toolbar/index.js'
 import _Collapse from 'web-ui/collapse/index'
 import _CollapseItem from 'web-ui/collapse-item/index'
 import _Guide from 'web-ui/guide/index'
+import _NoticeBar from 'web-ui/notice-bar/index'
 
 function install (Vue, config = {}) {
     Vue.use(_Actionsheet)
@@ -61,6 +62,7 @@ function install (Vue, config = {}) {
     Vue.use(_Toast)
     Vue.use(_Collapse)
     Vue.use(_CollapseItem)
+    Vue.use(_NoticeBar)
 }
 
 export default {
@@ -98,3 +100,4 @@ export const TmCarouselItem = _CarouselItem
 export const TmCollapse = _Collapse
 export const TmCollapseItem = _CollapseItem
 export const TmGuide = _Guide
+export const TmNoticeBar = _NoticeBar

@@ -7,7 +7,7 @@
 
 <script>
 export default {
-    name: 'TmBasic',
+    name: 'TestBasic',
 
     data () {
         return {}

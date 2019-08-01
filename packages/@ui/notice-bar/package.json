@@ -1,0 +1,11 @@
+{
+  "name": "@huteming/ui-notice-bar",
+  "version": "1.0.0",
+  "description": "> 通知栏",
+  "main": "dist/notice-bar.common.js",
+  "scripts": {
+    "prepublishOnly": "node ../../../prepublishOnly.js noticeBar"
+  },
+  "author": "",
+  "license": "ISC"
+}

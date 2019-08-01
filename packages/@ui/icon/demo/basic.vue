@@ -35,6 +35,12 @@ export default {
                 {
                     icon: 'expand_more',
                 },
+                {
+                    icon: 'volume_up',
+                },
+                {
+                    icon: 'notification_important',
+                },
             ],
         }
     },

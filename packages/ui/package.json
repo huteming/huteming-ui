@@ -26,6 +26,7 @@
     "@huteming/ui-infinite-scroll": "^1.4.2",
     "@huteming/ui-loading": "^1.1.1",
     "@huteming/ui-message": "^1.4.5",
+    "@huteming/ui-notice-bar": "^1.0.0",
     "@huteming/ui-panel": "^1.0.2",
     "@huteming/ui-picker-address": "^1.4.3",
     "@huteming/ui-picker-datetime": "^1.4.2",

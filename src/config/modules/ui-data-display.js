@@ -53,4 +53,10 @@ export default [
         docs: () => import('web-ui/collapse/README.md'),
         example: () => import('web-ui/collapse/demo/basic.vue'),
     },
+    {
+        path: 'notice-bar',
+        title: 'NoticeBar 通知栏',
+        docs: () => import('web-ui/notice-bar/README.md'),
+        example: () => import('web-ui/notice-bar/demo/basic.vue'),
+    },
 ]

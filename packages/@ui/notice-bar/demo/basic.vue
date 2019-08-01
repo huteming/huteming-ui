@@ -1,0 +1,42 @@
+<template>
+<div class="demo">
+    <tm-notice-bar>
+        <span>这是一句绕口令：黑灰化肥会挥发发灰黑化肥挥发；灰黑化肥会挥发发黑灰化肥发挥。 黑灰化肥会挥发发灰黑化肥黑灰挥发化为灰……</span>
+    </tm-notice-bar>
+
+    <tm-divider>不循环</tm-divider>
+
+    <tm-notice-bar :loop="false">
+        <span>这是一句绕口令：黑灰化肥会挥发发灰黑化肥挥发；灰黑化肥会挥发发黑灰化肥发挥。 黑灰化肥会挥发发灰黑化肥黑灰挥发化为灰……</span>
+    </tm-notice-bar>
+
+    <tm-divider>无图标</tm-divider>
+
+    <tm-notice-bar icon="" mode="link" @click="handleClick">
+        <span>这是一句绕口令：黑灰化肥会挥发发灰黑化肥</span>
+    </tm-notice-bar>
+
+    <tm-divider>自定义图标</tm-divider>
+
+    <tm-notice-bar icon="notification_important" mode="closeable" @click="handleClick">
+        <span>这是一句绕口令：黑灰化肥会挥发发灰黑化肥</span>
+    </tm-notice-bar>
+
+    <tm-divider>自定义文案</tm-divider>
+
+    <tm-notice-bar mode="closeable">
+        <span>这是一句绕口令：黑灰化肥会挥发发灰黑化肥</span>
+        <div style="color: #a1a1a1;" slot="action">不再提示</div>
+    </tm-notice-bar>
+</div>
+</template>
+
+<script>
+export default {
+    methods: {
+        handleClick () {
+            this.$message.success('1')
+        },
+    },
+}
+</script>

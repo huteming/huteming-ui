@@ -111,6 +111,10 @@ describe('ui entry', () => {
             lib: 'tm-guide',
             noInstall: true,
         },
+        {
+            name: 'TmNoticeBar',
+            lib: 'tm-notice-bar',
+        },
     ]
 
     names.forEach(({ name, lib, child, noInstall }) => {
