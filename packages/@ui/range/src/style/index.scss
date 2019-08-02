@@ -1,0 +1,60 @@
+$range-finger-color: #2A73FD;
+
+.t-range {
+    display: flex;
+    align-items: center;
+    // 扩大滑动区域
+    margin: -20px 0;
+    padding: 20px 0;
+
+    &-content {
+        position: relative;
+        flex: 1;
+        display: flex;
+        align-items: center;
+
+        &.disabled {
+            opacity: .5;
+        }
+    }
+
+    &-progress {
+        margin-right: -7px;
+        padding-right: 7px;
+        background: $range-finger-color;
+        border-radius: 2px 0 0 2px;
+        box-sizing: content-box;
+        z-index: 1;
+    }
+
+    &-finger {
+        flex: 0 0 auto;
+        z-index: 2;
+
+        &-thumb {
+            width: 15px;
+            height: 15px;
+            background: $range-finger-color;
+            box-sizing: border-box;
+            border-radius: 50%;
+            cursor: move;
+        }
+    }
+
+    &-runway {
+        flex: 1;
+        margin-left: -7px;
+        background: rgba(247, 247, 247, 1);
+        border-radius: 0 2px 2px 0;
+        box-sizing: content-box;
+        z-index: 1;
+    }
+
+    &-min {
+        margin-right: 4px;
+    }
+
+    &-max {
+        margin-left: 4px;
+    }
+}

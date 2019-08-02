@@ -21,6 +21,18 @@ export default {
                     icon: 'play',
                 },
                 {
+                    icon: 'pause',
+                },
+                {
+                    icon: 'skip_next',
+                },
+                {
+                    icon: 'skip_previous',
+                },
+                {
+                    icon: 'playlist_play',
+                },
+                {
                     icon: 'clear',
                 },
                 {

@@ -17,4 +17,16 @@ export default [
         docs: () => import('web-ui/guide/README.md'),
         example: () => import('web-ui/guide/demo/basic.vue'),
     },
+    {
+        path: 'audio',
+        title: '音频 Audio',
+        docs: () => import('web-ui/audio/README.md'),
+        example: () => import('web-ui/audio/demo/basic.vue'),
+    },
+    {
+        path: 'mp3',
+        title: '音频 Mp3',
+        docs: () => import('web-ui/mp3/README.md'),
+        example: () => import('web-ui/mp3/demo/basic.vue'),
+    },
 ]
