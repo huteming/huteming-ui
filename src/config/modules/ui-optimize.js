@@ -29,4 +29,16 @@ export default [
         docs: () => import('web-ui/mp3/README.md'),
         example: () => import('web-ui/mp3/demo/basic.vue'),
     },
+    {
+        path: 'video',
+        title: '视频 video',
+        docs: () => import('web-ui/video/README.md'),
+        example: () => import('web-ui/video/demo/basic.vue'),
+    },
+    {
+        path: 'mp4',
+        title: '视频 video',
+        docs: () => import('web-ui/mp4/README.md'),
+        example: () => import('web-ui/mp4/demo/basic.vue'),
+    },
 ]

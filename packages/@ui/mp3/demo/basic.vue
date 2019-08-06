@@ -12,8 +12,12 @@
             :list="lists"
             :play.sync="currentPlay"
             color="rgba(255, 0, 78, 1)"
+            :continuous="continuous"
             @change="handleChange"
-            @next="handleNext" />
+            @init="handleInit"
+            @ended="handleEnd"
+            @error-prev="handleToast('没有上一个的提示')"
+            @error-next="handleToast('没有下一个的提示')" />
 
         <div class="audio-footer">
             <div class="audio-current">{{ currentTime | time }}</div>
@@ -75,6 +79,7 @@ export default {
             rotateDeg: 0,
 
             ready: false,
+            continuous: false,
         }
     },
 
@@ -97,10 +102,16 @@ export default {
     },
 
     methods: {
+        handleToast (msg) {
+            this.$toast(msg)
+        },
         handleChange (_currentTime) {
             this.currentTime = _currentTime
         },
-        handleNext ({ duration, currentTime }) {
+        handleEnd () {
+            console.log('end')
+        },
+        handleInit ({ duration, currentTime }) {
             console.log('next', currentTime)
             this.duration = duration
             this.currentTime = currentTime

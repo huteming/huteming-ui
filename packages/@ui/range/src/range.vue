@@ -148,7 +148,8 @@ export default {
             if (this.direction === 'vertical') {
                 return
             }
-            event.preventDefault()
+
+            event.cancelable && event.preventDefault()
 
             const stepMove = Math.round(moveX / (this.widthProgress / this.stepCount))
             let newValue = stepMove * this.step + this.startValue

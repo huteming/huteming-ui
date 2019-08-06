@@ -33,6 +33,9 @@ export default {
                     icon: 'playlist_play',
                 },
                 {
+                    icon: 'replay',
+                },
+                {
                     icon: 'clear',
                 },
                 {

@@ -30,6 +30,10 @@ export default {
             type: [Boolean, String],
             default: false,
         },
+        continuous: {
+            type: Boolean,
+            default: true,
+        },
     },
 
     data () {
@@ -98,19 +102,27 @@ export default {
         },
         next () {
             const index = this.playList.findIndex(item => item.src === this.currentSrc)
-            if (index >= this.playList.length - 1) return
+            if (index >= this.playList.length - 1) {
+                this.$emit('error-next')
+                return false
+            }
 
             this.init(this.playList[index + 1])
+            return true
         },
         prev () {
             const index = this.playList.findIndex(item => item.src === this.currentSrc)
-            if (index <= 0) return
+            if (index <= 0) {
+                this.$emit('error-prev')
+                return false
+            }
 
             this.init(this.playList[index - 1])
+            return true
         },
         // -------------------------------------- 分隔线 --------------------------------------
         playAudio () {
-            if (this.play === true) {
+            if (this.play === true || this.play === this.currentSrc) {
                 this.media.play()
                 return
             }
@@ -142,14 +154,25 @@ export default {
             this.mediaCurrentTime = currentTime
             this.styleCurrentTime = currentTime
 
-            this.$emit('next', {
+            this.$emit('init', {
                 src,
                 duration,
                 currentTime,
             })
         },
-        handleStateChange (...args) {
-            this.$emit('state-change', ...args)
+        handleStateChange (_state) {
+            if (_state === 'ended') {
+                if (!this.continuous) {
+                    this.$emit('update:play', false)
+                    this.$emit('ended')
+                    return
+                }
+                const result = this.next()
+                if (!result) {
+                    this.$emit('update:play', false)
+                    this.$emit('ended')
+                }
+            }
         },
         async handleReady () {
             this.ready = true
