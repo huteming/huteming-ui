@@ -1,6 +1,6 @@
 {
   "name": "@huteming/ui-dialog",
-  "version": "1.4.3",
+  "version": "1.4.4",
   "description": "对话框",
   "main": "dist/dialog.common.js",
   "scripts": {
