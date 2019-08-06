@@ -11,6 +11,8 @@
 
         <div class="tm-dialog-cancel" :class="`tm-dialog-cancel_${closePosition}`" @click="handleClose" v-if="closePosition">
             <img src="./images/icon-close.png" alt="" style="display: block; width: 100%;" />
+
+            <div class="tm-dialog-cancel__line" v-if="closePosition === 'out-right'"></div>
         </div>
     </div>
 </transition>

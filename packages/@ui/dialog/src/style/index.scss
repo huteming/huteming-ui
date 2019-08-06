@@ -19,16 +19,13 @@
     }
 
     &-cancel {
-        width: .74rem;
-        height: .74rem;
-
         &_out-right {
-            position: absolute;
-            top: 0;
-            right: 0;
-            transform: translate(100%, -100%);
             width: .5rem;
-            height: .5rem;
+            order: -1;
+            align-self: flex-end;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
         }
 
         &_out-left {
@@ -61,6 +58,14 @@
         &_bottom {
             position: relative;
             margin-top: .4rem;
+            width: .74rem;
+            height: .74rem;
+        }
+
+        &__line {
+            width: 1px;
+            height: 17px;
+            background: #fff;
         }
     }
 }
