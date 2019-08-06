@@ -30,6 +30,8 @@ import _Collapse from 'web-ui/collapse/index'
 import _CollapseItem from 'web-ui/collapse-item/index'
 import _Guide from 'web-ui/guide/index'
 import _NoticeBar from 'web-ui/notice-bar/index'
+import _Mp3 from 'web-ui/mp3/index'
+import _Mp4 from 'web-ui/mp4/index'
 
 function install (Vue, config = {}) {
     Vue.use(_Actionsheet)
@@ -63,6 +65,8 @@ function install (Vue, config = {}) {
     Vue.use(_Collapse)
     Vue.use(_CollapseItem)
     Vue.use(_NoticeBar)
+    Vue.use(_Mp3)
+    Vue.use(_Mp4)
 }
 
 export default {
@@ -101,3 +105,5 @@ export const TmCollapse = _Collapse
 export const TmCollapseItem = _CollapseItem
 export const TmGuide = _Guide
 export const TmNoticeBar = _NoticeBar
+export const TmMp3 = _Mp3
+export const TmMp4 = _Mp4

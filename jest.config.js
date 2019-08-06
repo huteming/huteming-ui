@@ -39,6 +39,11 @@ module.exports = {
     'packages/@util/**/src/*.{js,vue}',
     'packages/@ui/**/src/*.{js,vue}',
     '!packages/@ui/tab/src/*.{js,vue}',
+    '!packages/@ui/audio/src/*.{js,vue}',
+    '!packages/@ui/video/src/*.{js,vue}',
+    '!packages/@ui/mp3/src/*.{js,vue}',
+    '!packages/@ui/mp4/src/*.{js,vue}',
+    '!packages/@ui/range/src/*.{js,vue}',
   ],
   coverageReporters: ['html', 'text-summary']
 }

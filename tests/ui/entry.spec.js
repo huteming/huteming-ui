@@ -115,6 +115,14 @@ describe('ui entry', () => {
             name: 'TmNoticeBar',
             lib: 'tm-notice-bar',
         },
+        {
+            name: 'TmMp3',
+            lib: 'tm-mp3',
+        },
+        {
+            name: 'TmMp4',
+            lib: 'tm-mp4',
+        },
     ]
 
     names.forEach(({ name, lib, child, noInstall }) => {
