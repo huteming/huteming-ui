@@ -1,6 +1,6 @@
 {
   "name": "@huteming/ui-mp3",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "> mp3播放器",
   "main": "dist/mp3.common.js",
   "scripts": {
