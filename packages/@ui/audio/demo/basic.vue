@@ -3,10 +3,6 @@
     <TmAudio
         :src="src"
         v-model="currentTime"
-        @waiting="handleWaiting"
-        @playing="handlePlaying"
-        @pause="handlePause"
-        @ended="handleEnded"
         @progress="handleProgress"
         @durationchange="handleDurationchange"
         :preload="true"
@@ -42,7 +38,9 @@ export default {
     },
 
     mounted () {
-        this.src = this.src1
+        setTimeout(() => {
+            this.src = this.src1
+        }, 2000)
     },
 
     methods: {
@@ -54,18 +52,6 @@ export default {
             // this.currentTime = 845
             // this.$refs.audio.play()
             this.$refs.audio.play(845)
-        },
-        handleWaiting () {
-            console.log('waiting')
-        },
-        handlePlaying () {
-            console.log('playing')
-        },
-        handlePause () {
-            console.log('pause')
-        },
-        handleEnded () {
-            console.log('ended')
         },
         handleProgress (_progress) {
             this.progress = _progress

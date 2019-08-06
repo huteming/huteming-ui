@@ -1,24 +1,24 @@
 <template>
-<section class="t-range" @touchstart="handleTouchstart" @touchmove="handleTouchmove" @touchend="handleTouchend">
-    <div class="t-range-start" v-if="$slots.start">
+<section class="tm-range">
+    <div class="tm-range-start" v-if="$slots.start">
         <slot name="start"></slot>
     </div>
 
-    <div class="t-range-min" v-if="showValue">{{ min }}</div>
+    <div class="tm-range-min" v-if="showValue">{{ min }}</div>
 
-    <div class="t-range-content" :class="{ 'disabled': disabled }" ref="content">
-        <div class="t-range-progress" :style="styleProgress"></div>
+    <div class="tm-range-content" :class="{ 'disabled': disabled }" ref="content">
+        <div class="tm-range-progress" :style="styleProgress"></div>
 
-        <div class="t-range-finger" ref="thumb">
-            <div class="t-range-finger-thumb" :style="styleThumb"></div>
+        <div class="tm-range-finger" ref="thumb" @touchstart="handleTouchstart" @touchmove="handleTouchmove" @touchend="handleTouchend">
+            <div class="tm-range-finger-thumb" :style="styleThumb"></div>
         </div>
 
-        <div class="t-range-runway" :style="styleRunWay"></div>
+        <div class="tm-range-runway" :style="styleRunWay"></div>
     </div>
 
-    <div class="t-range-max" v-if="showValue">{{ max }}</div>
+    <div class="tm-range-max" v-if="showValue">{{ max }}</div>
 
-    <div class="t-range-end" v-if="$slots.end">
+    <div class="tm-range-end" v-if="$slots.end">
         <slot name="end"></slot>
     </div>
 </section>

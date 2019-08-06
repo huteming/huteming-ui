@@ -1,11 +1,8 @@
 $range-finger-color: #2A73FD;
 
-.t-range {
+.tm-range {
     display: flex;
     align-items: center;
-    // 扩大滑动区域
-    margin: -20px 0;
-    padding: 20px 0;
 
     &-content {
         position: relative;
@@ -13,9 +10,9 @@ $range-finger-color: #2A73FD;
         display: flex;
         align-items: center;
 
-        &.disabled {
-            opacity: .5;
-        }
+        // &.disabled {
+        //     opacity: .5;
+        // }
     }
 
     &-progress {
@@ -30,6 +27,9 @@ $range-finger-color: #2A73FD;
     &-finger {
         flex: 0 0 auto;
         z-index: 2;
+        // 扩大滑动区域
+        margin: -20px;
+        padding: 20px;
 
         &-thumb {
             width: 15px;

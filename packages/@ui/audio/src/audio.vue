@@ -57,6 +57,11 @@ export default {
             // 播放状态
             state: 'waiting', // waiting, playing, pause, ended
             isCanPlay: false,
+
+            // 切换地址之前的状态是否是播放
+            expectContinueToPlay: false,
+            // 是否在 ready 之前点击播放/暂停
+            expectToPlay: false,
         }
     },
 
@@ -101,31 +106,40 @@ export default {
     },
 
     methods: {
-        toggle (_currentTime) {
+        async toggle (_currentTime) {
             if (this.state === 'playing') {
-                this.pause()
+                await this.pause()
                 return
             }
 
-            this.play(_currentTime)
+            await this.play(_currentTime)
         },
-        play (_currentTime) {
+        async play (_currentTime) {
             if (typeof _currentTime === 'number') {
                 this.updateCurrentTime(_currentTime)
             }
 
             if (!this.ready) {
+                this.expectToPlay = true
                 return
             }
 
-            this.audio.play()
+            try {
+                await this.audio.play()
+                return true
+            } catch (err) {
+                // 这里的播放如果不是交互引起的，会出现异常 Uncaught (in promise) DOMException
+                process.env.NODE_ENV === 'development' && console.error('audio play error: ', err)
+                return false
+            }
         },
-        pause () {
+        async pause () {
             if (!this.ready) {
+                this.expectToPlay = false
                 return
             }
 
-            this.audio.pause()
+            await this.audio.pause()
         },
         // 更新进度
         updateCurrentTime (_currentTime) {
@@ -236,18 +250,25 @@ export default {
                 }, false)
             }
         },
+        // 音频就绪可以播放时，在下一个事件循环中触发 ready 事件
         async already () {
             if (this.ready) return
             console.log('already --- ', 'autoplay: ', this.autoplay)
             this.ready = true
 
             this.updateCurrentTime()
-            this.$emit('ready')
+            await this.$nextTick()
 
-            if (this.expectContinueToPlay) {
-                await this.$nextTick()
-                await this.audio.play()
+            if (this.expectContinueToPlay || this.expectToPlay) {
+                try {
+                    await this.audio.play()
+                } catch (err) {
+                    // 这里的期望播放如果不是交互引起的，会出现异常 Uncaught (in promise) DOMException
+                    process.env.NODE_ENV === 'development' && console.error('audio play error: ', err)
+                }
             }
+
+            this.$emit('ready')
         },
     },
 }

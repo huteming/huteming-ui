@@ -1,5 +1,5 @@
 <template>
-<div class="demo">
+<div class="demo" v-loading="!ready">
     <div class="cover">
         <div class="cover-wrap">
             <img src="./images/cover.png" alt="" ref="cover">
@@ -8,31 +8,30 @@
 
     <div class="audio">
         <TmMp3
-            v-model="currentTime"
-            :src="current.src"
-            :duration="current.duration"
             ref="mp3"
-            autoplay
+            :list="lists"
+            :play.sync="currentPlay"
             color="rgba(255, 0, 78, 1)"
-            @state-change="handleStateChange" />
+            @change="handleChange"
+            @next="handleNext" />
 
         <div class="audio-footer">
             <div class="audio-current">{{ currentTime | time }}</div>
-            <div class="audio-duration">{{ current.duration | time }}</div>
+            <div class="audio-duration">{{ duration | time }}</div>
         </div>
     </div>
 
     <div class="controller">
         <div class="controller-item controller-white" @click="handleRate">
-            <span>{{ playRates[playRatesIndex] }}X</span>
+            <span>{{ playRate }}X</span>
         </div>
-        <div class="controller-item controller-blue" @click="handlePrev">
+        <div class="controller-item controller-blue" @click="$refs.mp3.prev()">
             <TmIcon icon="skip_previous" />
         </div>
-        <div class="controller-item controller-blue" @click="handleToggle">
-            <TmIcon :icon="mediaState === 'playing' ? 'pause' : 'play'" />
+        <div class="controller-item controller-blue" @click="currentPlay = !currentPlay">
+            <TmIcon :icon="currentPlay ? 'pause' : 'play'" />
         </div>
-        <div class="controller-item controller-blue" @click="handleNext">
+        <div class="controller-item controller-blue" @click="$refs.mp3.next()">
             <TmIcon icon="skip_next" />
         </div>
         <div class="controller-item controller-white">
@@ -44,6 +43,7 @@
 
 <script>
 import TmMp3 from '../index'
+import Loading from 'web-ui/loading/index'
 
 export default {
     data () {
@@ -51,81 +51,80 @@ export default {
             asyncLists: [
                 {
                     duration: 852,
-                    src: 'http://jhsy-img.caizhu.com/lh8gwVTFUoXlN267Evt6pedsIg6y?d=0320',
+                    src: 'http://jhsy-img.caizhu.com/lh8gwVTFUoXlN267Evt6pedsIg6y?d=1',
                 },
                 {
                     duration: 16.728,
-                    src: 'http://jhsy-img.caizhu.com/Fiw-_Pvh52t0LFNpjXKIsJ8XzUrz?d=0320',
+                    src: 'http://jhsy-img.caizhu.com/Fiw-_Pvh52t0LFNpjXKIsJ8XzUrz?d=2',
+                },
+                {
+                    duration: 852,
+                    src: 'http://jhsy-img.caizhu.com/lh8gwVTFUoXlN267Evt6pedsIg6y?d=3',
+                },
+                {
+                    duration: 16.728,
+                    src: 'http://jhsy-img.caizhu.com/Fiw-_Pvh52t0LFNpjXKIsJ8XzUrz?d=4',
                 },
             ],
             lists: [],
-            activeIndex: 0,
-            currentTime: 0,
+            currentPlay: true,
 
-            media: null,
-            mediaState: '',
+            duration: 0,
+            currentTime: 0,
+            playRate: 1,
             rotateDeg: 0,
-            playRates: [0.5, 1.0, 2.0],
-            playRatesIndex: 1,
+
+            ready: false,
         }
     },
 
     computed: {
-        current () {
-            return this.lists[this.activeIndex] || {}
-        },
-        styleCover () {
-            return {
-                transform: `rotate(${this.currentTime * 36}deg)`,
-            }
+    },
+
+    watch: {
+        currentPlay: {
+            handler (val) {
+                val ? this.startRotate() : this.endRotate()
+            },
+            immediate: true,
         },
     },
 
     mounted () {
-        this.media = this.$refs.mp3
-
         setTimeout(() => {
             this.lists = this.asyncLists
-        }, 2000)
+        }, 1500)
     },
 
     methods: {
+        handleChange (_currentTime) {
+            this.currentTime = _currentTime
+        },
+        handleNext ({ duration, currentTime }) {
+            console.log('next', currentTime)
+            this.duration = duration
+            this.currentTime = currentTime
+
+            this.ready = true
+        },
         handleRate () {
-            const index = this.playRatesIndex >= this.playRates.length - 1 ? 0 : this.playRatesIndex + 1
-            this.playRatesIndex = index
-            this.media && (this.media.setValue('playbackRate', this.playRates[index]))
-        },
-        handlePrev () {
-            if (this.activeIndex <= 0) return
-            this.activeIndex--
-            this.currentTime = 0
-        },
-        handleNext () {
-            if (this.activeIndex >= this.lists.length - 1) return
-            this.activeIndex++
-            this.currentTime = 0
-        },
-        handleToggle () {
-            this.media && this.media.exec('toggle')
-        },
-        handleStateChange (state) {
-            this.mediaState = state
-            state === 'playing' && this.startRotate()
+            this.playRate = this.$refs.mp3.setRate()
+            // this.$refs.mp3.reload()
         },
         startRotate () {
-            const cancelAnimationFrame = window.cancelAnimationFrame || window.mozCancelAnimationFrame
             const requestAnimationFrame = window.requestAnimationFrame || window.mozRequestAnimationFrame ||
                             window.webkitRequestAnimationFrame || window.msRequestAnimationFrame
 
-            cancelAnimationFrame(this.timer)
-
             const rotate = () => {
-                if (this.mediaState !== 'playing') return
-
                 this.$refs.cover.style.transform = `rotate(${this.rotateDeg++}deg)`
                 this.timer = requestAnimationFrame(rotate)
             }
             this.timer = requestAnimationFrame(rotate)
+        },
+        endRotate () {
+            const cancelAnimationFrame = window.cancelAnimationFrame || window.mozCancelAnimationFrame
+
+            cancelAnimationFrame(this.timer)
         },
     },
 
@@ -147,6 +146,10 @@ export default {
 
     components: {
         TmMp3,
+    },
+
+    directives: {
+        Loading,
     },
 }
 </script>
