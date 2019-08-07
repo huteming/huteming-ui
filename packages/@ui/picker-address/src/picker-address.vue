@@ -157,4 +157,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.tm-picker-address {
+    background: #fff;
+}
 </style>

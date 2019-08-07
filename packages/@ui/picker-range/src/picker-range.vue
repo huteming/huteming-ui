@@ -91,5 +91,6 @@ export default {
 <style lang="scss" scoped>
 .tm-picker-range {
     position: static;
+    background: #fff;
 }
 </style>

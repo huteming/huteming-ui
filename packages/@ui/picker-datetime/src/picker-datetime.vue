@@ -1,6 +1,6 @@
 <template>
 <tm-popup v-model="normalizedVisible" position="bottom" ref="popup">
-    <div class="tm-datetime">
+    <div class="tm-picker-datetime">
         <TmToolbar @confirm="handleConfirm" @cancel="handleCancel" />
 
         <tm-picker>
@@ -248,4 +248,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.tm-picker-datetime {
+    background: #fff;
+}
 </style>
