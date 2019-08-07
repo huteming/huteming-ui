@@ -1,0 +1,11 @@
+{
+  "name": "@huteming/ui-transition-collapse",
+  "version": "1.0.0",
+  "description": "> 折叠动画",
+  "main": "dist/transition-collapse.common.js",
+  "scripts": {
+    "prepublishOnly": "node ../../../prepublishOnly.js transitionCollapse"
+  },
+  "author": "",
+  "license": "ISC"
+}

@@ -74,6 +74,9 @@ export default {
                 {
                     icon: 'lock_open',
                 },
+                {
+                    icon: 'menu',
+                },
             ],
         }
     },

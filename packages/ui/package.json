@@ -34,6 +34,7 @@
     "@huteming/ui-picker-datetime": "^1.4.3",
     "@huteming/ui-picker-range": "^1.1.0",
     "@huteming/ui-popup": "^1.1.0",
-    "@huteming/ui-toast": "^1.4.1"
+    "@huteming/ui-toast": "^1.4.1",
+    "@huteming/ui-transition-collapse": "^1.0.0"
   }
 }

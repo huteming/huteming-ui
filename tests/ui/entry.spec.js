@@ -123,6 +123,10 @@ describe('ui entry', () => {
             name: 'TmMp4',
             lib: 'tm-mp4',
         },
+        {
+            name: 'TmTransitionCollapse',
+            lib: 'tm-transition-collapse',
+        },
     ]
 
     names.forEach(({ name, lib, child, noInstall }) => {
