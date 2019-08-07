@@ -1,6 +1,6 @@
 {
   "name": "@huteming/ui",
-  "version": "1.6.0-alpha.2",
+  "version": "1.6.0-alpha.3",
   "description": "ui 组件的统一入口",
   "main": "dist/huteming-ui.common.js",
   "scripts": {
@@ -20,7 +20,7 @@
     "@huteming/ui-field": "^1.1.0",
     "@huteming/ui-flex": "^1.2.1",
     "@huteming/ui-guide": "^1.1.2",
-    "@huteming/ui-icon": "^1.2.5",
+    "@huteming/ui-icon": "^1.2.6",
     "@huteming/ui-image": "^1.4.3",
     "@huteming/ui-image-picker": "^1.0.1",
     "@huteming/ui-infinite-scroll": "^1.4.2",
@@ -35,6 +35,6 @@
     "@huteming/ui-picker-range": "^1.1.0",
     "@huteming/ui-popup": "^1.1.0",
     "@huteming/ui-toast": "^1.4.1",
-    "@huteming/ui-transition-collapse": "^1.0.0"
+    "@huteming/ui-transition-collapse": "^1.0.1"
   }
 }
