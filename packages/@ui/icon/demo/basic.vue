@@ -21,7 +21,13 @@ export default {
                     icon: 'play',
                 },
                 {
+                    icon: 'play_circle_outline',
+                },
+                {
                     icon: 'pause',
+                },
+                {
+                    icon: 'pause_circle_outline',
                 },
                 {
                     icon: 'skip_next',
@@ -54,7 +60,19 @@ export default {
                     icon: 'volume_up',
                 },
                 {
-                    icon: 'notification_important',
+                    icon: 'edit',
+                },
+                {
+                    icon: 'thumb_up',
+                },
+                {
+                    icon: 'dehaze',
+                },
+                {
+                    icon: 'lock',
+                },
+                {
+                    icon: 'lock_open',
                 },
             ],
         }
