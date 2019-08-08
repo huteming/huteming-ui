@@ -1,4 +1,8 @@
 <script>
+/**
+ * 注意点
+ * 1、根组件不能定义高度height，否则动画过程不能准确获取高度
+ */
 import { easeInOut } from 'web-util/animation/src/main'
 
 export default {
@@ -12,6 +16,9 @@ export default {
             },
             on: {
                 beforeEnter (el) {
+                    el.dataset.oldOverflow = el.style.overflow
+
+                    el.style.overflow = 'hidden'
                     el.style.height = 0
                 },
 
@@ -25,10 +32,14 @@ export default {
                 },
 
                 afterEnter (el) {
+                    el.style.overflow = el.dataset.oldOverflow
                     el.style.height = ''
                 },
 
                 beforeLeave (el) {
+                    el.dataset.oldOverflow = el.style.overflow
+
+                    el.style.overflow = 'hidden'
                     el.style.height = el.scrollHeight + 'px'
                 },
 
@@ -42,12 +53,13 @@ export default {
                 },
 
                 afterLeave (el) {
+                    el.style.overflow = el.dataset.oldOverflow
                     el.style.height = ''
                 },
             },
         }
 
-        return h('transition', data, children)
+        return h('transition-group', data, children)
     }
 }
 </script>

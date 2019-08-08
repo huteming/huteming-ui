@@ -8,7 +8,7 @@
     </div>
 
     <tm-transition-collapse>
-        <div class="tm-collapse-wrap" v-show="isActive">
+        <div class="tm-collapse-wrap" :key="name" v-show="isActive">
             <div class="tm-collapse-content">
                 <slot></slot>
             </div>

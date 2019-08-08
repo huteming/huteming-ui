@@ -25,7 +25,7 @@ describe('transition-collapse', () => {
         const wrapper = mount({
             template: `
                 <tm-transition-collapse>
-                    <div id="container" v-show="visible"></div>
+                    <div id="container" style="overflow: auto;" key="1" v-show="visible"></div>
                 </tm-transition-collapse>
             `,
             data () {
@@ -36,7 +36,7 @@ describe('transition-collapse', () => {
         }, {
             localVue,
             stubs: {
-                transition: false,
+                'transition-group': false,
             },
         })
         // 模拟高度
@@ -50,15 +50,17 @@ describe('transition-collapse', () => {
         assert.strictEqual(to, mockScrollHeight)
         assert.strictEqual(duration, 250)
         assert.strictEqual(wrapperContainer.element.style.height, `${mockScrollHeight / 2}px`)
+        assert.strictEqual(wrapperContainer.element.style.overflow, 'hidden')
         await sleep()
         assert.strictEqual(wrapperContainer.element.style.height, '')
+        assert.strictEqual(wrapperContainer.element.style.overflow, 'auto')
     })
 
     it('close', async () => {
         const wrapper = mount({
             template: `
                 <tm-transition-collapse>
-                    <div id="container" v-show="visible"></div>
+                    <div id="container" style="overflow: auto;" key="2" v-show="visible"></div>
                 </tm-transition-collapse>
             `,
             data () {
@@ -69,7 +71,7 @@ describe('transition-collapse', () => {
         }, {
             localVue,
             stubs: {
-                transition: false,
+                'transition-group': false,
             },
         })
         // 模拟高度
@@ -83,8 +85,10 @@ describe('transition-collapse', () => {
         assert.strictEqual(to, 0)
         assert.strictEqual(duration, 250)
         assert.strictEqual(wrapperContainer.element.style.height, `${mockScrollHeight / 2}px`)
+        assert.strictEqual(wrapperContainer.element.style.overflow, 'hidden')
         await sleep()
         assert.strictEqual(wrapperContainer.element.style.height, '')
+        assert.strictEqual(wrapperContainer.element.style.overflow, 'auto')
     })
 
     afterEach(() => {
