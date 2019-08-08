@@ -77,6 +77,12 @@ export default {
                 {
                     icon: 'menu',
                 },
+                {
+                    icon: 'fast_forward',
+                },
+                {
+                    icon: 'fast_rewind',
+                },
             ],
         }
     },

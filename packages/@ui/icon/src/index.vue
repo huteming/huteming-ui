@@ -22,6 +22,8 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+@import url(//at.alicdn.com/t/font_1301011_ji647ok5ht.css);
+
 .tm-icon {
     display: inline-block;
     font-size: inherit;
