@@ -7,7 +7,7 @@
     @after-leave="handleAfterLeave">
     <div class="tm-loading" :style="styles" v-show="visible" @click.stop @touchmove.prevent.stop>
         <div class="tm-loading-content">
-            <div class="tm-loading-icon"></div>
+            <TmIcon icon="loading" />
             <div class="tm-loading-text" :style="textStyle" v-if="text">{{ text }}</div>
         </div>
     </div>
@@ -16,6 +16,7 @@
 
 <script>
 import zindexManager from 'web/assets/js/zindex-manager'
+import TmIcon from 'web-ui/icon/index'
 
 export default {
     name: 'TmLoading',
@@ -68,12 +69,14 @@ export default {
             this.$el.parentNode.removeChild(this.$el)
         },
     },
+
+    components: {
+        TmIcon,
+    },
 }
 </script>
 
 <style lang="scss" scoped>
-@import 'web/assets/style/icon.scss';
-
 .tm-loading {
     position: absolute;
     top: 0;
@@ -88,10 +91,6 @@ export default {
         align-items: center;
         justify-content: center;
         flex-direction: column;
-    }
-
-    &-icon {
-        @extend .tm-icon-loading;
     }
 
     &-text {

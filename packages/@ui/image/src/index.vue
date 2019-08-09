@@ -6,7 +6,7 @@
 
     <slot v-if="state === 'loading'" name="loading">
         <div class="tm-image__loading">
-            <div class="tm-icon-loading"></div>
+            <TmIcon icon="loading" />
         </div>
     </slot>
 
@@ -28,6 +28,7 @@
 import { isHtmlElement, isString } from 'web-util/types/src'
 import { getScrollContainer, on, off, isInContainer } from 'web-util/element/src/main'
 import throttle from 'throttle-debounce/throttle'
+import TmIcon from 'web-ui/icon/index'
 
 export default {
     name: 'TmImage',
@@ -148,12 +149,14 @@ export default {
             }
         },
     },
+
+    components: {
+        TmIcon,
+    },
 }
 </script>
 
 <style lang="scss" scoped>
-@import 'web/assets/style/icon.scss';
-
 .tm-image {
     position: relative;
     overflow: hidden;
