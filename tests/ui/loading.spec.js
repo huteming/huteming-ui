@@ -74,7 +74,7 @@ describe('loading', () => {
         await sleep()
         // 证明无动画
         const wrapperLoading = wrapper.find('.tm-loading')
-        assert.ok(wrapperLoading.classes('tm-loading-transition'))
+        assert.ok(wrapperLoading.classes('fade-enter-active'))
     })
 
     it('子组件更新 && loading为true', async () => {

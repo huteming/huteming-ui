@@ -1,6 +1,4 @@
 const path = require('path')
-const markdown = require('markdown-it')()
-const MarkdownItContainer = require('markdown-it-container')
 const gitsha = require('child_process').execSync('git rev-parse HEAD').toString().trim()
 
 function resolve (dir) {
@@ -51,7 +49,7 @@ module.exports = {
     },
 
     css: {
-        extract: process.env.BUILD_MODE !== 'lib',
+        // extract: process.env.BUILD_MODE !== 'lib',
 
         loaderOptions: {
             sass: {

@@ -11,6 +11,7 @@ import 'normalize.css'
 import 'element-ui/lib/theme-chalk/index.css'
 import 'highlight.js/styles/github-gist.css'
 import './assets/style/index.scss'
+import 'web-ui/theme/index' // huteming-ui 样式文件入口
 import ui from 'web/ui/index'
 import * as util from 'web/util/index'
 

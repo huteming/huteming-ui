@@ -1,5 +1,3 @@
-import 'web-ui/theme/index.js'
-
 import _Actionsheet from 'web-ui/actionsheet/index.js'
 import _Anchor from 'web-ui/anchor/index.js'
 import _BtnPay from 'web-ui/btn-pay/index.js'
