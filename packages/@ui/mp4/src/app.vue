@@ -194,31 +194,3 @@ export default {
     },
 }
 </script>
-
-<style lang="scss" scoped>
-.tm-mp4 {
-    position: relative;
-    width: 100%;
-
-    &-controls {
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
-        font-size: rem(100);
-        color: #fff;
-        font-weight: bold;
-
-        &__icon {
-            padding: 20px;
-        }
-
-        &-wrap {
-            width: 100%;
-            display: flex;
-            align-items: center;
-            justify-content: space-around;
-        }
-    }
-}
-</style>

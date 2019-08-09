@@ -56,13 +56,3 @@ export default {
     },
 }
 </script>
-
-<style lang="scss" scoped>
-.tm-tab-content {
-    display: flex;
-}
-
-.tm-tab-transition {
-    transition: transform 300ms ease-in-out;
-}
-</style>

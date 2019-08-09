@@ -30,10 +30,3 @@ export default {
     },
 }
 </script>
-
-<style lang="scss" scoped>
-.tm-tab-container {
-    width: 100%;
-    flex-shrink: 0;
-}
-</style>

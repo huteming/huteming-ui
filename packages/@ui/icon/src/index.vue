@@ -20,28 +20,3 @@ export default {
     },
 }
 </script>
-
-<style lang="scss" scoped>
-@import url(//at.alicdn.com/t/font_1301011_ji647ok5ht.css);
-
-.tm-icon {
-    display: inline-block;
-    font-size: inherit;
-    line-height: inherit;
-    color: inherit;
-
-    &-loading {
-        animation: loading 1.5s linear infinite;
-    }
-}
-
-@keyframes loading {
-    0% {
-        transform: rotate(0deg);
-    }
-
-    to {
-        transform: rotate(1turn);
-    }
-}
-</style>

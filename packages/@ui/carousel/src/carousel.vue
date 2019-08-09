@@ -264,16 +264,3 @@ export default {
     },
 }
 </script>
-
-<style lang="scss" scoped>
-.tm-carousel {
-    position: relative;
-    width: 100%;
-    height: 4rem;
-    overflow: hidden;
-
-    &-transition {
-        transition: transform 300ms ease-in-out;
-    }
-}
-</style>

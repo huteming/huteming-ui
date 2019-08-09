@@ -20,13 +20,3 @@ export default {
     },
 }
 </script>
-
-<style lang="scss" scoped>
-.tm-tab-navbar {
-    display: flex;
-    font-size: 15px;
-    line-height: 1.4;
-    color: #303030;
-    // background-color: #fff;
-}
-</style>

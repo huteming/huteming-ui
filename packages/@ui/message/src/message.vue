@@ -201,8 +201,3 @@ export default {
     },
 }
 </script>
-
-<style lang="scss" scoped>
-@import './style/index.scss';
-@import 'web/assets/style/transition.scss';
-</style>

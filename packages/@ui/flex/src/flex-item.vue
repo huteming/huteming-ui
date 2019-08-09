@@ -55,29 +55,3 @@ export default {
     }
 }
 </script>
-
-<style lang="scss" scoped>
-.is-self-auto {
-    align-self: auto;
-}
-
-.is-self-start {
-    align-self: flex-start;
-}
-
-.is-self-center {
-    align-self: center;
-}
-
-.is-self-end {
-    align-self: flex-end;
-}
-
-.is-self-baseline {
-    align-self: baseline;
-}
-
-.is-self-stretch {
-    align-self: stretch;
-}
-</style>

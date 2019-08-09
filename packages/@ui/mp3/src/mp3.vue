@@ -1,5 +1,5 @@
 <template>
-<div class="tm-audio">
+<div class="tm-mp3">
     <TmRange v-model="styleCurrentTime" :max="duration" @change="handleRangeChange" @moving="handleRangeMoving" :disabled="!ready" v-bind="$attrs" />
 
     <TmAudio
@@ -211,9 +211,3 @@ export default {
     },
 }
 </script>
-
-<style lang="scss" scoped>
-.tm-audio {
-    width: 100%;
-}
-</style>

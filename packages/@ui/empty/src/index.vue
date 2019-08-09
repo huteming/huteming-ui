@@ -29,31 +29,3 @@ export default {
     },
 }
 </script>
-
-<style lang="scss" scoped>
-.tm-empty {
-    min-height: rem(300);
-    height: 100%;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-
-    &-image {
-        height: rem(200);
-        margin-bottom: rem(18);
-
-        img {
-            height: 100%;
-            vertical-align: middle;
-            border-style: none;
-        }
-    }
-
-    &-description {
-        font-size: rem(32);
-        line-height: rem(44);
-        color: rgba(178, 186, 196, 1);
-    }
-}
-</style>

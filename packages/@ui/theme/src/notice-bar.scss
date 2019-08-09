@@ -1,0 +1,39 @@
+.tm-notice-bar {
+    width: 100%;
+    height: rem(64);
+    display: flex;
+    align-items: center;
+    font-size: rem(28);
+    line-height: rem(64);
+    color: rgba(255, 255, 255, 1);
+    font-weight: 500;
+    letter-spacing: .7px;
+    background: rgba(87, 180, 244, 1);
+    overflow: hidden;
+    box-sizing: border-box;
+
+    &-icon {
+        margin-left: rem(20);
+    }
+
+    &-action {
+        padding-right: rem(16);
+    }
+
+    &-content {
+        flex: 1;
+        margin-right: rem(30);
+        margin-left: rem(20);
+        overflow: hidden;
+    }
+
+    &-icon + &-content {
+        margin-left: rem(10);
+    }
+
+    &-wrap {
+        position: relative;
+        display: inline-block;
+        white-space: nowrap;
+    }
+}

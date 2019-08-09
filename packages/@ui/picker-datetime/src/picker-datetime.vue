@@ -246,9 +246,3 @@ export default {
     }
 }
 </script>
-
-<style lang="scss" scoped>
-.tm-picker-datetime {
-    background: #fff;
-}
-</style>

@@ -54,13 +54,3 @@ export default {
     },
 }
 </script>
-
-<style lang="scss" scoped>
-.tm-collapses {
-    width: 100%;
-    border-left: 1px solid #ebeef5;
-    border-right: 1px solid #ebeef5;
-    border-top: 1px solid #ebeef5;
-    box-sizing: border-box;
-}
-</style>

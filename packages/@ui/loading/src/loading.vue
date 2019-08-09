@@ -75,35 +75,3 @@ export default {
     },
 }
 </script>
-
-<style lang="scss" scoped>
-.tm-loading {
-    position: absolute;
-    top: 0;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    background-color: rgba(255, 255, 255, 1);
-
-    &-content {
-        height: rem(300);
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        flex-direction: column;
-    }
-
-    &-text {
-        margin-top: 3px;
-    }
-
-    &-transition {
-        transition: opacity .3s cubic-bezier(0.4, 0.0, 0.2, 1);
-    }
-}
-
-.loading-fade-enter,
-.loading-fade-leave-to {
-    opacity: 0;
-}
-</style>
