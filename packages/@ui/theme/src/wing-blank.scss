@@ -1,0 +1,31 @@
+@import 'common/var.scss';
+
+.tm-wing {
+    width: 100%;
+    box-sizing: border-box;
+
+    &-xs {
+        padding-left: $wing-xs-padding;
+        padding-right: $wing-xs-padding;
+    }
+
+    &-sm {
+        padding-left: $wing-sm-padding;
+        padding-right: $wing-sm-padding;
+    }
+
+    &-md {
+        padding-left: $wing-md-padding;
+        padding-right: $wing-md-padding;
+    }
+
+    &-lg {
+        padding-left: $wing-lg-padding;
+        padding-right: $wing-lg-padding;
+    }
+
+    &-xl {
+        padding-left: $wing-xl-padding;
+        padding-right: $wing-xl-padding;
+    }
+}

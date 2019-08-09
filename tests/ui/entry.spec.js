@@ -127,6 +127,10 @@ describe('ui entry', () => {
             name: 'TmTransitionCollapse',
             lib: 'tm-transition-collapse',
         },
+        {
+            name: 'TmWingBlank',
+            lib: 'tm-wing-blank',
+        },
     ]
 
     names.forEach(({ name, lib, child, noInstall }) => {

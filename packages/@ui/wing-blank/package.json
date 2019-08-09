@@ -1,0 +1,11 @@
+{
+  "name": "@huteming/ui-wing-blank",
+  "version": "1.0.0",
+  "description": "> 两翼留白",
+  "main": "dist/wing-blank.common.js",
+  "scripts": {
+    "prepublishOnly": "node ../../../prepublishOnly.js wingBlank"
+  },
+  "author": "",
+  "license": "ISC"
+}
