@@ -1,6 +1,6 @@
 {
   "name": "@huteming/ui-clocker",
-  "version": "1.4.1",
+  "version": "1.5.0",
   "description": "倒计时",
   "main": "dist/clocker.common.js",
   "scripts": {
