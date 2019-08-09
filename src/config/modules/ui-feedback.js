@@ -35,4 +35,10 @@ export default [
         docs: () => import('web-ui/loading/README.md'),
         example: () => import('web-ui/loading/demo/basic.vue'),
     },
+    {
+        path: 'ripple',
+        title: '水波纹 ripple',
+        docs: () => import('web-ui/ripple/README.md'),
+        example: () => import('web-ui/ripple/demo/basic.vue'),
+    },
 ]
