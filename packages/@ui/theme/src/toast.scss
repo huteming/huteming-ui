@@ -1,7 +1,7 @@
 .tm-toast {
     position: fixed;
-    max-width: 4.5rem;
-    padding: .15rem .3rem;
+    max-width: rem(450);
+    padding: rem(15) rem(30);
     color: #fff;
     text-align: center;
     background: rgba(0, 0, 0, 0.8);
@@ -9,7 +9,7 @@
     box-sizing: border-box;
 
     &-header {
-        padding: .15rem 0;
+        padding: rem(15) 0;
         line-height: 1;
     }
 
@@ -36,15 +36,4 @@
         left: 50%;
         transform: translate(-50%, 0);
     }
-}
-
-// 淡入淡出
-.fade-enter,
-.fade-leave-to {
-    opacity: 0;
-}
-
-.fade-enter-active,
-.fade-leave-active {
-    transition: opacity .3s cubic-bezier(0.4, 0.0, 0.2, 1);
 }

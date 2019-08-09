@@ -23,7 +23,7 @@
     <div style="height: 20px;"></div>
     <button @click="visibleBottom = !visibleBottom">bottom</button>
 
-    <tm-popup class="bottom" v-model="visibleBottom" position="bottom">
+    <tm-popup class="bottom bg-white" v-model="visibleBottom" position="bottom">
         <button type="primary" @click="visibleBottom = !visibleBottom">close</button>
     </tm-popup>
 
@@ -31,7 +31,7 @@
     <div style="height: 20px;"></div>
     <button @click="visibleLeft = !visibleLeft">left</button>
 
-    <tm-popup class="left" v-model="visibleLeft" position="left">
+    <tm-popup class="left bg-white" v-model="visibleLeft" position="left">
         <button type="primary" @click="visibleLeft = !visibleLeft">close</button>
 
         <div style="height: 200vh;">empty</div>
@@ -41,7 +41,7 @@
     <div style="height: 20px;"></div>
     <button @click="visibleRight = !visibleRight">right</button>
 
-    <tm-popup class="right" v-model="visibleRight" position="right">
+    <tm-popup class="right bg-white" v-model="visibleRight" position="right">
         <button type="primary" @click="visibleRight = !visibleRight">close</button>
     </tm-popup>
 
@@ -49,7 +49,7 @@
     <div style="height: 20px;"></div>
     <button @click="visibleEvent = !visibleEvent">event</button>
 
-    <tm-popup class="event" v-model="visibleEvent" position="right" @open="handleOpen" @close="handleClose" @closed="handleClosed" :before-close="handleBeforeClose">
+    <tm-popup class="event bg-white" v-model="visibleEvent" position="right" @open="handleOpen" @close="handleClose" @closed="handleClosed" :before-close="handleBeforeClose">
         <button type="primary" @click="visibleEvent = !visibleEvent">close</button>
     </tm-popup>
 
@@ -123,5 +123,9 @@ export default {
     width: 100%;
     border: none;
     height: 200px;
+}
+
+.bg-white {
+    background: #fff;
 }
 </style>

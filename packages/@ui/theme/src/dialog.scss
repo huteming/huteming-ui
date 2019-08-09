@@ -1,3 +1,9 @@
+.tm-dialog-enter,
+.tm-dialog-leave-to {
+    transform: translate(-50%, calc(-100% - 50vh));
+    opacity: 0;
+}
+
 .tm-dialog {
     position: fixed;
     top: 50%;
@@ -68,10 +74,4 @@
             background: #fff;
         }
     }
-}
-
-.tm-dialog-enter,
-.tm-dialog-leave-to {
-    transform: translate(-50%, calc(-100% - 50vh));
-    opacity: 0;
 }

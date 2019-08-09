@@ -58,15 +58,15 @@ export default {
         transition () {
             switch (this.position) {
             case 'top':
-                return 'popup-slide-top'
+                return 'slide-down'
             case 'bottom':
-                return 'popup-slide-bottom'
+                return 'slide-up'
             case 'left':
-                return 'popup-slide-left'
+                return 'slide-left'
             case 'right':
-                return 'popup-slide-right'
+                return 'slide-right'
             default:
-                return 'popup-fade'
+                return 'fade'
             }
         },
         classes () {

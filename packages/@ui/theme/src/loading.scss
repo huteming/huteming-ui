@@ -17,13 +17,4 @@
     &-text {
         margin-top: 3px;
     }
-
-    &-transition {
-        transition: opacity .3s cubic-bezier(0.4, 0.0, 0.2, 1);
-    }
-}
-
-.loading-fade-enter,
-.loading-fade-leave-to {
-    opacity: 0;
 }

@@ -1,7 +1,4 @@
-$cell-padding-top: rem(32);
-$cell-padding-bottom: rem(32);
-$cell-padding-left: rem(32);
-$cell-padding-right: rem(32);
+@import 'common/var.scss';
 
 .tm-cell {
     position: relative;

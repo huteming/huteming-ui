@@ -1,6 +1,6 @@
 <template>
 <transition
-    name="loading-fade"
+    name="fade"
     :enter-active-class="enterActiveClass"
     :leave-active-class="leaveActiveClass"
     @after-enter="handleAfterEnter"
@@ -43,10 +43,10 @@ export default {
             }
         },
         enterActiveClass () {
-            return this.openAnimation ? 'tm-loading-transition' : ''
+            return this.openAnimation ? 'fade-enter-active' : ''
         },
         leaveActiveClass () {
-            return this.closeAnimation ? 'tm-loading-transition' : ''
+            return this.closeAnimation ? 'fade-leave-active' : ''
         },
     },
 

@@ -1,16 +1,10 @@
-$image-height: 228;
-$title-height: 80;
-$desc-image-margin-bottom: 8;
-$desc-image-margin-right: 8;
-$footer-height: 36;
-
 .tm-panel {
     position: relative;
     width: 100%;
     padding: rem(40) rem(48) rem(40) rem(32);
     display: grid;
     grid-template-columns: auto rem(40) auto 1fr auto;
-    grid-template-rows: rem($title-height) 1fr rem($footer-height);
+    grid-template-rows: rem(80) 1fr rem(36);
     grid-template-areas: "image empty title title title"
                          "image empty description description description"
                          "image empty tip decoration btn";
@@ -24,7 +18,7 @@ $footer-height: 36;
         &-img {
             display: block;
             width: rem(170);
-            height: rem($image-height);
+            height: rem(228);
             border-radius: 0 rem(8) rem(8) 0;
         }
     }
@@ -42,7 +36,7 @@ $footer-height: 36;
         grid-area: description;
 
         &.is-custom {
-            margin-bottom: rem(-$desc-image-margin-bottom);
+            margin-bottom: rem(-8);
         }
 
         &-text {
@@ -60,8 +54,8 @@ $footer-height: 36;
             align-items: center;
 
             & > img {
-                margin-bottom: rem($desc-image-margin-bottom);
-                margin-right: rem($desc-image-margin-right);
+                margin-bottom: rem(8);
+                margin-right: rem(8);
             }
         }
     }

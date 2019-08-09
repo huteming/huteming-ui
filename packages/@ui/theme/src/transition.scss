@@ -7,9 +7,57 @@
     transform: translateY(100%);
 }
 
+/**
+ * name: slide-down
+ * 描述: 从顶部滑入，从顶部滑出
+ */
+.slide-down-enter,
+.slide-down-leave-to {
+    transform: translateY(-100%);
+}
+
+/**
+ * name: slide-left
+ * 描述: 从左侧滑入，从左侧滑出
+ */
+.slide-left-enter,
+.slide-left-leave-to {
+    transform: translateX(-100%);
+}
+
+/**
+ * name: slide-right
+ * 描述: 从右侧滑入，从右侧滑出
+ */
+.slide-right-enter,
+.slide-right-leave-to {
+    transform: translateX(100%);
+}
+
 .slide-up-enter-active,
-.slide-up-leave-active {
-    transition: transform .3s cubic-bezier(.55, 0, .1, 1);
+.slide-down-enter-active,
+.slide-left-enter-active,
+.slide-right-enter-active {
+    transition-duration: $transition-duration-normal-enter;
+}
+
+.slide-up-leave-active,
+.slide-down-leave-active,
+.slide-left-leave-active,
+.slide-right-leave-active {
+    transition-duration: $transition-duration-normal-leave;
+}
+
+.slide-up-enter-active,
+.slide-up-leave-active,
+.slide-down-enter-active,
+.slide-down-leave-active,
+.slide-left-enter-active,
+.slide-left-leave-active,
+.slide-right-enter-active,
+.slide-right-leave-active {
+    transition-property: transform;
+    transition-timing-function: $transition-ease;
 }
 
 /**
@@ -22,11 +70,11 @@
 }
 
 .fade-enter-active {
-    transition-duration: 150ms;
+    transition-duration: $transition-duration-fade-enter;
 }
 
 .fade-leave-active {
-    transition-duration: 75ms;
+    transition-duration: $transition-duration-fade-leave;
 }
 
 .fade-enter-active,
@@ -49,15 +97,35 @@
 }
 
 .zoom-in-enter-active {
-    transition-duration: 150ms;
+    transition-duration: $transition-duration-fade-enter;
 }
 
 .zoom-in-leave-active {
-    transition-duration: 75ms;
+    transition-duration: $transition-duration-fade-leave;
 }
 
 .zoom-in-enter-active,
 .zoom-in-leave-active {
     transition-property: all;
     transition-timing-function: $transition-ease-out;
+}
+
+/**
+ * name: spread-center
+ * 描述: 从中心开始横向扩散
+ */
+.spread-center-enter,
+.spread-center-leave-to {
+    transform: scale3d(0, 1, 1);
+}
+
+.spread-center-enter-to,
+.spread-center-leave {
+    transform: scale3d(1, 1, 1);
+}
+
+.spread-center-enter-active,
+.spread-center-leave-active {
+    transition: transform $transition-duration-shape $transition-ease;
+    transform-origin: center;
 }
