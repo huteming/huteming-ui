@@ -34,6 +34,7 @@ import _Mp3 from 'web-ui/mp3/index'
 import _Mp4 from 'web-ui/mp4/index'
 import _TransitionCollapse from 'web-ui/transition-collapse/index'
 import _WingBlank from 'web-ui/wing-blank/index'
+import _WhiteSpace from 'web-ui/white-space/index'
 
 function install (Vue, config = {}) {
     Vue.use(_Actionsheet)
@@ -71,6 +72,7 @@ function install (Vue, config = {}) {
     Vue.use(_Mp4)
     Vue.use(_TransitionCollapse)
     Vue.use(_WingBlank)
+    Vue.use(_WhiteSpace)
 }
 
 export default {
@@ -113,3 +115,4 @@ export const TmMp3 = _Mp3
 export const TmMp4 = _Mp4
 export const TmTransitionCollapse = _TransitionCollapse
 export const TmWingBlank = _WingBlank
+export const TmWhiteSpace = _WhiteSpace

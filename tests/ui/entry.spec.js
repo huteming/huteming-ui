@@ -131,6 +131,10 @@ describe('ui entry', () => {
             name: 'TmWingBlank',
             lib: 'tm-wing-blank',
         },
+        {
+            name: 'TmWhiteSpace',
+            lib: 'tm-white-space',
+        },
     ]
 
     names.forEach(({ name, lib, child, noInstall }) => {

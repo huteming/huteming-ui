@@ -37,6 +37,7 @@
     "@huteming/ui-theme": "^1.0.1",
     "@huteming/ui-toast": "^1.5.0",
     "@huteming/ui-transition-collapse": "^1.1.0",
+    "@huteming/ui-white-space": "^1.0.0",
     "@huteming/ui-wing-blank": "^1.0.0"
   }
 }
