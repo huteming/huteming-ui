@@ -16,10 +16,6 @@ export default {
             nextKey: 0,
             ripples: [],
 
-            startX: 0,
-            startY: 0,
-            startTime: 0,
-
             color: '',
             opacity: 0,
             center: false,
@@ -29,10 +25,6 @@ export default {
 
     methods: {
         handleTouchStart (event) {
-            this.startX = event.touches[0].clientX
-            this.startY = event.touches[0].clientY
-            this.startTime = Date.now()
-
             this.start(event.touches[0])
         },
         handleAnimationEnd (event, key) {
