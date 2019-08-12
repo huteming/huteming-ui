@@ -20,7 +20,7 @@
         // background-color: currentColor;
         background-clip: padding-box;
         // opacity: 0.3;
-        animation: ripple-fade 2s $transition-ease-out, ripple-spread .45s $transition-ease-out;
+        animation: ripple-fade 1s $transition-ease, ripple-spread 250ms $transition-ease;
     }
 }
 

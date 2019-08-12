@@ -1,5 +1,5 @@
 <template>
-<div class="tm-ripple-container" @touchstart="handleTouchStart">
+<div class="tm-ripple-container" @click="handleClick">
     <div class="tm-ripple-mask"
         v-for="item in ripples"
         :key="item.key"
@@ -24,11 +24,11 @@ export default {
     },
 
     methods: {
-        handleTouchStart (event) {
-            this.start(event.touches[0])
+        handleClick (event) {
+            this.start(event)
         },
         handleAnimationEnd (event, key) {
-            if (Math.round(event.elapsedTime) > 1) {
+            if (event.animationName === 'ripple-fade') {
                 const index = this.ripples.findIndex(item => item.key === key)
                 if (index > -1) {
                     this.ripples.splice(index, 1)
@@ -52,6 +52,7 @@ export default {
             })
         },
         getRippleStyle (event) {
+            const animationFunction = 'cubic-bezier(0.4, 0.0, 0.2, 1)'
             const offset = this.getOffset(this.$el)
             const elHeight = this.$el.offsetHeight
             const elWidth = this.$el.offsetWidth
@@ -59,6 +60,7 @@ export default {
 
             const pageX = isTouchEvent ? event.touches[0].pageX : event.pageX
             const pageY = isTouchEvent ? event.touches[0].pageY : event.pageY
+
             const pointerX = pageX - offset.left
             const pointerY = pageY - offset.top
 
@@ -80,6 +82,8 @@ export default {
                 width: rippleSize + 'px',
                 top: top + 'px',
                 left: left + 'px',
+                animation: `ripple-fade ${animationFunction}, ripple-spread ${animationFunction}`,
+                'animation-duration': `1s, ${1.25 * rippleSize}ms`,
             }
         },
         calcDiag (a, b) {
