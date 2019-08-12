@@ -1,6 +1,6 @@
 {
   "name": "@huteming/ui-theme",
-  "version": "1.1.0",
+  "version": "1.2.0",
   "description": "> 主题样式",
   "main": "dist/theme.common.js",
   "scripts": {
