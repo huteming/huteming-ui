@@ -1,0 +1,11 @@
+{
+  "name": "@huteming/ui-ripple",
+  "version": "1.0.0",
+  "description": "> 水波纹动画",
+  "main": "dist/ripple.common.js",
+  "scripts": {
+    "prepublishOnly": "node ../../../prepublishOnly.js ripple"
+  },
+  "author": "",
+  "license": "ISC"
+}

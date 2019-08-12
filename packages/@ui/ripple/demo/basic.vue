@@ -1,6 +1,6 @@
 <template>
 <div class="page-example">
-    <div class="waves ts-btn" v-ripple="{ disabled: disabled, color: '' }">Press me!</div>
+    <div class="waves ts-btn" v-ripple="{ disabled: disabled }" @touchstart="handleTouchstart">Press me!</div>
     <div class="waves ts-btn" v-ripple="{ disabled: disabled, color: 'purple', opacity: 1 }">Press me!</div>
     <div class="waves ts-btn circle" v-ripple="{ disabled: disabled, center: true }">Press me!</div>
 
@@ -10,8 +10,6 @@
 </template>
 
 <script>
-import Ripple from '../index'
-
 export default {
     data () {
         return {
@@ -35,10 +33,9 @@ export default {
             }
             this.color = ''
         },
-    },
-
-    directives: {
-        Ripple
+        handleTouchstart (event) {
+            console.log('outside touchstart: ', event)
+        },
     },
 }
 </script>

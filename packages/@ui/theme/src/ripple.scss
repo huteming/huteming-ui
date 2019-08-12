@@ -1,0 +1,44 @@
+.tm-ripple {
+    &-container {
+        position: absolute;
+        height: 100%;
+        width: 100%;
+        top: 0;
+        left: 0;
+        overflow: hidden;
+    }
+
+    &-mask {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        left: 0;
+        top: 0;
+        pointer-events: none;
+        user-select: none;
+        border-radius: 50%;
+        // background-color: currentColor;
+        background-clip: padding-box;
+        // opacity: 0.3;
+        animation: ripple-fade 2s $transition-ease-out, ripple-spread .45s $transition-ease-out;
+    }
+}
+
+@keyframes ripple-fade {
+    // from {
+    //     opacity: 0.3;
+    // }
+    to {
+        opacity: 0;
+    }
+}
+
+@keyframes ripple-spread {
+    from {
+        transform: scale(0);
+    }
+    to {
+        transform: scale(1);
+    }
+}
+

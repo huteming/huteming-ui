@@ -1,21 +1,16 @@
 <template>
-<section class="t-ripple-container"
-    @touchstart="handleTouchStart"
-    @touchend="end"
-    @touchcancel="end">
-    <ripple-mask v-for="item in ripples" :key="item.key" :color="item.color" :opacity="item.opacity" :merge-style="item.style"></ripple-mask>
-</section>
+<div class="tm-ripple-container" @touchstart="handleTouchStart">
+    <div class="tm-ripple-mask"
+        v-for="item in ripples"
+        :key="item.key"
+        :style="item.style"
+        @animationend="handleAnimationEnd($event, item.key)">
+    </div>
+</div>
 </template>
 
 <script>
-import RippleMask from './mask'
-
 export default {
-    props: {
-        opacity: Number,
-        center: Boolean,
-    },
-
     data () {
         return {
             nextKey: 0,
@@ -25,42 +20,43 @@ export default {
             startY: 0,
             startTime: 0,
 
-            disabled: Boolean,
+            color: '',
+            opacity: 0,
+            center: false,
+            disabled: false,
         }
     },
 
     methods: {
         handleTouchStart (event) {
-            console.log('touch start', event)
             this.startX = event.touches[0].clientX
             this.startY = event.touches[0].clientY
             this.startTime = Date.now()
 
             this.start(event.touches[0])
-
-            document.body.addEventListener('touchmove', this.handleTouchMove, false)
         },
-        handleTouchMove (event) {
-            const deltaX = Math.abs(event.touches[0].clientX - this.startX)
-            const deltaY = Math.abs(event.touches[0].clientY - this.startY)
-            // 判断滚动 6px
-            if (deltaY > 6 || deltaX > 6) this.end()
-        },
-        end () {
-            if (this.ripples.length === 0) return
-
-            this.ripples.splice(0, 1)
-
-            document.body.removeEventListener('touchmove', this.handleTouchMove, false)
+        handleAnimationEnd (event, key) {
+            if (Math.round(event.elapsedTime) > 1) {
+                const index = this.ripples.findIndex(item => item.key === key)
+                if (index > -1) {
+                    this.ripples.splice(index, 1)
+                }
+            }
         },
         start (event) {
             if (this.disabled) return
 
+            let _style = {
+                'background-color': this.color,
+                opacity: this.opacity,
+            }
+            if (!this.center) {
+                _style = Object.assign(_style, this.getRippleStyle(event))
+            }
+
             this.ripples.push({
                 key: this.nextKey++,
-                color: '#000',
-                opacity: this.opacity,
-                style: this.center ? {} : this.getRippleStyle(event),
+                style: _style,
             })
         },
         getRippleStyle (event) {
@@ -112,13 +108,5 @@ export default {
             }
         },
     },
-
-    components: {
-        RippleMask,
-    },
 }
 </script>
-
-<style lang="scss" scoped>
-@import './style/index.scss';
-</style>

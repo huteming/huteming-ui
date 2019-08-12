@@ -135,6 +135,10 @@ describe('ui entry', () => {
             name: 'TmWhiteSpace',
             lib: 'tm-white-space',
         },
+        {
+            name: 'Ripple',
+            lib: 'ripple',
+        },
     ]
 
     names.forEach(({ name, lib, child, noInstall }) => {

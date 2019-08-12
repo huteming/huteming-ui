@@ -5,7 +5,7 @@
 ## 引入
 
 ```javascript
-import { Ripple } from 'tommy-ui'
+import { Ripple } from '@huteming/ui'
 
 Vue.use(Ripple)
 // Vue.directive(Ripple.name, Ripple)
@@ -16,7 +16,7 @@ Vue.use(Ripple)
 为 HTML 元素添加 `v-ripple` 指令即可使用动画
 
 ```html
-<div v-ripple>...</div>
+<div style="position: relative;" v-ripple>...</div>
 ```
 
 ## API

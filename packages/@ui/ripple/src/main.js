@@ -19,11 +19,8 @@ export default {
 
         const instance = new Container({
             el: document.createElement('div'),
-            propsData: options,
             data () {
-                return {
-                    disabled: options.disabled,
-                }
+                return options
             },
         })
 
