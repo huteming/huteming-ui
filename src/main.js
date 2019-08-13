@@ -15,7 +15,7 @@ import './assets/style/index.scss'
 import ui from 'web/ui/index'
 import * as util from 'web/util/index'
 
-console.log(ui)
+console.log('ui', ui)
 console.log(util)
 
 Vue.component(AppDivider.name, AppDivider)

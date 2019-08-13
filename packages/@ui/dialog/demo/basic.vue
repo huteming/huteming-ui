@@ -20,7 +20,7 @@
 
 <script>
 import TmDialog from '../index'
-import Toast from 'web-ui/toast'
+import Toast from 'web-ui/toast/index'
 
 export default {
     data () {

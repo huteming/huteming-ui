@@ -1,18 +1,3 @@
-// 如果是按需引入，不会用到这个文件: https://www.npmjs.com/package/babel-plugin-transform-imports
-const ENV = process.env.NODE_ENV
-if (
-    ENV !== 'production' &&
-    ENV !== 'test' &&
-    typeof console !== 'undefined' &&
-    console.warn &&
-    typeof window !== 'undefined'
-) {
-    console.warn(
-        '当前你引入了整个 huteming-ui, ' +
-        '建议通过使用 https://www.npmjs.com/package/babel-plugin-transform-imports 按需加载缩小体积'
-    )
-}
-
 export { default as Actionsheet } from 'web-ui/actionsheet/index'
 export { default as Message } from 'web-ui/message/index'
 export { default as Toast } from 'web-ui/toast/index'
