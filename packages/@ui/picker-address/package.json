@@ -1,6 +1,6 @@
 {
   "name": "@huteming/ui-picker-address",
-  "version": "1.5.0",
+  "version": "1.5.1",
   "description": "地址选择器",
   "main": "dist/picker-address.common.js",
   "scripts": {
