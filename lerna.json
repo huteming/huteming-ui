@@ -2,7 +2,7 @@
   "npmClient": "npm",
   "command": {
     "publish": {
-      "ignoreChanges": ["*.md"]
+      "ignoreChanges": ["*.md", "basic.vue"]
     }
   },
   "packages": [
