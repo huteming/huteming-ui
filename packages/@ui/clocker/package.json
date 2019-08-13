@@ -4,7 +4,7 @@
   "description": "倒计时",
   "main": "dist/clocker.common.js",
   "scripts": {
-    "prepublishOnly": "node ../../../prepublishOnly.js clocker"
+    "prepublishOnly": "node ../../../scripts/prepublishOnly.js clocker"
   },
   "author": "",
   "license": "ISC"

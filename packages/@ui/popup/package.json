@@ -4,7 +4,7 @@
   "description": "> 弹出层，可自定义内容。",
   "main": "dist/popup.common.js",
   "scripts": {
-    "prepublishOnly": "node ../../../prepublishOnly.js popup"
+    "prepublishOnly": "node ../../../scripts/prepublishOnly.js popup"
   },
   "author": "",
   "license": "ISC"

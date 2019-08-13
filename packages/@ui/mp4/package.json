@@ -4,7 +4,7 @@
   "description": "> mp4播放器",
   "main": "dist/mp4.common.js",
   "scripts": {
-    "prepublishOnly": "node ../../../prepublishOnly.js mp4"
+    "prepublishOnly": "node ../../../scripts/prepublishOnly.js mp4"
   },
   "author": "",
   "license": "ISC"

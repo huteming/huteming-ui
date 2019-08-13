@@ -4,7 +4,7 @@
   "description": "> 弹出式提示框，有多种交互形式。",
   "main": "dist/message.common.js",
   "scripts": {
-    "prepublishOnly": "node ../../../prepublishOnly.js message"
+    "prepublishOnly": "node ../../../scripts/prepublishOnly.js message"
   },
   "author": "",
   "license": "ISC"

@@ -16,6 +16,12 @@ class Guide {
         this.close = this.close.bind(this)
     }
 
+    static install (Vue) {
+        Vue.prototype.$guide = (process, options) => {
+            return new Guide(process, options)
+        }
+    }
+
     _create (process, options) {
         return () => {
             const ConstructorGuide = Vue.extend(ComponentGuide)
@@ -55,7 +61,5 @@ class Guide {
         return null
     }
 }
-
-Guide.propName = 'TmGuide'
 
 export default Guide

@@ -35,7 +35,6 @@
 </template>
 
 <script>
-import TmEmpty from '../index'
 import imgYou from './youhuiquan.png'
 
 export default {
@@ -43,10 +42,6 @@ export default {
         return {
             imgYou,
         }
-    },
-
-    components: {
-        TmEmpty,
     },
 }
 </script>

@@ -8,7 +8,7 @@
   "description": "支付按钮",
   "main": "dist/btn-pay.common.js",
   "scripts": {
-    "prepublishOnly": "node ../../../prepublishOnly.js btnPay"
+    "prepublishOnly": "node ../../../scripts/prepublishOnly.js btnPay"
   },
   "author": "",
   "license": "ISC"

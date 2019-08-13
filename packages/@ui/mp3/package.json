@@ -4,7 +4,7 @@
   "description": "> mp3播放器",
   "main": "dist/mp3.common.js",
   "scripts": {
-    "prepublishOnly": "node ../../../prepublishOnly.js mp3"
+    "prepublishOnly": "node ../../../scripts/prepublishOnly.js mp3"
   },
   "author": "",
   "license": "ISC"

@@ -4,7 +4,7 @@
   "description": "> 两翼留白",
   "main": "dist/wing-blank.common.js",
   "scripts": {
-    "prepublishOnly": "node ../../../prepublishOnly.js wingBlank"
+    "prepublishOnly": "node ../../../scripts/prepublishOnly.js wingBlank"
   },
   "author": "",
   "license": "ISC"

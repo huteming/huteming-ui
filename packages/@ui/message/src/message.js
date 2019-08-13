@@ -57,6 +57,4 @@ for (let method in expandMethods) {
     }
 }
 
-Message.propName = 'Message'
-
 export default Message

@@ -4,7 +4,7 @@
   "description": "> 加载",
   "main": "dist/loading.common.js",
   "scripts": {
-    "prepublishOnly": "node ../../../prepublishOnly.js loading"
+    "prepublishOnly": "node ../../../scripts/prepublishOnly.js loading"
   },
   "author": "",
   "license": "ISC",

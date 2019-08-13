@@ -4,7 +4,7 @@
   "description": "> 输入框",
   "main": "dist/field.common.js",
   "scripts": {
-    "prepublishOnly": "node ../../../prepublishOnly.js field"
+    "prepublishOnly": "node ../../../scripts/prepublishOnly.js field"
   },
   "author": "",
   "license": "ISC"

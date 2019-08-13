@@ -5,7 +5,7 @@
   "description": "> 图标",
   "main": "dist/icon.common.js",
   "scripts": {
-    "prepublishOnly": "node ../../../prepublishOnly.js icon"
+    "prepublishOnly": "node ../../../scripts/prepublishOnly.js icon"
   },
   "author": "",
   "license": "ISC"

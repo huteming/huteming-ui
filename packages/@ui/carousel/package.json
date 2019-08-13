@@ -4,7 +4,7 @@
   "description": "> 轮播图，可自定义轮播时间间隔、动画时长等。",
   "main": "dist/carousel.common.js",
   "scripts": {
-    "prepublishOnly": "node ../../../prepublishOnly.js carousel"
+    "prepublishOnly": "node ../../../scripts/prepublishOnly.js carousel"
   },
   "author": "",
   "license": "ISC"

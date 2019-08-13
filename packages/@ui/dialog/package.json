@@ -4,7 +4,7 @@
   "description": "对话框",
   "main": "dist/dialog.common.js",
   "scripts": {
-    "prepublishOnly": "node ../../../prepublishOnly.js dialog"
+    "prepublishOnly": "node ../../../scripts/prepublishOnly.js dialog"
   },
   "author": "",
   "license": "ISC"

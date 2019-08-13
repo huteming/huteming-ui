@@ -4,7 +4,7 @@
   "description": "> 选择器的封装",
   "main": "dist/picker-range.common.js",
   "scripts": {
-    "prepublishOnly": "node ../../../prepublishOnly.js pickerRange"
+    "prepublishOnly": "node ../../../scripts/prepublishOnly.js pickerRange"
   },
   "author": "",
   "license": "ISC"

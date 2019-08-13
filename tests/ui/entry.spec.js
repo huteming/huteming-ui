@@ -107,9 +107,8 @@ describe('ui entry', () => {
             lib: 'tm-collapse',
         },
         {
-            name: 'TmGuide',
-            lib: 'tm-guide',
-            noInstall: true,
+            name: 'Guide',
+            lib: 'guide',
         },
         {
             name: 'TmNoticeBar',
@@ -144,11 +143,11 @@ describe('ui entry', () => {
     names.forEach(({ name, lib, child, noInstall }) => {
         it(name, () => {
             // 整体打包入口
-            const pack = require('web/ui/index')
+            const pack = require('web/ui/index').default
             const _module = pack[name]
-            assert.strictEqual(typeof pack.default.install, 'function')
+            assert.strictEqual(typeof pack.install, 'function')
             assert.ok(_module)
-            assert.strictEqual(_module.propName || _module.name, name)
+            assert.strictEqual(_module.name, name)
             if (!noInstall) {
                 assert.strictEqual(typeof _module.install, 'function')
             }
@@ -156,7 +155,7 @@ describe('ui entry', () => {
             // 按需加载入口
             const _lib = require(`web/ui/lib/${lib}/index`).default
             assert.ok(_lib)
-            assert.strictEqual(_lib.propName || _lib.name, name)
+            assert.strictEqual(_lib.name, name)
             if (!noInstall) {
                 assert.strictEqual(typeof _lib.install, 'function')
             }

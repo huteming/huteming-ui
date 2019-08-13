@@ -30,3 +30,4 @@ lerna-debug.log*
 
 # 发布版本会重新打包，忽略避免产生新的commit
 /packages/ui/lib/theme/
+/packages/ui/lib/style/
