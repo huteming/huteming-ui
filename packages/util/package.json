@@ -4,7 +4,7 @@
   "description": "util 方法统一入口",
   "main": "dist/huteming-util.common.js",
   "scripts": {
-    "prepublishOnly": "node ../../prepublishOnly.js util"
+    "prepublishOnly": "node ../../scripts/prepublishOnly.js util"
   },
   "author": "",
   "license": "ISC",
