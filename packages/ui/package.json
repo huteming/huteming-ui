@@ -1,6 +1,6 @@
 {
   "name": "@huteming/ui",
-  "version": "1.6.0-alpha.10",
+  "version": "1.6.0-alpha.11",
   "description": "ui 组件的统一入口",
   "main": "dist/huteming-ui.common.js",
   "scripts": {
