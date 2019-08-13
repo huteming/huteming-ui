@@ -4,7 +4,7 @@
   "description": "提供区间概率算法",
   "main": "dist/roller.common.js",
   "scripts": {
-    "prepublishOnly": "node ../../../prepublishOnly.js roller"
+    "prepublishOnly": "node ../../../scripts/prepublishOnly.js roller"
   },
   "author": "",
   "license": "ISC"

@@ -4,7 +4,7 @@
   "description": "提供验证方法",
   "main": "dist/validator.common.js",
   "scripts": {
-    "prepublishOnly": "node ../../../prepublishOnly.js validator"
+    "prepublishOnly": "node ../../../scripts/prepublishOnly.js validator"
   },
   "author": "",
   "license": "ISC"

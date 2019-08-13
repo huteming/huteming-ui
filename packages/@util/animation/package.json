@@ -4,7 +4,7 @@
   "description": "提供动画的简单算法",
   "main": "dist/animation.common.js",
   "scripts": {
-    "prepublishOnly": "node ../../../prepublishOnly.js animation"
+    "prepublishOnly": "node ../../../scripts/prepublishOnly.js animation"
   },
   "author": "",
   "license": "ISC"
