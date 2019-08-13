@@ -1,6 +1,6 @@
 {
   "name": "@huteming/ui-anchor",
-  "version": "1.4.3",
+  "version": "1.4.4",
   "description": "锚点",
   "main": "dist/anchor.common.js",
   "scripts": {
@@ -9,6 +9,6 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "@huteming/util-tool": "^1.4.1"
+    "@huteming/util-tool": "^1.4.2"
   }
 }

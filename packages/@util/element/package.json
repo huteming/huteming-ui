@@ -1,6 +1,6 @@
 {
   "name": "@huteming/util-element",
-  "version": "1.4.3",
+  "version": "1.4.4",
   "description": "提供HtmlElement一些辅助方法",
   "main": "dist/element.common.js",
   "scripts": {

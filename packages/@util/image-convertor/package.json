@@ -1,6 +1,6 @@
 {
   "name": "@huteming/util-image-convertor",
-  "version": "1.1.0",
+  "version": "1.1.1",
   "description": "> 图片多种格式间的相互转换",
   "main": "dist/image-convertor.common.js",
   "scripts": {

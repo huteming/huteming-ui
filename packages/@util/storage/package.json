@@ -1,6 +1,6 @@
 {
   "name": "@huteming/util-storage",
-  "version": "1.4.0",
+  "version": "1.4.1",
   "description": "提供本地存储封装方法",
   "main": "dist/storage.common.js",
   "scripts": {
