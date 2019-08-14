@@ -1,6 +1,6 @@
 {
   "name": "@huteming/ui",
-  "version": "1.6.0-alpha.15",
+  "version": "1.6.0-alpha.16",
   "description": "ui 组件的统一入口",
   "main": "dist/huteming-ui.common.js",
   "scripts": {
@@ -19,7 +19,7 @@
     "@huteming/ui-empty": "^1.1.1",
     "@huteming/ui-field": "^1.2.1",
     "@huteming/ui-flex": "^1.3.1",
-    "@huteming/ui-guide": "^1.2.3",
+    "@huteming/ui-guide": "^1.2.4",
     "@huteming/ui-icon": "^1.4.1",
     "@huteming/ui-image": "^1.5.1",
     "@huteming/ui-image-picker": "^1.1.1",
