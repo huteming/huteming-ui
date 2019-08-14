@@ -13,6 +13,7 @@ export default {
             props: {
                 name: 'collapse',
                 css: false,
+                tag: 'div',
             },
             on: {
                 beforeEnter (el) {

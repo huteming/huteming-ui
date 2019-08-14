@@ -1,10 +1,10 @@
 <template>
 <div class="tm-collapse">
     <div class="tm-collapse-header" @click.stop="handleClick">
-        <slot name="header">
-            <span>{{ header }}</span>
-            <TmIcon class="tm-collapse-header-icon" :class="{ active: isActive }" icon="arrow_forward" />
-        </slot>
+        <slot name="header">{{ header }}</slot>
+        <div class="tm-collapse__icon" :class="{ active: isActive }">
+            <TmIcon icon="arrow_forward" />
+        </div>
     </div>
 
     <tm-transition-collapse>
