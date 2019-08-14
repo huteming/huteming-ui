@@ -236,7 +236,7 @@ export default {
             if (!this.needRespond) {
                 return false
             }
-            event.preventDefault()
+            event.cancelable && event.preventDefault()
 
             this.moveItemsPosition(this.activeIndex, move)
             this.move = move
