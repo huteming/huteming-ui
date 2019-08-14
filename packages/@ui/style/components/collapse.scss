@@ -8,6 +8,12 @@
     overflow: hidden;
     box-sizing: border-box;
 
+    &__title {
+        font-size: rem(30);
+        line-height: $collapse-header-height;
+        color: rgba(32, 38, 49, 1);
+    }
+
     &__icon {
         font-size: rem(20);
         color: rgba(142, 146, 150, 1);
@@ -26,9 +32,6 @@
         display: flex;
         align-items: center;
         justify-content: space-between;
-        font-size: rem(30);
-        line-height: $collapse-header-height;
-        color: rgba(32, 38, 49, 1);
         background-color: #fff;
         box-sizing: border-box;
         z-index: 2;

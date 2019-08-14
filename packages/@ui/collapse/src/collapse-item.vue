@@ -1,7 +1,9 @@
 <template>
 <div class="tm-collapse">
     <div class="tm-collapse-header" @click.stop="handleClick">
-        <slot name="header">{{ header }}</slot>
+        <slot name="header">
+            <div class="tm-collapse__title">{{ header }}</div>
+        </slot>
         <div class="tm-collapse__icon" :class="{ active: isActive }">
             <TmIcon icon="arrow_forward" />
         </div>

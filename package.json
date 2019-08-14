@@ -12,7 +12,7 @@
     "cover": "vue-cli-service test:unit --coverage",
     "# lerna 钩子指令 #": "",
     "del prepublishOnly": "npm run test:unit",
-    "postpack": "node ./scripts/build-scss-entry",
+    "prepublish": "node ./scripts/build-scss-entry",
     "# 打包组件指令 #": "",
     "ui": "vue-cli-service build --target lib --report --no-clean --name huteming-ui --dest packages/ui/dist --report packages/ui/index.js",
     "util": "vue-cli-service build --target lib --report --name huteming-util --dest packages/util/dist --report packages/util/index.js",
