@@ -18,8 +18,9 @@ export default {
     },
 
     render (h) {
+        const ratio = document.documentElement.clientWidth / 750
         const { visible, handleClick, handleAfterLeave, handleTouchmove } = this
-        const { component: ActiveComponent, extra, target } = this.process[this.activeIndex] || {}
+        const { component: ActiveComponent, extra, target, width: expectWidth, height: expectHeight } = this.process[this.activeIndex] || {}
         const { top, left, width, height } = (() => {
             let _target = null
 
@@ -35,17 +36,31 @@ export default {
                 return {}
             }
 
-            const { top, left } = _target.getBoundingClientRect()
-            const width = _target.offsetWidth
-            const height = _target.offsetHeight
+            let { top, left } = _target.getBoundingClientRect()
+            top -= PADDING_TOP
+            left -= PADDING_LEFT
+            let width = _target.offsetWidth + PADDING_LEFT * 2
+            let height = _target.offsetHeight + PADDING_TOP * 2
+
+            if (typeof expectWidth === 'number') {
+                const _expectWidth = expectWidth * ratio
+                left = left + (width - _expectWidth) / 2
+                width = _expectWidth
+            }
+
+            if (typeof expectHeight === 'number') {
+                const _expectHeight = expectHeight * ratio
+                top = top + (height - _expectHeight) / 2
+                height = _expectHeight
+            }
 
             return { top, left, width, height }
         })()
         const styles = {
-            top: `${top - PADDING_TOP}px`,
-            left: `${left - PADDING_LEFT}px`,
-            width: `${width + PADDING_LEFT * 2}px`,
-            height: `${height + PADDING_TOP * 2}px`,
+            top: `${top}px`,
+            left: `${left}px`,
+            width: `${width}px`,
+            height: `${height}px`,
         }
 
         return (

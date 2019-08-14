@@ -16,7 +16,7 @@ export default {
     computed: {
         styles () {
             return {
-                top: `${this.top - 20}px`,
+                top: `${this.top + this.height + 20}px`,
                 left: `${this.left - 20}px`,
             }
         },

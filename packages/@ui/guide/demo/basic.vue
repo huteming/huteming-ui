@@ -35,12 +35,16 @@ export default {
                 name: '2',
                 target: '#target2',
                 component: GuideWallet,
+                width: 100,
+                height: 100,
                 extra: { title: '2' },
             },
             {
                 name: '3',
                 target: '#target3',
                 component: GuidePersonal,
+                width: 600,
+                height: 600,
                 extra: { title: '3' },
             },
             {
