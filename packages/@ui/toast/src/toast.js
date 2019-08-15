@@ -23,18 +23,18 @@ const open = function (options) {
 
 const expandMethods = {
     success: {
-        icon: 'success'
+        icon: 'success_circle_outline',
     },
     error: {
-        icon: 'error'
+        icon: 'error_circle_outline',
     },
     warning: {
-        icon: 'warning'
+        icon: 'warning_circle_outline',
     },
     loading: {
         icon: 'loading',
         duration: 0,
-    }
+    },
 }
 
 const Toast = function (message, duration = 3000, options = {}, expandOptions = {}) {

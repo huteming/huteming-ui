@@ -356,6 +356,7 @@ describe('carousel', () => {
 
         handleTouchmove({
             changedTouches: [{ pageX: 0, pageY: 1 }],
+            cancelable: true,
             preventDefault: mockPrevent,
         })
         assert.strictEqual(mockPrevent.callCount, 1)
@@ -368,7 +369,6 @@ describe('carousel', () => {
 
     it('event touch disabled', async () => {
         const mockPause = sinon.fake()
-        const mockPrevent = sinon.fake()
         const wrapper = mount(TmCarousel, {
             propsData: {
                 disabledTouch: true,
@@ -389,7 +389,6 @@ describe('carousel', () => {
             return 750
         })
         await sleep()
-        const wrapperItem = wrapper.findAll(TmCarouselItem)
         const { handleTouchstart, handleTouchmove, handleTouchend } = wrapper.vm
 
         assert.strictEqual(handleTouchstart(), false)
@@ -474,6 +473,7 @@ describe('carousel', () => {
         handleTouchmove({
             changedTouches: [{ pageX: 0, pageY: 1 }],
             preventDefault: mockPrevent,
+            cancelable: true,
         })
         assert.strictEqual(mockPrevent.callCount, 1)
         assert.strictEqual(wrapperItem.at(0).attributes('style'), 'transform: translateX(-3px); webkit-transform: translateX(-3px);')
@@ -686,6 +686,7 @@ describe('carousel', () => {
         handleTouchmove({
             changedTouches: [{ pageX: 300, pageY: 1 }],
             preventDefault: mockPrevent,
+            cancelable: true,
         })
         assert.strictEqual(mockPrevent.callCount, 1)
         assert.strictEqual(wrapperItem.at(0).attributes('style'), 'transform: translateX(300px); webkit-transform: translateX(300px);')
@@ -730,6 +731,7 @@ describe('carousel', () => {
         handleTouchmove({
             changedTouches: [{ pageX: 30, pageY: 1 }],
             preventDefault: mockPrevent,
+            cancelable: true,
         })
         assert.strictEqual(mockPrevent.callCount, 1)
         assert.strictEqual(wrapperItem.at(0).attributes('style'), 'transform: translateX(30px); webkit-transform: translateX(30px);')
@@ -774,6 +776,7 @@ describe('carousel', () => {
         handleTouchmove({
             changedTouches: [{ pageX: 0, pageY: 1 }],
             preventDefault: mockPrevent,
+            cancelable: true,
         })
         assert.strictEqual(mockPrevent.callCount, 1)
         assert.strictEqual(wrapperItem.at(2).attributes('style'), 'transform: translateX(-30px); webkit-transform: translateX(-30px);')
@@ -818,6 +821,7 @@ describe('carousel', () => {
         handleTouchmove({
             changedTouches: [{ pageX: 0, pageY: 1 }],
             preventDefault: mockPrevent,
+            cancelable: true,
         })
         assert.strictEqual(mockPrevent.callCount, 1)
         assert.strictEqual(wrapperItem.at(1).attributes('style'), 'transform: translateX(-30px); webkit-transform: translateX(-30px);')
@@ -861,6 +865,7 @@ describe('carousel', () => {
 
         handleTouchmove({
             changedTouches: [{ pageX: 30, pageY: 1 }],
+            cancelable: true,
             preventDefault: mockPrevent,
         })
         assert.strictEqual(mockPrevent.callCount, 1)

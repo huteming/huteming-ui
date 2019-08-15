@@ -6,6 +6,10 @@
     right: 0;
     background-color: rgba(255, 255, 255, 1);
 
+    &__icon {
+        font-size: 25px;
+    }
+
     &-content {
         height: rem(300);
         display: flex;

@@ -6,6 +6,10 @@
     <button @click="handlePosition">位置</button>
     <button @click="handle7">长文字</button>
     <button @click="handle3">{{ instance ? '关闭' : '打开' }}</button>
+    <button @click="handleSuccess">success</button>
+    <button @click="handleError">error</button>
+    <button @click="handleWarning">warning</button>
+    <button @click="handleLoading">loading</button>
 </div>
 </template>
 
@@ -20,6 +24,23 @@ export default {
     },
 
     methods: {
+        handleSuccess () {
+            Toast.success('success', 0)
+        },
+        handleError () {
+            Toast.error('error', 0)
+        },
+        handleWarning () {
+            Toast.warning('success', 0)
+        },
+        handleLoading () {
+            // Toast.loading()
+            const ins = Toast.loading()
+
+            setTimeout(() => {
+                ins.close()
+            }, 2000)
+        },
         handle1 () {
             Toast('hello normal')
         },

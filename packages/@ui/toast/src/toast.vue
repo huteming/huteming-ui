@@ -1,7 +1,9 @@
 <template>
 <transition name="fade" @after-leave="handleAfterLeave" ref="transition">
     <div class="tm-toast" :class="classes" :style="styles" v-show="visible">
-        <div class="tm-toast-content" v-if="message" v-html="message">
+        <div class="tm-toast__text" v-if="message" v-html="message"></div>
+        <div class="tm-toast__icon" v-if="icon">
+            <TmIcon :icon="icon" />
         </div>
     </div>
 </transition>
@@ -9,6 +11,7 @@
 
 <script>
 import zindexManager from 'web/assets/js/zindex-manager'
+import TmIcon from 'web-ui/icon/index'
 
 export default {
     name: 'TmToast',
@@ -48,6 +51,12 @@ export default {
         },
     },
 
+    mounted () {
+        if (this.duration > 0) {
+            setTimeout(this.close, this.duration)
+        }
+    },
+
     methods: {
         handleAfterLeave () {
             this.destroyElement()
@@ -69,10 +78,8 @@ export default {
         },
     },
 
-    mounted () {
-        if (this.duration > 0) {
-            setTimeout(this.close, this.duration)
-        }
+    components: {
+        TmIcon,
     },
 }
 </script>

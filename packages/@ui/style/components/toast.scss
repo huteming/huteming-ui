@@ -2,20 +2,32 @@
     position: fixed;
     max-width: rem(450);
     padding: rem(15) rem(30);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
     color: #fff;
-    text-align: center;
     background: rgba(0, 0, 0, 0.8);
     border-radius: 5px;
     box-sizing: border-box;
 
+    &__icon {
+        order: 1;
+        font-size: 25px;
+    }
+
+    &__text {
+        order: 2;
+        font-size: 14px;
+        line-height: 21px;
+    }
+
+    &__text + &__icon {
+        font-size: 50px;
+    }
+
     &-header {
         padding: rem(15) 0;
         line-height: 1;
-    }
-
-    &-content {
-        font-size: 14px;
-        line-height: 21px;
     }
 
     // 显示位置

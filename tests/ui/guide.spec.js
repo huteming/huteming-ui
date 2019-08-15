@@ -240,10 +240,10 @@ describe('guide', () => {
         const wrapperBasic = wrapper.find(WorkBasic)
 
         assert.deepStrictEqual(wrapperBasic.attributes('extra'), extra)
-        assert.strictEqual(wrapperBasic.attributes('top'), '100')
-        assert.strictEqual(wrapperBasic.attributes('left'), '200')
-        assert.strictEqual(wrapperBasic.attributes('width'), '300')
-        assert.strictEqual(wrapperBasic.attributes('height'), '400')
+        assert.strictEqual(wrapperBasic.attributes('top'), '95')
+        assert.strictEqual(wrapperBasic.attributes('left'), '195')
+        assert.strictEqual(wrapperBasic.attributes('width'), '310')
+        assert.strictEqual(wrapperBasic.attributes('height'), '410')
     })
 
     it('target不存在', async () => {
@@ -313,6 +313,59 @@ describe('guide', () => {
         assert.strictEqual(mockPrevent.callCount, 1)
 
         window.removeEventListener('touchmove', mockMove)
+    })
+
+    it('自定义宽高', async () => {
+        sinon.replaceGetter(document.documentElement, 'clientWidth', () => {
+            return 750
+        })
+        const width = 250
+        const height = 450
+        sinon.replace(wrapperTarget.element, 'getBoundingClientRect', () => {
+            return {
+                top: 100,
+                left: 200,
+            }
+        })
+        sinon.replaceGetter(wrapperTarget.element, 'offsetWidth', () => {
+            return 300
+        })
+        sinon.replaceGetter(wrapperTarget.element, 'offsetHeight', () => {
+            return 400
+        })
+        const guide = new Guide([
+            {
+                name: 'basic',
+                target: wrapperTarget.element,
+                component: WorkBasic,
+                width,
+                height,
+            },
+            {
+                name: 'element',
+                target: wrapperTarget.element,
+                component: WorkElement,
+            },
+        ])
+        const vm = guide.open()
+        const wrapper = createWrapper(vm)
+        const wrapperBasic = wrapper.find(WorkBasic)
+
+        assert.strictEqual(wrapperBasic.attributes('top'), '75')
+        assert.strictEqual(wrapperBasic.attributes('left'), '225')
+        assert.strictEqual(wrapperBasic.attributes('width'), '250')
+        assert.strictEqual(wrapperBasic.attributes('height'), '450')
+    })
+
+    it('静态方法install', async () => {
+        assert.ok(typeof Guide.install === 'function')
+        const mockPrototype = {}
+        Guide.install({
+            prototype: mockPrototype,
+        })
+        assert.ok(typeof mockPrototype.$guide === 'function')
+        const ins = mockPrototype.$guide([])
+        assert.ok(ins instanceof Guide)
     })
 
     afterEach(() => {

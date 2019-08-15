@@ -10,7 +10,7 @@ describe('toast', () => {
         const vm = Toast(msg)
         const wrapper = createWrapper(vm)
         await sleep()
-        const wrapperContent = wrapper.find('.tm-toast-content')
+        const wrapperContent = wrapper.find('.tm-toast__text')
         assert.strictEqual(wrapperContent.text(), msg)
     })
 
@@ -24,17 +24,17 @@ describe('toast', () => {
 
     it('success', async () => {
         const vm = Toast.success('start')
-        assert.strictEqual(vm.icon, 'success')
+        assert.strictEqual(vm.icon, 'success_circle_outline')
     })
 
     it('error', async () => {
         const vm = Toast.error('msg')
-        assert.strictEqual(vm.icon, 'error')
+        assert.strictEqual(vm.icon, 'error_circle_outline')
     })
 
     it('warning', async () => {
         const vm = Toast.warning('msg')
-        assert.strictEqual(vm.icon, 'warning')
+        assert.strictEqual(vm.icon, 'warning_circle_outline')
     })
 
     it('loading', async () => {
@@ -50,7 +50,7 @@ describe('toast', () => {
         })
         const wrapper = createWrapper(vm)
         await sleep()
-        const wrapperContent = wrapper.find('.tm-toast-content')
+        const wrapperContent = wrapper.find('.tm-toast__text')
         assert.strictEqual(wrapperContent.text(), message)
     })
 

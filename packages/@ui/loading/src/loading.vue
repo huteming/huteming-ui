@@ -7,7 +7,9 @@
     @after-leave="handleAfterLeave">
     <div class="tm-loading" :style="styles" v-show="visible" @click.stop @touchmove.prevent.stop>
         <div class="tm-loading-content">
-            <TmIcon icon="loading" />
+            <div class="tm-loading__icon">
+                <TmIcon icon="loading" />
+            </div>
             <div class="tm-loading-text" :style="textStyle" v-if="text">{{ text }}</div>
         </div>
     </div>
