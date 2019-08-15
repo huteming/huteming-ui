@@ -1,11 +1,11 @@
 <template>
-<div class="tm-collapse">
+<div class="tm-collapse" :class="{ 'disabled': disabled }">
     <div class="tm-collapse-header" @click.stop="handleClick">
         <slot name="header">
             <div class="tm-collapse__title">{{ header }}</div>
         </slot>
         <div class="tm-collapse__icon" :class="{ active: isActive }">
-            <TmIcon icon="arrow_forward" />
+            <TmIcon :icon="disabled ? 'lock' : 'arrow_forward'" />
         </div>
     </div>
 

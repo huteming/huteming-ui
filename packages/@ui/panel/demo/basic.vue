@@ -126,7 +126,10 @@
 
     <tm-divider>自定义btn</tm-divider>
     <tm-panel image="http://jhsy-img.caizhu.com/Fr2mInO7RA7KfVwpO6EcL1E7NyE5" title="hello" tip="学习" decoration="￥99">
-        <img src="./images/icon-vip.png" alt="" style="height: .32rem;" slot="btn">
+        <div  slot="btn">
+            <div style="height: 20px; width: 30px; background: pink;"></div>
+            <img src="./images/icon-vip.png" alt="" style="height: .32rem;">
+        </div>
     </tm-panel>
 
     <tm-divider>image内浮动元素</tm-divider>

@@ -9,19 +9,30 @@
     box-sizing: border-box;
 
     &__title {
-        font-size: rem(30);
+        font-size: $collapse-title-size;
         line-height: $collapse-header-height;
         color: rgba(32, 38, 49, 1);
+        font-weight: bold;
     }
 
     &__icon {
-        font-size: rem(20);
+        font-size: $collapse-icon-size;
         color: rgba(142, 146, 150, 1);
         transition: transform 100ms $transition-ease;
 
         &.active {
             transform: rotate(90deg);
         }
+    }
+
+    &.disabled &__title {
+        font-size: $collapse-disabled-title-size;
+        color: rgba(142, 146, 150, 1);
+    }
+
+    &.disabled &__icon {
+        font-size: $collapse-disabled-icon-size;
+        color: #C9CCD4;
     }
 
     &-header {
