@@ -319,6 +319,7 @@ const defaultText = {
     shadowBlur: 0,
     color: '#000',
     type: 'fill',
+    underline: null,
 }
 /**
  * @argument {*String} text 文本
@@ -347,7 +348,7 @@ function drawText (text, x, y, options = {}) {
         prefix, suffix, fix, letterSpacing, wrap, maxWidth,
         style, variant, weight, size, color, align,
         shadowColor, shadowOffsetX, shadowOffsetY, shadowBlur,
-        lineHeight, lineWidth, baseline, type,
+        lineHeight, lineWidth, baseline, type, underline,
     } = options
 
     context.font = `${style} ${variant} ${weight} ${size}px / ${lineHeight}px arial`
@@ -415,6 +416,9 @@ function drawText (text, x, y, options = {}) {
         // 当前行画
 
         context[`${type}Text`](letter, actualX, actualY)
+        if (underline) {
+            context.fillRect(actualX - 4, actualY + size + 1, letterWidth + 8, 1)
+        }
 
         // 最大宽度累加
         _expectMaxWidth += (letterSpacing + letterWidth)
