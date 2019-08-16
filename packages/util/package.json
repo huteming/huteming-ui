@@ -1,6 +1,6 @@
 {
   "name": "@huteming/util",
-  "version": "1.5.6",
+  "version": "1.6.0-alpha.0",
   "description": "util 方法统一入口",
   "main": "dist/huteming-util.common.js",
   "scripts": {
@@ -11,7 +11,7 @@
   "dependencies": {
     "@huteming/util-animation": "^1.4.2",
     "@huteming/util-api": "^1.4.2",
-    "@huteming/util-canvas-draw": "^1.5.2",
+    "@huteming/util-canvas-draw": "^1.6.0",
     "@huteming/util-element": "^1.4.4",
     "@huteming/util-image-convertor": "^1.1.1",
     "@huteming/util-request": "^1.4.2",
