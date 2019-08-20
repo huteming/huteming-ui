@@ -98,13 +98,13 @@ export default {
                     this.$emit('ended')
                 }
 
-                if (!this.continuous) {
+                const index = this.playList.findIndex(item => item.src === this.currentSrc)
+                const isTheLast = index === this.playList.length - 1
+
+                if (!this.continuous || isTheLast) {
                     endVideo()
                 } else {
-                    const result = this.next()
-                    if (!result) {
-                        endVideo()
-                    }
+                    this.next()
                 }
             } else {
                 this.$emit('update:play', _state === 'playing')
@@ -131,11 +131,12 @@ export default {
                 prev: this.prev,
                 next: this.next,
                 replay: () => {
-                    if (this.continuout && this.playList.length === 1) {
-                        this.init()
+                    if ((this.continuous && this.playList.length === 1) || !this.continuous) {
+                        // this.init()
                         return true
                     }
-                    this.media.video.load()
+                    // this.media.video.load()
+                    this.init()
                     return true
                 },
             }

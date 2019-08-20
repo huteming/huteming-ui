@@ -1,6 +1,8 @@
 <template>
 <div class="demo">
-    <TmMp4 :list="list" :play.sync="play" :continuous="continuous" ref="mp4" @error-prev="handleToast('没有上一个的提示')" @error-next="handleToast('没有下一个的提示')" />
+    <TmMp4 :list="list" :play.sync="play" :continuous="continuous" ref="mp4"
+        @error-prev="handleToast('没有上一个的提示')" @error-next="handleToast('没有下一个的提示')"
+        @init="handleInit" />
 
     <button @click="$refs.mp4.next()">next</button>
     <button @click="$refs.mp4.prev()">prev</button>
@@ -41,6 +43,9 @@ export default {
     methods: {
         handleToast (msg) {
             this.$toast(msg)
+        },
+        handleInit () {
+            console.log('init')
         },
     },
 
