@@ -9,8 +9,8 @@
     <div class="tm-range-content" :class="{ 'disabled': disabled }" ref="content">
         <div class="tm-range-progress" :style="styleProgress"></div>
 
-        <div class="tm-range-finger" ref="thumb" @touchstart="handleTouchstart" @touchmove="handleTouchmove" @touchend="handleTouchend">
-            <div class="tm-range-finger-thumb" :style="styleThumb"></div>
+        <div class="tm-range-finger" @touchstart="handleTouchstart" @touchmove="handleTouchmove" @touchend="handleTouchend">
+            <div class="tm-range-finger-thumb" ref="thumb" :style="styleThumb"></div>
         </div>
 
         <div class="tm-range-runway" :style="styleRunWay"></div>

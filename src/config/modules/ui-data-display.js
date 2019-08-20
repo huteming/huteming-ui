@@ -59,4 +59,10 @@ export default [
         docs: () => import('web-ui/notice-bar/README.md'),
         example: () => import('web-ui/notice-bar/demo/basic.vue'),
     },
+    {
+        path: 'range',
+        title: 'Range 进度条',
+        docs: () => import('web-ui/range/README.md'),
+        example: () => import('web-ui/range/demo/basic.vue'),
+    },
 ]

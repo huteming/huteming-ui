@@ -64,6 +64,13 @@ export default {
         playList () {
             this.init()
         },
+        styleCurrentTime (val, oldVal) {
+            this.$emit('change', val, {
+                src: this.currentSrc,
+                duration: this.duration,
+                currentTime: val,
+            })
+        },
     },
 
     mounted () {
@@ -191,12 +198,6 @@ export default {
             console.log('media change --- ', _currentTime, 'moving: ', this.moving)
             if (!this.moving) {
                 this.styleCurrentTime = _currentTime
-
-                this.$emit('change', _currentTime, {
-                    src: this.currentSrc,
-                    duration: this.duration,
-                    currentTime: _currentTime,
-                })
             }
         },
         handleRangeChange (_currentTime) {
