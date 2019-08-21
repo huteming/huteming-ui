@@ -15,12 +15,12 @@
 
     &-footer {
         width: 100%;
-        margin-top: .4rem;
+        margin-top: rem(40);
     }
 
     &-cancel {
         &_out-right {
-            width: .5rem;
+            width: rem(40);
             order: -1;
             align-self: flex-end;
             display: flex;
@@ -33,8 +33,8 @@
             top: 0;
             left: 0;
             transform: translate(-100%, -100%);
-            width: .5rem;
-            height: .5rem;
+            width: rem(50);
+            height: rem(50);
         }
 
         &_in-right {
@@ -42,8 +42,8 @@
             top: 0;
             right: 0;
             transform: translate(-50%, 50%);
-            width: .5rem;
-            height: .5rem;
+            width: rem(50);
+            height: rem(50);
         }
 
         &_in-left {
@@ -51,20 +51,20 @@
             top: 0;
             left: 0;
             transform: translate(50%, 50%);
-            width: .5rem;
-            height: .5rem;
+            width: rem(50);
+            height: rem(50);
         }
 
         &_bottom {
             position: relative;
-            margin-top: .4rem;
-            width: .74rem;
-            height: .74rem;
+            margin-top: rem(40);
+            width: rem(74);
+            height: rem(74);
         }
 
         &__line {
             width: 1px;
-            height: 17px;
+            height: rem(14);
             background: #fff;
         }
     }

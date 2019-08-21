@@ -1,5 +1,8 @@
 import { getScrollContainer } from 'web-util/element/src/main'
 const ELEMENT_ATTR_NAME = '@@SmartScroll'
+const defaults = {
+    disabled: false,
+}
 
 export default {
     name: 'SmartScroll',
@@ -10,9 +13,17 @@ export default {
         }
     },
 
-    inserted (el) {
+    inserted (el, binding) {
+        if (typeof binding.value === 'boolean') {
+            binding.value = {
+                disabled: binding.value
+            }
+        }
+        const options = Object.assign({}, defaults, binding.value)
+
         const self = {
             el,
+            options,
 
             scrollable: null,
             startY: 0
@@ -41,15 +52,21 @@ export default {
 }
 
 function handleTouchstart (event) {
+    if (this.options.disabled) {
+        return false
+    }
     const finger = event.changedTouches[0]
 
     // 垂直位置标记
     this.startY = finger.pageY
     // 获取可滚动元素
-    this.scrollable = getScrollContainer(event.target, this.el)
+    this.scrollable = getScrollContainer(event.target, false, this.el)
 }
 
 function handleTouchmove (event) {
+    if (this.options.disabled) {
+        return false
+    }
     if (!this.scrollable) {
         return event.cancelable && event.preventDefault()
     }
@@ -77,4 +94,7 @@ function handleTouchmove (event) {
 }
 
 function handleTouchend (event) {
+    if (this.options.disabled) {
+        return false
+    }
 }
