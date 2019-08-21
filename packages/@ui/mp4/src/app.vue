@@ -147,6 +147,8 @@ export default {
                     this.handlePlay()
                 }
             }
+
+            this.$emit('click', name)
         },
         async handlePlay () {
             if (this.ready) {
