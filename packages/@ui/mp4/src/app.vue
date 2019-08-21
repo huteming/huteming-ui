@@ -1,12 +1,21 @@
 <template>
-<div class="tm-mp4" @click.stop="handleClick">
-    <TmVideo :src="currentSrc" :cover="currentCover" :controls="controls" @state-change="handleStateChange" @ready="handleReady" ref="video" />
+<div class="tm-mp4" :style="styles" @click.stop="handleClick">
+    <div class="tm-mp4-container">
+        <TmVideo :src="currentSrc" :cover="currentCover" :controls="controls" @state-change="handleStateChange" @ready="handleReady" ref="video" />
+    </div>
 
-    <TmIcon data-name="play" icon="play" class="tm-mp4-controls tm-mp4-controls__icon" v-show="state === 'load'" />
-    <div class="tm-mp4-controls tm-mp4-controls-wrap" v-show="state === 'ended'">
-        <TmIcon data-name="prev" icon="skip_previous" class="tm-mp4-controls__icon" />
-        <TmIcon data-name="replay" icon="replay" class="tm-mp4-controls__icon" />
-        <TmIcon data-name="next" icon="skip_next" class="tm-mp4-controls__icon" />
+    <!-- <img :src="currentCover" alt="" class="tm-mp4-poster" v-if="currentCover && state === 'load'"> -->
+
+    <div class="tm-mp4-controls">
+        <template v-if="state === 'load'">
+            <TmIcon data-name="play" icon="play" class="tm-mp4-controls__icon" />
+        </template>
+
+        <template v-if="state === 'ended'">
+            <TmIcon data-name="prev" icon="skip_previous" class="tm-mp4-controls__icon" />
+            <TmIcon data-name="replay" icon="replay" class="tm-mp4-controls__icon" />
+            <TmIcon data-name="next" icon="skip_next" class="tm-mp4-controls__icon" />
+        </template>
     </div>
 </div>
 </template>
@@ -32,6 +41,9 @@ export default {
             type: Boolean,
             default: true,
         },
+        // 设置宽高可以避免页面布局抖动
+        width: String,
+        height: String,
     },
 
     data () {
@@ -51,6 +63,12 @@ export default {
         },
         controls () {
             return ['playing', 'pause'].includes(this.state)
+        },
+        styles () {
+            return {
+                width: this.width,
+                height: this.height,
+            }
         },
     },
 

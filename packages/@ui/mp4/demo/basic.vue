@@ -1,6 +1,8 @@
 <template>
 <div class="demo">
-    <TmMp4 :list="list" :play.sync="play" :continuous="continuous" ref="mp4"
+    <TmMp4
+        height="4.38rem"
+        :list="list" :play.sync="play" :continuous="continuous" ref="mp4"
         @error-prev="handleToast('没有上一个的提示')" @error-next="handleToast('没有下一个的提示')"
         @init="handleInit"
         @click="handleLog" />
@@ -12,21 +14,22 @@
 </template>
 
 <script>
-import video1 from './video1.mp4'
+// import video1 from './video1.mp4'
 import video2 from './video2.mp4'
 import TmMp4 from '../index'
+import posterVideo from './poster-video.png'
 
 export default {
     data () {
         return {
             asyncList: [
                 {
-                    src: video1,
-                    cover: '',
+                    src: 'http://jhsy-img.caizhu.com/lv10CqB9TUpWlK0pEPpCXexK05qL.m3u8',
+                    cover: posterVideo,
                 },
                 {
                     src: video2,
-                    cover: '',
+                    cover: posterVideo,
                 },
             ],
             list: [],
