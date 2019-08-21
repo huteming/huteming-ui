@@ -42,6 +42,10 @@ export default {
         setTimeout(() => {
             this.list = this.asyncList
         }, 1000)
+
+        setTimeout(() => {
+            this.list = this.asyncList.concat()
+        }, 1100)
     },
 
     methods: {

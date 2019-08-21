@@ -4,10 +4,10 @@
         <TmVideo :src="currentSrc" :cover="currentCover" :controls="controls" @state-change="handleStateChange" @ready="handleReady" ref="video" />
     </div>
 
-    <!-- <img :src="currentCover" alt="" class="tm-mp4-poster" v-if="currentCover && state === 'load'"> -->
+    <!-- <img :src="currentCover" alt="" class="tm-mp4-poster" v-if="currentCover && state === 'loading'"> -->
 
     <div class="tm-mp4-controls">
-        <template v-if="state === 'load'">
+        <template v-if="state === 'loading'">
             <TmIcon data-name="play" icon="play" class="tm-mp4-controls__icon" />
         </template>
 
@@ -51,7 +51,7 @@ export default {
             currentSrc: '',
             currentCover: '',
             media: null,
-            state: 'load', // load, playing, pause, ended
+            state: 'loading', // loading, playing, pause, ended
             ready: false,
             expectToPlay: false,
         }
@@ -150,10 +150,8 @@ export default {
                 next: this.next,
                 replay: () => {
                     if ((this.continuous && this.playList.length === 1) || !this.continuous) {
-                        // this.init()
                         return true
                     }
-                    // this.media.video.load()
                     this.init()
                     return true
                 },
@@ -180,9 +178,13 @@ export default {
                 return false
             }
 
-            this.ready = false
-            let { src, cover } = item || this.playList[0]
+            const { src, cover } = item || this.playList[0]
 
+            if (src === this.currentSrc) {
+                return false
+            }
+
+            this.ready = false
             this.currentSrc = src
             this.currentCover = cover
 
