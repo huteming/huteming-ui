@@ -1,0 +1,11 @@
+{
+  "name": "@huteming/ui-smart-scroll",
+  "version": "1.0.0",
+  "description": "",
+  "main": "dist/smart-scroll.common.js",
+  "scripts": {
+    "prepublishOnly": "node ../../../scripts/prepublishOnly.js smartScroll"
+  },
+  "author": "",
+  "license": "ISC"
+}
