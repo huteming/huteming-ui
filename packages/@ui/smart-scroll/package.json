@@ -1,6 +1,6 @@
 {
   "name": "@huteming/ui-smart-scroll",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "",
   "main": "dist/smart-scroll.common.js",
   "scripts": {
