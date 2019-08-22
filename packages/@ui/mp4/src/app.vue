@@ -6,7 +6,7 @@
 
     <!-- <img :src="currentCover" alt="" class="tm-mp4-poster" v-if="currentCover && state === 'loading'"> -->
 
-    <div class="tm-mp4-controls">
+    <div class="tm-mp4-controls" :class="{ 'layer': state === 'ended' }" v-if="state === 'loading' || state === 'ended'">
         <template v-if="state === 'loading'">
             <TmIcon data-name="play" icon="play" class="tm-mp4-controls__icon" />
         </template>
