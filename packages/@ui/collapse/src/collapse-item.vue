@@ -4,7 +4,7 @@
         <slot name="header">
             <div class="tm-collapse__title">{{ header }}</div>
         </slot>
-        <div class="tm-collapse__icon" :class="{ active: isActive }">
+        <div class="tm-collapse__icon" :class="{ active: isActive }" v-if="$slots.default || disabled">
             <TmIcon :icon="disabled ? 'lock' : 'arrow_forward'" />
         </div>
     </div>
@@ -51,7 +51,11 @@ export default {
 
     methods: {
         handleClick () {
-            !this.disabled && this.$parent.change(this.name)
+            if (!this.disabled && this.$slots.default) {
+                this.$parent.change(this.name)
+            }
+
+            this.$emit('click', this.isActive)
         },
     },
 
