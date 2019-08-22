@@ -4,6 +4,7 @@
 
     &-container {
         position: relative;
+        line-height: 1;
         z-index: 1;
     }
 
@@ -25,13 +26,39 @@
         display: flex;
         align-items: center;
         justify-content: space-around;
-        font-size: rem(100);
-        color: #fff;
         font-weight: bold;
         z-index: 3;
 
+        &-group {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+
+            &.circle {
+                width: rem(112);
+                height: rem(112);
+                background: rgba(255, 255, 255, .3);
+                border-radius: 50%;
+                overflow: hidden;
+            }
+        }
+
         &__icon {
-            padding: 20px;
+            order: 1;
+            font-size: rem(80);
+            color: #fff;
+        }
+
+        &__text {
+            order: 2;
+            font-size: rem(24);
+            line-height: rem(34);
+            color: rgba(255, 255, 255, 1);
+        }
+
+        &__text + &__icon {
+            font-size: rem(50);
         }
 
         &.layer {

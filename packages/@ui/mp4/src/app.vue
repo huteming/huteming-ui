@@ -1,20 +1,38 @@
 <template>
-<div class="tm-mp4" :style="styles" @click.stop="handleClick">
+<div class="tm-mp4" :style="styles">
     <div class="tm-mp4-container">
         <TmVideo :src="currentSrc" :cover="currentCover" :controls="controls" @state-change="handleStateChange" @ready="handleReady" ref="video" />
-    </div>
-
-    <!-- <img :src="currentCover" alt="" class="tm-mp4-poster" v-if="currentCover && state === 'loading'"> -->
-
-    <div class="tm-mp4-controls" :class="{ 'layer': state === 'ended' }" v-if="state === 'loading' || state === 'ended'">
+    </div><div class="tm-mp4-controls" :class="{ 'layer': state === 'ended' }" v-if="state === 'loading' || state === 'ended'">
         <template v-if="state === 'loading'">
-            <TmIcon data-name="play" icon="play" class="tm-mp4-controls__icon" />
+            <div class="tm-mp4-controls-group circle" @click.stop="handleClick('play')">
+                <div class="tm-mp4-controls__icon">
+                    <TmIcon icon="play" />
+                </div>
+            </div>
         </template>
 
         <template v-if="state === 'ended'">
-            <TmIcon data-name="prev" icon="skip_previous" class="tm-mp4-controls__icon" />
-            <TmIcon data-name="replay" icon="replay" class="tm-mp4-controls__icon" />
-            <TmIcon data-name="next" icon="skip_next" class="tm-mp4-controls__icon" />
+            <div class="tm-mp4-controls-group" @click.stop="handleClick('prev')">
+                <div class="tm-mp4-controls__text">{{ prevText }}</div>
+
+                <div class="tm-mp4-controls__icon">
+                    <TmIcon icon="skip_previous" />
+                </div>
+            </div>
+            <div class="tm-mp4-controls-group" @click.stop="handleClick('replay')">
+                <div class="tm-mp4-controls__text">{{ replayText }}</div>
+
+                <div class="tm-mp4-controls__icon">
+                    <TmIcon icon="replay" />
+                </div>
+            </div>
+            <div class="tm-mp4-controls-group" @click.stop="handleClick('next')">
+                <div class="tm-mp4-controls__text">{{ nextText }}</div>
+
+                <div class="tm-mp4-controls__icon">
+                    <TmIcon icon="skip_next" />
+                </div>
+            </div>
         </template>
     </div>
 </div>
@@ -44,6 +62,18 @@ export default {
         // 设置宽高可以避免页面布局抖动
         width: String,
         height: String,
+        prevText: {
+            type: String,
+            default: '上一个',
+        },
+        replayText: {
+            type: String,
+            default: '重播',
+        },
+        nextText: {
+            type: String,
+            default: '下一个'
+        },
     },
 
     data () {
@@ -142,8 +172,7 @@ export default {
                 }
             }
         },
-        handleClick (event) {
-            const name = event.target.dataset.name
+        handleClick (name) {
             const handlers = {
                 play: this.handlePlay,
                 prev: this.prev,

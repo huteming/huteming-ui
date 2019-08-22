@@ -1,7 +1,6 @@
 <template>
 <div class="demo">
     <TmMp4
-        height="4.38rem"
         :list="list" :play.sync="play" :continuous="continuous" ref="mp4"
         @error-prev="handleToast('没有上一个的提示')" @error-next="handleToast('没有下一个的提示')"
         @init="handleInit"
