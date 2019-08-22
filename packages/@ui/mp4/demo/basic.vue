@@ -14,7 +14,7 @@
 </template>
 
 <script>
-// import video1 from './video1.mp4'
+import video1 from './video1.mp4'
 import video2 from './video2.mp4'
 import TmMp4 from '../index'
 import posterVideo from './poster-video.png'
@@ -24,8 +24,8 @@ export default {
         return {
             asyncList: [
                 {
-                    src: 'http://jhsy-img.caizhu.com/lv10CqB9TUpWlK0pEPpCXexK05qL.m3u8',
-                    // src: video1,
+                    // src: 'http://jhsy-img.caizhu.com/lv10CqB9TUpWlK0pEPpCXexK05qL.m3u8',
+                    src: video1,
                     cover: posterVideo,
                 },
                 {

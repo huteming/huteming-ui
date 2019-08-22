@@ -188,6 +188,10 @@ export default {
             this.currentSrc = src
             this.currentCover = cover
 
+            if (this.state === 'ended') {
+                this.state = 'loading'
+            }
+
             this.$emit('init', {
                 src,
                 cover,
