@@ -7,5 +7,8 @@
     "prepublishOnly": "node ../../../scripts/prepublishOnly.js popup"
   },
   "author": "",
-  "license": "ISC"
+  "license": "ISC",
+  "dependencies": {
+    "@huteming/ui-smart-scroll": "^1.0.1"
+  }
 }
