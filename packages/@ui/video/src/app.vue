@@ -27,7 +27,6 @@ export default {
     props: {
         src: {
             type: String,
-            required: true,
         },
         cover: {
             type: String,

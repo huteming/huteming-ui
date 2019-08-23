@@ -211,7 +211,7 @@ export default {
 
             const { src, cover } = item || this.playList[0]
 
-            if (src === this.currentSrc) {
+            if (this.currentSrc && src === this.currentSrc) {
                 return false
             }
 

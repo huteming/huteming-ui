@@ -23,7 +23,8 @@ export default {
         return {
             asyncList: [
                 {
-                    src: 'http://jhsy-img.caizhu.com/lv10CqB9TUpWlK0pEPpCXexK05qL.m3u8',
+                    src: '',
+                    // src: 'http://jhsy-img.caizhu.com/lv10CqB9TUpWlK0pEPpCXexK05qL.m3u8',
                     // src: video1,
                     cover: posterVideo,
                 },
