@@ -1,22 +1,23 @@
 <template>
-<video
-    ref="video"
-    :src="src"
-    preload="auto"
-    :x5-playsinline="inline"
-    :x-webkit-airplay="inline"
-    :webkit-playsinline="inline"
-    :playsinline="inline"
-    :controls="controls"
-    :poster="cover"
-    :style="styleVideo"
-    @playing="handlePlaying"
-    @pause="handlePause"
-    @ended="handleEnd">
-    <source :src="src" type="video/mp4">
-    <source :src="src" type="video/ogg">
-    Your browser does not support the video tag.
-</video>
+<div class="tm-video" :style="styles">
+    <video
+        ref="video"
+        :src="src"
+        preload="auto"
+        :x5-playsinline="inline"
+        :x-webkit-airplay="inline"
+        :webkit-playsinline="inline"
+        :playsinline="inline"
+        :controls="controls"
+        style="width: 100%; height: 100%;"
+        @playing="handlePlaying"
+        @pause="handlePause"
+        @ended="handleEnd">
+        <source :src="src" type="video/mp4">
+        <source :src="src" type="video/ogg">
+        Your browser does not support the video tag.
+    </video>
+</div>
 </template>
 
 <script>
@@ -31,14 +32,6 @@ export default {
         cover: {
             type: String,
             default: '',
-        },
-        width: {
-            type: String,
-            default: '100%',
-        },
-        height: {
-            type: String,
-            default: '100%',
         },
         inline: {
             type: Boolean,
@@ -60,10 +53,11 @@ export default {
     },
 
     computed: {
-        styleVideo () {
+        styles () {
             return {
-                width: this.width,
-                height: this.height,
+                'background-image': `url(${this.cover})`,
+                'background-size': '100% auto',
+                'background-repeat': 'no-repeat',
             }
         },
     },

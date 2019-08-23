@@ -2,7 +2,9 @@
 <div class="tm-mp4" :style="styles">
     <div class="tm-mp4-container">
         <TmVideo :src="currentSrc" :cover="currentCover" :controls="controls" @state-change="handleStateChange" @ready="handleReady" ref="video" />
-    </div><div class="tm-mp4-controls" :class="{ 'layer': state === 'ended' }" v-if="state === 'loading' || state === 'ended'">
+    </div>
+
+    <div class="tm-mp4-controls" :class="{ 'layer': state === 'ended' }" v-if="state === 'loading' || state === 'ended'">
         <template v-if="state === 'loading'">
             <div class="tm-mp4-controls-group circle" @click.stop="handleClick('play')">
                 <div class="tm-mp4-controls__icon">
@@ -159,7 +161,7 @@ export default {
             }
 
             this.state = _state
-            console.log('state-change', _state, this.state)
+            console.log('state-change', _state)
         },
         async handleReady () {
             this.ready = true
