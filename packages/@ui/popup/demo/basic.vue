@@ -23,7 +23,7 @@
     <div style="height: 20px;"></div>
     <button @click="visibleBottom = !visibleBottom">bottom</button>
 
-    <tm-popup class="bottom bg-white" v-model="visibleBottom" position="bottom">
+    <tm-popup class="bottom bg-white" v-model="visibleBottom" position="bottom" close-on-move>
         <button type="primary" @click="visibleBottom = !visibleBottom">close</button>
     </tm-popup>
 

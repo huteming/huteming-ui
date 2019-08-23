@@ -1,6 +1,6 @@
 <template>
 <transition :name="transition" @after-leave="handleAfterLeave">
-    <div class="tm-popup" v-show="normalizedVisible" :class="classes" :style="styles" v-smart-scroll>
+    <div class="tm-popup" v-show="normalizedVisible" :class="classes" :style="styles" v-smart-scroll="handlePreventMove">
         <slot></slot>
     </div>
 </transition>
@@ -29,7 +29,7 @@ export default {
             default: 'middle',
             validator (val) {
                 return ['middle', 'top', 'bottom', 'left', 'right'].indexOf(val) > -1
-            }
+            },
         },
         closeOnClickModal: {
             type: Boolean,
@@ -43,6 +43,8 @@ export default {
             type: Number,
             default: 3000,
         },
+        // 是否在 smart-scroll 阻止滚动事件后关闭
+        closeOnMove: [Number, Boolean],
     },
 
     data () {
@@ -79,6 +81,20 @@ export default {
                 'z-index': this.zIndex,
             }
         },
+        normalizedCloseOnMove () {
+            const _closeOnMove = this.closeOnMove
+            // smart-scroll 暂时只支持竖向滚动检测，所以这里只能支持 bottom 位置
+            if (this.position !== 'bottom') {
+                return Infinity
+            }
+            if (typeof _closeOnMove === 'number') {
+                return _closeOnMove <= 0 ? Infinity : _closeOnMove
+            }
+            if (typeof _closeOnMove === 'boolean') {
+                return _closeOnMove ? 70 : Infinity
+            }
+            return Infinity
+        },
     },
 
     watch: {
@@ -99,6 +115,11 @@ export default {
     },
 
     methods: {
+        handlePreventMove ({ moveY }) {
+            if (moveY > this.normalizedCloseOnMove) {
+                this.visible = false
+            }
+        },
         handleAfterLeave () {
             this.$emit('closed')
         },
