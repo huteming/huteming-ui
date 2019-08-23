@@ -4,7 +4,7 @@
         <slot name="header">
             <div class="tm-collapse__title">{{ header }}</div>
         </slot>
-        <div class="tm-collapse__icon" :class="{ active: isActive }" v-if="$slots.default || disabled">
+        <div class="tm-collapse__icon" :class="{ active: isActive && !disabled }" v-if="$slots.default || disabled">
             <TmIcon :icon="disabled ? 'lock' : 'arrow_forward'" />
         </div>
     </div>

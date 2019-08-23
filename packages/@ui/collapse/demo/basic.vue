@@ -73,7 +73,7 @@ export default {
         return {
             active: ['4'],
             active2: '',
-            active3: [],
+            active3: ['1'],
             num: 0,
 
             mockValue: [],
