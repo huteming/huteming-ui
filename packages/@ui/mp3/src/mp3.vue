@@ -1,6 +1,6 @@
 <template>
 <div class="tm-mp3">
-    <TmRange v-model="styleCurrentTime" :max="duration" @change="handleRangeChange" @moving="handleRangeMoving" :disabled="!isReady" v-bind="$attrs" />
+    <TmRange v-model="styleCurrentTime" :max="duration" @change="handleRangeChange" @moving="handleRangeMoving" v-bind="$attrs" />
 
     <TmAudio
         ref="audio"
@@ -46,7 +46,6 @@ export default {
             duration: 0,
 
             moving: false,
-            isReady: false,
             media: null,
 
             // 对应 playList 中的 src
@@ -152,7 +151,6 @@ export default {
         },
         // 一定在 init src 之后才有可能触发该事件
         handleReady () {
-            this.isReady = true
             this.$emit('ready')
 
             if (this.play) {
@@ -189,7 +187,6 @@ export default {
             // 先初始化音频源
             const item = this.playList.find(item => item.src === this.play)
             if (item) {
-                this.isReady = false
                 this.init(item)
                 this.$once('ready', _play)
             }

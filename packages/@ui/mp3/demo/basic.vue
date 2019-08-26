@@ -70,24 +70,7 @@ export default {
                     src: 'http://jhsy-img.caizhu.com/Fiw-_Pvh52t0LFNpjXKIsJ8XzUrz?d=4',
                 },
             ],
-            lists: [
-                {
-                    duration: 852,
-                    src: 'http://jhsy-img.caizhu.com/lh8gwVTFUoXlN267Evt6pedsIg6y?d=1',
-                },
-                {
-                    duration: 16.728,
-                    src: 'http://jhsy-img.caizhu.com/Fiw-_Pvh52t0LFNpjXKIsJ8XzUrz?d=2',
-                },
-                {
-                    duration: 852,
-                    src: 'http://jhsy-img.caizhu.com/lh8gwVTFUoXlN267Evt6pedsIg6y?d=3',
-                },
-                {
-                    duration: 16.728,
-                    src: 'http://jhsy-img.caizhu.com/Fiw-_Pvh52t0LFNpjXKIsJ8XzUrz?d=4',
-                },
-            ],
+            lists: [],
             currentPlay: true,
 
             duration: 0,
@@ -114,7 +97,7 @@ export default {
 
     mounted () {
         setTimeout(() => {
-            // this.lists = this.asyncLists
+            this.lists = this.asyncLists
         }, 1500)
     },
 
