@@ -4,7 +4,7 @@
     <div class="demo-header">表单</div>
 
     <tm-cell title="qq">
-        <TmInput ref="field" v-model="value1" placeholder="请输入qq号" @focus="handleLog('force')" @blur="handleLog('blur')" @change="handleLog('change')" />
+        <TmInput v-model="value1" placeholder="请输入qq号" @focus="handleLog('force')" @blur="handleLog('blur')" @change="handleLog('change')" />
     </tm-cell>
 
     <tm-cell title="手机号">
@@ -37,7 +37,7 @@
 
     <tm-popup v-model="visible" position="bottom">
         <tm-cell title="qq">
-            <TmInput type="textarea" rows="4" v-model="value1" placeholder="请输入qq号" @focus="handleLog('force')" @blur="handleLog('blur')" @change="handleLog('change')" />
+            <TmInput ref="field" type="textarea" rows="4" v-model="value1" placeholder="请输入qq号" @focus="handleLog('force')" @blur="handleLog('blur')" @change="handleLog('change')" />
         </tm-cell>
 
         <div class="demo-submit" @click="handleSubmit">提交</div>
@@ -60,6 +60,12 @@ export default {
     watch: {
         value1 (val) {
             console.log('watch', val, val.indexOf('\n'))
+        },
+        async visible (val) {
+            if (val) {
+                await this.$nextTick()
+                this.$refs.field.focus()
+            }
         },
     },
 

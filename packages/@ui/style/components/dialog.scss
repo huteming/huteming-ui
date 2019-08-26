@@ -69,9 +69,11 @@
     }
 }
 
-.tm-dialog-enter,
-.tm-dialog-leave-to {
+.tm-dialog-enter {
     transform: translate(-50%, calc(-100% - 50vh));
+}
+
+.tm-dialog-leave-to {
     opacity: 0;
 }
 
@@ -85,5 +87,5 @@
 }
 
 .tm-dialog-leave-active {
-    transition-duration: $transition-duration-normal-leave;
+    transition-duration: $transition-duration-fade-leave;
 }

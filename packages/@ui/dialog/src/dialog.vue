@@ -71,7 +71,7 @@ export default {
     },
 
     mounted () {
-        if (this.value) {
+        if (this.visible) {
             this.show()
         }
     },
