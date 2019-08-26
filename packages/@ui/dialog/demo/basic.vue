@@ -64,8 +64,8 @@ export default {
 
 .image {
     display: block;
-    width: 100%;
-    height: 200px;
+    width: 6.44rem;
+    height: 9.84rem;
     border: none;
 }
 

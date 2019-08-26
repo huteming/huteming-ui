@@ -7,7 +7,6 @@
     align-items: center;
     justify-content: center;
     flex-flow: column wrap;
-    transition: .3s cubic-bezier(0.4, 0.0, 0.2, 1);
 
     &-content {
         position: relative;
@@ -74,4 +73,17 @@
 .tm-dialog-leave-to {
     transform: translate(-50%, calc(-100% - 50vh));
     opacity: 0;
+}
+
+.tm-dialog-enter-active,
+.tm-dialog-leave-active {
+    transition-timing-function: $transition-ease;
+}
+
+.tm-dialog-enter-active {
+    transition-duration: $transition-duration-normal-enter;
+}
+
+.tm-dialog-leave-active {
+    transition-duration: $transition-duration-normal-leave;
 }
