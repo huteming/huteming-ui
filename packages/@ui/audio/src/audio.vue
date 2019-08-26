@@ -2,7 +2,7 @@
 <!-- 主要解决 音频 的兼容/使用习惯问题。其他业务事件，在 mp3 组件中解决 -->
 <!-- 1：获取音频当前状态 -->
 <!-- 2：获取就绪状态，支持预加载和自动播放（微信浏览器） -->
-<!-- 3：事实获取当前播放进度 -->
+<!-- 3：实时获取当前播放进度 -->
 <!-- 4：保留未就绪时设置的进度 -->
 <audio
     ref="audio"
@@ -69,7 +69,6 @@ export default {
         // 注意：切换地址会保留当前播放时间，需要外部手动修改
         src (val) {
             if (val) {
-                console.log('before change state: ', this.state)
                 this.ready = false
                 this.isCanPlay = false
                 this.expectContinueToPlay = this.state === 'playing'
@@ -121,7 +120,7 @@ export default {
 
             if (!this.ready) {
                 this.expectToPlay = true
-                return
+                return false
             }
 
             try {
@@ -149,12 +148,12 @@ export default {
             if (this.duration && this.normalizedValue > this.duration) {
                 this.normalizedValue = 0
             }
-            console.log('updateCurrentTime before --- ', 'currentTime:', this.normalizedValue, 'ready: ', this.ready)
+            // console.log('updateCurrentTime before --- ', 'currentTime:', this.normalizedValue, 'ready: ', this.ready)
             if (!this.ready) return
 
             // 注意：不设置预加载时，音频没有就绪的时候，设置播放位置是无效的（readyState < 3）
             this.audio.currentTime = this.normalizedValue
-            console.log('updateCurrentTime after --- ', 'currentTime:', this.audio.currentTime)
+            console.log('updateCurrentTime --- ', 'currentTime:', this.audio.currentTime)
         },
         // 内部事件
         handleWaiting () {
@@ -203,10 +202,10 @@ export default {
             // 偶尔暂停事件会触发
             // 微信浏览器中为了预加载，其中的播放事件会触发
             // 这里禁止掉，否则会更新掉外部的期望 v-model 值
-            console.log('handleTimeUpdate before --- ', 'state: ', this.state, 'ready: ', this.ready, 'currentTime: ', this.audio.currentTime)
+            // console.log('handleTimeUpdate before --- ', 'state: ', this.state, 'ready: ', this.ready, 'currentTime: ', this.audio.currentTime)
             if (this.state !== 'playing' || !this.ready) return
             const { currentTime } = this.audio
-            console.log('handleTimeUpdate after --- ', 'currentTime:', currentTime)
+            console.log('handleTimeUpdate --- ', 'currentTime:', currentTime)
 
             this.normalizedValue = currentTime
             this.$emit('input', currentTime)

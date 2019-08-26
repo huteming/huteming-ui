@@ -1,6 +1,6 @@
 <template>
 <div class="tm-mp3">
-    <TmRange v-model="styleCurrentTime" :max="duration" @change="handleRangeChange" @moving="handleRangeMoving" :disabled="!ready" v-bind="$attrs" />
+    <TmRange v-model="styleCurrentTime" :max="duration" @change="handleRangeChange" @moving="handleRangeMoving" :disabled="!isReady" v-bind="$attrs" />
 
     <TmAudio
         ref="audio"
@@ -26,6 +26,8 @@ export default {
             type: Array,
             required: true,
         },
+        // boolean: 播放/暂停当前音频
+        // string: 播放指定地址音频
         play: {
             type: [Boolean, String],
             default: false,
@@ -44,7 +46,7 @@ export default {
             duration: 0,
 
             moving: false,
-            ready: false,
+            isReady: false,
             media: null,
 
             // 对应 playList 中的 src
@@ -127,46 +129,13 @@ export default {
             this.init(this.playList[index - 1])
             return true
         },
-        // -------------------------------------- 分隔线 --------------------------------------
-        playAudio () {
-            if (this.play === true || this.play === this.currentSrc) {
-                this.media.play()
-                return
-            }
-
-            const item = this.playList.find(item => item.src === this.play)
-            if (item) {
-                this.ready = false
-                this.init(item)
-            }
-        },
-        pauseAudio () {
-            this.media.pause()
-        },
         setValue (key, value) {
             this.media && this.media.audio && (this.media.audio[key] = value)
         },
         getValue (key) {
             return this.media && this.media.audio && this.media.audio[key]
         },
-        init (item) {
-            if (!this.playList.length || !this.media) return
-
-            let { src, duration, currentTime } = item || this.playList[0]
-            duration = Number(duration)
-            currentTime = Number(currentTime) || 0
-
-            this.currentSrc = src
-            this.duration = duration
-            this.mediaCurrentTime = currentTime
-            this.styleCurrentTime = currentTime
-
-            this.$emit('init', {
-                src,
-                duration,
-                currentTime,
-            })
-        },
+        // -------------------------------------- 分隔线 --------------------------------------
         handleStateChange (_state) {
             if (_state === 'ended') {
                 if (!this.continuous) {
@@ -181,14 +150,13 @@ export default {
                 }
             }
         },
-        async handleReady () {
-            this.ready = true
+        // 一定在 init src 之后才有可能触发该事件
+        handleReady () {
+            this.isReady = true
+            this.$emit('ready')
 
             if (this.play) {
-                const valid = await this.media.play()
-                if (!valid) {
-                    this.$emit('update:play', false)
-                }
+                this.playAudio()
             }
         },
         handleRangeMoving (_isMoving) {
@@ -203,6 +171,51 @@ export default {
         handleRangeChange (_currentTime) {
             console.log('style change --- ', _currentTime)
             this.mediaCurrentTime = _currentTime
+        },
+        playAudio () {
+            const _play = async () => {
+                const valid = await this.media.play()
+                // 播放失败，事件通知
+                if (!valid) {
+                    this.$emit('update:play', false)
+                }
+            }
+
+            // 播放当前地址
+            if ((this.play === true && this.currentSrc) || this.play === this.currentSrc) {
+                return _play()
+            }
+
+            // 先初始化音频源
+            const item = this.playList.find(item => item.src === this.play)
+            if (item) {
+                this.isReady = false
+                this.init(item)
+                this.$once('ready', _play)
+            }
+        },
+        pauseAudio () {
+            this.media.pause()
+        },
+        init (item) {
+            if (!this.playList.length || !this.media) return
+
+            let { src, duration, currentTime } = item || this.playList[0]
+            duration = Number(duration)
+            currentTime = Number(currentTime) || 0
+
+            if (this.currentSrc && src === this.currentSrc) return
+
+            this.currentSrc = src
+            this.duration = duration
+            this.mediaCurrentTime = currentTime
+            this.styleCurrentTime = currentTime
+
+            this.$emit('init', {
+                src,
+                duration,
+                currentTime,
+            })
         },
     },
 

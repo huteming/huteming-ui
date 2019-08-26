@@ -1,5 +1,5 @@
 <template>
-<div class="demo" v-loading="!ready">
+<div class="demo">
     <div class="cover">
         <div class="cover-wrap">
             <img src="./images/cover.png" alt="" ref="cover">
@@ -70,7 +70,24 @@ export default {
                     src: 'http://jhsy-img.caizhu.com/Fiw-_Pvh52t0LFNpjXKIsJ8XzUrz?d=4',
                 },
             ],
-            lists: [],
+            lists: [
+                {
+                    duration: 852,
+                    src: 'http://jhsy-img.caizhu.com/lh8gwVTFUoXlN267Evt6pedsIg6y?d=1',
+                },
+                {
+                    duration: 16.728,
+                    src: 'http://jhsy-img.caizhu.com/Fiw-_Pvh52t0LFNpjXKIsJ8XzUrz?d=2',
+                },
+                {
+                    duration: 852,
+                    src: 'http://jhsy-img.caizhu.com/lh8gwVTFUoXlN267Evt6pedsIg6y?d=3',
+                },
+                {
+                    duration: 16.728,
+                    src: 'http://jhsy-img.caizhu.com/Fiw-_Pvh52t0LFNpjXKIsJ8XzUrz?d=4',
+                },
+            ],
             currentPlay: true,
 
             duration: 0,
@@ -97,7 +114,7 @@ export default {
 
     mounted () {
         setTimeout(() => {
-            this.lists = this.asyncLists
+            // this.lists = this.asyncLists
         }, 1500)
     },
 
@@ -112,7 +129,7 @@ export default {
             console.log('end')
         },
         handleInit ({ duration, currentTime }) {
-            console.log('next', currentTime)
+            console.log('init', currentTime)
             this.duration = duration
             this.currentTime = currentTime
 
