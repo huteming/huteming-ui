@@ -3,7 +3,7 @@
     <div class="demo-header">表单</div>
 
     <tm-cell title="qq">
-        <TmInput v-model="value1" placeholder="请输入qq号" @focus="handleLog('force')" @blur="handleLog('blur')" @change="handleLog('change')" />
+        <TmInput ref="field" v-model="value1" placeholder="请输入qq号" @focus="handleLog('force')" @blur="handleLog('blur')" @change="handleLog('change')" />
     </tm-cell>
 
     <tm-cell title="手机号">
@@ -51,6 +51,9 @@ export default {
         value1 (val) {
             console.log('watch', val, val.indexOf('\n'))
         },
+    },
+
+    mounted () {
     },
 
     methods: {

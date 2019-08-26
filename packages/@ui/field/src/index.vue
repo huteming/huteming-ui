@@ -72,6 +72,12 @@ export default {
     },
 
     methods: {
+        focus () {
+            this.$refs.field.focus()
+        },
+        blur () {
+            this.$refs.field.blur()
+        },
         handleComposition (event) {
             if (event.type === 'compositionstart') {
                 this.isOnComposition = true

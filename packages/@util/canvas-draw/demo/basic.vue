@@ -24,10 +24,26 @@ export default {
         //     instance.drawRect(x, y, actualMaxWidth, actualMaxHeight, { type: 'stroke', color: 'rgba(0, 0, 0, 1)' })
         // })
 
+        // instance.add(({ context, canvas, ratio, width, height }) => {
+        //     const x = 375
+        //     const y = 93
+        //     instance.drawText('这是一段超出最大宽度的文本！这是一段超出最大宽度的文本！', x, y, {
+        //         wrap: true,
+        //         maxWidth: 350,
+        //         size: 40,
+        //         lineHeight: 50,
+        //         underline: true,
+        //         align: 'center',
+        //     })
+        // })
+
         instance.add(({ context, canvas, ratio, width, height }) => {
             const x = 24
             const y = 93
-            instance.drawText('这是一段超出最大宽度的文本！这是一段超出最大宽度的文本！', x, y, { wrap: true, maxWidth: 100, size: 20, lineHeight: 30, underline: true })
+            const { actualMaxWidth, actualMaxHeight } = instance.drawText('这是一段文本', x, y, {
+                size: 40,
+            })
+            instance.drawRect(x, y, actualMaxWidth, actualMaxHeight, { type: 'stroke', color: 'rgba(0, 0, 0, 1)' })
         })
 
         this.img = instance.done()

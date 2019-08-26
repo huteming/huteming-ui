@@ -351,7 +351,7 @@ function drawText (text, x, y, options = {}) {
         lineHeight, lineWidth, baseline, type, underline,
     } = options
 
-    context.font = `${style} ${variant} ${weight} ${size}px / ${lineHeight}px arial`
+    context.font = `${style} ${variant} ${weight} ${size}px/${lineHeight}px arial`
     context.lineWidth = lineWidth
     context[`${type}Style`] = color
     context.shadowColor = shadowColor
@@ -408,6 +408,9 @@ function drawText (text, x, y, options = {}) {
 
         // 另起一行画
         if (actualX + letterWidth > maxWidth + x) {
+            if (underline) {
+                drawUnderline.call(this, x, actualY + size, actualX - x, underline)
+            }
             _expectMaxWidth = 0
             _totalLine++
             actualX = x
@@ -416,9 +419,6 @@ function drawText (text, x, y, options = {}) {
         // 当前行画
 
         context[`${type}Text`](letter, actualX, actualY)
-        if (underline) {
-            context.fillRect(actualX - 4, actualY + size + 1, letterWidth + 8, 1)
-        }
 
         // 最大宽度累加
         _expectMaxWidth += (letterSpacing + letterWidth)
@@ -428,6 +428,9 @@ function drawText (text, x, y, options = {}) {
         // 记录实际最大宽度
         _actualMaxWidth = Math.max(_actualMaxWidth, _expectMaxWidth)
     })
+    if (underline) {
+        drawUnderline.call(this, x, actualY + size, actualX - x, underline)
+    }
 
     // 最大宽度应该减去最后的字体间距
     options.actualMaxWidth = (_actualMaxWidth - letterSpacing) / ratio
@@ -439,6 +442,17 @@ function drawText (text, x, y, options = {}) {
     context.textAlign = align
 
     return options
+}
+
+function drawUnderline (x, y, width, options) {
+    const { context, ratio } = this
+    const { left = 6, right = 6, bottom = 6 } = options
+    context.save()
+    const xStart = x - left * ratio
+    const xEnd = x + width + right + ratio
+    const _y = y + bottom * ratio
+    this.drawLine(xStart / ratio, _y / ratio, xEnd / ratio, _y / ratio, options)
+    context.restore()
 }
 
 function stringToArray (string) {
