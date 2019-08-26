@@ -39,7 +39,7 @@
 </template>
 
 <script>
-import { getScrollContainer, getScrollTop, scrollY } from 'web-util/element/src/main'
+import { getScrollTop, scrollY } from 'web-util/element/src/main'
 
 export default {
     name: 'TmField',
@@ -96,16 +96,15 @@ export default {
             this.$emit('focus', event)
 
             // 记录当前滚动条位置
-            this.scrollContainer = getScrollContainer(this.$el, true)
-            if (this.scrollContainer) {
-                this.scrollTop = getScrollTop(this.scrollContainer)
-            }
+            // fix：输入框弹起影响的不是滚动区域，而是window
+            // this.scrollContainer = getScrollContainer(this.$el, true)
+            this.scrollTop = getScrollTop(window)
         },
         handleBlur (event) {
             this.$emit('blur', event)
 
             // 还原滚动条位置
-            this.scrollTop > -1 && scrollY(this.scrollContainer, this.scrollTop)
+            scrollY(window, this.scrollTop)
         },
         handleChange (event) {
             this.$emit('change', event.target.value)

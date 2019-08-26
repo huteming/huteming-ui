@@ -1,5 +1,6 @@
 <template>
 <div class="demo">
+    <button @click="visible = true">hello</button>
     <div class="demo-header">表单</div>
 
     <tm-cell title="qq">
@@ -33,6 +34,14 @@
     <div style="height: 100vh;"></div>
 
     <tm-divider>到底了</tm-divider>
+
+    <tm-popup v-model="visible" position="bottom">
+        <tm-cell title="qq">
+            <TmInput type="textarea" rows="4" v-model="value1" placeholder="请输入qq号" @focus="handleLog('force')" @blur="handleLog('blur')" @change="handleLog('change')" />
+        </tm-cell>
+
+        <div class="demo-submit" @click="handleSubmit">提交</div>
+    </tm-popup>
 </div>
 </template>
 
@@ -44,6 +53,7 @@ export default {
     data () {
         return {
             value1: '',
+            visible: false,
         }
     },
 
@@ -58,6 +68,9 @@ export default {
 
     methods: {
         handleBlur () {
+        },
+        handleSubmit () {
+            this.$message('hello')
         },
         handleLog (action, ...args) {
             console.log(action)
@@ -76,6 +89,19 @@ export default {
 .demo {
     min-height: 100vh;
     background-color: #f6f6f6;
+
+    &-submit {
+        width: 3.76rem;
+        height: .88rem;
+        margin: 0 auto;
+        font-size: .32rem;
+        line-height: .88rem;
+        color: rgba(255, 255, 255, 1);
+        text-align: center;
+        background: linear-gradient(126deg,rgba(46,166,254,1) 0%,rgba(144,226,254,1) 100%);
+        border-radius: .44rem;
+        box-sizing: border-box;
+    }
 
     &-tip1 {
         height: rem(47);
