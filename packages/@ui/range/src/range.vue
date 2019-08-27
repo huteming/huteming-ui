@@ -55,9 +55,14 @@ export default {
         },
         disabled: {
             type: Boolean,
-            default: false
+            default: false,
         },
-        color: String,
+        theme: {
+            type: Object,
+            default () {
+                return {}
+            },
+        },
     },
 
     data () {
@@ -83,7 +88,7 @@ export default {
             return {
                 height: `${this.barHeight}px`,
                 width: `${this.rate * this.widthProgress}px`,
-                background: this.color,
+                background: this.theme.color,
             }
         },
         styleRunWay () {
@@ -93,7 +98,7 @@ export default {
         },
         styleThumb () {
             return {
-                background: this.color,
+                background: this.theme.color,
             }
         },
     },
