@@ -1,6 +1,6 @@
 {
   "name": "@huteming/ui-range",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "> 滑块，支持自定义步长、区间等。",
   "main": "dist/range.common.js",
   "scripts": {
