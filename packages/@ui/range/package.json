@@ -1,0 +1,11 @@
+{
+  "name": "@huteming/ui-range",
+  "version": "1.0.0",
+  "description": "> 滑块，支持自定义步长、区间等。",
+  "main": "dist/range.common.js",
+  "scripts": {
+    "prepublishOnly": "node ../../../scripts/prepublishOnly.js range"
+  },
+  "author": "",
+  "license": "ISC"
+}

@@ -7,5 +7,8 @@
     "prepublishOnly": "node ../../../scripts/prepublishOnly.js mp3"
   },
   "author": "",
-  "license": "ISC"
+  "license": "ISC",
+  "dependencies": {
+    "@huteming/ui-range": "^1.0.0"
+  }
 }
