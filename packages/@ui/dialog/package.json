@@ -1,6 +1,6 @@
 {
   "name": "@huteming/ui-dialog",
-  "version": "1.5.4",
+  "version": "1.5.5",
   "description": "对话框",
   "main": "dist/dialog.common.js",
   "scripts": {
@@ -9,6 +9,6 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "@huteming/ui-smart-scroll": "^1.1.0"
+    "@huteming/ui-smart-scroll": "^1.1.1"
   }
 }

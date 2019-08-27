@@ -1,6 +1,6 @@
 {
   "name": "@huteming/ui-mp4",
-  "version": "1.4.3",
+  "version": "1.4.4",
   "description": "> mp4播放器",
   "main": "dist/mp4.common.js",
   "scripts": {
