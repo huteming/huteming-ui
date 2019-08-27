@@ -1,7 +1,8 @@
 import assert from 'assert'
-import TmField from 'web-ui/field/src'
+import TmField, { __RewireAPI__ as RewireAPI } from 'web-ui/field/src'
 import WorkBasic from '../components/basic'
 import { mount, createLocalVue } from '@vue/test-utils'
+import sinon from 'sinon'
 const localVue = createLocalVue()
 localVue.component(TmField.name, TmField)
 
@@ -11,26 +12,25 @@ describe('field', () => {
     })
 
     it('还原滚动条', () => {
-        const wrapper = mount({
-            template: `
-                <div style="overflow-y: auto;">
-                    <TmField ref="field" />
-                </div>
-            `,
-        }, {
-            localVue,
-        })
-        // 模拟滚动位置
-        wrapper.element.scrollTop = 100
-        const wrapperField = wrapper.find(TmField)
-        wrapperField.vm.$refs.field.focus()
-        // 模拟滚动位置
-        wrapper.element.scrollTop = 200
-        wrapperField.vm.$refs.field.blur()
+        const mockGetScrollTop = sinon.fake.returns(30)
+        const mockScroll = sinon.fake()
+        RewireAPI.__Rewire__('getScrollTop', mockGetScrollTop)
+        RewireAPI.__Rewire__('scrollY', mockScroll)
 
-        assert.strictEqual(wrapperField.vm.scrollContainer, wrapper.element)
-        assert.strictEqual(wrapperField.vm.scrollTop, 100)
-        assert.strictEqual(wrapper.element.scrollTop, 100)
+        const wrapper = mount(TmField)
+        // 模拟滚动位置
+        const wrapperField = wrapper.find(TmField)
+        wrapperField.vm.focus()
+        // 模拟滚动位置
+        wrapperField.vm.blur()
+
+        assert.strictEqual(mockGetScrollTop.callCount, 1)
+        assert.ok(mockGetScrollTop.calledWithExactly(window))
+        assert.strictEqual(mockScroll.callCount, 1)
+        assert.ok(mockScroll.calledWithExactly(window, 30))
+
+        RewireAPI.__ResetDependency__('getScrollTop')
+        RewireAPI.__ResetDependency__('scrollY')
     })
 
     it('value为null、undefined', () => {

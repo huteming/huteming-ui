@@ -1,7 +1,7 @@
 <template>
-<div class="tm-mp4" :style="styles">
+<div class="tm-mp4">
     <div class="tm-mp4-container">
-        <TmVideo :src="currentSrc" :cover="currentCover" :controls="controls" @state-change="handleStateChange" @ready="handleReady" ref="video" />
+        <TmVideo :src="currentSrc" :cover="currentCover" :controls="controls" @state-change="handleStateChange" @ready="handleReady" v-bind="$attrs" ref="video" />
     </div>
 
     <div class="tm-mp4-controls" :class="{ 'layer': state === 'ended' }" v-if="state === 'loading' || state === 'ended'">
@@ -62,8 +62,6 @@ export default {
             default: true,
         },
         // 设置宽高可以避免页面布局抖动
-        width: String,
-        height: String,
         prevText: {
             type: String,
             default: '上一个',
@@ -95,12 +93,6 @@ export default {
         },
         controls () {
             return ['playing', 'pause'].includes(this.state)
-        },
-        styles () {
-            return {
-                width: this.width,
-                height: this.height,
-            }
         },
     },
 

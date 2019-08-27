@@ -1,6 +1,20 @@
 <template>
-<div class="videos-company">
-    <TmVideo :src="mapVideo.get(active).src" :cover="mapVideo.get(active).poster" ref="video" />
+<div class="demo">
+    <div class="videos1">
+        <TmVideo :src="mapVideo.get(active).src" :cover="mapVideo.get(active).poster" ref="video" />
+    </div>
+
+    <tm-divider></tm-divider>
+
+    <div class="videos2">
+        <TmVideo :src="mapVideo.get(active).src" :cover="mapVideo.get(active).poster" ref="video" />
+    </div>
+
+    <tm-divider></tm-divider>
+
+    <div class="videos3">
+        <TmVideo :src="mapVideo.get(active).src" :cover="mapVideo.get(active).poster" ref="video" />
+    </div>
 
     <button @click="handleExchange">exchange</button>
     <button @click="handleToggle">toggle</button>
@@ -18,6 +32,7 @@ const mapVideo = new Map([
         {
             src: video1,
             poster: 'http://jhsy-img.caizhu.com/jhsy/anniversary/videos/poster-company.png',
+            // poster: '',
         }
     ],
     [
@@ -53,9 +68,15 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.videos-company {
-    width: 6.18rem;
-    height: 3.48rem;
-    margin: 0 auto;
+.videos1 {
+    height: 2rem;
+}
+
+.videos2 {
+    height: 10rem;
+}
+
+.videos3 {
+    height: 3.1rem;
 }
 </style>

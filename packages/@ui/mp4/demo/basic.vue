@@ -1,10 +1,12 @@
 <template>
 <div class="demo">
-    <TmMp4
-        :list="list" :play.sync="play" :continuous="continuous" ref="mp4"
-        @error-prev="handleToast('没有上一个的提示')" @error-next="handleToast('没有下一个的提示')"
-        @init="handleInit"
-        @click="handleLog" />
+    <div class="container" style="height: 5rem;">
+        <TmMp4
+            :list="list" :play.sync="play" :continuous="continuous" ref="mp4"
+            @error-prev="handleToast('没有上一个的提示')" @error-next="handleToast('没有下一个的提示')"
+            @init="handleInit"
+            @click="handleLog" />
+    </div>
 
     <button @click="$refs.mp4.next()">next</button>
     <button @click="$refs.mp4.prev()">prev</button>
@@ -13,7 +15,7 @@
 </template>
 
 <script>
-// import video1 from './video1.mp4'
+import video1 from './video1.mp4'
 import video2 from './video2.mp4'
 import TmMp4 from '../index'
 import posterVideo from './poster-video.png'
@@ -23,9 +25,9 @@ export default {
         return {
             asyncList: [
                 {
-                    src: '',
+                    // src: '',
                     // src: 'http://jhsy-img.caizhu.com/lv10CqB9TUpWlK0pEPpCXexK05qL.m3u8',
-                    // src: video1,
+                    src: video1,
                     cover: posterVideo,
                 },
                 {

@@ -31,7 +31,7 @@ describe('smart-scroll', () => {
 
         const wrapper = mount({
             template: `
-                <div style="overflowY: auto;" id="scrollable" v-smart-scroll>
+                <div id="scrollable" v-smart-scroll>
                 </div>
             `,
         }, {
@@ -43,6 +43,7 @@ describe('smart-scroll', () => {
         })
         wrapperContainer.trigger('touchmove', {
             changedTouches: [{ pageY: 100 }],
+            cancelable: true,
         })
         wrapperContainer.trigger('touchend')
         assert.ok(mockPrevent.called)
@@ -73,6 +74,7 @@ describe('smart-scroll', () => {
         })
         wrapperContainer.trigger('touchmove', {
             changedTouches: [{ pageY: 100 }],
+            cancelable: true,
         })
         wrapperContainer.trigger('touchend')
         assert.ok(mockPrevent.notCalled)
@@ -101,6 +103,7 @@ describe('smart-scroll', () => {
         })
         wrapperContainer.trigger('touchmove', {
             changedTouches: [{ pageY: 100 }],
+            cancelable: true,
         })
         wrapperContainer.trigger('touchend')
         assert.ok(mockPrevent.called)
@@ -129,6 +132,7 @@ describe('smart-scroll', () => {
         })
         wrapperContainer.trigger('touchmove', {
             changedTouches: [{ pageY: 100 }],
+            cancelable: true,
         })
         wrapperContainer.trigger('touchend')
         assert.ok(mockPrevent.called)
@@ -157,6 +161,7 @@ describe('smart-scroll', () => {
         })
         wrapperContainer.trigger('touchmove', {
             changedTouches: [{ pageY: 10 }],
+            cancelable: true,
         })
         wrapperContainer.trigger('touchend')
         assert.ok(mockPrevent.called)

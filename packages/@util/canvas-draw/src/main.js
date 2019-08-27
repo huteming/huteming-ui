@@ -449,7 +449,7 @@ function drawUnderline (x, y, width, options) {
     const { left = 6, right = 6, bottom = 6 } = options
     context.save()
     const xStart = x - left * ratio
-    const xEnd = x + width + right + ratio
+    const xEnd = x + width + right * ratio
     const _y = y + bottom * ratio
     this.drawLine(xStart / ratio, _y / ratio, xEnd / ratio, _y / ratio, options)
     context.restore()

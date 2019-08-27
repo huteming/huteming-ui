@@ -1,15 +1,15 @@
 <template>
-<div class="tm-video" :style="styles">
+<div class="tm-video">
     <video
         ref="video"
         :src="src"
-        preload="auto"
+        :preload="preload"
         :x5-playsinline="inline"
         :x-webkit-airplay="inline"
         :webkit-playsinline="inline"
         :playsinline="inline"
         :controls="controls"
-        style="width: 100%; height: 100%;"
+        :poster="cover"
         @playing="handlePlaying"
         @pause="handlePause"
         @ended="handleEnd">
@@ -36,6 +36,10 @@ export default {
             type: Boolean,
             default: true,
         },
+        preload: {
+            type: String,
+            default: 'none',
+        },
         controls: {
             type: Boolean,
             default: true,
@@ -55,8 +59,6 @@ export default {
         styles () {
             return {
                 'background-image': `url(${this.cover})`,
-                'background-size': '100% auto',
-                'background-repeat': 'no-repeat',
             }
         },
     },

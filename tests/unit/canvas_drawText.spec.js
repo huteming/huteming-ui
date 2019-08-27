@@ -32,6 +32,7 @@ describe('canvas > drawText', () => {
             shadowBlur: 0,
             color: '#000',
             type: 'fill',
+            underline: null,
         })
     })
 
@@ -226,5 +227,58 @@ describe('canvas > drawText', () => {
         const width = getArrayTextWidth.call(ins, _text.split(''), _letterSpacing, true)
 
         assert.strictEqual(width, ins.context.measureText(_text).width + (_text.length - 1) * _letterSpacing + _letterSpacing)
+    })
+
+    it('underline', () => {
+        const ratio = 2
+        const x = 10
+        const y = 20
+        const size = 30
+        const lineHeight = 20
+        const options = {
+            wrap: true,
+            size,
+            lineHeight,
+            maxWidth: 1,
+            underline: true,
+        }
+
+        const ins = new CanvasDraw()
+        const draw = sinon.fake()
+        sinon.replace(ins, 'drawLine', draw)
+        ins.ratio = ratio
+        ins.drawText(`测试文案`, x, y, options)
+
+        const _x = x * ratio
+        const _y = y * ratio
+        const _size = size * ratio
+        const _lineHeight = lineHeight * ratio
+        const _left = 6 * ratio
+        const _right = 6 * ratio
+        const _bottom = 6 * ratio
+
+        assert.strictEqual(draw.callCount, 2)
+        assert.deepStrictEqual(
+            draw.getCall(0).args,
+            [
+                (_x - _left) / ratio,
+                (_y + _size + _bottom) / ratio,
+                (_x + 2 + _right) / ratio,
+                (_y + _size + _bottom) / ratio,
+                true,
+            ],
+            `第1次参数不匹配`
+        )
+        assert.deepStrictEqual(
+            draw.getCall(1).args,
+            [
+                (_x - _left) / ratio,
+                (_y + _lineHeight + _size + _bottom) / ratio,
+                (_x + 2 + _right) / ratio,
+                (_y + _lineHeight + _size + _bottom) / ratio,
+                true
+            ],
+            `第2次参数不匹配`
+        )
     })
 })

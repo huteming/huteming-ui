@@ -70,6 +70,18 @@ export function mockProperty (target, property, define) {
     })
 }
 
+export function mockCancelable (target, property, define) {
+    const mock = new Mock(target, property, define)
+
+    beforeAll(() => {
+        mock.replace()
+    })
+
+    afterAll(() => {
+        mock.restore()
+    })
+}
+
 export function mockImage () {
     mockProperty(Image.prototype, 'src', {
         set (src) {
