@@ -26,6 +26,9 @@ module.exports = {
                 'web-cli': resolve('./packages/@cli'),
             },
         },
+        externals: {
+            'axios': 'axios',
+        },
     },
 
     chainWebpack: config => {

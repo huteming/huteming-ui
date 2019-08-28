@@ -32,6 +32,7 @@ export default {
                     // src: '',
                     // src: 'http://jhsy-img.caizhu.com/lv10CqB9TUpWlK0pEPpCXexK05qL.m3u8',
                     // src: 'http://jhsy-img.caizhu.com/li7AxWsjYdihZZdvAIi1pdxKYwsf.m3u8',
+                    // src: 'http://jhsy-img.caizhu.com/lsUS5_nTzBnGcYm39rlNrwGCrHHN.m3u8',
                     src: video1,
                     cover: posterVideo,
                 },

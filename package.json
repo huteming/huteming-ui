@@ -65,7 +65,7 @@
     "wxsdk": "cross-env BUILD_MODE=lib vue-cli-service build --target lib --report --name wxsdk --dest packages/@util/wxsdk/dist packages/@util/wxsdk/index.js",
     "element": "cross-env BUILD_MODE=lib vue-cli-service build --target lib --report --name element --dest packages/@util/element/dist packages/@util/element/index.js",
     "imageconvertor": "cross-env BUILD_MODE=lib vue-cli-service build --target lib --report --name image-convertor --dest packages/@util/image-convertor/dist packages/@util/image-convertor/index.js",
-    "help:inspect": "vue-cli-service inspect --mode development",
+    "help:inspect": "vue-cli-service inspect --mode production",
     "help:unit": "vue-cli-service test:unit help"
   },
   "dependencies": {
