@@ -1,6 +1,21 @@
 const IMG_SUFFIX = 'tommy'
 
 /**
+ * 监听微信事件
+ */
+export function linkWeixinBridge () {
+    return new Promise((resolve, reject) => {
+        if (window.WeixinJSBridge) {
+            window.WeixinJSBridge.invoke('getNetworkType', {}, resolve)
+        } else {
+            document.addEventListener('WeixinJSBridgeReady', function () {
+                window.WeixinJSBridge.invoke('getNetworkType', {}, resolve)
+            }, false)
+        }
+    })
+}
+
+/**
  * 是否微信内
  */
 export function isWeixinBrowser () {

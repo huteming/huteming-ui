@@ -43,7 +43,7 @@
 <script>
 import TmVideo from 'web-ui/video/index'
 import TmIcon from 'web-ui/icon/index'
-import { isWeixinBrowser } from 'web-util/tool/src/main'
+import { isWeixinBrowser, linkWeixinBridge } from 'web-util/tool/src/main'
 
 export default {
     name: 'TmMp4',
@@ -201,18 +201,13 @@ export default {
 
             this.$emit('click', name)
         },
-        handleReady () {
+        async handleReady () {
             this.$emit('ready')
 
             // 调用微信浏览器方法 自动播放
             if (this.autoplay && this.isFirstTimeReady && isWeixinBrowser()) {
-                if (window.WeixinJSBridge) {
-                    window.WeixinJSBridge.invoke('getNetworkType', {}, this.playVideo)
-                } else {
-                    document.addEventListener('WeixinJSBridgeReady', function () {
-                        window.WeixinJSBridge.invoke('getNetworkType', {}, this.playVideo)
-                    }, false)
-                }
+                await linkWeixinBridge()
+                this.playVideo()
             } else if (this.currentPlay) {
                 this.playVideo()
             }
