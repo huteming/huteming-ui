@@ -1,6 +1,6 @@
 {
   "name": "@huteming/ui",
-  "version": "1.6.1",
+  "version": "1.6.2",
   "description": "ui 组件的统一入口",
   "main": "dist/huteming-ui.common.js",
   "scripts": {
@@ -27,7 +27,7 @@
     "@huteming/ui-loading": "^1.2.2",
     "@huteming/ui-message": "^1.5.1",
     "@huteming/ui-mp3": "^1.3.2",
-    "@huteming/ui-mp4": "^1.4.4",
+    "@huteming/ui-mp4": "^1.4.5",
     "@huteming/ui-notice-bar": "^1.2.1",
     "@huteming/ui-panel": "^1.5.1",
     "@huteming/ui-picker-address": "^1.5.1",
