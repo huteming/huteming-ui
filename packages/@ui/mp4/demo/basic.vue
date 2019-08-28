@@ -3,7 +3,6 @@
     <div class="container" style="height: 5rem;">
         <TmMp4
             :list="list" :play.sync="play" :continuous="continuous" ref="mp4"
-            autoplay
             @error-prev="handleToast('没有上一个的提示')" @error-next="handleToast('没有下一个的提示')"
             @init="handleInit"
             @click="handleLog" />
@@ -64,7 +63,7 @@ export default {
         //     this.list = [
         //         {
         //             src: '',
-        //             cover: posterVideo,
+        //             cover: posterVideo2,
         //         },
         //     ]
         // }, 1500)
@@ -73,7 +72,7 @@ export default {
         //     this.list = [
         //         {
         //             src: video2,
-        //             cover: posterVideo,
+        //             cover: posterVideo2,
         //         },
         //     ]
         // }, 2000)

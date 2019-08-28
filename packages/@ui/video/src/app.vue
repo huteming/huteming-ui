@@ -65,10 +65,11 @@ export default {
     },
 
     watch: {
-        src (val) {
+        async src (val) {
             if (val) {
                 this.ready = false
-                this.already()
+                await this.already()
+                this.$refs.video.poster = this.cover
             }
         },
         state (val) {
