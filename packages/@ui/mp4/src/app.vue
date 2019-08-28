@@ -43,6 +43,7 @@
 <script>
 import TmVideo from 'web-ui/video/index'
 import TmIcon from 'web-ui/icon/index'
+import { isWeixinBrowser } from 'web-util/tool/src/main'
 
 export default {
     name: 'TmMp4',
@@ -61,6 +62,11 @@ export default {
             type: Boolean,
             default: true,
         },
+        // 列表是否自动开始播放，区别于 vidieo 的 autoplay
+        autoplay: {
+            type: Boolean,
+            default: false,
+        },
         // 设置宽高可以避免页面布局抖动
         prevText: {
             type: String,
@@ -78,12 +84,13 @@ export default {
 
     data () {
         return {
+            currentPlay: false,
             currentSrc: '',
             currentCover: '',
             media: null,
             state: 'loading', // loading, playing, pause, ended
-            ready: false,
-            expectToPlay: false,
+            // 是否第一次初始化，应用 autoplay
+            isFirstTimeReady: true,
         }
     },
 
@@ -96,18 +103,33 @@ export default {
         },
     },
 
-    watch: {
-        playList () {
-            this.init()
-        },
-    },
-
     mounted () {
         this.media = this.$refs.video
+        this.currentPlay = this.play
         this.init()
 
         this.$watch('play', val => {
-            val ? this.playVideo() : this.pauseVideo()
+            this.currentPlay = val
+        })
+        this.$watch('currentPlay', val => {
+            this.$emit('update:play', val)
+
+            if (val === false) {
+                return this.pauseVideo()
+            }
+
+            if (val === true) {
+                return this.playVideo()
+            }
+
+            // 先初始化音频源
+            const item = this.playList.find(item => item.src === val)
+            if (item) {
+                this.init(item)
+            }
+        })
+        this.$watch('playList', () => {
+            this.init()
         })
     },
 
@@ -133,10 +155,12 @@ export default {
             return true
         },
         // -------------------------------------- 分隔线 --------------------------------------
+        // 内部改变状态
         handleStateChange (_state) {
             if (_state === 'ended') {
                 const endVideo = () => {
-                    this.$emit('update:play', false)
+                    this.currentPlay = false
+                    this.state = 'ended'
                     this.$emit('ended')
                 }
 
@@ -148,53 +172,52 @@ export default {
                 } else {
                     this.next()
                 }
-            } else {
-                this.$emit('update:play', _state === 'playing')
+                return
             }
 
+            this.currentPlay = _state === 'playing'
             this.state = _state
-            console.log('state-change', _state)
         },
-        async handleReady () {
-            this.ready = true
-
-            if (this.play || this.expectToPlay) {
-                this.expectToPlay = false
-                const valid = await this.media.play()
-                if (!valid) {
-                    this.$emit('update:play', false)
-                }
-            }
-        },
+        // 手动触发改变状态
         handleClick (name) {
             const handlers = {
-                play: this.handlePlay,
+                play: () => (true),
                 prev: this.prev,
                 next: this.next,
                 replay: () => {
-                    if ((this.continuous && this.playList.length === 1) || !this.continuous) {
-                        return true
+                    if (this.continuous && this.playList.length > 1) {
+                        this.init()
                     }
-                    this.init()
                     return true
                 },
             }
-            const fn = handlers[name]
-            if (typeof fn === 'function') {
-                const result = fn()
-                if (result) {
-                    this.handlePlay()
-                }
+
+            // 上一个，下一个 有可能失败，此时不需要开始播放
+            const valid = handlers[name]()
+            if (valid) {
+                this.currentPlay = true
+                this.state = 'playing'
             }
 
             this.$emit('click', name)
         },
-        async handlePlay () {
-            if (this.ready) {
-                this.media.play()
-                return
+        handleReady () {
+            this.$emit('ready')
+
+            // 调用微信浏览器方法 自动播放
+            if (this.autoplay && this.isFirstTimeReady && isWeixinBrowser()) {
+                if (window.WeixinJSBridge) {
+                    window.WeixinJSBridge.invoke('getNetworkType', {}, this.playVideo)
+                } else {
+                    document.addEventListener('WeixinJSBridgeReady', function () {
+                        window.WeixinJSBridge.invoke('getNetworkType', {}, this.playVideo)
+                    }, false)
+                }
+            } else if (this.currentPlay) {
+                this.playVideo()
             }
-            this.expectToPlay = true
+
+            this.isFirstTimeReady = false
         },
         init (item) {
             if (!this.playList.length || !this.media) {
@@ -202,35 +225,24 @@ export default {
             }
 
             const { src, cover } = item || this.playList[0]
+            const needToResetCover = cover !== this.currentCover
+            const needToResetSrc = src !== this.currentSrc
 
-            if (this.currentSrc && src === this.currentSrc) {
-                return false
-            }
+            if (!needToResetCover && !needToResetSrc) return
 
-            this.ready = false
             this.currentSrc = src
             this.currentCover = cover
-
-            if (this.state === 'ended') {
-                this.state = 'loading'
-            }
 
             this.$emit('init', {
                 src,
                 cover,
             })
-
-            return true
         },
         async playVideo () {
-            if (this.play === true || this.play === this.currentSrc) {
-                this.media.play()
-                return
-            }
-
-            const item = this.playList.find(item => item.src === this.play)
-            if (item) {
-                this.init(item)
+            const valid = await this.media.play()
+            // 播放失败，事件通知
+            if (!valid) {
+                this.currentPlay = false
             }
         },
         async pauseVideo () {

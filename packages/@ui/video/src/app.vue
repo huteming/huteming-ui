@@ -3,16 +3,17 @@
     <video
         ref="video"
         :src="src"
+        :poster="cover"
         :preload="preload"
         :x5-playsinline="inline"
         :x-webkit-airplay="inline"
         :webkit-playsinline="inline"
         :playsinline="inline"
         :controls="controls"
-        :poster="cover"
         @playing="handlePlaying"
         @pause="handlePause"
         @ended="handleEnd">
+        <source :src="src" type="application/x-mpegURL">
         <source :src="src" type="video/mp4">
         <source :src="src" type="video/ogg">
         Your browser does not support the video tag.
@@ -38,7 +39,7 @@ export default {
         },
         preload: {
             type: String,
-            default: 'none',
+            default: 'auto',
         },
         controls: {
             type: Boolean,
@@ -67,7 +68,6 @@ export default {
         src (val) {
             if (val) {
                 this.ready = false
-                this.$refs.video.load()
                 this.already()
             }
         },
