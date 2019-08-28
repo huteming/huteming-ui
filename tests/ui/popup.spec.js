@@ -220,4 +220,90 @@ describe('popup', () => {
         assert.strictEqual(wrapperPopup.vm.transition, 'fade')
         wrapper.setData({ visible: false })
     })
+
+    it('attrs closeOnMove', () => {
+        const wrapper = mount({
+            template: `
+                <div>
+                    <TmPopup v-model="visible" :position="position" :close-on-move="closeOnMove" />
+                </div>
+            `,
+            data () {
+                return {
+                    visible: true,
+                    position: 'left',
+                    closeOnMove: 100,
+                }
+            },
+            components: {
+                TmPopup,
+            },
+        })
+        const vm = wrapper.find(TmPopup).vm
+        assert.strictEqual(vm.normalizedCloseOnMove, Infinity)
+
+        wrapper.setData({
+            position: 'bottom',
+            closeOnMove: undefined,
+        })
+        assert.strictEqual(vm.normalizedCloseOnMove, Infinity)
+
+        wrapper.setData({
+            position: 'bottom',
+            closeOnMove: false,
+        })
+        assert.strictEqual(vm.normalizedCloseOnMove, Infinity)
+
+        wrapper.setData({
+            position: 'bottom',
+            closeOnMove: true,
+        })
+        assert.strictEqual(vm.normalizedCloseOnMove, 70)
+
+        wrapper.setData({
+            position: 'bottom',
+            closeOnMove: 0,
+        })
+        assert.strictEqual(vm.normalizedCloseOnMove, Infinity)
+
+        wrapper.setData({
+            position: 'bottom',
+            closeOnMove: 10,
+        })
+        assert.strictEqual(vm.normalizedCloseOnMove, 10)
+    })
+
+    it('event closeOnMove', async () => {
+        const wrapper = mount({
+            template: `
+                <div>
+                    <TmPopup v-model="visible" position="bottom" :close-on-move="100" />
+                </div>
+            `,
+            data () {
+                return {
+                    visible: true,
+                }
+            },
+            components: {
+                TmPopup,
+            },
+        })
+        await sleep()
+        const wrapperPopup = wrapper.find(TmPopup)
+        assert.ok(wrapperPopup.isVisible())
+        wrapperPopup.trigger('touchstart', {
+            changedTouches: [{ pageY: 10 }],
+        })
+        wrapperPopup.trigger('touchmove', {
+            changedTouches: [{ pageY: 100 }]
+        })
+        await sleep(35)
+        assert.ok(wrapperPopup.isVisible())
+        wrapperPopup.trigger('touchmove', {
+            changedTouches: [{ pageY: 200 }]
+        })
+        await sleep(35)
+        assert.ok(!wrapperPopup.isVisible())
+    })
 })

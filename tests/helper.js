@@ -45,8 +45,16 @@ export class Mock {
     constructor (target, property, define) {
         this.target = target
         this.property = property
-        this.originDescriptor = Object.getOwnPropertyDescriptor(target, property)
+        this.originDescriptor = Object.getOwnPropertyDescriptor(target, property) || {
+            enumerable: false,
+            writable: true,
+            configurable: true,
+            value: null,
+        }
         this.defineDescriptor = Object.assign({ configurable: true }, define)
+
+        this.replace = this.replace.bind(this)
+        this.restore = this.restore.bind(this)
     }
 
     replace () {
@@ -70,16 +78,13 @@ export function mockProperty (target, property, define) {
     })
 }
 
-export function mockCancelable (target, property, define) {
-    const mock = new Mock(target, property, define)
-
-    beforeAll(() => {
-        mock.replace()
+export function mockCancelable (value = true) {
+    const mock = new Mock(Event.prototype, 'cancelable', {
+        value,
     })
+    mock.replace()
 
-    afterAll(() => {
-        mock.restore()
-    })
+    return mock.restore
 }
 
 export function mockImage () {

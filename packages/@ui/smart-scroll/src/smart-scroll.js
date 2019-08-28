@@ -16,9 +16,6 @@ export default {
 
     inserted (el, binding) {
         if (typeof binding.value === 'boolean') {
-            console.log(1)
-            console.log(1)
-            console.log(1)
             binding.value = {
                 disabled: binding.value
             }
@@ -63,9 +60,6 @@ export default {
 
 function handleTouchstart (event) {
     if (this.options.disabled) {
-        console.log(2)
-        console.log(2)
-        console.log(2)
         return false
     }
     const finger = event.changedTouches[0]
@@ -79,9 +73,6 @@ function handleTouchstart (event) {
 
 function handleTouchmove (event) {
     if (this.options.disabled) {
-        console.log(3)
-        console.log(3)
-        console.log(3)
         return false
     }
     const finger = event.changedTouches[0]
@@ -114,9 +105,6 @@ function handleTouchmove (event) {
 
 function handleTouchend (event) {
     if (this.options.disabled) {
-        console.log(4)
-        console.log(4)
-        console.log(4)
         return false
     }
 }
@@ -124,15 +112,8 @@ function handleTouchend (event) {
 function preventMove (event, payload) {
     if (event.cancelable) {
         event.preventDefault()
-    } else {
-        console.log(5)
-        console.log(5)
-        console.log(5)
     }
     if (typeof this.options.callback === 'function') {
-        console.log(6)
-        console.log(6)
-        console.log(6)
         this.options.callback(payload)
     }
 }

@@ -117,4 +117,64 @@ describe('collapse', () => {
         const wrapperItem = wrapper.find(TmCollapseItem)
         assert.ok(wrapperItem.vm.name > 0)
     })
+
+    it('disabled', async () => {
+        const wrapper = mount({
+            template: `
+                <tm-collapse v-model="active">
+                    <tm-collapse-item name="1" header="title1" disabled>title1</tm-collapse-item>
+                    <tm-collapse-item name="2" header="title2">title2</tm-collapse-item>
+                    <tm-collapse-item name="3" header="title3">title3</tm-collapse-item>
+                </tm-collapse>
+            `,
+            data () {
+                return {
+                    active: [],
+                }
+            },
+        }, {
+            localVue,
+        })
+        const wrapperContainer = wrapper.find(TmCollapse)
+        const wrapperItem = wrapper.find(TmCollapseItem)
+        const wrapperHeader = wrapper.find('.tm-collapse-header')
+        // open
+        wrapperHeader.trigger('click')
+        assert.deepStrictEqual(Object.values(wrapper.vm.active), [])
+
+        assert.ok(!wrapperContainer.emitted('change'))
+        const emitClick = wrapperItem.emitted('click')
+        assert.strictEqual(emitClick.length, 1)
+        assert.strictEqual(emitClick[0][0], false)
+    })
+
+    it('没有内容', async () => {
+        const wrapper = mount({
+            template: `
+                <tm-collapse v-model="active">
+                    <tm-collapse-item name="1" header="title1"></tm-collapse-item>
+                    <tm-collapse-item name="2" header="title2">title2</tm-collapse-item>
+                    <tm-collapse-item name="3" header="title3">title3</tm-collapse-item>
+                </tm-collapse>
+            `,
+            data () {
+                return {
+                    active: ['1'],
+                }
+            },
+        }, {
+            localVue,
+        })
+        const wrapperContainer = wrapper.find(TmCollapse)
+        const wrapperItem = wrapper.find(TmCollapseItem)
+        const wrapperHeader = wrapper.find('.tm-collapse-header')
+        // open
+        wrapperHeader.trigger('click')
+        assert.deepStrictEqual(Object.values(wrapper.vm.active), ['1'])
+
+        assert.ok(!wrapperContainer.emitted('change'))
+        const emitClick = wrapperItem.emitted('click')
+        assert.strictEqual(emitClick.length, 1)
+        assert.strictEqual(emitClick[0][0], true)
+    })
 })

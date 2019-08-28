@@ -1,6 +1,6 @@
 import SmartScroll, { __RewireAPI__ as RewireAPI } from 'web-ui/smart-scroll/src/smart-scroll.js'
 import assert from 'assert'
-import { Mock } from '../helper'
+import { Mock, mockCancelable } from '../helper'
 import { mount, createLocalVue } from '@vue/test-utils'
 import sinon from 'sinon'
 const scope = '@@SmartScroll'
@@ -9,7 +9,6 @@ localVue.directive(SmartScroll.name, SmartScroll)
 
 describe('smart-scroll', () => {
     let mock1
-    let mock2
     let mockPrevent
 
     beforeEach(() => {
@@ -17,14 +16,11 @@ describe('smart-scroll', () => {
         mock1 = new Mock(Event.prototype, 'preventDefault', {
             value: mockPrevent,
         })
-        mock2 = new Mock(Event.prototype, 'cancelable', {
-            value: true,
-        })
         mock1.replace()
-        mock2.replace()
     })
 
     it('没有可滚动区域', () => {
+        const restore = mockCancelable()
         RewireAPI.__Rewire__('getScrollContainer', (el) => {
             return null
         })
@@ -43,15 +39,16 @@ describe('smart-scroll', () => {
         })
         wrapperContainer.trigger('touchmove', {
             changedTouches: [{ pageY: 100 }],
-            cancelable: true,
         })
         wrapperContainer.trigger('touchend')
         assert.ok(mockPrevent.called)
 
         RewireAPI.__ResetDependency__('getScrollContainer')
+        restore()
     })
 
     it('允许滚动', () => {
+        const restore = mockCancelable()
         const wrapper = mount({
             template: `
                 <div style="overflowY: auto;" id="scrollable" v-smart-scroll>
@@ -74,13 +71,15 @@ describe('smart-scroll', () => {
         })
         wrapperContainer.trigger('touchmove', {
             changedTouches: [{ pageY: 100 }],
-            cancelable: true,
         })
         wrapperContainer.trigger('touchend')
         assert.ok(mockPrevent.notCalled)
+
+        restore()
     })
 
     it('禁止滚动', () => {
+        const restore = mockCancelable()
         const wrapper = mount({
             template: `
                 <div style="overflowY: auto;" id="scrollable" v-smart-scroll>
@@ -103,13 +102,15 @@ describe('smart-scroll', () => {
         })
         wrapperContainer.trigger('touchmove', {
             changedTouches: [{ pageY: 100 }],
-            cancelable: true,
         })
         wrapperContainer.trigger('touchend')
         assert.ok(mockPrevent.called)
+
+        restore()
     })
 
     it('上边缘', () => {
+        const restore = mockCancelable()
         const wrapper = mount({
             template: `
                 <div style="overflowY: auto;" id="scrollable" v-smart-scroll>
@@ -132,13 +133,15 @@ describe('smart-scroll', () => {
         })
         wrapperContainer.trigger('touchmove', {
             changedTouches: [{ pageY: 100 }],
-            cancelable: true,
         })
         wrapperContainer.trigger('touchend')
         assert.ok(mockPrevent.called)
+
+        restore()
     })
 
     it('下边缘', () => {
+        const restore = mockCancelable()
         const wrapper = mount({
             template: `
                 <div style="overflowY: auto;" id="scrollable" v-smart-scroll>
@@ -161,15 +164,112 @@ describe('smart-scroll', () => {
         })
         wrapperContainer.trigger('touchmove', {
             changedTouches: [{ pageY: 10 }],
-            cancelable: true,
         })
         wrapperContainer.trigger('touchend')
         assert.ok(mockPrevent.called)
+
+        restore()
+    })
+
+    it('disabled', () => {
+        const restore = mockCancelable()
+        RewireAPI.__Rewire__('getScrollContainer', (el) => {
+            return null
+        })
+
+        const wrapper = mount({
+            template: `
+                <div id="scrollable" v-smart-scroll="disabled">
+                </div>
+            `,
+            data () {
+                return {
+                    disabled: true,
+                }
+            },
+        }, {
+            localVue,
+        })
+        const wrapperContainer = wrapper.find('#scrollable')
+        wrapperContainer.trigger('touchstart', {
+            changedTouches: [{ pageY: 10 }],
+        })
+        wrapperContainer.trigger('touchmove', {
+            changedTouches: [{ pageY: 100 }],
+        })
+        wrapperContainer.trigger('touchend')
+        assert.ok(mockPrevent.notCalled)
+
+        RewireAPI.__ResetDependency__('getScrollContainer')
+        restore()
+    })
+
+    it('cancelable is false', () => {
+        const restore = mockCancelable(false)
+        RewireAPI.__Rewire__('getScrollContainer', (el) => {
+            return null
+        })
+
+        const wrapper = mount({
+            template: `
+                <div id="scrollable" v-smart-scroll>
+                </div>
+            `,
+            data () {
+                return {
+                }
+            },
+        }, {
+            localVue,
+        })
+        const wrapperContainer = wrapper.find('#scrollable')
+        wrapperContainer.trigger('touchstart', {
+            changedTouches: [{ pageY: 10 }],
+        })
+        wrapperContainer.trigger('touchmove', {
+            changedTouches: [{ pageY: 100 }],
+        })
+        wrapperContainer.trigger('touchend')
+        assert.ok(mockPrevent.notCalled)
+
+        RewireAPI.__ResetDependency__('getScrollContainer')
+        restore()
+    })
+
+    it('callback', () => {
+        const restore = mockCancelable()
+        RewireAPI.__Rewire__('getScrollContainer', (el) => {
+            return null
+        })
+        const mockCallback = sinon.fake()
+        const wrapper = mount({
+            template: `
+                <div id="scrollable" v-smart-scroll="callback">
+                </div>
+            `,
+            methods: {
+                callback: mockCallback,
+            },
+        }, {
+            localVue,
+        })
+        const wrapperContainer = wrapper.find('#scrollable')
+        wrapperContainer.trigger('touchstart', {
+            changedTouches: [{ pageY: 10, pageX: 10 }],
+        })
+        wrapperContainer.trigger('touchmove', {
+            changedTouches: [{ pageY: 100, pageX: 200 }],
+        })
+        wrapperContainer.trigger('touchend')
+        assert.ok(mockPrevent.called)
+        assert.ok(mockCallback.calledWithExactly({ moveX: 190, moveY: 90 }))
+
+        RewireAPI.__ResetDependency__('getScrollContainer')
+        restore()
     })
 
     afterEach(() => {
         mock1.restore()
-        mock2.restore()
         sinon.restore()
     })
 })
