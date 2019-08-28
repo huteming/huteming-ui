@@ -2,7 +2,7 @@ import axios from 'axios'
 import qs from 'qs'
 import Interceptor from './interceptors'
 import { requestJsonp, requestGet } from './expand.js'
-import * as tool from 'web-util/tool/src/main'
+import { jsonToForm } from 'web-util/tool/src/main'
 
 const mapHost = new Map([
     ['fejh.jinghao.com', '//jhtest.jinghao.com'],
@@ -89,7 +89,7 @@ function createInstance (options = {}) {
         if (data._type === 'form') {
             delete data._type
 
-            config.data = tool.jsonToForm(data)
+            config.data = jsonToForm(data)
             config.headers['Content-Type'] = 'multipart/form-data'
 
             return config
