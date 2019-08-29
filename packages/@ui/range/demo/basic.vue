@@ -24,7 +24,7 @@ export default {
             range5: 50,
             range6: 70,
 
-            range7: 6
+            range7: 300,
         }
     },
 

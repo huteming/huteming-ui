@@ -15,6 +15,7 @@ export default class Canvas {
         const _options = Object.assign({}, defaultCanvas, optionsCanvas)
         const { designWidth } = _options
         const { context, canvas, canvasWidth, canvasHeight, ratio, scale } = getCanvasObject(width, height, designWidth)
+        const scaleBySystem = getSystemRatio()
 
         this._onerror = console.error // 异常处理
         this._callbacks = [] // 绘图函数
@@ -26,6 +27,7 @@ export default class Canvas {
         this.canvasWidth = canvasWidth // 画布宽度
         this.canvasHeight = canvasHeight // 画布高度
         this.scale = scale
+        this.scaleBySystem = scaleBySystem // 微信浏览器文字大小放大比例
 
         this.add = this.add.bind(this)
         this.done = this.done.bind(this)
@@ -46,6 +48,7 @@ export default class Canvas {
             canvasWidth: this.canvasWidth,
             canvasHeight: this.canvasHeight,
             scale: this.scale,
+            scaleBySystem: this.scaleBySystem,
         }
 
         this._callbacks.push(() => {
@@ -112,6 +115,18 @@ export function getCanvasObject (width, height, designWidth) {
         ratio,
         scale,
     }
+}
+
+// 微信浏览器调整字体大小适配比例
+function getSystemRatio () {
+    const $dom = document.createElement('div')
+    $dom.style = 'font-size:10px;'
+    document.body.appendChild($dom)
+    const scaledFontSize = parseInt(window.getComputedStyle($dom, null).getPropertyValue('font-size')) // 计算出放大后的字体
+    document.body.removeChild($dom)
+    const ratioSystem = scaledFontSize / 10 // 计算原字体和放大后字体的比例
+
+    return ratioSystem
 }
 
 /**
@@ -331,7 +346,7 @@ const defaultText = {
  */
 function drawText (text, x, y, options = {}) {
     log(`draw text *** text: ${text} *** x: ${x} *** y: ${y}`)
-    const { context, ratio } = this
+    const { context, ratio, scaleBySystem } = this
     options = Object.assign({}, defaultText, options)
 
     x *= ratio
@@ -351,7 +366,8 @@ function drawText (text, x, y, options = {}) {
         lineHeight, lineWidth, baseline, type, underline,
     } = options
 
-    context.font = `${style} ${variant} ${weight} ${size}px/${lineHeight}px arial`
+    // size / scaleBySystem 这段解决微信浏览器用户字体放大的问题
+    context.font = `${style} ${variant} ${weight} ${size / scaleBySystem}px/${lineHeight}px arial`
     context.lineWidth = lineWidth
     context[`${type}Style`] = color
     context.shadowColor = shadowColor

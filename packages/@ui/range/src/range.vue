@@ -79,7 +79,7 @@ export default {
 
     computed: {
         rate () {
-            return (this.normalizedValue - this.min) / (this.max - this.min)
+            return Math.min((this.normalizedValue - this.min) / (this.max - this.min), 1)
         },
         stepCount () {
             return Math.ceil((this.max - this.min) / this.step)
@@ -169,6 +169,8 @@ export default {
         },
         handleTouchend (event) {
             if (this.disabled) return
+
+            this.direction = ''
 
             this.$emit('moving', false)
             this.$emit('change', this.normalizedValue)

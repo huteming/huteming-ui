@@ -1,5 +1,6 @@
 <template>
 <div class="example-canvas">
+    <p>这是一段常规文案</p>
     <img :src="img" alt="" class="img-block">
 </div>
 </template>
@@ -27,13 +28,13 @@ export default {
         instance.add(({ context, canvas, ratio, width, height }) => {
             const x = 375
             const y = 93
-            instance.drawText('这是一段超出最大宽度的文本！这是一段超出最大宽度的文本！', x, y, {
+            instance.drawText('这是一段[underline]超出最大宽度的文本！这是[underline]一段超出最大宽度的文本！', x, y, {
                 wrap: true,
                 maxWidth: 350,
-                size: 40,
+                size: 30,
                 lineHeight: 50,
-                underline: true,
                 align: 'center',
+                underline: true,
             })
         })
 
