@@ -7,6 +7,8 @@
 
 <script>
 import CanvasDraw from '../index'
+import bgAdmission from './images/bg-admission.png'
+import { loadImages } from 'web-util/tool/src/main'
 
 export default {
     data () {
@@ -15,37 +17,32 @@ export default {
         }
     },
 
-    mounted () {
-        const instance = new CanvasDraw(750, 1000)
+    async mounted () {
+        const instance = new CanvasDraw(704, 978)
+        const x = 50
+        const y = 516
+        const options = {
+            size: 26,
+            color: 'rgba(0, 0, 0, 1)',
+            wrap: true,
+            maxWidth: 602,
+        }
+        const [_imgBg] = await loadImages([bgAdmission])
 
-        // instance.add(({ context, canvas, ratio, width, height }) => {
-        //     const x = 24
-        //     const y = 93
-        //     const { actualMaxWidth, actualMaxHeight } = instance.drawText('这是一段超出最大宽度的文本！这是一段超出最大宽度的文本！', x, y, { wrap: true, maxWidth: 100 })
-        //     instance.drawRect(x, y, actualMaxWidth, actualMaxHeight, { type: 'stroke', color: 'rgba(0, 0, 0, 1)' })
-        // })
-
-        instance.add(({ context, canvas, ratio, width, height }) => {
-            const x = 375
-            const y = 93
-            instance.drawText('这是一段[underline]超出最大宽度的文本！这是[underline]一段超出最大宽度的文本！', x, y, {
-                wrap: true,
-                maxWidth: 350,
-                size: 30,
-                lineHeight: 50,
-                align: 'center',
-                underline: true,
-            })
+        instance.add(() => {
+            instance.drawImage(_imgBg, 0, 0, 704, 978)
         })
 
-        // instance.add(({ context, canvas, ratio, width, height }) => {
-        //     const x = 24
-        //     const y = 93
-        //     const { actualMaxWidth, actualMaxHeight } = instance.drawText('这是一段文本', x, y, {
-        //         size: 40,
-        //     })
-        //     instance.drawRect(x, y, actualMaxWidth, actualMaxHeight, { type: 'stroke', color: 'rgba(0, 0, 0, 1)' })
-        // })
+        // 前缀 后缀
+        instance.add(() => {
+            instance.drawText(
+                '<underline>这是一段很长很长很长很长需要换行而且添加下划线的文案</underline>学员，请于<underline>2019</underline>年<underline>12</underline>月<underline>12</underline>日前' +
+                '<underline>这是令一段很长很长很长很长需要换行而且添加下</underline>',
+                x,
+                y,
+                { ...options }
+            )
+        })
 
         this.img = instance.done()
     },
