@@ -1,17 +1,17 @@
 import assert from 'assert'
 import sinon from 'sinon'
-import CanvasDraw, { getArrayTextWidth } from 'web-util/canvas-draw/src/main'
+import CanvasDraw, { getOptions, setContextOptions, parseUnderline, parseType } from 'web-util/canvas-draw/src/drawText'
 
 describe('canvas > drawText', () => {
-    it('默认配置参数', () => {
-        const ins = new CanvasDraw()
-        const _ratio = 2
-        ins.ratio = _ratio
-        const options = ins.drawText(111, 1, 1)
+    it('getOptions', () => {
+        const ratio = 2
+        const x = 2
+        const y = 3
+        const res = getOptions.call({ ratio }, x, y)
 
-        assert.deepStrictEqual(options, {
-            // actualMaxHeight: 24,
-            // actualMaxWidth: 1.5,
+        assert.deepStrictEqual(res, {
+            x: x * ratio,
+            y: y * ratio,
             prefix: '',
             suffix: '',
             fix: '.... ',
@@ -19,8 +19,8 @@ describe('canvas > drawText', () => {
             style: 'normal',
             variant: 'normal',
             weight: 'normal',
-            size: 24 * _ratio,
-            lineHeight: 24 * _ratio * 1.5,
+            size: 24 * ratio,
+            lineHeight: 24 * ratio * 1.5,
             align: 'start',
             baseline: 'top',
             letterSpacing: 0,
@@ -33,250 +33,87 @@ describe('canvas > drawText', () => {
             color: '#000',
             type: 'fill',
             underline: {
-                left: 10 * _ratio,
-                right: 10 * _ratio,
-                bottom: 6 * _ratio,
+                left: 10 * ratio,
+                right: 10 * ratio,
+                bottom: 6 * ratio,
                 dashed: [],
                 lineWidth: 1,
             },
-            x: 2,
-            y: 2,
         })
     })
 
-    it('context配置设置', () => {
-        const ins = new CanvasDraw()
-        const _ratio = 2
-        ins.ratio = _ratio
-        const _style = 'oblique'
-        const _variant = 'small-caps'
-        const _weight = 'bolder'
-        const _size = 32
-        const _lineHeight = 90
-        const _lineWidth = 100
-        const _type = 'stroke'
-        const _color = '#abc'
-        const _shadowColor = '#ccc'
-        const _shadowOffsetX = 30
-        const _shadowOffsetY = 30
-        const _shadowBlur = 40
-        const _baseline = 'bottom'
-        const options = {
-            style: _style,
-            variant: _variant,
-            weight: _weight,
-            size: _size,
-            lineHeight: _lineHeight,
-            lineWidth: _lineWidth,
-            color: _color,
-            shadowColor: _shadowColor,
-            shadowOffsetX: _shadowOffsetX,
-            shadowOffsetY: _shadowOffsetY,
-            shadowBlur: _shadowBlur,
-            baseline: _baseline,
-            type: _type,
-        }
-        ins.drawText(111, 1, 1, options)
+    it('setContextOptions', () => {
+        const mockContext = {}
+        const mockScaleBySystem = 2
+        const options = getOptions.call({ ratio: 1 }, 2, 3)
+        setContextOptions.call({ context: mockContext, scaleBySystem: mockScaleBySystem }, options)
 
-        const { font, lineWidth, shadowColor, shadowOffsetX, shadowOffsetY, shadowBlur, textBaseline } = ins.context
-
-        assert.strictEqual(font, `${_style} ${_variant} ${_weight} ${_size * _ratio}px/${_lineHeight * _ratio}px arial`)
-        assert.strictEqual(lineWidth, _lineWidth)
-        assert.strictEqual(ins.context[`${_type}Style`], _color)
-        assert.strictEqual(shadowColor, _shadowColor)
-        assert.strictEqual(shadowOffsetX, _shadowOffsetX * _ratio)
-        assert.strictEqual(shadowOffsetY, _shadowOffsetY * _ratio)
-        assert.strictEqual(shadowBlur, _shadowBlur * _ratio)
-        assert.strictEqual(textBaseline, _baseline)
+        assert.strictEqual(mockContext.font, `${options.style} ${options.variant} ${options.weight} ${options.size / mockScaleBySystem}px/${options.lineHeight}px arial`)
+        assert.strictEqual(mockContext.lineWidth, options.lineWidth)
+        assert.strictEqual(mockContext[`${options.type}Style`], options.color)
+        assert.strictEqual(mockContext.shadowColor, options.shadowColor)
+        assert.strictEqual(mockContext.shadowOffsetX, options.shadowOffsetX)
+        assert.strictEqual(mockContext.shadowOffsetY, options.shadowOffsetY)
+        assert.strictEqual(mockContext.shadowBlur, options.shadowBlur)
+        assert.strictEqual(mockContext.textBaseline, options.baseline)
     })
 
-    it('分组绘字', () => {
-        const ins = new CanvasDraw()
-        const _ratio = 2
-        ins.ratio = _ratio
-        let _x = 1
-        let _y = 10
-        let _letterSpacing = 10
-        const _type = 'stroke'
-        const draw = sinon.fake()
-        sinon.replace(ins.context, `${_type}Text`, draw)
-        const options = {
-            letterSpacing: _letterSpacing,
-            type: _type,
-        }
-        ins.drawText('测a试123用a123例123a', _x, _y, options)
+    describe('parseUnderline', () => {
+        it('缺少标签', () => {
+            const text = [{ letter: 'hello', other: 'other' }]
+            const res = parseUnderline(text)
+            assert.deepStrictEqual(res, [{ letter: 'hello', other: 'other', underline: false }])
+        })
 
-        assert.strictEqual(draw.callCount, 8)
+        it('缺少起始标签', () => {
+            const text = [{ letter: 'hello</underline>', other: 'other' }]
+            const res = parseUnderline(text)
+            assert.deepStrictEqual(res, [{ letter: 'hello</underline>', other: 'other', underline: false }])
+        })
 
-        let actualX = _x * _ratio
-        let actualY = _y * _ratio
-        let actualSpacing = _letterSpacing * _ratio
-        void ['测', 'a', '试', '123', '用', 'a123', '例', '123a'].forEach((letter, index) => {
-            const letterWidth = ins.context.measureText(letter).width
+        it('缺少结束标签', () => {
+            const text = [{ letter: '<underline>hello', other: 'other' }]
+            const res = parseUnderline(text)
+            assert.deepStrictEqual(res, [{ letter: '<underline>hello', other: 'other', underline: false }])
+        })
 
-            ins.context[`${_type}Text`](letter, actualX, actualY)
-            assert.deepStrictEqual(draw.getCall(index).args, [letter, actualX, actualY], `第${index}次参数不匹配`)
-            actualX += letterWidth + actualSpacing
+        it('标签包裹空元素', () => {
+            const text = [{ letter: '<underline></underline>', other: 'other' }]
+            const res = parseUnderline(text)
+            assert.deepStrictEqual(res, [])
+        })
+
+        it('一组标签', () => {
+            const text = [{ letter: 'before<underline>hello</underline>after', other: 'other' }]
+            const res = parseUnderline(text)
+            assert.deepStrictEqual(res, [
+                { letter: 'before', other: 'other', underline: false },
+                { letter: 'hello', other: 'other', underline: true },
+                { letter: 'after', other: 'other', underline: false },
+            ])
+        })
+
+        it('多组标签', () => {
+            const text = [{ letter: '<underline>first</underline>before<underline>second</underline>after<underline>thrid</underline>', other: 'other' }]
+            const res = parseUnderline(text)
+            assert.deepStrictEqual(res, [
+                { letter: 'first', other: 'other', underline: true },
+                { letter: 'before', other: 'other', underline: false },
+                { letter: 'second', other: 'other', underline: true },
+                { letter: 'after', other: 'other', underline: false },
+                { letter: 'thrid', other: 'other', underline: true },
+            ])
         })
     })
 
-    it('不换行 && 超出最长限制', () => {
-        const ins = new CanvasDraw()
-        const _ratio = 1
-        ins.ratio = _ratio
-        let _x = 1
-        let _y = 10
-        const _prefix = 'prefix'
-        const _suffix = 'suffix'
-        const _fix = 'fix'
-        const _type = 'stroke'
-        const draw = sinon.fake()
-        sinon.replace(ins.context, `${_type}Text`, draw)
-        const options = {
-            type: _type,
-            wrap: false,
-            maxWidth: 17,
-            prefix: _prefix, // 占据宽度 6
-            suffix: _suffix, // 占据宽度 6
-            fix: _fix, // 占据宽度 3
-        }
-        const _text1 = '测' // 占据宽度 1
-        const _text2 = '试' // 占据宽度 1
-        const _text3 = '用' // 占据宽度 1
-        const _text4 = '例' // 占据宽度 1
-        const _text5 = '补充多余文字'
-        ins.drawText(`${_text1}${_text2}${_text3}${_text4}${_text5}`, _x, _y, options)
-
-        let actualX = _x * _ratio
-        let actualY = _y * _ratio
-        void [_prefix, _text1, `${_text2}${_fix}`, _suffix].forEach((letter, index) => {
-            const letterWidth = ins.context.measureText(letter).width
-
-            assert.deepStrictEqual(draw.getCall(index).args, [letter, actualX, actualY], `第${index}次参数不匹配`)
-            actualX += letterWidth
-        })
+    it('parseType', () => {
+        const text = [{ letter: 'hello123中文world', other: 'other' }]
+        const res = parseType(text)
+        assert.deepStrictEqual(res, [
+            { letter: 'hello123', other: 'other' },
+            { letter: '中', other: 'other' },
+            { letter: '文', other: 'other' },
+            { letter: 'world', other: 'other' },
+        ])
     })
-
-    it('align === center', () => {
-        const ins = new CanvasDraw()
-        const _ratio = 2
-        ins.ratio = _ratio
-        let _x = 100
-        let _y = 10
-        const _text = '测试用例'
-        const draw = sinon.fake()
-        sinon.replace(ins.context, 'fillText', draw)
-        const options = {
-            align: 'center',
-        }
-        ins.drawText(_text, _x, _y, options)
-
-        let x = _x * _ratio
-        const totalWidth = ins.context.measureText(_text).width
-        const [letter, actualX] = draw.getCall(0).args
-        assert.strictEqual(letter, '测')
-        assert.strictEqual(actualX, x - totalWidth / 2)
-    })
-
-    it('align === right', () => {
-        const ins = new CanvasDraw()
-        const _ratio = 2
-        ins.ratio = _ratio
-        let _x = 100
-        let _y = 10
-        const _text = '测试用例'
-        const draw = sinon.fake()
-        sinon.replace(ins.context, 'fillText', draw)
-        const options = {
-            align: 'right',
-        }
-        ins.drawText(_text, _x, _y, options)
-
-        let x = _x * _ratio
-        const totalWidth = ins.context.measureText(_text).width
-        const [letter, actualX] = draw.getCall(0).args
-        assert.strictEqual(letter, '测')
-        assert.strictEqual(actualX, x - totalWidth)
-    })
-
-    it('换行', () => {
-        const ins = new CanvasDraw()
-        const _ratio = 1
-        ins.ratio = _ratio
-        const _x = 1
-        const _y = 10
-        const _lineHeight = 20
-        const draw = sinon.fake()
-        sinon.replace(ins.context, 'fillText', draw)
-        const options = {
-            wrap: true,
-            lineHeight: _lineHeight,
-            maxWidth: 1,
-        }
-        const _text1 = '测' // 占据宽度 1
-        const _text2 = '试' // 占据宽度 1
-        const _text3 = '用' // 占据宽度 1
-        const _text4 = '例' // 占据宽度 1
-        ins.drawText(`${_text1}${_text2}${_text3}${_text4}`, _x, _y, options)
-
-        let actualX = _x * _ratio
-        let actualY = _y * _ratio
-        const actualLineHeight = _lineHeight * _ratio
-        void [_text1, _text2, _text3, _text4].forEach((letter, index) => {
-            assert.deepStrictEqual(draw.getCall(index).args, [letter, actualX, actualY], `第${index}次参数不匹配`)
-            actualY += actualLineHeight
-        })
-    })
-
-    // it('underline', () => {
-    //     const ratio = 2
-    //     const x = 10
-    //     const y = 20
-    //     const size = 30
-    //     const lineHeight = 20
-    //     const options = {
-    //         wrap: true,
-    //         size,
-    //         lineHeight,
-    //         maxWidth: 1,
-    //     }
-
-    //     const ins = new CanvasDraw()
-    //     const draw = sinon.fake()
-    //     sinon.replace(ins, 'drawLine', draw)
-    //     ins.ratio = ratio
-    //     ins.drawText(`测试文案`, x, y, options)
-
-    //     const _x = x * ratio
-    //     const _y = y * ratio
-    //     const _size = size * ratio
-    //     const _lineHeight = lineHeight * ratio
-    //     const _left = 6 * ratio
-    //     const _right = 6 * ratio
-    //     const _bottom = 6 * ratio
-
-    //     assert.strictEqual(draw.callCount, 2)
-    //     assert.deepStrictEqual(
-    //         draw.getCall(0).args,
-    //         [
-    //             (_x - _left) / ratio,
-    //             (_y + _size + _bottom) / ratio,
-    //             (_x + 2 + _right) / ratio,
-    //             (_y + _size + _bottom) / ratio,
-    //             true,
-    //         ],
-    //         `第1次参数不匹配`
-    //     )
-    //     assert.deepStrictEqual(
-    //         draw.getCall(1).args,
-    //         [
-    //             (_x - _left) / ratio,
-    //             (_y + _lineHeight + _size + _bottom) / ratio,
-    //             (_x + 2 + _right) / ratio,
-    //             (_y + _lineHeight + _size + _bottom) / ratio,
-    //             true
-    //         ],
-    //         `第2次参数不匹配`
-    //     )
-    // })
 })

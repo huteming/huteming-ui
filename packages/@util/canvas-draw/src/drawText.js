@@ -72,8 +72,8 @@ export function setContextOptions (options) {
 }
 
 // 解析添加下划线属性
+// [{ letter }] => [{ letter, underline }]
 export function parseUnderline (text) {
-    // console.log('before parseUnderline', text)
     const parse = (item) => {
         const { letter } = item
         const regUnderline = /(.*)<underline>(.*)<\/underline>(.*)/
@@ -81,18 +81,25 @@ export function parseUnderline (text) {
         const res = []
 
         if (!result) {
-            res.push({ ...item, letter, underline: false })
+            if (letter) {
+                res.push({ ...item, letter, underline: false })
+            }
             return res
         }
 
         const [, matchBefore, matchUnderline, matchAfter] = result
-        res.unshift({ ...item, letter: matchAfter, underline: false })
-        res.unshift({ ...item, letter: matchUnderline, underline: true })
+        if (matchAfter) {
+            res.unshift({ ...item, letter: matchAfter, underline: false })
+        }
+        if (matchUnderline) {
+            res.unshift({ ...item, letter: matchUnderline, underline: true })
+        }
         res.unshift(...parse({ ...item, letter: matchBefore }))
 
         return res
     }
 
+    // console.log('before parseUnderline', text)
     const res = []
     text.forEach(item => res.push(...parse(item)))
     // console.log('after parseUnderline', res)
@@ -100,6 +107,7 @@ export function parseUnderline (text) {
 }
 
 // 合并作为一个字符绘制的类型。如 相连数字该作为一个整体，不换行
+// [{ letter }] => [{ letter }]
 export function parseType (text) {
     const parse = (item) => {
         const { letter } = item
@@ -162,14 +170,14 @@ export function toArray (text) {
 }
 
 // 计算文本的总宽度
-export function calcTextWidth (text, fix, options) {
+export function calcTextWidth (textArray, fix, options) {
     const { context } = this
     const { letterSpacing, underline: underlineOptions } = options
     const { left, right } = underlineOptions
-    const length = text.length
+    const length = textArray.length
     let width = 0
 
-    text.forEach((item, index) => {
+    textArray.forEach((item, index) => {
         const { letter, underline } = item
         // 字体间距
         if (index > 0 && index < length - 1) {
@@ -236,7 +244,6 @@ export function confirmRenderPosition (totalText, options) {
     const { context } = this
     const { x, y, lineHeight, maxWidth, underline: underlineOption, align, letterSpacing } = options
 
-    // 确定各个文字坐标
     let actualX = x
     let actualY = y
     const renderText = []
