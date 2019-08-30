@@ -64,6 +64,7 @@ describe('canvas', () => {
                 canvasWidth: canvas.canvasWidth,
                 canvasHeight: canvas.canvasHeight,
                 scale: canvas.scale,
+                scaleBySystem: canvas.scaleBySystem,
             }
 
             canvas.add(mockCallback)

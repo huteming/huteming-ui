@@ -168,9 +168,9 @@ export default {
             this.normalizedValue = newValue
         },
         handleTouchend (event) {
-            if (this.disabled) return
-
+            const direction = this.direction
             this.direction = ''
+            if (this.disabled || direction !== 'across') return
 
             this.$emit('moving', false)
             this.$emit('change', this.normalizedValue)
