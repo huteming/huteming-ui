@@ -5,9 +5,9 @@
     display: grid;
     grid-template-columns: auto rem(40) auto 1fr auto;
     grid-template-rows: rem(80) 1fr rem(36);
-    grid-template-areas: "image empty title title title"
-                         "image empty description description description"
-                         "image empty tip decoration btn";
+    grid-template-areas: "image empty title title title title"
+                         "image empty description description description description"
+                         "image empty tip decoration btn extra";
     background: #fff;
     box-sizing: border-box;
 
@@ -64,7 +64,7 @@
         grid-area: tip;
         align-self: end;
         font-size: rem(22);
-        line-height: rem(36);
+        line-height: 1;
         color: rgba(178, 186, 196, 1);
     }
 
@@ -72,9 +72,8 @@
         grid-area: decoration;
         align-self: end;
         justify-self: end;
-        padding-right: rem(12);
-        font-size: rem(26);
-        line-height: rem(36);
+        font-size: rem(24);
+        line-height: 1;
         color: rgba(178, 186, 196, 1);
         text-decoration: line-through;
     }
@@ -83,10 +82,16 @@
         grid-area: btn;
         align-self: end;
         justify-self: end;
-        font-size: rem(32);
-        line-height: rem(36);
+        padding-left: rem(8);
+        font-size: rem(28);
+        line-height: 1;
         color: rgba(58, 149, 250, 1);
         font-weight: bold;
+    }
+
+    &-extra {
+        grid-area: extra;
+        padding-left: rem(20);
     }
 
     & + &:before {

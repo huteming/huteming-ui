@@ -2,7 +2,7 @@
 <div class="tm-panel">
     <div class="tm-panel-image">
         <img :src="image" alt="" class="tm-panel-image-img">
-        <slot name="image"></slot>
+        <slot name="image-extra"></slot>
     </div>
 
     <div class="tm-panel-title">
@@ -23,6 +23,10 @@
 
     <div class="tm-panel-btn">
         <slot name="btn">{{ btn }}</slot>
+    </div>
+
+    <div class="tm-panel-extra" v-if="$slots.extra">
+        <slot name="extra"></slot>
     </div>
 </div>
 </template>
