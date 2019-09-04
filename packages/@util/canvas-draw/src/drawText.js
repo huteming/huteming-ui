@@ -1,6 +1,4 @@
 const defaults = {
-    prefix: '', // 前缀
-    suffix: '', // 后缀
     fix: '.... ', // 过长省略时添加字符串
     maxWidth: Infinity, // 最长宽度，会在末尾加上 fix 字符串，一般搭配前缀 后缀使用
     style: 'normal', // 字体的风格 normal, italic, oblique
@@ -19,19 +17,29 @@ const defaults = {
     shadowBlur: 0,
     color: '#000',
     type: 'fill',
-    underline: {
-        left: 10,
-        right: 10,
-        bottom: 6,
-        dashed: [],
-        lineWidth: 1,
-    },
+    underline: {},
+}
+const defaultUnderline = {
+    left: 10,
+    right: 10,
+    bottom: 6,
+    dashed: [],
+    lineWidth: 1,
 }
 
 // 格式化系数
-export function getOptions (x, y, options) {
+export function getOptions (x, y, options = {}) {
     const { ratio } = this
-    options = Object.assign({ x, y }, defaults, options)
+    options = {
+        x,
+        y,
+        ...defaults,
+        ...options,
+    }
+    options.underline = {
+        ...defaultUnderline,
+        ...options.underline,
+    }
 
     options.x *= ratio
     options.y *= ratio
@@ -69,6 +77,51 @@ export function setContextOptions (options) {
     context.shadowOffsetY = shadowOffsetY
     context.shadowBlur = shadowBlur
     context.textBaseline = baseline
+}
+
+// 计算文本的总宽度
+export function calcTextWidth (textArray, options) {
+    const { context } = this
+    const { letterSpacing, underline: underlineOptions } = options
+    const { left, right } = underlineOptions
+    const length = textArray.length
+    let width = 0
+
+    textArray.forEach((item, index) => {
+        const { letter, underline } = item
+        const prev = textArray[index - 1]
+        const next = textArray[index + 1]
+        const isFirst = !prev // 首字母
+        const isLast = !next // 尾字母
+        const notInPrev = isFirst || (prev && !prev.underline) // 上一个没有下划线
+        const notInNext = isLast || (next && !next.underline) // 下一个没有下划线
+        const inCurrent = !!underline
+
+        // 字体间距
+        if (index > 0 && index < length - 1) {
+            width += letterSpacing
+        }
+        // 字体宽度
+        width += context.measureText(letter).width
+
+        if (inCurrent && notInPrev) {
+            if (isFirst) {
+                width += left
+            } else {
+                width += left * 2
+            }
+        }
+
+        if (inCurrent && notInNext) {
+            if (isLast) {
+                width += right
+            } else {
+                width += right * 2
+            }
+        }
+    })
+
+    return width
 }
 
 // 解析添加下划线属性
@@ -156,202 +209,134 @@ export function parseType (text) {
     return res
 }
 
-// 将文本转换为数组对象格式 [{ letter, underline }]
-export function toArray (text) {
-    // 示例: 'hello<underline>underline</underline>12345world'
-    // => [{ text: 'hello<underline>underline</underline>12345world' }]
-    const _text = [{ letter: text.toString() }]
-    // => [{ letter: 'hello', underline: false }, { letter: 'underline', underline: true }, { letter: '12345world', underline: false }]
-    const _underlined = parseUnderline(_text)
-    // => [{ letter: 'h', underline: false }, ..., { letter: 'u', underline: true }, ..., { letter: '12345', underline: false }, { letter: 'w', underline: false }, ...]
-    const _typed = parseType(_underlined)
-
-    return _typed
-}
-
-// 计算文本的总宽度
-export function calcTextWidth (textArray, fix, options) {
+// todo: 拆解逻辑
+// 解析添加坐标属性
+// [{ letter }] => [{ letter, letterWidth, x, y }]
+export function parsePosition (textArray, options) {
     const { context } = this
-    const { letterSpacing, underline: underlineOptions } = options
-    const { left, right } = underlineOptions
-    const length = textArray.length
-    let width = 0
+    const { x, y, maxWidth, wrap, fix, lineHeight, underline: underlineOption, letterSpacing, align, size } = options
+    const fixWidth = context.measureText(fix).width
+    const letters = []
+    const underlines = []
 
-    textArray.forEach((item, index) => {
-        const { letter, underline } = item
-        // 字体间距
-        if (index > 0 && index < length - 1) {
-            width += letterSpacing
+    const actualX = (() => {
+        const textWidth = calcTextWidth.call(this, textArray, options)
+        const actualWidth = Math.min(maxWidth, textWidth)
+        // 根据水平对齐方式确定第一个字符的坐标
+        switch (align) {
+        case 'center':
+            return x - actualWidth / 2
+        case 'right':
+            return x - actualWidth
+        default:
+            return x
         }
-        // 宽出字体左边的下划线宽度
-        if (underline) {
-            width += left
-        }
-        // 字体宽度
-        width += context.measureText(letter).width
+    })()
+    let renderX = actualX
+    let renderY = y
 
-        if (index === length - 1) {
-            // 宽出字体右边的下划线宽度
-            if (underline) {
-                width += right
-            }
-
-            // 补一个字体间距
-            if (fix) {
-                width += letterSpacing
-            }
-        }
-    })
-
-    return width
-}
-
-// 获取待渲染文本
-// 可能会因为 maxWidth, prefix, suffix 等属性 截取/补充 文本
-export function confirmRenderText (prefixArray, textArray, suffixArray, options) {
-    const { context } = this
-    const { wrap, fix, maxWidth } = options
-    const renderText = textArray.concat()
-
-    if (!wrap) {
-        const prefixWidth = calcTextWidth.call(this, prefixArray, true, options)
-        const suffixWidth = calcTextWidth.call(this, suffixArray, true, options)
-        const textWidth = calcTextWidth.call(this, renderText, false, options)
-
-        if (prefixWidth + suffixWidth + textWidth > maxWidth) {
-            const residueWidth = maxWidth - prefixWidth - suffixWidth - context.measureText(fix).width
-
-            for (let i = renderText.length - 1; i >= 0; i--) {
-                renderText.pop()
-
-                if (calcTextWidth.call(this, renderText, false, options) <= residueWidth) {
-                    const last = renderText[renderText.length - 1]
-                    renderText[renderText.length - 1] = {
-                        ...last,
-                        letter: `${last.letter}${fix}`,
-                    }
-                    break
-                }
-            }
-        }
-    }
-
-    return [...prefixArray, ...renderText, ...suffixArray]
-}
-
-// 确定文字渲染坐标
-export function confirmRenderPosition (totalText, options) {
-    const { context } = this
-    const { x, y, lineHeight, maxWidth, underline: underlineOption, align, letterSpacing } = options
-
-    let actualX = x
-    let actualY = y
-    const renderText = []
-    const actualWidth = Math.min(maxWidth, calcTextWidth.call(this, totalText, false, options))
-
-    // 根据水平对齐方式确定第一个字符的坐标
-    if (align === 'center') {
-        actualX = actualX - actualWidth / 2
-    } else if (align === 'right') {
-        actualX = actualX - actualWidth
-    }
-
-    totalText.forEach((item, index) => {
+    for (let i = 0; i < textArray.length; i++) {
+        const item = textArray[i]
         const { letter, underline } = item
         const letterWidth = context.measureText(letter).width
+        const prev = letters[i - 1]
+        const next = textArray[i + 1]
 
+        // 计算文案的坐标
         // 另起一行画
-        if (actualX + letterWidth > maxWidth + x) {
-            actualX = x
-            actualY = actualY + lineHeight
-        }
-
-        // 首字母 + 上一个没有下划线，actualX 应该加上下划线宽出文字的左间距
-        if (underline) {
-            const prev = renderText[index - 1]
-
-            if (!prev || !prev.underline) {
-                let space = underlineOption.left
-                // 上一个没有下划线 + 在同一行，多加一段 left 作为上一个字符和下划线的距离
-                if (prev && !prev.underline && prev.y === actualY) {
-                    space = underlineOption.left * 2
-                }
-
-                actualX += space
+        const _maxWidth = wrap ? maxWidth + x : maxWidth + x - fixWidth
+        if (renderX + letterWidth > _maxWidth) {
+            if (!wrap) {
+                letters.push({
+                    ...prev,
+                    letter: fix,
+                    letterWidth: fixWidth,
+                    x: renderX,
+                    y: renderY,
+                })
+                break
             }
+            renderX = actualX
+            renderY = renderY + lineHeight
         }
 
-        renderText.push({
+        const isFirst = !prev // 首字母
+        const isLast = !next // 尾字母
+        const notInPrev = isFirst || (prev && !prev.underline) // 上一个没有下划线
+        const notInNext = isLast || (next && !next.underline) // 下一个没有下划线
+        const newline = prev && prev.y !== renderY // 相比于上一个，是新的行
+        const inCurrent = !!underline
+
+        // 第一个下划线字符，actualX 应该加上下划线宽出文字的左间距
+        if (inCurrent && notInPrev) {
+            const space = (() => {
+                // 不是段落首字母，多加一段 left 作为上一个字符和下划线的距离
+                if (!isFirst && !newline) {
+                    return underlineOption.left * 2
+                }
+                return underlineOption.left
+            })()
+
+            renderX += space
+        }
+
+        letters.push({
             ...item,
             letterWidth,
-            x: actualX,
-            y: actualY,
+            x: renderX,
+            y: renderY,
         })
 
+        // 计算下划线的坐标
+        const signEnd = (char, x, y) => {
+            // 因为一定是按顺序确定点，所以这里一定是确定了最近一条线的终点
+            const line = underlines[underlines.length - 1]
+            line.endLetter = char
+            line.endX = x
+            line.endY = y
+        }
+        const signStart = (char, x, y) => {
+            underlines.push({
+                startLetter: char,
+                startX: x,
+                startY: y,
+            })
+        }
+
+        // 下划线首字母 标记开始
+        if (inCurrent && notInPrev) {
+            signStart(letter, renderX - underlineOption.left, renderY + size + underlineOption.bottom)
+        }
+
+        // 新的一行 标记结束/标记开始
+        if (inCurrent && newline && !notInPrev) {
+            // 注意顺序，因为标记结束是取最后一个
+            signEnd(prev.letter, prev.x + prev.letterWidth, prev.y + size + underlineOption.bottom)
+            signStart(letter, renderX, renderY + size + underlineOption.bottom)
+        }
+
+        // 下划线尾字母 标记结束
+        if (inCurrent && notInNext) {
+            signEnd(letter, renderX + letterWidth + underlineOption.right, renderY + size + underlineOption.bottom)
+        }
+
         // x轴位置累加
-        actualX += (letterWidth + letterSpacing)
+        renderX += (letterWidth + letterSpacing)
 
-        // 如果是最后一个或者下一个没有下划线，累加下划线宽出文字的右间距
-        if (underline) {
-            const next = totalText[index + 1]
-
-            if (!next || !next.underline) {
-                actualX += (underlineOption.right * 2)
-            }
+        // 最后一个下划线字符，累加下划线宽出文字的右间距
+        if (underline && (!next || !next.underline)) {
+            renderX += (underlineOption.right * 2)
         }
-    })
+    }
 
-    return renderText
+    return [letters, underlines]
 }
 
-// 确定下划线
-export function confirmRenderUnderlines (text, options) {
-    const { underline: underlineOption, size } = options
-    const res = []
-
-    text.forEach((item, index) => {
-        const { letter, x, y, underline, letterWidth } = item
-
-        if (underline) {
-            const prev = text[index - 1]
-            // 首字母 + 上一个没有下划线 + 换行 需要标记下划线起始坐标
-            if (!prev || !prev.underline || prev.y !== y) {
-                let startX = x - underlineOption.left
-                if (prev && prev.underline) {
-                    startX = x
-                }
-
-                res.push({
-                    startLetter: letter,
-                    startX: startX,
-                    startY: y + size + underlineOption.bottom,
-                })
-            }
-
-            const next = text[index + 1]
-            // 末字母 + 下一个没有下划线 + 换行 需要标记下环线结束坐标
-            if (!next || !next.underline || next.y !== y) {
-                // 因为一定是按顺序确定点，所以这里一定是确定了最近一条线的终点
-                let endX = x + letterWidth + underlineOption.right
-                if (next && next.underline) {
-                    endX = x + letterWidth
-                }
-                const line = res[res.length - 1]
-                line.endLetter = letter
-                line.endX = endX
-                line.endY = y + size + underlineOption.bottom
-            }
-        }
-    })
-
-    return res
-}
-
-export function drawText (text, options) {
+export function drawText (textArray, options) {
     const { context } = this
     const { type } = options
 
-    text.forEach(item => {
+    textArray.forEach(item => {
         const { x, y, letter } = item
         context[`${type}Text`](letter, x, y)
     })
@@ -387,20 +372,17 @@ export function drawUnderlines (lines, options) {
 export default function (text, _x, _y, options) {
     options = getOptions.call(this, _x, _y, options)
     setContextOptions.call(this, options)
-    const { prefix, suffix } = options
 
-    const prefixArray = toArray(prefix)
-    const suffixArray = toArray(suffix)
-    const textArray = toArray(text)
+    // 示例: 'hello<underline>underline</underline>12345world'
+    // => [{ text: 'hello<underline>underline</underline>12345world' }]
+    const _text = [{ letter: text.toString() }]
+    // => [{ letter: 'hello', underline: false }, { letter: 'underline', underline: true }, { letter: '12345world', underline: false }]
+    const _underlined = parseUnderline(_text)
+    // => [{ letter: 'h', underline: false }, ..., { letter: 'u', underline: true }, ..., { letter: '12345', underline: false }, { letter: 'w', underline: false }, ...]
+    const _typed = parseType(_underlined)
+    const [renderTexts, renderUnderlines] = parsePosition.call(this, _typed, options)
 
-    const renderText = confirmRenderText.call(this, prefixArray, textArray, suffixArray, options)
-    // console.log(renderText)
-    const renderTextWithPosition = confirmRenderPosition.call(this, renderText, options)
-    // console.log(renderTextWithPosition)
-    const renderUnderlines = confirmRenderUnderlines.call(this, renderTextWithPosition, options)
-    // console.log(renderUnderlines)
-
-    drawText.call(this, renderTextWithPosition, options)
+    drawText.call(this, renderTexts, options)
     drawUnderlines.call(this, renderUnderlines, options)
 
     return options
