@@ -35,13 +35,15 @@ export default {
 
         // 前缀 后缀
         instance.add(() => {
-            instance.drawText(
+            const { actualMaxWidth, actualMaxHeight } = instance.drawText(
                 '<underline>这是一段很长很长很长很长需要换行而且添加下划线的文案</underline>学员，请于<underline>2019</underline>年<underline>22</underline>月<underline>22</underline>日前' +
                 '<underline>这是令一段很长很长很长很长需要换行而且添加下</underline>',
                 x,
                 y,
                 { ...options }
             )
+
+            instance.drawRect(x, y, actualMaxWidth, actualMaxHeight, { type: 'stroke', color: '#000' })
         })
 
         this.img = instance.done()

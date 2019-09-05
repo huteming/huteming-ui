@@ -361,6 +361,35 @@ export function drawUnderlines (lines, options) {
     context.restore()
 }
 
+export function addStatistic (textArray, options) {
+    const { ratio } = this
+    const { x, y, size } = options
+    let minX = x
+    let maxX = x
+    let minY = y
+    let maxY = y
+
+    textArray.forEach((item, index) => {
+        minX = Math.min(minX, item.x)
+        maxX = Math.max(maxX, item.x)
+        minY = Math.min(minY, item.y)
+        maxY = Math.max(maxY, item.y)
+
+        if (index === textArray.length - 1) {
+            maxX += item.letterWidth
+            maxY += size
+        }
+    })
+
+    const newOptions = {
+        ...options,
+        actualMaxWidth: (maxX - minX) / ratio,
+        actualMaxHeight: (maxY - minY) / ratio,
+    }
+
+    return newOptions
+}
+
 /**
  * @argument {*String} text 文本
  * @argument {*Number} x x 坐标
@@ -385,5 +414,7 @@ export default function (text, _x, _y, options) {
     drawText.call(this, renderTexts, options)
     drawUnderlines.call(this, renderUnderlines, options)
 
-    return options
+    const optionWithStatistic = addStatistic.call(this, renderTexts, options)
+
+    return optionWithStatistic
 }
