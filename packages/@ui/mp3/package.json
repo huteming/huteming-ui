@@ -9,6 +9,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@huteming/ui-audio": "^1.0.0",
     "@huteming/ui-range": "^1.1.1"
   }
 }
