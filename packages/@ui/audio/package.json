@@ -1,6 +1,6 @@
 {
   "name": "@huteming/ui-audio",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "> 对于原生标签 audio 的封装",
   "main": "dist/audio.common.js",
   "scripts": {

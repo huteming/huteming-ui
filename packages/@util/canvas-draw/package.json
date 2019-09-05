@@ -1,6 +1,6 @@
 {
   "name": "@huteming/util-canvas-draw",
-  "version": "1.6.5",
+  "version": "1.6.6",
   "description": "封装 canvas 方法，便于画图导出图片",
   "main": "dist/canvas-draw.common.js",
   "scripts": {
