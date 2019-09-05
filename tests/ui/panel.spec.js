@@ -78,10 +78,10 @@ describe('panel', () => {
     })
 
     describe('slots', () => {
-        it('image', () => {
+        it('image-extra', () => {
             const wrapper = mount(CompPanel, {
                 slots: {
-                    image: CompBasic,
+                    'image-extra': CompBasic,
                 },
             })
             const wrapperContainer = wrapper.find('.tm-panel-image')

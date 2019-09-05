@@ -1,6 +1,6 @@
 import assert from 'assert'
 import sinon from 'sinon'
-import drawText, { getOptions, setContextOptions, parseUnderline, parseType, parsePosition } from 'web-util/canvas-draw/src/drawText'
+import drawText, { getOptions, setContextOptions, parseUnderline, parseType, parsePosition, addStatistic } from 'web-util/canvas-draw/src/drawText'
 
 describe('canvas > drawText', () => {
     it('drawText返回配置对象', () => {
@@ -23,8 +23,27 @@ describe('canvas > drawText', () => {
             ratio: 1,
         }
         const options = drawText.call(mockSelf, '<underline>hello</underline>', 1, 2)
+        // 这里不方便计算统计数据，删除
+        // 在函数中测试
+        delete options.actualMaxWidth
+        delete options.actualMaxHeight
         const _options = getOptions.call(mockSelf, 1, 2)
         assert.deepStrictEqual(options, _options)
+    })
+
+    it('addStatistic', () => {
+        const ratio = 2
+        const letterWidth = 10
+        const size = 20
+        const data = [{ x: 1, y: 2 }, { x: 2, y: 3 }, { x: 1, y: 1, letterWidth }]
+        const options = { size, x: 0, y: 0 }
+        const res = addStatistic.call({ ratio }, data, options)
+
+        assert.deepStrictEqual(res, {
+            ...options,
+            actualMaxWidth: (2 + letterWidth) / ratio,
+            actualMaxHeight: (3 + size) / ratio,
+        })
     })
 
     it('getOptions', () => {
