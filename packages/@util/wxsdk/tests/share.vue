@@ -6,34 +6,19 @@
 
 <script>
 import wxsdk from '../index'
-const { wxShare } = wxsdk
+const { wxShare, wxConfig } = wxsdk
 
 export default {
     mounted () {
+        wxConfig(true, 'test_tommy')
         wxShare({
             title: 'hello',
             desc: 'world',
             success () {
-                console.log('hello world')
+                console.log('share in share')
             },
-            channel: true,
-            query: [
-                {
-                    key: 'hello',
-                    value: 'world',
-                },
-                {
-                    key: 'mainUnion',
-                    value: 'test_force',
-                    force: true,
-                },
-                {
-                    key: 'subUnion',
-                    value: 'no_force',
-                    force: false,
-                },
-            ],
         })
+        this.$router.push('/test/wxsdk/location')
     },
 }
 </script>

@@ -13,8 +13,8 @@
 </template>
 
 <script>
-import wxsdk from '../index'
-const { wxConfig, wxSave } = wxsdk
+// import wxsdk from '../index'
+// const { wxConfig, wxSave, wxShare } = wxsdk
 
 export default {
     data () {
@@ -23,15 +23,15 @@ export default {
     },
 
     watch: {
-        '$route' () {
-            wxConfig(['location'], 'test_tommy')
-        },
+        // '$route' () {
+        //     wxConfig(['location'], 'test_tommy')
+        // },
     },
 
     async mounted () {
-        window.__wxjs_is_wkwebview = true
-        wxSave()
-        wxConfig(['location'], 'test_tommy')
+        // window.__wxjs_is_wkwebview = true
+        // wxSave()
+        // wxConfig(['location'], 'test_tommy')
     },
 
     methods: {

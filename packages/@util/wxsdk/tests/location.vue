@@ -7,7 +7,7 @@
 
 <script>
 import wxsdk from '../index'
-const { wxLocation } = wxsdk
+const { wxLocation, wxConfig, wxShare } = wxsdk
 
 export default {
     data () {
@@ -17,6 +17,14 @@ export default {
     },
 
     async mounted () {
+        wxConfig('location', 'test_tommy')
+        wxShare({
+            title: 'hello',
+            desc: 'world',
+            success () {
+                console.log('share in location')
+            },
+        })
         const data = await wxLocation()
         this.address = data.formatted_address
     },
