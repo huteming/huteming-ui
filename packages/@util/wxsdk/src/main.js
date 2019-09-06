@@ -1,77 +1,10 @@
-import { parseGeocoder, sign, getPayConfig, getWxConfig } from 'web-util/api/src/main'
+import { parseGeocoder, sign, getPayConfig } from 'web-util/api/src/main'
 import qs from 'qs'
+import _wxConfig from './wxConfig'
+import _wxSave from './wxSave'
 
-// wx配置方法
-export const mapApis = new Map([
-    [
-        'default',
-        [
-            'hideAllNonBaseMenuItem',
-            'closeWindow',
-            'onMenuShareTimeline',
-            'onMenuShareAppMessage',
-            'showMenuItems',
-            'hideMenuItems',
-        ]
-    ],
-    [
-        'image',
-        [
-            'previewImage',
-            'uploadImage',
-            'downloadImage',
-            'getLocalImgData',
-            'chooseImage',
-        ]
-    ],
-    [
-        'location',
-        [
-            'getLocation',
-        ]
-    ],
-])
-
-/**
- * 配置签名
- * 1、这是用单例模式保存 promise：为了避免每次进入页面都重复写代码调用wx.config，
- *    通过在路由参数 meta.wxConfig 中配置需要注入的配置方法，可配置参数参考 mapApis 对象
- * 2、在 app.vue 中监听路由重置
- */
-export const wxConfig = (() => {
-    let _instance = Promise.resolve()
-
-    async function update (flag, updateApis) {
-        const apiList = getApiList(updateApis)
-        await register(flag, apiList)
-        await waiting()
-    }
-
-    return (updateApis, flag) => {
-        if (updateApis) {
-            _instance = update(flag, updateApis)
-        }
-        return _instance
-    }
-})()
-
-/**
- * 保存首页地址
- * 因为ios配置地址必须为进入单页应用的首页，andriod配置地址为当前页面
- */
-export const wxSave = (() => {
-    let _url = ''
-
-    return (url) => {
-        if (url !== null && url !== undefined) {
-            _url = url
-        }
-
-        const link = window.location.href
-        const href = window.__wxjs_is_wkwebview ? (_url || link) : link
-        return href.split('#')[0]
-    }
-})()
+export const wxConfig = _wxConfig
+export const wxSave = _wxSave
 
 /**
  * 获取定位信息
@@ -176,63 +109,6 @@ export function wxHide () {
             'menuItem:share:timeline',
             'menuItem:share:appMessage'
         ]
-    })
-}
-
-/**
- * 获取配置接口数组
- * 类型枚举: image, location
- */
-function getApiList (apis) {
-    if (typeof apis === 'string') {
-        apis = [apis]
-    }
-    if (!Array.isArray(apis)) {
-        apis = []
-    }
-    const configApis = apis.map(item => mapApis.get(item) || [])
-
-    return mapApis.get('default').concat(...configApis)
-}
-
-/**
- * 配置
- */
-function register (flag, jsApiList) {
-    const options = {
-        flag,
-        url: wxSave(),
-    }
-
-    return getWxConfig(options)
-        .then(res => {
-            const { data } = res.data
-
-            wx.config({
-                debug: false,
-                appId: data.AppId,
-                timestamp: data.Timestamp,
-                nonceStr: data.NonceStr,
-                signature: data.Signature,
-                jsApiList: jsApiList,
-            })
-        })
-}
-
-/**
- * 等待配置结果
- */
-function waiting () {
-    return new Promise((resolve, reject) => {
-        const delay = 800
-
-        wx.error(err => {
-            reject(new Error(`签名失败: ${err.errMsg}`))
-        })
-
-        wx.ready(() => {
-            setTimeout(resolve, delay)
-        })
     })
 }
 

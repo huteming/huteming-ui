@@ -1,15 +1,15 @@
-import { wxSave } from 'web-util/wxsdk/src/main'
+import wxSave from 'web-util/wxsdk/src/wxSave'
 import assert from 'assert'
 
 describe('wxsdk > wxSave', () => {
     it('安卓 + url = href', () => {
-        global.window.__wxjs_is_wkwebview = false
+        window.__wxjs_is_wkwebview = false
         wxSave('http://localhost/hello')
 
         const url = wxSave()
-        assert.strictEqual(url, global.window.location.href.split('#')[0])
+        assert.strictEqual(url, window.location.href.split('#')[0])
 
-        global.window.__wxjs_is_wkwebview = undefined
+        window.__wxjs_is_wkwebview = undefined
     })
 
     it('ios + (empty url) = href', () => {
