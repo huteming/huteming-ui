@@ -116,12 +116,13 @@ describe('wxsdk > wxConfig', () => {
 
         it('失败', done => {
             const mockMessage = 'mockMessage'
-            waiting(Infinity)
+            waiting(0)
                 .then(() => {
                     done(new Error('期望失败'))
                 })
                 .catch(err => {
-                    assert.strictEqual(err.message, `签名失败: ${mockMessage}`)
+                    const href = window.location.href.split('#')[0]
+                    assert.strictEqual(err.message, `签名失败: ${mockMessage}。签名链接: `)
                     done()
                 })
             onError({ errMsg: mockMessage })
@@ -129,11 +130,11 @@ describe('wxsdk > wxConfig', () => {
     })
 
     describe('update', () => {
+        const mockUrl = 'https://localhost'
         let onError
         let onReady
 
         beforeAll(() => {
-            const mockUrl = 'https://localhost'
             const AppId = 'AppId'
             const Timestamp = 'Timestamp'
             const NonceStr = 'NonceStr'
@@ -191,10 +192,11 @@ describe('wxsdk > wxConfig', () => {
         it('连续更新', done => {
             update(true)
                 .then(err => {
-                    done(new Error('期望不解析'))
+                    done(new Error('期望失败'))
                 })
                 .catch(err => {
-                    done(new Error('期望不解析'))
+                    assert.strictEqual(err.message, `签名失败: mock error。链接过期: ${mockUrl}。最新链接: ${mockUrl}`)
+                    done()
                 })
 
             update(true)
@@ -208,10 +210,7 @@ describe('wxsdk > wxConfig', () => {
             setTimeout(() => {
                 // 这是第一次 update 产生的回调函数
                 onError({ errMsg: 'mock error' })
-                onReady()
             })
-
-            setTimeout(done, 20)
         })
     })
 })

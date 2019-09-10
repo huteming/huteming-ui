@@ -1,5 +1,6 @@
 import wxSave from './wxSave'
 import { getWxConfig } from 'web-util/api/src/main'
+import record from './records-config'
 
 /**
  * 配置签名
@@ -8,7 +9,7 @@ import { getWxConfig } from 'web-util/api/src/main'
  * 2、在 app.vue 中监听路由重置
  */
 let instance = Promise.resolve()
-let updateID = 0
+let latestID = 0
 
 // wx配置方法
 const mapApis = new Map([
@@ -76,33 +77,35 @@ export function register (flag, jsApiList) {
         })
 }
 
-/**
- * 等待配置结果
- */
-export function waiting (currentID) {
+// 等待配置结果
+export function waiting (registerID) {
     return new Promise((resolve, reject) => {
         wx.error(err => {
-            if (currentID < updateID) return
-            reject(new Error(`签名失败: ${err.errMsg}`))
+            const registerItem = record.find(registerID)
+            const latestItem = record.find(latestID)
+
+            if (registerID < latestID) {
+                return reject(new Error(`签名失败: ${err.errMsg}。链接过期: ${registerItem.url}。最新链接: ${latestItem.url}`))
+            }
+            reject(new Error(`签名失败: ${err.errMsg}。签名链接: ${registerItem.url}`))
         })
 
         wx.ready(() => {
-            if (currentID < updateID) return
             resolve()
         })
     })
 }
 
-async function update (updateID, flag, updateApis) {
+async function update (registerID, flag, updateApis) {
     const apiList = getApiList(updateApis)
     await register(flag, apiList)
-    await waiting(updateID)
+    await waiting(registerID)
 }
 
 export default (updateApis, flag) => {
     if (updateApis) {
-        updateID++
-        instance = update(updateID, flag, updateApis)
+        latestID = record.create(wxSave())
+        instance = update(latestID, flag, updateApis)
     }
     return instance
 }
