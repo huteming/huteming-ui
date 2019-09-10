@@ -6,7 +6,8 @@
             autoplay
             @error-prev="handleToast('没有上一个的提示')" @error-next="handleToast('没有下一个的提示')"
             @init="handleInit"
-            @click="handleLog" />
+            @click="handleLog"
+            @error="handleError" />
     </div>
 
     <button @click="$refs.mp4.next()">next</button>
@@ -28,6 +29,10 @@ export default {
     data () {
         return {
             asyncList: [
+                {
+                    src: '',
+                    cover: posterVideo2,
+                },
                 {
                     // src: '',
                     // src: 'http://jhsy-img.caizhu.com/lv10CqB9TUpWlK0pEPpCXexK05qL.m3u8',
@@ -81,6 +86,10 @@ export default {
     },
 
     methods: {
+        handleError (event) {
+            // console.log('error: ', event)
+            console.log(event)
+        },
         handleRoute () {
             location.reload()
         },

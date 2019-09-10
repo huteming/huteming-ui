@@ -1,7 +1,11 @@
 <template>
 <div class="tm-mp4">
     <div class="tm-mp4-container">
-        <TmVideo :src="currentSrc" :cover="currentCover" :controls="controls" @state-change="handleStateChange" @ready="handleReady" v-bind="$attrs" ref="video" />
+        <TmVideo
+            :src="currentSrc" :cover="currentCover"
+            :controls="controls" @state-change="handleStateChange" @ready="handleReady"
+            @error="handleError"
+            v-bind="$attrs" ref="video" />
     </div>
 
     <div class="tm-mp4-controls" :class="{ 'layer': state === 'ended' }" v-if="state === 'loading' || state === 'ended'">
@@ -213,6 +217,9 @@ export default {
             }
 
             this.isFirstTimeReady = false
+        },
+        handleError (err) {
+            this.$emit('error', `当前地址(${this.currentSrc})播放异常(${err.message})`)
         },
         init (item) {
             if (!this.playList.length || !this.media) {

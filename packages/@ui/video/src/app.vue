@@ -96,7 +96,8 @@ export default {
                 return true
             } catch (err) {
                 // 这里的播放如果不是交互引起的，会出现异常 Uncaught (in promise) DOMException
-                process.env.NODE_ENV === 'development' && console.error('video play error: ', err)
+                this.handleError(err)
+                // process.env.NODE_ENV === 'development' && console.error('video play error: ', err)
                 return false
             }
         },
@@ -119,6 +120,9 @@ export default {
         handleEnd () {
             console.log('ended')
             this.state = 'ended'
+        },
+        handleError (err) {
+            this.$emit('error', err)
         },
         async already () {
             if (this.ready) return
