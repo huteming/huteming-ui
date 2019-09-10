@@ -1,6 +1,6 @@
 {
   "name": "@huteming/util-wxsdk",
-  "version": "1.4.5",
+  "version": "1.4.6",
   "description": "wxsdk的封装方法",
   "main": "dist/wxsdk.common.js",
   "scripts": {
