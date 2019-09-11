@@ -128,7 +128,7 @@ export default {
                 return true
             } catch (err) {
                 // 这里的播放如果不是交互引起的，会出现异常 Uncaught (in promise) DOMException
-                process.env.NODE_ENV === 'development' && console.error('audio play error: ', err)
+                this.$emit('error', `播放失败: ${err.message}`)
                 return false
             }
         },
@@ -237,7 +237,7 @@ export default {
                     await this.audio.play()
                 } catch (err) {
                     // 这里的播放有可能被意外打断
-                    process.env.NODE_ENV === 'development' && console.error('audio in tryPreload play error: ', err)
+                    this.$emit('error', `播放意外中断: ${err.message}`)
                 }
 
                 // 如果是要自动播放的，认为已经就绪，直接播放不暂停
@@ -268,7 +268,7 @@ export default {
                     await this.audio.play()
                 } catch (err) {
                     // 这里的期望播放如果不是交互引起的，会出现异常 Uncaught (in promise) DOMException
-                    process.env.NODE_ENV === 'development' && console.error('audio in already play error: ', err)
+                    this.$emit('error', `自动播放失败: ${err.message}`)
                 }
             }
 

@@ -17,7 +17,8 @@
             @init="handleInit"
             @ended="handleEnd"
             @error-prev="handleToast('没有上一个的提示')"
-            @error-next="handleToast('没有下一个的提示')" />
+            @error-next="handleToast('没有下一个的提示')"
+            @error="handleError" />
 
         <div class="audio-footer">
             <div class="audio-current">{{ currentTime | time }}</div>
@@ -55,7 +56,7 @@ export default {
             asyncLists: [
                 {
                     duration: 852,
-                    src: 'http://jhsy-img.caizhu.com/lh8gwVTFUoXlN267Evt6pedsIg6y?d=1',
+                    src: 'http://jhsy-img.caizhu.com/lvisA64GE9I1anin2a3DPeab9Uza.m3u8',
                 },
                 {
                     duration: 16.728,
@@ -102,6 +103,9 @@ export default {
     },
 
     methods: {
+        handleError (err) {
+            console.error(err)
+        },
         handleToast (msg) {
             this.$toast(msg)
         },

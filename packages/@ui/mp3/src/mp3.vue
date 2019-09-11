@@ -9,7 +9,8 @@
         v-model="mediaCurrentTime"
         @change="handleMediaChange"
         @ready="handleReady"
-        @state-change="handleStateChange" />
+        @state-change="handleStateChange"
+        @error="handleError" />
 </div>
 </template>
 
@@ -135,6 +136,9 @@ export default {
             return this.media && this.media.audio && this.media.audio[key]
         },
         // -------------------------------------- 分隔线 --------------------------------------
+        handleError (msg) {
+            this.$emit('error', msg)
+        },
         handleStateChange (_state) {
             if (_state === 'ended') {
                 if (!this.continuous) {
