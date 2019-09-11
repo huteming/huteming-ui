@@ -50,7 +50,7 @@ const defaultWX = {
 export function getWxConfig (options = {}) {
     const params = Object.assign({}, defaultWX, options)
 
-    return request.post('/api/user/shareParam', params)
+    return request.find('/api/user/shareParam', params)
 }
 
 /**

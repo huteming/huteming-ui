@@ -77,6 +77,7 @@ export function register (flag, jsApiList) {
         })
 }
 
+// todo: error, ready 注册的回调函数一直存在，所以只需要注册一次即可，否则可能出现错误的消息结果
 // 等待配置结果
 export function waiting (registerID) {
     return new Promise((resolve, reject) => {
@@ -102,6 +103,7 @@ async function update (registerID, flag, updateApis) {
     await waiting(registerID)
 }
 
+// todo优化：对于ios来说，地址总是第一次进入的页面，不会改变，所以 config 一次即可
 export default (updateApis, flag) => {
     if (updateApis) {
         latestID = record.create(wxSave())

@@ -18,7 +18,7 @@ export default {
                 console.log('share in share')
             },
         })
-        this.$router.push('/test/wxsdk/location')
+        // this.$router.push('/test/wxsdk/location')
     },
 }
 </script>
