@@ -1,32 +1,32 @@
 <template>
 <div class="basic">
     <TmAudio
-        :src="src"
+        ref="player"
         v-model="currentTime"
-        @progress="handleProgress"
-        @durationchange="handleDurationchange"
-        :preload="true"
-        autoplay
-        ref="audio" />
-    <!-- <TmAudio
+        :play.sync="statePlay"
         :src="src"
-        @timeupdate="handleTimeUpdate" ref="audio" /> -->
-    <button @click="play">play</button>
-    <button @click="$refs.audio.pause()">pause</button>
-    <button @click="$refs.audio.toggle()">toggle</button>
+        @ready="handleReady"
+        @play="handleLog"
+        @pause="handleLog"
+        @ended="handleLog" />
+
+    <button @click="statePlay = true" style="width: 100px; height: 20px;">play</button>
+    <button @click="statePlay = false">pause</button>
     <p>currentTime: {{ currentTime }}</p>
     <p>duration: {{ duration }}</p>
     <p>progress: {{ progress }}</p>
     <button @click="handleChange">change src</button>
+    <button @click="currentTime = 1000">change currentTime</button>
 </div>
 </template>
 
 <script>
-import TmAudio from '../index'
+import TmAudio from '../src/app'
 
 export default {
     data () {
         return {
+            statePlay: false,
             currentTime: 10,
             progress: 0,
             src: '',
@@ -38,26 +38,26 @@ export default {
     },
 
     mounted () {
-        setTimeout(() => {
-            this.src = this.src1
-        }, 2000)
+        // setTimeout(() => {
+        //     this.src = this.src1
+        // }, 2000)
     },
 
     methods: {
+        handleReady (...args) {
+            console.log('ready', ...args)
+        },
         handleChange () {
             this.src = this.src === this.src1 ? this.src2 : this.src1
-            this.currentTime = 0
-        },
-        play () {
-            // this.currentTime = 845
-            // this.$refs.audio.play()
-            this.$refs.audio.play(845)
         },
         handleProgress (_progress) {
             this.progress = _progress
         },
         handleDurationchange (_duration) {
             this.duration = _duration
+        },
+        handleLog () {
+            console.log('log', ...arguments)
         },
     },
 

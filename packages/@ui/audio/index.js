@@ -1,4 +1,4 @@
-import Component from './src/audio.vue'
+import Component from './src/app'
 
 Component.install = (Vue) => {
     Vue.component(Component.name, Component)
