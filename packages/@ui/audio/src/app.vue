@@ -1,5 +1,5 @@
 <template>
-<audio ref="videoPlayer" class="video-js"></audio>
+<audio ref="videoPlayer" class="video-js tm-audio"></audio>
 </template>
 
 <script>
@@ -10,6 +10,7 @@
  * 3. 监听 value 属性设置播放进度
  */
 import videojs from 'video.js'
+import 'videojs-contrib-hls'
 import 'video.js/dist/video-js.css'
 import { linkWeixinBridge, isWeixinBrowser } from 'web-util/tool/src/main'
 
@@ -32,6 +33,10 @@ export default {
                 return {}
             },
         },
+        playbackRate: {
+            type: Number,
+            default: 1,
+        },
     },
 
     data () {
@@ -39,6 +44,7 @@ export default {
             player: null,
             currentPlay: this.play,
             currentValue: this.value,
+            cacheValue: this.value, // 为了在 value change 事件中判断是否需要更新音频进度
             ready: false,
         }
     },
@@ -46,6 +52,9 @@ export default {
     watch: {
         play (val) {
             this.currentPlay = val
+        },
+        value (val) {
+            this.currentValue = val
         },
     },
 
@@ -64,10 +73,13 @@ export default {
             if (!this.ready) return
             val ? this.player.play() : this.player.pause()
         })
-        this.$watch('value', (val) => {
-            if (val !== this.currentValue) {
+        this.$watch('currentValue', val => {
+            if (val !== this.cacheValue) {
                 this.player.currentTime(val)
             }
+        })
+        this.$watch('playbackRate', val => {
+            this.player.playbackRate(val)
         })
     },
 
@@ -77,7 +89,12 @@ export default {
                 preload: 'auto',
                 height: 0,
                 muted: false,
+                controls: true,
                 autoplay: this.currentPlay,
+                playbackRates: [0.5, 1, 1.5, 2],
+                children: {
+                    loadingSpinner: false,
+                },
             }, this.options)
             this.player = videojs(this.$refs.videoPlayer, _options, () => {
                 console.log('audio setup')
@@ -90,28 +107,41 @@ export default {
             })
             this.player.on('ended', () => {
                 this.$emit('ended', this.src, this.player)
+                this.currentPlay = false
+                this.player.currentTime(0)
             })
             this.player.on('canplay', () => {
-                this.player.currentTime(this.currentValue)
+                // fix 多次触发
+                if (!this.canplay) {
+                    this.player.currentTime(this.currentValue)
+                }
+                this.canplay = true
             })
             // 播放中，持续触发
             this.player.on('timeupdate', () => {
                 const currentTime = this.player.currentTime()
-                this.currentValue = currentTime
+                this.cacheValue = currentTime
                 this.$emit('input', currentTime)
+                this.$emit('timeupdate', currentTime)
             })
         },
         init (src) {
             if (!src) return
 
             this.ready = false
-            this.player.src({ src, type: 'audio/mp3' })
+            this.canplay = false
+
+            const type = src.endsWith('m3u8') ? 'application/x-mpegURL' : 'audio/mp3'
+            this.player.src({ type, src })
+
             this.player.ready(async () => {
+                console.log('audio ready')
                 this.ready = true
                 this.$emit('ready', src, this.player)
                 // ios 音频没有就绪的时候，设置播放位置是无效的（readyState < 3）
                 // 改为在 canplay 事件中设置进度
                 // this.player.currentTime(this.currentValue)
+                this.player.playbackRate(this.playbackRate)
 
                 // 自动播放
                 if (this.currentPlay && this.player.paused()) {

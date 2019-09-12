@@ -8,13 +8,14 @@
         @ready="handleReady"
         @play="handleLog"
         @pause="handleLog"
-        @ended="handleLog" />
+        @ended="handleEnded" />
 
     <button @click="statePlay = true" style="width: 100px; height: 20px;">play</button>
     <button @click="statePlay = false">pause</button>
     <p>currentTime: {{ currentTime }}</p>
     <p>duration: {{ duration }}</p>
     <p>progress: {{ progress }}</p>
+    <p>statePlay: {{ statePlay }}</p>
     <button @click="handleChange">change src</button>
     <button @click="currentTime = 1000">change currentTime</button>
 </div>
@@ -29,7 +30,7 @@ export default {
             statePlay: false,
             currentTime: 10,
             progress: 0,
-            src: '',
+            src: 'http://jhsy-img.caizhu.com/lh8gwVTFUoXlN267Evt6pedsIg6y?d=0320',
             duration: 849,
 
             src1: 'http://jhsy-img.caizhu.com/lh8gwVTFUoXlN267Evt6pedsIg6y?d=0320',
@@ -55,6 +56,9 @@ export default {
         },
         handleDurationchange (_duration) {
             this.duration = _duration
+        },
+        handleEnded () {
+            alert('ended')
         },
         handleLog () {
             console.log('log', ...arguments)

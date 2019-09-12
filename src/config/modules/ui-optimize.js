@@ -26,8 +26,8 @@ export default [
     {
         path: 'mp3',
         title: '音频 Mp3',
-        docs: () => import('web-ui/mp3/README.md'),
-        example: () => import('web-ui/mp3/demo/basic.vue'),
+        docs: () => import('web-ui/audio-player/README.md'),
+        example: () => import('web-ui/audio-player/demo/basic.vue'),
     },
     {
         path: 'video',
