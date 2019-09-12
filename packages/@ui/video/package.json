@@ -1,0 +1,15 @@
+{
+  "name": "@huteming/ui-video",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "video.js": "^7.6.0",
+    "videojs-contrib-hls": "^5.15.0"
+  }
+}

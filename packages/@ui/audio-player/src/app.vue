@@ -1,5 +1,5 @@
 <template>
-<div class="tm-player">
+<div class="tm-audio-player">
     <TmRange v-model="styleCurrentTime" :max="duration" @change="handleRangeChange" @moving="handleRangeMoving" v-bind="$attrs" />
 
     <TmAudio

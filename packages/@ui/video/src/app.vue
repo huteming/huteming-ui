@@ -1,137 +1,105 @@
 <template>
-<div class="tm-video">
-    <video
-        ref="video"
-        :src="src"
-        :poster="cover"
-        :preload="preload"
-        :x5-playsinline="inline"
-        :x-webkit-airplay="inline"
-        :webkit-playsinline="inline"
-        :playsinline="inline"
-        :controls="controls"
-        @playing="handlePlaying"
-        @pause="handlePause"
-        @ended="handleEnd">
-        <source :src="src" type="application/x-mpegURL">
-        <source :src="src" type="video/mp4">
-        <source :src="src" type="video/ogg">
-        Your browser does not support the video tag.
-    </video>
-</div>
+<video ref="videoPlayer"
+    class="video-js vjs-fluid tm-video"
+    x5-playsinline
+    x-webkit-airplay
+    webkit-playsinline
+    playsinline>
+</video>
 </template>
 
 <script>
+/**
+ * 实现功能
+ * 1. 同步/异步 src
+ * 2. 监听 play 属性播放/暂停
+ */
+import videojs from 'video.js'
+import 'videojs-contrib-hls'
+import 'video.js/dist/video-js.css'
+import { linkWeixinBridge, isWeixinBrowser } from 'web-util/tool/src/main'
+
 export default {
     name: 'TmVideo',
-
     props: {
-        src: {
-            type: String,
-        },
-        cover: {
-            type: String,
-            default: '',
-        },
-        inline: {
-            type: Boolean,
-            default: true,
-        },
-        preload: {
-            type: String,
-            default: 'auto',
-        },
-        controls: {
-            type: Boolean,
-            default: true,
+        src: String,
+        cover: String,
+        autoplay: Boolean,
+        options: {
+            type: Object,
+            default () {
+                return {}
+            },
         },
     },
 
     data () {
         return {
-            state: 'load', // load, playing, pause, ended
-
-            video: null,
+            player: null,
             ready: false,
         }
     },
 
-    computed: {
-        styles () {
-            return {
-                'background-image': `url(${this.cover})`,
-            }
-        },
-    },
-
     watch: {
-        async src (val) {
-            if (val) {
-                this.ready = false
-                await this.already()
-                this.$refs.video.poster = this.cover
-            }
-        },
-        state (val) {
-            this.$emit('state-change', val)
-        },
     },
 
     mounted () {
-        this.video = this.$refs.video
-        if (this.src) {
-            this.already()
-        }
+        this.setup()
+        this.init(this.src)
+
+        this.$watch('src', this.init)
     },
 
     methods: {
-        toggle () {
-            this.state === 'playing' ? this.pause() : this.play()
+        setup () {
+            const _options = Object.assign({}, {
+                preload: 'auto',
+                muted: false,
+                controls: true,
+                autoplay: this.autoplay,
+            }, this.options)
+            this.player = videojs(this.$refs.videoPlayer, _options, () => {
+                console.log('video setup', this.player)
+            })
+            this.player.on('play', () => {
+                this.$emit('play', this.src, this.player)
+            })
+            this.player.on('pause', () => {
+                this.$emit('pause', this.src, this.player)
+            })
+            this.player.on('ended', () => {
+                this.$emit('ended', this.src, this.player)
+            })
         },
-        async play () {
-            if (!this.video) return
+        init (src) {
+            if (!src) return
 
-            try {
-                await this.video.play()
-                return true
-            } catch (err) {
-                // 这里的播放如果不是交互引起的，会出现异常 Uncaught (in promise) DOMException
-                this.handleError(err)
-                // process.env.NODE_ENV === 'development' && console.error('video play error: ', err)
-                return false
-            }
-        },
-        async pause () {
-            if (!this.video) return
+            this.ready = false
 
-            await this.video.pause()
-        },
-        handlePlaying () {
-            this.state = 'playing'
-        },
-        handlePause () {
-            if (this.video.ended) return
+            const type = src.endsWith('m3u8') ? 'application/x-mpegURL' : 'video/mp4'
+            this.player.src({ type, src })
+            this.player.poster(this.cover)
 
-            console.log('pause')
-            this.state = 'pause'
-            // 外部谨慎监听暂停事件
-            // 在拖动进度条时，也会先触发暂停事件
-        },
-        handleEnd () {
-            console.log('ended')
-            this.state = 'ended'
-        },
-        handleError (err) {
-            this.$emit('error', err)
-        },
-        async already () {
-            if (this.ready) return
-            this.ready = true
+            this.player.ready(async () => {
+                console.log('video ready', this.player)
+                this.ready = true
+                this.$emit('ready', src, this.player)
 
-            await this.$nextTick()
-
-            this.$emit('ready')
+                // 自动播放
+                if (this.autoplay && this.player.paused()) {
+                    if (isWeixinBrowser()) {
+                        await linkWeixinBridge()
+                    }
+                    this.player.play()
+                }
+            })
         },
+    },
+
+    beforeDestroy () {
+        if (this.player) {
+            this.player.dispose()
+        }
     },
 }
 </script>

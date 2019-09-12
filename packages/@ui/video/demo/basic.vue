@@ -1,10 +1,10 @@
 <template>
 <div class="demo">
     <div class="videos1">
-        <TmVideo :src="mapVideo.get(active).src" :cover="mapVideo.get(active).poster" ref="video" />
+        <TmVideo :src="video" :cover="cover" ref="video" @ready="handleReady" />
     </div>
 
-    <tm-divider></tm-divider>
+    <!-- <tm-divider></tm-divider>
 
     <div class="videos2">
         <TmVideo :src="mapVideo.get(active).src" :cover="mapVideo.get(active).poster" ref="video" />
@@ -14,17 +14,17 @@
 
     <div class="videos3">
         <TmVideo :src="mapVideo.get(active).src" :cover="mapVideo.get(active).poster" ref="video" />
-    </div>
+    </div> -->
 
-    <button @click="handleExchange">exchange</button>
-    <button @click="handleToggle">toggle</button>
+    <!-- <button @click="handleExchange">exchange</button> -->
 </div>
 </template>
 
 <script>
 import TmVideo from '../index'
 import video1 from './video1.mp4'
-import video2 from './video2.mp4'
+// import video2 from './video2.mp4'
+import posterVideo from './poster-video.png'
 
 const mapVideo = new Map([
     [
@@ -38,7 +38,7 @@ const mapVideo = new Map([
     [
         'blessing',
         {
-            src: video2,
+            src: 'http://jhsy-img.caizhu.com/lv10CqB9TUpWlK0pEPpCXexK05qL.m3u8',
             poster: 'http://jhsy-img.caizhu.com/jhsy/anniversary/videos/poster-blessing.png',
         }
     ]
@@ -47,6 +47,8 @@ const mapVideo = new Map([
 export default {
     data () {
         return {
+            video: 'http://jhsy-img.caizhu.com/lv10CqB9TUpWlK0pEPpCXexK05qL.m3u8',
+            cover: posterVideo,
             mapVideo,
             active: 'company',
         }
@@ -56,8 +58,8 @@ export default {
         handleExchange () {
             this.active = this.active === 'company' ? 'blessing' : 'company'
         },
-        handleToggle () {
-            this.$refs.video.toggle()
+        handleReady () {
+            console.log(...arguments)
         },
     },
 
