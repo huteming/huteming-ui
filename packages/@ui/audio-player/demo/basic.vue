@@ -41,6 +41,11 @@
             <TmIcon icon="playlist_play" />
         </div>
     </div>
+
+    <!-- 原生测试 -->
+    <!-- <button @click="$refs.audio.play()">play</button>
+    <button @click="$refs.audio.playbackRate = 2">set</button>
+    <audio src="http://jhsy-img.caizhu.com/lvisA64GE9I1anin2a3DPeab9Uza.m3u8" ref="audio"></audio> -->
 </div>
 </template>
 
@@ -53,13 +58,13 @@ export default {
         return {
             asyncLists: [
                 {
+                    duration: 852,
+                    src: 'http://jhsy-img.caizhu.com/lvisA64GE9I1anin2a3DPeab9Uza.m3u8',
+                },
+                {
                     duration: 16.728,
                     src: 'http://jhsy-img.caizhu.com/Fiw-_Pvh52t0LFNpjXKIsJ8XzUrz?d=2',
                     // src: 'http://jhsy-img.caizhu.com/',
-                },
-                {
-                    duration: 852,
-                    src: 'http://jhsy-img.caizhu.com/lvisA64GE9I1anin2a3DPeab9Uza.m3u8',
                 },
                 // {
                 //     duration: 852,

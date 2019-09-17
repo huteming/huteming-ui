@@ -89,6 +89,10 @@ export default {
     },
 
     methods: {
+        reload () {
+            if (!this.$refs.audio) return
+            this.$refs.audio.reload()
+        },
         next () {
             const index = this.playList.findIndex(item => item.src === this.currentSrc)
             if (index >= this.playList.length - 1) {
@@ -120,12 +124,8 @@ export default {
                 playRate = ranges[newIndex]
             }
 
-            this.set('playbackRate', playRate)
+            this.extra['playbackRate'] = playRate
             return playRate
-        },
-        set (key, value) {
-            this.extra[key] = value
-            return value
         },
         // -------------------------------------- 分隔线 --------------------------------------
         async handleEnded () {

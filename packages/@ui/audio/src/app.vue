@@ -11,6 +11,7 @@
  */
 import videojs from 'video.js'
 import { linkWeixinBridge, isWeixinBrowser } from 'web-util/tool/src/main'
+const PLAYBACK_RATE = [0.5, 1, 1.5, 2]
 
 export default {
     name: 'TmAudio',
@@ -82,14 +83,22 @@ export default {
     },
 
     methods: {
+        reload () {
+            if (!this.ready) return
+            this.player.load()
+            this.player.currentTime(0)
+            if (this.currentPlay) {
+                this.player.play()
+            }
+        },
         setup () {
             const _options = Object.assign({}, {
                 preload: 'auto',
                 height: 0,
                 muted: false,
                 controls: true,
-                autoplay: this.currentPlay,
-                playbackRates: [0.5, 1, 1.5, 2],
+                autoplay: false,
+                playbackRates: PLAYBACK_RATE,
                 loadingSpinner: false,
                 children: {},
             }, this.options)
@@ -135,25 +144,40 @@ export default {
             this.canplay = false
 
             const type = src.endsWith('m3u8') ? 'application/x-mpegURL' : 'audio/mp3'
-            this.player.src({ type, src })
+            const actualInit = () => {
+                this.player.src({ type, src })
 
-            this.player.ready(async () => {
-                console.log('audio ready')
-                this.ready = true
-                this.$emit('ready', src, this.player)
-                // ios 音频没有就绪的时候，设置播放位置是无效的（readyState < 3）
-                // 改为在 canplay 事件中设置进度
-                // this.player.currentTime(this.currentValue)
-                this.player.playbackRate(this.playbackRate)
+                this.player.ready(async () => {
+                    console.log('audio ready')
+                    this.ready = true
+                    this.$emit('ready', src, this.player)
+                    // ios 音频没有就绪的时候，设置播放位置是无效的（readyState < 3）
+                    // 改为在 canplay 事件中设置进度
+                    // this.player.currentTime(this.currentValue)
+                    this.player.playbackRate(this.playbackRate)
 
-                // 自动播放
-                if (this.currentPlay && this.player.paused()) {
-                    if (isWeixinBrowser()) {
-                        await linkWeixinBridge()
+                    // 自动播放
+                    if (this.currentPlay && this.player.paused()) {
+                        if (isWeixinBrowser()) {
+                            await linkWeixinBridge()
+                        }
+                        this.player.play()
                     }
-                    this.player.play()
-                }
-            })
+                })
+            }
+
+            // fix: m3u8 格式自动播放异常
+            // 等一个mp3文件 ready 之后设置真实地址
+            if (type === 'application/x-mpegURL') {
+                this.player.src({
+                    type: 'audio/mp3',
+                    src: 'http://jhsy-img.caizhu.com/Fiw-_Pvh52t0LFNpjXKIsJ8XzUrz',
+                })
+
+                this.player.ready(actualInit)
+            } else {
+                actualInit()
+            }
         },
     },
 
