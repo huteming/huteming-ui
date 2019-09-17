@@ -15,7 +15,8 @@
             @timeupdate="handleChange"
             @ready="handleInit"
             @error-prev="handleToast('没有上一个的提示')"
-            @error-next="handleToast('没有下一个的提示')" />
+            @error-next="handleToast('没有下一个的提示')"
+            @error="handleError" />
 
         <div class="audio-footer">
             <div class="audio-current">{{ currentTime | time }}</div>
@@ -54,6 +55,7 @@ export default {
                 {
                     duration: 16.728,
                     src: 'http://jhsy-img.caizhu.com/Fiw-_Pvh52t0LFNpjXKIsJ8XzUrz?d=2',
+                    // src: 'http://jhsy-img.caizhu.com/',
                 },
                 {
                     duration: 852,

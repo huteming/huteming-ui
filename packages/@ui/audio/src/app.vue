@@ -123,6 +123,10 @@ export default {
                 this.$emit('input', currentTime)
                 this.$emit('timeupdate', currentTime)
             })
+            this.player.on('error', (event) => {
+                console.error('audio error', event)
+                this.$emit('error', `音频播放异常: ${this.src}`)
+            })
         },
         init (src) {
             if (!src) return

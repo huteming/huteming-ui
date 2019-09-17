@@ -5,7 +5,9 @@
         @error-prev="handleToast('没有上一个的提示')" @error-next="handleToast('没有下一个的提示')"
         @ended="handleToast('播放结束')"
         :continuous="false"
-        :autoplay="true" />
+        :autoplay="false"
+        @click="handleReady"
+        @error="handleReady" />
 
     <TmWhiteSpace />
 
@@ -43,13 +45,17 @@ export default {
     data () {
         return {
             sourcesSync: [
-                {
-                    src: 'http://jhsy-img.caizhu.com/lv10CqB9TUpWlK0pEPpCXexK05qL.m3u8',
-                    cover: posterVideo,
-                },
+                // {
+                //     src: 'http://jhsy-img.caizhu.com',
+                //     cover: 'http://jhsy-img.caizhu.com/jhsy/anniversary/videos/poster-company.png',
+                // },
                 {
                     src: 'http://jhsy-img.caizhu.com/video1.mp4',
                     cover: 'http://jhsy-img.caizhu.com/jhsy/anniversary/videos/poster-company.png',
+                },
+                {
+                    src: 'http://jhsy-img.caizhu.com/lv10CqB9TUpWlK0pEPpCXexK05qL.m3u8',
+                    cover: posterVideo,
                 },
                 {
                     src: 'http://jhsy-img.caizhu.com/video2.mp4',

@@ -10,7 +10,8 @@
         :playback-rate="extra.playbackRate"
         @timeupdate="handleMediaChange"
         @ready="handleReady"
-        @ended="handleEnded" />
+        @ended="handleEnded"
+        @error="handleError" />
 </div>
 </template>
 
@@ -32,7 +33,7 @@ export default {
         },
         continuous: {
             type: Boolean,
-            default: true,
+            default: false,
         },
     },
 
@@ -169,6 +170,9 @@ export default {
             this.styleCurrentTime = currentTime
             this.currentSrc = src
             // await this.$nextTick()
+        },
+        handleError (err) {
+            this.$emit('error', err)
         },
     },
 

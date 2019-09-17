@@ -127,26 +127,28 @@ export default {
                 options.fluid = false
             }
             this.player = videojs(this.$refs.videoPlayer, options, () => {
+                console.log('video setup', this.player)
                 this.initButtonsStart()
                 this.initButtonsEnd()
-
-                console.log('video setup', this.player)
             })
             this.player.on('play', () => {
-                this.player.removeClass('ready')
-                this.$emit('play', this.src, this.player)
-
                 console.log('video play')
+                this.player.removeClass('ready')
+                this.$emit('play', this.playList[this.currentIndex], this.player)
             })
             this.player.on('pause', () => {
-                this.$emit('pause', this.src, this.player)
-
                 console.log('video pause')
+                this.$emit('pause', this.playList[this.currentIndex], this.player)
             })
             this.player.on('ended', () => {
                 if (this.continuous && this.next()) return
 
-                this.$emit('ended', this.src, this.player)
+                this.$emit('ended', this.playList[this.currentIndex], this.player)
+            })
+            this.player.on('error', (event) => {
+                console.log('video error', event)
+                const src = this.playList[this.currentIndex].src
+                this.$emit('error', `视频播放异常: ${src}`)
             })
         },
         updateSource (index = 0, expectToPlay) {
@@ -169,7 +171,7 @@ export default {
                 console.log('video ready', this.player)
                 this.ready = true
                 this.player.addClass('ready')
-                this.$emit('ready', src, this.player)
+                this.$emit('ready', this.playList[index], this.player)
 
                 // 自动播放
                 // fix: 安卓自动播放会被自动暂停，导致封面失效
@@ -194,7 +196,10 @@ export default {
                     })
                     const domButton = createButton({
                         icon: 'play',
-                        handleClick: self.play,
+                        handleClick () {
+                            self.play()
+                            self.$emit('click', 'play')
+                        },
                         classes: 'circle',
                     })
                     domContainer.appendChild(domButton)
@@ -220,12 +225,16 @@ export default {
                     const domPrev = createButton({
                         icon: 'skip_previous',
                         text: self.prevText,
-                        handleClick: self.prev,
+                        handleClick () {
+                            self.prev()
+                            self.$emit('click', 'prev')
+                        },
                     })
                     const domReplay = createButton({
                         icon: 'replay',
                         text: self.replayText,
                         handleClick () {
+                            self.$emit('click', 'replay')
                             if (self.continuous && self.playList.length > 1) {
                                 self.updateSource(0, true)
                                 return
@@ -237,7 +246,10 @@ export default {
                     const domNext = createButton({
                         icon: 'skip_next',
                         text: self.nextText,
-                        handleClick: self.next,
+                        handleClick () {
+                            self.next()
+                            self.$emit('click', 'next')
+                        },
                     })
                     domContainer.appendChild(domPrev)
                     domContainer.appendChild(domReplay)
@@ -249,11 +261,6 @@ export default {
             const myButton = new ButtonsEnd(this.player)
             this.player.addChild(myButton)
             this.controlsEnd = myButton
-        },
-        hiddenControlBar () {
-            const controlBar = this.player.getChild('ControlBar')
-            console.log('controlBar', controlBar && controlBar.el())
-            controlBar.addClass('vjs-hidden')
         },
     },
 
