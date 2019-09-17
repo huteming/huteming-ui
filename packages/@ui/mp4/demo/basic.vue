@@ -19,8 +19,6 @@
 </template>
 
 <script>
-import video1 from './video1.mp4'
-import video2 from './video2.mp4'
 import TmMp4 from '../index'
 import posterVideo from './poster-video.png'
 import posterVideo2 from './poster-video2.png'
@@ -38,11 +36,11 @@ export default {
                     // src: 'http://jhsy-img.caizhu.com/lv10CqB9TUpWlK0pEPpCXexK05qL.m3u8',
                     // src: 'http://jhsy-img.caizhu.com/li7AxWsjYdihZZdvAIi1pdxKYwsf.m3u8',
                     // src: 'http://jhsy-img.caizhu.com/lsUS5_nTzBnGcYm39rlNrwGCrHHN.m3u8',
-                    src: video1,
+                    src: 'http://jhsy-img.caizhu.com/video1.mp4',
                     cover: posterVideo,
                 },
                 {
-                    src: video2,
+                    src: 'http://jhsy-img.caizhu.com/video2.mp4',
                     cover: posterVideo2,
                 },
             ],

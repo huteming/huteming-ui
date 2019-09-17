@@ -115,14 +115,6 @@ describe('ui entry', () => {
             lib: 'tm-notice-bar',
         },
         {
-            name: 'TmMp3',
-            lib: 'tm-mp3',
-        },
-        {
-            name: 'TmMp4',
-            lib: 'tm-mp4',
-        },
-        {
             name: 'TmTransitionCollapse',
             lib: 'tm-transition-collapse',
         },
@@ -137,6 +129,14 @@ describe('ui entry', () => {
         {
             name: 'Ripple',
             lib: 'ripple',
+        },
+        {
+            name: 'TmAudioPlayer',
+            lib: 'tm-audio-player',
+        },
+        {
+            name: 'TmVideoPlayer',
+            lib: 'tm-video-player',
         },
     ]
 

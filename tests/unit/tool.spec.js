@@ -11,6 +11,22 @@ describe('tool', () => {
         sinon.restore()
     })
 
+    describe('isAndroid', () => {
+        it('移动端', () => {
+            sinon.replaceGetter(window.navigator, 'userAgent', () => {
+                return 'Mozilla/5.0 (Linux; Android 6.0.1; vivo Y55 Build/MMB29M; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/66.0.3359.126'
+            })
+            assert.strictEqual(tool.isAndroid(), true)
+        })
+
+        it('终端', () => {
+            sinon.replaceGetter(window.navigator, 'userAgent', () => {
+                return 'Mozilla/5.0 (Linux; Adr 6.0.1; vivo Y55 Build/MMB29M; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/66.0.3359.126'
+            })
+            assert.strictEqual(tool.isAndroid(), true)
+        })
+    })
+
     it('isWeixinBrowser', () => {
         sinon.replaceGetter(window.navigator, 'userAgent', () => {
             return 'AppleWebKit/537.36 (KHTML, like Gecko) Mobile Safari/537.36 MicroMessenger/7.0.4.1420(0x2700043B)'

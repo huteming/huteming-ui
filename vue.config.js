@@ -53,7 +53,7 @@ module.exports = {
     },
 
     css: {
-        // extract: process.env.BUILD_MODE !== 'lib',
+        extract: process.env.BUILD_MODE !== 'lib',
 
         loaderOptions: {
             sass: {

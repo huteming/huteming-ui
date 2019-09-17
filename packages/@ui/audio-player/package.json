@@ -1,0 +1,15 @@
+{
+  "name": "@huteming/ui-audio-player",
+  "version": "1.0.0",
+  "description": "",
+  "main": "dist/audio-player.common.js",
+  "dependencies": {
+    "@huteming/ui-audio": "^1.0.2",
+    "@huteming/ui-range": "^1.1.1"
+  },
+  "scripts": {
+    "prepublishOnly": "node ../../../scripts/prepublishOnly.js audioPlayer"
+  },
+  "author": "",
+  "license": "ISC"
+}

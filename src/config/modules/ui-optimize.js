@@ -38,7 +38,7 @@ export default [
     {
         path: 'mp4',
         title: '视频 video',
-        docs: () => import('web-ui/mp4/README.md'),
-        example: () => import('web-ui/mp4/demo/basic.vue'),
+        docs: () => import('web-ui/video-player/README.md'),
+        example: () => import('web-ui/video-player/demo/basic.vue'),
     },
 ]

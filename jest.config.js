@@ -43,6 +43,8 @@ module.exports = {
     '!packages/@ui/video/src/*.{js,vue}',
     '!packages/@ui/mp3/src/*.{js,vue}',
     '!packages/@ui/mp4/src/*.{js,vue}',
+    '!packages/@ui/audio-player/src/*.{js,vue}',
+    '!packages/@ui/video-player/src/*.{js,vue}',
     '!packages/@ui/ripple/src/*.{js,vue}',
   ],
   coverageReporters: ['html', 'text-summary']

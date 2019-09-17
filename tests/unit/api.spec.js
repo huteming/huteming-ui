@@ -10,6 +10,7 @@ const href = `${origin}${link}`
 const title = 'title'
 let post
 let jsonp
+let find
 
 describe('api', () => {
     let originWindow
@@ -31,6 +32,7 @@ describe('api', () => {
         }
 
         post = sinon.fake()
+        find = sinon.fake()
         jsonp = sinon.fake.resolves({ result: 'success' })
 
         sinon.replace(
@@ -42,6 +44,11 @@ describe('api', () => {
             api.request,
             'post',
             post
+        )
+        sinon.replace(
+            api.request,
+            'find',
+            find
         )
     })
 
@@ -143,7 +150,7 @@ describe('api', () => {
                 url: 'url'
             })
 
-            const spyCall = post.getCall(0)
+            const spyCall = find.getCall(0)
 
             assert.strictEqual(spyCall.args[0], '/api/user/shareParam')
         })
@@ -155,7 +162,7 @@ describe('api', () => {
             }
             api.getWxConfig(params)
 
-            const spyCall = post.getCall(0)
+            const spyCall = find.getCall(0)
 
             assert.deepStrictEqual(spyCall.args[1], params)
         })
@@ -163,7 +170,7 @@ describe('api', () => {
         it('默认参数', async () => {
             api.getWxConfig()
 
-            const spyCall = post.getCall(0)
+            const spyCall = find.getCall(0)
 
             assert.deepStrictEqual(spyCall.args[1], {
                 flag: 'test_tommy',

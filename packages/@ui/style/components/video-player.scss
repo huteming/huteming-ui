@@ -1,0 +1,66 @@
+.tm-video-player {
+    &__icon {
+        order: 1;
+        font-size: rem(80);
+        color: #fff;
+    }
+
+    &__text {
+        order: 2;
+        font-size: rem(24);
+        line-height: rem(34);
+        color: rgba(255, 255, 255, 1);
+    }
+
+    &__text + &__icon {
+        font-size: rem(50);
+    }
+
+    &-controls {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+
+        &.circle {
+            width: rem(112);
+            height: rem(112);
+            background: rgba(255, 255, 255, .3);
+            border-radius: 50%;
+            overflow: hidden;
+        }
+    }
+
+    &-container {
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 0;
+        display: flex;
+        align-items: center;
+        justify-content: space-around;
+        font-weight: bold;
+        overflow: hidden;
+        z-index: 3;
+
+        &.layer {
+            background: rgba(0, 0, 0, 0.5),
+        }
+    }
+
+    &.vjs-ended .ends {
+        // display: block;
+        height: 100%;
+    }
+
+    &.ready .starts {
+        // display: block;
+        height: 100%;
+    }
+
+    // 结束时，不显示控制栏
+    &.vjs-ended .vjs-control-bar {
+        display: none !important;
+    }
+}

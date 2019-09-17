@@ -10,8 +10,6 @@
  * 3. 监听 value 属性设置播放进度
  */
 import videojs from 'video.js'
-import 'videojs-contrib-hls'
-import 'video.js/dist/video-js.css'
 import { linkWeixinBridge, isWeixinBrowser } from 'web-util/tool/src/main'
 
 export default {
@@ -92,17 +90,18 @@ export default {
                 controls: true,
                 autoplay: this.currentPlay,
                 playbackRates: [0.5, 1, 1.5, 2],
-                children: {
-                    loadingSpinner: false,
-                },
+                loadingSpinner: false,
+                children: {},
             }, this.options)
             this.player = videojs(this.$refs.videoPlayer, _options, () => {
                 console.log('audio setup')
             })
             this.player.on('play', () => {
+                console.log('audio play')
                 this.$emit('play', this.src, this.player)
             })
             this.player.on('pause', () => {
+                console.log('audio pause')
                 this.$emit('pause', this.src, this.player)
             })
             this.player.on('ended', () => {
@@ -161,3 +160,7 @@ export default {
     },
 }
 </script>
+
+<style lang="scss">
+@import '~video.js/dist/video-js.css';
+</style>
