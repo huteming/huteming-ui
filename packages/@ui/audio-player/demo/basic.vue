@@ -126,8 +126,8 @@ export default {
             this.ready = true
         },
         handleRate () {
-            this.playRate = this.$refs.mp3.setRate()
-            // this.$refs.mp3.reload()
+            // this.playRate = this.$refs.mp3.setRate()
+            this.$refs.mp3.reload()
         },
         startRotate () {
             const requestAnimationFrame = window.requestAnimationFrame || window.mozRequestAnimationFrame ||

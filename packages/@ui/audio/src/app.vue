@@ -85,11 +85,12 @@ export default {
     methods: {
         reload () {
             if (!this.ready) return
-            this.player.load()
-            this.player.currentTime(0)
-            if (this.currentPlay) {
-                this.player.play()
-            }
+
+            this.player.pause()
+            this.init(this.src)
+            this.$once('ready', () => {
+                this.player.currentTime(0)
+            })
         },
         setup () {
             const _options = Object.assign({}, {
