@@ -89,7 +89,7 @@ export default {
             this.player.pause()
             this.init(this.src)
             this.$once('ready', () => {
-                this.player.currentTime(0)
+                this.currentValue = 0
             })
         },
         setup () {
@@ -141,11 +141,10 @@ export default {
         init (src) {
             if (!src) return
 
-            this.ready = false
-            this.canplay = false
-
             const type = src.endsWith('m3u8') ? 'application/x-mpegURL' : 'audio/mp3'
             const actualInit = () => {
+                this.ready = false
+                this.canplay = false
                 this.player.src({ type, src })
 
                 this.player.ready(async () => {
@@ -167,9 +166,9 @@ export default {
                 })
             }
 
-            // fix: m3u8 格式自动播放异常
+            // fix: 第一次自动播放 m3u8 格式异常
             // 等一个mp3文件 ready 之后设置真实地址
-            if (type === 'application/x-mpegURL') {
+            if (!this.ready && type === 'application/x-mpegURL') {
                 this.player.src({
                     type: 'audio/mp3',
                     src: 'http://jhsy-img.caizhu.com/Fiw-_Pvh52t0LFNpjXKIsJ8XzUrz',
