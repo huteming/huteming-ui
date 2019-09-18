@@ -1,6 +1,6 @@
 {
   "name": "@huteming/ui",
-  "version": "1.7.3",
+  "version": "1.7.4",
   "description": "ui 组件的统一入口",
   "main": "dist/huteming-ui.common.js",
   "scripts": {
@@ -10,7 +10,7 @@
   "license": "ISC",
   "dependencies": {
     "@huteming/ui-anchor": "^1.4.6",
-    "@huteming/ui-audio-player": "^1.1.1",
+    "@huteming/ui-audio-player": "^1.1.2",
     "@huteming/ui-btn-pay": "^1.5.1",
     "@huteming/ui-carousel": "^1.5.2",
     "@huteming/ui-cell": "^1.2.1",
