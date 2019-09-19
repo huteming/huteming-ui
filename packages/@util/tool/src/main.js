@@ -27,6 +27,12 @@ export function linkWeixinBridge () {
     })
 }
 
+// 是否IOS终端
+export function isIOS () {
+    const userAgent = window.navigator.userAgent
+    return !!userAgent.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/)
+}
+
 // 是否安卓终端
 export function isAndroid () {
     const userAgent = window.navigator.userAgent

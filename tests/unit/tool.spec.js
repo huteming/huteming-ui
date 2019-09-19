@@ -11,6 +11,13 @@ describe('tool', () => {
         sinon.restore()
     })
 
+    it('isIOS', () => {
+        sinon.replaceGetter(window.navigator, 'userAgent', () => {
+            return 'Mozilla/5.0 (iPhone; CPU iPhone OS 12_3_1 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Mobile/15E148 MicroMessenger/6.7.4(0x1607042c) NetType/4G Language/zh_CN'
+        })
+        assert.strictEqual(tool.isIOS(), true)
+    })
+
     describe('isAndroid', () => {
         it('移动端', () => {
             sinon.replaceGetter(window.navigator, 'userAgent', () => {
