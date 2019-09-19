@@ -141,7 +141,8 @@ export default {
         init (src) {
             if (!src) return
 
-            const type = src.endsWith('m3u8') ? 'application/x-mpegURL' : 'audio/mp3'
+            const isM3u8 = src.split('?')[0].endsWith('m3u8')
+            const type = isM3u8 ? 'application/x-mpegURL' : 'audio/mp3'
             const actualInit = () => {
                 this.ready = false
                 this.canplay = false

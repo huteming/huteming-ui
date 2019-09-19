@@ -50,12 +50,12 @@ export default {
                 //     cover: 'http://jhsy-img.caizhu.com/jhsy/anniversary/videos/poster-company.png',
                 // },
                 {
-                    src: 'http://jhsy-img.caizhu.com/video1.mp4',
-                    cover: 'http://jhsy-img.caizhu.com/jhsy/anniversary/videos/poster-company.png',
+                    src: 'http://jhsy-img.caizhu.com/lv10CqB9TUpWlK0pEPpCXexK05qL.m3u8?helloworld',
+                    cover: posterVideo,
                 },
                 {
-                    src: 'http://jhsy-img.caizhu.com/lv10CqB9TUpWlK0pEPpCXexK05qL.m3u8',
-                    cover: posterVideo,
+                    src: 'http://jhsy-img.caizhu.com/video1.mp4',
+                    cover: 'http://jhsy-img.caizhu.com/jhsy/anniversary/videos/poster-company.png',
                 },
                 {
                     src: 'http://jhsy-img.caizhu.com/video2.mp4',

@@ -59,7 +59,7 @@ export default {
             asyncLists: [
                 {
                     duration: 852,
-                    src: 'http://jhsy-img.caizhu.com/lvisA64GE9I1anin2a3DPeab9Uza.m3u8',
+                    src: 'http://jhsy-img.caizhu.com/lvisA64GE9I1anin2a3DPeab9Uza.m3u8?hello',
                 },
                 {
                     duration: 16.728,
