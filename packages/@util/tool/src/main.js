@@ -27,6 +27,10 @@ export function linkWeixinBridge () {
     })
 }
 
+export async function sleep (time) {
+    await new Promise((resolve) => setTimeout(resolve, time))
+}
+
 // 是否IOS终端
 export function isIOS () {
     const userAgent = window.navigator.userAgent
@@ -134,23 +138,34 @@ export function parseQuery (target) {
     return ''
 }
 
-function loadImageSingle (url, useCache) {
+function loadImageSingle (url, useCache, retry = 1) {
     return new Promise((resolve, reject) => {
+        let _url = url
         const img = new Image()
         img.setAttribute('crossOrigin', 'anonymous')
 
-        if (!/^data:/i.test(url)) {
-            const separator = url.indexOf('?') > -1 ? '&' : '?'
-            url = `${url}${separator}timestamp=${useCache ? IMG_SUFFIX : Date.now() * Math.random()}`
+        if (!/^data:/i.test(_url)) {
+            const separator = _url.indexOf('?') > -1 ? '&' : '?'
+            _url = `${_url}${separator}timestamp=${useCache ? IMG_SUFFIX : Date.now() * Math.random()}`
         }
 
-        img.onload = function () {
+        img.onload = () => {
             resolve(img)
         }
-        img.onerror = function () {
-            reject(new Error(`渲染地址错误;实际:${url}`))
+        img.onerror = async () => {
+            if (retry <= 0) {
+                reject(new Error(`图片加载失败: ${_url}`))
+                return
+            }
+            try {
+                await sleep(1000)
+                const res = await loadImageSingle(url, useCache, retry - 1)
+                resolve(res)
+            } catch (err) {
+                reject(err)
+            }
         }
 
-        img.src = url
+        img.src = _url
     })
 }

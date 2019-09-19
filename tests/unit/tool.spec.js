@@ -1,14 +1,16 @@
 import assert from 'assert'
 import sinon from 'sinon'
 import * as tool from 'web-util/tool/src/main'
-import { imgURI } from '../constant'
-const LOAD_FAILURE_SRC = 'LOAD_FAILURE_SRC'
-const LOAD_SUCCESS_SRC = 'LOAD_SUCCESS_SRC'
-const IMG_SUFFIX = 'tommy'
 
 describe('tool', () => {
     afterEach(() => {
         sinon.restore()
+    })
+
+    it('sleep', async () => {
+        const spy = sinon.spy(global, 'setTimeout')
+        tool.sleep(10)
+        assert.strictEqual(spy.getCall(0).args[1], 10)
     })
 
     it('isIOS', () => {
@@ -161,100 +163,6 @@ describe('tool', () => {
         it('返回数字类型', () => {
             const res = tool.tofixed(111, '2', true)
             assert.strictEqual(typeof res, 'number')
-        })
-    })
-
-    describe('loadImages', () => {
-        beforeAll(() => {
-            Object.defineProperty(global.Image.prototype, 'src', {
-                set (src) {
-                    if (src.indexOf(LOAD_FAILURE_SRC) > -1) {
-                        setTimeout(() => this.onerror(new Error('mocked error')))
-                    } else if (src.indexOf(LOAD_SUCCESS_SRC) > -1 || src === imgURI) {
-                        setTimeout(() => this.onload())
-                    }
-                    this.setAttribute('src', src)
-                },
-                get () {
-                    return this.getAttribute('src')
-                },
-            })
-        })
-
-        it('base64位字符串', async () => {
-            const img = await tool.loadImages(imgURI)
-            const src = img.getAttribute('src')
-
-            assert.strictEqual(src, imgURI)
-        })
-
-        it('设置跨域属性', async () => {
-            const img = await tool.loadImages(LOAD_SUCCESS_SRC)
-            assert.strictEqual(img.getAttribute('crossOrigin'), 'anonymous')
-        })
-
-        it('添加时间戳查询参数', async () => {
-            const img = await tool.loadImages(LOAD_SUCCESS_SRC)
-            const src = img.getAttribute('src')
-            assert.strictEqual(src, `${LOAD_SUCCESS_SRC}?timestamp=${IMG_SUFFIX}`)
-        })
-
-        it('默认使用缓存', async () => {
-            const img1 = await tool.loadImages(LOAD_SUCCESS_SRC)
-            const src1 = img1.getAttribute('src')
-
-            const img2 = await tool.loadImages(LOAD_SUCCESS_SRC)
-            const src2 = img2.getAttribute('src')
-
-            assert.strictEqual(src1, src2)
-        })
-
-        it('使用缓存', async () => {
-            const img1 = await tool.loadImages(LOAD_SUCCESS_SRC, true)
-            const src1 = img1.getAttribute('src')
-
-            const img2 = await tool.loadImages(LOAD_SUCCESS_SRC, true)
-            const src2 = img2.getAttribute('src')
-
-            assert.strictEqual(src1, src2)
-        })
-
-        it('禁止缓存', async () => {
-            const img1 = await tool.loadImages(LOAD_SUCCESS_SRC, false)
-            const src1 = img1.getAttribute('src')
-
-            const img2 = await tool.loadImages(LOAD_SUCCESS_SRC, false)
-            const src2 = img2.getAttribute('src')
-
-            assert.ok(src1 !== src2)
-        })
-
-        it('查询参数分隔符', async () => {
-            const img = await tool.loadImages(LOAD_SUCCESS_SRC + '?hello=hello', false)
-            const src = img.getAttribute('src')
-            assert.ok(src.startsWith(`${LOAD_SUCCESS_SRC}?hello=hello&timestamp=`))
-        })
-
-        it('加载一张图片', async () => {
-            const img = await tool.loadImages(LOAD_SUCCESS_SRC)
-            assert.ok(img instanceof HTMLImageElement)
-        })
-
-        it('加载多张图片', async () => {
-            const [img1, img2] = await tool.loadImages([LOAD_SUCCESS_SRC, LOAD_SUCCESS_SRC])
-            assert.ok(img1 instanceof HTMLImageElement)
-            assert.ok(img2 instanceof HTMLImageElement)
-        })
-
-        it('异常处理', done => {
-            tool.loadImages(LOAD_FAILURE_SRC)
-                .then(() => {
-                    done(new Error('非期望异常'))
-                })
-                .catch(err => {
-                    assert.strictEqual(err.message, `渲染地址错误;实际:${LOAD_FAILURE_SRC}?timestamp=${IMG_SUFFIX}`)
-                    done()
-                })
         })
     })
 
