@@ -10,6 +10,7 @@
     "test:unit": "vue-cli-service test:unit",
     "test:watch": "vue-cli-service test:unit --watch",
     "cover": "vue-cli-service test:unit --coverage",
+    "reset": "node ./scripts/reset",
     "# lerna 钩子指令 #": "",
     "del prepublishOnly": "npm run test:unit",
     "prepublish": "node ./scripts/build-scss-entry",
