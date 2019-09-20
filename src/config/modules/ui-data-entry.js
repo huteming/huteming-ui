@@ -11,4 +11,10 @@ export default [
         docs: () => import('web-ui/image-picker/README.md'),
         example: () => import('web-ui/image-picker/demo/basic.vue'),
     },
+    {
+        path: 'switch',
+        title: '滑动开关 Switch',
+        docs: () => import('web-ui/switch/README.md'),
+        example: () => import('web-ui/switch/demo/basic.vue'),
+    },
 ]

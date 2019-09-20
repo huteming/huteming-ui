@@ -138,6 +138,10 @@ describe('ui entry', () => {
             name: 'TmVideoPlayer',
             lib: 'tm-video-player',
         },
+        {
+            name: 'TmSwitch',
+            lib: 'tm-switch',
+        },
     ]
 
     names.forEach(({ name, lib, child, noInstall }) => {

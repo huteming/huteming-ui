@@ -17,6 +17,7 @@
     "ui": "vue-cli-service build --target lib --report --no-clean --name huteming-ui --dest packages/ui/dist --report packages/ui/index.js",
     "util": "vue-cli-service build --target lib --report --name huteming-util --dest packages/util/dist --report packages/util/index.js",
     "theme": "cross-env BUILD_MODE=lib vue-cli-service build --target lib --report --name index --dest packages/ui/lib/theme packages/@ui/theme/index.js",
+    "switch": "cross-env BUILD_MODE=lib vue-cli-service build --target lib --report --name switch --dest packages/@ui/switch/dist packages/@ui/switch/index.js",
     "videoPlayer": "cross-env BUILD_MODE=lib vue-cli-service build --target lib --report --name video-player --dest packages/@ui/video-player/dist packages/@ui/video-player/index.js",
     "audioPlayer": "cross-env BUILD_MODE=lib vue-cli-service build --target lib --report --name audio-player --dest packages/@ui/audio-player/dist packages/@ui/audio-player/index.js",
     "audio": "cross-env BUILD_MODE=lib vue-cli-service build --target lib --report --name audio --dest packages/@ui/audio/dist packages/@ui/audio/index.js",
