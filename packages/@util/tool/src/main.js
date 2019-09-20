@@ -27,6 +27,32 @@ export function linkWeixinBridge () {
     })
 }
 
+export function retry (fn, count = 1) {
+    return async function handler () {
+        try {
+            const res = await fn.apply(this, arguments)
+            return res
+        } catch (err) {
+            if (count <= 0) {
+                throw err
+            }
+            count--
+            try {
+                const res = await handler.apply(this, arguments)
+                return res
+            } catch (err) {
+                throw err
+            }
+        }
+    }    
+}
+
+// 判断 webview 是 WKWebview, 只在微信浏览器中有效
+// https://developers.weixin.qq.com/doc/offiaccount/OA_Web_Apps/iOS_WKWebview.html
+export function isWKWebview () {
+    return !!window.__wxjs_is_wkwebview
+}
+
 export async function sleep (time) {
     await new Promise((resolve) => setTimeout(resolve, time))
 }

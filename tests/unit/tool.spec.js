@@ -7,6 +7,52 @@ describe('tool', () => {
         sinon.restore()
     })
 
+    describe('retry', () => {
+        it('同步函数', async done => {
+            const mockErr = new Error('not apple pie')
+            const mockFn = sinon.fake.throws(mockErr)
+            const mockContext = {}
+            const mockArgs = ['a', 'b', 'c']
+            const handle = tool.retry(mockFn, 1).bind(mockContext)
+            try {
+                await handle(...mockArgs)
+                done(new Error('期望异常'))
+            } catch (err) {
+                assert.strictEqual(mockFn.callCount, 2)
+                const call0 = mockFn.getCall(0)
+                const call1 = mockFn.getCall(1)
+                assert.ok(call0.calledWithExactly(...mockArgs))
+                assert.ok(call0.calledOn(mockContext))
+                assert.ok(call1.calledWithExactly(...mockArgs))
+                assert.ok(call1.calledOn(mockContext))
+                assert.strictEqual(err, mockErr)
+                done()
+            }
+        })
+
+        it('异步函数', async done => {
+            const mockErr = new Error('not apple pie')
+            const mockFn = sinon.fake.rejects(mockErr)
+            const mockContext = {}
+            const mockArgs = ['a', 'b', 'c']
+            const handle = tool.retry(mockFn, 1).bind(mockContext)
+            try {
+                await handle(...mockArgs)
+                done(new Error('期望异常'))
+            } catch (err) {
+                assert.strictEqual(mockFn.callCount, 2)
+                const call0 = mockFn.getCall(0)
+                const call1 = mockFn.getCall(1)
+                assert.ok(call0.calledWithExactly(...mockArgs))
+                assert.ok(call0.calledOn(mockContext))
+                assert.ok(call1.calledWithExactly(...mockArgs))
+                assert.ok(call1.calledOn(mockContext))
+                assert.strictEqual(err, mockErr)
+                done()
+            }
+        })
+    })
+
     it('sleep', async () => {
         const spy = sinon.spy(global, 'setTimeout')
         tool.sleep(10)
