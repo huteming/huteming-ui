@@ -142,6 +142,10 @@ describe('ui entry', () => {
             name: 'TmSwitch',
             lib: 'tm-switch',
         },
+        {
+            name: 'TmToolbar',
+            lib: 'tm-toolbar',
+        },
     ]
 
     names.forEach(({ name, lib, child, noInstall }) => {

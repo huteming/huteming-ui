@@ -44,7 +44,7 @@ export function retry (fn, count = 1) {
                 throw err
             }
         }
-    }    
+    }
 }
 
 // 判断 webview 是 WKWebview, 只在微信浏览器中有效

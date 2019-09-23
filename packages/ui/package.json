@@ -37,6 +37,7 @@
     "@huteming/ui-switch": "^1.0.2",
     "@huteming/ui-theme": "^1.2.1",
     "@huteming/ui-toast": "^1.5.2",
+    "@huteming/ui-toolbar": "^1.0.0",
     "@huteming/ui-transition-collapse": "^1.1.2",
     "@huteming/ui-video-player": "^1.0.3",
     "@huteming/ui-white-space": "^1.0.2",
