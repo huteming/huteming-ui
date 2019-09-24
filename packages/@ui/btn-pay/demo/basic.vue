@@ -98,17 +98,11 @@
 </template>
 
 <script>
-import TmBtnPay from '../index.js'
-
 export default {
     methods: {
         handleClick () {
             console.log('click')
         },
-    },
-
-    components: {
-        TmBtnPay,
     },
 }
 </script>

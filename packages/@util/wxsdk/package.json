@@ -11,5 +11,8 @@
   "dependencies": {
     "@huteming/util-api": "^1.4.4",
     "qs": "^6.7.0"
+  },
+  "devDependencies": {
+    "@types/qs": "^6.5.3"
   }
 }

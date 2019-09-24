@@ -13,7 +13,6 @@
 </template>
 
 <script>
-import TmPickerRange from 'web-ui/picker-range/index.js'
 import imgYou from './youhuiquan.png'
 
 export default {
@@ -59,10 +58,6 @@ export default {
                 },
             ]]
         }, 1000)
-    },
-
-    components: {
-        TmPickerRange,
     },
 }
 </script>

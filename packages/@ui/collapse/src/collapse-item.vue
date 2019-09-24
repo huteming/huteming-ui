@@ -20,8 +20,8 @@
 </template>
 
 <script>
-import TmTransitionCollapse from 'web-ui/transition-collapse/src'
-import TmIcon from 'web-ui/icon/src'
+import TmTransitionCollapse from 'web-ui/transition-collapse/src/app.vue'
+import TmIcon from 'web-ui/icon/src/app.vue'
 import { generateId } from 'web-util/element/src/main'
 
 export default {

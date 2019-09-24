@@ -65,8 +65,6 @@
 </template>
 
 <script>
-import TmCarousel from 'web-ui/carousel/index.js'
-import TmCarouselItem from 'web-ui/carousel-item/index.js'
 import img1 from './images/img1.jpg'
 import img2 from './images/img2.jpg'
 import img3 from './images/img3.jpg'
@@ -118,11 +116,6 @@ export default {
             console.log('change', val)
         }
     },
-
-    components: {
-        TmCarousel,
-        TmCarouselItem,
-    }
 }
 </script>
 

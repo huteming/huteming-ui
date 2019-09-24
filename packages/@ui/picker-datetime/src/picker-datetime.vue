@@ -20,10 +20,10 @@
 </template>
 
 <script>
-import TmPopup from 'web-ui/popup/index.js'
-import TmPicker from 'web-ui/picker/index.js'
-import TmPickerItem from 'web-ui/picker-item/index.js'
-import TmToolbar from 'web-ui/toolbar/index.js'
+import TmPopup from 'web-ui/popup/index'
+import TmPicker from 'web-ui/picker/index'
+import TmPickerItem from 'web-ui/picker-item/index'
+import TmToolbar from 'web-ui/toolbar/index'
 
 const NOW = new Date()
 const CURRENT_YEAR = NOW.getFullYear()

@@ -19,7 +19,7 @@
 </template>
 
 <script>
-import MixinsModal from 'web-ui/modal/index.js'
+import MixinsModal from 'web-ui/modal/index'
 import zindexManager from 'web/assets/js/zindex-manager'
 import SmartScroll from 'web-ui/smart-scroll/index'
 

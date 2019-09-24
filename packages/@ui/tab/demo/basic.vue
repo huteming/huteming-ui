@@ -81,9 +81,9 @@
 </template>
 
 <script>
-import TmTab from 'web-ui/tab/index.js'
-import TmTabContainer from 'web-ui/tab-container/index.js'
-import TmTabPane from 'web-ui/tab-pane/index.js'
+import TmTab from 'web-ui/tab/index'
+import TmTabContainer from 'web-ui/tab-container/index'
+import TmTabPane from 'web-ui/tab-pane/index'
 
 export default {
     data () {

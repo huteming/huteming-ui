@@ -27,7 +27,7 @@
 </template>
 
 <script>
-import MixinsModal from 'web-ui/modal/index.js'
+import MixinsModal from 'web-ui/modal/index'
 import zindexManager from 'web/assets/js/zindex-manager'
 
 export default {

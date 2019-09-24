@@ -11,10 +11,10 @@
 </template>
 
 <script>
-import BasePopup from 'web-ui/popup/index.js'
-import Picker from 'web-ui/picker/index.js'
-import PickerItem from 'web-ui/picker-item/index.js'
-import TmToolbar from 'web-ui/toolbar/index.js'
+import BasePopup from 'web-ui/popup/index'
+import Picker from 'web-ui/picker/index'
+import PickerItem from 'web-ui/picker-item/index'
+import TmToolbar from 'web-ui/toolbar/index'
 
 export default {
     name: 'TmPickerRange',

@@ -21,9 +21,6 @@
 </template>
 
 <script>
-import Picker from '../index.js'
-import PickerItem from 'web-ui/picker-item/index.js'
-
 export default {
     data () {
         return {
@@ -57,11 +54,6 @@ export default {
             this.asyncOptions = this.yearOptions
             this.asyncValue = 2020
         }, 1000)
-    },
-
-    components: {
-        TmPicker: Picker,
-        TmPickerItem: PickerItem,
     },
 }
 </script>

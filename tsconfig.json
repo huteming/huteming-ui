@@ -16,16 +16,20 @@
       "jest"
     ],
     "paths": {
-      "@/*": [
-        "src/*"
-      ]
+      "@/*": ["src/*"],
+      "web/*": ["packages/*"],
+      "web-ui/*": ["packages/@ui/*"],
+      "web-util/*": ["packages/@util/*"],
+      "web-cli/*": ["packages/@cli/*"]
     },
     "lib": [
       "esnext",
       "dom",
       "dom.iterable",
       "scripthost"
-    ]
+    ],
+    "strictFunctionTypes": false,
+    "noImplicitAny": true
   },
   "include": [
     "src/**/*.ts",
