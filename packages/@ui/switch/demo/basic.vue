@@ -1,7 +1,7 @@
 <template>
 <div class="page">
     <tm-cell body="选项">
-        <tm-switch v-model="value2"></tm-switch>
+        <tm-switch v-model="value2" @change="handleChange"></tm-switch>
     </tm-cell>
 
     <tm-cell body="disabled">
@@ -10,21 +10,17 @@
 </div>
 </template>
 
-<script>
-export default {
-    data () {
-        return {
-            value1: false,
-            value2: true,
-            value3: true,
-        }
-    },
+<script lang="ts">
+import { Vue } from 'vue-property-decorator'
 
-    methods: {
-        handleChange (val) {
-            console.log('change', val)
-        },
-    },
+export default class DemoSwitch extends Vue {
+    value1: boolean = false
+    value2: boolean = false
+    value3: boolean = true
+
+    handleChange (val: boolean) {
+        console.log('change', val)
+    }
 }
 </script>
 

@@ -5,40 +5,28 @@
 </label>
 </template>
 
-<script>
-export default {
-    name: 'TmSwitch',
-    props: {
-        value: {
-            type: Boolean,
-            default: false
-        },
-        disabled: {
-            type: Boolean,
-            default: false
-        },
-    },
+<script lang="ts">
+import { Prop, Component, Vue, Watch } from 'vue-property-decorator'
 
-    data () {
-        return {
-            currentValue: this.value
-        }
-    },
+@Component
+export default class TmSwitch extends Vue {
+    @Prop({ type: Boolean, default: false })
+    value!: boolean
 
-    computed: {
-    },
+    @Prop({ type: Boolean, default: false })
+    disabled!: boolean
 
-    watch: {
-        value (val) {
-            this.currentValue = val
-        },
-        currentValue (val) {
-            this.$emit('input', val)
-            this.$emit('change', val)
-        },
-    },
+    currentValue: boolean = this.value
 
-    methods: {
-    },
+    @Watch('value')
+    onValueChange (val: boolean) {
+        this.currentValue = val
+    }
+
+    @Watch('currentValue')
+    onCurrentValueChange (val: boolean) {
+        this.$emit('input', val)
+        this.$emit('change', val)
+    }
 }
 </script>
