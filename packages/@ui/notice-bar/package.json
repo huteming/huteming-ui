@@ -4,7 +4,7 @@
   "description": "> 通知栏",
   "main": "dist/notice-bar.common.js",
   "scripts": {
-    "prepublishOnly": "node ../../../scripts/prepublishOnly.js noticeBar"
+    "prepublishOnly": "node ../../../scripts/prepublishOnly.js notice-bar"
   },
   "author": "",
   "license": "ISC"

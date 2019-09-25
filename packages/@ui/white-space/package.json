@@ -4,7 +4,7 @@
   "description": "> 两翼留白",
   "main": "dist/white-space.common.js",
   "scripts": {
-    "prepublishOnly": "node ../../../scripts/prepublishOnly.js whiteSpace"
+    "prepublishOnly": "node ../../../scripts/prepublishOnly.js white-space"
   },
   "author": "",
   "license": "ISC"

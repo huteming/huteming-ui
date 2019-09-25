@@ -4,7 +4,7 @@
   "description": "> 折叠动画",
   "main": "dist/transition-collapse.common.js",
   "scripts": {
-    "prepublishOnly": "node ../../../scripts/prepublishOnly.js transitionCollapse"
+    "prepublishOnly": "node ../../../scripts/prepublishOnly.js transition-collapse"
   },
   "author": "",
   "license": "ISC"

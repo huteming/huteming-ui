@@ -1,6 +1,6 @@
 import _Tab from './src/tab.vue'
 
-_Tab.install = function (Vue) {
+(_Tab as any).install = function (Vue: any) {
     Vue.component(_Tab.name, _Tab)
 }
 

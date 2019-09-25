@@ -4,7 +4,7 @@
   "description": "",
   "main": "dist/video-player.common.js",
   "scripts": {
-    "prepublishOnly": "node ../../../scripts/prepublishOnly.js videoPlayer"
+    "prepublishOnly": "node ../../../scripts/prepublishOnly.js video-player"
   },
   "author": "",
   "license": "ISC",

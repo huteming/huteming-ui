@@ -4,7 +4,7 @@
   "description": "wxsdk的封装方法",
   "main": "dist/wxsdk.common.js",
   "scripts": {
-    "prepublishOnly": "node ../../../scripts/prepublishOnly.js wxsdk"
+    "prepublishOnly": "node ../../../scripts/prepublishOnly.js wxsdk util"
   },
   "author": "",
   "license": "ISC",

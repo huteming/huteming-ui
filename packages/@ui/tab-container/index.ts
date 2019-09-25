@@ -1,6 +1,6 @@
 import _TabContainer from 'web-ui/tab/src/tab-container.vue'
 
-_TabContainer.install = function (Vue) {
+(_TabContainer as any).install = function (Vue: any) {
     Vue.component(_TabContainer.name, _TabContainer)
 }
 

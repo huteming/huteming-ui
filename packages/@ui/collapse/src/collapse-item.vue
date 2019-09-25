@@ -19,49 +19,45 @@
 </div>
 </template>
 
-<script>
+<script lang="ts">
+import TmCollapse from './collapse.vue'
 import TmTransitionCollapse from 'web-ui/transition-collapse/src/app.vue'
 import TmIcon from 'web-ui/icon/src/app.vue'
 import { generateId } from 'web-util/element/src/main'
+import { Component, Vue, Prop } from 'vue-property-decorator'
 
-export default {
-    name: 'TmCollapseItem',
-
-    props: {
-        name: {
-            type: [String, Number],
-            default () {
-                return generateId()
-            },
-        },
-        header: String,
-        disabled: Boolean,
-    },
-
-    data () {
-        return {
-        }
-    },
-
-    computed: {
-        isActive () {
-            return this.$parent.activeNames.indexOf(this.name) > -1
-        },
-    },
-
-    methods: {
-        handleClick () {
-            if (!this.disabled && this.$slots.default) {
-                this.$parent.change(this.name)
-            }
-
-            this.$emit('click', this.isActive)
-        },
-    },
-
+@Component({
     components: {
         TmTransitionCollapse,
         TmIcon,
     },
+})
+export default class TmCollapseItem extends Vue {
+    $parent!: TmCollapse
+
+    @Prop({
+        default () {
+            return generateId()
+        },
+    })
+    name!: string | number
+
+    @Prop()
+    header!: string
+
+    @Prop()
+    disabled!: boolean
+
+    get isActive () {
+        return (this.$parent.activeNames as any).indexOf(this.name) > -1
+    }
+
+    handleClick () {
+        if (!this.disabled && this.$slots.default) {
+            this.$parent.change(this.name)
+        }
+
+        this.$emit('click', this.isActive)
+    }
 }
 </script>

@@ -4,7 +4,7 @@
   "description": "地址选择器",
   "main": "dist/picker-address.common.js",
   "scripts": {
-    "prepublishOnly": "node ../../../scripts/prepublishOnly.js pickerAddress"
+    "prepublishOnly": "node ../../../scripts/prepublishOnly.js picker-address"
   },
   "author": "",
   "license": "ISC"

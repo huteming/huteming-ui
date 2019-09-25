@@ -4,7 +4,7 @@
   "description": "提供http请求的封装方法",
   "main": "dist/request.common.js",
   "scripts": {
-    "prepublishOnly": "node ../../../scripts/prepublishOnly.js request"
+    "prepublishOnly": "node ../../../scripts/prepublishOnly.js request util"
   },
   "author": "",
   "license": "ISC",

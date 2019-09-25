@@ -8,7 +8,7 @@
     "@huteming/ui-range": "^1.1.1"
   },
   "scripts": {
-    "prepublishOnly": "node ../../../scripts/prepublishOnly.js audioPlayer"
+    "prepublishOnly": "node ../../../scripts/prepublishOnly.js audio-player"
   },
   "author": "",
   "license": "ISC"

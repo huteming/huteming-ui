@@ -144,7 +144,7 @@ async function file2canvas (file: any, options: any) {
 }
 
 function file2dataURI (file: any, options: any) {
-    return new Promise((resolve, reject) => {
+    return new Promise((resolve: any, reject: any) => {
         EXIF.getData(file, () => {
             options.orientation = EXIF.getTag(file, 'Orientation')
             const reader = new FileReader()

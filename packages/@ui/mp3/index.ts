@@ -1,6 +1,6 @@
-import Component from './src/mp3'
+import Component from './src/mp3.vue'
 
-Component.install = (Vue) => {
+(Component as any).install = (Vue: any) => {
     Vue.component(Component.name, Component)
 }
 

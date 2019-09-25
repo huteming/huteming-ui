@@ -4,7 +4,7 @@
   "description": "提供本地存储封装方法",
   "main": "dist/storage.common.js",
   "scripts": {
-    "prepublishOnly": "node ../../../scripts/prepublishOnly.js storage"
+    "prepublishOnly": "node ../../../scripts/prepublishOnly.js storage util"
   },
   "author": "",
   "license": "ISC"

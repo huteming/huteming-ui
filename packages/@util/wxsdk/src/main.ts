@@ -146,7 +146,7 @@ function onBridgeReady (paramsStr: string, resolve: () => void, reject: (arg0: E
         window.WeixinJSBridge.invoke(
             'getBrandWCPayRequest',
             JSON.parse(paramsStr),
-            function (res: { err_msg: string }) {
+            function (res: any) {
                 switch (res.err_msg) {
                 case 'get_brand_wcpay_request:ok': //  支付成功
                     resolve()

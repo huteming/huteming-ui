@@ -4,7 +4,7 @@
   "description": "",
   "main": "dist/smart-scroll.common.js",
   "scripts": {
-    "prepublishOnly": "node ../../../scripts/prepublishOnly.js smartScroll"
+    "prepublishOnly": "node ../../../scripts/prepublishOnly.js smart-scroll"
   },
   "author": "",
   "license": "ISC"

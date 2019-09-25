@@ -7,6 +7,8 @@
 <script>
 export default {
     name: 'TmCarousel',
+    install (vue) {},
+    item: {},
 
     props: {
         height: {

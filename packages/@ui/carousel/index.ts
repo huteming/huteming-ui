@@ -1,10 +1,10 @@
 import _Carousel from './src/carousel.vue'
 import _CarouselItem from 'web-ui/carousel-item/index'
 
-(_Carousel as any).install = (Vue: any) => {
+_Carousel.install = (Vue: any) => {
     Vue.component(_Carousel.name, _Carousel)
 }
-(_Carousel as any).item = _CarouselItem
+_Carousel.item = _CarouselItem
 
 export const TmCarousel = _Carousel
 export const TmCarouselItem = _CarouselItem

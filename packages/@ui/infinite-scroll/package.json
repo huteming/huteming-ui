@@ -4,7 +4,7 @@
   "description": "无限滚动指令",
   "main": "dist/infinite-scroll.common.js",
   "scripts": {
-    "prepublishOnly": "node ../../../scripts/prepublishOnly.js infiniteScroll"
+    "prepublishOnly": "node ../../../scripts/prepublishOnly.js infinite-scroll"
   },
   "author": "",
   "license": "ISC"

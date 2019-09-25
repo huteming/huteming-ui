@@ -32,6 +32,8 @@
     "noImplicitAny": true
   },
   "include": [
+    "packages/**/*.ts",
+    "types/**/*.ts",
     "src/**/*.ts",
     "src/**/*.tsx",
     "src/**/*.vue",
