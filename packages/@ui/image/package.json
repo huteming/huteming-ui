@@ -1,6 +1,6 @@
 {
   "name": "@huteming/ui-image",
-  "version": "1.5.1",
+  "version": "2.0.0",
   "description": "> 图片容器",
   "main": "dist/image.common.js",
   "scripts": {

@@ -1,6 +1,6 @@
 {
   "name": "@huteming/ui-white-space",
-  "version": "1.0.2",
+  "version": "2.0.0",
   "description": "> 两翼留白",
   "main": "dist/white-space.common.js",
   "scripts": {

@@ -1,7 +1,7 @@
 {
   "private": false,
   "name": "@huteming/ui-empty",
-  "version": "1.1.1",
+  "version": "2.0.0",
   "description": "> 空状态",
   "main": "dist/empty.common.js",
   "scripts": {
