@@ -52,8 +52,10 @@ export function retry (fn: any, count = 1) {
     }
 }
 
-// 判断 webview 是 WKWebview, 只在微信浏览器中有效
-// https://developers.weixin.qq.com/doc/offiaccount/OA_Web_Apps/iOS_WKWebview.html
+/**
+ * 判断 webview 是 WKWebview, 只在微信浏览器中有效
+ * https://developers.weixin.qq.com/doc/offiaccount/OA_Web_Apps/iOS_WKWebview.html
+ */
 export function isWKWebview () {
     return !!window.__wxjs_is_wkwebview
 }
@@ -62,19 +64,25 @@ export async function sleep (time: number) {
     await new Promise((resolve) => setTimeout(resolve, time))
 }
 
-// 是否IOS终端
+/**
+ * 是否IOS终端
+ */
 export function isIOS () {
     const userAgent = window.navigator.userAgent
     return !!userAgent.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/)
 }
 
-// 是否安卓终端
+/**
+ * 是否安卓终端
+ */
 export function isAndroid () {
     const userAgent = window.navigator.userAgent
     return userAgent.indexOf('Android') > -1 || userAgent.indexOf('Adr') > -1
 }
 
-// 是否微信内
+/**
+ * 是否微信内
+ */
 export function isWeixinBrowser () {
     return /micromessenger/.test(window.navigator.userAgent.toLowerCase())
 }

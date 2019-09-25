@@ -1,5 +1,5 @@
 import assert from 'assert'
-import TmIcon from 'web-ui/icon/src/index'
+import TmIcon from 'web-ui/icon/src/app.vue'
 import { mount } from '@vue/test-utils'
 
 describe('icon', () => {

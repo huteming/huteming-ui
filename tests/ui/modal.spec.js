@@ -1,4 +1,4 @@
-import MixinModal from 'web-ui/modal/src/modal.js'
+import MixinModal from 'web-ui/modal/src/main'
 import TmModal from 'web-ui/modal/src/modal.vue'
 import assert from 'assert'
 import { mount, createWrapper, TransitionStub } from '@vue/test-utils'

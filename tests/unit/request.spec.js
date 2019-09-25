@@ -24,7 +24,7 @@ describe('request', () => {
             },
         }
 
-        requestFactory = require('web-util/request/index.js').default
+        requestFactory = require('web-util/request/index').default
         resSuccess = sinon.fake()
         resError = sinon.fake()
         reqSuccess = sinon.fake()

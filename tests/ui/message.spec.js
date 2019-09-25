@@ -1,6 +1,5 @@
 import { createWrapper, config } from '@vue/test-utils'
-import Message from 'web-ui/message/src/message.js'
-import TmMessage from 'web-ui/message/src/message.vue'
+import Message from 'web-ui/message/src/main'
 import assert from 'assert'
 import { sleep, Mock } from '../helper'
 import sinon from 'sinon'

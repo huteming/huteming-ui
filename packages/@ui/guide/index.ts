@@ -1,3 +1,3 @@
-import Component from './src/guide'
+import Component from './src/main'
 
 export default Component

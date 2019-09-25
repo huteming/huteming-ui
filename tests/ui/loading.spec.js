@@ -1,9 +1,8 @@
 import assert from 'assert'
-import Loading, { __RewireAPI__ as RewireAPI } from 'web-ui/loading/src/loading.js'
+import Loading, { __RewireAPI__ as RewireAPI } from 'web-ui/loading/src/main'
 import { mount, createLocalVue, createWrapper } from '@vue/test-utils'
 import sinon from 'sinon'
 import { Mock, sleep } from '../helper'
-import flushPromises from 'flush-promises'
 const scope = '@@Loading'
 const localVue = createLocalVue()
 localVue.directive(Loading.name, Loading)

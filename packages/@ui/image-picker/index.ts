@@ -1,6 +1,6 @@
-import Directive from './src/image-picker'
+import Directive from './src/main'
 
-(Directive as any).install = function (Vue: any) {
+Directive.install = function (Vue: any) {
     Vue.directive(Directive.name, Directive)
 }
 

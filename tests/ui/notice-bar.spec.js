@@ -1,9 +1,9 @@
-import TmNoticeBar, { __RewireAPI__ as RewireAPI } from 'web-ui/notice-bar/src/index'
+import TmNoticeBar, { __RewireAPI__ as RewireAPI } from 'web-ui/notice-bar/src/app.vue'
 import { createLocalVue, mount } from '@vue/test-utils'
 import assert from 'assert'
 import sinon from 'sinon'
 import { sleep } from '../helper'
-import TestBasic from '../components/basic'
+import TestBasic from '../components/basic.vue'
 const localVue = createLocalVue()
 localVue.component(TmNoticeBar.name, TmNoticeBar)
 localVue.component(TestBasic.name, TestBasic)

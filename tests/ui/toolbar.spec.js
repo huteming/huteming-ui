@@ -1,5 +1,5 @@
 import { mount } from '@vue/test-utils'
-import TmToolbar from 'web-ui/toolbar/src/toolbar'
+import TmToolbar from 'web-ui/toolbar/src/app.vue'
 import assert from 'assert'
 
 describe('toolbar', () => {

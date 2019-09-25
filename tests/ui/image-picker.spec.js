@@ -1,10 +1,9 @@
 import assert from 'assert'
-import ImagePicker from 'web-ui/image-picker/src/image-picker.js'
-import TmImagePicker from 'web-ui/image-picker/src/image-picker.vue'
+import ImagePicker from 'web-ui/image-picker/src/main'
 import { mount, createLocalVue } from '@vue/test-utils'
 import sinon from 'sinon'
 import imgVip from '../images/vip.png'
-import { sleep, Mock } from '../helper'
+import { Mock } from '../helper'
 
 const localVue = createLocalVue()
 localVue.directive(ImagePicker.name, ImagePicker)

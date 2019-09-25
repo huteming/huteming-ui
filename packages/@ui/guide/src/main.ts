@@ -6,7 +6,7 @@ const optionsDefault = {
     complete () {},
 }
 
-class Guide {
+export default class Guide {
     _instance: any
     _init: any
 
@@ -64,5 +64,3 @@ class Guide {
         return null
     }
 }
-
-export default Guide

@@ -1,4 +1,4 @@
-import CompImage, { __RewireAPI__ as RewireAPI } from 'web-ui/image/src'
+import CompImage, { __RewireAPI__ as RewireAPI } from 'web-ui/image/src/app.vue'
 import assert from 'assert'
 import { mount, shallowMount, createWrapper } from '@vue/test-utils'
 import { IMG_SUCCESS_SRC, IMG_FAILURE_SRC } from '../constant'

@@ -1,5 +1,5 @@
-import TmCollapse from 'web-ui/collapse/src/collapse'
-import TmCollapseItem from 'web-ui/collapse/src/collapse-item'
+import TmCollapse from 'web-ui/collapse/src/collapse.vue'
+import TmCollapseItem from 'web-ui/collapse/src/collapse-item.vue'
 import { createLocalVue, mount } from '@vue/test-utils'
 import assert from 'assert'
 import { sleep } from '../helper'

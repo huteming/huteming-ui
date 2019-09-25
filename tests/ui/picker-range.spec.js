@@ -1,6 +1,6 @@
 import { mount } from '@vue/test-utils'
-import TmPickerRange from 'web-ui/picker-range/src/picker-range'
-import TmPickerItem from 'web-ui/picker/src/picker-item'
+import TmPickerRange from 'web-ui/picker-range/src/app.vue'
+import TmPickerItem from 'web-ui/picker/src/picker-item.vue'
 import assert from 'assert'
 import { sleep } from '../helper'
 

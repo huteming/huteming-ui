@@ -1,5 +1,5 @@
 import assert from 'assert'
-import TmCell from 'web-ui/cell/src'
+import TmCell from 'web-ui/cell/src/app.vue'
 
 describe('cell', () => {
     it('name', () => {

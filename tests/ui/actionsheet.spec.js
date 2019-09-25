@@ -1,4 +1,4 @@
-import actionsheet from 'web-ui/actionsheet/src/actionsheet.js'
+import actionsheet from 'web-ui/actionsheet/src/main'
 import TmActionsheet from 'web-ui/actionsheet/src/actionsheet.vue'
 import assert from 'assert'
 import sinon from 'sinon'

@@ -1,8 +1,8 @@
-import Guide from 'web-ui/guide/src/guide.js'
+import Guide from 'web-ui/guide/src/main'
 import assert from 'assert'
 import { cleanDom, sleep } from '../helper'
-import WorkBasic from '../components/basic'
-import WorkElement from '../components/element'
+import WorkBasic from '../components/basic.vue'
+import WorkElement from '../components/element.vue'
 import { mount, createWrapper } from '@vue/test-utils'
 import sinon from 'sinon'
 

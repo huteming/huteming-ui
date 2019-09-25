@@ -1,6 +1,6 @@
 import assert from 'assert'
-import TmField, { __RewireAPI__ as RewireAPI } from 'web-ui/field/src'
-import WorkBasic from '../components/basic'
+import TmField, { __RewireAPI__ as RewireAPI } from 'web-ui/field/src/app.vue'
+import WorkBasic from '../components/basic.vue'
 import { mount, createLocalVue } from '@vue/test-utils'
 import sinon from 'sinon'
 const localVue = createLocalVue()

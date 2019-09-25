@@ -54,7 +54,7 @@ describe('wxsdk > wxpay', () => {
         assert.deepStrictEqual(second, resGetPayConfig)
     })
 
-    it('window.WeixinJSBridge === undefined && document.addEventListener', async () => {
+    it('document.addEventListener', async () => {
         const _save = window.WeixinJSBridge
         window.WeixinJSBridge = undefined
         const _saveListener = document.addEventListener
@@ -77,58 +77,6 @@ describe('wxsdk > wxpay', () => {
         window.WeixinJSBridge = _save
         document.addEventListener = _saveListener
         WxsdkRewireAPI.__ResetDependency__('onBridgeReady')
-    })
-
-    it('window.WeixinJSBridge === undefined && document.attachEvent', async () => {
-        const myEmitter = new EventEmitter()
-
-        const _save = window.WeixinJSBridge
-        const _saveListener = document.addEventListener
-        const _saveAttach = document.attachEvent
-        window.WeixinJSBridge = undefined
-        document.addEventListener = null
-        document.attachEvent = (name, fn) => {
-            myEmitter.on(name, fn)
-        }
-
-        const fake = sinon.fake()
-        WxsdkRewireAPI.__Rewire__('onBridgeReady', (data, resolve) => {
-            resolve()
-            return fake
-        })
-
-        await wxpay()
-        myEmitter.emit('WeixinJSBridgeReady')
-        myEmitter.emit('onWeixinJSBridgeReady')
-        assert.strictEqual(fake.callCount, 2)
-
-        window.WeixinJSBridge = _save
-        document.addEventListener = _saveListener
-        document.attachEvent = _saveAttach
-        WxsdkRewireAPI.__ResetDependency__('onBridgeReady')
-    })
-
-    it('window.WeixinJSBridge,addEventListener,attachEvent 不存在', (done) => {
-        const _save = window.WeixinJSBridge
-        const _saveListener = document.addEventListener
-        const _saveAttach = document.attachEvent
-        window.WeixinJSBridge = undefined
-        document.addEventListener = null
-        document.attachEvent = null
-
-        wxpay()
-            .then(() => {
-                done(new Error('非期望异常'))
-            })
-            .catch(err => {
-                assert.strictEqual(err.message, '支付失败')
-                done()
-            })
-            .finally(() => {
-                window.WeixinJSBridge = _save
-                document.addEventListener = _saveListener
-                document.attachEvent = _saveAttach
-            })
     })
 
     it('getPayConfig 异常', done => {

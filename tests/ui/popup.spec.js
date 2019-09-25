@@ -2,7 +2,7 @@
  * 由于 modal 是只会创建一个实例，所以必须在每个测试结束关闭 modal
  */
 import { mount } from '@vue/test-utils'
-import TmPopup from 'web-ui/popup/src/popup'
+import TmPopup from 'web-ui/popup/src/app.vue'
 import assert from 'assert'
 import { sleep } from '../helper'
 import sinon from 'sinon'

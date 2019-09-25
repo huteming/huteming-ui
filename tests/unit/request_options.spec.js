@@ -20,7 +20,7 @@ describe('request > options', () => {
             originReplace = window.location.replace
             window.location.replace = mockReplace
 
-            requestFactory = require('web-util/request/index.js').default
+            requestFactory = require('web-util/request/index').default
             resSuccess = sinon.fake()
             resError = sinon.fake()
             reqSuccess = sinon.fake()
@@ -130,7 +130,7 @@ describe('request > options', () => {
             originReplace = window.location.replace
             window.location.replace = mockReplace
 
-            requestFactory = require('web-util/request/index.js').default
+            requestFactory = require('web-util/request/index').default
             resSuccess = sinon.fake()
             resError = sinon.fake()
             reqSuccess = sinon.fake()
@@ -195,7 +195,7 @@ describe('request > options', () => {
 
     describe('更新实例', () => {
         it('不提供options，获取旧实例', () => {
-            requestFactory = require('web-util/request/index.js').default
+            requestFactory = require('web-util/request/index').default
 
             const ins1 = requestFactory()
             const ins2 = requestFactory()
@@ -204,7 +204,7 @@ describe('request > options', () => {
         })
 
         it('options不同，实例不同', () => {
-            requestFactory = require('web-util/request/index.js').default
+            requestFactory = require('web-util/request/index').default
 
             const ins1 = requestFactory({})
             const ins2 = requestFactory({})

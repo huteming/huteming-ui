@@ -1,3 +1,3 @@
-import Modal from './src/modal'
+import Modal from './src/main'
 
 export default Modal

@@ -1,6 +1,6 @@
 import { createWrapper } from '@vue/test-utils'
 import assert from 'assert'
-import Toast from 'web-ui/toast/src/toast.js'
+import Toast from 'web-ui/toast/src/main'
 import { sleep } from '../helper'
 import sinon from 'sinon'
 

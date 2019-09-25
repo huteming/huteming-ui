@@ -2,150 +2,150 @@ import assert from 'assert'
 
 describe('ui entry', () => {
     const names = [
-        {
-            name: 'Anchor', // 整体打包模块名
-            lib: 'anchor', // 按需加载目录名
-        },
+        // {
+        //     name: 'Anchor', // 整体打包模块名
+        //     lib: 'anchor', // 按需加载目录名
+        // },
         {
             name: 'ImagePicker',
             lib: 'image-picker',
         },
-        {
-            name: 'InfiniteScroll',
-            lib: 'infinite-scroll',
-        },
-        {
-            name: 'Loading',
-            lib: 'loading',
-        },
-        {
-            name: 'Message',
-            lib: 'message',
-        },
-        {
-            name: 'TmBtnPay',
-            lib: 'tm-btn-pay',
-        },
-        {
-            name: 'TmCarousel',
-            lib: 'tm-carousel',
-            child: {
-                name: 'TmCarouselItem',
-                lib: 'tm-carousel-item',
-            },
-        },
-        {
-            name: 'TmCarouselItem',
-            lib: 'tm-carousel-item',
-        },
-        {
-            name: 'TmCell',
-            lib: 'tm-cell',
-        },
-        {
-            name: 'TmClocker',
-            lib: 'tm-clocker',
-        },
-        {
-            name: 'TmDialog',
-            lib: 'tm-dialog',
-        },
-        {
-            name: 'TmEmpty',
-            lib: 'tm-empty',
-        },
-        {
-            name: 'TmField',
-            lib: 'tm-field',
-        },
-        {
-            name: 'TmFlex',
-            lib: 'tm-flex',
-            child: {
-                name: 'TmFlexItem',
-                lib: 'tm-flex-item',
-            },
-        },
-        {
-            name: 'TmFlexItem',
-            lib: 'tm-flex-item',
-        },
-        {
-            name: 'TmIcon',
-            lib: 'tm-icon',
-        },
-        {
-            name: 'TmImage',
-            lib: 'tm-image',
-        },
-        {
-            name: 'TmPanel',
-            lib: 'tm-panel',
-        },
-        {
-            name: 'TmPickerAddress',
-            lib: 'tm-picker-address',
-        },
-        {
-            name: 'TmPickerDatetime',
-            lib: 'tm-picker-datetime',
-        },
-        {
-            name: 'TmPickerRange',
-            lib: 'tm-picker-range',
-        },
-        {
-            name: 'TmPopup',
-            lib: 'tm-popup',
-        },
-        {
-            name: 'Toast',
-            lib: 'toast',
-        },
-        {
-            name: 'TmCollapse',
-            lib: 'tm-collapse',
-        },
-        {
-            name: 'Guide',
-            lib: 'guide',
-        },
-        {
-            name: 'TmNoticeBar',
-            lib: 'tm-notice-bar',
-        },
-        {
-            name: 'TmTransitionCollapse',
-            lib: 'tm-transition-collapse',
-        },
-        {
-            name: 'TmWingBlank',
-            lib: 'tm-wing-blank',
-        },
-        {
-            name: 'TmWhiteSpace',
-            lib: 'tm-white-space',
-        },
-        {
-            name: 'Ripple',
-            lib: 'ripple',
-        },
-        {
-            name: 'TmAudioPlayer',
-            lib: 'tm-audio-player',
-        },
-        {
-            name: 'TmVideoPlayer',
-            lib: 'tm-video-player',
-        },
-        {
-            name: 'TmSwitch',
-            lib: 'tm-switch',
-        },
-        {
-            name: 'TmToolbar',
-            lib: 'tm-toolbar',
-        },
+        // {
+        //     name: 'InfiniteScroll',
+        //     lib: 'infinite-scroll',
+        // },
+        // {
+        //     name: 'Loading',
+        //     lib: 'loading',
+        // },
+        // {
+        //     name: 'Message',
+        //     lib: 'message',
+        // },
+        // {
+        //     name: 'TmBtnPay',
+        //     lib: 'tm-btn-pay',
+        // },
+        // {
+        //     name: 'TmCarousel',
+        //     lib: 'tm-carousel',
+        //     child: {
+        //         name: 'TmCarouselItem',
+        //         lib: 'tm-carousel-item',
+        //     },
+        // },
+        // {
+        //     name: 'TmCarouselItem',
+        //     lib: 'tm-carousel-item',
+        // },
+        // {
+        //     name: 'TmCell',
+        //     lib: 'tm-cell',
+        // },
+        // {
+        //     name: 'TmClocker',
+        //     lib: 'tm-clocker',
+        // },
+        // {
+        //     name: 'TmDialog',
+        //     lib: 'tm-dialog',
+        // },
+        // {
+        //     name: 'TmEmpty',
+        //     lib: 'tm-empty',
+        // },
+        // {
+        //     name: 'TmField',
+        //     lib: 'tm-field',
+        // },
+        // {
+        //     name: 'TmFlex',
+        //     lib: 'tm-flex',
+        //     child: {
+        //         name: 'TmFlexItem',
+        //         lib: 'tm-flex-item',
+        //     },
+        // },
+        // {
+        //     name: 'TmFlexItem',
+        //     lib: 'tm-flex-item',
+        // },
+        // {
+        //     name: 'TmIcon',
+        //     lib: 'tm-icon',
+        // },
+        // {
+        //     name: 'TmImage',
+        //     lib: 'tm-image',
+        // },
+        // {
+        //     name: 'TmPanel',
+        //     lib: 'tm-panel',
+        // },
+        // {
+        //     name: 'TmPickerAddress',
+        //     lib: 'tm-picker-address',
+        // },
+        // {
+        //     name: 'TmPickerDatetime',
+        //     lib: 'tm-picker-datetime',
+        // },
+        // {
+        //     name: 'TmPickerRange',
+        //     lib: 'tm-picker-range',
+        // },
+        // {
+        //     name: 'TmPopup',
+        //     lib: 'tm-popup',
+        // },
+        // {
+        //     name: 'Toast',
+        //     lib: 'toast',
+        // },
+        // {
+        //     name: 'TmCollapse',
+        //     lib: 'tm-collapse',
+        // },
+        // {
+        //     name: 'Guide',
+        //     lib: 'guide',
+        // },
+        // {
+        //     name: 'TmNoticeBar',
+        //     lib: 'tm-notice-bar',
+        // },
+        // {
+        //     name: 'TmTransitionCollapse',
+        //     lib: 'tm-transition-collapse',
+        // },
+        // {
+        //     name: 'TmWingBlank',
+        //     lib: 'tm-wing-blank',
+        // },
+        // {
+        //     name: 'TmWhiteSpace',
+        //     lib: 'tm-white-space',
+        // },
+        // {
+        //     name: 'Ripple',
+        //     lib: 'ripple',
+        // },
+        // {
+        //     name: 'TmAudioPlayer',
+        //     lib: 'tm-audio-player',
+        // },
+        // {
+        //     name: 'TmVideoPlayer',
+        //     lib: 'tm-video-player',
+        // },
+        // {
+        //     name: 'TmSwitch',
+        //     lib: 'tm-switch',
+        // },
+        // {
+        //     name: 'TmToolbar',
+        //     lib: 'tm-toolbar',
+        // },
     ]
 
     names.forEach(({ name, lib, child, noInstall }) => {

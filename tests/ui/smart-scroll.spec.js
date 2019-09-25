@@ -1,4 +1,4 @@
-import SmartScroll, { __RewireAPI__ as RewireAPI } from 'web-ui/smart-scroll/src/smart-scroll.js'
+import SmartScroll, { __RewireAPI__ as RewireAPI } from 'web-ui/smart-scroll/src/main'
 import assert from 'assert'
 import { Mock, mockCancelable } from '../helper'
 import { mount, createLocalVue } from '@vue/test-utils'

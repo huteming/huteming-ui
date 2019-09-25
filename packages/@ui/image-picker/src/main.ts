@@ -16,6 +16,7 @@ const ConstructorInput = Vue.extend(ComponentInput)
 
 export default {
     name: 'ImagePicker',
+    install (Vue: any) {},
 
     inserted (el: any, binding: any) {
         const stylePosition = getStyle(el, 'position')

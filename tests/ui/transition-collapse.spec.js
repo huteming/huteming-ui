@@ -1,4 +1,4 @@
-import TmTransitionCollapse, { __RewireAPI__ as RewireAPI } from 'web-ui/transition-collapse/src'
+import TmTransitionCollapse, { __RewireAPI__ as RewireAPI } from 'web-ui/transition-collapse/src/app.vue'
 import assert from 'assert'
 import { createLocalVue, mount } from '@vue/test-utils'
 import { sleep } from '../helper'

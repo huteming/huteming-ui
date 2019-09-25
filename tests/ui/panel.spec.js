@@ -1,6 +1,6 @@
 import { mount } from '@vue/test-utils'
-import CompPanel from 'web-ui/panel/src'
-import CompBasic from '../components/basic'
+import CompPanel from 'web-ui/panel/src/app.vue'
+import CompBasic from '../components/basic.vue'
 import assert from 'assert'
 
 describe('panel', () => {

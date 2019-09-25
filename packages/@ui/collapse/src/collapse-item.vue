@@ -45,7 +45,7 @@ export default class TmCollapseItem extends Vue {
     @Prop()
     header!: string
 
-    @Prop()
+    @Prop({ type: Boolean, default: false })
     disabled!: boolean
 
     get isActive () {
