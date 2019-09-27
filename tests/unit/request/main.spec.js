@@ -46,7 +46,7 @@ describe('request > main', () => {
         RewireAPI.__Rewire__('jsonp', mockJsonp)
         try {
             await request.jsonp('a')
-        } catch(err) {
+        } catch (err) {
             assert.strictEqual(mockJsonp.getCall(0).args[0], 'a?')
             assert.strictEqual(err, mockError)
         } finally {

@@ -108,7 +108,7 @@ describe('wxsdk > wxConfig', () => {
         it('成功', done => {
             waiting(Infinity)
                 .then(done)
-                .catch(err => {
+                .catch(() => {
                     done(new Error('期望成功'))
                 })
             onReady()
@@ -191,7 +191,7 @@ describe('wxsdk > wxConfig', () => {
 
         it('连续更新', done => {
             update(true)
-                .then(err => {
+                .then(() => {
                     done(new Error('期望失败'))
                 })
                 .catch(err => {
@@ -200,10 +200,10 @@ describe('wxsdk > wxConfig', () => {
                 })
 
             update(true)
-                .then(err => {
+                .then(() => {
                     done(new Error('期望不解析'))
                 })
-                .catch(err => {
+                .catch(() => {
                     done(new Error('期望不解析'))
                 })
 

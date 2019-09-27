@@ -6,7 +6,7 @@ describe('element > generateId', () => {
         const id1 = generateId()
         const id2 = generateId()
 
-        assert.notEqual(id1, id2)
+        assert.notStrictEqual(id1, id2)
     })
 
     it('生成类型为数字', () => {

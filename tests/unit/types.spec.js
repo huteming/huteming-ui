@@ -65,6 +65,7 @@ describe('types', () => {
                 expect: false,
             },
             {
+                // eslint-disabled-nextline
                 value: new Number(),
                 expect: false,
             },

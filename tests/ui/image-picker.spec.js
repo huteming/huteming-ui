@@ -287,6 +287,7 @@ describe('image-picker', () => {
         })
         const wrapperInput = wrapper.find('input')
         const files = []
+        // disabled-eslint-nextline
         files.__proto__ = Object.create(FileList.prototype)
         Object.defineProperty(wrapperInput.element, 'files', {
             value: files,

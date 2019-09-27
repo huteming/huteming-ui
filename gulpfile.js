@@ -29,7 +29,7 @@ function createModuleEntry () {
             this.push(new Vinyl({
                 base: './packages/ui/lib/style/',
                 path: './packages/ui/lib/style/components.scss',
-                contents: new Buffer(`@import "./components/${file.relative}";\n`)
+                contents: Buffer.from(`@import "./components/${file.relative}";\n`)
             }))
             cb()
         }))

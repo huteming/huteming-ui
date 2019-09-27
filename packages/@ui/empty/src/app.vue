@@ -10,22 +10,23 @@
 </div>
 </template>
 
-<script>
-export default {
-    name: 'TmEmpty',
-    inheritAttrs: false,
+<script lang="ts">
+import { Component, Vue, Prop } from 'vue-property-decorator'
 
-    props: {
-        image: {
-            type: String,
-            default: 'http://jhsy-img.caizhu.com/empty-default.png',
-        },
-        imageStyle: {},
-        description: {
-            type: String,
-            default: '暂无数据',
-        },
-        descriptionStyle: {},
-    },
+@Component({
+    inheritAttrs: false,
+})
+export default class TmEmpty extends Vue {
+    @Prop({ type: String, default: 'http://jhsy-img.caizhu.com/empty-default.png' })
+    image!: string
+
+    @Prop({ type: Object })
+    imageStyle: object | undefined
+
+    @Prop({ type: String, default: '暂无数据' })
+    description!: string
+
+    @Prop({ type: Object })
+    descriptionStyle: object | undefined
 }
 </script>

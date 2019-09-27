@@ -17,8 +17,9 @@
 </template>
 
 <script lang="ts">
-import { Vue, Prop } from 'vue-property-decorator'
+import { Component, Vue, Prop } from 'vue-property-decorator'
 
+@Component
 export default class TmCell extends Vue {
     @Prop({ type: String })
     header: string | undefined
