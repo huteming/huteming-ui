@@ -16,15 +16,20 @@
 </div>
 </template>
 
-<script>
-export default {
-    name: 'TmCell',
+<script lang="ts">
+import { Vue, Prop } from 'vue-property-decorator'
 
-    props: {
-        header: String,
-        body: String,
-        footer: String,
-        link: Boolean,
-    },
+export default class TmCell extends Vue {
+    @Prop({ type: String })
+    header: string | undefined
+
+    @Prop({ type: String })
+    body: string | undefined
+
+    @Prop({ type: String })
+    footer: string | undefined
+
+    @Prop({ type: Boolean })
+    link: boolean | undefined
 }
 </script>

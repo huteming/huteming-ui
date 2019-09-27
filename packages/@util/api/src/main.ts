@@ -1,7 +1,7 @@
-import requestFactory from 'web-util/request/src/main'
+import RequestFactory from 'web-util/request/src/main'
 
 // 导出只是为了方便测试
-export const request = new requestFactory()
+export const request = new RequestFactory()
 
 /**
  * 统计接口

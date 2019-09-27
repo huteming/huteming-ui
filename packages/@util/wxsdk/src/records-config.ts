@@ -18,7 +18,7 @@ class Records {
     }
 
     find (id: number): Record {
-        return <Record>this.records.find(item => item.id === id)
+        return <Record> this.records.find(item => item.id === id)
     }
 }
 
