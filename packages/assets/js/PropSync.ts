@@ -21,7 +21,7 @@ import { Constructor } from 'vue/types/options'
 //     },
 // },
 
-export function PropSync (propName: string, options: PropOptions | Constructor[] | Constructor = {}): PropertyDecorator {
+export default function PropSync (propName: string, options: PropOptions | Constructor[] | Constructor = {}): PropertyDecorator {
     return (target: Vue, k: string) => {
         createDecorator((componentOptions, attrName) => {
             concatProps(componentOptions, propName, options)
@@ -32,6 +32,7 @@ export function PropSync (propName: string, options: PropOptions | Constructor[]
 }
 
 function concatWatch (componentOptions: any, propName: string, attrName: string) {
+    /* istanbul ignore next */
     componentOptions.watch = componentOptions.watch || {}
 
     const watch: any = componentOptions.watch
@@ -51,6 +52,7 @@ function concatWatch (componentOptions: any, propName: string, attrName: string)
     ]
 
     _watches.forEach(({ key, handler }) => {
+        /* istanbul ignore next */
         if (typeof watch[key] === 'object' && !Array.isArray(watch[key])) {
             watch[key] = [watch[key]]
         } else if (typeof watch[key] === 'undefined') {
@@ -62,6 +64,7 @@ function concatWatch (componentOptions: any, propName: string, attrName: string)
 }
 
 function concatData (componentOptions: any, propName: string, attrName: string) {
+    /* istanbul ignore next */
     componentOptions.mixins = componentOptions.mixins || []
 
     const mixins = componentOptions.mixins

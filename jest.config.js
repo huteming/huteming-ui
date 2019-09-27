@@ -34,6 +34,7 @@ module.exports = {
     testMatch: [
         '<rootDir>/tests/unit/**/*.spec.(js|jsx|ts|tsx)|**/__tests__/*.(js|jsx|ts|tsx)',
         '<rootDir>/tests/ui/**/*.spec.(js|jsx|ts|tsx)|**/__tests__/*.(js|jsx|ts|tsx)',
+        '<rootDir>/tests/common/**/*.spec.(js|jsx|ts|tsx)|**/__tests__/*.(js|jsx|ts|tsx)',
     ],
 
     testURL: 'http://localhost/#/hello?mainUnion=mainUnion&subUnion=subUnion&key=value&num=1',
@@ -50,6 +51,7 @@ module.exports = {
     collectCoverageFrom: [
         'packages/@util/**/src/*.{js,vue,ts}',
         'packages/@ui/**/src/*.{js,vue,ts}',
+        'packages/assets/js/PropSync.ts', // 自定义装饰器
         '!packages/@ui/tab/src/*.{js,vue,ts}',
         '!packages/@ui/audio/src/*.{js,vue,ts}',
         '!packages/@ui/video/src/*.{js,vue,ts}',
