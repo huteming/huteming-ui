@@ -1,7 +1,7 @@
 import requestFactory from 'web-util/request/src/main'
 
 // 导出只是为了方便测试
-export const request = requestFactory()
+export const request = new requestFactory()
 
 /**
  * 统计接口
@@ -50,7 +50,7 @@ const defaultWX = {
 export function getWxConfig (options = {}) {
     const params = Object.assign({}, defaultWX, options)
 
-    return request.find('/api/user/shareParam', params)
+    return request.get('/api/user/shareParam', params)
 }
 
 /**

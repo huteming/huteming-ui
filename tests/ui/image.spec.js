@@ -142,14 +142,14 @@ describe('Image', () => {
         assert.strictEqual($img.attributes('referrerpolicy'), 'origin')
     })
 
-    it('pass event listeners', async() => {
+    it('pass event listeners', async () => {
         let isClick = false
 
         const wrapper = mount({
             template: `
                 <TmImage ref="image" @click="handleClick" :src="src" />
             `,
-            data() {
+            data () {
                 return {
                     src: IMG_SUCCESS_SRC,
                 }

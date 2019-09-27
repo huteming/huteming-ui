@@ -283,10 +283,7 @@ export function getStyle (element: any, styleName: any) {
     }
 
     try {
-        if (!document.defaultView) {
-            throw new Error('defaultView不存在')
-        }
-        const computed = document.defaultView.getComputedStyle(element)
+        const computed = (<Window>document.defaultView).getComputedStyle(element)
         return element.style[styleName] || computed ? computed[styleName] : null
     } catch (e) {
         return element.style[styleName]

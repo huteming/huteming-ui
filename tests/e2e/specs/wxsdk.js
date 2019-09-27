@@ -14,7 +14,7 @@ describe('wxsdk', () => {
     })
     /**
      * 手动测试项: wxConfig, wxSave, wxLocation, wxShare, wxHide, wxpay
-     * 
+     *
      * wxShare额外需要测试项: channel, query, 统计请求
      */
 })

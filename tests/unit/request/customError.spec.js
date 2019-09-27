@@ -1,8 +1,8 @@
-import { CustomError } from 'web-util/request/src/custom_error'
 import assert from 'assert'
+import CustomError from 'web/@util/request/src/customError'
 
 describe('request > custom_error', () => {
-    it('继承子Error', () => {
+    it('继承自Error', () => {
         const error = new CustomError('err')
 
         assert.ok(error instanceof Error)

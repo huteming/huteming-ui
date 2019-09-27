@@ -27,7 +27,7 @@ export function linkWeixinBridge () {
     })
 }
 
-export function retry (fn: any, count = 1) {
+export function retry (fn: Function, count: number = 1): Function {
     let args: any
     let self: object
     // this: any => https://github.com/Microsoft/TypeScript/issues/16016
@@ -161,23 +161,14 @@ export const jsonToForm = (data: any) => {
 
 /**
  * 从 url 中解析查询参数
- * @param {*String} target 目标key值
+ * @param {*String} name 查询参数name
  */
-export function parseQuery (target: any) {
-    const matchQuery = window.location.href.match(/[^?]*$/)
-    if (!matchQuery) return ''
-    const querys = matchQuery[0].split('&')
+export function parseQuery (name: string): string {
+    // 这里不用 location.search, 因为地址为 hash 时, search 为空字符串
+    const reg = new RegExp('(^|&)' + name + '=([^&]*)(&|$)')
+    const search = window.location.href.split('?')[1].match(reg)
 
-    const length = querys.length
-
-    for (let i = 0; i < length; i++) {
-        const [key, value] = querys[i].split('=')
-        if (target === key) {
-            return value
-        }
-    }
-
-    return ''
+    return search ? search[2] : ''
 }
 
 function loadImageSingle (url: any, useCache: any, retry = 1) {

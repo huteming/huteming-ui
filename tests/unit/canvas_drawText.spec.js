@@ -393,7 +393,10 @@ describe('canvas > drawText', () => {
             const mockLetterSpacing = 2
             const mockSize = 66
             const options = getOptions.call({ ratio }, mockX, mockY, {
-                wrap: true, maxWidth: 100, lineHeight: mockLineHeight, letterSpacing: mockLetterSpacing,
+                wrap: true,
+                maxWidth: 100,
+                lineHeight: mockLineHeight,
+                letterSpacing: mockLetterSpacing,
                 size: mockSize,
             })
             const mockText = [{ letter: '静', underline: true }, { letter: '好' }, { letter: '书' }, { letter: '院' }]
@@ -409,7 +412,8 @@ describe('canvas > drawText', () => {
 
             assert.deepStrictEqual(res[1], [
                 {
-                    startLetter: '静', endLetter: '静',
+                    startLetter: '静',
+                    endLetter: '静',
                     startX: x,
                     startY: y + size + bottom,
                     endX: x + left + mockTextWidth + right,
@@ -435,7 +439,10 @@ describe('canvas > drawText', () => {
             const mockLetterSpacing = 2
             const mockSize = 66
             const options = getOptions.call({ ratio }, mockX, mockY, {
-                wrap: true, maxWidth: 40, lineHeight: mockLineHeight, letterSpacing: mockLetterSpacing,
+                wrap: true,
+                maxWidth: 40,
+                lineHeight: mockLineHeight,
+                letterSpacing: mockLetterSpacing,
                 size: mockSize,
             })
             const mockText = [{ letter: '静' }, { letter: '好' }, { letter: '书', underline: true }, { letter: '院' }]
@@ -451,7 +458,8 @@ describe('canvas > drawText', () => {
 
             assert.deepStrictEqual(res[1], [
                 {
-                    startLetter: '书', endLetter: '书',
+                    startLetter: '书',
+                    endLetter: '书',
                     startX: x,
                     startY: y + lineHeight + size + bottom,
                     endX: x + left + mockTextWidth + right,
@@ -477,7 +485,10 @@ describe('canvas > drawText', () => {
             const mockLetterSpacing = 2
             const mockSize = 66
             const options = getOptions.call({ ratio }, mockX, mockY, {
-                wrap: true, maxWidth: 40, lineHeight: mockLineHeight, letterSpacing: mockLetterSpacing,
+                wrap: true,
+                maxWidth: 40,
+                lineHeight: mockLineHeight,
+                letterSpacing: mockLetterSpacing,
                 size: mockSize,
             })
             const mockText = [{ letter: '静' }, { letter: '好', underline: true }, { letter: '书', underline: true }, { letter: '院' }]
@@ -493,14 +504,16 @@ describe('canvas > drawText', () => {
 
             assert.deepStrictEqual(res[1], [
                 {
-                    startLetter: '好', endLetter: '好',
+                    startLetter: '好',
+                    endLetter: '好',
                     startX: x + mockTextWidth + letterSpacing + left,
                     startY: y + size + bottom,
                     endX: x + mockTextWidth + letterSpacing + left * 2 + mockTextWidth,
                     endY: y + size + bottom,
                 },
                 {
-                    startLetter: '书', endLetter: '书',
+                    startLetter: '书',
+                    endLetter: '书',
                     startX: x,
                     startY: y + lineHeight + size + bottom,
                     endX: x + mockTextWidth + right,
@@ -526,7 +539,10 @@ describe('canvas > drawText', () => {
             const mockLetterSpacing = 2
             const mockSize = 66
             const options = getOptions.call({ ratio }, mockX, mockY, {
-                wrap: true, maxWidth: 200, lineHeight: mockLineHeight, letterSpacing: mockLetterSpacing,
+                wrap: true,
+                maxWidth: 200,
+                lineHeight: mockLineHeight,
+                letterSpacing: mockLetterSpacing,
                 size: mockSize,
             })
             const mockText = [{ letter: '静' }, { letter: '好' }, { letter: '书' }, { letter: '院', underline: true }]
@@ -542,7 +558,8 @@ describe('canvas > drawText', () => {
 
             assert.deepStrictEqual(res[1], [
                 {
-                    startLetter: '院', endLetter: '院',
+                    startLetter: '院',
+                    endLetter: '院',
                     startX: x + mockTextWidth * 3 + letterSpacing * 3 + left,
                     startY: y + size + bottom,
                     endX: x + mockTextWidth * 3 + letterSpacing * 3 + left * 2 + mockTextWidth + right,
@@ -568,7 +585,10 @@ describe('canvas > drawText', () => {
             const mockLetterSpacing = 2
             const mockSize = 66
             const options = getOptions.call({ ratio }, mockX, mockY, {
-                wrap: true, maxWidth: 40, lineHeight: mockLineHeight, letterSpacing: mockLetterSpacing,
+                wrap: true,
+                maxWidth: 40,
+                lineHeight: mockLineHeight,
+                letterSpacing: mockLetterSpacing,
                 size: mockSize,
                 underline: {
                     left: 12,
@@ -587,14 +607,16 @@ describe('canvas > drawText', () => {
 
             assert.deepStrictEqual(res[1], [
                 {
-                    startLetter: '好', endLetter: '好',
+                    startLetter: '好',
+                    endLetter: '好',
                     startX: x + mockTextWidth + letterSpacing + left,
                     startY: y + size + bottom,
                     endX: x + mockTextWidth + letterSpacing + left * 2 + mockTextWidth,
                     endY: y + size + bottom,
                 },
                 {
-                    startLetter: '书', endLetter: '书',
+                    startLetter: '书',
+                    endLetter: '书',
                     startX: x,
                     startY: y + lineHeight + size + bottom,
                     endX: x + mockTextWidth + right,
@@ -618,7 +640,10 @@ describe('canvas > drawText', () => {
             const mockLineHeight = 45
             const mockSize = 55
             const options = getOptions.call({ ratio }, mockX, mockY, {
-                wrap: true, maxWidth: Infinity, lineHeight: mockLineHeight, align: 'center',
+                wrap: true,
+                maxWidth: Infinity,
+                lineHeight: mockLineHeight,
+                align: 'center',
                 size: mockSize,
             })
             const mockText = [
@@ -639,7 +664,8 @@ describe('canvas > drawText', () => {
 
             assert.deepStrictEqual(res[1], [
                 {
-                    startLetter: '静', endLetter: '院',
+                    startLetter: '静',
+                    endLetter: '院',
                     startX: x - actualWidth / 2,
                     startY: y + size + bottom,
                     endX: x + actualWidth / 2,
@@ -663,7 +689,10 @@ describe('canvas > drawText', () => {
             const mockLineHeight = 45
             const mockSize = 55
             const options = getOptions.call({ ratio }, mockX, mockY, {
-                wrap: true, maxWidth: Infinity, lineHeight: mockLineHeight, align: 'center',
+                wrap: true,
+                maxWidth: Infinity,
+                lineHeight: mockLineHeight,
+                align: 'center',
                 size: mockSize,
             })
             const mockText = [
@@ -684,7 +713,8 @@ describe('canvas > drawText', () => {
 
             assert.deepStrictEqual(res[1], [
                 {
-                    startLetter: '好', endLetter: '书',
+                    startLetter: '好',
+                    endLetter: '书',
                     startX: x - actualWidth / 2 + mockTextWidth + left,
                     startY: y + size + bottom,
                     endX: x + actualWidth / 2 - mockTextWidth - right,
@@ -708,7 +738,10 @@ describe('canvas > drawText', () => {
             const mockLineHeight = 45
             const mockSize = 55
             const options = getOptions.call({ ratio }, mockX, mockY, {
-                wrap: true, maxWidth: Infinity, lineHeight: mockLineHeight, align: 'right',
+                wrap: true,
+                maxWidth: Infinity,
+                lineHeight: mockLineHeight,
+                align: 'right',
                 size: mockSize,
             })
             const mockText = [
@@ -729,7 +762,8 @@ describe('canvas > drawText', () => {
 
             assert.deepStrictEqual(res[1], [
                 {
-                    startLetter: '静', endLetter: '院',
+                    startLetter: '静',
+                    endLetter: '院',
                     startX: x - actualWidth,
                     startY: y + size + bottom,
                     endX: x,

@@ -1,8 +1,8 @@
 import assert from 'assert'
 import sinon from 'sinon'
 import { loadImages, __RewireAPI__ as Rewire } from 'web-util/tool/src/main'
-import { imgURI, IMG_FAILURE_SRC, IMG_SUCCESS_SRC } from '../constant'
-import { mockImage } from '../helper'
+import { imgURI, IMG_FAILURE_SRC, IMG_SUCCESS_SRC } from '../../constant'
+import { mockImage } from '../../helper'
 const IMG_SUFFIX = 'tommy'
 
 describe('tool > loadImages', () => {

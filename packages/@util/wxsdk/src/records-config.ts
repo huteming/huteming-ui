@@ -1,14 +1,12 @@
-class Records {
-    records: { id: number, url: string }[] = []
+import { Record } from './types'
 
-    constructor () {
-        this.records = [
-            {
-                id: 0,
-                url: '',
-            },
-        ]
-    }
+class Records {
+    records: Record[] = [
+        {
+            id: 0,
+            url: '',
+        },
+    ]
 
     create (url: string): number {
         const id = this.records[this.records.length - 1].id + 1
@@ -19,8 +17,8 @@ class Records {
         return id
     }
 
-    find (id: number): { id: number, url: string } {
-        return this.records.find(item => item.id === id) || { id: 0, url: '' }
+    find (id: number): Record {
+        return <Record>this.records.find(item => item.id === id)
     }
 }
 

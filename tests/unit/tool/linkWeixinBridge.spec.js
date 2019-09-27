@@ -1,6 +1,6 @@
 import assert from 'assert'
 import { linkWeixinBridge } from 'web-util/tool/src/main'
-import { sleep } from '../helper'
+import { sleep } from '../../helper'
 import sinon from 'sinon'
 
 describe('tool > linkWeixinBridge', () => {

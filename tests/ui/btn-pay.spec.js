@@ -26,12 +26,12 @@ describe('btn-pay', () => {
                     title,
                 },
             })
-    
+
             const wrapperTitle = wrapper.find('.tm-pay-title')
             assert.ok(wrapperTitle.exists())
             assert.strictEqual(wrapperTitle.text(), title)
         })
-    
+
         it('title小数点大于2位', () => {
             const title = 1.23456
             const wrapper = mount(CompBtnPay, {
@@ -39,12 +39,12 @@ describe('btn-pay', () => {
                     title,
                 },
             })
-    
+
             const wrapperTitle = wrapper.find('.tm-pay-price')
             assert.ok(wrapperTitle.exists())
             assert.strictEqual(wrapperTitle.text(), title.toFixed(2))
         })
-    
+
         it('title小数点等于1位', () => {
             const title = 1.2
             const wrapper = mount(CompBtnPay, {
@@ -52,12 +52,12 @@ describe('btn-pay', () => {
                     title,
                 },
             })
-    
+
             const wrapperTitle = wrapper.find('.tm-pay-price')
             assert.ok(wrapperTitle.exists())
             assert.strictEqual(wrapperTitle.text(), '1.20')
         })
-    
+
         it('title是int类型', () => {
             const title = 10
             const wrapper = mount(CompBtnPay, {
@@ -65,7 +65,7 @@ describe('btn-pay', () => {
                     title,
                 },
             })
-    
+
             const wrapperTitle = wrapper.find('.tm-pay-price')
             assert.ok(wrapperTitle.exists())
             assert.strictEqual(wrapperTitle.text(), '10')
@@ -81,22 +81,22 @@ describe('btn-pay', () => {
                     titlePrefix,
                 },
             })
-    
+
             const wrapperTitle = wrapper.find('.tm-pay-prefix')
             assert.strictEqual(wrapperTitle.text(), titlePrefix)
         })
-    
+
         it('title类型number,titlePrefix默认为￥', () => {
             const wrapper = mount(CompBtnPay, {
                 propsData: {
                     title: 1,
                 },
             })
-    
+
             const wrapperTitle = wrapper.find('.tm-pay-prefix')
             assert.strictEqual(wrapperTitle.text(), '￥')
         })
-    
+
         it('title类型插槽,不处理titlePrefix', () => {
             const titlePrefix = 'llll'
             const wrapper = mount(CompBtnPay, {
@@ -107,7 +107,7 @@ describe('btn-pay', () => {
                     title: WorkBasic,
                 },
             })
-    
+
             const wrapperTitle = wrapper.find('.tm-pay-prefix')
             assert.strictEqual(wrapperTitle.text(), titlePrefix)
         })
@@ -301,7 +301,7 @@ describe('btn-pay', () => {
             })
             const wrapperBtn = wrapper.find('.tm-pay-btn')
             wrapperBtn.trigger('click')
-    
+
             assert.ok(wrapper.emitted('click'))
         })
     })
