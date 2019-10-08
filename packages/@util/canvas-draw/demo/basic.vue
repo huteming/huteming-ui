@@ -46,6 +46,24 @@ export default {
             instance.drawRect(x, y, actualMaxWidth, actualMaxHeight, { type: 'stroke', color: '#000' })
         })
 
+        instance.add(() => {
+            instance.drawText('不换行不换行不换行不换行不换行不换行不换行不换行不换行不换行不换行不换行不换行不换行不换行不换行', x, y - 60, {
+                size: 26,
+                color: 'rgba(0, 0, 0, 1)',
+                maxWidth: 602,
+                wrap: false,
+            })
+        })
+
+        instance.add(() => {
+            instance.drawText('换行一次换行一次换行一次换行一次换行一次换行一次换行一次换行一次换行一次换行一次换行一次换行一次换行一次换行一次换行一次换行一次', x, y - 150, {
+                size: 26,
+                color: 'rgba(0, 0, 0, 1)',
+                maxWidth: 602,
+                wrap: 1,
+            })
+        })
+
         this.img = instance.done()
     },
 }

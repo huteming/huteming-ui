@@ -10,7 +10,7 @@ const defaults = {
     baseline: 'top', // 文本基线, alphabetic, top, hanging, middle, ideographic, bottom
     letterSpacing: 0,
     lineWidth: 1, // 画笔宽度
-    wrap: false, // 是否换行
+    wrap: 0, // 换行次数，不包括第一行。true => Infinity; false => 0
     shadowColor: '',
     shadowOffsetX: 0,
     shadowOffsetY: 0,
@@ -54,6 +54,10 @@ export function getOptions (this: any, x: any, y: any, options: any = {}) {
     options.underline.left *= ratio
     options.underline.right *= ratio
     options.underline.bottom *= ratio
+
+    if (typeof options.wrap === 'boolean') {
+        options.wrap = options.wrap === true ? Infinity : 0
+    }
 
     return options
 }
@@ -234,6 +238,7 @@ export function parsePosition (this: any, textArray: any, options: any) {
     })()
     let renderX: any = actualX
     let renderY: any = y
+    let countWrap = 0
 
     for (let i = 0; i < textArray.length; i++) {
         const item = textArray[i]
@@ -244,9 +249,9 @@ export function parsePosition (this: any, textArray: any, options: any) {
 
         // 计算文案的坐标
         // 另起一行画
-        const _maxWidth = wrap ? maxWidth + x : maxWidth + x - fixWidth
+        const _maxWidth = countWrap < wrap ? maxWidth + x : maxWidth + x - fixWidth
         if (renderX + letterWidth > _maxWidth) {
-            if (!wrap) {
+            if (countWrap >= wrap) {
                 letters.push({
                     ...prev,
                     letter: fix,
@@ -258,6 +263,7 @@ export function parsePosition (this: any, textArray: any, options: any) {
             }
             renderX = actualX
             renderY = renderY + lineHeight
+            countWrap++
         }
 
         const isFirst = !prev // 首字母
