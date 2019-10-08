@@ -23,7 +23,7 @@ export default {
         const y = 516
         const options = {
             size: 26,
-            color: 'rgba(0, 0, 0, 1)',
+            color: 'rgb(142, 146, 150)',
             wrap: true,
             maxWidth: 602,
         }
@@ -36,8 +36,8 @@ export default {
         // 前缀 后缀
         instance.add(() => {
             const { actualMaxWidth, actualMaxHeight } = instance.drawText(
-                '<underline>这是一段很长很长很长很长需要换行而且添加下划线的文案</underline>学员，请于<underline>2019</underline>年<underline>22</underline>月<underline>22</underline>日前' +
-                '<underline>这是令一段很长很长很长很长需要换行而且添加下</underline>',
+                '<underline><through>这是一段很长很长很长很长需要换行而且添加下划线的文案</through></underline>学员，请于<underline>2019</underline>年<underline>22</underline>月<underline>22</underline>日前' +
+                '<underline><through>这是令一段很长很长很长很长需要换行而且添加下</through></underline>',
                 x,
                 y,
                 { ...options }
@@ -61,6 +61,13 @@ export default {
                 color: 'rgba(0, 0, 0, 1)',
                 maxWidth: 602,
                 wrap: 1,
+            })
+        })
+
+        instance.add(() => {
+            instance.drawText('<through>删除线</through>', x, y + 150, {
+                size: 26,
+                color: 'rgba(0, 0, 0, 1)',
             })
         })
 

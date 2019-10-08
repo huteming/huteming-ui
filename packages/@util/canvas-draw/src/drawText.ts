@@ -75,7 +75,8 @@ export function setContextOptions (this: any, options: any) {
     // size / scaleBySystem 这段解决微信浏览器用户字体放大的问题
     context.font = `${style} ${variant} ${weight} ${size / scaleBySystem}px/${lineHeight}px arial`
     context.lineWidth = lineWidth
-    context[`${type}Style`] = color
+    context.fillStyle = color
+    context.strokeStyle = color
     context.shadowColor = shadowColor
     context.shadowOffsetX = shadowOffsetX
     context.shadowOffsetY = shadowOffsetY
@@ -163,6 +164,41 @@ export function parseUnderline (text: any) {
     return res
 }
 
+// 解析添加删除线属性
+// [{ letter }] => [{ letter, through }]
+export function parseThrough (textArray: any) {
+    const parse = (item: any): any => {
+        const { letter } = item
+        const regThrough = /(.*)<through>(.*)<\/through>(.*)/
+        const result = letter.match(regThrough)
+        const res = []
+
+        if (!result) {
+            if (letter) {
+                res.push({ ...item, letter, through: false })
+            }
+            return res
+        }
+
+        const [, matchBefore, matchThrough, matchAfter] = result
+        if (matchAfter) {
+            res.unshift({ ...item, letter: matchAfter, through: false })
+        }
+        if (matchThrough) {
+            res.unshift({ ...item, letter: matchThrough, through: true })
+        }
+        res.unshift(...parse({ ...item, letter: matchBefore }))
+
+        return res
+    }
+
+    // console.log('before parseUnderline', text)
+    const res: any = []
+    textArray.forEach((item: any) => res.push(...parse(item)))
+    // console.log('after parseUnderline', res)
+    return res
+}
+
 // 合并作为一个字符绘制的类型。如 相连数字该作为一个整体，不换行
 // [{ letter }] => [{ letter }]
 export function parseType (text: any) {
@@ -222,6 +258,7 @@ export function parsePosition (this: any, textArray: any, options: any) {
     const fixWidth = context.measureText(fix).width
     const letters = []
     const underlines: any = []
+    const throughes: any = []
 
     const actualX = (() => {
         const textWidth = calcTextWidth.call(this, textArray, options)
@@ -242,7 +279,7 @@ export function parsePosition (this: any, textArray: any, options: any) {
 
     for (let i = 0; i < textArray.length; i++) {
         const item = textArray[i]
-        const { letter, underline } = item
+        const { letter, underline, through } = item
         const letterWidth = context.measureText(letter).width
         const prev: any = letters[i - 1]
         const next = textArray[i + 1]
@@ -293,6 +330,45 @@ export function parsePosition (this: any, textArray: any, options: any) {
             y: renderY,
         })
 
+        // 计算删除线坐标
+        void (() => {
+            const inCurrent = !!through
+            if (!inCurrent) return
+
+            const throughOutPrev = isFirst || (prev && !prev.through) // 上一个没有删除线
+            const throughOutNext = isLast || (next && !next.through) // 下一个没有下划线
+            const throughStart = (char: any, x: any, y: any) => {
+                throughes.push({
+                    startLetter: char,
+                    startX: x,
+                    startY: y,
+                })
+            }
+            const throughEnd = (char: any, x: any, y: any) => {
+                // 因为一定是按顺序确定点，所以这里一定是确定了最近一条线的终点
+                const line = throughes[throughes.length - 1]
+                line.endLetter = char
+                line.endX = x
+                line.endY = y
+            }
+            // 删除线首字母 标记开始
+            if (throughOutPrev) {
+                throughStart(letter, renderX, renderY + size * 2 / 3)
+            }
+
+            // 新的一行 标记结束/标记开始
+            if (newline && !throughOutPrev) {
+                // 注意顺序，因为标记结束是取最后一个
+                throughEnd(prev.letter, prev.x + prev.letterWidth, prev.y + size * 2 / 3)
+                throughStart(letter, renderX, renderY + size * 2 / 3)
+            }
+
+            // 删除线尾字母 标记结束
+            if (throughOutNext) {
+                throughEnd(letter, renderX + letterWidth, renderY + size * 2 / 3)
+            }
+        })()
+
         // 计算下划线的坐标
         const signEnd = (char: any, x: any, y: any) => {
             // 因为一定是按顺序确定点，所以这里一定是确定了最近一条线的终点
@@ -335,7 +411,7 @@ export function parsePosition (this: any, textArray: any, options: any) {
         }
     }
 
-    return [letters, underlines]
+    return [letters, underlines, throughes]
 }
 
 export function drawText (this: any, textArray: any, options: any) {
@@ -359,6 +435,21 @@ export function drawUnderlines (this: any, lines: any, options: any) {
         const { startX, startY, endX, endY } = item
         context.beginPath()
         context.setLineDash(dashed)
+        context.moveTo(startX, startY)
+        context.lineTo(endX, endY)
+        context.stroke()
+    })
+
+    context.restore()
+}
+
+export function drawThrough (this: any, lines: any, options: any) {
+    const { context } = this
+    context.save()
+
+    lines.forEach((item: any) => {
+        const { startX, startY, endX, endY } = item
+        context.beginPath()
         context.moveTo(startX, startY)
         context.lineTo(endX, endY)
         context.stroke()
@@ -413,12 +504,14 @@ export default function (this: any, text: any, _x: any, _y: any, options: any) {
     const _text = [{ letter: text.toString() }]
     // => [{ letter: 'hello', underline: false }, { letter: 'underline', underline: true }, { letter: '12345world', underline: false }]
     const _underlined = parseUnderline(_text)
+    const _throughed = parseThrough(_underlined)
     // => [{ letter: 'h', underline: false }, ..., { letter: 'u', underline: true }, ..., { letter: '12345', underline: false }, { letter: 'w', underline: false }, ...]
-    const _typed = parseType(_underlined)
-    const [renderTexts, renderUnderlines] = parsePosition.call(this, _typed, options)
+    const _typed = parseType(_throughed)
+    const [renderTexts, renderUnderlines, renderThroughes] = parsePosition.call(this, _typed, options)
 
     drawText.call(this, renderTexts, options)
     drawUnderlines.call(this, renderUnderlines, options)
+    drawThrough.call(this, renderThroughes, options)
 
     const optionWithStatistic = addStatistic.call(this, renderTexts, options)
 
