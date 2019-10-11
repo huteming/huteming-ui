@@ -18,7 +18,8 @@ export default {
     },
 
     async mounted () {
-        this.initImage()
+        this.initText()
+        // this.initImage()
     },
 
     methods: {

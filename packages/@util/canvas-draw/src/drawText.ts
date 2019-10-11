@@ -1,5 +1,5 @@
 import { Draw } from './declare/abstract'
-import { DrawTextOption, DrawTextConfig, Letter, Underline, Through, LetterRender, UnderlineRender, ThroughRender } from './declare/types'
+import { DrawTextOption, DrawTextConfig, Letter, Underline, Through, LetterRender, UnderlineRender, ThroughRender } from './declare/drawText'
 import { LineTypes } from './declare/enum'
 
 const defaults = {
@@ -42,15 +42,16 @@ export default function (this: Draw, text: string, _x: number, _y: number, optio
     const config: DrawTextConfig = getConfig.call(this, _x, _y, options)
     setContextOptions.call(this, config)
 
-    // 示例: 'hello<underline>underline</underline>12345world'
-    // => [{ text: 'hello<underline>underline</underline>12345world' }]
+    // 示例: 'hello<underline>underline</underline>12345中文'
     const _text = [{ letter: text.toString() }]
-    // => [{ letter: 'hello', underline: false }, { letter: 'underline', underline: true }, { letter: '12345world', underline: false }]
     const _underlined = parseUnderline(_text)
     const _throughed = parseThrough(_underlined)
-    // => [{ letter: 'h', underline: false }, ..., { letter: 'u', underline: true }, ..., { letter: '12345', underline: false }, { letter: 'w', underline: false }, ...]
     const _typed = parseType(_throughed)
-    const [renderTexts, renderUnderlines, renderThroughes] = parsePosition.call(this, _typed, config)
+    // => [{ letter: 'hello', underline: false }, ..., { letter: '12345', underline: false }, { letter: '中', underline: false }, ...]
+
+    const renderTexts = getRenderText.call(this, _typed, config)
+    const renderUnderlines = getRenderUnderlines.call(this, renderTexts, config)
+    const renderThroughes = getRenderThroughes.call(this, renderTexts, config)
 
     drawText.call(this, renderTexts, config)
     drawUnderlines.call(this, renderUnderlines, config)
@@ -276,16 +277,13 @@ export function parseType (textArray: Letter[]): Letter[] {
     return res
 }
 
-// todo: 拆解逻辑
 // 解析添加坐标属性
 // [{ letter }] => [{ letter, letterWidth, x, y }]
-export function parsePosition (this: Draw, textArray: Letter[], config: DrawTextConfig): [LetterRender[], UnderlineRender[], ThroughRender[]] {
+export function getRenderText (this: Draw, textArray: Letter[], config: DrawTextConfig): LetterRender[] {
     const { context } = this
-    const { x, y, maxWidth, wrap, fix, lineHeight, underline: underlineOption, letterSpacing, align, size } = config
+    const { x, y, maxWidth, wrap, fix, lineHeight, underline: underlineOption, letterSpacing, align } = config
     const fixWidth: number = context.measureText(fix).width
     const letters: LetterRender[] = []
-    const underlines: UnderlineRender[] = []
-    const throughes: ThroughRender[] = []
 
     const actualX: number = (() => {
         const textWidth = calcTextWidth.call(this, textArray, config)
@@ -306,14 +304,13 @@ export function parsePosition (this: Draw, textArray: Letter[], config: DrawText
 
     for (let i = 0; i < textArray.length; i++) {
         const item = textArray[i]
-        const { letter, underline, through } = item
+        const { letter, underline } = item
         const letterWidth = context.measureText(letter).width
         const prev: LetterRender = letters[i - 1]
         const next: Letter = textArray[i + 1]
-
-        // 计算文案的坐标
-        // 另起一行画
         const _maxWidth = countWrap < wrap ? maxWidth + x : maxWidth + x - fixWidth
+
+        // 另起一行画
         if (renderX + letterWidth > _maxWidth) {
             if (countWrap >= wrap) {
                 letters.push({
@@ -337,7 +334,7 @@ export function parsePosition (this: Draw, textArray: Letter[], config: DrawText
         const newline = prev && prev.y !== renderY // 相比于上一个，是新的行
         const inCurrent = !!underline
 
-        // 第一个下划线字符，actualX 应该加上下划线宽出文字的左间距
+        // 第一个下划线字符, 应该加上下划线宽出文字的左间距
         if (inCurrent && notInPrev) {
             const space = (() => {
                 // 不是段落首字母，多加一段 left 作为上一个字符和下划线的距离
@@ -357,94 +354,129 @@ export function parsePosition (this: Draw, textArray: Letter[], config: DrawText
             y: renderY,
         })
 
-        // 计算删除线坐标
-        void (() => {
-            const inCurrent = !!through
-            if (!inCurrent) return
-
-            const throughOutPrev = isFirst || (prev && !prev.through) // 上一个没有删除线
-            const throughOutNext = isLast || (next && !next.through) // 下一个没有下划线
-            const throughStart = (char: string, x: number, y: number) => {
-                throughes.push({
-                    startLetter: char,
-                    endLetter: '',
-                    startX: x,
-                    startY: y,
-                    endX: 0,
-                    endY: 0,
-                })
-            }
-            const throughEnd = (char: string, x: number, y: number) => {
-                // 因为一定是按顺序确定点，所以这里一定是确定了最近一条线的终点
-                const line = throughes[throughes.length - 1]
-                line.endLetter = char
-                line.endX = x
-                line.endY = y
-            }
-            // 删除线首字母 标记开始
-            if (throughOutPrev) {
-                throughStart(letter, renderX, renderY + size * 2 / 3)
-            }
-
-            // 新的一行 标记结束/标记开始
-            if (newline && !throughOutPrev) {
-                // 注意顺序，因为标记结束是取最后一个
-                throughEnd(prev.letter, prev.x + prev.letterWidth, prev.y + size * 2 / 3)
-                throughStart(letter, renderX, renderY + size * 2 / 3)
-            }
-
-            // 删除线尾字母 标记结束
-            if (throughOutNext) {
-                throughEnd(letter, renderX + letterWidth, renderY + size * 2 / 3)
-            }
-        })()
-
-        // 计算下划线的坐标
-        const signEnd = (char: string, x: number, y: number) => {
-            // 因为一定是按顺序确定点，所以这里一定是确定了最近一条线的终点
-            const line = underlines[underlines.length - 1]
-            line.endLetter = char
-            line.endX = x
-            line.endY = y
-        }
-        const signStart = (char: string, x: number, y: number) => {
-            underlines.push({
-                startLetter: char,
-                endLetter: '',
-                startX: x,
-                startY: y,
-                endX: 0,
-                endY: 0,
-            })
-        }
-
-        // 下划线首字母 标记开始
-        if (inCurrent && notInPrev) {
-            signStart(letter, renderX - underlineOption.left, renderY + size + underlineOption.bottom)
-        }
-
-        // 新的一行 标记结束/标记开始
-        if (inCurrent && newline && !notInPrev) {
-            // 注意顺序，因为标记结束是取最后一个
-            signEnd(prev.letter, prev.x + prev.letterWidth, prev.y + size + underlineOption.bottom)
-            signStart(letter, renderX, renderY + size + underlineOption.bottom)
-        }
-
-        // 下划线尾字母 标记结束
-        if (inCurrent && notInNext) {
-            signEnd(letter, renderX + letterWidth + underlineOption.right, renderY + size + underlineOption.bottom)
-        }
-
         // x轴位置累加
         renderX += (letterWidth + letterSpacing)
 
-        // 最后一个下划线字符，累加下划线宽出文字的右间距
-        if (underline && (!next || !next.underline)) {
+        // 最后一个下划线字符, 累加下划线宽出文字的右间距
+        if (inCurrent && notInNext) {
             renderX += (underlineOption.right * 2)
         }
     }
 
-    return [letters, underlines, throughes]
+    return letters
+}
+
+// 获取待渲染下划线数组
+export function getRenderUnderlines (this: Draw, textArray: LetterRender[], config: DrawTextConfig): UnderlineRender[] {
+    const { underline: underlineOption, size } = config
+    const underlines: UnderlineRender[] = []
+
+    const signStart = (char: string, x: number, y: number) => {
+        underlines.push({
+            startLetter: char,
+            endLetter: '',
+            startX: x,
+            startY: y,
+            endX: 0,
+            endY: 0,
+        })
+    }
+    const signEnd = (char: string, x: number, y: number) => {
+        // 因为一定是按顺序确定点，所以这里一定是确定了最近一条线的终点
+        const line = underlines[underlines.length - 1]
+        line.endLetter = char
+        line.endX = x
+        line.endY = y
+    }
+
+    textArray.forEach((current: LetterRender, index: number) => {
+        const inCurrent = !!current.underline
+        if (!inCurrent) return
+
+        const prev: LetterRender | undefined = textArray[index - 1]
+        const next: LetterRender | undefined = textArray[index + 1]
+        const isFirst = !prev // 首字母
+        const isLast = !next // 尾字母
+        const notInPrev = isFirst || (prev && !prev.underline) // 上一个没有下划线
+        const notInNext = isLast || (next && !next.underline) // 下一个没有下划线
+        const newline = prev && prev.y !== current.y // 相比于上一个，是新的行
+        // 注意顺序, 因为三个 if 判断是可能同时触发多个的
+
+        // 下划线首字母 标记开始
+        if (notInPrev) {
+            signStart(current.letter, current.x - underlineOption.left, current.y + size + underlineOption.bottom)
+        }
+
+        // 新的一行 标记结束/标记开始
+        if (newline && !notInPrev) {
+            // 注意顺序，因为标记结束是取最后一个
+            signEnd(prev.letter, prev.x + prev.letterWidth, prev.y + size + underlineOption.bottom)
+            signStart(current.letter, current.x, current.y + size + underlineOption.bottom)
+        }
+
+        // 下划线尾字母 标记结束
+        if (notInNext) {
+            signEnd(current.letter, current.x + current.letterWidth + underlineOption.right, current.y + size + underlineOption.bottom)
+        }
+    })
+
+    return underlines
+}
+
+// 获取待渲染删除线数组
+export function getRenderThroughes (this: Draw, textArray: LetterRender[], config: DrawTextConfig): ThroughRender[] {
+    const { size } = config
+    const throughes: ThroughRender[] = []
+    const throughStart = (char: string, x: number, y: number) => {
+        throughes.push({
+            startLetter: char,
+            endLetter: '',
+            startX: x,
+            startY: y,
+            endX: 0,
+            endY: 0,
+        })
+    }
+    const throughEnd = (char: string, x: number, y: number) => {
+        // 因为一定是按顺序确定点，所以这里一定是确定了最近一条线的终点
+        const line = throughes[throughes.length - 1]
+        line.endLetter = char
+        line.endX = x
+        line.endY = y
+    }
+
+    textArray.forEach((current: LetterRender, index: number) => {
+        const inCurrent = !!current.through
+        if (!inCurrent) return
+
+        const prev: LetterRender | undefined = textArray[index - 1]
+        const next: Letter | undefined = textArray[index + 1]
+        const isFirst = !prev // 首字母
+        const isLast = !next // 尾字母
+        const notInPrev = isFirst || (prev && !prev.through) // 上一个没有删除线
+        const notInNext = isLast || (next && !next.through) // 下一个没有下划线
+        const newline = prev && prev.y !== current.y // 相比于上一个，是新的行
+        // 注意顺序, 因为三个 if 判断是可能同时触发多个的
+
+        // 删除线首字母 标记开始
+        if (notInPrev) {
+            throughStart(current.letter, current.x, current.y + size * 2 / 3)
+        }
+
+        // 新的一行 标记结束/标记开始
+        if (newline && !notInPrev) {
+            // 注意顺序，因为标记结束是取最后一个
+            throughEnd(prev.letter, prev.x + prev.letterWidth, prev.y + size * 2 / 3)
+            throughStart(current.letter, current.x, current.y + size * 2 / 3)
+        }
+
+        // 删除线尾字母 标记结束
+        if (notInNext) {
+            throughEnd(current.letter, current.x + current.letterWidth, current.y + size * 2 / 3)
+        }
+    })
+
+    return throughes
 }
 
 export function drawText (this: Draw, textArray: LetterRender[], config: DrawTextConfig): void {

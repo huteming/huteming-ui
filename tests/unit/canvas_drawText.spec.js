@@ -1,6 +1,10 @@
 import assert from 'assert'
 import sinon from 'sinon'
-import drawText, { getConfig, setContextOptions, parseUnderline, parseType, parsePosition, addStatistic, parseThrough } from 'web-util/canvas-draw/src/drawText'
+import {
+    getConfig, setContextOptions, parseUnderline, parseType, getRenderText,
+    addStatistic, parseThrough, getRenderUnderlines, getRenderThroughes
+} from 'web-util/canvas-draw/src/drawText'
+import CanvasDraw from 'web-util/canvas-draw/src/main'
 
 describe('canvas > drawText', () => {
     it('drawText返回配置对象', () => {
@@ -22,7 +26,10 @@ describe('canvas > drawText', () => {
             },
             ratio: 1,
         }
-        const options = drawText.call(mockSelf, '<underline><through>hello</through></underline>', 1, 2)
+        const ins = new CanvasDraw()
+        ins.ratio = mockSelf.ratio
+        ins.context = mockSelf.context
+        const options = ins.drawText('<underline><through>hello</through></underline>', 1, 2)
         const _options = getConfig.call(mockSelf, 1, 2)
         // 这里不方便计算统计数据，删除
         // 在函数中测试
@@ -305,7 +312,7 @@ describe('canvas > drawText', () => {
         })
     })
 
-    describe('parsePosition.letters', () => {
+    describe('getRenderText', () => {
         it('不换行 && 不超过maxWidth', () => {
             const ratio = 2
             const mockX = 2
@@ -320,11 +327,11 @@ describe('canvas > drawText', () => {
             }
             const options = getConfig.call({ ratio }, mockX, mockY, { wrap: false, maxWidth: Infinity })
             const mockText = [{ letter: '静' }, { letter: '好' }, { letter: '书' }, { letter: '院' }]
-            const res = parsePosition.call({ context: mockContext }, mockText, options)
+            const res = getRenderText.call({ context: mockContext }, mockText, options)
             const x = mockX * ratio
             const y = mockY * ratio
 
-            assert.deepStrictEqual(res[0], [
+            assert.deepStrictEqual(res, [
                 { letter: '静', letterWidth: mockTextWidth, x: x, y: y },
                 { letter: '好', letterWidth: mockTextWidth, x: x + mockTextWidth, y: y },
                 { letter: '书', letterWidth: mockTextWidth, x: x + mockTextWidth * 2, y: y },
@@ -347,11 +354,11 @@ describe('canvas > drawText', () => {
             }
             const options = getConfig.call({ ratio }, mockX, mockY, { wrap: false, maxWidth: 50 })
             const mockText = [{ letter: '静', extra: 'other' }, { letter: '好' }, { letter: '书' }, { letter: '院' }]
-            const res = parsePosition.call({ context: mockContext }, mockText, options)
+            const res = getRenderText.call({ context: mockContext }, mockText, options)
             const x = mockX * ratio
             const y = mockY * ratio
 
-            assert.deepStrictEqual(res[0], [
+            assert.deepStrictEqual(res, [
                 { letter: '静', letterWidth: mockTextWidth, x: x, y: y, extra: 'other' },
                 { letter: '.... ', letterWidth: 44, x: x + mockTextWidth, y: y, extra: 'other' },
             ])
@@ -372,11 +379,11 @@ describe('canvas > drawText', () => {
             }
             const options = getConfig.call({ ratio }, mockX, mockY, { wrap: true, maxWidth: Infinity })
             const mockText = [{ letter: '静' }, { letter: '好' }, { letter: '书' }, { letter: '院' }]
-            const res = parsePosition.call({ context: mockContext }, mockText, options)
+            const res = getRenderText.call({ context: mockContext }, mockText, options)
             const x = mockX * ratio
             const y = mockY * ratio
 
-            assert.deepStrictEqual(res[0], [
+            assert.deepStrictEqual(res, [
                 { letter: '静', letterWidth: mockTextWidth, x: x, y: y },
                 { letter: '好', letterWidth: mockTextWidth, x: x + mockTextWidth, y: y },
                 { letter: '书', letterWidth: mockTextWidth, x: x + mockTextWidth * 2, y: y },
@@ -400,12 +407,12 @@ describe('canvas > drawText', () => {
             const mockLineHeight = 45
             const options = getConfig.call({ ratio }, mockX, mockY, { wrap: 1, maxWidth: 25, lineHeight: mockLineHeight })
             const mockText = [{ letter: '静' }, { letter: '好' }, { letter: '书' }, { letter: '院' }]
-            const res = parsePosition.call({ context: mockContext }, mockText, options)
+            const res = getRenderText.call({ context: mockContext }, mockText, options)
             const x = mockX * ratio
             const y = mockY * ratio
             const lineHeight = mockLineHeight * ratio
 
-            assert.deepStrictEqual(res[0], [
+            assert.deepStrictEqual(res, [
                 { letter: '静', letterWidth: mockTextWidth, x: x, y: y },
                 { letter: '好', letterWidth: mockTextWidth, x: x, y: y + lineHeight },
                 { letter: '.... ', letterWidth: 44, x: x + mockTextWidth, y: y + lineHeight },
@@ -432,12 +439,12 @@ describe('canvas > drawText', () => {
                 { letter: '书' }, { letter: '院' },
                 { letter: '静' }, { letter: '好' },
             ]
-            const res = parsePosition.call({ context: mockContext }, mockText, options)
+            const res = getRenderText.call({ context: mockContext }, mockText, options)
             const x = mockX * ratio
             const y = mockY * ratio
             const lineHeight = mockLineHeight * ratio
 
-            assert.deepStrictEqual(res[0], [
+            assert.deepStrictEqual(res, [
                 { letter: '静', letterWidth: mockTextWidth, x: x, y: y },
                 { letter: '好', letterWidth: mockTextWidth, x: x + mockTextWidth, y: y },
                 { letter: '书', letterWidth: mockTextWidth, x: x, y: y + lineHeight },
@@ -447,11 +454,13 @@ describe('canvas > drawText', () => {
             ])
         })
 
-        it('换行 && 超过maxWidth && 下划线 && 子间距', () => {
-            const ratio = 2
+        it('首字母下划线 && 子间距', () => {
             const mockX = 2
             const mockY = 3
             const mockTextWidth = 33
+            const mockLeft = 10
+            const mockRight = 11
+            const mockBottom = 6
             const mockContext = {
                 measureText (text) {
                     return {
@@ -462,25 +471,118 @@ describe('canvas > drawText', () => {
             }
             const mockLineHeight = 45
             const mockLetterSpacing = 2
-            const options = getConfig.call({ ratio }, mockX, mockY, { wrap: true, maxWidth: 50, lineHeight: mockLineHeight, letterSpacing: mockLetterSpacing })
             const mockText = [
                 { letter: '静', underline: true },
+                { letter: '好' },
+                { letter: '书' },
+                { letter: '院' },
+            ]
+            const res = getRenderText.call({ context: mockContext }, mockText, {
+                x: mockX, y: mockY,
+                maxWidth: 100,
+                wrap: Infinity,
+                lineHeight: mockLineHeight,
+                letterSpacing: mockLetterSpacing,
+                underline: {
+                    left: mockLeft,
+                    right: mockRight,
+                    bottom: mockBottom,
+                },
+            })
+
+            assert.deepStrictEqual(res, [
+                { letter: '静', letterWidth: mockTextWidth, underline: true, x: mockX + mockLeft, y: mockY },
+                { letter: '好', letterWidth: mockTextWidth, x: mockX + mockLeft + mockTextWidth + mockRight + mockLetterSpacing + mockRight, y: mockY },
+                { letter: '书', letterWidth: mockTextWidth, x: mockX, y: mockY + mockLineHeight },
+                { letter: '院', letterWidth: mockTextWidth, x: mockX + mockTextWidth + mockLetterSpacing, y: mockY + mockLineHeight },
+            ])
+        })
+
+        it('下划线换行 && 子间距', () => {
+            const mockX = 2
+            const mockY = 3
+            const mockTextWidth = 33
+            const mockLeft = 10
+            const mockRight = 11
+            const mockBottom = 6
+            const mockContext = {
+                measureText (text) {
+                    return {
+                        // fix文案的长度更长，模拟出现添加fix之后不会超过maxWidth
+                        width: text === '.... ' ? 44 : mockTextWidth,
+                    }
+                },
+            }
+            const mockLineHeight = 45
+            const mockLetterSpacing = 2
+            const mockText = [
+                { letter: '静' },
                 { letter: '好', underline: true },
                 { letter: '书', underline: true },
+                { letter: '院' },
+            ]
+            const res = getRenderText.call({ context: mockContext }, mockText, {
+                x: mockX, y: mockY,
+                maxWidth: 100,
+                wrap: Infinity,
+                lineHeight: mockLineHeight,
+                letterSpacing: mockLetterSpacing,
+                underline: {
+                    left: mockLeft,
+                    right: mockRight,
+                    bottom: mockBottom,
+                },
+            })
+
+            assert.deepStrictEqual(res, [
+                { letter: '静', letterWidth: mockTextWidth, x: mockX, y: mockY },
+                { letter: '好', letterWidth: mockTextWidth, underline: true, x: mockX + mockTextWidth + mockLetterSpacing + mockLeft * 2, y: mockY },
+                { letter: '书', letterWidth: mockTextWidth, underline: true, x: mockX, y: mockY + mockLineHeight },
+                { letter: '院', letterWidth: mockTextWidth, x: mockX + mockTextWidth + mockLetterSpacing + mockRight * 2, y: mockY + mockLineHeight },
+            ])
+        })
+
+        it('尾字母下划线 && 子间距', () => {
+            const mockX = 2
+            const mockY = 3
+            const mockTextWidth = 33
+            const mockLeft = 10
+            const mockRight = 11
+            const mockBottom = 6
+            const mockContext = {
+                measureText (text) {
+                    return {
+                        // fix文案的长度更长，模拟出现添加fix之后不会超过maxWidth
+                        width: text === '.... ' ? 44 : mockTextWidth,
+                    }
+                },
+            }
+            const mockLineHeight = 45
+            const mockLetterSpacing = 2
+            const mockText = [
+                { letter: '静' },
+                { letter: '好' },
+                { letter: '书' },
                 { letter: '院', underline: true },
             ]
-            const res = parsePosition.call({ context: mockContext }, mockText, options)
-            const x = mockX * ratio
-            const y = mockY * ratio
-            const lineHeight = mockLineHeight * ratio
-            const letterSpacing = mockLetterSpacing * ratio
-            const left = 10 * ratio
+            const res = getRenderText.call({ context: mockContext }, mockText, {
+                x: mockX, y: mockY,
+                maxWidth: 100,
+                wrap: Infinity,
+                lineHeight: mockLineHeight,
+                letterSpacing: mockLetterSpacing,
+                underline: {
+                    left: mockLeft,
+                    right: mockRight,
+                    bottom: mockBottom,
+                },
+            })
 
-            assert.deepStrictEqual(res[0], [
-                { letter: '静', letterWidth: mockTextWidth, x: x + left, y: y, underline: true },
-                { letter: '好', letterWidth: mockTextWidth, x: x + left + mockTextWidth + letterSpacing, y: y, underline: true },
-                { letter: '书', letterWidth: mockTextWidth, x: x, y: y + lineHeight, underline: true },
-                { letter: '院', letterWidth: mockTextWidth, x: x + mockTextWidth + letterSpacing, y: y + lineHeight, underline: true },
+            assert.deepStrictEqual(res, [
+                { letter: '静', letterWidth: mockTextWidth, x: mockX, y: mockY },
+                { letter: '好', letterWidth: mockTextWidth, x: mockX + mockTextWidth + mockLetterSpacing, y: mockY },
+                { letter: '书', letterWidth: mockTextWidth, x: mockX, y: mockY + mockLineHeight },
+                { letter: '院', letterWidth: mockTextWidth, underline: true, x: mockX + mockTextWidth + mockLetterSpacing + mockLeft * 2, y: mockY + mockLineHeight },
             ])
         })
 
@@ -499,13 +601,12 @@ describe('canvas > drawText', () => {
             const mockLineHeight = 45
             const options = getConfig.call({ ratio }, mockX, mockY, { wrap: true, maxWidth: Infinity, lineHeight: mockLineHeight, align: 'center' })
             const mockText = [{ letter: '静' }, { letter: '好' }, { letter: '书' }, { letter: '院' }]
-            const res = parsePosition.call({ context: mockContext }, mockText, options)
+            const res = getRenderText.call({ context: mockContext }, mockText, options)
             const x = mockX * ratio
             const y = mockY * ratio
-            const lineHeight = mockLineHeight * ratio
             const actualWidth = mockTextWidth * 4
 
-            assert.deepStrictEqual(res[0], [
+            assert.deepStrictEqual(res, [
                 { letter: '静', letterWidth: mockTextWidth, x: x - actualWidth / 2, y: y },
                 { letter: '好', letterWidth: mockTextWidth, x: x - actualWidth / 2 + mockTextWidth, y: y },
                 { letter: '书', letterWidth: mockTextWidth, x: x - actualWidth / 2 + mockTextWidth * 2, y: y },
@@ -528,13 +629,12 @@ describe('canvas > drawText', () => {
             const mockLineHeight = 45
             const options = getConfig.call({ ratio }, mockX, mockY, { wrap: true, maxWidth: Infinity, lineHeight: mockLineHeight, align: 'right' })
             const mockText = [{ letter: '静' }, { letter: '好' }, { letter: '书' }, { letter: '院' }]
-            const res = parsePosition.call({ context: mockContext }, mockText, options)
+            const res = getRenderText.call({ context: mockContext }, mockText, options)
             const x = mockX * ratio
             const y = mockY * ratio
-            const lineHeight = mockLineHeight * ratio
             const actualWidth = mockTextWidth * 4
 
-            assert.deepStrictEqual(res[0], [
+            assert.deepStrictEqual(res, [
                 { letter: '静', letterWidth: mockTextWidth, x: x - actualWidth, y: y },
                 { letter: '好', letterWidth: mockTextWidth, x: x - actualWidth + mockTextWidth, y: y },
                 { letter: '书', letterWidth: mockTextWidth, x: x - actualWidth + mockTextWidth * 2, y: y },
@@ -543,713 +643,85 @@ describe('canvas > drawText', () => {
         })
     })
 
-    describe('parsePosition.underlines', () => {
-        it('段落首字母下划线', () => {
-            const ratio = 2
-            const mockX = 20
-            const mockY = 30
-            const mockTextWidth = 33
-            const mockContext = {
-                measureText (text) {
-                    return {
-                        // fix文案的长度更长，模拟出现添加fix之后不会超过maxWidth
-                        width: mockTextWidth,
-                    }
-                },
-            }
-            const mockLineHeight = 45
-            const mockLetterSpacing = 2
-            const mockSize = 66
-            const options = getConfig.call({ ratio }, mockX, mockY, {
-                wrap: true,
-                maxWidth: 100,
-                lineHeight: mockLineHeight,
-                letterSpacing: mockLetterSpacing,
-                size: mockSize,
-            })
-            const mockText = [{ letter: '静', underline: true }, { letter: '好' }, { letter: '书' }, { letter: '院' }]
-            const res = parsePosition.call({ context: mockContext }, mockText, options)
-            const x = mockX * ratio
-            const y = mockY * ratio
-            const lineHeight = mockLineHeight * ratio
-            const letterSpacing = mockLetterSpacing * ratio
-            const left = 10 * ratio
-            const right = 10 * ratio
-            const bottom = 6 * ratio
-            const size = mockSize * ratio
-
-            assert.deepStrictEqual(res[1], [
-                {
-                    startLetter: '静',
-                    endLetter: '静',
-                    startX: x,
-                    startY: y + size + bottom,
-                    endX: x + left + mockTextWidth + right,
-                    endY: y + size + bottom,
-                },
-            ])
-        })
-
-        it('行首字母下划线', () => {
-            const ratio = 2
-            const mockX = 20
-            const mockY = 30
-            const mockTextWidth = 33
-            const mockContext = {
-                measureText (text) {
-                    return {
-                        // fix文案的长度更长，模拟出现添加fix之后不会超过maxWidth
-                        width: mockTextWidth,
-                    }
-                },
-            }
-            const mockLineHeight = 45
-            const mockLetterSpacing = 2
-            const mockSize = 66
-            const options = getConfig.call({ ratio }, mockX, mockY, {
-                wrap: true,
-                maxWidth: 40,
-                lineHeight: mockLineHeight,
-                letterSpacing: mockLetterSpacing,
-                size: mockSize,
-            })
-            const mockText = [{ letter: '静' }, { letter: '好' }, { letter: '书', underline: true }, { letter: '院' }]
-            const res = parsePosition.call({ context: mockContext }, mockText, options)
-            const x = mockX * ratio
-            const y = mockY * ratio
-            const lineHeight = mockLineHeight * ratio
-            const letterSpacing = mockLetterSpacing * ratio
-            const left = 10 * ratio
-            const right = 10 * ratio
-            const bottom = 6 * ratio
-            const size = mockSize * ratio
-
-            assert.deepStrictEqual(res[1], [
-                {
-                    startLetter: '书',
-                    endLetter: '书',
-                    startX: x,
-                    startY: y + lineHeight + size + bottom,
-                    endX: x + left + mockTextWidth + right,
-                    endY: y + lineHeight + size + bottom,
-                },
-            ])
-        })
-
+    describe('getRenderUnderlines', () => {
         it('下划线换行', () => {
-            const ratio = 2
             const mockX = 20
             const mockY = 30
             const mockTextWidth = 33
-            const mockContext = {
-                measureText (text) {
-                    return {
-                        // fix文案的长度更长，模拟出现添加fix之后不会超过maxWidth
-                        width: mockTextWidth,
-                    }
-                },
-            }
             const mockLineHeight = 45
-            const mockLetterSpacing = 2
             const mockSize = 66
-            const options = getConfig.call({ ratio }, mockX, mockY, {
-                wrap: true,
-                maxWidth: 40,
-                lineHeight: mockLineHeight,
-                letterSpacing: mockLetterSpacing,
-                size: mockSize,
-            })
-            const mockText = [{ letter: '静' }, { letter: '好', underline: true }, { letter: '书', underline: true }, { letter: '院' }]
-            const res = parsePosition.call({ context: mockContext }, mockText, options)
-            const x = mockX * ratio
-            const y = mockY * ratio
-            const lineHeight = mockLineHeight * ratio
-            const letterSpacing = mockLetterSpacing * ratio
-            const left = 10 * ratio
-            const right = 10 * ratio
-            const bottom = 6 * ratio
-            const size = mockSize * ratio
-
-            assert.deepStrictEqual(res[1], [
-                {
-                    startLetter: '好',
-                    endLetter: '好',
-                    startX: x + mockTextWidth + letterSpacing + left,
-                    startY: y + size + bottom,
-                    endX: x + mockTextWidth + letterSpacing + left * 2 + mockTextWidth,
-                    endY: y + size + bottom,
-                },
-                {
-                    startLetter: '书',
-                    endLetter: '书',
-                    startX: x,
-                    startY: y + lineHeight + size + bottom,
-                    endX: x + mockTextWidth + right,
-                    endY: y + lineHeight + size + bottom,
-                },
-            ])
-        })
-
-        it('尾字母下划线', () => {
-            const ratio = 2
-            const mockX = 20
-            const mockY = 30
-            const mockTextWidth = 33
-            const mockContext = {
-                measureText (text) {
-                    return {
-                        // fix文案的长度更长，模拟出现添加fix之后不会超过maxWidth
-                        width: mockTextWidth,
-                    }
-                },
-            }
-            const mockLineHeight = 45
-            const mockLetterSpacing = 2
-            const mockSize = 66
-            const options = getConfig.call({ ratio }, mockX, mockY, {
-                wrap: true,
-                maxWidth: 200,
-                lineHeight: mockLineHeight,
-                letterSpacing: mockLetterSpacing,
-                size: mockSize,
-            })
-            const mockText = [{ letter: '静' }, { letter: '好' }, { letter: '书' }, { letter: '院', underline: true }]
-            const res = parsePosition.call({ context: mockContext }, mockText, options)
-            const x = mockX * ratio
-            const y = mockY * ratio
-            const lineHeight = mockLineHeight * ratio
-            const letterSpacing = mockLetterSpacing * ratio
-            const left = 10 * ratio
-            const right = 10 * ratio
-            const bottom = 6 * ratio
-            const size = mockSize * ratio
-
-            assert.deepStrictEqual(res[1], [
-                {
-                    startLetter: '院',
-                    endLetter: '院',
-                    startX: x + mockTextWidth * 3 + letterSpacing * 3 + left,
-                    startY: y + size + bottom,
-                    endX: x + mockTextWidth * 3 + letterSpacing * 3 + left * 2 + mockTextWidth + right,
-                    endY: y + size + bottom,
-                },
-            ])
-        })
-
-        it('自定义下划线参数', () => {
-            const ratio = 2
-            const mockX = 20
-            const mockY = 30
-            const mockTextWidth = 33
-            const mockContext = {
-                measureText (text) {
-                    return {
-                        // fix文案的长度更长，模拟出现添加fix之后不会超过maxWidth
-                        width: mockTextWidth,
-                    }
-                },
-            }
-            const mockLineHeight = 45
-            const mockLetterSpacing = 2
-            const mockSize = 66
-            const options = getConfig.call({ ratio }, mockX, mockY, {
-                wrap: true,
-                maxWidth: 40,
-                lineHeight: mockLineHeight,
-                letterSpacing: mockLetterSpacing,
-                size: mockSize,
-                underline: {
-                    left: 12,
-                },
-            })
-            const mockText = [{ letter: '静' }, { letter: '好', underline: true }, { letter: '书', underline: true }, { letter: '院' }]
-            const res = parsePosition.call({ context: mockContext }, mockText, options)
-            const x = mockX * ratio
-            const y = mockY * ratio
-            const lineHeight = mockLineHeight * ratio
-            const letterSpacing = mockLetterSpacing * ratio
-            const left = 12 * ratio
-            const right = 10 * ratio
-            const bottom = 6 * ratio
-            const size = mockSize * ratio
-
-            assert.deepStrictEqual(res[1], [
-                {
-                    startLetter: '好',
-                    endLetter: '好',
-                    startX: x + mockTextWidth + letterSpacing + left,
-                    startY: y + size + bottom,
-                    endX: x + mockTextWidth + letterSpacing + left * 2 + mockTextWidth,
-                    endY: y + size + bottom,
-                },
-                {
-                    startLetter: '书',
-                    endLetter: '书',
-                    startX: x,
-                    startY: y + lineHeight + size + bottom,
-                    endX: x + mockTextWidth + right,
-                    endY: y + lineHeight + size + bottom,
-                },
-            ])
-        })
-
-        it('文字居中 && 全部下划线', () => {
-            const ratio = 2
-            const mockX = 20
-            const mockY = 3
-            const mockTextWidth = 33
-            const mockContext = {
-                measureText (text) {
-                    return {
-                        width: mockTextWidth,
-                    }
-                },
-            }
-            const mockLineHeight = 45
-            const mockSize = 55
-            const options = getConfig.call({ ratio }, mockX, mockY, {
-                wrap: true,
-                maxWidth: Infinity,
-                lineHeight: mockLineHeight,
-                align: 'center',
-                size: mockSize,
-            })
-            const mockText = [
-                { letter: '静', underline: true },
-                { letter: '好', underline: true },
-                { letter: '书', underline: true },
-                { letter: '院', underline: true },
-            ]
-            const res = parsePosition.call({ context: mockContext }, mockText, options)
-            const x = mockX * ratio
-            const y = mockY * ratio
-            const lineHeight = mockLineHeight * ratio
-            const left = 10 * ratio
-            const right = 10 * ratio
-            const bottom = 6 * ratio
-            const size = mockSize * ratio
-            const actualWidth = mockTextWidth * 4 + left + right
-
-            assert.deepStrictEqual(res[1], [
-                {
-                    startLetter: '静',
-                    endLetter: '院',
-                    startX: x - actualWidth / 2,
-                    startY: y + size + bottom,
-                    endX: x + actualWidth / 2,
-                    endY: y + size + bottom,
-                },
-            ])
-        })
-
-        it('文字居中 && 局部下划线', () => {
-            const ratio = 2
-            const mockX = 20
-            const mockY = 3
-            const mockTextWidth = 33
-            const mockContext = {
-                measureText (text) {
-                    return {
-                        width: mockTextWidth,
-                    }
-                },
-            }
-            const mockLineHeight = 45
-            const mockSize = 55
-            const options = getConfig.call({ ratio }, mockX, mockY, {
-                wrap: true,
-                maxWidth: Infinity,
-                lineHeight: mockLineHeight,
-                align: 'center',
-                size: mockSize,
-            })
+            const mockLeft = 10
+            const mockRight = 11
+            const mockBottom = 6
             const mockText = [
                 { letter: '静' },
-                { letter: '好', underline: true },
-                { letter: '书', underline: true },
+                { letter: '好', underline: true, x: mockX + 33, y: mockY, letterWidth: mockTextWidth },
+                { letter: '书', underline: true, x: mockX, y: mockY + mockLineHeight, letterWidth: mockTextWidth },
                 { letter: '院' },
             ]
-            const res = parsePosition.call({ context: mockContext }, mockText, options)
-            const x = mockX * ratio
-            const y = mockY * ratio
-            const lineHeight = mockLineHeight * ratio
-            const left = 10 * ratio
-            const right = 10 * ratio
-            const bottom = 6 * ratio
-            const size = mockSize * ratio
-            const actualWidth = mockTextWidth * 4 + left * 2 + right * 2
+            const res = getRenderUnderlines.call({}, mockText, {
+                size: mockSize,
+                underline: {
+                    left: mockLeft,
+                    right: mockRight,
+                    bottom: mockBottom,
+                },
+            })
 
-            assert.deepStrictEqual(res[1], [
+            assert.deepStrictEqual(res, [
                 {
                     startLetter: '好',
-                    endLetter: '书',
-                    startX: x - actualWidth / 2 + mockTextWidth + left,
-                    startY: y + size + bottom,
-                    endX: x + actualWidth / 2 - mockTextWidth - right,
-                    endY: y + size + bottom,
+                    endLetter: '好',
+                    startX: mockX + 33 - mockLeft,
+                    startY: mockY + mockSize + mockBottom,
+                    endX: mockX + 33 + mockTextWidth,
+                    endY: mockY + mockSize + mockBottom,
                 },
-            ])
-        })
-
-        it('文字右对齐 && 全部下划线', () => {
-            const ratio = 2
-            const mockX = 20
-            const mockY = 3
-            const mockTextWidth = 33
-            const mockContext = {
-                measureText (text) {
-                    return {
-                        width: mockTextWidth,
-                    }
-                },
-            }
-            const mockLineHeight = 45
-            const mockSize = 55
-            const options = getConfig.call({ ratio }, mockX, mockY, {
-                wrap: true,
-                maxWidth: Infinity,
-                lineHeight: mockLineHeight,
-                align: 'right',
-                size: mockSize,
-            })
-            const mockText = [
-                { letter: '静', underline: true },
-                { letter: '好', underline: true },
-                { letter: '书', underline: true },
-                { letter: '院', underline: true },
-            ]
-            const res = parsePosition.call({ context: mockContext }, mockText, options)
-            const x = mockX * ratio
-            const y = mockY * ratio
-            const lineHeight = mockLineHeight * ratio
-            const left = 10 * ratio
-            const right = 10 * ratio
-            const bottom = 6 * ratio
-            const size = mockSize * ratio
-            const actualWidth = mockTextWidth * 4 + left + right
-
-            assert.deepStrictEqual(res[1], [
                 {
-                    startLetter: '静',
-                    endLetter: '院',
-                    startX: x - actualWidth,
-                    startY: y + size + bottom,
-                    endX: x,
-                    endY: y + size + bottom,
+                    startLetter: '书',
+                    endLetter: '书',
+                    startX: mockX,
+                    startY: mockY + mockLineHeight + mockSize + mockBottom,
+                    endX: mockX + mockTextWidth + mockRight,
+                    endY: mockY + mockLineHeight + mockSize + mockBottom,
                 },
             ])
         })
     })
 
-    describe('parsePosition.throughes', () => {
-        it('段落首字母删除线', () => {
-            const ratio = 2
-            const mockX = 20
-            const mockY = 30
-            const mockTextWidth = 33
-            const mockContext = {
-                measureText (text) {
-                    return {
-                        // fix文案的长度更长，模拟出现添加fix之后不会超过maxWidth
-                        width: mockTextWidth,
-                    }
-                },
-            }
-            const mockLineHeight = 45
-            const mockLetterSpacing = 2
-            const mockSize = 66
-            const options = getConfig.call({ ratio }, mockX, mockY, {
-                wrap: true,
-                maxWidth: 100,
-                lineHeight: mockLineHeight,
-                letterSpacing: mockLetterSpacing,
-                size: mockSize,
-            })
-            const mockText = [{ letter: '静', through: true }, { letter: '好' }, { letter: '书' }, { letter: '院' }]
-            const res = parsePosition.call({ context: mockContext }, mockText, options)
-            const x = mockX * ratio
-            const y = mockY * ratio
-            const size = mockSize * ratio
-
-            assert.deepStrictEqual(res[2], [
-                {
-                    startLetter: '静',
-                    endLetter: '静',
-                    startX: x,
-                    startY: y + size * 2 / 3,
-                    endX: x + mockTextWidth,
-                    endY: y + size * 2 / 3,
-                },
-            ])
-        })
-
-        it('行首字母删除线', () => {
-            const ratio = 2
-            const mockX = 20
-            const mockY = 30
-            const mockTextWidth = 33
-            const mockContext = {
-                measureText (text) {
-                    return {
-                        // fix文案的长度更长，模拟出现添加fix之后不会超过maxWidth
-                        width: mockTextWidth,
-                    }
-                },
-            }
-            const mockLineHeight = 45
-            const mockLetterSpacing = 2
-            const mockSize = 66
-            const options = getConfig.call({ ratio }, mockX, mockY, {
-                wrap: true,
-                maxWidth: 40,
-                lineHeight: mockLineHeight,
-                letterSpacing: mockLetterSpacing,
-                size: mockSize,
-            })
-            const mockText = [{ letter: '静' }, { letter: '好' }, { letter: '书', through: true }, { letter: '院' }]
-            const res = parsePosition.call({ context: mockContext }, mockText, options)
-            const x = mockX * ratio
-            const y = mockY * ratio
-            const size = mockSize * ratio
-            const lineHeight = mockLineHeight * ratio
-
-            assert.deepStrictEqual(res[2], [
-                {
-                    startLetter: '书',
-                    endLetter: '书',
-                    startX: x,
-                    startY: y + lineHeight + size * 2 / 3,
-                    endX: x + mockTextWidth,
-                    endY: y + lineHeight + size * 2 / 3,
-                },
-            ])
-        })
-
+    describe('getRenderThroughes', () => {
         it('删除线换行', () => {
-            const ratio = 2
             const mockX = 20
             const mockY = 30
             const mockTextWidth = 33
-            const mockContext = {
-                measureText (text) {
-                    return {
-                        // fix文案的长度更长，模拟出现添加fix之后不会超过maxWidth
-                        width: mockTextWidth,
-                    }
-                },
-            }
             const mockLineHeight = 45
-            const mockLetterSpacing = 2
             const mockSize = 66
-            const options = getConfig.call({ ratio }, mockX, mockY, {
-                wrap: true,
-                maxWidth: 40,
-                lineHeight: mockLineHeight,
-                letterSpacing: mockLetterSpacing,
+            const mockText = [
+                { letter: '静' },
+                { letter: '好', through: true, x: mockX + 99, y: mockY, letterWidth: mockTextWidth },
+                { letter: '书', through: true, x: mockX, y: mockY + mockLineHeight, letterWidth: mockTextWidth },
+                { letter: '院' },
+            ]
+            const res = getRenderThroughes.call({}, mockText, {
                 size: mockSize,
             })
-            const mockText = [{ letter: '静' }, { letter: '好', through: true }, { letter: '书', through: true }, { letter: '院' }]
-            const res = parsePosition.call({ context: mockContext }, mockText, options)
-            const x = mockX * ratio
-            const y = mockY * ratio
-            const size = mockSize * ratio
-            const lineHeight = mockLineHeight * ratio
-            const letterSpacing = mockLetterSpacing * ratio
 
-            assert.deepStrictEqual(res[2], [
+            assert.deepStrictEqual(res, [
                 {
                     startLetter: '好',
                     endLetter: '好',
-                    startX: x + mockTextWidth + letterSpacing,
-                    startY: y + size * 2 / 3,
-                    endX: x + mockTextWidth + mockTextWidth + letterSpacing,
-                    endY: y + size * 2 / 3,
+                    startX: mockX + 99,
+                    startY: mockY + mockSize * 2 / 3,
+                    endX: mockX + 99 + mockTextWidth,
+                    endY: mockY + mockSize * 2 / 3,
                 },
                 {
                     startLetter: '书',
                     endLetter: '书',
-                    startX: x,
-                    startY: y + lineHeight + size * 2 / 3,
-                    endX: x + mockTextWidth,
-                    endY: y + lineHeight + size * 2 / 3,
-                },
-            ])
-        })
-
-        it('尾字母删除线', () => {
-            const ratio = 2
-            const mockX = 20
-            const mockY = 30
-            const mockTextWidth = 33
-            const mockContext = {
-                measureText (text) {
-                    return {
-                        // fix文案的长度更长，模拟出现添加fix之后不会超过maxWidth
-                        width: mockTextWidth,
-                    }
-                },
-            }
-            const mockLineHeight = 45
-            const mockLetterSpacing = 2
-            const mockSize = 66
-            const options = getConfig.call({ ratio }, mockX, mockY, {
-                wrap: true,
-                maxWidth: 200,
-                lineHeight: mockLineHeight,
-                letterSpacing: mockLetterSpacing,
-                size: mockSize,
-            })
-            const mockText = [{ letter: '静' }, { letter: '好' }, { letter: '书' }, { letter: '院', through: true }]
-            const res = parsePosition.call({ context: mockContext }, mockText, options)
-            const x = mockX * ratio
-            const y = mockY * ratio
-            const size = mockSize * ratio
-            const letterSpacing = mockLetterSpacing * ratio
-
-            assert.deepStrictEqual(res[2], [
-                {
-                    startLetter: '院',
-                    endLetter: '院',
-                    startX: x + mockTextWidth * 3 + letterSpacing * 3,
-                    startY: y + size * 2 / 3,
-                    endX: x + mockTextWidth * 3 + mockTextWidth + letterSpacing * 3,
-                    endY: y + size * 2 / 3,
-                },
-            ])
-        })
-
-        it('文字居中 && 全部删除线', () => {
-            const ratio = 2
-            const mockX = 20
-            const mockY = 3
-            const mockTextWidth = 33
-            const mockContext = {
-                measureText (text) {
-                    return {
-                        width: mockTextWidth,
-                    }
-                },
-            }
-            const mockLineHeight = 45
-            const mockSize = 55
-            const options = getConfig.call({ ratio }, mockX, mockY, {
-                wrap: true,
-                maxWidth: Infinity,
-                lineHeight: mockLineHeight,
-                align: 'center',
-                size: mockSize,
-            })
-            const mockText = [
-                { letter: '静', through: true },
-                { letter: '好', through: true },
-                { letter: '书', through: true },
-                { letter: '院', through: true },
-            ]
-            const res = parsePosition.call({ context: mockContext }, mockText, options)
-            const x = mockX * ratio
-            const y = mockY * ratio
-            const size = mockSize * ratio
-            const actualWidth = mockTextWidth * 4
-
-            assert.deepStrictEqual(res[2], [
-                {
-                    startLetter: '静',
-                    endLetter: '院',
-                    startX: x - actualWidth / 2,
-                    startY: y + size * 2 / 3,
-                    endX: x + actualWidth / 2,
-                    endY: y + size * 2 / 3,
-                },
-            ])
-        })
-
-        it('文字居中 && 局部删除线', () => {
-            const ratio = 2
-            const mockX = 20
-            const mockY = 3
-            const mockTextWidth = 33
-            const mockContext = {
-                measureText (text) {
-                    return {
-                        width: mockTextWidth,
-                    }
-                },
-            }
-            const mockLineHeight = 45
-            const mockSize = 55
-            const options = getConfig.call({ ratio }, mockX, mockY, {
-                wrap: true,
-                maxWidth: Infinity,
-                lineHeight: mockLineHeight,
-                align: 'center',
-                size: mockSize,
-            })
-            const mockText = [
-                { letter: '静' },
-                { letter: '好', through: true },
-                { letter: '书', through: true },
-                { letter: '院' },
-            ]
-            const res = parsePosition.call({ context: mockContext }, mockText, options)
-            const x = mockX * ratio
-            const y = mockY * ratio
-            const size = mockSize * ratio
-            const actualWidth = mockTextWidth * 4
-
-            assert.deepStrictEqual(res[2], [
-                {
-                    startLetter: '好',
-                    endLetter: '书',
-                    startX: x - actualWidth / 2 + mockTextWidth,
-                    startY: y + size * 2 / 3,
-                    endX: x + actualWidth / 2 - mockTextWidth,
-                    endY: y + size * 2 / 3,
-                },
-            ])
-        })
-
-        it('文字右对齐 && 全部删除线', () => {
-            const ratio = 2
-            const mockX = 20
-            const mockY = 3
-            const mockTextWidth = 33
-            const mockContext = {
-                measureText (text) {
-                    return {
-                        width: mockTextWidth,
-                    }
-                },
-            }
-            const mockLineHeight = 45
-            const mockSize = 55
-            const options = getConfig.call({ ratio }, mockX, mockY, {
-                wrap: true,
-                maxWidth: Infinity,
-                lineHeight: mockLineHeight,
-                align: 'right',
-                size: mockSize,
-            })
-            const mockText = [
-                { letter: '静', through: true },
-                { letter: '好', through: true },
-                { letter: '书', through: true },
-                { letter: '院', through: true },
-            ]
-            const res = parsePosition.call({ context: mockContext }, mockText, options)
-            const x = mockX * ratio
-            const y = mockY * ratio
-            const left = 10 * ratio
-            const right = 10 * ratio
-            const size = mockSize * ratio
-
-            assert.deepStrictEqual(res[2], [
-                {
-                    startLetter: '静',
-                    endLetter: '院',
-                    startX: x - mockTextWidth * 4,
-                    startY: y + size * 2 / 3,
-                    endX: x,
-                    endY: y + size * 2 / 3,
+                    startX: mockX,
+                    startY: mockY + mockLineHeight + mockSize * 2 / 3,
+                    endX: mockX + mockTextWidth,
+                    endY: mockY + mockLineHeight + mockSize * 2 / 3,
                 },
             ])
         })

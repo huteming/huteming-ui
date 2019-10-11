@@ -1,12 +1,13 @@
 import createCanvas from '../createCanvas'
 import getSystemRatio from '../getSystemRatio'
 import {
-    CanvasConfig, DrawTextOption, DrawTextConfig, DrawRectOption, DrawRectConfig,
+    CanvasConfig, DrawRectOption, DrawRectConfig,
     DrawLineOption, DrawLineConfig, CanvasOption
 } from './types'
 import { ImageTypes } from './enum'
 import { DrawArcOption, DrawArcConfig } from './drawArc'
 import { DrawImageOption, DrawImageConfig } from './drawImage'
+import { DrawTextOption, DrawTextConfig } from './drawText'
 
 const defaultCanvas = {
     designWidth: 750,

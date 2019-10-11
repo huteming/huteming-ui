@@ -9,9 +9,15 @@ import { Draw, Render } from './declare/abstract'
 import { ImageTypes } from './declare/enum'
 import { DrawArcOption, DrawArcConfig } from './declare/drawArc'
 import { DrawImageOption, DrawImageConfig } from './declare/drawImage'
+import { DrawTextOption, DrawTextConfig } from './declare/drawText'
 
 @autobind
 export default class CanvasDraw extends Draw implements Render {
+    @time('drawText')
+    drawText (this: Draw, text: string, x: number, y: number, options: DrawTextOption): DrawTextConfig {
+        return drawText.call(this, text, x, y, options)
+    }
+
     @time('drawImage')
     drawImage (this: Draw, image: HTMLImageElement | HTMLCanvasElement, x: number, y: number, width: number, height: number, options: DrawImageOption): DrawImageConfig {
         return drawImage.call(this, image, x, y, width, height, options)
@@ -22,7 +28,6 @@ export default class CanvasDraw extends Draw implements Render {
         return drawArc.call(this, x, y, r, options)
     }
 
-    drawText = drawText.bind(this)
     drawRect = drawRect.bind(this)
     drawLine = drawLine.bind(this)
     getBlurryArea = getBlurryArea.bind(this)
