@@ -3,17 +3,13 @@ import sinon from 'sinon'
 import CanvasDraw from 'web-util/canvas-draw/src/main'
 
 describe('canvas', () => {
-    afterEach(() => {
-        sinon.restore()
-    })
-
     it('是一个构造函数', () => {
         const canvas = new CanvasDraw()
         assert.ok(canvas instanceof CanvasDraw)
     })
 
-    describe('callback', () => {
-        it('自定义异常处理', () => {
+    describe('异常处理', () => {
+        it('自定义处理', () => {
             const mockLog = sinon.fake()
             const mockHandler = sinon.fake()
             const mockError = new Error('非期望异常')
@@ -29,12 +25,11 @@ describe('canvas', () => {
             assert.ok(mockHandler.calledWithExactly(mockError))
         })
 
-        it('默认的异常处理', () => {
+        it('默认打印', () => {
             const mockLog = sinon.fake()
             const mockFn = sinon.fake()
             const mockError = new Error('非期望异常')
             sinon.replace(console, 'error', mockLog)
-            sinon.replace(console, 'log', mockFn)
             const canvas = new CanvasDraw()
             canvas.add(() => {
                 throw mockError
@@ -45,7 +40,23 @@ describe('canvas', () => {
             assert.ok(mockLog.calledWithExactly(mockError))
             assert.strictEqual(mockFn.callCount, 1)
         })
+    })
 
+    describe('add', () => {
+        it('返回实例', () => {
+            const ins = new CanvasDraw()
+            const self = ins.add()
+            assert.strictEqual(self, ins)
+        })
+
+        it('过滤非函数参数', () => {
+            const ins = new CanvasDraw()
+            ins.add()
+            assert.strictEqual(ins._callbacks.length, 0)
+        })
+    })
+
+    describe('callback', () => {
         it('callback在done中执行', () => {
             const mockCallback = sinon.fake()
             const canvas = new CanvasDraw()
@@ -54,23 +65,14 @@ describe('canvas', () => {
             assert.strictEqual(mockCallback.callCount, 0)
         })
 
-        it('第一个参数对象', () => {
+        it('回调函数第一个参数为实例本身', () => {
             const mockCallback = sinon.fake()
             const canvas = new CanvasDraw()
-            const self = {
-                context: canvas.context,
-                ratio: canvas.ratio,
-                canvas: canvas.canvas,
-                canvasWidth: canvas.canvasWidth,
-                canvasHeight: canvas.canvasHeight,
-                scale: canvas.scale,
-                scaleBySystem: canvas.scaleBySystem,
-            }
 
             canvas.add(mockCallback)
             canvas.done()
 
-            assert.deepStrictEqual(mockCallback.getCall(0).args, [self])
+            assert.strictEqual(mockCallback.getCall(0).args[0], canvas)
         })
 
         it('callback执行save、restore', () => {
@@ -126,5 +128,9 @@ describe('canvas', () => {
             const [type] = toDataURL.getCall(0).args
             assert.strictEqual(type, `image/png`)
         })
+    })
+
+    afterEach(() => {
+        sinon.restore()
     })
 })

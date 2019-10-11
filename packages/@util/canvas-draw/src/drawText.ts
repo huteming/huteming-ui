@@ -1,3 +1,7 @@
+import { Draw } from './declare/abstract'
+import { DrawTextOption, DrawTextConfig, Letter, Underline, Through, LetterRender, UnderlineRender, ThroughRender } from './declare/types'
+import { LineTypes } from './declare/enum'
+
 const defaults = {
     fix: '.... ', // 过长省略时添加字符串
     maxWidth: Infinity, // 最长宽度，会在末尾加上 fix 字符串，一般搭配前缀 后缀使用
@@ -16,61 +20,90 @@ const defaults = {
     shadowOffsetY: 0,
     shadowBlur: 0,
     color: '#000',
-    type: 'fill',
-    underline: {},
+    type: LineTypes.FillText,
+    underline: {
+        left: 10,
+        right: 10,
+        bottom: 6,
+        dashed: [],
+        lineWidth: 1,
+    },
 }
-const defaultUnderline = {
-    left: 10,
-    right: 10,
-    bottom: 6,
-    dashed: [],
-    lineWidth: 1,
+
+/**
+ * @argument {*String} text 文本
+ * @argument {*Number} x x 坐标
+ * @argument {*Number} y y 坐标
+ * @argument {Object} options
+ *
+ * @returns {Object} options
+ */
+export default function (this: Draw, text: string, _x: number, _y: number, options: DrawTextOption = {}): DrawTextConfig {
+    const config: DrawTextConfig = getConfig.call(this, _x, _y, options)
+    setContextOptions.call(this, config)
+
+    // 示例: 'hello<underline>underline</underline>12345world'
+    // => [{ text: 'hello<underline>underline</underline>12345world' }]
+    const _text = [{ letter: text.toString() }]
+    // => [{ letter: 'hello', underline: false }, { letter: 'underline', underline: true }, { letter: '12345world', underline: false }]
+    const _underlined = parseUnderline(_text)
+    const _throughed = parseThrough(_underlined)
+    // => [{ letter: 'h', underline: false }, ..., { letter: 'u', underline: true }, ..., { letter: '12345', underline: false }, { letter: 'w', underline: false }, ...]
+    const _typed = parseType(_throughed)
+    const [renderTexts, renderUnderlines, renderThroughes] = parsePosition.call(this, _typed, config)
+
+    drawText.call(this, renderTexts, config)
+    drawUnderlines.call(this, renderUnderlines, config)
+    drawThrough.call(this, renderThroughes, config)
+
+    const optionWithStatistic = addStatistic.call(this, renderTexts, config)
+
+    return optionWithStatistic
 }
 
 // 格式化系数
-export function getOptions (this: any, x: any, y: any, options: any = {}) {
+export function getConfig (this: Draw, x: number, y: number, options: DrawTextOption = {}): DrawTextConfig {
     const { ratio } = this
-    options = {
-        x,
-        y,
-        ...defaults,
-        ...options,
-    }
-    options.underline = {
-        ...defaultUnderline,
-        ...options.underline,
-    }
+    const configUnderline = Object.assign({}, defaults.underline, options.underline)
 
-    options.x *= ratio
-    options.y *= ratio
-    options.maxWidth *= ratio
-    options.size *= ratio
-    options.lineHeight = (options.lineHeight * ratio) || options.size * 1.5
-    options.letterSpacing = options.letterSpacing * ratio
-    options.shadowOffsetX *= ratio
-    options.shadowOffsetY *= ratio
-    options.shadowBlur *= ratio
+    configUnderline.left *= ratio
+    configUnderline.right *= ratio
+    configUnderline.bottom *= ratio
 
-    options.underline.left *= ratio
-    options.underline.right *= ratio
-    options.underline.bottom *= ratio
+    const config: DrawTextConfig = Object.assign({ x, y, actualMaxWidth: 0, actualMaxHeight: 0 }, defaults, options, { underline: configUnderline })
 
-    if (typeof options.wrap === 'boolean') {
-        options.wrap = options.wrap === true ? Infinity : 0
+    config.x *= ratio
+    config.y *= ratio
+    config.maxWidth *= ratio
+    config.size *= ratio
+    config.lineHeight = (config.lineHeight * ratio) || config.size * 1.5
+    config.letterSpacing = config.letterSpacing * ratio
+    config.shadowOffsetX *= ratio
+    config.shadowOffsetY *= ratio
+    config.shadowBlur *= ratio
+
+    if (typeof config.wrap === 'boolean') {
+        config.wrap = config.wrap === true ? Infinity : 0
     }
 
-    return options
+    // 低版本兼容
+    if ((config.type as string) === 'fill') {
+        config.type = LineTypes.FillText
+    } else if ((config.type as string) === 'stroke') {
+        config.type = LineTypes.StrokeText
+    }
+
+    return config
 }
 
 // 设置上下文参数
-export function setContextOptions (this: any, options: any) {
+export function setContextOptions (this: Draw, config: DrawTextConfig): void {
     const { context, scaleBySystem } = this
-
     const {
         style, variant, weight, size, color,
         shadowColor, shadowOffsetX, shadowOffsetY, shadowBlur,
-        lineHeight, lineWidth, baseline, type,
-    } = options
+        lineHeight, lineWidth, baseline,
+    } = config
 
     // size / scaleBySystem 这段解决微信浏览器用户字体放大的问题
     context.font = `${style} ${variant} ${weight} ${size / scaleBySystem}px/${lineHeight}px arial`
@@ -85,14 +118,14 @@ export function setContextOptions (this: any, options: any) {
 }
 
 // 计算文本的总宽度
-export function calcTextWidth (this: any, textArray: any, options: any) {
+export function calcTextWidth (this: Draw, textArray: Letter[], config: DrawTextConfig): number {
     const { context } = this
-    const { letterSpacing, underline: underlineOptions } = options
+    const { letterSpacing, underline: underlineOptions } = config
     const { left, right } = underlineOptions
     const length = textArray.length
     let width = 0
 
-    textArray.forEach((item: any, index: any) => {
+    textArray.forEach((item: Letter, index: number) => {
         const { letter, underline } = item
         const prev = textArray[index - 1]
         const next = textArray[index + 1]
@@ -131,8 +164,8 @@ export function calcTextWidth (this: any, textArray: any, options: any) {
 
 // 解析添加下划线属性
 // [{ letter }] => [{ letter, underline }]
-export function parseUnderline (text: any) {
-    const parse = (item: any): any => {
+export function parseUnderline (textArray: Letter[]): Underline[] {
+    const parse = (item: Letter): Underline[] => {
         const { letter } = item
         const regUnderline = /(.*)<underline>(.*)<\/underline>(.*)/
         const result = letter.match(regUnderline)
@@ -157,17 +190,15 @@ export function parseUnderline (text: any) {
         return res
     }
 
-    // console.log('before parseUnderline', text)
-    const res: any = []
-    text.forEach((item: any) => res.push(...parse(item)))
-    // console.log('after parseUnderline', res)
+    const res: Underline[] = []
+    textArray.forEach((item: Letter) => res.push(...parse(item)))
     return res
 }
 
 // 解析添加删除线属性
 // [{ letter }] => [{ letter, through }]
-export function parseThrough (textArray: any) {
-    const parse = (item: any): any => {
+export function parseThrough (textArray: Letter[]): Through[] {
+    const parse = (item: Letter): Through[] => {
         const { letter } = item
         const regThrough = /(.*)<through>(.*)<\/through>(.*)/
         const result = letter.match(regThrough)
@@ -192,23 +223,21 @@ export function parseThrough (textArray: any) {
         return res
     }
 
-    // console.log('before parseUnderline', text)
-    const res: any = []
-    textArray.forEach((item: any) => res.push(...parse(item)))
-    // console.log('after parseUnderline', res)
+    const res: Through[] = []
+    textArray.forEach((item: Letter) => res.push(...parse(item)))
     return res
 }
 
 // 合并作为一个字符绘制的类型。如 相连数字该作为一个整体，不换行
 // [{ letter }] => [{ letter }]
-export function parseType (text: any) {
-    const parse = (item: any) => {
+export function parseType (textArray: Letter[]): Letter[] {
+    const parse = (item: Letter) => {
         const { letter } = item
         let start = -1
         let end = -1
         const res = []
 
-        letter.split('').forEach((char: any, index: any) => {
+        letter.split('').forEach((char: string, index: number) => {
             if (/[0-9a-zA-Z]/.test(char)) {
                 if (start > -1) {
                     end = index + 1
@@ -241,10 +270,8 @@ export function parseType (text: any) {
         return res
     }
 
-    // console.log('before parseType', text)
-    const res: any = []
-    text.forEach((item: any) => res.push(...parse(item)))
-    // console.log('after parseType', res)
+    const res: Letter[] = []
+    textArray.forEach((item: Letter) => res.push(...parse(item)))
 
     return res
 }
@@ -252,16 +279,16 @@ export function parseType (text: any) {
 // todo: 拆解逻辑
 // 解析添加坐标属性
 // [{ letter }] => [{ letter, letterWidth, x, y }]
-export function parsePosition (this: any, textArray: any, options: any) {
+export function parsePosition (this: Draw, textArray: Letter[], config: DrawTextConfig): [LetterRender[], UnderlineRender[], ThroughRender[]] {
     const { context } = this
-    const { x, y, maxWidth, wrap, fix, lineHeight, underline: underlineOption, letterSpacing, align, size } = options
-    const fixWidth = context.measureText(fix).width
-    const letters = []
-    const underlines: any = []
-    const throughes: any = []
+    const { x, y, maxWidth, wrap, fix, lineHeight, underline: underlineOption, letterSpacing, align, size } = config
+    const fixWidth: number = context.measureText(fix).width
+    const letters: LetterRender[] = []
+    const underlines: UnderlineRender[] = []
+    const throughes: ThroughRender[] = []
 
-    const actualX = (() => {
-        const textWidth = calcTextWidth.call(this, textArray, options)
+    const actualX: number = (() => {
+        const textWidth = calcTextWidth.call(this, textArray, config)
         const actualWidth = Math.min(maxWidth, textWidth)
         // 根据水平对齐方式确定第一个字符的坐标
         switch (align) {
@@ -273,16 +300,16 @@ export function parsePosition (this: any, textArray: any, options: any) {
             return x
         }
     })()
-    let renderX: any = actualX
-    let renderY: any = y
-    let countWrap = 0
+    let renderX: number = actualX
+    let renderY: number = y
+    let countWrap: number = 0
 
     for (let i = 0; i < textArray.length; i++) {
         const item = textArray[i]
         const { letter, underline, through } = item
         const letterWidth = context.measureText(letter).width
-        const prev: any = letters[i - 1]
-        const next = textArray[i + 1]
+        const prev: LetterRender = letters[i - 1]
+        const next: Letter = textArray[i + 1]
 
         // 计算文案的坐标
         // 另起一行画
@@ -337,14 +364,17 @@ export function parsePosition (this: any, textArray: any, options: any) {
 
             const throughOutPrev = isFirst || (prev && !prev.through) // 上一个没有删除线
             const throughOutNext = isLast || (next && !next.through) // 下一个没有下划线
-            const throughStart = (char: any, x: any, y: any) => {
+            const throughStart = (char: string, x: number, y: number) => {
                 throughes.push({
                     startLetter: char,
+                    endLetter: '',
                     startX: x,
                     startY: y,
+                    endX: 0,
+                    endY: 0,
                 })
             }
-            const throughEnd = (char: any, x: any, y: any) => {
+            const throughEnd = (char: string, x: number, y: number) => {
                 // 因为一定是按顺序确定点，所以这里一定是确定了最近一条线的终点
                 const line = throughes[throughes.length - 1]
                 line.endLetter = char
@@ -370,18 +400,21 @@ export function parsePosition (this: any, textArray: any, options: any) {
         })()
 
         // 计算下划线的坐标
-        const signEnd = (char: any, x: any, y: any) => {
+        const signEnd = (char: string, x: number, y: number) => {
             // 因为一定是按顺序确定点，所以这里一定是确定了最近一条线的终点
             const line = underlines[underlines.length - 1]
             line.endLetter = char
             line.endX = x
             line.endY = y
         }
-        const signStart = (char: any, x: any, y: any) => {
+        const signStart = (char: string, x: number, y: number) => {
             underlines.push({
                 startLetter: char,
+                endLetter: '',
                 startX: x,
                 startY: y,
+                endX: 0,
+                endY: 0,
             })
         }
 
@@ -414,24 +447,24 @@ export function parsePosition (this: any, textArray: any, options: any) {
     return [letters, underlines, throughes]
 }
 
-export function drawText (this: any, textArray: any, options: any) {
+export function drawText (this: Draw, textArray: LetterRender[], config: DrawTextConfig): void {
     const { context } = this
-    const { type } = options
+    const { type } = config
 
-    textArray.forEach((item: any) => {
+    textArray.forEach((item: LetterRender) => {
         const { x, y, letter } = item
-        context[`${type}Text`](letter, x, y)
+        context[type](letter, x, y)
     })
 }
 
-export function drawUnderlines (this: any, lines: any, options: any) {
+export function drawUnderlines (this: Draw, lines: UnderlineRender[], config: DrawTextConfig): void {
     const { context } = this
-    const { underline: { lineWidth, dashed } } = options
+    const { underline: { lineWidth, dashed } } = config
     context.save()
 
     context.lineWidth = lineWidth
 
-    lines.forEach((item: any) => {
+    lines.forEach((item: UnderlineRender) => {
         const { startX, startY, endX, endY } = item
         context.beginPath()
         context.setLineDash(dashed)
@@ -443,11 +476,11 @@ export function drawUnderlines (this: any, lines: any, options: any) {
     context.restore()
 }
 
-export function drawThrough (this: any, lines: any, options: any) {
+export function drawThrough (this: Draw, lines: ThroughRender[], config: DrawTextConfig): void {
     const { context } = this
     context.save()
 
-    lines.forEach((item: any) => {
+    lines.forEach((item: ThroughRender) => {
         const { startX, startY, endX, endY } = item
         context.beginPath()
         context.moveTo(startX, startY)
@@ -458,15 +491,15 @@ export function drawThrough (this: any, lines: any, options: any) {
     context.restore()
 }
 
-export function addStatistic (this: any, textArray: any, options: any) {
+export function addStatistic (this: Draw, textArray: LetterRender[], config: DrawTextConfig): DrawTextConfig {
     const { ratio } = this
-    const { x, y, size } = options
+    const { x, y, size } = config
     let minX = x
     let maxX = x
     let minY = y
     let maxY = y
 
-    textArray.forEach((item: any, index: any) => {
+    textArray.forEach((item: LetterRender, index: number) => {
         minX = Math.min(minX, item.x)
         maxX = Math.max(maxX, item.x)
         minY = Math.min(minY, item.y)
@@ -478,42 +511,11 @@ export function addStatistic (this: any, textArray: any, options: any) {
         }
     })
 
-    const newOptions = {
-        ...options,
+    const newConfig: DrawTextConfig = {
+        ...config,
         actualMaxWidth: (maxX - minX) / ratio,
         actualMaxHeight: (maxY - minY) / ratio,
     }
 
-    return newOptions
-}
-
-/**
- * @argument {*String} text 文本
- * @argument {*Number} x x 坐标
- * @argument {*Number} y y 坐标
- * @argument {Object} options
- *
- * @returns {Object} options
- */
-export default function (this: any, text: any, _x: any, _y: any, options: any) {
-    options = getOptions.call(this, _x, _y, options)
-    setContextOptions.call(this, options)
-
-    // 示例: 'hello<underline>underline</underline>12345world'
-    // => [{ text: 'hello<underline>underline</underline>12345world' }]
-    const _text = [{ letter: text.toString() }]
-    // => [{ letter: 'hello', underline: false }, { letter: 'underline', underline: true }, { letter: '12345world', underline: false }]
-    const _underlined = parseUnderline(_text)
-    const _throughed = parseThrough(_underlined)
-    // => [{ letter: 'h', underline: false }, ..., { letter: 'u', underline: true }, ..., { letter: '12345', underline: false }, { letter: 'w', underline: false }, ...]
-    const _typed = parseType(_throughed)
-    const [renderTexts, renderUnderlines, renderThroughes] = parsePosition.call(this, _typed, options)
-
-    drawText.call(this, renderTexts, options)
-    drawUnderlines.call(this, renderUnderlines, options)
-    drawThrough.call(this, renderThroughes, options)
-
-    const optionWithStatistic = addStatistic.call(this, renderTexts, options)
-
-    return optionWithStatistic
+    return newConfig
 }

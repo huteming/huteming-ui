@@ -1,59 +1,75 @@
 import assert from 'assert'
 import sinon from 'sinon'
 import CanvasDraw from 'web-util/canvas-draw/src/main'
-const img = 'http://jhsy-img.caizhu.com/FmlrYPxoVhlH4AQ8Po8eI0RiCzNY'
+import { formatOptions, drawImage, setContextConfig } from 'web-util/canvas-draw/src/drawImage'
 
 describe('canvas > drawImage', () => {
-    it('默认配置参数', () => {
-        const ins = new CanvasDraw()
-        ins.ratio = 1
-        const drawImage = sinon.fake()
-        sinon.replace(ins.context, 'drawImage', drawImage)
-        const options = ins.drawImage(img, 0, 0, 200, 200)
-
-        assert.deepStrictEqual(options, {
-            shadowColor: '',
-            shadowOffsetX: 0,
-            shadowOffsetY: 0,
-            shadowBlur: 0,
+    describe('formatOptions', () => {
+        it('默认配置', () => {
+            const mockSelf = {
+                ratio: 1,
+            }
+            const config = formatOptions.call(mockSelf, 0, 0, 200, 200)
+    
+            assert.deepStrictEqual(config, {
+                shadowColor: '',
+                shadowOffsetX: 0,
+                shadowOffsetY: 0,
+                shadowBlur: 0,
+                x: 0,
+                y: 0,
+                width: 200,
+                height: 200,
+            })
         })
     })
 
-    it('context参数设置', () => {
-        const ins = new CanvasDraw()
-        ins.ratio = 2
-        const drawImage = sinon.fake()
-        sinon.replace(ins.context, 'drawImage', drawImage)
-        const _shadowColor = '#aaa'
-        const _shadowOffsetX = 20
-        const _shadowOffsetY = 20
-        const _shadowBlur = 30
-        const options = {
-            shadowColor: _shadowColor,
-            shadowOffsetX: _shadowOffsetX,
-            shadowOffsetY: _shadowOffsetY,
-            shadowBlur: _shadowBlur,
+    it('setContextConfig', () => {
+        const mockContext = {}
+        const mockSelf = {
+            ratio: 1,
+            context: mockContext,
         }
-        ins.drawImage(img, 0, 0, 200, 200, options)
-        const { shadowColor, shadowOffsetX, shadowOffsetY, shadowBlur } = ins.context
+        const config = formatOptions.call(mockSelf, 0, 0, 200, 200)
+        setContextConfig.call(mockSelf, config)
 
-        assert.strictEqual(shadowColor, _shadowColor)
-        assert.strictEqual(shadowOffsetX, _shadowOffsetX * 2)
-        assert.strictEqual(shadowOffsetY, _shadowOffsetY * 2)
-        assert.strictEqual(shadowBlur, _shadowBlur * 2)
+        assert.strictEqual(mockContext.shadowColor, config.shadowColor)
+        assert.strictEqual(mockContext.shadowOffsetX, config.shadowOffsetX)
+        assert.strictEqual(mockContext.shadowOffsetY, config.shadowOffsetY)
+        assert.strictEqual(mockContext.shadowBlur, config.shadowBlur)
     })
 
     it('绘图', () => {
-        const ins = new CanvasDraw()
-        ins.ratio = 2
-        const drawImage = sinon.fake()
-        const x = 10
-        const y = 10
-        const width = 200
-        const height = 200
-        sinon.replace(ins.context, 'drawImage', drawImage)
-        ins.drawImage(img, x, y, width, height)
+        const mockDrawImage = sinon.fake()
+        const mockContext = {
+            drawImage: mockDrawImage,
+        }
+        const mockSelf = {
+            ratio: 1,
+            context: mockContext,
+        }
+        const mockImage = {}
+        const config = formatOptions.call(mockSelf, 0, 0, 200, 200)
+        drawImage.call(mockSelf, mockImage,config)
 
-        assert.deepStrictEqual(drawImage.getCall(0).args, [img, x * 2, y * 2, width * 2, height * 2])
+        assert.deepStrictEqual(mockDrawImage.getCall(0).args, [mockImage, config.x, config.y, config.width, config.height])
+    })
+
+    it('drawImage返回配置对象', () => {
+        const mockContext = {
+            drawImage () {},
+        }
+        const mockSelf = {
+            ratio: 1,
+            context: mockContext,
+        }
+        const mockImage = {}
+        const config = formatOptions.call(mockSelf, 0, 0, 200, 200)
+        const ins = new CanvasDraw()
+        ins.ratio = mockSelf.ratio
+        ins.context = mockSelf.context
+        const options = ins.drawImage(mockImage, 0, 0, 200, 200)
+
+        assert.deepStrictEqual(options, config)
     })
 })

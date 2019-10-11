@@ -1,6 +1,6 @@
 import assert from 'assert'
 import sinon from 'sinon'
-import drawText, { getOptions, setContextOptions, parseUnderline, parseType, parsePosition, addStatistic, parseThrough } from 'web-util/canvas-draw/src/drawText'
+import drawText, { getConfig, setContextOptions, parseUnderline, parseType, parsePosition, addStatistic, parseThrough } from 'web-util/canvas-draw/src/drawText'
 
 describe('canvas > drawText', () => {
     it('drawText返回配置对象', () => {
@@ -23,11 +23,14 @@ describe('canvas > drawText', () => {
             ratio: 1,
         }
         const options = drawText.call(mockSelf, '<underline><through>hello</through></underline>', 1, 2)
+        const _options = getConfig.call(mockSelf, 1, 2)
         // 这里不方便计算统计数据，删除
         // 在函数中测试
         delete options.actualMaxWidth
         delete options.actualMaxHeight
-        const _options = getOptions.call(mockSelf, 1, 2)
+        delete _options.actualMaxWidth
+        delete _options.actualMaxHeight
+
         assert.deepStrictEqual(options, _options)
     })
 
@@ -46,47 +49,129 @@ describe('canvas > drawText', () => {
         })
     })
 
-    it('getOptions', () => {
-        const ratio = 2
-        const x = 2
-        const y = 3
-        const res = getOptions.call({ ratio }, x, y)
-
-        assert.deepStrictEqual(res, {
-            x: x * ratio,
-            y: y * ratio,
-            fix: '.... ',
-            maxWidth: Infinity,
-            style: 'normal',
-            variant: 'normal',
-            weight: 'normal',
-            size: 24 * ratio,
-            lineHeight: 24 * ratio * 1.5,
-            align: 'start',
-            baseline: 'top',
-            letterSpacing: 0,
-            lineWidth: 1,
-            wrap: 0,
-            shadowColor: '',
-            shadowOffsetX: 0,
-            shadowOffsetY: 0,
-            shadowBlur: 0,
-            color: '#000',
-            type: 'fill',
-            underline: {
-                left: 10 * ratio,
-                right: 10 * ratio,
-                bottom: 6 * ratio,
-                dashed: [],
+    describe('getConfig', () => {
+        it('默认配置', () => {
+            const ratio = 2
+            const x = 2
+            const y = 3
+            const res = getConfig.call({ ratio }, x, y)
+    
+            assert.deepStrictEqual(res, {
+                x: x * ratio,
+                y: y * ratio,
+                actualMaxWidth: 0,
+                actualMaxHeight: 0,
+                fix: '.... ',
+                maxWidth: Infinity,
+                style: 'normal',
+                variant: 'normal',
+                weight: 'normal',
+                size: 24 * ratio,
+                lineHeight: 24 * ratio * 1.5,
+                align: 'start',
+                baseline: 'top',
+                letterSpacing: 0,
                 lineWidth: 1,
-            },
+                wrap: 0,
+                shadowColor: '',
+                shadowOffsetX: 0,
+                shadowOffsetY: 0,
+                shadowBlur: 0,
+                color: '#000',
+                type: 'fillText',
+                underline: {
+                    left: 10 * ratio,
+                    right: 10 * ratio,
+                    bottom: 6 * ratio,
+                    dashed: [],
+                    lineWidth: 1,
+                },
+            })
+        })
+
+        it('type = fill', () => {
+            const ratio = 2
+            const x = 2
+            const y = 3
+            const res = getConfig.call({ ratio }, x, y, { type: 'fill' })
+    
+            assert.deepStrictEqual(res, {
+                x: x * ratio,
+                y: y * ratio,
+                actualMaxWidth: 0,
+                actualMaxHeight: 0,
+                fix: '.... ',
+                maxWidth: Infinity,
+                style: 'normal',
+                variant: 'normal',
+                weight: 'normal',
+                size: 24 * ratio,
+                lineHeight: 24 * ratio * 1.5,
+                align: 'start',
+                baseline: 'top',
+                letterSpacing: 0,
+                lineWidth: 1,
+                wrap: 0,
+                shadowColor: '',
+                shadowOffsetX: 0,
+                shadowOffsetY: 0,
+                shadowBlur: 0,
+                color: '#000',
+                type: 'fillText',
+                underline: {
+                    left: 10 * ratio,
+                    right: 10 * ratio,
+                    bottom: 6 * ratio,
+                    dashed: [],
+                    lineWidth: 1,
+                },
+            })
+        })
+
+        it('type = stroke', () => {
+            const ratio = 2
+            const x = 2
+            const y = 3
+            const res = getConfig.call({ ratio }, x, y, { type: 'stroke' })
+    
+            assert.deepStrictEqual(res, {
+                x: x * ratio,
+                y: y * ratio,
+                actualMaxWidth: 0,
+                actualMaxHeight: 0,
+                fix: '.... ',
+                maxWidth: Infinity,
+                style: 'normal',
+                variant: 'normal',
+                weight: 'normal',
+                size: 24 * ratio,
+                lineHeight: 24 * ratio * 1.5,
+                align: 'start',
+                baseline: 'top',
+                letterSpacing: 0,
+                lineWidth: 1,
+                wrap: 0,
+                shadowColor: '',
+                shadowOffsetX: 0,
+                shadowOffsetY: 0,
+                shadowBlur: 0,
+                color: '#000',
+                type: 'strokeText',
+                underline: {
+                    left: 10 * ratio,
+                    right: 10 * ratio,
+                    bottom: 6 * ratio,
+                    dashed: [],
+                    lineWidth: 1,
+                },
+            })
         })
     })
 
     it('setContextOptions', () => {
         const mockContext = {}
         const mockScaleBySystem = 2
-        const options = getOptions.call({ ratio: 1 }, 2, 3)
+        const options = getConfig.call({ ratio: 1 }, 2, 3)
         setContextOptions.call({ context: mockContext, scaleBySystem: mockScaleBySystem }, options)
 
         assert.strictEqual(mockContext.font, `${options.style} ${options.variant} ${options.weight} ${options.size / mockScaleBySystem}px/${options.lineHeight}px arial`)
@@ -233,7 +318,7 @@ describe('canvas > drawText', () => {
                     }
                 },
             }
-            const options = getOptions.call({ ratio }, mockX, mockY, { wrap: false, maxWidth: Infinity })
+            const options = getConfig.call({ ratio }, mockX, mockY, { wrap: false, maxWidth: Infinity })
             const mockText = [{ letter: '静' }, { letter: '好' }, { letter: '书' }, { letter: '院' }]
             const res = parsePosition.call({ context: mockContext }, mockText, options)
             const x = mockX * ratio
@@ -260,7 +345,7 @@ describe('canvas > drawText', () => {
                     }
                 },
             }
-            const options = getOptions.call({ ratio }, mockX, mockY, { wrap: false, maxWidth: 50 })
+            const options = getConfig.call({ ratio }, mockX, mockY, { wrap: false, maxWidth: 50 })
             const mockText = [{ letter: '静', extra: 'other' }, { letter: '好' }, { letter: '书' }, { letter: '院' }]
             const res = parsePosition.call({ context: mockContext }, mockText, options)
             const x = mockX * ratio
@@ -285,7 +370,7 @@ describe('canvas > drawText', () => {
                     }
                 },
             }
-            const options = getOptions.call({ ratio }, mockX, mockY, { wrap: true, maxWidth: Infinity })
+            const options = getConfig.call({ ratio }, mockX, mockY, { wrap: true, maxWidth: Infinity })
             const mockText = [{ letter: '静' }, { letter: '好' }, { letter: '书' }, { letter: '院' }]
             const res = parsePosition.call({ context: mockContext }, mockText, options)
             const x = mockX * ratio
@@ -313,7 +398,7 @@ describe('canvas > drawText', () => {
                 },
             }
             const mockLineHeight = 45
-            const options = getOptions.call({ ratio }, mockX, mockY, { wrap: 1, maxWidth: 25, lineHeight: mockLineHeight })
+            const options = getConfig.call({ ratio }, mockX, mockY, { wrap: 1, maxWidth: 25, lineHeight: mockLineHeight })
             const mockText = [{ letter: '静' }, { letter: '好' }, { letter: '书' }, { letter: '院' }]
             const res = parsePosition.call({ context: mockContext }, mockText, options)
             const x = mockX * ratio
@@ -341,7 +426,7 @@ describe('canvas > drawText', () => {
                 },
             }
             const mockLineHeight = 45
-            const options = getOptions.call({ ratio }, mockX, mockY, { wrap: true, maxWidth: 40, lineHeight: mockLineHeight })
+            const options = getConfig.call({ ratio }, mockX, mockY, { wrap: true, maxWidth: 40, lineHeight: mockLineHeight })
             const mockText = [
                 { letter: '静' }, { letter: '好' },
                 { letter: '书' }, { letter: '院' },
@@ -377,7 +462,7 @@ describe('canvas > drawText', () => {
             }
             const mockLineHeight = 45
             const mockLetterSpacing = 2
-            const options = getOptions.call({ ratio }, mockX, mockY, { wrap: true, maxWidth: 50, lineHeight: mockLineHeight, letterSpacing: mockLetterSpacing })
+            const options = getConfig.call({ ratio }, mockX, mockY, { wrap: true, maxWidth: 50, lineHeight: mockLineHeight, letterSpacing: mockLetterSpacing })
             const mockText = [
                 { letter: '静', underline: true },
                 { letter: '好', underline: true },
@@ -412,7 +497,7 @@ describe('canvas > drawText', () => {
                 },
             }
             const mockLineHeight = 45
-            const options = getOptions.call({ ratio }, mockX, mockY, { wrap: true, maxWidth: Infinity, lineHeight: mockLineHeight, align: 'center' })
+            const options = getConfig.call({ ratio }, mockX, mockY, { wrap: true, maxWidth: Infinity, lineHeight: mockLineHeight, align: 'center' })
             const mockText = [{ letter: '静' }, { letter: '好' }, { letter: '书' }, { letter: '院' }]
             const res = parsePosition.call({ context: mockContext }, mockText, options)
             const x = mockX * ratio
@@ -441,7 +526,7 @@ describe('canvas > drawText', () => {
                 },
             }
             const mockLineHeight = 45
-            const options = getOptions.call({ ratio }, mockX, mockY, { wrap: true, maxWidth: Infinity, lineHeight: mockLineHeight, align: 'right' })
+            const options = getConfig.call({ ratio }, mockX, mockY, { wrap: true, maxWidth: Infinity, lineHeight: mockLineHeight, align: 'right' })
             const mockText = [{ letter: '静' }, { letter: '好' }, { letter: '书' }, { letter: '院' }]
             const res = parsePosition.call({ context: mockContext }, mockText, options)
             const x = mockX * ratio
@@ -475,7 +560,7 @@ describe('canvas > drawText', () => {
             const mockLineHeight = 45
             const mockLetterSpacing = 2
             const mockSize = 66
-            const options = getOptions.call({ ratio }, mockX, mockY, {
+            const options = getConfig.call({ ratio }, mockX, mockY, {
                 wrap: true,
                 maxWidth: 100,
                 lineHeight: mockLineHeight,
@@ -521,7 +606,7 @@ describe('canvas > drawText', () => {
             const mockLineHeight = 45
             const mockLetterSpacing = 2
             const mockSize = 66
-            const options = getOptions.call({ ratio }, mockX, mockY, {
+            const options = getConfig.call({ ratio }, mockX, mockY, {
                 wrap: true,
                 maxWidth: 40,
                 lineHeight: mockLineHeight,
@@ -567,7 +652,7 @@ describe('canvas > drawText', () => {
             const mockLineHeight = 45
             const mockLetterSpacing = 2
             const mockSize = 66
-            const options = getOptions.call({ ratio }, mockX, mockY, {
+            const options = getConfig.call({ ratio }, mockX, mockY, {
                 wrap: true,
                 maxWidth: 40,
                 lineHeight: mockLineHeight,
@@ -621,7 +706,7 @@ describe('canvas > drawText', () => {
             const mockLineHeight = 45
             const mockLetterSpacing = 2
             const mockSize = 66
-            const options = getOptions.call({ ratio }, mockX, mockY, {
+            const options = getConfig.call({ ratio }, mockX, mockY, {
                 wrap: true,
                 maxWidth: 200,
                 lineHeight: mockLineHeight,
@@ -667,7 +752,7 @@ describe('canvas > drawText', () => {
             const mockLineHeight = 45
             const mockLetterSpacing = 2
             const mockSize = 66
-            const options = getOptions.call({ ratio }, mockX, mockY, {
+            const options = getConfig.call({ ratio }, mockX, mockY, {
                 wrap: true,
                 maxWidth: 40,
                 lineHeight: mockLineHeight,
@@ -722,7 +807,7 @@ describe('canvas > drawText', () => {
             }
             const mockLineHeight = 45
             const mockSize = 55
-            const options = getOptions.call({ ratio }, mockX, mockY, {
+            const options = getConfig.call({ ratio }, mockX, mockY, {
                 wrap: true,
                 maxWidth: Infinity,
                 lineHeight: mockLineHeight,
@@ -771,7 +856,7 @@ describe('canvas > drawText', () => {
             }
             const mockLineHeight = 45
             const mockSize = 55
-            const options = getOptions.call({ ratio }, mockX, mockY, {
+            const options = getConfig.call({ ratio }, mockX, mockY, {
                 wrap: true,
                 maxWidth: Infinity,
                 lineHeight: mockLineHeight,
@@ -820,7 +905,7 @@ describe('canvas > drawText', () => {
             }
             const mockLineHeight = 45
             const mockSize = 55
-            const options = getOptions.call({ ratio }, mockX, mockY, {
+            const options = getConfig.call({ ratio }, mockX, mockY, {
                 wrap: true,
                 maxWidth: Infinity,
                 lineHeight: mockLineHeight,
@@ -873,7 +958,7 @@ describe('canvas > drawText', () => {
             const mockLineHeight = 45
             const mockLetterSpacing = 2
             const mockSize = 66
-            const options = getOptions.call({ ratio }, mockX, mockY, {
+            const options = getConfig.call({ ratio }, mockX, mockY, {
                 wrap: true,
                 maxWidth: 100,
                 lineHeight: mockLineHeight,
@@ -914,7 +999,7 @@ describe('canvas > drawText', () => {
             const mockLineHeight = 45
             const mockLetterSpacing = 2
             const mockSize = 66
-            const options = getOptions.call({ ratio }, mockX, mockY, {
+            const options = getConfig.call({ ratio }, mockX, mockY, {
                 wrap: true,
                 maxWidth: 40,
                 lineHeight: mockLineHeight,
@@ -956,7 +1041,7 @@ describe('canvas > drawText', () => {
             const mockLineHeight = 45
             const mockLetterSpacing = 2
             const mockSize = 66
-            const options = getOptions.call({ ratio }, mockX, mockY, {
+            const options = getConfig.call({ ratio }, mockX, mockY, {
                 wrap: true,
                 maxWidth: 40,
                 lineHeight: mockLineHeight,
@@ -1007,7 +1092,7 @@ describe('canvas > drawText', () => {
             const mockLineHeight = 45
             const mockLetterSpacing = 2
             const mockSize = 66
-            const options = getOptions.call({ ratio }, mockX, mockY, {
+            const options = getConfig.call({ ratio }, mockX, mockY, {
                 wrap: true,
                 maxWidth: 200,
                 lineHeight: mockLineHeight,
@@ -1047,7 +1132,7 @@ describe('canvas > drawText', () => {
             }
             const mockLineHeight = 45
             const mockSize = 55
-            const options = getOptions.call({ ratio }, mockX, mockY, {
+            const options = getConfig.call({ ratio }, mockX, mockY, {
                 wrap: true,
                 maxWidth: Infinity,
                 lineHeight: mockLineHeight,
@@ -1092,7 +1177,7 @@ describe('canvas > drawText', () => {
             }
             const mockLineHeight = 45
             const mockSize = 55
-            const options = getOptions.call({ ratio }, mockX, mockY, {
+            const options = getConfig.call({ ratio }, mockX, mockY, {
                 wrap: true,
                 maxWidth: Infinity,
                 lineHeight: mockLineHeight,
@@ -1137,7 +1222,7 @@ describe('canvas > drawText', () => {
             }
             const mockLineHeight = 45
             const mockSize = 55
-            const options = getOptions.call({ ratio }, mockX, mockY, {
+            const options = getConfig.call({ ratio }, mockX, mockY, {
                 wrap: true,
                 maxWidth: Infinity,
                 lineHeight: mockLineHeight,

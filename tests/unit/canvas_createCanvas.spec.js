@@ -1,15 +1,15 @@
 import assert from 'assert'
 import sinon from 'sinon'
-import { getCanvasObject } from 'web-util/canvas-draw/src/main'
+import createCanvas from 'web-util/canvas-draw/src/createCanvas'
 
 describe('canvas', () => {
     afterEach(() => {
         sinon.restore()
     })
 
-    describe('getCanvasObject', () => {
+    describe('createCanvas', () => {
         it('返回对象属性', () => {
-            const obj = getCanvasObject(10, 10, 10)
+            const obj = createCanvas(10, 10, 10)
             const keys = Object.keys(obj)
             assert.deepStrictEqual(keys, ['context', 'canvas', 'canvasWidth', 'canvasHeight', 'ratio', 'scale'])
         })
@@ -20,7 +20,7 @@ describe('canvas', () => {
                 return 100
             })
 
-            const { canvasWidth, canvasHeight, ratio } = getCanvasObject(20, 20, 40)
+            const { canvasWidth, canvasHeight, ratio } = createCanvas(20, 20, 40)
             assert.strictEqual(canvasWidth, 20 * (100 / 40))
             assert.strictEqual(canvasHeight, 20 * (100 / 40))
             assert.strictEqual(ratio, 100 / 40)
@@ -49,7 +49,7 @@ describe('canvas', () => {
                 return res
             }
 
-            getCanvasObject(30, 31, 30)
+            createCanvas(30, 31, 30)
             assert.strictEqual(res.width, 30 * (100 / 30) * (0.6 / 1))
             assert.strictEqual(res.height, 31 * (100 / 30) * (0.6 / 1))
 
@@ -77,7 +77,7 @@ describe('canvas', () => {
                 return res
             }
 
-            getCanvasObject(30, 31, 30)
+            createCanvas(30, 31, 30)
             const [x, y] = scale.getCall(0).args
             assert.strictEqual(x, 0.6 / 2)
             assert.strictEqual(y, 0.6 / 2)
@@ -106,7 +106,7 @@ describe('canvas', () => {
                 return res
             }
 
-            getCanvasObject(30, 31, 30)
+            createCanvas(30, 31, 30)
             const [x, y] = scale.getCall(0).args
             assert.strictEqual(x, 1 / 2)
             assert.strictEqual(y, 1 / 2)
