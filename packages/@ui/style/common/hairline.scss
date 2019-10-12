@@ -107,14 +107,14 @@
     html:not([data-scale]) & {
         @media (min-resolution: 2dppx) {
             border-left: none;
-    
+
             &::before {
                 @include scale-hairline-common($color, 0, auto, auto, 0);
                 width: 1PX;
                 height: 100%;
                 transform-origin: 100% 50%;
                 transform: scaleX(0.5);
-        
+
                 @media (min-resolution: 3dppx) {
                     transform: scaleX(0.33);
                 }

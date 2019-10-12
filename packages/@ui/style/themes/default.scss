@@ -1,34 +1,39 @@
+$hd: 100vw / 750 * 1;
+
+// 命名规范: ${组件}-{属性}-{场景}-{状态}-{大小}-{反色}
+// https://github.com/ant-design/ant-design-mobile/wiki/设计变量表及命名规范
+
 // cell
-$cell-padding-top: rem(32) !default;
-$cell-padding-bottom: rem(32) !default;
-$cell-padding-left: rem(32) !default;
-$cell-padding-right: rem(32) !default;
+$cell-padding-top: 32 * $hd !default;
+$cell-padding-bottom: 32 * $hd !default;
+$cell-padding-left: 32 * $hd !default;
+$cell-padding-right: 32 * $hd !default;
 
 // collapse
-$collapse-header-height: rem(104) !default;
-$collapse-header-padding-left: rem(36) !default;
-$collapse-header-padding-right: rem(36) !default;
-$collapse-title-size: rem(32) !default;
-$collapse-disabled-title-size: rem(32) !default;
-$collapse-icon-size: rem(30) !default;
-$collapse-disabled-icon-size: rem(35) !default;
+$collapse-header-height: 104 * $hd !default;
+$collapse-header-padding-left: 36 * $hd !default;
+$collapse-header-padding-right: 36 * $hd !default;
+$collapse-title-size: 32 * $hd !default;
+$collapse-disabled-title-size: 32 * $hd !default;
+$collapse-icon-size: 30 * $hd !default;
+$collapse-disabled-icon-size: 35 * $hd !default;
 
 // range
 $range-finger-color: #2A73FD !default;
 
 // wing-blank
-$wing-xs-padding: rem(10) !default;
-$wing-sm-padding: rem(20) !default;
-$wing-md-padding: rem(30) !default;
-$wing-lg-padding: rem(40) !default;
-$wing-xl-padding: rem(50) !default;
+$wing-xs-padding: 10 * $hd !default;
+$wing-sm-padding: 20 * $hd !default;
+$wing-md-padding: 30 * $hd !default;
+$wing-lg-padding: 40 * $hd !default;
+$wing-xl-padding: 50 * $hd !default;
 
 // white-space
-$white-xs-height: rem(20) !default;
-$white-sm-height: rem(30) !default;
-$white-md-height: rem(40) !default;
-$white-lg-height: rem(50) !default;
-$white-xl-height: rem(60) !default;
+$white-xs-height: 20 * $hd !default;
+$white-sm-height: 30 * $hd !default;
+$white-md-height: 40 * $hd !default;
+$white-lg-height: 50 * $hd !default;
+$white-xl-height: 60 * $hd !default;
 
 // switch
 $switch-width: 52px !default;

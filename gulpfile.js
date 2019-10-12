@@ -40,8 +40,8 @@ function createModuleEntry () {
 function createThemeEntry (done) {
     fs.writeFile(
         'packages/ui/dist/huteming-ui.scss',
-        '@import "../lib/style/common.scss";\n' +
         `@import "../lib/style/themes/default.scss";\n` +
+        '@import "../lib/style/common.scss";\n' +
         '@import "../lib/style/components.scss";\n',
         done
     )
