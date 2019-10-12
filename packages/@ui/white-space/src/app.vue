@@ -1,27 +1,32 @@
 <template>
-<div :class="classes">
+<div class="tm-white" :class="classes" :style="styles">
     <slot></slot>
 </div>
 </template>
 
-<script>
-export default {
-    name: 'TmWhiteSpace',
+<script lang="ts">
+import { Component, Vue, Prop } from 'vue-property-decorator'
 
-    props: {
-        size: {
-            type: String,
-            default: 'md',
-            validator (val) {
-                return ['xs', 'sm', 'md', 'lg', 'xl'].includes(val)
-            },
-        },
-    },
+@Component
+export default class TmWhiteSpace extends Vue {
+    @Prop({ type: String, default: 'md' })
+    size!: string
 
-    computed: {
-        classes () {
-            return ['tm-white', `tm-white-${this.size}`]
-        },
-    },
+    get classes (): string {
+        // 预设值
+        if (['xs', 'sm', 'md', 'lg', 'xl'].includes(this.size)) {
+            return `tm-white-${this.size}`
+        }
+        return ''
+    }
+
+    get styles (): object {
+        const { classes, size } = this
+        if (classes) return {}
+
+        return {
+            height: size,
+        }
+    }
 }
 </script>

@@ -9,6 +9,7 @@
     "test:e2e": "vue-cli-service test:e2e",
     "test:unit": "vue-cli-service test:unit",
     "test:watch": "vue-cli-service test:unit --watch",
+    "test:cover": "vue-cli-service test:unit --watch --coverage",
     "cover": "vue-cli-service test:unit --coverage",
     "reset": "node ./scripts/reset",
     "publish:lib": "gulp && lerna publish",
