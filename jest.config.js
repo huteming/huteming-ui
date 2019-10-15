@@ -49,8 +49,8 @@ module.exports = {
 
     // collectCoverage: true,
     collectCoverageFrom: [
-        'packages/@util/**/src/*.{js,vue,ts}',
-        'packages/@ui/**/src/*.{js,vue,ts}',
+        'packages/@util/**/src/*.{js,vue,ts,tsx}',
+        'packages/@ui/**/src/*.{js,vue,ts,tsx}',
         'packages/assets/js/PropSync.ts', // 自定义装饰器
         '!packages/@ui/tab/src/*.{js,vue,ts}',
         '!packages/@ui/audio/src/*.{js,vue,ts}',
