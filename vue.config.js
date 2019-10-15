@@ -56,9 +56,16 @@ module.exports = {
         extract: process.env.BUILD_MODE !== 'lib',
 
         loaderOptions: {
+            /**
+             * 文档
+             * sass-loader: https://github.com/webpack-contrib/sass-loader
+             * node-sass: https://github.com/sass/node-sass
+             */
             sass: {
-                // data: `@import "web/assets/scss/index.scss";`
-                importer: globImporter(),
+                sassOptions: {
+                    // data: `@import "web/assets/scss/index.scss";`
+                    importer: globImporter(),
+                },
             },
         },
     },
