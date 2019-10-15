@@ -1,5 +1,5 @@
 import assert from 'assert'
-import TmWhiteSpace from 'web-ui/white-space/src/app'
+import TmWhiteSpace from 'web-ui/white-space/src/app.vue'
 import { mount } from '@vue/test-utils'
 
 describe('wing-blank', () => {

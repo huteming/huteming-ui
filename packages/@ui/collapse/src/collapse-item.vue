@@ -20,11 +20,11 @@
 </template>
 
 <script lang="ts">
-import TmCollapse from './collapse.vue'
 import TmTransitionCollapse from 'web-ui/transition-collapse/src/app.vue'
 import TmIcon from 'web-ui/icon/src/app.vue'
 import { generateId } from 'web-util/element/src/main'
-import { Component, Vue, Prop } from 'vue-property-decorator'
+import { Component, Prop, Vue } from 'vue-property-decorator'
+import TmCollapse from '../types/collapse'
 
 @Component({
     components: {
@@ -49,7 +49,7 @@ export default class TmCollapseItem extends Vue {
     disabled!: boolean
 
     get isActive () {
-        return (this.$parent.activeNames as any).indexOf(this.name) > -1
+        return (this.$parent.activeNames as any).includes(this.name)
     }
 
     handleClick () {

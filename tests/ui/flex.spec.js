@@ -7,6 +7,60 @@ localVue.component(TmFlex.name, TmFlex)
 localVue.component(TmFlexItem.name, TmFlexItem)
 
 describe('flex', () => {
+    describe('ellipsis', () => {
+        it('布尔值true', () => {
+            const wrap = mount({
+                template: `
+                    <tm-flex>
+                        <tm-flex-item ellipsis>ellipsis</tm-flex-item>
+                    </tm-flex>
+                `
+            }, {
+                localVue,
+            })
+            const wrapFlex = wrap.find(TmFlex)
+            const wrapItem = wrap.find(TmFlexItem)
+
+            assert.ok(wrapItem.classes('tm-ellipsis'))
+            assert.ok(wrapItem.attributes('style').indexOf('-webkit-line-clamp') === -1)
+        })
+
+        it('数字等于1', () => {
+            const wrap = mount({
+                template: `
+                    <tm-flex>
+                        <tm-flex-item :ellipsis="1">ellipsis</tm-flex-item>
+                    </tm-flex>
+                `
+            }, {
+                localVue,
+            })
+            const wrapFlex = wrap.find(TmFlex)
+            const wrapItem = wrap.find(TmFlexItem)
+
+            assert.ok(wrapItem.classes('tm-ellipsis'))
+            assert.ok(wrapItem.attributes('style').indexOf('-webkit-line-clamp') === -1)
+        })
+
+        it('数字大于1', () => {
+            const wrap = mount({
+                template: `
+                    <tm-flex>
+                        <tm-flex-item :ellipsis="2">ellipsis</tm-flex-item>
+                    </tm-flex>
+                `
+            }, {
+                localVue,
+            })
+            const wrapFlex = wrap.find(TmFlex)
+            const wrapItem = wrap.find(TmFlexItem)
+
+            assert.ok(wrapItem.classes('tm-ellipsis'))
+            // jsdom style 好像暂不支持添加前缀样式
+            // assert.ok(wrapItem.attributes('style').indexOf('-webkit-line-clamp: 2') > -1)
+        })
+    })
+
     it('默认属性', () => {
         const wrapper = mount({
             template: `
@@ -28,19 +82,35 @@ describe('flex', () => {
         assert.ok(wrapperItem.classes('is-self-auto'))
     })
 
-    it('wrap支持布尔类型', () => {
-        const wrapper = mount({
-            template: `
-                <tm-flex wrap>
-                    <tm-flex-item></tm-flex-item>
-                </tm-flex>
-            `,
-        }, {
-            localVue,
+    describe('wrap支持布尔类型', () => {
+        it('wrap', () => {
+            const wrapper = mount({
+                template: `
+                    <tm-flex wrap>
+                        <tm-flex-item></tm-flex-item>
+                    </tm-flex>
+                `,
+            }, {
+                localVue,
+            })
+            const wrapperFlex = wrapper.find(TmFlex)
+            assert.ok(wrapperFlex.classes('is-direction-row'))
+            assert.ok(wrapperFlex.classes('is-wrap-wrap'))
         })
-        const wrapperFlex = wrapper.find(TmFlex)
-        assert.ok(wrapperFlex.classes('is-direction-row'))
-        assert.ok(wrapperFlex.classes('is-wrap-wrap'))
+        it('nowrap', () => {
+            const wrapper = mount({
+                template: `
+                    <tm-flex :wrap="false">
+                        <tm-flex-item></tm-flex-item>
+                    </tm-flex>
+                `,
+            }, {
+                localVue,
+            })
+            const wrapperFlex = wrapper.find(TmFlex)
+            assert.ok(wrapperFlex.classes('is-direction-row'))
+            assert.ok(wrapperFlex.classes('is-wrap-nowrap'))
+        })
     })
 
     it('子项gutter优先', () => {

@@ -1,3 +1,11 @@
+.ellipsis {
+    overflow : hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 1;
+    -webkit-box-orient: vertical;
+}
+
 .mb-20 {
     margin-bottom: 20px;
 }
@@ -13,6 +21,7 @@
     height: 30px;
     line-height: 30px;
     width: 100%;
+    box-sizing: border-box;
 
     &.inline {
         width: 100px;

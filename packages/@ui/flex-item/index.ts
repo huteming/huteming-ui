@@ -1,6 +1,6 @@
-import Component from 'web-ui/flex/src/flex-item.vue'
+import Component from 'web-ui/flex/src/flex-item'
 
-(Component as any).install = (Vue: any) => {
+Component.install = (Vue) => {
     Vue.component(Component.name, Component)
 }
 

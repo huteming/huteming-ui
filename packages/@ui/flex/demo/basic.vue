@@ -1,7 +1,16 @@
 <template>
 <div class="demo">
-    <tm-divider>basic</tm-divider>
+    <tm-divider>ellipsis</tm-divider>
+    <tm-flex class="mb-20" :wrap="false">
+        <tm-flex-item>
+            <div class="placeholder">无间距</div>
+        </tm-flex-item>
+        <tm-flex-item :ellipsis="2">
+            <p>很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长</p>
+        </tm-flex-item>
+    </tm-flex>
 
+    <tm-divider>basic</tm-divider>
     <tm-flex class="mb-20">
         <tm-flex-item :grow="1">
             <div class="placeholder">无间距</div>

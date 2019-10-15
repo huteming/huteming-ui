@@ -1,6 +1,6 @@
 import Component from './src/app.vue'
 
-(Component as any).install = function (Vue: any) {
+Component.install = function (Vue) {
     Vue.component(Component.name, Component)
 }
 
