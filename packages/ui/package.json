@@ -1,6 +1,6 @@
 {
   "name": "@huteming/ui",
-  "version": "2.0.4-alpha.0",
+  "version": "2.0.4-alpha.1",
   "description": "ui 组件的统一入口",
   "main": "dist/huteming-ui.common.js",
   "scripts": {
@@ -9,17 +9,17 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "@huteming/ui-anchor": "^2.0.2",
+    "@huteming/ui-anchor": "^2.0.3",
     "@huteming/ui-audio-player": "^2.0.0",
     "@huteming/ui-btn-pay": "^2.0.0",
     "@huteming/ui-carousel": "^2.0.0",
-    "@huteming/ui-cell": "^2.0.2",
+    "@huteming/ui-cell": "^2.0.3",
     "@huteming/ui-clocker": "^2.0.0",
-    "@huteming/ui-collapse": "^2.0.1",
+    "@huteming/ui-collapse": "^2.0.2",
     "@huteming/ui-dialog": "^2.0.0",
     "@huteming/ui-empty": "^2.0.1",
     "@huteming/ui-field": "^2.0.0",
-    "@huteming/ui-flex": "^2.1.0",
+    "@huteming/ui-flex": "^2.1.1",
     "@huteming/ui-guide": "^2.0.0",
     "@huteming/ui-icon": "^2.0.0",
     "@huteming/ui-image": "^2.0.0",
@@ -39,7 +39,7 @@
     "@huteming/ui-toolbar": "^2.0.0",
     "@huteming/ui-transition-collapse": "^2.0.0",
     "@huteming/ui-video-player": "^2.0.0",
-    "@huteming/ui-white-space": "^2.1.0",
+    "@huteming/ui-white-space": "^2.1.1",
     "@huteming/ui-wing-blank": "^2.0.0"
   }
 }
