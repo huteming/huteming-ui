@@ -1,51 +1,34 @@
 <template>
 <div class="page-docs">
-    <header class="header">
-        <div class="header-left" @click="visibleNav = !visibleNav">
-            <i class="iconfont icon-cell"></i>
+    <AppHeader />
+
+    <!-- container -->
+    <el-scrollbar class="page-component__scroll" ref="componentScrollBar">
+        <div class="page-container page-component">
+            <el-scrollbar class="page-component__nav">
+                <AppNavbar />
+            </el-scrollbar>
+
+            <div class="page-component__content">
+                <AppContent />
+                <router-view class="markdown"></router-view>
+            </div>
         </div>
-
-        <div class="header-middle">tommy-ui</div>
-
-        <div class="header-right"></div>
-    </header>
-
-    <main class="container">
-        <section class="container-navbar">
-            <AppNavbar />
-        </section>
-
-        <section class="container-main">
-            <AppContent :is-component="isComponent" />
-        </section>
-
-        <section class="container-phone" v-show="isComponent">
-            <AppPhone />
-        </section>
-    </main>
-
-    <!-- <base-popup v-model="visibleNav" position="left">
-        <AppNavbar />
-    </base-popup> -->
+    </el-scrollbar>
 </div>
 </template>
 
 <script>
 import AppNavbar from './work/navbar'
 import AppContent from './work/content'
-import AppPhone from './work/phone'
+// import AppPhone from './work/phone'
+import AppHeader from './work/header'
 
 export default {
     data () {
         return {
             visibleNav: false,
             domQrnode: null
-        }
-    },
-
-    computed: {
-        isComponent () {
-            return !!this.$route.meta.example
         }
     },
 
@@ -57,8 +40,9 @@ export default {
 
     components: {
         AppNavbar,
-        AppPhone,
+        // AppPhone,
         AppContent,
+        AppHeader,
     }
 }
 </script>
@@ -68,26 +52,6 @@ export default {
     height: 100%;
     display: flex;
     flex-flow: column nowrap;
-}
-
-.header {
-    display: none;
-    align-items: center;
-    height: 40px;
-    padding: 0 15px;
-    line-height: 40px;
-    color: #fff;
-    background-color: #108EE9;
-
-    &-left,
-    &-right {
-        flex: .5;
-    }
-
-    &-middle {
-        flex: 1;
-        text-align: center;
-    }
 }
 
 .container {
@@ -115,15 +79,55 @@ export default {
 }
 
 @media screen and (max-width: 768px) {
-    .header {
-        display: flex;
-    }
-
     .container {
         &-navbar,
         &-phone {
             display: none;
         }
+    }
+}
+</style>
+
+<style lang="scss">
+.page-component__scroll {
+    height: calc(100% - 80px);
+    margin-top: 80px;
+
+    > .el-scrollbar__wrap {
+        overflow-x: auto;
+    }
+}
+
+.page-component {
+    box-sizing: border-box;
+    height: 100%;
+
+    &.page-container {
+        width: 1140px;
+        margin: 0 auto;
+        padding: 0;
+    }
+
+    .page-component__nav {
+        width: 240px;
+        position: fixed;
+        top: 0;
+        bottom: 0;
+        margin-top: 80px;
+        transition: padding-top .3s;
+        > .el-scrollbar__wrap {
+            height: 100%;
+            overflow-x: auto;
+        }
+        &.is-extended {
+            padding-top: 0;
+        }
+    }
+
+    .page-component__content {
+        padding-left: 270px;
+        padding-bottom: 100px;
+        box-sizing: border-box;
     }
 }
 </style>

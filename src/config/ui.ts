@@ -1,23 +1,38 @@
-const ui: { [key: string]: object } = {}
+import dataDisplay from './ui-modules/data-display'
+import dataEntry from './ui-modules/data-entry'
+import feedback from './ui-modules/feedback'
+import layout from './ui-modules/layout'
+import navigation from './ui-modules/navigation'
+import optimize from './ui-modules/optimize'
+import transition from './ui-modules/transition'
 
-const uiContext = require.context('./modules', false, /\.js$/)
-uiContext.keys().forEach((item: string) => {
-    const config = uiContext(item).default
-    const uiModule = item.match(/ui-(.*)\.js$/)
-    if (uiModule) {
-        const name: string = uiModule[1]
-            .split('-')
-            .map(item => item.toLowerCase().replace(/^\S/g, L => L.toUpperCase()))
-            .join('')
-
-        ui[name] = config
-    }
-})
-
-/**
- * {
- *     DataDisplay: [],
- *     DataEntry: [],
- * }
- */
-export default ui
+export default [
+    {
+        title: '数据展示',
+        modules: dataDisplay,
+    },
+    {
+        title: '数据录入',
+        modules: dataEntry,
+    },
+    {
+        title: '反馈',
+        modules: feedback,
+    },
+    {
+        title: '布局',
+        modules: layout,
+    },
+    {
+        title: '导航',
+        modules: navigation,
+    },
+    {
+        title: '优化',
+        modules: optimize,
+    },
+    {
+        title: '动画',
+        modules: transition,
+    },
+]

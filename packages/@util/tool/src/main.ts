@@ -14,6 +14,11 @@
 // qq: u.match(/\sQQ/i) == " qq" //是否QQ
 const IMG_SUFFIX = 'tommy'
 
+// 首字母大写
+export function firstToUppercase (str: string): string {
+    return str.toLowerCase().replace(/^\S/g, L => L.toUpperCase())
+}
+
 // 监听微信事件
 export function linkWeixinBridge () {
     return new Promise((resolve, reject) => {

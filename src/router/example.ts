@@ -1,7 +1,9 @@
 import ui from '@/config/ui'
 import util from '@/config/util'
+import { RouteConfig } from 'vue-router'
 
-let routes = [
+const type = 'example'
+const routes: RouteConfig[] = [
     {
         path: '',
         name: 'example',
@@ -10,20 +12,24 @@ let routes = [
     }
 ]
 
-void [...util, ...Object.values(ui).flat()].forEach((page: any) => {
-    const { path, title, example } = page
+void [...util, ...ui].forEach(({ modules }) => {
+    modules.forEach((page: any) => {
+        const { path, example } = page
 
-    routes.push({
-        path,
-        name: `${path}Example`,
-        meta: { title, ...page },
-        component: example,
+        if (!example) return
+
+        routes.push({
+            path,
+            name: `${type}${path}`,
+            meta: { type, ...page },
+            component: example,
+        })
     })
 })
 
 export default [
     {
-        path: '/example',
+        path: `/${type}`,
         component: () => import('@/views/wrap-example/wrap-example.vue'),
         children: routes,
     }

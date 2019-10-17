@@ -1,31 +1,27 @@
 <template>
-<el-scrollbar class="markdown" :wrap-class="$style['scrollable-main']">
-    <h1 class="markdown-header">
-        <template v-if="isComponent">
-            <span>{{ meta.title }}</span>
+<h1 class="content">
+    <template v-if="isComponent">
+        <span>{{ meta.title }}</span>
 
-            <el-button class="markdown-header-icon" circle>
-                <TmIcon icon="qrcode" v-popover:qrcode />
-            </el-button>
+        <el-button class="content-icon" circle>
+            <TmIcon icon="qrcode" v-popover:qrcode />
+        </el-button>
 
-            <el-button id="copy" class="markdown-header-icon" icon="el-icon-edit" circle :data-clipboard-text="examplePath"></el-button>
+        <el-button id="copy" class="content-icon" icon="el-icon-edit" circle :data-clipboard-text="examplePath"></el-button>
 
-            <el-popover
-                ref="qrcode"
-                placement="bottom"
-                width="100"
-                trigger="hover">
-                <img :src="qrcodeImg" alt="" width="100%" height="100%" />
-            </el-popover>
-        </template>
+        <el-popover
+            ref="qrcode"
+            placement="bottom"
+            width="100"
+            trigger="hover">
+            <img :src="qrcodeImg" alt="" width="100%" height="100%" />
+        </el-popover>
+    </template>
 
-        <template v-else>
-            {{ meta.title }}
-        </template>
-    </h1>
-
-    <router-view></router-view>
-</el-scrollbar>
+    <template v-else>
+        <span>{{ meta.title }}</span>
+    </template>
+</h1>
 </template>
 
 <script>
@@ -33,10 +29,6 @@ import Qrcode from '@/assets/js/qrcode.js'
 import Clipboard from 'clipboard'
 
 export default {
-    props: {
-        isComponent: Boolean
-    },
-
     data () {
         return {
             qrcodeImg: ''
@@ -51,6 +43,9 @@ export default {
             const { origin, pathname } = location
 
             return `${origin}${pathname}#${this.$route.path.replace('docs', 'example')}`
+        },
+        isComponent () {
+            return !!this.$route.meta.example
         },
     },
 
@@ -95,35 +90,19 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.markdown {
-    height: 100%;
+.content {
+    display: flex;
+    align-items: center;
 
-    &-header {
-        display: flex;
-        align-items: center;
-
-        &-icon {
-            position: relative;
-            margin-left: 12px;
-            color: #ddd;
-            // transition: color .3s;
-
-            // &:hover {
-            //     color: #2db7f5;
-            // }
-        }
-    }
-
-    &-container {
+    &-icon {
         position: relative;
-    }
-}
-</style>
+        margin-left: 12px;
+        color: #ddd;
+        // transition: color .3s;
 
-<style lang="scss" module>
-.scrollable-main {
-    padding: 10px 20px 40px;
-    box-sizing: border-box;
-    overflow-x: auto;
+        // &:hover {
+        //     color: #2db7f5;
+        // }
+    }
 }
 </style>

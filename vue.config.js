@@ -2,6 +2,18 @@ const path = require('path')
 const globImporter = require('node-sass-glob-importer')
 const gitsha = require('child_process').execSync('git rev-parse HEAD').toString().trim()
 
+const isProd = process.env.NODE_ENV === 'production'
+const externals = (() => {
+    const config = {
+        'axios': 'axios',
+    }
+    // if (isProd) {
+    //     config['highlight.js'] = 'hljs'
+    // }
+
+    return config
+})()
+
 function resolve (dir) {
     return path.join(__dirname, '.', dir)
 }
@@ -26,9 +38,7 @@ module.exports = {
                 'web-cli': resolve('./packages/@cli'),
             },
         },
-        externals: {
-            'axios': 'axios',
-        },
+        externals,
     },
 
     chainWebpack: config => {

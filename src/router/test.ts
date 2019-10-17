@@ -1,25 +1,31 @@
 import ui from '@/config/ui'
 import util from '@/config/util'
+import { RouteConfig } from 'vue-router'
 
-const routes: object[] = []
+const routes: RouteConfig[] = []
+const type = 'test'
 
-void [...util, ...Object.values(ui).flat()].forEach((item: any) => {
-    if (!item.test) {
-        return
-    }
+void [...ui, ...util].forEach(({ modules }) => {
+    modules.forEach((page: any) => {
+        const { title, test } = page
+        if (!test) {
+            return
+        }
 
-    Object.entries(item.test).forEach(([key, component]) => {
-        routes.push({
-            path: key,
-            name: `${key}Test`,
-            component,
+        Object.entries(test).forEach(([key, component]) => {
+            routes.push({
+                path: key,
+                name: `${type}${key}`,
+                meta: { type, title, ...page },
+                component: (component as Function),
+            })
         })
     })
 })
 
 export default [
     {
-        path: '/test',
+        path: `/${type}`,
         component: () => import('@/views/wrap-test/wrap-test.vue'),
         children: routes,
     }

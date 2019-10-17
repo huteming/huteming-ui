@@ -6,7 +6,7 @@
 
 ### 基础布局
 
-:::demo @ui/flex/demo/basic.vue
+:::demo
 
 ```html
 <tm-flex class="mb-20">
