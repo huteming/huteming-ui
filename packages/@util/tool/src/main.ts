@@ -14,6 +14,14 @@
 // qq: u.match(/\sQQ/i) == " qq" //是否QQ
 const IMG_SUFFIX = 'tommy'
 
+export function isVNode (node: any): boolean {
+    return node !== null && typeof node === 'object' && Object.prototype.hasOwnProperty.call(node, 'componentOptions')
+}
+
+export function isComponent (node: any): boolean {
+    return node !== null && typeof node === 'object' && Object.prototype.hasOwnProperty.call(node, 'render')
+}
+
 // 首字母大写
 export function firstToUppercase (str: string): string {
     return str.toLowerCase().replace(/^\S/g, L => L.toUpperCase())

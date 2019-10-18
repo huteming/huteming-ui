@@ -1,49 +1,89 @@
-<template>
-<transition name="zoom-in" @after-leave="handleAfterLeave">
-    <div class="tm-message" :style="styles" v-show="visible" ref="msgbox" @click.stop.self="handleClickModal" @touchmove.stop.prevent>
-        <div class="tm-message-wrap">
-            <div class="tm-message-container">
-                <div class="tm-message-title" v-if="title">{{ title }}</div>
-
-                <div class="tm-message-subtitle" v-if="message" v-html="message"></div>
-
-                <div class="tm-message-field" v-if="showInput">
-                    <input class="tm-message-field__input" :type="inputType" :value="normalizedInputValue" @input="handleInput" :placeholder="inputPlaceholder" autofocus />
-                </div>
-            </div>
-
-            <div class="tm-message-footer">
-                <div class="tm-message-footer-btn tm-message-footer-btn__cancel" :class="{ 'text-bold': cancelButtonHighlight }" v-if="showCancelButton" @click="handleClose('cancel')">
-                    <span>{{ cancelButtonText }}</span>
-                </div>
-
-                <div class="tm-message-footer-btn tm-message-footer-btn__confirm" :class="{ 'text-bold': confirmButtonHighlight }" @click="handleClose('confirm')">
-                    <span>{{ confirmButtonText }}</span>
-                </div>
-            </div>
-        </div>
-    </div>
-</transition>
-</template>
-
 <script>
 import MixinsModal from 'web-ui/modal/index'
 import zindexManager from 'web/assets/js/zindex-manager'
+import { isVNode, isComponent } from 'web-util/tool/src/main'
 
 export default {
     name: 'Message',
     mixins: [MixinsModal],
+
+    render () {
+        const {
+            handleAfterLeave, styles, inputType, title, normalizedInputValue, handleInput,
+            inputPlaceholder, handleClose, cancelButtonText, confirmButtonText, cancelButtonHighlight,
+            confirmButtonHighlight, showCancelButton, message, showInput, handleClickModal,
+        } = this
+
+        const fnCancel = () => {
+            handleClose('cancel')
+        }
+        const fnConfirm = () => {
+            handleClose('confirm')
+        }
+
+        const domTitle = (() => {
+            if (title) {
+                return <div class="tm-message-title">{ title }</div>
+            }
+        })()
+        const domMessage = (() => {
+            if (message === '') return
+            let html = <p domPropsInnerHTML={ message }></p>
+
+            if (isVNode(message)) {
+                html = <div>{ message }</div>
+            } else if (isComponent(message)) {
+                const TmMessage = message
+                html = <TmMessage />
+            }
+
+            return <div class="tm-message-subtitle">
+                { html }
+            </div>
+        })()
+        const domField = (() => {
+            if (showInput) {
+                return <div class="tm-message-field">
+                    <input class="tm-message-field__input" type={ inputType } value={ normalizedInputValue } onInput={ handleInput } placeholder={ inputPlaceholder } autofocus />
+                </div>
+            }
+        })()
+        const domCancel = (() => {
+            if (showCancelButton) {
+                return <div class={ ['tm-message-footer-btn', 'tm-message-footer-btn__cancel', cancelButtonHighlight ? 'text-bold' : ''] } onClick={ fnCancel }>
+                    <span>{ cancelButtonText }</span>
+                </div>
+            }
+        })()
+
+        return (
+            <transition name="zoom-in" onAfterLeave="handleAfterLeave">
+                <div class="tm-message" style={ styles } v-show="visible" ref="msgbox" onClick_stop_self={ handleClickModal } onTouchmove_stop_prevent>
+                    <div class="tm-message-wrap">
+                        <div class="tm-message-container">
+                            { domTitle }
+                            { domMessage }
+                            { domField }
+                        </div>
+
+                        <div class="tm-message-footer">
+                            { domCancel }
+
+                            <div class={ ['tm-message-footer-btn', 'tm-message-footer-btn__confirm', confirmButtonHighlight ? 'text-bold' : ''] } onClick={ fnConfirm }>
+                                <span>{ confirmButtonText }</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </transition>
+        )
+    },
 
     props: {
         // 提示框的标题
         title: {
             type: String,
             default: '提示'
-        },
-        // 提示框的内容
-        message: {
-            type: String,
-            default: ''
         },
 
         // 确认按钮的文本
@@ -114,6 +154,9 @@ export default {
             resolve: null,
             reject: null,
             res: {},
+
+            // 提示框的内容
+            message: '',
         }
     },
 

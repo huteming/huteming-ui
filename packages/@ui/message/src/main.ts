@@ -1,5 +1,6 @@
 import Vue from 'vue'
 import MessageComponent from './message.vue'
+import { isVNode } from 'web-util/tool/src/main'
 
 const MessageConstructor = Vue.extend(MessageComponent)
 
@@ -8,9 +9,18 @@ function open ({ params, resolve, reject }: any) {
         propsData: params,
         data: {
             resolve,
-            reject
-        }
+            reject,
+            message: params.message,
+        },
     })
+
+    // message 支持 VNode
+    // if (isVNode(instance.message)) {
+    //     instance.$slots.default = [instance.message]
+    //     instance.message = null
+    // } else {
+    //     delete instance.$slots.default
+    // }
 
     document.body.appendChild(instance.$mount().$el)
 
@@ -21,28 +31,21 @@ function open ({ params, resolve, reject }: any) {
     return instance
 }
 
-const expandMethods = {
-    alert: {
-        closeOnClickModal: false
-    },
-    confirm: {
-        showCancelButton: true
-    },
-    prompt: {
-        showCancelButton: true,
-        showInput: true
-    },
-}
-
-function Message (message: any, title: any, options = {}, expandOptions = {}) {
+function Message (message?: string | object, title?: string | object, options: any = {}, expandOptions = {}) {
     let params = expandOptions
+    console.log(message)
+
+    if (isVNode(message)) {
+        options.message = message
+        message = ''
+    }
 
     if (message instanceof Object) {
         params = Object.assign({}, message, params)
     } else if (title instanceof Object) {
         params = Object.assign({ message }, title, params)
     } else {
-        params = Object.assign({}, { message, title }, options, params)
+        params = Object.assign({ message, title }, options, params)
     }
 
     return new Promise((resolve, reject) => {
@@ -50,11 +53,23 @@ function Message (message: any, title: any, options = {}, expandOptions = {}) {
     })
 }
 
-for (let method in expandMethods) {
-    (Message as any)[method] = (message: any, title: any, ...args: any) => {
-        args[1] = (expandMethods as any)[method]
-        return Message(message, title, ...args)
-    }
+Message.alert = (message?: string | object, title?: string | object, options?: object) => {
+    return Message(message, title, options, {
+        closeOnClickModal: false,
+    })
+}
+
+Message.confirm = (message?: string | object, title?: string | object, options?: object) => {
+    return Message(message, title, options, {
+        showCancelButton: true,
+    })
+}
+
+Message.prompt = (message?: string | object, title?: string | object, options?: object) => {
+    return Message(message, title, options, {
+        showCancelButton: true,
+        showInput: true,
+    })
 }
 
 export default Message
