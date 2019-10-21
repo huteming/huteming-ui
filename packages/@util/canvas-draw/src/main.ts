@@ -1,4 +1,4 @@
-import { autobind, time } from 'core-decorators'
+import { autobind } from 'core-decorators'
 import drawArc from './drawArc'
 import drawText from './drawText'
 import drawRect from './drawRect'
@@ -13,17 +13,17 @@ import { DrawTextOption, DrawTextConfig } from './declare/drawText'
 
 @autobind
 export default class CanvasDraw extends Draw implements Render {
-    @time('drawText')
+    // @time('drawText')
     drawText (this: Draw, text: string, x: number, y: number, options: DrawTextOption): DrawTextConfig {
         return drawText.call(this, text, x, y, options)
     }
 
-    @time('drawImage')
+    // @time('drawImage')
     drawImage (this: Draw, image: HTMLImageElement | HTMLCanvasElement, x: number, y: number, width: number, height: number, options: DrawImageOption): DrawImageConfig {
         return drawImage.call(this, image, x, y, width, height, options)
     }
 
-    @time('drawArc')
+    // @time('drawArc')
     drawArc (this: Draw, x: number, y: number, r: number, options: DrawArcOption): DrawArcConfig {
         return drawArc.call(this, x, y, r, options)
     }
