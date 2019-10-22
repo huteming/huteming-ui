@@ -1,26 +1,36 @@
 import Vue from 'vue'
-import MessageComponent from './message.vue'
-import { isVNode } from 'web-util/tool/src/main'
+import MessageComponent from './message'
+import { isVNode, isComponent } from 'web-util/tool/src/main'
+import { MessageOptions, MessageConfig, MessageComp, MessageResponse } from './declare/type'
+
+const defaults = {
+    title: '提示',
+    message: '',
+    confirmButtonText: '确定',
+    confirmButtonHighlight: false,
+    showCancelButton: false,
+    cancelButtonText: '取消',
+    cancelButtonHighlight: false,
+    showInput: false,
+    inputType: 'text',
+    inputValue: '',
+    inputPlaceholder: '请输入',
+    closeOnClickModal: true,
+    beforeClose: null,
+    beforeConfirm: null,
+    beforeCancel: null,
+}
 
 const MessageConstructor = Vue.extend(MessageComponent)
 
-function open ({ params, resolve, reject }: any) {
-    const instance: any = new MessageConstructor({
-        propsData: params,
+function open (config: MessageConfig, resolve: Function, reject: Function) {
+    const instance: MessageComp = new MessageConstructor({
         data: {
             resolve,
             reject,
-            message: params.message,
+            ...config,
         },
     })
-
-    // message 支持 VNode
-    // if (isVNode(instance.message)) {
-    //     instance.$slots.default = [instance.message]
-    //     instance.message = null
-    // } else {
-    //     delete instance.$slots.default
-    // }
 
     document.body.appendChild(instance.$mount().$el)
 
@@ -31,45 +41,62 @@ function open ({ params, resolve, reject }: any) {
     return instance
 }
 
-function Message (message?: string | object, title?: string | object, options: any = {}, expandOptions = {}) {
-    let params = expandOptions
-    console.log(message)
+function formatConfig (message: string | object, title?: string | object, options: MessageOptions = {}): MessageConfig {
+    let config: MessageConfig = Object.assign({}, defaults, options)
 
-    if (isVNode(message)) {
-        options.message = message
+    // VNode, Component
+    if (isVNode(message) || isComponent(message)) {
+        config.message = message
         message = ''
+    } else if (typeof message === 'object') {
+        config = Object.assign(config, message)
+    } else {
+        config.message = message
     }
 
-    if (message instanceof Object) {
-        params = Object.assign({}, message, params)
-    } else if (title instanceof Object) {
-        params = Object.assign({ message }, title, params)
-    } else {
-        params = Object.assign({ message, title }, options, params)
+    if (title) {
+        if (typeof title === 'object') {
+            config = Object.assign(config, title)
+        } else {
+            config.title = title
+        }
     }
+
+    // 删除非组件属性
+    Object.keys(config).forEach((key: string) => {
+        if (!defaults.hasOwnProperty(key)) {
+            delete (config as any)[key]
+        }
+    })
+
+    return config
+}
+
+function Message (message: string | object, title?: string | object, options?: MessageOptions): Promise<MessageResponse> {
+    const config = formatConfig(message, title, options)
 
     return new Promise((resolve, reject) => {
-        open({ params, resolve, reject })
+        open(config, resolve, reject)
     })
 }
 
-Message.alert = (message?: string | object, title?: string | object, options?: object) => {
-    return Message(message, title, options, {
+Message.alert = (message: string | object, title?: string | object, options?: object) => {
+    return Message(message, title, Object.assign({}, options, {
         closeOnClickModal: false,
-    })
+    }))
 }
 
-Message.confirm = (message?: string | object, title?: string | object, options?: object) => {
-    return Message(message, title, options, {
+Message.confirm = (message: string | object, title?: string | object, options?: object) => {
+    return Message(message, title, Object.assign({}, options, {
         showCancelButton: true,
-    })
+    }))
 }
 
-Message.prompt = (message?: string | object, title?: string | object, options?: object) => {
-    return Message(message, title, options, {
+Message.prompt = (message: string | object, title?: string | object, options?: object) => {
+    return Message(message, title, Object.assign({}, options, {
         showCancelButton: true,
         showInput: true,
-    })
+    }))
 }
 
 export default Message
