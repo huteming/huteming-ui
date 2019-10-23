@@ -5,18 +5,18 @@ import { ModalComp } from './declare/types'
 export default class TmModal extends Vue implements ModalComp {
     render () {
         const {
-            handleBeforeEnter, handleAfterEnter, handleBeforeLeave, handleAfterLeave, handleClick,
+            handleBeforeEnter, handleAfterEnter, handleBeforeLeave, handleAfterLeave, handleClick, handleTouchmove,
             styles, visible
         } = this
 
         return (
             <transition
                 name="fade"
-                onBeforeEnter={ handleBeforeEnter }
-                onAfterEnter={ handleAfterEnter }
-                onBeforeLeave={ handleBeforeLeave }
-                onAfterLeave={ handleAfterLeave }>
-                <div class="tm-modal" style={ styles } v-show={ visible } onClick_stop={ handleClick } onTouchmove_prevent_stop></div>
+                on-before-enter={ handleBeforeEnter }
+                on-after-enter={ handleAfterEnter }
+                on-before-leave={ handleBeforeLeave }
+                on-after-leave={ handleAfterLeave }>
+                <div class="tm-modal" style={ styles } v-show={ visible } on-click={ handleClick } on-touchmove={ handleTouchmove }></div>
             </transition>
         )
     }
@@ -27,10 +27,16 @@ export default class TmModal extends Vue implements ModalComp {
         }
     }
 
-    handleClick () {
+    handleClick (event: Event) {
+        event.stopPropagation()
         if (typeof this.callbackClick === 'function') {
             this.callbackClick()
         }
+    }
+
+    handleTouchmove (event: Event) {
+        event.preventDefault()
+        event.stopPropagation()
     }
 
     /**
@@ -70,11 +76,9 @@ export default class TmModal extends Vue implements ModalComp {
         this.setData(options)
         this.visible = false
     }
-    setData (data = {}) {
+    setData (data: object) {
         for (let key in data) {
-            if (this.hasOwnProperty(key)) {
-                (this as any)[key] = (data as any)[key]
-            }
+            (this as any)[key] = (data as any)[key]
         }
     }
     handleElementDestroy () {

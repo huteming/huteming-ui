@@ -54,7 +54,7 @@ function formatConfig (message: string | object, title?: string | object, option
         config.message = message
     }
 
-    if (title) {
+    if (title !== undefined) {
         if (typeof title === 'object') {
             config = Object.assign(config, title)
         } else {

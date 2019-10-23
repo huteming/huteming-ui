@@ -87,6 +87,19 @@ describe('message', async () => {
         assert.strictEqual(wrapperSubtitle.text(), message)
     })
 
+    it('只显示message,没有title', async () => {
+        const message = 'a message'
+        Message(message, '')
+
+        await sleep()
+        const wrapperContainer = wrapper.find('.tm-message')
+        const wrapperTitle = wrapper.find('.tm-message-title')
+        const wrapperSubtitle = wrapper.find('.tm-message-subtitle')
+        assert.ok(wrapperContainer.isVisible())
+        assert.ok(!wrapperTitle.exists())
+        assert.strictEqual(wrapperSubtitle.text(), message)
+    })
+
     it('点击模态框消失', (done) => {
         const title = 'a title'
         const message = 'a message'
@@ -114,6 +127,34 @@ describe('message', async () => {
                 assert.strictEqual(wrapperSubtitle.text(), message)
 
                 wrapperContainer.trigger('click')
+            })
+    })
+
+    it('点击确认按钮消失', (done) => {
+        Message.alert('hello', { confirmButtonHighlight: true })
+            .then(({ action, inputValue }) => {
+                assert.strictEqual(action, 'confirm')
+                assert.strictEqual(inputValue, '')
+                done()
+            })
+        sleep()
+            .then(() => {
+                const wrapperConfirm = wrapper.find('.tm-message-footer-btn__confirm')
+                wrapperConfirm.trigger('click')
+            })
+    })
+
+    it('点击取消按钮消失', (done) => {
+        Message.confirm('hello', { cancelButtonHighlight: true })
+            .catch(({ action, inputValue }) => {
+                assert.strictEqual(action, 'cancel')
+                assert.strictEqual(inputValue, '')
+                done()
+            })
+        sleep()
+            .then(() => {
+                const wrapperCancel = wrapper.find('.tm-message-footer-btn__cancel')
+                wrapperCancel.trigger('click')
             })
     })
 
@@ -234,20 +275,6 @@ describe('message', async () => {
                 const wrapperInput = wrapper.find('.tm-message-field__input')
                 const wrapperConfirm = wrapper.find('.tm-message-footer-btn__confirm')
                 wrapperInput.setValue(value)
-                wrapperConfirm.trigger('click')
-            })
-    })
-
-    it('alert点击确认按钮', (done) => {
-        Message.alert('hello')
-            .then(({ action, inputValue }) => {
-                assert.strictEqual(action, 'confirm')
-                assert.strictEqual(inputValue, '')
-                done()
-            })
-        sleep()
-            .then(() => {
-                const wrapperConfirm = wrapper.find('.tm-message-footer-btn__confirm')
                 wrapperConfirm.trigger('click')
             })
     })

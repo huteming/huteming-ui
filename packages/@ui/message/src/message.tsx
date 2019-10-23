@@ -111,9 +111,7 @@ export default class Message extends Mixins(MixinsModal) implements MessageComp 
     }
 
     handleInput (evt: any) {
-        if (evt.target) {
-            this.normalizedInputValue = evt.target.value
-        }
+        this.normalizedInputValue = evt.target.value
     }
 
     handleClickModal (event: Event) {
@@ -122,7 +120,6 @@ export default class Message extends Mixins(MixinsModal) implements MessageComp 
         // .self
         if (event.target !== event.currentTarget) return
 
-        console.log('click', this.messageType, this.closeOnClickModal)
         if (this.messageType !== 'alert' && this.closeOnClickModal) {
             this.handleCancel()
         }

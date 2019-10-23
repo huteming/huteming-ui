@@ -1,10 +1,27 @@
 import assert from 'assert'
 import sinon from 'sinon'
 import * as tool from 'web-util/tool/src/main'
+import CompBasic from '../../components/basic.vue'
+import Vue from 'vue'
 
 describe('tool', () => {
     afterEach(() => {
         sinon.restore()
+    })
+
+    it('isVNode', () => {
+        const ins = new Vue()
+        const h = ins.$createElement
+        const vnode = h(CompBasic)
+        assert.ok(tool.isVNode(vnode))
+    })
+
+    it('isComponent', () => {
+        assert.ok(tool.isComponent(CompBasic))
+    })
+
+    it('firstToUppercase', () => {
+        assert.strictEqual(tool.firstToUppercase('hello'), 'Hello')
     })
 
     it('isWKWebview', () => {
