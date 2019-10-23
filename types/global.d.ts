@@ -1,3 +1,5 @@
+import { AnchorAttr } from 'web-ui/anchor/src/declare/types'
+
 declare global {
     interface Window {
         WeixinJSBridge: {
@@ -17,6 +19,10 @@ declare global {
         definedAjaxing: any,
         definedToast: any,
         definedPrompt: any,
+    }
+
+    interface HTMLElement {
+        '@@Anchor'?: AnchorAttr
     }
 }
 

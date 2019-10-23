@@ -1,7 +1,7 @@
 import Directive from './src/anchor'
 
-(Directive as any).install = function (Vue: any) {
-    Vue.directive(Directive.name, Directive)
+Directive.install = function (Vue) {
+    Vue.directive(Directive.registName, Directive)
 }
 
 export default Directive

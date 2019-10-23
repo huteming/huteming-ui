@@ -10,3 +10,10 @@ declare module 'vue/types/vue' {
         item: VueConstructor
     }
 }
+declare module 'vue/types/options' {
+    // 3. 声明为 Vue 补充的东西
+    interface DirectiveOptions {
+        install?: (vue: typeof Vue) => void
+        registName: string
+    }
+}

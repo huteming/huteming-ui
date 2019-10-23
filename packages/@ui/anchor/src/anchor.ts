@@ -1,81 +1,92 @@
 import { easeOut } from 'web-util/animation/src/main'
-import { attached, getScrollContainer, getScrollTop, getElementTop } from 'web-util/element/src/main'
-const ELEMENT_ATTR_NAME = '@@Anchor'
+import { getScrollContainer, getScrollTop, getElementTop, scrollY } from 'web-util/element/src/main'
+import { DirectiveOptions, VNode } from 'vue'
+import { DirectiveBinding } from 'vue/types/options'
+import { AnchorConfig, AnchorSelf } from './declare/types'
+const ATTR = '@@Anchor'
 
 const defaults = {
-    selector: '',
+    selector: '', // 锚点目标选择器
     container: '',
     top: 0,
     duration: 300,
     done: null,
 }
 
-export default {
-    name: 'Anchor',
+export default <DirectiveOptions>{
+    registName: 'Anchor',
 
-    inserted (el: any, binding: any, vnode: any) {
-        if (typeof binding.value === 'string') {
-            binding.value = {
-                selector: binding.value
+    inserted (el: HTMLElement, binding: DirectiveBinding, vnode: VNode) {
+        let value = binding.value
+        if (typeof value === 'string') {
+            value = {
+                selector: value,
             }
         }
-        const options = Object.assign({}, defaults, binding.value)
-        const { selector, container } = options
+        const config: AnchorConfig = Object.assign({}, defaults, value)
 
         // 获取 self 对象，作为 this 在各函数中共享数据
-        const self = {
+        const self: AnchorSelf = {
             el,
             vm: vnode.context,
-            binding,
-            options,
+            config,
 
             scrollEventTarget: null,
             clickEventTarget: null,
         }
 
         // 主要执行操作
-        const handlerClick = handleClick.bind(self)
+        const _handleClick = handleClick.bind(self)
 
         // 更新生命周期共享数据
-        el[ELEMENT_ATTR_NAME] = {
-            handlerClick,
+        el[ATTR] = {
+            handleClick: _handleClick,
             self,
         }
 
-        attached(el, () => {
-            self.clickEventTarget = document.querySelector(selector)
-            self.scrollEventTarget = container ? document.querySelector(container) : getScrollContainer(el)
-            el.addEventListener('click', handlerClick)
-        })
+        el.addEventListener('click', _handleClick)
     },
 
-    unbind (el: any) {
-        const { handlerClick } = el[ELEMENT_ATTR_NAME]
+    unbind (el: HTMLElement) {
+        /* istanbul ignore next */
+        const { handleClick = '' } = el[ATTR] || {}
 
-        el.removeEventListener('click', handlerClick)
+        /* istanbul ignore next */
+        if (handleClick) {
+            el.removeEventListener('click', handleClick)
+        }
+        delete el[ATTR]
     },
 }
 
 /**
  * 响应点击事件
  */
-function handleClick (this: any) {
+function handleClick (this: AnchorSelf): void {
+    const { el, config } = this
+    const { selector, container, top, done, duration } = config
+
     if (!this.clickEventTarget) {
-        console.warn(`selector[${this.options.selector}]有误。未找到指定dom`)
+        this.clickEventTarget = document.querySelector(selector)
+        this.scrollEventTarget = container ? document.querySelector(container) : getScrollContainer(el)
+    }
+
+    if (!this.clickEventTarget) {
+        console.warn(`[@huteming/ui Warn][Carousel]selector is invalid: `, selector)
         return
     }
 
-    const top = this.options.top * document.body.clientWidth / 750
+    const _top = top * document.body.clientWidth / 750
     // 滚动条当前滚动位置
     const _from = getScrollTop(this.scrollEventTarget)
     // 结束位置
-    const _to = getElementTop(this.clickEventTarget) - getElementTop(this.scrollEventTarget) + getScrollTop(this.scrollEventTarget) - top
+    const _to = getElementTop(this.clickEventTarget) - getElementTop(this.scrollEventTarget) + getScrollTop(this.scrollEventTarget) - _top
 
-    easeOut(_from, _to, (position: any, isFinish: any) => {
-        this.scrollEventTarget.scrollTop = position
+    easeOut(_from, _to, (position: number, isFinish: boolean) => {
+        scrollY(this.scrollEventTarget, position)
 
-        if (isFinish && typeof this.options.done === 'function') {
-            this.options.done(_to)
+        if (isFinish && typeof done === 'function') {
+            done(_to)
         }
-    }, this.options.duration)
+    }, duration)
 }
