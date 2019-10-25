@@ -1,6 +1,6 @@
 {
   "name": "@huteming/ui",
-  "version": "2.0.4",
+  "version": "2.0.5",
   "description": "ui 组件的统一入口",
   "main": "dist/huteming-ui.common.js",
   "scripts": {
@@ -38,7 +38,7 @@
     "@huteming/ui-toast": "^2.0.0",
     "@huteming/ui-toolbar": "^2.0.0",
     "@huteming/ui-transition-collapse": "^2.0.0",
-    "@huteming/ui-video-player": "^2.1.0",
+    "@huteming/ui-video-player": "^2.1.1",
     "@huteming/ui-white-space": "^2.1.1",
     "@huteming/ui-wing-blank": "^2.0.0"
   }
