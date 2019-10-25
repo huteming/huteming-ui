@@ -7,7 +7,8 @@
         :continuous="false"
         :autoplay="false"
         @click="handleReady"
-        @error="handleReady" />
+        @error="handleReady"
+        @timeupdate="handleTimeupdate" />
 
     <TmWhiteSpace />
 
@@ -81,6 +82,9 @@ export default {
         },
         handleToast (msg) {
             this.$toast(msg)
+        },
+        handleTimeupdate (currentTime) {
+            console.log('timeupdate', currentTime)
         },
     },
 

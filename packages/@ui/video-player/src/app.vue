@@ -133,6 +133,11 @@ export default {
                 this.initButtonsStart()
                 this.initButtonsEnd()
             })
+            // 播放中，持续触发
+            this.player.on('timeupdate', () => {
+                const currentTime = this.player.currentTime()
+                this.$emit('timeupdate', currentTime)
+            })
             this.player.on('canplay', () => {
                 // fix 多次触发
                 if (!this.canplay) {
