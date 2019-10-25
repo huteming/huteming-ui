@@ -20,7 +20,7 @@ import { createButton, createContainer } from './helper/index'
 export default {
     name: 'TmVideoPlayer',
     props: {
-        // [{ src, cover }]
+        // [{ src, cover, currentTime }]
         sources: {
             type: Array,
             required: true,
@@ -56,16 +56,18 @@ export default {
             buttonsStart: null,
             controlsEnd: null,
             ready: false,
+            canplay: false,
         }
     },
 
     computed: {
         playList () {
             return this.sources.map(item => {
-                const { src, cover } = item
+                const { src, cover, currentTime } = item
                 return {
                     src,
                     cover,
+                    currentTime,
                 }
             })
         },
@@ -131,6 +133,14 @@ export default {
                 this.initButtonsStart()
                 this.initButtonsEnd()
             })
+            this.player.on('canplay', () => {
+                // fix 多次触发
+                if (!this.canplay) {
+                    const currentTime = this.playList[this.currentIndex].currentTime || 0
+                    this.player.currentTime(currentTime)
+                }
+                this.canplay = true
+            })
             this.player.on('play', () => {
                 console.log('video play')
                 this.player.removeClass('ready')
@@ -161,6 +171,7 @@ export default {
 
             // 初始化状态
             this.ready = false
+            this.canplay = false
             this.currentIndex = index
 
             const isM3u8 = src.split('?')[0].endsWith('m3u8')

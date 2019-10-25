@@ -52,10 +52,12 @@ export default {
                 {
                     src: 'http://jhsy-img.caizhu.com/lv10CqB9TUpWlK0pEPpCXexK05qL.m3u8?helloworld',
                     cover: posterVideo,
+                    currentTime: 5,
                 },
                 {
                     src: 'http://jhsy-img.caizhu.com/video1.mp4',
                     cover: 'http://jhsy-img.caizhu.com/jhsy/anniversary/videos/poster-company.png',
+                    currentTime: 10,
                 },
                 {
                     src: 'http://jhsy-img.caizhu.com/video2.mp4',
