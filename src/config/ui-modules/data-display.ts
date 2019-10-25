@@ -1,5 +1,11 @@
 export default [
     {
+        path: 'turntable',
+        title: '转盘 Turntable',
+        docs: () => import('web-ui/turntable/README.md'),
+        example: () => import('web-ui/turntable/demo/basic.vue'),
+    },
+    {
         path: 'carousel',
         title: '走马灯 carousel',
         docs: () => import('web-ui/carousel/README.md'),

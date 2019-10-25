@@ -1,3 +1,4 @@
+export { default as TmTurntable } from 'web-ui/turntable/index'
 export { default as Actionsheet } from 'web-ui/actionsheet/index'
 export { default as Message } from 'web-ui/message/index'
 export { default as Toast } from 'web-ui/toast/index'
