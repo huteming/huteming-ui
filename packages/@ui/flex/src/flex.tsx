@@ -2,6 +2,8 @@ import { Prop, Component, Vue } from 'vue-property-decorator'
 
 @Component
 export default class TmFlex extends Vue {
+    static registName = 'TmFlex'
+
     render () {
         const { classes, $slots } = this
         return (

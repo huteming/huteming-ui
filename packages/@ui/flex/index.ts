@@ -2,7 +2,7 @@ import _Flex from './src/flex'
 import _FlexItem from 'web-ui/flex-item/index'
 
 _Flex.install = (Vue) => {
-    Vue.component(_Flex.name, _Flex)
+    Vue.component(_Flex.registName, _Flex)
 }
 _Flex.item = _FlexItem
 

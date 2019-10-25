@@ -4,6 +4,8 @@ import TmFlex from '../types/flex'
 
 @Component
 export default class TmFlexItem extends Vue {
+    static registName = 'TmFlexItem'
+
     render (): VNode {
         const { styles, classes, $slots } = this
         return (
