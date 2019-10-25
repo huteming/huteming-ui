@@ -1,6 +1,6 @@
 {
   "name": "@huteming/ui",
-  "version": "2.0.4-alpha.1",
+  "version": "2.0.4",
   "description": "ui 组件的统一入口",
   "main": "dist/huteming-ui.common.js",
   "scripts": {
@@ -9,7 +9,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "@huteming/ui-anchor": "^2.0.3",
+    "@huteming/ui-anchor": "^2.0.4",
     "@huteming/ui-audio-player": "^2.0.0",
     "@huteming/ui-btn-pay": "^2.0.0",
     "@huteming/ui-carousel": "^2.0.0",
@@ -26,7 +26,7 @@
     "@huteming/ui-image-picker": "^1.1.1",
     "@huteming/ui-infinite-scroll": "^2.0.0",
     "@huteming/ui-loading": "^2.0.0",
-    "@huteming/ui-message": "^2.0.0",
+    "@huteming/ui-message": "^2.1.0",
     "@huteming/ui-notice-bar": "^2.0.0",
     "@huteming/ui-panel": "^2.0.0",
     "@huteming/ui-picker-address": "^2.0.0",
@@ -38,7 +38,7 @@
     "@huteming/ui-toast": "^2.0.0",
     "@huteming/ui-toolbar": "^2.0.0",
     "@huteming/ui-transition-collapse": "^2.0.0",
-    "@huteming/ui-video-player": "^2.0.0",
+    "@huteming/ui-video-player": "^2.1.0",
     "@huteming/ui-white-space": "^2.1.1",
     "@huteming/ui-wing-blank": "^2.0.0"
   }
