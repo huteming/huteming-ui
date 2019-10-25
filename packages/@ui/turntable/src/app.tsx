@@ -1,5 +1,7 @@
 import Roller from 'web-util/roller/src/main'
-import { Vue, Component, Prop, Ref } from 'vue-property-decorator'
+import { Vue, Component, Prop, Ref, Watch } from 'vue-property-decorator'
+import { easeOut } from 'web-util/animation/src/main'
+const requestAnimationFrame = window.requestAnimationFrame || window.webkitRequestAnimationFrame
 
 @Component
 export default class Turntable extends Vue {
@@ -8,14 +10,14 @@ export default class Turntable extends Vue {
     render () {
         const {
             handlePointerClick,
-            stylePointer, styleBoard, styleTable,
+            stylePointer, styleBoard,
             board, pointer,
         } = this
 
         return (
             <div class="tm-turntable">
                 <div class="tm-turntable-board" style={ styleBoard }>
-                    <img class="tm-turntable-image" style={ styleTable } src={ board } ref="table" />
+                    <img class="tm-turntable-image" src={ board } ref="table" />
                 </div>
                 <div class="tm-turntable-pointer" style={ stylePointer } on-click={ handlePointerClick }>
                     <img class="tm-turntable-image" src={ pointer } />
@@ -25,8 +27,164 @@ export default class Turntable extends Vue {
         )
     }
 
+    mounted () {
+        // 初始化位置
+        this.reset()
+    }
+
     beforeDestroy () {
-        clearInterval(this.timer)
+        cancelAnimationFrame(this.frame)
+    }
+
+    get normalizedRanges (): { value: any, angle: number, angleStop: number }[] {
+        let prev = 0
+        const ranges = this.ranges.slice()
+
+        if (this.direction) {
+            ranges.reverse()
+        }
+
+        return ranges.map(({ value, angle }) => {
+            const angleStop = prev + angle / 2
+            prev += angle
+
+            return { value, angle, angleStop }
+        })
+    }
+
+    get angleInitial (): number {
+        const { normalizedRanges, initial } = this
+        const item = normalizedRanges.find(item => item.value === initial)
+
+        if (item) {
+            return item.angleStop
+        }
+
+        if (typeof initial === 'number') {
+            return initial
+        }
+
+        return 0
+    }
+
+    start (): void {
+        if (this.running || this.disabled) return
+        this.running = true
+
+        const runner = () => {
+            // 大概 (12 * 16.7)ms 转完一圈
+            this.angleCount += 12
+            this.translate(this.angleCount)
+            this.frame = requestAnimationFrame(runner)
+            console.log('start', this.angleCount)
+        }
+        this.frame = requestAnimationFrame(runner)
+    }
+
+    stop (expect: any): void {
+        if (this.isClickStop || this.disabled) return
+        this.isClickStop = true
+        cancelAnimationFrame(this.frame)
+
+        const angleStop = this.expectToStop(expect)
+        // const steps = this.getSteps(360 * 5 + angleStop)
+        // let currentStep = -1
+
+        const to = (Math.ceil(this.angleCount / 360) + 4) * 360 + angleStop
+        const duration = Math.ceil((to - this.angleCount) / 360) * 12 * 16.7
+        console.log(this.angleCount, to, duration)
+        easeOut(this.angleCount, to, (position: number, finish: boolean) => {
+            console.log('stop', position)
+            this.translate(position)
+
+            if (finish) {
+                setTimeout(() => {
+                    this.running = false
+                    this.isClickStop = false
+                    const item = this.normalizedRanges.find(item => item.angleStop === angleStop)
+
+                    this.$emit('end', item && item.value)
+                }, 100)
+            }
+        }, duration)
+
+        // const runner = () => {
+        //     currentStep++
+
+        //     if (currentStep < steps.length) {
+        //         requestAnimationFrame(() => {
+        //             this.translate(steps[currentStep])
+        //             runner()
+        //         })
+        //         return
+        //     }
+
+        //     setTimeout(() => {
+        //         this.running = false
+        //         this.isClickStop = false
+        //         const item = this.normalizedRanges.find(item => item.angleStop === angleStop)
+
+        //         this.$emit('end', item && item.value)
+        //     }, 200)
+        // }
+
+        // runner()
+    }
+
+    reset () {
+        cancelAnimationFrame(this.frame)
+
+        this.running = false
+        this.isClickStop = false
+        this.translate(this.angleInitial)
+    }
+
+    handlePointerClick () {
+        this.$emit('click-pointer')
+    }
+
+    expectToStop (expect?: any): number {
+        if (expect) {
+            const item = this.normalizedRanges.find(item => item.value === expect)
+
+            if (item) {
+                return item.angleStop
+            }
+        }
+
+        const roller = new Roller()
+
+        this.normalizedRanges.forEach(({ angle, angleStop }) => {
+            roller.add(angleStop, angle)
+        })
+
+        return roller.done()
+    }
+
+    getSteps (angleTotal: number): number[] {
+        const a = 0.03
+        const t = Math.sqrt(2 * angleTotal / a)
+        const v = a * t
+        const steps: number[] = []
+
+        for (let i = 0; i < t; i++) {
+            const angleNext = (2 * v * i - a * i * i) / 2
+            steps.push(angleNext)
+        }
+        steps.push(angleTotal)
+
+        return steps
+    }
+
+    translate (angleNew: number): void {
+        const { direction } = this
+        this.angleCount = angleNew
+
+        if (!direction) {
+            angleNew = -angleNew
+        }
+
+        this.table.style.transform = `rotate(${angleNew}deg)`
     }
 
     @Ref('table')
@@ -70,152 +228,12 @@ export default class Turntable extends Vue {
     @Prop({ type: Boolean, default: false })
     disabled!: boolean
 
-    get normalizedRanges (): { value: any, angle: number, angleStop: number }[] {
-        let prev = 0
-        const ranges = this.ranges.slice()
-
-        if (this.direction) {
-            ranges.reverse()
-        }
-
-        return ranges.map(({ value, angle }) => {
-            const angleStop = prev + angle / 2
-            prev += angle
-
-            return { value, angle, angleStop }
-        })
-    }
-
-    get getRoller (): Function {
-        const roller = new Roller()
-
-        this.normalizedRanges.forEach(({ value, angle, angleStop }) => {
-            roller.add({ value, angleStop }, angle)
-        })
-
-        return roller.done
-    }
-
-    get angleInitial (): number {
-        const { normalizedRanges, initial } = this
-        const item = normalizedRanges.find(item => item.value === initial)
-
-        if (item) {
-            return item.angleStop
-        }
-
-        if (typeof initial === 'number') {
-            return initial
-        }
-
-        return 0
-    }
-
-    get styleTable (): object {
-        const { direction, angleMove, angleInitial } = this
-        let _angle = angleMove > 0 ? angleMove : angleInitial
-
-        if (!direction) {
-            _angle = -_angle
-        }
-
-        return {
-            transform: `rotate(${_angle}deg)`,
-        }
-    }
-
-    start (): void {
-        if (this.running || this.disabled) return
-        this.running = true
-
-        this.timer = setInterval(() => {
-            requestAnimationFrame(() => {
-                this.angleMove += 3
-                this.table.style.transform = `rotate(${this.angleMove}deg)`
-                // this.angleMove += 3
-            })
-        }, 1)
-    }
-
-    stop (expect: any): void {
-        if (this.isClickStop || this.disabled) return
-        this.isClickStop = true
-        clearInterval(this.timer)
-
-        this.handleRotate(expect)
-    }
-
-    reset () {
-        clearInterval(this.timer)
-
-        this.angleMove = this.angleInitial
-        this.running = false
-        this.isClickStop = false
-    }
-
-    handlePointerClick () {
-        this.$emit('click-pointer')
-    }
-
-    handleRotate (expect: any) {
-        const { steps, value } = this.getSteps(expect)
-        const totalStep = steps.length
-        let currentStep = -1
-
-        const logic = () => {
-            currentStep++
-
-            if (currentStep < totalStep) {
-                requestAnimationFrame(() => {
-                    this.angleMove = steps[currentStep]
-
-                    logic()
-                })
-                return
-            }
-
-            setTimeout(() => {
-                this.running = false
-                this.isClickStop = false
-
-                this.$emit('end', value)
-            }, 200)
-        }
-
-        logic()
-    }
-
-    getSteps (expect: any) {
-        const { angleStop, value } = (() => {
-            let res = null
-
-            if (expect) {
-                res = this.normalizedRanges.find(item => item.value === expect)
-            }
-
-            return res || this.getRoller()
-        })()
-        const totalDeg = 360 * 5 + angleStop
-        const steps = []
-
-        const a = 0.03
-        const t = Math.sqrt(2 * totalDeg / a)
-        const v = a * t
-
-        for (let i = 0; i < t; i++) {
-            steps.push((2 * v * i - a * i * i) / 2)
-        }
-        steps.push(totalDeg)
-
-        return { steps, value }
-    }
-
     // 旋转中
     running = false
     // 点击过停止
     isClickStop = false
     // 定时器
-    timer = 0
-    // 旋转角度
-    angleMove = 0
+    frame = 0
+    // 旋转角度, 一直为正数累加, 方向在 translate 中判断
+    angleCount = 0
 }

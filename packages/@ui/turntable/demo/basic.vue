@@ -53,7 +53,7 @@ import pointer2 from './images/pointer@2.png'
 export default {
     data () {
         return {
-            initial: 40,
+            initial: 0,
             disabled: false,
 
             board,
