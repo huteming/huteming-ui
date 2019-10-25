@@ -128,6 +128,9 @@ export default {
             })
             // 播放中，持续触发
             this.player.on('timeupdate', () => {
+                // fix: 安卓初始播放进度 currentTime 异常
+                // 安卓在就绪之后会触发该事件, 会导致 currentTime 被改变
+                if (!this.currentPlay) return
                 const currentTime = this.player.currentTime()
                 this.cacheValue = currentTime
                 this.$emit('input', currentTime)
@@ -167,18 +170,19 @@ export default {
                 })
             }
 
+            actualInit()
             // fix: 第一次自动播放 m3u8 格式异常
             // 等一个mp3文件 ready 之后设置真实地址
-            if (!this.ready && type === 'application/x-mpegURL') {
-                this.player.src({
-                    type: 'audio/mp3',
-                    src: 'http://jhsy-img.caizhu.com/Fiw-_Pvh52t0LFNpjXKIsJ8XzUrz',
-                })
+            // if (!this.ready && type === 'application/x-mpegURL') {
+            //     this.player.src({
+            //         type: 'audio/mp3',
+            //         src: 'http://jhsy-img.caizhu.com/Fiw-_Pvh52t0LFNpjXKIsJ8XzUrz',
+            //     })
 
-                this.player.ready(actualInit)
-            } else {
-                actualInit()
-            }
+            //     this.player.ready(actualInit)
+            // } else {
+            //     actualInit()
+            // }
         },
     },
 

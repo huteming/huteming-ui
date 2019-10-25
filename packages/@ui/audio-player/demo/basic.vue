@@ -60,11 +60,13 @@ export default {
                 {
                     duration: 852,
                     src: 'http://jhsy-img.caizhu.com/lvisA64GE9I1anin2a3DPeab9Uza.m3u8?hello',
+                    currentTime: 100,
                 },
                 {
                     duration: 16.728,
                     src: 'http://jhsy-img.caizhu.com/Fiw-_Pvh52t0LFNpjXKIsJ8XzUrz?d=2',
                     // src: 'http://jhsy-img.caizhu.com/',
+                    currentTime: 10,
                 },
                 // {
                 //     duration: 852,
@@ -76,7 +78,7 @@ export default {
                 // },
             ],
             lists: [],
-            currentPlay: true,
+            currentPlay: false,
 
             duration: 0,
             currentTime: 0,
