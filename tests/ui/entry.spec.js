@@ -7,6 +7,11 @@ describe('ui entry', () => {
             lib: 'anchor', // 按需加载目录名
         },
         {
+            name: 'TmTurntable',
+            lib: 'tm-turntable',
+            registName: 'TmTurntable',
+        },
+        {
             name: 'ImagePicker',
             lib: 'image-picker',
         },
@@ -21,6 +26,7 @@ describe('ui entry', () => {
         {
             name: 'Message',
             lib: 'message',
+            registName: '$message',
         },
         {
             name: 'TmBtnPay',
@@ -148,14 +154,14 @@ describe('ui entry', () => {
         },
     ]
 
-    names.forEach(({ name, lib, child, noInstall }) => {
+    names.forEach(({ name, lib, child, noInstall, registName }) => {
         it(name, () => {
             // 整体打包入口
             const pack = require('web/ui/index').default
             const _module = pack[name]
             assert.strictEqual(typeof pack.install, 'function')
             assert.ok(_module)
-            assert.strictEqual(_module.registName || _module.name, name)
+            assert.strictEqual(_module.registName || _module.name, registName || name)
             if (!noInstall) {
                 assert.strictEqual(typeof _module.install, 'function')
             }
@@ -163,7 +169,7 @@ describe('ui entry', () => {
             // 按需加载入口
             const _lib = require(`web/ui/lib/${lib}/index`).default
             assert.ok(_lib)
-            assert.strictEqual(_lib.registName || _lib.name, name)
+            assert.strictEqual(_lib.registName || _lib.name, registName || name)
             if (!noInstall) {
                 assert.strictEqual(typeof _lib.install, 'function')
             }

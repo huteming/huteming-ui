@@ -1,0 +1,11 @@
+{
+  "name": "@huteming/ui-turntable",
+  "version": "1.0.0",
+  "description": "> 抽奖转盘",
+  "main": "dist/turntable.common.js",
+  "scripts": {
+    "prepublishOnly": "node ../../../scripts/prepublishOnly.js turntable"
+  },
+  "author": "",
+  "license": "ISC"
+}

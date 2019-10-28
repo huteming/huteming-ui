@@ -1,7 +1,7 @@
 import Vue from 'vue'
 import MessageComponent from './message'
 import { isVNode, isComponent } from 'web-util/tool/src/main'
-import { MessageOptions, MessageConfig, MessageComp, MessageResponse } from './declare/type'
+import { MessageOptions, MessageConfig, MessageComp, MessageResponse, MessageBox } from './declare/type'
 
 const defaults = {
     title: '提示',
@@ -41,7 +41,7 @@ function open (config: MessageConfig, resolve: Function, reject: Function) {
     return instance
 }
 
-function formatConfig (message: string | object, title?: string | object, options: MessageOptions = {}): MessageConfig {
+function formatConfig (message: string | MessageOptions | object, title?: string | MessageOptions, options: MessageOptions = {}): MessageConfig {
     let config: MessageConfig = Object.assign({}, defaults, options)
 
     // VNode, Component
@@ -72,7 +72,7 @@ function formatConfig (message: string | object, title?: string | object, option
     return config
 }
 
-function Message (message: string | object, title?: string | object, options?: MessageOptions): Promise<MessageResponse> {
+const Message: MessageBox = function (message: string | MessageOptions | object, title?: string | MessageOptions, options?: MessageOptions): Promise<MessageResponse> {
     const config = formatConfig(message, title, options)
 
     return new Promise((resolve, reject) => {
@@ -80,19 +80,21 @@ function Message (message: string | object, title?: string | object, options?: M
     })
 }
 
-Message.alert = (message: string | object, title?: string | object, options?: object) => {
+Message.registName = '$message'
+
+Message.alert = (message: string | MessageOptions | object, title?: string | object, options?: MessageOptions) => {
     return Message(message, title, Object.assign({}, options, {
         closeOnClickModal: false,
     }))
 }
 
-Message.confirm = (message: string | object, title?: string | object, options?: object) => {
+Message.confirm = (message: string | MessageOptions | object, title?: string | object, options?: MessageOptions) => {
     return Message(message, title, Object.assign({}, options, {
         showCancelButton: true,
     }))
 }
 
-Message.prompt = (message: string | object, title?: string | object, options?: object) => {
+Message.prompt = (message: string | MessageOptions | object, title?: string | object, options?: MessageOptions) => {
     return Message(message, title, Object.assign({}, options, {
         showCancelButton: true,
         showInput: true,

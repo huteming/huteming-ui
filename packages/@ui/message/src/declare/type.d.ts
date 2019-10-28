@@ -26,6 +26,15 @@ export interface BeforeCancel {
     (done: Done, res: MessageResponse): void
 }
 
+export interface MessageBox {
+    (message: string | MessageOptions | object, title?: string | MessageOptions, options?: MessageOptions): Promise<MessageResponse>
+    registName: string
+    alert (message: string | MessageOptions | object, title?: string | MessageOptions, options?: MessageOptions): Promise<MessageResponse>
+    confirm (message: string | MessageOptions | object, title?: string | MessageOptions, options?: MessageOptions): Promise<MessageResponse>
+    prompt (message: string | MessageOptions | object, title?: string | MessageOptions, options?: MessageOptions): Promise<MessageResponse>
+    install?: (vue: typeof Vue) => void
+}
+
 export interface MessageComp extends Vue {
     show (): void
 }

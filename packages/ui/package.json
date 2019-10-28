@@ -39,6 +39,7 @@
     "@huteming/ui-toolbar": "^2.0.0",
     "@huteming/ui-transition-collapse": "^2.0.0",
     "@huteming/ui-video-player": "^2.1.1",
+    "@huteming/ui-turntable": "^1.0.0",
     "@huteming/ui-white-space": "^2.1.1",
     "@huteming/ui-wing-blank": "^2.0.0"
   }

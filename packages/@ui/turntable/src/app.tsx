@@ -1,7 +1,9 @@
 import Roller from 'web-util/roller/src/main'
-import { Vue, Component, Prop, Ref, Watch } from 'vue-property-decorator'
-import { easeOut } from 'web-util/animation/src/main'
+import { Vue, Component, Prop, Ref } from 'vue-property-decorator'
+/* istanbul ignore next */
 const requestAnimationFrame = window.requestAnimationFrame || window.webkitRequestAnimationFrame
+// 预设点击结束后多转圈数
+const STOP_CIRCLES_MORE = 5
 
 @Component
 export default class Turntable extends Vue {
@@ -71,12 +73,13 @@ export default class Turntable extends Vue {
         if (this.running || this.disabled) return
         this.running = true
 
+        const step = this.calcSteps(360 * (STOP_CIRCLES_MORE + 1))
+        const count = step(1)
+
         const runner = () => {
-            // 大概 (12 * 16.7)ms 转完一圈
-            this.angleCount += 12
+            this.angleCount += count
             this.translate(this.angleCount)
             this.frame = requestAnimationFrame(runner)
-            console.log('start', this.angleCount)
         }
         this.frame = requestAnimationFrame(runner)
     }
@@ -87,48 +90,28 @@ export default class Turntable extends Vue {
         cancelAnimationFrame(this.frame)
 
         const angleStop = this.expectToStop(expect)
-        // const steps = this.getSteps(360 * 5 + angleStop)
-        // let currentStep = -1
+        const step = this.calcSteps(360 * STOP_CIRCLES_MORE + angleStop)
+        let i = 0
 
-        const to = (Math.ceil(this.angleCount / 360) + 4) * 360 + angleStop
-        const duration = Math.ceil((to - this.angleCount) / 360) * 12 * 16.7
-        console.log(this.angleCount, to, duration)
-        easeOut(this.angleCount, to, (position: number, finish: boolean) => {
-            console.log('stop', position)
-            this.translate(position)
+        const runner = () => {
+            const next = step(i++)
 
-            if (finish) {
-                setTimeout(() => {
-                    this.running = false
-                    this.isClickStop = false
-                    const item = this.normalizedRanges.find(item => item.angleStop === angleStop)
-
-                    this.$emit('end', item && item.value)
-                }, 100)
+            if (next > -1) {
+                this.frame = requestAnimationFrame(() => {
+                    this.translate(next)
+                    runner()
+                })
+                return
             }
-        }, duration)
 
-        // const runner = () => {
-        //     currentStep++
+            this.running = false
+            this.isClickStop = false
+            const item = this.normalizedRanges.find(item => item.angleStop === angleStop)
 
-        //     if (currentStep < steps.length) {
-        //         requestAnimationFrame(() => {
-        //             this.translate(steps[currentStep])
-        //             runner()
-        //         })
-        //         return
-        //     }
+            this.$emit('end', item && item.value)
+        }
 
-        //     setTimeout(() => {
-        //         this.running = false
-        //         this.isClickStop = false
-        //         const item = this.normalizedRanges.find(item => item.angleStop === angleStop)
-
-        //         this.$emit('end', item && item.value)
-        //     }, 200)
-        // }
-
-        // runner()
+        runner()
     }
 
     reset () {
@@ -147,6 +130,7 @@ export default class Turntable extends Vue {
         if (expect) {
             const item = this.normalizedRanges.find(item => item.value === expect)
 
+            /* istanbul ignore else */
             if (item) {
                 return item.angleStop
             }
@@ -161,19 +145,20 @@ export default class Turntable extends Vue {
         return roller.done()
     }
 
-    getSteps (angleTotal: number): number[] {
+    calcSteps (angleTotal: number): (step: number) => number {
         const a = 0.03
         const t = Math.sqrt(2 * angleTotal / a)
         const v = a * t
-        const steps: number[] = []
 
-        for (let i = 0; i < t; i++) {
-            const angleNext = (2 * v * i - a * i * i) / 2
-            steps.push(angleNext)
+        return (step: number) => {
+            if (step < t) {
+                return (2 * v * step - a * step * step) / 2
+            } else if (step < t + 1) {
+                return angleTotal
+            }
+
+            return -1
         }
-        steps.push(angleTotal)
-
-        return steps
     }
 
     translate (angleNew: number): void {

@@ -9,6 +9,7 @@
             @end="handleEnd"
             @click-pointer="handlePointerClick"
             :disabled="disabled"
+            direction
             ref="turn">
         </tm-turntable>
     </div>

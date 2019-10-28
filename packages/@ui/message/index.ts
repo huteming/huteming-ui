@@ -1,7 +1,7 @@
-import Prototype from './src/main'
+import MessageBox from './src/main'
 
-(Prototype as any).install = function (Vue: any) {
-    Vue.prototype.$message = Prototype
+MessageBox.install = function (Vue) {
+    Vue.prototype[MessageBox.registName] = MessageBox
 }
 
-export default Prototype
+export default MessageBox
