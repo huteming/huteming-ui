@@ -1,6 +1,6 @@
 {
   "name": "@huteming/ui-anchor",
-  "version": "2.0.4",
+  "version": "2.0.5",
   "description": "锚点",
   "main": "dist/anchor.common.js",
   "scripts": {

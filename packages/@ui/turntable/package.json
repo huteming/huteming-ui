@@ -1,6 +1,6 @@
 {
   "name": "@huteming/ui-turntable",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "> 抽奖转盘",
   "main": "dist/turntable.common.js",
   "scripts": {
