@@ -1,10 +1,6 @@
 {
   "name": "@huteming/ui",
-<<<<<<< HEAD
   "version": "2.0.6",
-=======
-  "version": "2.0.5",
->>>>>>> Publish
   "description": "ui 组件的统一入口",
   "main": "dist/huteming-ui.common.js",
   "scripts": {

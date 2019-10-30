@@ -1,7 +1,7 @@
-import Component from './src/app.vue'
+import Component from './src/app'
 
-(Component as any).install = (Vue: any) => {
-    Vue.component(Component.name, Component)
+Component.install = (Vue) => {
+    Vue.component(Component.registName, Component)
 }
 
 export default Component

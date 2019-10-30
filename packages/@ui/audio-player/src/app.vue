@@ -135,8 +135,8 @@ export default {
             const valid = this.next()
             this.currentPlay = valid
         },
-        handleReady (src, player) {
-            const { currentTime, duration } = this.playList.find(item => item.src === src)
+        handleReady (player) {
+            const { src, currentTime, duration } = this.playList.find(item => item.src === this.currentSrc)
             this.$emit('ready', {
                 src,
                 currentTime,

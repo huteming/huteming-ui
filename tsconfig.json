@@ -32,7 +32,8 @@
     "noImplicitAny": true
   },
   "include": [
-    "packages/@ui/**/*.{ts,tsx}",
+    "packages/@ui/**/*.ts",
+    "packages/@ui/**/*.tsx",
     "packages/@util/**/*.ts",
     "types/**/*.ts",
     "src/**/*.ts",

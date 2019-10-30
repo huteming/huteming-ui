@@ -53,7 +53,6 @@ module.exports = {
         'packages/@ui/**/src/*.{js,vue,ts,tsx}',
         'packages/assets/js/PropSync.ts', // 自定义装饰器
         '!packages/@ui/tab/src/*.{js,vue,ts}',
-        '!packages/@ui/audio/src/*.{js,vue,ts}',
         '!packages/@ui/video/src/*.{js,vue,ts}',
         '!packages/@ui/mp3/src/*.{js,vue,ts}',
         '!packages/@ui/mp4/src/*.{js,vue,ts}',
