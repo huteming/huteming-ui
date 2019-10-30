@@ -5,7 +5,7 @@
  * 3. 监听 value 属性设置播放进度
  */
 import videojs, { VideoJsPlayer, VideoJsPlayerOptions } from 'video.js'
-// import 'video.js/dist/video-js.css'
+import 'video.js/dist/video-js.css'
 import { linkWeixinBridge, isWeixinBrowser } from 'web-util/tool/src/main'
 import { Vue, Component, Prop, Watch, Ref, Emit } from 'vue-property-decorator'
 import { log } from 'web/assets/js/tool'
