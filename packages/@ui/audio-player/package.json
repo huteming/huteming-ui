@@ -1,10 +1,10 @@
 {
   "name": "@huteming/ui-audio-player",
-  "version": "2.0.2",
+  "version": "2.0.3",
   "description": "",
   "main": "dist/audio-player.common.js",
   "dependencies": {
-    "@huteming/ui-audio": "^2.2.0",
+    "@huteming/ui-audio": "^2.3.0",
     "@huteming/ui-range": "^2.0.0"
   },
   "scripts": {
