@@ -21,7 +21,7 @@
     <p>statePlay: {{ statePlay }}</p>
     <button @click="handleChange">change src</button>
     <button @click="currentTime = 1000">change currentTime</button>
-    <button @click="playbackRate = 2">change rate</button>
+    <button @click="playbackRate = 1.5">change rate</button>
     <button @click="handleReload">reload</button>
 </div>
 </template>
@@ -34,7 +34,7 @@ export default {
         return {
             src: '',
             statePlay: false,
-            currentTime: 10,
+            currentTime: 30,
             progress: 0,
             duration: 849,
             playbackRate: 1,
@@ -56,7 +56,8 @@ export default {
             // console.log('ready', ...args)
         },
         handleChange () {
-            this.src = this.src === this.src1 ? this.src3 : this.src3
+            this.src = this.src === this.src1 ? this.src3 : this.src1
+            // this.src = this.src3
         },
         handleProgress (_progress) {
             this.progress = _progress
