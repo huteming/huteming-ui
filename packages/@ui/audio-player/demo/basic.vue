@@ -52,6 +52,7 @@
 <script>
 import TmMp3 from '../index'
 import Loading from 'web-ui/loading/index'
+const time = window.localStorage.getItem('cache-audio') || 20
 
 export default {
     data () {
@@ -59,8 +60,8 @@ export default {
             asyncLists: [
                 {
                     duration: 500,
-                    src: 'https://jhsy-img.jinghao.com/lkG4eJpwiB9PaDww0BS6HYolD-hU.m3u8',
-                    currentTime: 20,
+                    src: 'http://jhsy-img.jinghao.com/lkG4eJpwiB9PaDww0BS6HYolD-hU.m3u8',
+                    currentTime: time,
                 },
                 {
                     duration: 852,
@@ -122,6 +123,8 @@ export default {
         },
         handleChange (_currentTime) {
             this.currentTime = _currentTime
+
+            window.localStorage.setItem('cache-audio', _currentTime)
         },
         handleEnd () {
             console.log('end')

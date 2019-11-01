@@ -91,42 +91,17 @@ export default class TmAudio extends Vue {
     // ！安卓 / chrome 在音频地址修改后一定会触发 timeupdate，且播放进度为 0。但时间可能在 ready 之前，也可能在 ready 之后
     async handleTimeupdate () {
         const nextTime = this.player.currentTime()
-        const expectValue = this.expectValue
+        log('audio timeupdate:', nextTime)
 
         // fix: 安卓在readyState > 3之前先触发 timeupdate，导致期望的播放进度被修改
-        if (expectValue >= 0 && expectValue !== nextTime && this.countTrySeeking <= 5) {
-            this.countTrySeeking++
-            if (this.seeking) return
-            this.seeking = true
-
-            log('audio time will seek to:', expectValue)
-
-            this.player.currentTime(expectValue)
-            if (this.player.seeking()) {
-                log('audio time is seeking')
-                await new Promise(resolve => this.player.one('seeked', resolve))
-            }
-
-            // fix: value 和 src 同时赋值时，currentTime会跳跃失败
-            // 跳跃失败，保留期望跳跃值到下次尝试
-            // 实际跳转值可能存在几毫秒偏差
-            const actualTime = this.player.currentTime()
-            if (actualTime >= expectValue - 3 && actualTime <= expectValue + 3) {
-                this.expectValue = -1
-            }
-
-            log('audio time is seek to:', expectValue, ', result is:', this.player.currentTime())
-            this.seeking = false
-
-            if (!this.currentPlay) {
-                return
-            }
+        const status = await this.tryInitCurrentTime(nextTime)
+        if (status > -1) {
+            return
         }
 
         this.cacheValue = nextTime
         this.currentValue = nextTime
         this.$emit('timeupdate', nextTime)
-        log('audio timeupdate:', nextTime)
     }
 
     @Watch('play')
@@ -200,6 +175,15 @@ export default class TmAudio extends Vue {
 
         this.player.src({ type, src })
         this.player.ready(this.handleReady)
+        /**
+         * fix: 1、ios尝试在 timeupdate 中初始化时间会引起第一次播放卡顿
+         *      2、android 在 canplay 中初始化时间可能会影响(过滤)本身预加载产生的 timeupdate 中初始化事件，引起第一次播放卡顿
+         *      3、上述只是根据实际情况猜测。所以在 loadstart （认为可以预加载）事件中取消监听 canplay 事件
+         */
+        this.player.one('canplay', this.tryInitCurrentTime)
+        this.player.one('loadstart', () => {
+            this.player.off('canplay', this.tryInitCurrentTime)
+        })
 
         log('audio init src:', src, ', currentTime:', this.expectValue, ', playbackRate:', this.playbackRate)
     }
@@ -226,6 +210,54 @@ export default class TmAudio extends Vue {
         this.player.on('timeupdate', this.handleTimeupdate)
 
         log('audio setup', options)
+    }
+
+    /**
+     * 尝试初始化进度
+     * @param nextTime 当前播放时间，作为比较是否需要初始化
+     * @returns status {Promise<Number>} -1: 未操作; 0: 失败; 1: 成功;
+     */
+    async tryInitCurrentTime (nextTime: number | Event): Promise<number> {
+        if (typeof nextTime !== 'number') {
+            nextTime = 0
+        }
+        if (this.seeking) return 0
+        this.seeking = true
+
+        const expectValue = this.expectValue
+
+        // 实际跳转值可能存在几毫秒偏差
+        const validate = (expect: number, actual: number): boolean => {
+            return actual >= expect - 3 && actual <= expect + 3
+        }
+
+        if (expectValue >= 0 && !validate(expectValue, nextTime) && this.countTrySeeking <= 4) {
+            this.countTrySeeking++
+
+            log('audio time will seek to:', expectValue, ', current is:', nextTime)
+
+            this.player.currentTime(expectValue)
+            if (this.player.seeking()) {
+                log('audio time is seeking')
+                await new Promise(resolve => this.player.one('seeked', resolve))
+            }
+
+            // fix: value 和 src 同时赋值时，currentTime会跳跃失败
+            // 跳跃失败，保留期望跳跃值到下次尝试
+            const actualTime = this.player.currentTime()
+            if (validate(expectValue, actualTime)) {
+                log('audio time expect seek to:', expectValue, ', result is:', this.player.currentTime())
+                this.expectValue = -1
+            } else {
+                log('audio seek time is failed')
+            }
+
+            this.seeking = false
+            return this.expectValue === -1 ? 1 : 0
+        }
+
+        this.seeking = false
+        return -1
     }
 
     @Ref('videoPlayer')

@@ -147,7 +147,6 @@ export default {
             this.moving = _isMoving
         },
         handleMediaChange (_currentTime) {
-            console.log('media change', _currentTime)
             this.$emit('timeupdate', _currentTime)
             // console.log('media change --- ', _currentTime, 'moving: ', this.moving)
             if (!this.moving) {
@@ -155,7 +154,6 @@ export default {
             }
         },
         handleRangeChange (_currentTime) {
-            console.log('range change', _currentTime)
             // console.log('style change --- ', _currentTime)
             this.mediaCurrentTime = _currentTime
         },
