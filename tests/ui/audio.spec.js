@@ -372,6 +372,10 @@ describe('audio', () => {
         assert.strictEqual(wrap.vm.currentValue, 333)
     })
 
+    it('初始化进度条失败时，继续传递播放事件', () => {})
+
+    it('初始化进度条失败时，保留期望值在下次播放事件尝试', () => {})
+
     afterEach(() => {
         RewireAPI.__ResetDependency__('videojs')
 

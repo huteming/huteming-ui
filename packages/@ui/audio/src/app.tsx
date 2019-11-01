@@ -94,7 +94,8 @@ export default class TmAudio extends Vue {
         const expectValue = this.expectValue
 
         // fix: 安卓在readyState > 3之前先触发 timeupdate，导致期望的播放进度被修改
-        if (expectValue >= 0 && expectValue !== nextTime) {
+        if (expectValue >= 0 && expectValue !== nextTime && this.countTrySeeking <= 5) {
+            this.countTrySeeking++
             if (this.seeking) return
             this.seeking = true
 
@@ -108,13 +109,18 @@ export default class TmAudio extends Vue {
 
             // fix: value 和 src 同时赋值时，currentTime会跳跃失败
             // 跳跃失败，保留期望跳跃值到下次尝试
-            if (this.player.currentTime() !== nextTime) {
+            // 实际跳转值可能存在几毫秒偏差
+            const actualTime = this.player.currentTime()
+            if (actualTime >= expectValue - 3 && actualTime <= expectValue + 3) {
                 this.expectValue = -1
             }
 
             log('audio time is seek to:', expectValue, ', result is:', this.player.currentTime())
             this.seeking = false
-            return
+
+            if (!this.currentPlay) {
+                return
+            }
         }
 
         this.cacheValue = nextTime
@@ -187,6 +193,7 @@ export default class TmAudio extends Vue {
         this.ready = false
         this.seeking = false
         this.expectValue = this.currentValue
+        this.countTrySeeking = 0
 
         const isM3u8 = src.split('?')[0].endsWith('m3u8')
         const type = isM3u8 ? 'application/x-mpegURL' : 'audio/mp3'
@@ -257,4 +264,5 @@ export default class TmAudio extends Vue {
     cacheValue: number = this.value
     ready: boolean = false
     seeking: boolean = false
+    countTrySeeking: number = 0
 }
