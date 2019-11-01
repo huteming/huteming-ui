@@ -58,6 +58,11 @@ export default {
         return {
             asyncLists: [
                 {
+                    duration: 500,
+                    src: 'https://jhsy-img.jinghao.com/lkG4eJpwiB9PaDww0BS6HYolD-hU.m3u8',
+                    currentTime: 20,
+                },
+                {
                     duration: 852,
                     src: 'http://jhsy-img.caizhu.com/lvisA64GE9I1anin2a3DPeab9Uza.m3u8?hello',
                     currentTime: 100,

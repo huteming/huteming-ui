@@ -90,31 +90,37 @@ export default class TmAudio extends Vue {
 
     // ！安卓 / chrome 在音频地址修改后一定会触发 timeupdate，且播放进度为 0。但时间可能在 ready 之前，也可能在 ready 之后
     async handleTimeupdate () {
-        const currentValue = this.player.currentTime()
+        const nextTime = this.player.currentTime()
+        const expectValue = this.expectValue
 
         // fix: 安卓在readyState > 3之前先触发 timeupdate，导致期望的播放进度被修改
-        if (this.expectValue >= 0 && this.expectValue !== currentValue) {
+        if (expectValue >= 0 && expectValue !== nextTime) {
             if (this.seeking) return
             this.seeking = true
 
-            log('audio time will seek to:', this.expectValue)
+            log('audio time will seek to:', expectValue)
 
-            this.player.currentTime(this.expectValue)
+            this.player.currentTime(expectValue)
             if (this.player.seeking()) {
                 log('audio time is seeking')
                 await new Promise(resolve => this.player.one('seeked', resolve))
             }
 
-            log('audio time is seek to:', this.expectValue, ', result is:', this.player.currentTime())
-            this.expectValue = -1
+            // fix: value 和 src 同时赋值时，currentTime会跳跃失败
+            // 跳跃失败，保留期望跳跃值到下次尝试
+            if (this.player.currentTime() !== nextTime) {
+                this.expectValue = -1
+            }
+
+            log('audio time is seek to:', expectValue, ', result is:', this.player.currentTime())
             this.seeking = false
             return
         }
 
-        this.cacheValue = currentValue
-        this.currentValue = currentValue
-        this.$emit('timeupdate', currentValue)
-        log('audio timeupdate:', currentValue)
+        this.cacheValue = nextTime
+        this.currentValue = nextTime
+        this.$emit('timeupdate', nextTime)
+        log('audio timeupdate:', nextTime)
     }
 
     @Watch('play')

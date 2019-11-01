@@ -23,6 +23,7 @@
     <button @click="currentTime = 1000">change currentTime</button>
     <button @click="playbackRate = 1.5">change rate</button>
     <button @click="handleReload">reload</button>
+    <button @click="mockPlayer">mock player</button>
 </div>
 </template>
 
@@ -34,7 +35,7 @@ export default {
         return {
             src: '',
             statePlay: false,
-            currentTime: 30,
+            currentTime: 0,
             progress: 0,
             duration: 849,
             playbackRate: 1,
@@ -52,12 +53,17 @@ export default {
     },
 
     methods: {
+        async mockPlayer () {
+            this.src = this.src3
+            this.currentTime = 30
+            // await this.$nextTick()
+        },
         handleReady (...args) {
             // console.log('ready', ...args)
         },
         handleChange () {
-            this.src = this.src === this.src1 ? this.src3 : this.src1
-            // this.src = this.src3
+            // this.src = this.src === this.src1 ? this.src3 : this.src1
+            this.src = this.src3
         },
         handleProgress (_progress) {
             this.progress = _progress
