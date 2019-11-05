@@ -1,0 +1,18 @@
+{
+  "name": "@huteming/util-player",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "core-decorators": "^0.20.0",
+    "video.js": "^7.6.5"
+  },
+  "devDependencies": {
+    "@types/video.js": "^7.3.2"
+  }
+}

@@ -4,7 +4,7 @@
         ref="player"
         v-model="currentTime"
         :play.sync="statePlay"
-        :src="src"
+        :src="src3"
         :playback-rate="playbackRate"
         @ready="handleReady"
         @play="handlePlay"

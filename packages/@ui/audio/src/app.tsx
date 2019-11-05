@@ -208,6 +208,9 @@ export default class TmAudio extends Vue {
         this.player.on('error', this.handleError)
         // 播放中，持续触发
         this.player.on('timeupdate', this.handleTimeupdate)
+        this.player.ready(() => {
+            console.log('other.ready')
+        })
 
         log('audio setup', options)
     }

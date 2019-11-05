@@ -1,5 +1,11 @@
 export default [
     {
+        path: 'player',
+        title: '播放器 Player',
+        docs: () => import('web-util/player/README.md'),
+        example: () => import('web-util/player/demo/basic.vue'),
+    },
+    {
         path: 'validator',
         title: '验证器 Validator',
         docs: () => import('web-util/validator/README.md'),
