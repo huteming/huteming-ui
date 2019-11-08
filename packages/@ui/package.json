@@ -9,10 +9,8 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "styled-components": "^4.4.1",
     "vue-styled-components": "^1.4.13"
   },
   "devDependencies": {
-    "@types/styled-components": "^4.1.22"
   }
 }

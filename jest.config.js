@@ -21,6 +21,8 @@ module.exports = {
 
     moduleNameMapper: {
         '^@/(.*)$': '<rootDir>/src/$1',
+        '^@ui/(.*)$': '<rootDir>/packages/@ui/$1',
+        '^packages/(.*)$': '<rootDir>/packages/$1',
         '^web/(.*)$': '<rootDir>/packages/$1',
         '^web-ui/(.*)$': '<rootDir>/packages/@ui/$1',
         '^web-util/(.*)$': '<rootDir>/packages/@util/$1',
@@ -32,9 +34,7 @@ module.exports = {
     ],
 
     testMatch: [
-        '<rootDir>/tests/unit/**/*.spec.(js|jsx|ts|tsx)|**/__tests__/*.(js|jsx|ts|tsx)',
-        '<rootDir>/tests/ui/**/*.spec.(js|jsx|ts|tsx)|**/__tests__/*.(js|jsx|ts|tsx)',
-        '<rootDir>/tests/common/**/*.spec.(js|jsx|ts|tsx)|**/__tests__/*.(js|jsx|ts|tsx)',
+        '<rootDir>/packages/@ui/**/*.spec.(js|jsx|ts|tsx)|**/__tests__/*.(js|jsx|ts|tsx)',
     ],
 
     testURL: 'http://localhost/#/hello?mainUnion=mainUnion&subUnion=subUnion&key=value&num=1',

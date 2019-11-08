@@ -1,5 +1,5 @@
-import TmFlex from 'web-ui/flex/src/flex'
-import TmFlexItem from 'web-ui/flex/src/flex-item'
+import TmFlex from '../src/flex'
+import TmFlexItem from '../src/flex-item'
 import assert from 'assert'
 import { createLocalVue, mount } from '@vue/test-utils'
 const localVue = createLocalVue()
