@@ -17,6 +17,8 @@
     ],
     "paths": {
       "@/*": ["src/*"],
+      "@ui/*": ["packages/@ui/*"],
+      "packages/*": ["packages/*"],
       "web/*": ["packages/*"],
       "web-ui/*": ["packages/@ui/*"],
       "web-util/*": ["packages/@util/*"],

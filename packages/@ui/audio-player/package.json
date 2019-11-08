@@ -1,5 +1,6 @@
 {
   "name": "@huteming/ui-audio-player",
+  "private": true,
   "version": "2.0.5",
   "description": "",
   "main": "dist/audio-player.common.js",

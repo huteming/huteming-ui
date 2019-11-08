@@ -2,8 +2,8 @@ export default [
     {
         path: 'flex',
         title: 'Flex 布局',
-        docs: () => import('web-ui/flex/README.md'),
-        example: () => import('web-ui/flex/demo/basic.vue'),
+        docs: () => import('@ui/packages/flex/README.md'),
+        example: () => import('@ui/packages/flex/demo/basic.vue'),
     },
     {
         path: 'wing-blank',

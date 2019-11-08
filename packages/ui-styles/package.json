@@ -1,0 +1,26 @@
+{
+  "name": "@huteming/ui-styles",
+  "version": "1.0.0",
+  "description": "> TODO: description",
+  "author": "Tommy <tommy@jhshuyuan.com>",
+  "homepage": "",
+  "license": "ISC",
+  "main": "lib/ui-styles.js",
+  "directories": {
+    "lib": "lib",
+    "test": "__tests__"
+  },
+  "files": [
+    "lib"
+  ],
+  "publishConfig": {
+    "registry": "http://192.168.0.99:4873/"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git@47.52.168.43:/srv/web-common.git"
+  },
+  "scripts": {
+    "test": "echo \"Error: run tests from root\" && exit 1"
+  }
+}

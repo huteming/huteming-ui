@@ -32,6 +32,8 @@ module.exports = {
             alias: {
                 // 'vue$': 'vue/dist/vue.esm.js',
                 '@': resolve('src'),
+                '@ui': resolve('packages/@ui'),
+                'packages': resolve('./packages'),
                 'web': resolve('./packages'),
                 'web-ui': resolve('./packages/@ui'),
                 'web-util': resolve('./packages/@util'),
@@ -63,7 +65,7 @@ module.exports = {
     },
 
     css: {
-        extract: process.env.BUILD_MODE !== 'lib',
+        extract: false,
 
         loaderOptions: {
             /**

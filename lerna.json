@@ -3,13 +3,13 @@
   "command": {
     "publish": {
       "ignoreChanges": ["*.md", "basic.vue"]
+    },
+    "bootstrap": {
+      "hoist": true
     }
   },
   "packages": [
-    "packages/@util/*",
-    "packages/util",
-    "packages/@ui/*",
-    "packages/ui"
+    "packages/@ui"
   ],
   "version": "independent"
 }
