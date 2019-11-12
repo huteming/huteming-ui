@@ -17,12 +17,9 @@
     ],
     "paths": {
       "@/*": ["src/*"],
-      "@ui/*": ["packages/@ui/*"],
+      "src/*": ["src/*"],
       "packages/*": ["packages/*"],
-      "web/*": ["packages/*"],
-      "web-ui/*": ["packages/@ui/*"],
-      "web-util/*": ["packages/@util/*"],
-      "web-cli/*": ["packages/@cli/*"]
+      "ui/*": ["packages/ui/*"]
     },
     "lib": [
       "esnext",
@@ -34,15 +31,14 @@
     "noImplicitAny": true
   },
   "include": [
-    "packages/@ui/**/*.ts",
-    "packages/@ui/**/*.tsx",
-    "packages/@util/**/*.ts",
     "types/**/*.ts",
     "src/**/*.ts",
     "src/**/*.tsx",
     "src/**/*.vue",
     "tests/**/*.ts",
-    "tests/**/*.tsx"
+    "tests/**/*.tsx",
+    "packages/**/*.ts",
+    "packages/**/*.tsx"
   ],
   "exclude": [
     "node_modules"

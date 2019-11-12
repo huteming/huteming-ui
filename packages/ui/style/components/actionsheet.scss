@@ -1,0 +1,36 @@
+.tm-actions {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index: 2;
+    background-color: #fff;
+
+    &-title {
+        padding: .3rem;
+        font-size: 14px;
+        line-height: 21px;
+        color: #888;
+        text-align: center;
+        border-bottom: 1px solid #ddd;
+        background-color: #fff;
+    }
+
+    &-menus {
+        padding: .32rem;
+        font-size: 18px;
+        line-height: 1;
+        color: #000;
+        text-align: center;
+        cursor: pointer;
+        background-color: #fff;
+
+        &.cancel {
+            margin-top: rem(12);
+        }
+
+        & + & {
+            border-top: 1px solid #ddd;
+        }
+    }
+}

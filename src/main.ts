@@ -12,7 +12,7 @@ import 'normalize.css'
 import 'element-ui/lib/theme-chalk/index.css'
 import 'highlight.js/styles/github-gist.css'
 import './assets/style/index.scss'
-import ui from '@ui/src/index'
+import ui from 'ui/index'
 
 Vue.component(AppDivider.name, AppDivider)
 Vue.component(AppDemoBlock.name, AppDemoBlock)

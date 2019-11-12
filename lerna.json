@@ -9,7 +9,7 @@
     }
   },
   "packages": [
-    "packages/@ui"
+    "packages/*"
   ],
   "version": "independent"
 }

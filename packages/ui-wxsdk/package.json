@@ -1,0 +1,17 @@
+{
+  "name": "@huteming/util-wxsdk",
+  "version": "2.0.2",
+  "description": "wxsdk的封装方法",
+  "main": "dist/wxsdk.common.js",
+  "scripts": {
+    "prepublishOnly": "node ../../../scripts/prepublishOnly.js wxsdk util"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "qs": "^6.7.0"
+  },
+  "devDependencies": {
+    "@types/qs": "^6.5.3"
+  }
+}

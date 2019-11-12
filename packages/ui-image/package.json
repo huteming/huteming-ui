@@ -1,0 +1,17 @@
+{
+  "name": "@huteming/ui-image",
+  "version": "2.0.0",
+  "description": "> 图片容器",
+  "main": "dist/image.common.js",
+  "scripts": {
+    "prepublishOnly": "node ../../../scripts/prepublishOnly.js image"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "throttle-debounce": "^2.1.0"
+  },
+  "devDependencies": {
+    "@types/throttle-debounce": "^2.1.0"
+  }
+}
