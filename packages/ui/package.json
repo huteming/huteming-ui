@@ -12,5 +12,6 @@
     "vue-styled-components": "^1.4.13"
   },
   "devDependencies": {
+    "vue-tsx-support": "^2.3.2"
   }
 }

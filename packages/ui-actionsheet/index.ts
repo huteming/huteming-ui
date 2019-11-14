@@ -1,10 +1,10 @@
-import Actionsheet from './src/main'
-import { IActionsheet } from './types'
+import actionsheet from './src/main'
+import { Actionsheet } from './types'
 import Vue from 'vue'
 
-const Plugin: any = Actionsheet
+const Plugin: any = actionsheet
 Plugin.install = function (vue: typeof Vue) {
-    vue.prototype.$actionsheet = Actionsheet
+    vue.prototype.$actionsheet = actionsheet
 }
 
-export default <IActionsheet>Plugin
+export default <Actionsheet>Plugin

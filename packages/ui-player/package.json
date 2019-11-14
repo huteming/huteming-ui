@@ -14,6 +14,7 @@
     "video.js": "^7.6.5"
   },
   "devDependencies": {
-    "@types/video.js": "^7.3.2"
+    "@types/video.js": "^7.3.2",
+    "vue-tsx-support": "^2.3.2"
   }
 }

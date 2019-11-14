@@ -10,5 +10,8 @@
   "license": "ISC",
   "dependencies": {
     "@huteming/ui-smart-scroll": "^2.0.0"
+  },
+  "devDependencies": {
+    "vue-tsx-support": "^2.3.2"
   }
 }

@@ -1,4 +1,4 @@
-export function isHtmlElement (node: Element) {
+export function isHtmlElement (node: any) {
     return node && node.nodeType === Node.ELEMENT_NODE
 }
 

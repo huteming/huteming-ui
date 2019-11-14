@@ -11,5 +11,8 @@
   "dependencies": {
     "core-decorators": "^0.20.0",
     "stackblur-canvas": "^2.2.0"
+  },
+  "devDependencies": {
+    "vue-tsx-support": "^2.3.2"
   }
 }

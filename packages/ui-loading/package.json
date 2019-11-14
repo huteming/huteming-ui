@@ -10,5 +10,8 @@
   "license": "ISC",
   "dependencies": {
     "throttle-debounce": "^2.1.0"
+  },
+  "devDependencies": {
+    "vue-tsx-support": "^2.3.2"
   }
 }

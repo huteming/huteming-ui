@@ -12,6 +12,7 @@
     "throttle-debounce": "^2.1.0"
   },
   "devDependencies": {
-    "@types/throttle-debounce": "^2.1.0"
+    "@types/throttle-debounce": "^2.1.0",
+    "vue-tsx-support": "^2.3.2"
   }
 }

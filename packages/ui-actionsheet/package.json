@@ -1,0 +1,14 @@
+{
+  "name": "@huteming/ui-actionsheet",
+  "private": false,
+  "version": "1.0.0",
+  "description": "> 操作表，从屏幕下方移入。",
+  "scripts": {
+    "prepublishOnly": "node ../../scripts/build-lib.js actionsheet"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@huteming/ui-styles": "^1.0.0"
+  }
+}

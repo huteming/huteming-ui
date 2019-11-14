@@ -1,8 +1,8 @@
 import { injectGlobal } from 'vue-styled-components'
 import {
-    transition_duration_normal_enter,
-    transition_duration_normal_leave,
-    transition_ease,
+    TransitionDurationNormalEnter,
+    TransitionDurationNormalLeave,
+    TransitionEase,
 } from '../common/transition'
 
 injectGlobal`
@@ -11,18 +11,33 @@ injectGlobal`
         transform: translateY(100%);
     }
 
+    .slide-down-enter,
+    .slide-down-leave-to {
+        transform: translateY(-100%);
+    }
+
+    .slide-left-enter,
+    .slide-left-leave-to {
+        transform: translateX(-100%);
+    }
+
+    .slide-right-enter,
+    .slide-right-leave-to {
+        transform: translateX(100%);
+    }
+
     .slide-up-enter-active,
     .slide-down-enter-active,
     .slide-left-enter-active,
     .slide-right-enter-active {
-        transition-duration: ${transition_duration_normal_enter};
+        transition-duration: ${TransitionDurationNormalEnter};
     }
 
     .slide-up-leave-active,
     .slide-down-leave-active,
     .slide-left-leave-active,
     .slide-right-leave-active {
-        transition-duration: ${transition_duration_normal_leave};
+        transition-duration: ${TransitionDurationNormalLeave};
     }
 
     .slide-up-enter-active,
@@ -34,6 +49,6 @@ injectGlobal`
     .slide-right-enter-active,
     .slide-right-leave-active {
         transition-property: transform;
-        transition-timing-function: ${transition_ease};
+        transition-timing-function: ${TransitionEase};
     }
 `

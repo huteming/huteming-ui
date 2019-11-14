@@ -1,12 +1,16 @@
 import { Vue, Component } from 'vue-property-decorator'
 import { ModalComp } from './declare/types'
+import { Container } from './doms'
+import '@huteming/ui-styles'
 
-@Component
+@Component({
+    name: 'TmModal',
+})
 export default class TmModal extends Vue implements ModalComp {
     render () {
         const {
             handleBeforeEnter, handleAfterEnter, handleBeforeLeave, handleAfterLeave, handleClick, handleTouchmove,
-            styles, visible
+            visible,
         } = this
 
         return (
@@ -16,15 +20,9 @@ export default class TmModal extends Vue implements ModalComp {
                 on-after-enter={ handleAfterEnter }
                 on-before-leave={ handleBeforeLeave }
                 on-after-leave={ handleAfterLeave }>
-                <div class="tm-modal" style={ styles } v-show={ visible } on-click={ handleClick } on-touchmove={ handleTouchmove }></div>
+                <Container v-show={ visible } on-click={ handleClick } on-touchmove={ handleTouchmove }></Container>
             </transition>
         )
-    }
-
-    get styles () {
-        return {
-            'z-index': this.zIndex,
-        }
     }
 
     handleClick (event: Event) {
@@ -86,7 +84,6 @@ export default class TmModal extends Vue implements ModalComp {
         this.$el.parentNode && this.$el.parentNode.removeChild(this.$el)
     }
 
-    zIndex = 9999
     visible = false
 
     callbackClick?: Function

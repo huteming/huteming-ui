@@ -12,5 +12,8 @@
     "prepublishOnly": "node ../../../scripts/prepublishOnly.js audio-player"
   },
   "author": "",
-  "license": "ISC"
+  "license": "ISC",
+  "devDependencies": {
+    "vue-tsx-support": "^2.3.2"
+  }
 }

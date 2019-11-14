@@ -1,6 +1,6 @@
 import Vue from 'vue'
 import ActionsComponent from './actionsheet'
-import { IActionsheet, IOptions, IMenu } from '../types'
+import { ActionsheetOptions, ActionsheetMenu } from '../types'
 
 const defaults = {
     menus: [],
@@ -10,7 +10,7 @@ const defaults = {
 }
 const ActionsConstructor = Vue.extend(ActionsComponent)
 
-function show (resolve: Function, reject: Function, options: IOptions) {
+function show (resolve: Function, reject: Function, options: ActionsheetOptions) {
     const instance: any = new ActionsConstructor({
         data: {
             resolve,
@@ -28,13 +28,13 @@ function show (resolve: Function, reject: Function, options: IOptions) {
     return instance
 }
 
-function Actionsheet (options: IOptions | IMenu[]): Promise<any> {
+function Actionsheet (options: ActionsheetOptions | ActionsheetMenu[]): Promise<any> {
     if (options instanceof Array) {
         options = {
             menus: options
         }
     }
-    const config: IOptions = Object.assign({}, defaults, options)
+    const config: ActionsheetOptions = Object.assign({}, defaults, options)
 
     return new Promise((resolve, reject) => {
         show(resolve, reject, config)

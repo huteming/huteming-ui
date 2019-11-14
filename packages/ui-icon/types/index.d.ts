@@ -1,3 +1,3 @@
-export interface IIcon {
+export interface IconProps {
     icon: string
 }

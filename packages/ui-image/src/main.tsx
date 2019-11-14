@@ -95,8 +95,8 @@ export default class TmImage extends Vue {
         this.state = 'loading'
 
         const img = new Image()
-        img.onload = e => this.handleLoad(e, img)
-        img.onerror = e => this.handleError(e)
+        img.onload = (event: Event) => this.handleLoad(event, img)
+        img.onerror = (event: Event) => this.handleError(event)
 
         Object
             .keys(this.$attrs)
@@ -117,7 +117,7 @@ export default class TmImage extends Vue {
 
     handleError (event: Event) {
         this.state = 'error'
-        this.$emit('error', e)
+        this.$emit('error', event)
     }
 
     addLazyLoadListener () {
@@ -127,32 +127,32 @@ export default class TmImage extends Vue {
         if (isHtmlElement(scrollContainer)) {
             _scrollContainer = scrollContainer
         } else if (isString(scrollContainer)) {
-            _scrollContainer = document.querySelector(scrollContainer)
+            _scrollContainer = document.querySelector((scrollContainer as string))
         } else {
             _scrollContainer = getScrollContainer(this.$el)
         }
 
         if (_scrollContainer) {
-            this._scrollContainer = _scrollContainer
-            this._lazyLoadHandler = throttle(200, this.lazyLoad)
-            on(_scrollContainer, 'scroll', this._lazyLoadHandler)
-            this.lazyLoad()
+            this.domScrollContainer = _scrollContainer
+            this.lazyLoadHandler = throttle(200, this.lazyLoad.bind(this, _scrollContainer))
+            on(_scrollContainer, 'scroll', this.lazyLoadHandler)
+            this.lazyLoad(_scrollContainer)
         } else {
             console.warn('未找到可滚动区域')
         }
     }
 
     removeLazyLoadListener () {
-        const { _scrollContainer, _lazyLoadHandler } = this
-        if (!_scrollContainer || !_lazyLoadHandler) return
+        const { domScrollContainer, lazyLoadHandler } = this
+        if (!domScrollContainer || !lazyLoadHandler) return
 
-        off(_scrollContainer, 'scroll', _lazyLoadHandler)
-        this._scrollContainer = null
-        this._lazyLoadHandler = null
+        off(domScrollContainer, 'scroll', lazyLoadHandler)
+        this.domScrollContainer = null
+        this.lazyLoadHandler = null
     }
 
-    lazyLoad () {
-        if (isInContainer(this.$el, this._scrollContainer)) {
+    lazyLoad (scrollContainer: Element) {
+        if (isInContainer(this.$el, scrollContainer)) {
             this.readyToShow = true
             this.removeLazyLoadListener()
         }
@@ -177,4 +177,6 @@ export default class TmImage extends Vue {
     readyToShow: boolean = !this.lazy
     imageWidth: number = 0
     imageHeight: number = 0
+    lazyLoadHandler: Function | null = null
+    domScrollContainer: Element | null = null
 }
