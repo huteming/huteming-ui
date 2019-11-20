@@ -5,29 +5,33 @@ addons:
   chrome: stable
 cache:
   directories:
-    - node_modules # NPM packages
-before_install:
-  - composer config --global github-oauth.github.com "$GITHUB_TOKEN"
-install: npm run bootstrap
+    - node_modules
+branches:
+  only:
+    - master
+#  before_install:
+#  - composer config --global github-oauth.github.com "$GITHUB_TOKEN"
+install:
+  - npm run bootstrap
 after_success:
   - cat ./coverage/lcov.info | ./node_modules/.bin/coveralls
-deploy:
-  provider: pages
-  skip_cleanup: true
-  token: $GITHUB_TOKEN  # Set in the settings page of your repository, as a secure variable
-  keep_history: true
-  on:
-    branch: master
-  local_dir: dist
-notifications:
-  email:
-    recipients:
-      - 549270031@qq.com
-    on_success: change # default: change
-    on_failure: always # default: always
-env:
-  global:
-    - secure: ".... encrypted data ...."
+# deploy:
+#  provider: pages
+#  skip_cleanup: true
+#  token: $GITHUB_TOKEN  # Set in the settings page of your repository, as a secure variable
+#  keep_history: true
+#  on:
+#    branch: master
+#  local_dir: dist
+# notifications:
+#  email:
+#    recipients:
+#      - 549270031@qq.com
+#    on_success: change # default: change
+#    on_failure: always # default: always
+# env:
+#  global:
+#    - secure: ".... encrypted data ...."
 # slack:
 #   if: branch = gh-pages
 

@@ -1,3 +1,8 @@
+<div align="center">
+    [![Build Status](https://travis-ci.org/huteming/huteming-ui.svg?branch=master)](https://travis-ci.org/huteming/huteming-ui)
+    [![Coverage Status](https://coveralls.io/repos/github/huteming/huteming-ui/badge.svg)](https://coveralls.io/github/huteming/huteming-ui)
+</div>
+
 # @huteming 功能组件
 
 > Mobile UI elements for **Vue 2.0**
