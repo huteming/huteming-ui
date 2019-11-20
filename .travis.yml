@@ -3,13 +3,14 @@ language: node_js
 node_js: 10
 addons:
   chrome: stable
+cache: npm
 install: npm run bootstrap
 after_success:
 - cat ./coverage/lcov.info | ./node_modules/.bin/coveralls
 deploy:
   provider: pages
   skip_cleanup: true
-  github_token: $GITHUB_TOKEN  # Set in the settings page of your repository, as a secure variable
+  token: ${GITHUB_TOKEN}  # Set in the settings page of your repository, as a secure variable
   keep_history: true
   on:
     branch: master
@@ -18,10 +19,10 @@ notifications:
   email:
     recipients:
       - 549270031@qq.com
-    on_success: always # default: change
+    on_success: change # default: change
     on_failure: always # default: always
-  slack:
-    if: branch = gh-pages
+# slack:
+#   if: branch = gh-pages
 
 # 备注笔记
 
