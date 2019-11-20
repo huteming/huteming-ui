@@ -3,9 +3,10 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
+    "bootstrap": "npm install && leana bootstrap",
     "serve": "vue-cli-service serve",
     "build": "cross-env BUILD_TYPE=docs vue-cli-service build --report",
-    "test": "vue-cli-service test:unit",
+    "test": "vue-cli-service test:unit --coverage",
     "test:e2e": "vue-cli-service test:e2e",
     "lint": "vue-cli-service lint",
     "cover": "vue-cli-service test:unit --coverage",
