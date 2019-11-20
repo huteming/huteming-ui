@@ -3,7 +3,7 @@ language: node_js
 node_js: 10
 addons:
   chrome: stable
-install: npm bootstrap
+install: npm run bootstrap
 after_success:
 - cat ./coverage/lcov.info | ./node_modules/.bin/coveralls
 deploy:
