@@ -1,4 +1,6 @@
 const plugins = []
+const isProduction = process.env.NODE_ENV === 'production'
+const isDocs = process.env.BUILD_TYPE === 'docs'
 
 if (process.env.NODE_ENV === 'test') {
     plugins.push('babel-plugin-rewire')
@@ -9,7 +11,7 @@ module.exports = {
         [
             '@vue/cli-plugin-babel/preset',
             {
-                useBuiltIns: process.env.NODE_ENV === 'production' ? false : 'usage',
+                useBuiltIns: isProduction && !isDocs ? false : 'usage',
             },
         ]
     ],
