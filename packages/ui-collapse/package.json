@@ -1,5 +1,6 @@
 {
   "name": "@huteming/ui-collapse",
+  "private": true,
   "version": "2.0.2",
   "description": "",
   "main": "dist/collapse.common.js",

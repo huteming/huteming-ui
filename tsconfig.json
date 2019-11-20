@@ -16,10 +16,11 @@
       "jest"
     ],
     "paths": {
-      "@/*": ["src/*"],
       "src/*": ["src/*"],
       "packages/*": ["packages/*"],
-      "ui/*": ["packages/ui/*"]
+      "ui/*": ["packages/ui/*"],
+      "tests/*": ["tests/*"],
+      "@/*": ["src/*"]
     },
     "lib": [
       "esnext",

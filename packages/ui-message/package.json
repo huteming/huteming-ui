@@ -1,5 +1,6 @@
 {
   "name": "@huteming/ui-message",
+  "private": true,
   "version": "2.1.1",
   "description": "> 弹出式提示框，有多种交互形式。",
   "main": "dist/message.common.js",
@@ -10,5 +11,8 @@
   "license": "ISC",
   "devDependencies": {
     "vue-tsx-support": "^2.3.2"
+  },
+  "dependencies": {
+    "@huteming/ui-modal": "^1.0.0"
   }
 }

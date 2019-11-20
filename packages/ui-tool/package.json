@@ -1,5 +1,6 @@
 {
   "name": "@huteming/util-tool",
+  "private": true,
   "version": "2.2.0",
   "description": "提供工具类方法",
   "main": "dist/tool.common.js",

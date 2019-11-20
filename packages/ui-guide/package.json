@@ -1,5 +1,6 @@
 {
   "name": "@huteming/ui-guide",
+  "private": true,
   "version": "2.0.0",
   "description": "> 引导遮层",
   "main": "dist/guide.common.js",

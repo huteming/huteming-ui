@@ -1,5 +1,4 @@
 const path = require('path')
-const globImporter = require('node-sass-glob-importer')
 const gitsha = require('child_process').execSync('git rev-parse HEAD').toString().trim()
 
 const isProd = process.env.NODE_ENV === 'production'
@@ -35,6 +34,7 @@ module.exports = {
                 'src': resolve('src'),
                 'packages': resolve('./packages'),
                 'ui': resolve('./packages/ui'),
+                'tests': resolve('./tests'),
             },
         },
         externals,
@@ -73,7 +73,6 @@ module.exports = {
             sass: {
                 sassOptions: {
                     // data: `@import "web/assets/scss/index.scss";`
-                    importer: globImporter(),
                 },
             },
         },

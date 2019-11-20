@@ -1,5 +1,6 @@
 {
   "name": "@huteming/ui-wing-blank",
+  "private": true,
   "version": "2.0.0",
   "description": "> 两翼留白",
   "main": "dist/wing-blank.common.js",

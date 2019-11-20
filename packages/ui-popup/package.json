@@ -1,5 +1,6 @@
 {
   "name": "@huteming/ui-popup",
+  "private": true,
   "version": "2.0.0",
   "description": "> 弹出层，可自定义内容。",
   "main": "dist/popup.common.js",

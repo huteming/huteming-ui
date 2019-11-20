@@ -1,13 +1,13 @@
 import MixinsModal from 'packages/ui-modal/index'
 import zindexManager from 'ui/utils/zindex-manager'
 import { isVNode, isComponent } from 'packages/ui-tool/src/main'
-import { Mixins, Component } from 'vue-property-decorator'
+import { Vue, Component } from 'vue-property-decorator'
 import { BeforeClose, BeforeConfirm, BeforeCancel, MessageResponse, MessageType, ActionType, MessageComp } from './declare/type'
-import { OpenModal, CloseModal } from 'packages/ui-modal/src/declare/types'
+import { OpenModal, CloseModal } from '@huteming/ui-modal/types'
 import { CreateElement } from 'vue'
 
 @Component
-export default class Message extends Mixins(MixinsModal) implements MessageComp {
+export default class Message extends Vue implements MessageComp {
     render (h: CreateElement) {
         const {
             handleAfterLeave, styles, inputType, title, normalizedInputValue, handleInput, handleTouchmove,

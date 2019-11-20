@@ -1,6 +1,6 @@
 {
-  "private": false,
   "name": "@huteming/ui-icon",
+  "private": true,
   "version": "2.0.0",
   "description": "> 图标",
   "main": "dist/icon.common.js",

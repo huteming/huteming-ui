@@ -1,4 +1,3 @@
-import { css } from 'vue-styled-components'
 import { Theme } from '../../types'
 
 const scaleHairlineCommon = (color: string, top: string | number, right: string | number, bottom: string | number, left: string | number) => {
@@ -17,10 +16,10 @@ const scaleHairlineCommon = (color: string, top: string | number, right: string 
 
 const hairlineTop = (theme: Theme, color: string) => {
     if (theme.dpr <= 1) {
-        return css`border-top: 1px solid ${color};`
+        return `border-top: 1px solid ${color};`
     }
 
-    return css`
+    return `
         border-top: none;
 
         &::before {
@@ -34,7 +33,7 @@ const hairlineTop = (theme: Theme, color: string) => {
 }
 
 const hairlineTopRemove = () => {
-    return css`
+    return `
         border-top: none;
         &::before {
             display: none !important;
@@ -44,10 +43,10 @@ const hairlineTopRemove = () => {
 
 const hairlineRight = (theme: Theme, color: string) => {
     if (theme.dpr <= 1) {
-        return css`border-right: 1px solid ${color};`
+        return `border-right: 1px solid ${color};`
     }
 
-    return css`
+    return `
         border-right: none;
 
         &::after {
@@ -61,7 +60,7 @@ const hairlineRight = (theme: Theme, color: string) => {
 }
 
 const hairlineRightRemove = () => {
-    return css`
+    return `
         border-right: none;
         &:after {
             display: none !important;
@@ -71,10 +70,10 @@ const hairlineRightRemove = () => {
 
 const hairlineBottom = (theme: Theme, color: string) => {
     if (theme.dpr <= 1) {
-        return css`border-bottom: 1px solid ${color};`
+        return `border-bottom: 1px solid ${color};`
     }
 
-    return css`
+    return `
         border-bottom: none;
         &::after {
             ${scaleHairlineCommon(color, 'auto', 'auto', 0, 0)};
@@ -87,7 +86,7 @@ const hairlineBottom = (theme: Theme, color: string) => {
 }
 
 const hairlineBottomRemove = () => {
-    return css`
+    return `
         border-bottom: 0;
         &:after {
             display: none !important;
@@ -97,10 +96,10 @@ const hairlineBottomRemove = () => {
 
 const hairlineLeft = (theme: Theme, color: string) => {
     if (theme.dpr <= 1) {
-        return css`border-left: 1px solid ${color};`
+        return `border-left: 1px solid ${color};`
     }
 
-    return css`
+    return `
         border-left: none;
         &::before {
             ${scaleHairlineCommon(color, 0, 'auto', 'auto', 0)};
@@ -113,7 +112,7 @@ const hairlineLeft = (theme: Theme, color: string) => {
 }
 
 const hairlineLeftRemove = () => {
-    return css`
+    return `
         border-left: 0;
         &:before {
             display: none !important;
@@ -123,13 +122,13 @@ const hairlineLeftRemove = () => {
 
 const hairlineAll = (theme: Theme, color: string, radius: number) => {
     if (theme.dpr <= 1) {
-        return css`
+        return `
             border: 1px solid ${color};
             border-radius: ${radius};
         `
     }
 
-    return css`
+    return `
         border: none;
 
         &::before {

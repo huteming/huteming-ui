@@ -1,5 +1,6 @@
 {
   "name": "@huteming/ui-notice-bar",
+  "private": true,
   "version": "2.0.0",
   "description": "> 通知栏",
   "main": "dist/notice-bar.common.js",

@@ -9,6 +9,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@huteming/ui-modal": "^1.0.0",
     "@huteming/ui-styles": "^1.0.0"
   }
 }

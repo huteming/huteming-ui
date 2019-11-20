@@ -1,57 +1,59 @@
-import MixinsModal from 'packages/ui-modal/index'
-import { Mixins, Component } from 'vue-property-decorator'
-import { ActionsheetMenu } from '../types/index'
-import { useZindex, hairline, withTheme } from '@huteming/ui-styles'
-import styled from 'vue-styled-components'
+import { Mixins, Prop } from 'vue-property-decorator'
+import { ActionsheetMenu, ComponentActionsheet } from '../types/index'
+import { hairline, withStyles } from '@huteming/ui-styles'
+import MixinModal from '@huteming/ui-modal'
 
-const Container = styled('div')`
-    position: fixed;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    z-index: ${useZindex()};
-    background-color: #f2f2f2;
-`
+const styles = (styled: any, css: any) => {
+    return {
+        Container: styled('div', (props: any) => `
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background-color: #f2f2f2;
+            z-index: ${props.state.zIndex};
+        `),
 
-const Header = styled.div`
-    padding: .3rem;
-    font-size: 14px;
-    line-height: 21px;
-    color: #888;
-    text-align: center;
-    border-bottom: 1px solid #ddd;
-    background-color: #fff;
-`
+        Header () {
+            return styled('div', (props: any) => `
+                position: relative;
+                padding: 15px;
+                font-size: 14px;
+                line-height: 21px;
+                color: #888;
+                text-align: center;
+                ${hairline(props.theme, 'bottom', '#ddd')};
+                background-color: #fff;
+            `)
+        },
 
-const MenuProps = {
-    cancel: Boolean,
-    border: Boolean,
+        Menu () {
+            return styled('div', { border: Boolean, spacing: Boolean }, (props: any) => css`
+                ${props.border && hairline(props.theme, 'top', '#ddd')};
+                margin-top: ${props.spacing ? '6px' : 0};
+                position: relative;
+                padding: 16px;
+                font-size: 18px;
+                line-height: 1;
+                color: #000;
+                text-align: center;
+                cursor: pointer;
+                background-color: #fff;
+            `)
+        },
+    }
 }
 
-const Menu = styled('div', MenuProps)`
-    ${(props: any) => props.border && !props.cancel && hairline(withTheme(props.theme), 'top', '#ddd')};
-    margin-top: ${(props: any) => props.cancel ? '6px' : 0};
-    position: relative;
-    padding: .32rem;
-    font-size: 18px;
-    line-height: 1;
-    color: #000;
-    text-align: center;
-    cursor: pointer;
-    background-color: #fff;
-`
-
-@Component({
-    name: 'TmActionsheet',
-})
-export default class TmActionsheet extends Mixins(MixinsModal) {
+class TmActionsheet extends Mixins(MixinModal) implements ComponentActionsheet {
     render () {
+        const { Container, Header, Menu } = this.styledDoms
+
         return (
             <transition name="slide-up" on-after-leave={ this.handleAfterLeave }>
                 <Container v-show={ this.visible } class="tm-actionsheet">
                     {
                         this.title
-                            ? <Header>{ this.title }</Header>
+                            ? <Header class="tm-actionsheet-title">{ this.title }</Header>
                             : null
                     }
 
@@ -60,8 +62,9 @@ export default class TmActionsheet extends Mixins(MixinsModal) {
                             return (
                                 <Menu
                                     key={ item.value }
-                                    cancel={ item.label === this.cancelText }
-                                    border={ index > 0 }
+                                    class={ item.label === this.cancelText ? 'tm-actionsheet-cancel' : 'tm-actionsheet-confirm' }
+                                    spacing={ item.label === this.cancelText }
+                                    border={ index > 0 && item.label !== this.cancelText }
                                     on-click={ this.handleClickMenu.bind(this, item.value) }>
                                     <span>{ item.label }</span>
                                 </Menu>
@@ -75,6 +78,7 @@ export default class TmActionsheet extends Mixins(MixinsModal) {
 
     get normalizedMenu (): ActionsheetMenu[] {
         const res = this.menus.concat()
+        /* istanbul ignore else */
         if (this.cancelText) {
             res.push({
                 label: this.cancelText,
@@ -99,12 +103,7 @@ export default class TmActionsheet extends Mixins(MixinsModal) {
     }
 
     open () {
-        this.$_openModal({
-            callbackClick: this.handleClickModal,
-        })
-
-        // 必须在调用 openModal 之后
-        // 为了获取动态 zindex
+        this.$_openModal(this.handleClickModal, this.$el)
         this.visible = true
     }
 
@@ -121,11 +120,24 @@ export default class TmActionsheet extends Mixins(MixinsModal) {
     }
 
     visible: boolean = false
+
+    @Prop({ type: Function, default: () => Promise.resolve })
     resolve!: Function
+
+    @Prop({ type: Function, default: () => Promise.resolve })
     reject!: Function
 
-    title: string = ''
-    menus: ActionsheetMenu[] = []
-    cancelText: string = '取消'
-    closeOnClickModal: boolean = true
+    @Prop({ type: String, default: '' })
+    title!: string
+
+    @Prop({ type: Array, default: () => ([]) })
+    menus!: ActionsheetMenu[]
+
+    @Prop({ type: String, default: '取消' })
+    cancelText!: string
+
+    @Prop({ type: Boolean, default: true })
+    closeOnClickModal!: boolean
 }
+
+export default withStyles(styles)(TmActionsheet, { name: 'TmActionsheet' })

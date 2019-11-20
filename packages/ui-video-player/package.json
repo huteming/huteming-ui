@@ -1,5 +1,6 @@
 {
   "name": "@huteming/ui-video-player",
+  "private": true,
   "version": "2.1.1",
   "description": "",
   "main": "dist/video-player.common.js",

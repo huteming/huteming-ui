@@ -1,5 +1,6 @@
 {
   "name": "@huteming/util-animation",
+  "private": true,
   "version": "2.0.0",
   "description": "提供动画的简单算法",
   "main": "dist/animation.common.js",

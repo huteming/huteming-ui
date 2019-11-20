@@ -8,6 +8,7 @@ declare module 'vue/types/vue' {
     interface VueConstructor {
         install (vue: typeof Vue): void
         item: VueConstructor
+        styledDoms: any
     }
 }
 declare module 'vue/types/options' {
@@ -15,5 +16,11 @@ declare module 'vue/types/options' {
     interface DirectiveOptions {
         install?: (vue: typeof Vue) => void
         registName: string
+    }
+}
+declare module 'vue/types/vue' {
+    // 3. 声明为 Vue 补充的东西
+    interface Vue {
+        styledDoms: any
     }
 }

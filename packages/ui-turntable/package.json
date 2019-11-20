@@ -1,5 +1,6 @@
 {
   "name": "@huteming/ui-turntable",
+  "private": true,
   "version": "1.0.1",
   "description": "> 抽奖转盘",
   "main": "dist/turntable.common.js",

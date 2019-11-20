@@ -1,5 +1,6 @@
 {
   "name": "@huteming/ui-toolbar",
+  "private": true,
   "version": "2.0.0",
   "description": "> 操作栏",
   "main": "dist/toolbar.common.js",

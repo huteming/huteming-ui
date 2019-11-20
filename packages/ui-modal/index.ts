@@ -1,3 +1,4 @@
-import Modal from './src/main'
+import MixinModal from './src/mixinModal'
 
-export default Modal
+export * from './src/main'
+export default MixinModal

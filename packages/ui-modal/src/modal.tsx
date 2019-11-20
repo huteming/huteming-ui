@@ -1,13 +1,24 @@
-import { Vue, Component } from 'vue-property-decorator'
-import { ModalComp } from './declare/types'
-import { Container } from './doms'
-import '@huteming/ui-styles'
+import { Vue } from 'vue-property-decorator'
+import { withStyles } from '@huteming/ui-styles'
+import { StyleProps } from '@huteming/ui-styles/types'
 
-@Component({
-    name: 'TmModal',
-})
-export default class TmModal extends Vue implements ModalComp {
+const styles = (styled: any, css: any) => {
+    return {
+        Container: styled('div', (props: StyleProps) => `
+            position: fixed;
+            top: 0;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: ${props.theme.modal.background};
+            z-index: ${props.state.zIndex};
+        `)
+    }
+}
+
+class TmModal extends Vue {
     render () {
+        const { Container } = this.styledDoms
         const {
             handleBeforeEnter, handleAfterEnter, handleBeforeLeave, handleAfterLeave, handleClick, handleTouchmove,
             visible,
@@ -20,9 +31,23 @@ export default class TmModal extends Vue implements ModalComp {
                 on-after-enter={ handleAfterEnter }
                 on-before-leave={ handleBeforeLeave }
                 on-after-leave={ handleAfterLeave }>
-                <Container v-show={ visible } on-click={ handleClick } on-touchmove={ handleTouchmove }></Container>
+                <Container class="tm-modal" v-show={ visible } on-click={ handleClick } on-touchmove={ handleTouchmove }></Container>
             </transition>
         )
+    }
+
+    show (options = {}) {
+        this.setData(options)
+        this.visible = true
+    }
+    hide (options = {}) {
+        this.setData(options)
+        this.visible = false
+    }
+    setData (data: object) {
+        for (let key in data) {
+            (this as any)[key] = (data as any)[key]
+        }
     }
 
     handleClick (event: Event) {
@@ -56,30 +81,13 @@ export default class TmModal extends Vue implements ModalComp {
         }
     }
     handleAfterLeave () {
-        this.handleElementDestroy()
+        this.destroy()
 
         if (typeof this.callbackAfterLeave === 'function') {
             this.callbackAfterLeave()
         }
     }
-
-    /**
-     * helper ------------------
-     */
-    show (options = {}) {
-        this.setData(options)
-        this.visible = true
-    }
-    hide (options = {}) {
-        this.setData(options)
-        this.visible = false
-    }
-    setData (data: object) {
-        for (let key in data) {
-            (this as any)[key] = (data as any)[key]
-        }
-    }
-    handleElementDestroy () {
+    destroy () {
         this.$destroy()
         this.$el.parentNode && this.$el.parentNode.removeChild(this.$el)
     }
@@ -92,3 +100,5 @@ export default class TmModal extends Vue implements ModalComp {
     callbackBeforeLeave?: Function
     callbackAfterLeave?: Function
 }
+
+export default withStyles(styles)(TmModal, { name: 'TmModal', })

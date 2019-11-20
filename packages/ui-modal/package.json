@@ -1,5 +1,6 @@
 {
   "name": "@huteming/ui-modal",
+  "private": true,
   "version": "1.0.0",
   "description": "使用为 mixins",
   "main": "index.js",

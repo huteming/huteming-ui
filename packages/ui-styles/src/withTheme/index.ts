@@ -13,8 +13,13 @@ function scaleDpr (): number {
     return window.devicePixelRatio || 1
 }
 
+const defaultModal = {
+    background: 'rgba(0, 0, 0, .5)',
+}
+
 const defaults: Theme = {
     dpr: scaleDpr(),
+    modal: defaultModal,
 }
 
 function withTheme (options = {}): Theme {

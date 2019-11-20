@@ -1,29 +1,18 @@
 import Vue from 'vue'
 import ActionsComponent from './actionsheet'
-import { ActionsheetOptions, ActionsheetMenu } from '../types'
+import { createModal } from '@huteming/ui-modal'
+import { ActionsheetOptions, ActionsheetMenu, ComponentActionsheet } from '../types'
 
-const defaults = {
-    menus: [],
-    title: '',
-    cancelText: '取消',
-    closeOnClickModal: true,
-}
-const ActionsConstructor = Vue.extend(ActionsComponent)
-
-function show (resolve: Function, reject: Function, options: ActionsheetOptions) {
-    const instance: any = new ActionsConstructor({
-        data: {
+function create (resolve: Function, reject: Function, options: ActionsheetOptions): ComponentActionsheet {
+    const ActionsConstructor = Vue.extend(ActionsComponent)
+    const instance: ComponentActionsheet = new ActionsConstructor({
+        propsData: {
             resolve,
             reject,
             ...options,
         },
     })
-
     document.body.appendChild(instance.$mount().$el)
-
-    Vue.nextTick(() => {
-        instance.open()
-    })
 
     return instance
 }
@@ -34,10 +23,14 @@ function Actionsheet (options: ActionsheetOptions | ActionsheetMenu[]): Promise<
             menus: options
         }
     }
-    const config: ActionsheetOptions = Object.assign({}, defaults, options)
+    const config = Object.assign({}, options)
 
     return new Promise((resolve, reject) => {
-        show(resolve, reject, config)
+        // zIndex 是从全局状态中取得。必须先创建 modal，再创建实例
+        createModal()
+        const instance = create(resolve, reject, config)
+
+        instance.open()
     })
 }
 
