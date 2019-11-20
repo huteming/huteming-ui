@@ -13,6 +13,8 @@ branches:
 #  - composer config --global github-oauth.github.com "$GITHUB_TOKEN"
 install:
   - npm run bootstrap
+script:
+  - npm run lint && npm run cover
 after_success:
   - cat ./coverage/lcov.info | ./node_modules/.bin/coveralls
 # deploy:

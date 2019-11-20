@@ -36,5 +36,6 @@ module.exports = {
         '!packages/ui-ripple/src/*.{js,vue,ts}',
     ],
 
-    coverageReporters: ['html', 'text-summary'],
+    // ['html', 'text-summary', 'json', 'lcov', 'text', 'clover'],
+    coverageReporters: ['html', 'text-summary', 'lcov'],
 }

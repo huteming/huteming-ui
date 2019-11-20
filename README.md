@@ -1,6 +1,10 @@
 <div align="center">
-    [![Build Status](https://travis-ci.org/huteming/huteming-ui.svg?branch=master)](https://travis-ci.org/huteming/huteming-ui)
-    [![Coverage Status](https://coveralls.io/repos/github/huteming/huteming-ui/badge.svg)](https://coveralls.io/github/huteming/huteming-ui)
+    <a href="https://travis-ci.org/huteming/huteming-ui">
+        <img src="https://travis-ci.org/huteming/huteming-ui.svg?branch=master" alt="Build Status" />
+    </a>
+    <a href='https://coveralls.io/github/huteming/huteming-ui'>
+        <img src='https://coveralls.io/repos/github/huteming/huteming-ui/badge.svg' alt='Coverage Status' />
+    </a>
 </div>
 
 # @huteming 功能组件
