@@ -12,6 +12,7 @@
     "cover": "vue-cli-service test:unit --coverage",
     "del prepublishOnly": "npm run test:unit",
     "publish:lib": "lerna publish",
+    "publish:doc": "sh ./scripts/deploy-doc.sh",
     "test:cover": "vue-cli-service test:unit --watch --coverage",
     "test:watch": "vue-cli-service test:unit --watch",
     "help:inspect": "vue-cli-service inspect --mode production",
