@@ -3,7 +3,11 @@ language: node_js
 node_js: 10
 addons:
   chrome: stable
-cache: npm
+cache:
+  directories:
+    - node_modules # NPM packages
+before_install:
+  - composer config --global github-oauth.github.com "$GITHUB_TOKEN"
 install: npm run bootstrap
 after_success:
 - cat ./coverage/lcov.info | ./node_modules/.bin/coveralls
