@@ -1,7 +1,7 @@
 {
   "name": "@huteming/ui-modal",
   "private": true,
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "使用为 mixins",
   "main": "index.js",
   "scripts": {
@@ -10,6 +10,6 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "@huteming/ui-styles": "^1.0.0"
+    "@huteming/ui-styles": "^1.0.1"
   }
 }

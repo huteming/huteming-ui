@@ -1,7 +1,7 @@
 {
   "name": "@huteming/ui",
   "private": false,
-  "version": "2.1.4",
+  "version": "2.1.5",
   "description": "",
   "main": "dist/huteming-ui.common.js",
   "scripts": {

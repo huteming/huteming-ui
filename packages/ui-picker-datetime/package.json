@@ -1,7 +1,7 @@
 {
   "name": "@huteming/ui-picker-datetime",
   "private": true,
-  "version": "2.0.0",
+  "version": "2.0.1",
   "description": "> 日期时间选择器，支持自定义类型。",
   "main": "dist/picker-datetime.common.js",
   "scripts": {

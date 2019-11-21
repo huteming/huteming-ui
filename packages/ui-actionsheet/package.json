@@ -1,7 +1,7 @@
 {
   "name": "@huteming/ui-actionsheet",
   "private": false,
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "> 操作表，从屏幕下方移入。",
   "scripts": {
     "prepublishOnly": "node ../../scripts/build-lib.js actionsheet"
@@ -9,7 +9,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "@huteming/ui-modal": "^1.0.0",
-    "@huteming/ui-styles": "^1.0.0"
+    "@huteming/ui-modal": "^1.0.1",
+    "@huteming/ui-styles": "^1.0.1"
   }
 }

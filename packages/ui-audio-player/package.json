@@ -1,12 +1,12 @@
 {
   "name": "@huteming/ui-audio-player",
   "private": true,
-  "version": "2.0.5",
+  "version": "2.0.6",
   "description": "",
   "main": "dist/audio-player.common.js",
   "dependencies": {
-    "@huteming/ui-audio": "^2.4.1",
-    "@huteming/ui-range": "^2.0.0"
+    "@huteming/ui-audio": "^2.4.2",
+    "@huteming/ui-range": "^2.0.1"
   },
   "scripts": {
     "prepublishOnly": "node ../../../scripts/prepublishOnly.js audio-player"

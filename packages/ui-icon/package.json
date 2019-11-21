@@ -1,7 +1,7 @@
 {
   "name": "@huteming/ui-icon",
   "private": true,
-  "version": "2.0.0",
+  "version": "2.0.1",
   "description": "> 图标",
   "main": "dist/icon.common.js",
   "scripts": {
