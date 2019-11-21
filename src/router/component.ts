@@ -20,7 +20,7 @@ ui.forEach(({ modules }) => {
 export default [
     {
         path: `/${type}`,
-        redirect: `/${type}/flex`,
+        redirect: `/${type}/actionsheet`,
         component: () => import('@/views/wrap-docs/wrap-docs.vue'),
         children: routes,
     }

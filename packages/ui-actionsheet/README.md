@@ -1,10 +1,10 @@
-> 操作表，从屏幕下方移入。
 
 -------------
 
 ## 引入
 
 ```javascript
+import Vue from 'vue'
 import { Actionsheet } from '@huteming/ui'
 
 Vue.use(Actionsheet)

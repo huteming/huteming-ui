@@ -2,7 +2,7 @@
   "name": "@huteming/ui-actionsheet",
   "private": false,
   "version": "1.0.1",
-  "description": "> 操作表，从屏幕下方移入。",
+  "description": "> 上拉菜单",
   "scripts": {
     "prepublishOnly": "node ../../scripts/build-lib.js actionsheet"
   },

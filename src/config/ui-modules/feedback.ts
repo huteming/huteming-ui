@@ -1,7 +1,7 @@
 export default [
     {
         path: 'actionsheet',
-        title: '动作面板 Actionsheet',
+        title: 'Actionsheet 上拉菜单',
         docs: () => import('packages/ui-actionsheet/README.md'),
         example: () => import('packages/ui-actionsheet/demo/basic.vue'),
     },

@@ -5,7 +5,12 @@ export default [
             {
                 path: 'quickstart',
                 title: '快速开始',
-                docs: () => import('@/views/quickstart/README.md'),
+                docs: () => import('packages/ui/README.md'),
+            },
+            {
+                path: 'changelog',
+                title: '更新日志',
+                docs: () => import('packages/ui/CHANGELOG.md'),
             },
         ],
     },

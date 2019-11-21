@@ -7,8 +7,8 @@
 
         <div class="header-links">
             <router-link class="header-text" tag="div" to="/guide">指南</router-link>
-            <!-- <router-link class="header-text" tag="div" to="/component">组件</router-link>
-            <router-link class="header-text" tag="div" to="/function">函数</router-link> -->
+            <router-link class="header-text" tag="div" to="/component">组件</router-link>
+            <!-- <router-link class="header-text" tag="div" to="/function">函数</router-link> -->
         </div>
     </div>
 </header>
