@@ -6,6 +6,9 @@
     },
     "bootstrap": {
       "hoist": true
+    },
+    "version": {
+      "conventionalCommits": true
     }
   },
   "packages": [

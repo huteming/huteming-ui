@@ -17,6 +17,7 @@
     "test:watch": "vue-cli-service test:unit --watch",
     "help:inspect": "vue-cli-service inspect --mode production",
     "help:unit": "vue-cli-service test:unit help",
+    "commit": "git-cz",
     "jestConfig": "jest --showConfig"
   },
   "dependencies": {
@@ -47,9 +48,10 @@
     "@vue/test-utils": "1.0.0-beta.29",
     "axios": "^0.18.0",
     "babel-plugin-rewire": "^1.2.0",
+    "commitizen": "^4.0.3",
     "coveralls": "^3.0.7",
     "cross-env": "^5.2.0",
-    "cz-conventional-changelog": "^3.0.2",
+    "cz-lerna-changelog": "^2.0.2",
     "del": "^5.1.0",
     "element-ui": "^2.4.6",
     "eslint": "^5.16.0",
@@ -81,7 +83,7 @@
   },
   "config": {
     "commitizen": {
-      "path": "./node_modules/cz-conventional-changelog"
+      "path": "./node_modules/cz-lerna-changelog"
     }
   },
   "typings": "types/index.d.ts"
