@@ -2,7 +2,11 @@
 <header class="header" ref="header">
     <div class="header-container">
         <div class="header-logo">
-            <img src="@/assets/images/logo.png" alt="" style="display: block; height: 100%;">
+            <i class="tm-icon tm-icon-github"></i>
+        </div>
+
+        <div class="header-search">
+            <input type="text" placeholder="Search or jump to...">
         </div>
 
         <div class="header-links">
@@ -21,55 +25,91 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+@import 'src/assets/mixins/index.scss';
+
 .header {
     position: fixed;
     top: 0;
     left: 0;
     right: 0;
-    height: 80px;
-    background: #fff;
+    height: $header-height;
+    background-color: #24292e;
     z-index: 2000;
 
     &-logo {
-        height: 60px;
+        line-height: 1;
+        color: #fff;
+        i {
+            font-size: 32px;
+        }
+    }
+
+    &-search {
+        margin-left: 16px;
+        width: 300px;
+        height: 28px;
+
+        input {
+            display: block;
+            height: 28px;
+            width: 300px;
+            box-sizing: border-box;
+            background: hsla(0,0%,100%,.125);
+            border: none;
+            outline: none;
+            border-radius: 3px;
+            padding: 6px 8px;
+            font-size: 14px;
+            color: #fff;
+        }
     }
 
     &-links {
+        margin-left: 16px;
         display: flex;
         align-items: center;
     }
 
     &-text {
         position: relative;
-        margin: 0 22px;
-        color: #1989FA;
-        opacity: 0.5;
+        // color: #1989FA;
+        color: #fff;
+        font-weight: 600;
+        // opacity: 0.5;
         cursor: pointer;
 
-        &:hover,
-        &.router-link-active {
-            opacity: 1;
+        &:hover {
+            color: hsla(0,0%,100%,.7);
         }
 
-        &.router-link-active:after {
-            content: ' ';
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            right: 0;
-            height: 2px;
-            background: #409eff;
+        & + & {
+            margin-left: 20px;
         }
+
+        // &:hover,
+        // &.router-link-active {
+        //     opacity: 1;
+        // }
+
+        // &.router-link-active:after {
+        //     content: ' ';
+        //     position: absolute;
+        //     bottom: 0;
+        //     left: 0;
+        //     right: 0;
+        //     height: 2px;
+        //     background: #409eff;
+        // }
     }
 
     &-container {
-        width: 1140px;
-        margin: 0 auto;
+        padding: 0 20px;
         display: flex;
         align-items: center;
-        justify-content: space-between;
-        line-height: 80px;
+        line-height: $header-height;
         border-bottom: 1px solid #e6e6e6;
+        box-shadow: 0 3px 8px 0 rgba(116, 129, 141, 0);
+        box-sizing: border-box;
     }
 }
 </style>

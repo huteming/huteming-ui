@@ -51,7 +51,8 @@ module.exports = {
             .loader('vue-loader')
             .end()
             .use('vue-markdown-loader')
-            .loader(path.resolve(__dirname, './build/md-loader/index.js'))
+            .loader('@vant/markdown-loader')
+            // .loader(path.resolve(__dirname, './build/md-loader/index.js'))
 
         /**
          * fix 热更新失败

@@ -1,0 +1,54 @@
+
+@import '../mixins/index.scss';
+
+.page-component__scroll {
+    // 这里 64px 为 $header-height
+    height: calc(100% - 64px);
+    margin-top: $header-height;
+
+    > .el-scrollbar__wrap {
+        overflow-x: auto;
+    }
+}
+
+.page-component {
+    position: relative;
+    box-sizing: border-box;
+    width: 1680px;
+    margin: 0 auto;
+    padding: 0;
+}
+
+.page-component__nav {
+    position: fixed;
+    top: $header-height;
+    bottom: 0;
+    width: 220px;
+    background-color: #fff;
+    border-right: 1px solid #f1f4f8;
+    box-shadow: 0 8px 12px #ebedf0;
+    transition: padding-top .3s;
+    z-index: 2;
+
+    > .el-scrollbar__wrap {
+        height: 100%;
+        overflow-x: auto;
+    }
+    &.is-extended {
+        padding-top: 0;
+    }
+}
+
+.page-component__content {
+    position: relative;
+    padding-left: 250px;
+    padding-bottom: 100px;
+    padding-top: 30px;
+    padding-right: 405px;
+    box-sizing: border-box;
+    z-index: 1;
+}
+
+.page-component__phone {
+    z-index: 2;
+}

@@ -1,40 +1,4 @@
-.ellipsis {
-    overflow : hidden;
-    text-overflow: ellipsis;
-    display: -webkit-box;
-    -webkit-line-clamp: 1;
-    -webkit-box-orient: vertical;
-}
-
-.mb-20 {
-    margin-bottom: 20px;
-}
-
-.height-20 {
-    height: 20px;
-}
-
-.placeholder {
-    background-color: #ebebef;
-    color: #bbb;
-    text-align: center;
-    height: 30px;
-    line-height: 30px;
-    width: 100%;
-    box-sizing: border-box;
-
-    &.inline {
-        width: 100px;
-    }
-
-    &.small {
-        font-size: 12px;
-        height: 15px;
-        line-height: 15px;
-    }
-
-    &.large {
-        height: 50px;
-        line-height: 50px;
-    }
+.page-demo {
+    min-height: 100vh;
+    background: #fbf9fe;
 }

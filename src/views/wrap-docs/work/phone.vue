@@ -16,8 +16,9 @@ export default {
     computed: {
         examplePath () {
             const { origin, pathname } = location
+            const { path } = this.$route.meta
 
-            return `${origin}${pathname}#${this.$route.path.replace('docs', 'example')}`
+            return `${origin}${pathname}#/example/${path}`
         }
     }
 }
@@ -25,14 +26,20 @@ export default {
 
 <style lang="scss" scoped>
 .phone {
-    width: 405px;
-    height: 100%;
-    margin-left: 20px;
-    padding: 100px 15px;
-    background-image: url('~@/assets/images/phone.png');
-    background-repeat: no-repeat;
-    background-size: 100%;
+    position: fixed;
+    top: 130px;
+    right: calc((100vw - 1680px) / 2);
+    width: 375px;
+    height: 667px;
+    // margin-left: 20px;
+    // padding: 100px 15px;
+    // background-image: url('~@/assets/images/phone.png');
+    // background-repeat: no-repeat;
+    // background-size: 100%;
+    border-radius: 6px;
+    box-shadow: #ebedf0 0 4px 12px;
     box-sizing: border-box;
+    overflow: hidden;
 
     &-page {
         width: 100%;

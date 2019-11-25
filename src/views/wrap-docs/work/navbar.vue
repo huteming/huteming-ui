@@ -1,18 +1,16 @@
 <template>
-<ul class="nav">
-    <li class="nav-container" v-for="(item, index) in maps" :key="index">
+<div class="nav">
+    <div class="nav-container" v-for="(item, index) in maps" :key="index">
         <div class="nav-title">{{ item.title }}</div>
 
-        <ul>
-            <li v-for="page in item.modules" :key="page.path">
-                <!-- 在路由中约定: link = type + path -->
-                <router-link class="nav-text" :to="`/${type}/${page.path}`" tag="div">
-                    <span>{{ page.title }}</span>
-                </router-link>
-            </li>
-        </ul>
-    </li>
-</ul>
+        <div v-for="page in item.modules" :key="page.path">
+            <!-- 在路由中约定: link = type + path -->
+            <router-link class="nav-text" :to="`/${type}/${page.path}`" tag="div" exact>
+                <span>{{ page.title }}</span>
+            </router-link>
+        </div>
+    </div>
+</div>
 </template>
 
 <script>
@@ -50,7 +48,7 @@ export default {
 <style lang="scss" scoped>
 .nav {
     height: 100%;
-    padding: 50px 0;
+    padding: 30px 10px 50px 30px;
     box-sizing: border-box;
 
     &-container {
@@ -62,21 +60,23 @@ export default {
     &-title {
         font-size: 16px;
         line-height: 40px;
-        color: #333;
-        font-weight: 700;
+        color: #a0a0a0;
+        // font-weight: 700;
     }
 
     &-text {
+        display: block;
         padding-left: 2px;
         font-size: 14px;
         line-height: 40px;
-        color: #444;
+        color: #455a64;
         font-weight: 300;
         cursor: pointer;
+        transition: all 150ms;
 
         &.router-link-active,
         &:hover {
-            color: #409eff;
+            // color: #409eff;
             font-weight: bold;
         }
     }

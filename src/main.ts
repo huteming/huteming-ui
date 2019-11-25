@@ -6,8 +6,8 @@ import ElementUI from 'element-ui'
 import AppDivider from './components/Divider.vue'
 import AppDemoBlock from './components/DemoBlock.vue'
 import DemoPlaceholder from './components/Placeholder.vue'
+import AppCell from './components/Cell.vue'
 import './registerServiceWorker'
-import 'sushi-ui'
 import 'normalize.css'
 import 'element-ui/lib/theme-chalk/index.css'
 import 'highlight.js/styles/github-gist.css'
@@ -17,6 +17,7 @@ import ui from 'ui/index'
 Vue.component(AppDivider.name, AppDivider)
 Vue.component(AppDemoBlock.name, AppDemoBlock)
 Vue.component(DemoPlaceholder.name, DemoPlaceholder)
+Vue.component(AppCell.name, AppCell)
 Vue.use(ui)
 Vue.use(ElementUI)
 Vue.config.productionTip = false

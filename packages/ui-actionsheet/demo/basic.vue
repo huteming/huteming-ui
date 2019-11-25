@@ -1,9 +1,9 @@
 <template>
-<div class="page">
-    <button @click="actionsheet('取消啊')">默认</button>
-    <button @click="actionsheet('')">不带取消按钮</button>
-    <button @click="title('阿斯蒂芬iwoe；安慰u人撒独立开发；啊饿哦我i；上了地方')">标题</button>
-    <button @click="handleClickOnModal()">点击遮层不关闭</button>
+<div class="page-demo">
+    <DemoCell body="默认" @click.native="actionsheet('取消啊')" link />
+    <DemoCell body="不带取消按钮" @click.native="actionsheet('')" link />
+    <DemoCell body="自定义标题" @click.native="title('阿斯蒂芬iwoe；安慰u人撒独立开发；啊饿哦我i；上了地方')" link />
+    <DemoCell body="点击遮层不关闭" @click.native="handleClickOnModal" link />
 </div>
 </template>
 

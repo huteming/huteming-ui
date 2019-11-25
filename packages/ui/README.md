@@ -1,42 +1,22 @@
-> 本节将介绍如何在项目中使用 @huteming/ui。
+### 安装
 
------------
-
-## 安装
-
-```javascript
+```bash
 npm install @huteming/ui --save
 ```
 
-## 引入所有组件
+## 引入组件
 
-你可以引入整个 @huteming/ui-*，或是根据需要仅引入部分组件。我们先介绍如何完整的引入。
-
-### 完整引入
-
-在 main.js 中写入以下内容：
-
-```javascript
-import ui from '@huteming/ui'
-
-Vue.use(ui)
-```
-
-以上代码便完成了 @huteming/ui-* 所有组件的引入。
-
-### 按需引入
+### 方式一、按需引入(推荐)
 
 借助 [babel-plugin-import](https://github.com/ant-design/babel-plugin-import)，我们可以只引入需要的组件。
 
-首先，安装 `babel-plugin-import`：
-
-```javascript
+```bash
+# 安装插件
 npm install --save-dev babel-plugin-import
 ```
 
-然后，将 `babelrc.config.js` 修改为：
-
-```javascript
+```js
+// 在 babelrc.config.js 添加配置
 {
   plugins: [
     [
@@ -53,13 +33,30 @@ npm install --save-dev babel-plugin-import
 }
 ```
 
-接下来，如果你只希望引入部分组件，那么可以在需要的组件页面内这么写：
-
-```javascript
-import { TmButton, Actionsheet } from '@huteming/ui'
-
-// Vue.component(TmButton.name, TmButton)
-Vue.use(TmButton)
+```js
+// 接着你可以在代码中直接引入组件
+// 插件会自动将代码转化为方式二中的按需引入形式
+import { Button, Actionsheet } from '@huteming/ui'
+// Vue.component(Button.name, Button)
+Vue.use(Button)
 ```
 
-各个组件的使用方法请参阅它们各自的文档。
+> 如果你在使用 TypeScript，可以使用 [ts-import-plugin](https://github.com/Brooooooklyn/ts-import-plugin) 实现按需引入
+
+### 方式二、手动按需引入组件
+
+在不使用插件的情况下，可以手动引入需要的组件
+
+```js
+import Button from '@huteming/ui/lib/button/button.common.js'
+```
+
+### 方式三、引入所有组件
+
+```js
+import ui from '@huteming/ui'
+
+Vue.use(ui)
+```
+
+## 各个组件的使用方法请参阅它们各自的文档。

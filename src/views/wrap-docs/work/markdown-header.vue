@@ -1,25 +1,24 @@
 <template>
-<h1 class="content">
-    <template v-if="isComponent">
-        <span>{{ meta.title }}</span>
+<h1 class="markdown-header">
+    <span>{{ meta.title }}</span>
 
-        <el-button class="content-icon" circle>
-            <!-- <TmIcon icon="qrcode" v-popover:qrcode /> -->
+    <template v-if="isComponent">
+        <el-button class="markdown-header-icon" circle v-popover:qrcode>
+            <i class="tm-icon tm-icon-qrcode"></i>
         </el-button>
 
-        <el-button id="copy" class="content-icon" icon="el-icon-edit" circle :data-clipboard-text="examplePath"></el-button>
+        <el-tooltip effect="dark" content="复制示例链接" placement="bottom">
+            <el-button id="copy" class="markdown-header-icon" icon="el-icon-edit" circle :data-clipboard-text="examplePath"></el-button>
+        </el-tooltip>
 
         <el-popover
             ref="qrcode"
             placement="bottom"
             width="100"
             trigger="hover">
-            <img :src="qrcodeImg" alt="" width="100%" height="100%" />
+            <div class="markdown-header-qrcode-tips">手机扫码体验</div>
+            <img :src="qrcodeImg" alt="" class="img-block" />
         </el-popover>
-    </template>
-
-    <template v-else>
-        <span>{{ meta.title }}</span>
     </template>
 </h1>
 </template>
@@ -41,8 +40,9 @@ export default {
         },
         examplePath () {
             const { origin, pathname } = location
+            const { path } = this.$route.meta
 
-            return `${origin}${pathname}#${this.$route.path.replace('docs', 'example')}`
+            return `${origin}${pathname}#/example/${path}`
         },
         isComponent () {
             return !!this.$route.meta.example
@@ -90,7 +90,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.content {
+.markdown-header {
     display: flex;
     align-items: center;
 
@@ -103,6 +103,14 @@ export default {
         // &:hover {
         //     color: #2db7f5;
         // }
+    }
+
+    &-qrcode {
+        &-tips {
+            margin-bottom: 4px;
+            color: #34495e;
+            text-align: center;
+        }
     }
 }
 </style>
