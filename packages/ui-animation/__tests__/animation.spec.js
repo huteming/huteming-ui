@@ -1,7 +1,6 @@
 import sinon from 'sinon'
 import assert from 'assert'
-import { sleep } from '../helper'
-import { linear, easeIn, easeOut, easeInOut, tween } from 'web-util/animation/src/main'
+import { linear, easeIn, easeOut, easeInOut, tween } from '../src/main'
 const mapHandler = { linear, easeIn, easeOut, easeInOut }
 
 describe('animation', () => {

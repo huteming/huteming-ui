@@ -1,9 +1,11 @@
-export default [
-    // {
-    //     path: 'animation',
-    //     title: '动画 Animation',
-    //     docs: () => import('packages/ui-animation/README.md'),
-    // },
+import { ConfigPage } from '../config'
+
+export default <ConfigPage[]>[
+    {
+        path: 'animation',
+        title: '动画 Animation',
+        docs: () => import('packages/ui-animation/README.md'),
+    },
     // {
     //     path: 'tool',
     //     title: '工具函数 Tool',

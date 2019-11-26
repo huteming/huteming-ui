@@ -9,7 +9,7 @@ export default <ConfigPage[]>[
     // },
     {
         path: 'anchor',
-        title: '锚点',
+        title: '锚点 Anchor',
         docs: () => import('packages/ui-anchor/README.md'),
         example: () => import('packages/ui-anchor/demo/basic.vue'),
     },

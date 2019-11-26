@@ -1,6 +1,6 @@
 {
   "name": "@huteming/ui-animation",
-  "private": true,
+  "private": false,
   "version": "1.0.0",
   "description": "> 提供动画的简单算法",
   "author": "Tommy <tommy@jhshuyuan.com>",
@@ -22,7 +22,7 @@
     "url": "git+https://github.com/huteming/huteming-ui.git"
   },
   "scripts": {
-    "prepublishOnly": "node ../../../scripts/prepublishOnly.js animation util"
+    "prepublishOnly": "node ../../scripts/build-lib.js animation"
   },
   "bugs": {
     "url": "https://github.com/huteming/huteming-ui/issues"

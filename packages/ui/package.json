@@ -11,8 +11,7 @@
   "license": "ISC",
   "dependencies": {
     "@huteming/ui-actionsheet": "^1.0.1",
-    "@huteming/ui-anchor": "^2.0.6"
-  },
-  "devDependencies": {
+    "@huteming/ui-anchor": "^2.0.6",
+    "@huteming/ui-animation": "^1.0.0"
   }
 }
