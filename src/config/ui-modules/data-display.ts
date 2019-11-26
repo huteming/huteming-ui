@@ -17,12 +17,12 @@ export default [
     //     docs: () => import('packages/ui-clocker/README.md'),
     //     example: () => import('packages/ui-clocker/demo/basic.vue'),
     // },
-    // {
-    //     path: 'btn-pay',
-    //     title: '支付按钮 btn-pay',
-    //     docs: () => import('packages/ui-btn-pay/README.md'),
-    //     example: () => import('packages/ui-btn-pay/demo/basic.vue'),
-    // },
+    {
+        path: 'btn-pay',
+        title: '支付按钮 BtnPay',
+        docs: () => import('packages/ui-btn-pay/README.md'),
+        example: () => import('packages/ui-btn-pay/demo/basic.vue'),
+    },
     // {
     //     path: 'panel',
     //     title: '面板 panel',

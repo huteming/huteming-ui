@@ -3,7 +3,7 @@ import App from './App.vue'
 import router from './router'
 import store from './store'
 import ElementUI from 'element-ui'
-import AppDivider from './components/Divider.vue'
+import DemoDivider from './components/Divider.vue'
 import AppDemoBlock from './components/DemoBlock.vue'
 import DemoPlaceholder from './components/Placeholder.vue'
 import AppCell from './components/Cell.vue'
@@ -14,7 +14,7 @@ import 'highlight.js/styles/github-gist.css'
 import './assets/style/index.scss'
 import ui from 'ui/main'
 
-Vue.component(AppDivider.name, AppDivider)
+Vue.component(DemoDivider.name, DemoDivider)
 Vue.component(AppDemoBlock.name, AppDemoBlock)
 Vue.component(DemoPlaceholder.name, DemoPlaceholder)
 Vue.component(AppCell.name, AppCell)

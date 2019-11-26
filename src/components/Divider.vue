@@ -18,7 +18,7 @@
 
 <script>
 export default {
-    name: 'TmDivider',
+    name: 'DemoDivider',
 
     props: {
         loading: Boolean,

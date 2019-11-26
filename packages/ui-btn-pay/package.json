@@ -1,18 +1,18 @@
 {
   "name": "@huteming/ui-btn-pay",
-  "private": true,
+  "private": false,
   "publishConfig": {
     "access": "public"
   },
   "version": "2.0.1",
-  "description": "支付按钮",
+  "description": "> 支付按钮",
   "main": "dist/btn-pay.common.js",
   "scripts": {
-    "prepublishOnly": "node ../../../scripts/prepublishOnly.js btn-pay"
+    "prepublishOnly": "node ../../scripts/build-lib.js btn-pay"
   },
   "author": "",
   "license": "ISC",
-  "devDependencies": {
-    "vue-tsx-support": "^2.3.2"
+  "dependencies": {
+    "@huteming/ui-styles": "^1.0.1"
   }
 }
