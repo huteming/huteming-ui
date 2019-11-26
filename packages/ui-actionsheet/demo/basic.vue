@@ -8,7 +8,7 @@
 </template>
 
 <script>
-import Actionsheet from '../index'
+import Actionsheet from '../src/main'
 
 export default {
     methods: {

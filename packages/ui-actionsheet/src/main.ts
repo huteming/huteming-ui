@@ -34,4 +34,8 @@ function Actionsheet (options: ActionsheetOptions | ActionsheetMenu[]): Promise<
     })
 }
 
+Actionsheet.install = function (vue: typeof Vue) {
+    vue.prototype.$actionsheet = Actionsheet
+}
+
 export default Actionsheet

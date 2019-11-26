@@ -9,7 +9,7 @@ module.exports = {
         '^@/(.*)$': '<rootDir>/src/$1',
         '^src/(.*)$': '<rootDir>/src/$1',
         '^packages/(.*)$': '<rootDir>/packages/$1',
-        '^ui/(.*)$': '<rootDir>/packages/ui/$1',
+        '^ui/(.*)$': '<rootDir>/packages/ui/src/$1',
         '^tests/(.*)$': '<rootDir>/tests/$1',
     },
 

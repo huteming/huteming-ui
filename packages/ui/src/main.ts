@@ -1,6 +1,6 @@
 import Vue from 'vue'
 // export { default as TmTurntable } from 'web-ui/turntable/index'
-import Actionsheet from 'packages/ui-actionsheet/index'
+import Actionsheet from 'packages/ui-actionsheet/src/main'
 // export { default as Message } from 'web-ui/message/index'
 // export { default as Toast } from 'web-ui/toast/index'
 // export { default as Guide } from 'web-ui/guide/index'

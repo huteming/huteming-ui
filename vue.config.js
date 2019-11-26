@@ -33,7 +33,7 @@ module.exports = {
                 '@': resolve('src'),
                 'src': resolve('src'),
                 'packages': resolve('./packages'),
-                'ui': resolve('./packages/ui'),
+                'ui': resolve('./packages/ui/src'),
                 'tests': resolve('./tests'),
             },
         },

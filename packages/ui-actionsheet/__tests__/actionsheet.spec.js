@@ -13,6 +13,11 @@ const menus = [
 ]
 
 describe('actionsheet', () => {
+    it('install', () => {
+        localVue.use(actionsheet)
+        assert.strictEqual(localVue.prototype.$actionsheet, actionsheet)
+    })
+    
     it('closeOnClickModal', async () => {
         const mockResolve = sinon.fake()
         const mockReject = sinon.fake()

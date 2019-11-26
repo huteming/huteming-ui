@@ -14,7 +14,7 @@
                 <router-view class=""></router-view>
             </div>
 
-            <AppPhone clas="page-component__phone" v-if="hasExample" />
+            <AppPhone class="page-component__phone" v-if="hasExample" />
         </div>
     </el-scrollbar>
 </div>
