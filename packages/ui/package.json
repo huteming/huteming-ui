@@ -1,7 +1,7 @@
 {
   "name": "@huteming/ui",
   "private": false,
-  "version": "2.1.5",
+  "version": "2.1.6",
   "description": "",
   "main": "dist/huteming-ui.common.js",
   "scripts": {
@@ -10,8 +10,8 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "@huteming/ui-actionsheet": "^1.0.1",
-    "@huteming/ui-anchor": "^2.0.6",
-    "@huteming/ui-animation": "^1.0.0"
+    "@huteming/ui-actionsheet": "^1.0.2",
+    "@huteming/ui-anchor": "^2.0.7",
+    "@huteming/ui-animation": "^1.0.1"
   }
 }

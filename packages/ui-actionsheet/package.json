@@ -1,7 +1,7 @@
 {
   "name": "@huteming/ui-actionsheet",
   "private": false,
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "> 上拉菜单",
   "main": "src/main.ts",
   "scripts": {

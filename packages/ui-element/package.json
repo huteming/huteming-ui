@@ -1,7 +1,7 @@
 {
   "name": "@huteming/ui-element",
   "private": true,
-  "version": "2.0.2",
+  "version": "2.0.3",
   "description": "提供HtmlElement一些辅助方法",
   "main": "dist/element.common.js",
   "scripts": {
