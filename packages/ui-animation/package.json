@@ -1,15 +1,30 @@
 {
-  "name": "@huteming/util-animation",
+  "name": "@huteming/ui-animation",
   "private": true,
-  "version": "2.0.1",
-  "description": "提供动画的简单算法",
+  "version": "1.0.0",
+  "description": "> 提供动画的简单算法",
+  "author": "Tommy <tommy@jhshuyuan.com>",
+  "homepage": "https://github.com/huteming/huteming-ui#readme",
+  "license": "ISC",
   "main": "dist/animation.common.js",
+  "directories": {
+    "lib": "lib",
+    "test": "__tests__"
+  },
+  "files": [
+    "lib"
+  ],
+  "publishConfig": {
+    "registry": "http://192.168.0.99:4873/"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/huteming/huteming-ui.git"
+  },
   "scripts": {
     "prepublishOnly": "node ../../../scripts/prepublishOnly.js animation util"
   },
-  "author": "",
-  "license": "ISC",
-  "devDependencies": {
-    "vue-tsx-support": "^2.3.2"
+  "bugs": {
+    "url": "https://github.com/huteming/huteming-ui/issues"
   }
 }

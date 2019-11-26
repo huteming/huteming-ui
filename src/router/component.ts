@@ -1,11 +1,12 @@
-import ui from '@/config/ui'
+import ui from 'src/config/ui'
 import { RouteConfig } from 'vue-router'
+import { ConfigPage } from 'src/config/config'
 
 const routes: RouteConfig[] = []
 const type = 'component'
 
 ui.forEach(({ modules }) => {
-    modules.forEach(page => {
+    modules.forEach((page: ConfigPage) => {
         const { path, docs } = page
 
         routes.push({

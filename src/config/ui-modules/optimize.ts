@@ -1,16 +1,18 @@
-export default [
+import { ConfigPage } from '../config'
+
+export default <ConfigPage[]>[
     // {
     //     path: 'infinite-scroll',
     //     title: '无限滚动',
     //     docs: () => import('packages/ui-infinite-scroll/README.md'),
     //     example: () => import('packages/ui-infinite-scroll/demo/basic.vue'),
     // },
-    // {
-    //     path: 'anchor',
-    //     title: '锚点',
-    //     docs: () => import('packages/ui-anchor/README.md'),
-    //     example: () => import('packages/ui-anchor/demo/basic.vue'),
-    // },
+    {
+        path: 'anchor',
+        title: '锚点',
+        docs: () => import('packages/ui-anchor/README.md'),
+        example: () => import('packages/ui-anchor/demo/basic.vue'),
+    },
     // {
     //     path: 'guide',
     //     title: '引导',

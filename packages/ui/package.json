@@ -10,9 +10,9 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "vue-styled-components": "^1.4.13"
+    "@huteming/ui-actionsheet": "^1.0.1",
+    "@huteming/ui-anchor": "^2.0.6"
   },
   "devDependencies": {
-    "vue-tsx-support": "^2.3.2"
   }
 }

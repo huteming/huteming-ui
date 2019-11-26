@@ -58,9 +58,9 @@ export default {
     }
 
     &-title {
-        font-size: 16px;
+        font-size: 12px;
         line-height: 40px;
-        color: #a0a0a0;
+        color: rgba(69, 90, 100, 0.6);
         // font-weight: 700;
     }
 
@@ -77,6 +77,7 @@ export default {
         &.router-link-active,
         &:hover {
             // color: #409eff;
+            color: #000;
             font-weight: bold;
         }
     }

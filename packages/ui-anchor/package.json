@@ -1,18 +1,16 @@
 {
   "name": "@huteming/ui-anchor",
-  "private": true,
+  "private": false,
   "version": "2.0.6",
   "description": "锚点",
   "main": "dist/anchor.common.js",
   "scripts": {
-    "prepublishOnly": "node ../../../scripts/prepublishOnly.js anchor"
+    "prepublishOnly": "node ../../scripts/build-lib.js anchor"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "@huteming/util-tool": "^2.2.1"
-  },
-  "devDependencies": {
-    "vue-tsx-support": "^2.3.2"
+    "@huteming/ui-animation": "^1.0.0",
+    "@huteming/ui-element": "^2.0.2"
   }
 }

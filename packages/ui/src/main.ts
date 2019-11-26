@@ -5,7 +5,7 @@ import Actionsheet from 'packages/ui-actionsheet/src/main'
 // export { default as Toast } from 'web-ui/toast/index'
 // export { default as Guide } from 'web-ui/guide/index'
 
-// export { default as Anchor } from 'web-ui/anchor/index'
+import Anchor from 'packages/ui-anchor/src/main'
 // export { default as ImagePicker } from 'web-ui/image-picker/index'
 // export { default as InfiniteScroll } from 'web-ui/infinite-scroll/index'
 // export { default as Loading } from 'web-ui/loading/index'
@@ -45,6 +45,7 @@ import Actionsheet from 'packages/ui-actionsheet/src/main'
 
 const components = [
     Actionsheet,
+    Anchor,
 ]
 
 function install (vue: typeof Vue, config = {}) {

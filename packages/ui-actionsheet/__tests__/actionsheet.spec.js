@@ -3,7 +3,7 @@ import TmActionsheet from '../src/actionsheet'
 import { closeModal } from '../../ui-modal/src/main'
 import assert from 'assert'
 import sinon from 'sinon'
-import { mount, createWrapper, TransitionStub, createLocalVue } from '@vue/test-utils'
+import { mount, TransitionStub, createLocalVue } from '@vue/test-utils'
 import { sleep, cleanDom } from 'tests/helper'
 const localVue = createLocalVue()
 localVue.component(TmActionsheet.name, TmActionsheet)

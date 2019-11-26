@@ -17,7 +17,7 @@
 </template>
 
 <script>
-import Anchor from 'web-ui/anchor/src/anchor'
+import Anchor from 'packages/ui-anchor/src/main'
 
 export default {
     data () {

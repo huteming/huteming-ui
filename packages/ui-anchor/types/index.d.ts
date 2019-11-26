@@ -1,4 +1,4 @@
-import Vue from 'vue'
+import Vue, { DirectiveOptions, PluginFunction } from 'vue'
 
 export interface AnchorSelf {
     el: HTMLElement
@@ -28,4 +28,8 @@ export interface AnchorConfig {
 export interface AnchorAttr {
     handleClick: (this: AnchorSelf) => void
     self: AnchorSelf
+}
+
+export interface Anchor extends DirectiveOptions {
+    install: PluginFunction<object>
 }

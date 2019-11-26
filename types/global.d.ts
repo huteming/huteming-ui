@@ -1,4 +1,4 @@
-import { AnchorAttr } from 'packages/ui-anchor/src/declare/types'
+import { AnchorAttr } from 'packages/ui-anchor/types'
 
 declare global {
     interface Window {

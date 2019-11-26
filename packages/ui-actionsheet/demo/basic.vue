@@ -8,8 +8,6 @@
 </template>
 
 <script>
-import Actionsheet from '../src/main'
-
 export default {
     methods: {
         actionsheet (cancelText) {
@@ -17,7 +15,7 @@ export default {
                 { label: 'label - 1', value: 'value - 1' },
                 { label: 'label - 2', value: 'value - 2' }
             ]
-            Actionsheet({ menus, cancelText })
+            this.$actionsheet({ menus, cancelText })
                 .then(value => {
                     const clicked = menus.find(item => item.value === value)
                     console.log(clicked.label)
@@ -31,7 +29,7 @@ export default {
                 { label: 'label - 3', value: 'value - 3' },
                 { label: 'label - 4', value: 'value - 4' }
             ]
-            Actionsheet({ menus, title })
+            this.$actionsheet({ menus, title })
                 .then(value => {
                     const clicked = menus.find(item => item.value === value)
                     console.log(clicked.label)
@@ -45,7 +43,7 @@ export default {
                 { label: 'label - 5', value: 'value - 5' },
                 { label: 'label - 6', value: 'value - 6' }
             ]
-            Actionsheet({ menus, closeOnClickModal: false })
+            this.$actionsheet({ menus, closeOnClickModal: false })
                 .then(value => {
                     const clicked = menus.find(item => item.value === value)
                     console.log(clicked.label)

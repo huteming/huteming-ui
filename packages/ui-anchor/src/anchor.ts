@@ -1,8 +1,8 @@
 import { easeOut } from 'packages/ui-animation/src/main'
 import { getScrollContainer, getScrollTop, getElementTop, scrollY } from 'packages/ui-element/src/main'
-import { DirectiveOptions, VNode } from 'vue'
+import { VNode } from 'vue'
 import { DirectiveBinding } from 'vue/types/options'
-import { AnchorConfig, AnchorSelf } from './declare/types'
+import { AnchorConfig, AnchorSelf } from '../types'
 const ATTR = '@@Anchor'
 
 const defaults = {
@@ -13,8 +13,8 @@ const defaults = {
     done: null,
 }
 
-export default <DirectiveOptions>{
-    registName: 'Anchor',
+export default {
+    name: 'Anchor',
 
     inserted (el: HTMLElement, binding: DirectiveBinding, vnode: VNode) {
         let value = binding.value

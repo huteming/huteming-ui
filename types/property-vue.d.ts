@@ -14,8 +14,8 @@ declare module 'vue/types/vue' {
 declare module 'vue/types/options' {
     // 3. 声明为 Vue 补充的东西
     interface DirectiveOptions {
-        install?: (vue: typeof Vue) => void
-        registName: string
+        // install?: (vue: typeof Vue) => void
+        name: string
     }
 }
 declare module 'vue/types/vue' {

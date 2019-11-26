@@ -1,10 +1,11 @@
-import CompAnchor from '../components/anchor'
-import { mount } from '@vue/test-utils'
+import CompAnchor from 'tests/components/anchor'
+import { mount, createLocalVue } from '@vue/test-utils'
 import assert from 'assert'
-import { sleep, mockProperty } from '../helper'
-import { __RewireAPI__ as RewireAPI } from 'web-ui/anchor/src/anchor'
+import { __RewireAPI__ as RewireAPI } from '../src/anchor'
+import AnchorDirective from '../src/main'
 import sinon from 'sinon'
-
+const localVue = createLocalVue()
+localVue.use(AnchorDirective)
 
 describe('anchor', () => {
     let mockAnimation
@@ -36,10 +37,25 @@ describe('anchor', () => {
     })
 
     it('最后停留位置间隔顶部 top', () => {
-        const wrapper = mount(CompAnchor, { attachToDocument: true })
+        const wrapper = mount({
+            template: `
+                <div class="basic">
+                    <div id="btn" v-anchor="{ selector: '#target', container: '#basic2', top: 20 }">锚点</div>
+
+                    <div id="container" ref="container">
+                        <pre style="height: 120vh;"></pre>
+                        <div id="target" ref="target">看到我啦</div>
+                        <pre style="height: 120vh;"></pre>
+                    </div>
+                </div>
+            `,
+        }, {
+            localVue,
+            attachToDocument: true,
+        })
 
         try {
-            const wrapperBtn = wrapper.find('#btn3')
+            const wrapperBtn = wrapper.find('#btn')
             wrapperBtn.trigger('click')
 
             assert.deepStrictEqual(mockAnimation.getCall(0).args, [100, 82, 300])

@@ -1,6 +1,6 @@
 <template>
-<div class="basic">
-    <div v-anchor="{ selector: '#target', container: '.basic2', top: 40 }">锚点</div>
+<div class="page-demo">
+    <button v-anchor="{ selector: '#target', container: '.basic2', top: 40 }">点击</button>
 
     <div class="basic2">
         <pre style="height: 120vh;"></pre>
@@ -13,8 +13,6 @@
 </template>
 
 <script>
-import Anchor from '../index'
-
 export default {
     data () {
         return {
@@ -28,20 +26,11 @@ export default {
     },
 
     methods: {
-        onObserve (visible) {
-            console.log('visible', visible)
-        },
-    },
-
-    directives: {
-        Anchor,
     },
 }
 </script>
 
 <style lang="scss" scoped>
-.basic {
-}
 .basic2 {
     // position: relative;
     height: 50vh;
