@@ -1,6 +1,6 @@
 import axios from 'axios'
 import CustomError from './customError'
-import { RequestOptions, Request, RequestError } from './types'
+import { RequestOptions, Request, RequestError } from '../types'
 import { sleep } from 'packages/ui-tool/src/main'
 
 export default async function (this: Request, err: RequestError) {

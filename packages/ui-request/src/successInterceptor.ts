@@ -1,5 +1,5 @@
 import { AxiosResponse } from 'axios'
-import { Request, RequestOptions } from './types'
+import { Request, RequestOptions } from '../types'
 import CustomError from './customError'
 
 const mapErrorHandler = new Map([

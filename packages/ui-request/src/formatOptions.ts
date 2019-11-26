@@ -1,4 +1,4 @@
-import { RequestOptions } from './types'
+import { RequestOptions } from '../types'
 import { AxiosRequestConfig } from 'axios'
 
 const mapHost = new Map([

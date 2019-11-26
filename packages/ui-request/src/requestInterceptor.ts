@@ -1,6 +1,6 @@
 import { stringify } from 'qs'
 import { jsonToForm } from 'packages/ui-tool/src/main'
-import { RequestOptions } from './types'
+import { RequestOptions } from '../types'
 
 export default function (config: RequestOptions): RequestOptions {
     // 在发送请求之前做些什么

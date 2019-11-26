@@ -43,6 +43,8 @@ import Anchor from 'packages/ui-anchor/src/main'
 // export { default as TmVideoPlayer } from 'web-ui/video-player/index'
 // export { default as TmSwitch } from 'web-ui/switch/index'
 
+import * as api from 'packages/ui-api/src/main'
+
 const components = [
     Actionsheet,
     Anchor,
@@ -54,5 +56,6 @@ function install (vue: typeof Vue, config = {}) {
 
 export default {
     install,
+    api,
     ...components,
 }

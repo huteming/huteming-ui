@@ -21,3 +21,6 @@ export interface RequestError extends AxiosError {
     config: RequestOptions
 }
 
+export interface JSONPResponse {
+    result: object
+}

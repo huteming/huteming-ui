@@ -1,5 +1,5 @@
 {
-  "name": "@huteming/util-request",
+  "name": "@huteming/ui-request",
   "private": true,
   "version": "2.1.2",
   "description": "提供http请求的封装方法",

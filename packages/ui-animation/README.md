@@ -1,16 +1,12 @@
-> 动画的简单算法
+### 引入
 
---------------
-
-## 示例
-
-```javascript
-import { animation } from '@huteming/util'
-
-animation.linear(from, to, (now, done) => {}, duration)
+```js
+import { Animation } from '@huteming/ui'
 ```
 
-## 方法
+## API
+
+### 对象方法
 
 | 函数 | 说明 |
 |----------|-----------|

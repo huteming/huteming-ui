@@ -20,7 +20,7 @@ util.forEach(({ modules }) => {
 export default [
     {
         path: `/${type}`,
-        redirect: `/${type}/canvas-draw`,
+        redirect: `/${type}/animation`,
         component: () => import('@/views/wrap-docs/wrap-docs.vue'),
         children: routes,
     }

@@ -1,6 +1,6 @@
 import { AxiosInstance, AxiosRequestConfig, AxiosResponse } from 'axios'
 import createInstance from './createInstance'
-import { RequestOptions } from './types'
+import { RequestOptions, JSONPResponse } from '../types'
 import requestInterceptor from './requestInterceptor'
 import formatOptions from './formatOptions'
 import successInterceptor from './successInterceptor'
@@ -35,7 +35,7 @@ export default class Request {
     /**
      * jsonp npm仓库: https://github.com/webmodules/jsonp
      */
-    jsonp (url: string, params = {}, config = {}) {
+    jsonp (url: string, params = {}, config = {}): Promise<JSONPResponse> {
         const [_url, _search] = url.split('?')
         const _query = parse(_search, { ignoreQueryPrefix: true })
 

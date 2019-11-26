@@ -1,6 +1,6 @@
 import sinon from 'sinon'
 import assert from 'assert'
-import * as api from 'web-util/api/src/main'
+import * as api from '../src/main'
 
 const originHref = window.location.href
 const host = '192.168.0.220'
