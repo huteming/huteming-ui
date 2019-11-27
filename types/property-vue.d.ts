@@ -6,21 +6,17 @@ import Vue from 'vue'
 declare module 'vue/types/vue' {
     // 3. 声明为 Vue 补充的东西
     interface VueConstructor {
+        registName: string
         install (vue: typeof Vue): void
         item: VueConstructor
+    }
+    interface Vue {
         styledDoms: any
     }
 }
 declare module 'vue/types/options' {
-    // 3. 声明为 Vue 补充的东西
     interface DirectiveOptions {
         // install?: (vue: typeof Vue) => void
-        name: string
-    }
-}
-declare module 'vue/types/vue' {
-    // 3. 声明为 Vue 补充的东西
-    interface Vue {
-        styledDoms: any
+        registName: string
     }
 }

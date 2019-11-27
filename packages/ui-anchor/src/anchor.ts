@@ -14,7 +14,7 @@ const defaults = {
 }
 
 export default {
-    name: 'Anchor',
+    registName: 'Anchor',
 
     inserted (el: HTMLElement, binding: DirectiveBinding, vnode: VNode) {
         let value = binding.value

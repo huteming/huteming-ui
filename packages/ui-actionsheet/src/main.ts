@@ -34,8 +34,10 @@ function Actionsheet (options: ActionsheetOptions | ActionsheetMenu[]): Promise<
     })
 }
 
+Actionsheet.registName = '$actionsheet'
+
 Actionsheet.install = function (vue: typeof Vue) {
-    vue.prototype.$actionsheet = Actionsheet
+    vue.prototype[Actionsheet.registName] = Actionsheet
 }
 
 export default Actionsheet

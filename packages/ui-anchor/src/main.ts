@@ -4,7 +4,7 @@ import Vue from 'vue'
 
 const plugin: Anchor = Object.assign({
     install (vue: typeof Vue) {
-        vue.directive(Directive.name, Directive)
+        vue.directive(Directive.registName, Directive)
     }
 }, Directive)
 

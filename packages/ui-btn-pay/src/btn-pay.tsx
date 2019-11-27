@@ -81,7 +81,7 @@ const styles = (styled: any, css: any) => {
     }
 }
 
-class TmBtnPay extends Vue {
+class BtnPay extends Vue {
     render () {
         const { Root, Container, Button, Prefix, Title, Group, Tip, Desc } = this.styledDoms
 
@@ -183,4 +183,4 @@ class TmBtnPay extends Vue {
     disabled!: boolean
 }
 
-export default withStyles(styles)(TmBtnPay, { name: 'TmBtnPay' })
+export default withStyles(styles)(BtnPay, { name: 'TmBtnPay' })

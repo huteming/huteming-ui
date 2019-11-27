@@ -43,7 +43,8 @@ import BtnPay from 'packages/ui-btn-pay/src/main'
 // export { default as TmVideoPlayer } from 'web-ui/video-player/index'
 // export { default as TmSwitch } from 'web-ui/switch/index'
 
-import * as api from 'packages/ui-api/src/main'
+import * as Animation from 'packages/ui-animation/src/main'
+import * as Api from 'packages/ui-api/src/main'
 
 const components = [
     Actionsheet,
@@ -57,6 +58,7 @@ function install (vue: typeof Vue, config = {}) {
 
 export default {
     install,
-    api,
+    Animation,
+    Api,
     ...components,
 }

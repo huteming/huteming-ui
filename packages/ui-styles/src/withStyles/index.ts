@@ -26,13 +26,14 @@ const _styled = (tagName: string, domProps: DomProps | Function, cssRules: Funct
 }
 
 const withStyles: WithStyles = function wrapper<V extends Vue> (styleCreater: StyleCreater) {
-    return function (CompConstructor: VueClass<V>, options: ComponentOptions<V>) {
+    return function (CompConstructor: VueClass<V>, options: ComponentOptions<V> = {}) {
         const styles: any = styleCreater(_styled, css)
         const styledDoms: any = {}
         Object.entries(styles).forEach(([tagName, creater]: any[]) => {
             styledDoms[tagName] = typeof creater === 'function' ? creater() : creater
         })
         CompConstructor.prototype.styledDoms = styledDoms
+        CompConstructor.registName = options.name || CompConstructor.name
 
         return Component(options)(CompConstructor)
     }
