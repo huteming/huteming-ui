@@ -1,5 +1,6 @@
 import { imageDataRGBA } from 'stackblur-canvas'
 import createCanvas from './createCanvas'
+import CanvasDraw from './main'
 
 /**
  * 创建一个新的模糊的canvas
@@ -9,9 +10,9 @@ import createCanvas from './createCanvas'
  * @param {*Number} width 截取区域的宽度
  * @param {*Number} height 截取区域的高度
  */
-export default function getBlurryArea (this: any, radius: any, x: any, y: any, width: any, height: any) {
-    const { ratio, context, _options, scale } = this
-    const { designWidth } = _options
+export default function getBlurryArea (this: CanvasDraw, radius: number, x: number, y: number, width: number, height: number) {
+    const { ratio, context, options, scale } = this
+    const { designWidth } = options
 
     const _x = x * ratio * scale
     const _y = y * ratio * scale

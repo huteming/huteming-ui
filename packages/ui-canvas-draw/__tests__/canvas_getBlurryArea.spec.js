@@ -1,6 +1,7 @@
 import assert from 'assert'
 import sinon from 'sinon'
-import getBlurryArea, { __RewireAPI__ as RewireAPI } from 'web-util/canvas-draw/src/getBlurryArea'
+import getBlurryArea, { __RewireAPI__ as RewireAPI } from '../src/getBlurryArea'
+import CanvasDraw from '../src/main'
 
 describe('canvas > getBlurryArea', () => {
     it('绘图', () => {
@@ -18,7 +19,7 @@ describe('canvas > getBlurryArea', () => {
         const res = getBlurryArea.call({
             ratio: 20,
             context: { getImageData: mockGetImageData },
-            _options: { designWidth: 750 },
+            options: { designWidth: 750 },
             scale: 10,
         }, 40, 2, 3, 4, 5)
 
@@ -30,6 +31,28 @@ describe('canvas > getBlurryArea', () => {
 
         RewireAPI.__ResetDependency__('createCanvas')
         RewireAPI.__ResetDependency__('imageDataRGBA')
+    })
+
+    it('draw返回HTMLCanvasElement', () => {
+        const mockData = { width: 100, height: 100 }
+        const mockCanvas = document.createElement('canvas')
+        const mockContext = mockCanvas.getContext('2d')
+        const mockGetImageData = sinon.fake.returns(mockData)
+        const mockGetCanvas = sinon.fake.returns({ canvas: mockCanvas, context: mockContext })
+        const mockBlur = sinon.fake()
+        const mockPutImageData = sinon.fake()
+        sinon.replace(mockContext, 'putImageData', mockPutImageData)
+        RewireAPI.__Rewire__('createCanvas', mockGetCanvas)
+        RewireAPI.__Rewire__('imageDataRGBA', mockBlur)
+
+        const ins = new CanvasDraw()
+        ins.ratio = 20
+        ins.context = { getImageData: mockGetImageData }
+        ins.options = { designWidth: 750 }
+        ins.scale = 10
+
+        const res = ins.getBlurryArea(40, 2, 3, 4, 5)
+        assert.ok(res instanceof HTMLCanvasElement)
     })
 
     afterEach(() => {

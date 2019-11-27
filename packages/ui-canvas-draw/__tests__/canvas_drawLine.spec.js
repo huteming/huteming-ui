@@ -1,6 +1,6 @@
 import assert from 'assert'
 import sinon from 'sinon'
-import CanvasDraw from 'web-util/canvas-draw/src/main'
+import CanvasDraw from '../src/main'
 
 describe('canvas > drawLine', () => {
     it('默认配置参数', () => {

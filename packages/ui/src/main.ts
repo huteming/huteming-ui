@@ -45,6 +45,7 @@ import BtnPay from 'packages/ui-btn-pay/src/main'
 
 import * as Animation from 'packages/ui-animation/src/main'
 import * as Api from 'packages/ui-api/src/main'
+import CanvasDraw from 'packages/ui-canvas-draw/src/main'
 
 const components = [
     Actionsheet,
@@ -60,5 +61,6 @@ export default {
     install,
     Animation,
     Api,
+    CanvasDraw,
     ...components,
 }

@@ -1,6 +1,6 @@
-import { Draw } from './declare/abstract'
-import { DrawTextOption, DrawTextConfig, Letter, Underline, Through, LetterRender, UnderlineRender, ThroughRender } from './declare/drawText'
-import { LineTypes } from './declare/enum'
+import { DrawTextOption, DrawTextConfig, Letter, Underline, Through, LetterRender, UnderlineRender, ThroughRender } from '../types/drawText'
+import { LineTypes } from '../types/enum'
+import CanvasDraw from './main'
 
 const defaults = {
     fix: '.... ', // 过长省略时添加字符串
@@ -38,7 +38,7 @@ const defaults = {
  *
  * @returns {Object} options
  */
-export default function (this: Draw, text: string, _x: number, _y: number, options: DrawTextOption = {}): DrawTextConfig {
+export default function (this: CanvasDraw, text: string, _x: number, _y: number, options: DrawTextOption = {}): DrawTextConfig {
     const config: DrawTextConfig = getConfig.call(this, _x, _y, options)
     setContextOptions.call(this, config)
 
@@ -63,7 +63,7 @@ export default function (this: Draw, text: string, _x: number, _y: number, optio
 }
 
 // 格式化系数
-export function getConfig (this: Draw, x: number, y: number, options: DrawTextOption = {}): DrawTextConfig {
+export function getConfig (this: CanvasDraw, x: number, y: number, options: DrawTextOption = {}): DrawTextConfig {
     const { ratio } = this
     const configUnderline = Object.assign({}, defaults.underline, options.underline)
 
@@ -98,7 +98,7 @@ export function getConfig (this: Draw, x: number, y: number, options: DrawTextOp
 }
 
 // 设置上下文参数
-export function setContextOptions (this: Draw, config: DrawTextConfig): void {
+export function setContextOptions (this: CanvasDraw, config: DrawTextConfig): void {
     const { context, scaleBySystem } = this
     const {
         style, variant, weight, size, color,
@@ -119,7 +119,7 @@ export function setContextOptions (this: Draw, config: DrawTextConfig): void {
 }
 
 // 计算文本的总宽度
-export function calcTextWidth (this: Draw, textArray: Letter[], config: DrawTextConfig): number {
+export function calcTextWidth (this: CanvasDraw, textArray: Letter[], config: DrawTextConfig): number {
     const { context } = this
     const { letterSpacing, underline: underlineOptions } = config
     const { left, right } = underlineOptions
@@ -279,7 +279,7 @@ export function parseType (textArray: Letter[]): Letter[] {
 
 // 解析添加坐标属性
 // [{ letter }] => [{ letter, letterWidth, x, y }]
-export function getRenderText (this: Draw, textArray: Letter[], config: DrawTextConfig): LetterRender[] {
+export function getRenderText (this: CanvasDraw, textArray: Letter[], config: DrawTextConfig): LetterRender[] {
     const { context } = this
     const { x, y, maxWidth, wrap, fix, lineHeight, underline: underlineOption, letterSpacing, align } = config
     const fixWidth: number = context.measureText(fix).width
@@ -367,7 +367,7 @@ export function getRenderText (this: Draw, textArray: Letter[], config: DrawText
 }
 
 // 获取待渲染下划线数组
-export function getRenderUnderlines (this: Draw, textArray: LetterRender[], config: DrawTextConfig): UnderlineRender[] {
+export function getRenderUnderlines (this: CanvasDraw, textArray: LetterRender[], config: DrawTextConfig): UnderlineRender[] {
     const { underline: underlineOption, size } = config
     const underlines: UnderlineRender[] = []
 
@@ -424,7 +424,7 @@ export function getRenderUnderlines (this: Draw, textArray: LetterRender[], conf
 }
 
 // 获取待渲染删除线数组
-export function getRenderThroughes (this: Draw, textArray: LetterRender[], config: DrawTextConfig): ThroughRender[] {
+export function getRenderThroughes (this: CanvasDraw, textArray: LetterRender[], config: DrawTextConfig): ThroughRender[] {
     const { size } = config
     const throughes: ThroughRender[] = []
     const throughStart = (char: string, x: number, y: number) => {
@@ -479,7 +479,7 @@ export function getRenderThroughes (this: Draw, textArray: LetterRender[], confi
     return throughes
 }
 
-export function drawText (this: Draw, textArray: LetterRender[], config: DrawTextConfig): void {
+export function drawText (this: CanvasDraw, textArray: LetterRender[], config: DrawTextConfig): void {
     const { context } = this
     const { type } = config
 
@@ -489,7 +489,7 @@ export function drawText (this: Draw, textArray: LetterRender[], config: DrawTex
     })
 }
 
-export function drawUnderlines (this: Draw, lines: UnderlineRender[], config: DrawTextConfig): void {
+export function drawUnderlines (this: CanvasDraw, lines: UnderlineRender[], config: DrawTextConfig): void {
     const { context } = this
     const { underline: { lineWidth, dashed } } = config
     context.save()
@@ -508,7 +508,7 @@ export function drawUnderlines (this: Draw, lines: UnderlineRender[], config: Dr
     context.restore()
 }
 
-export function drawThrough (this: Draw, lines: ThroughRender[], config: DrawTextConfig): void {
+export function drawThrough (this: CanvasDraw, lines: ThroughRender[], config: DrawTextConfig): void {
     const { context } = this
     context.save()
 
@@ -523,7 +523,7 @@ export function drawThrough (this: Draw, lines: ThroughRender[], config: DrawTex
     context.restore()
 }
 
-export function addStatistic (this: Draw, textArray: LetterRender[], config: DrawTextConfig): DrawTextConfig {
+export function addStatistic (this: CanvasDraw, textArray: LetterRender[], config: DrawTextConfig): DrawTextConfig {
     const { ratio } = this
     const { x, y, size } = config
     let minX = x

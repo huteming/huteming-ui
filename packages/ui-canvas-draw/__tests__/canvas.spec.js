@@ -1,6 +1,6 @@
 import assert from 'assert'
 import sinon from 'sinon'
-import CanvasDraw from 'web-util/canvas-draw/src/main'
+import CanvasDraw from '../src/main'
 
 describe('canvas', () => {
     it('是一个构造函数', () => {
@@ -52,7 +52,7 @@ describe('canvas', () => {
         it('过滤非函数参数', () => {
             const ins = new CanvasDraw()
             ins.add()
-            assert.strictEqual(ins._callbacks.length, 0)
+            assert.strictEqual(ins.callbacks.length, 0)
         })
     })
 

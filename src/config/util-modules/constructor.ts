@@ -15,15 +15,15 @@ export default [
     //     title: '概率随机数 Roller',
     //     docs: () => import('packages/ui-roller/README.md'),
     // },
-    // {
-    //     path: 'canvas-draw',
-    //     title: 'CanvasDraw',
-    //     docs: () => import('packages/ui-canvas-draw/README.md'),
-    //     example: () => import('packages/ui-canvas-draw/demo/basic.vue'),
-    //     test: {
-    //         'canvas': () => import('packages/ui-canvas-draw/tests/basic.vue'),
-    //     },
-    // },
+    {
+        path: 'canvas-draw',
+        title: 'CanvasDraw',
+        docs: () => import('packages/ui-canvas-draw/README.md'),
+        example: () => import('packages/ui-canvas-draw/demo/basic.vue'),
+        test: {
+            'canvas': () => import('packages/ui-canvas-draw/tests/basic.vue'),
+        },
+    },
     // {
     //     path: 'storage',
     //     title: '本地存储 Storage',

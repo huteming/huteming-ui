@@ -13,9 +13,9 @@
 </template>
 
 <script>
-import CanvasDraw from '../index'
+import CanvasDraw from '../src/main'
 // import imgLogo from '@/assets/images/logo.png'
-import { loadImages } from 'web-util/tool/src/main'
+import { loadImages } from 'packages/ui-tool/src/main'
 import bgFilter from './images/bg-filter.png'
 import bgTitle2 from './images/bg-title2.png'
 import bgTitle from './images/e.png'

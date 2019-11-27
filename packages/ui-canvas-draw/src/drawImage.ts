@@ -1,5 +1,5 @@
-import { Draw } from './declare/abstract'
-import { DrawImageOption, DrawImageConfig } from './declare/drawImage'
+import { DrawImageOption, DrawImageConfig } from '../types/drawImage'
+import CanvasDraw from './main'
 
 const defaults = {
     shadowColor: '',
@@ -17,7 +17,7 @@ const defaults = {
  *
  * @returns {Object} options
  */
-export default function (this: Draw, image: HTMLCanvasElement | HTMLImageElement, x: number, y: number, width: number, height: number, options: DrawImageOption = {}): DrawImageConfig {
+export default function (this: CanvasDraw, image: HTMLCanvasElement | HTMLImageElement, x: number, y: number, width: number, height: number, options: DrawImageOption = {}): DrawImageConfig {
     const config = formatOptions.call(this, x, y, width, height, options)
     setContextConfig.call(this, config)
     drawImage.call(this, image, config)
@@ -25,7 +25,7 @@ export default function (this: Draw, image: HTMLCanvasElement | HTMLImageElement
     return config
 }
 
-export function formatOptions (this: Draw, x: number, y: number, width: number, height: number, options: DrawImageOption): DrawImageConfig {
+export function formatOptions (this: CanvasDraw, x: number, y: number, width: number, height: number, options: DrawImageOption): DrawImageConfig {
     const { ratio } = this
 
     const _x = x * ratio
@@ -47,7 +47,7 @@ export function formatOptions (this: Draw, x: number, y: number, width: number, 
     return config
 }
 
-export function setContextConfig (this: Draw, config: DrawImageConfig): void {
+export function setContextConfig (this: CanvasDraw, config: DrawImageConfig): void {
     const { context } = this
     const { shadowColor, shadowOffsetX, shadowOffsetY, shadowBlur } = config
 
@@ -57,7 +57,7 @@ export function setContextConfig (this: Draw, config: DrawImageConfig): void {
     context.shadowBlur = shadowBlur
 }
 
-export function drawImage (this: Draw, image: HTMLCanvasElement | HTMLImageElement, config: DrawImageConfig): void {
+export function drawImage (this: CanvasDraw, image: HTMLCanvasElement | HTMLImageElement, config: DrawImageConfig): void {
     const { context } = this
     const { x, y, width, height } = config
 

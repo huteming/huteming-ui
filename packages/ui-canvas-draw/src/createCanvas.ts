@@ -2,6 +2,7 @@
  * 获取 canvas 对象
  * @argument {Number} width 设计稿上画布宽度
  * @argument {Number} height 设计稿上画布高度
+ * @argument {Number} designWidth 设计稿标准宽度
  *
  * @returns {Object} context, canvas, canvasWidth, canvasHeight, ratio
  */

@@ -1,6 +1,6 @@
 import assert from 'assert'
 import sinon from 'sinon'
-import createCanvas from 'web-util/canvas-draw/src/createCanvas'
+import createCanvas from '../src/createCanvas'
 
 describe('canvas', () => {
     afterEach(() => {

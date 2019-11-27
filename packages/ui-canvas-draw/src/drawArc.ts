@@ -1,6 +1,6 @@
-import { Draw } from './declare/abstract'
-import { DrawArcOption, DrawArcConfig } from './declare/drawArc'
-import { ArcTypes } from './declare/enum'
+import { DrawArcOption, DrawArcConfig } from '../types/drawArc'
+import { ArcTypes } from '../types/enum'
+import CanvasDraw from './main'
 
 const defaults = {
     startDegrees: 0, // 开始角度
@@ -25,7 +25,7 @@ const defaults = {
  *
  * @returns {Object} options
  */
-export default function (this: Draw, x: number, y: number, r: number, options: DrawArcOption = {}): DrawArcConfig {
+export default function (this: CanvasDraw, x: number, y: number, r: number, options: DrawArcOption = {}): DrawArcConfig {
     const config = formatOptions.call(this, x, y, r, options)
     setContextConfig.call(this, config)
 
@@ -34,7 +34,7 @@ export default function (this: Draw, x: number, y: number, r: number, options: D
     return config
 }
 
-export function formatOptions (this: Draw, x: number, y: number, r: number, options: DrawArcOption): DrawArcConfig {
+export function formatOptions (this: CanvasDraw, x: number, y: number, r: number, options: DrawArcOption): DrawArcConfig {
     const { ratio } = this
     const _x = (x + r) * ratio
     const _y = (y + r) * ratio
@@ -70,7 +70,7 @@ export function formatOptions (this: Draw, x: number, y: number, r: number, opti
     return config
 }
 
-export function setContextConfig (this: Draw, config: DrawArcConfig): void {
+export function setContextConfig (this: CanvasDraw, config: DrawArcConfig): void {
     const { context } = this
     const { fillColor, strokeColor, shadowColor, shadowOffsetX, shadowOffsetY, shadowBlur, lineWidth } = config
 
@@ -83,7 +83,7 @@ export function setContextConfig (this: Draw, config: DrawArcConfig): void {
     context.shadowBlur = shadowBlur
 }
 
-export function drawArc (this: Draw, config: DrawArcConfig): void {
+export function drawArc (this: CanvasDraw, config: DrawArcConfig): void {
     const { context } = this
     const radians = Math.PI / 180
     const {

@@ -1,19 +1,17 @@
 {
-  "name": "@huteming/util-canvas-draw",
-  "private": true,
+  "name": "@huteming/ui-canvas-draw",
+  "private": false,
   "version": "2.1.4",
-  "description": "封装 canvas 方法，便于画图导出图片",
+  "description": "> 封装 canvas 方法，便于画图导出图片",
   "main": "dist/canvas-draw.common.js",
   "scripts": {
-    "prepublishOnly": "node ../../../scripts/prepublishOnly.js canvas-draw util"
+    "prepublishOnly": "node ../../scripts/build-lib.js canvas-draw"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "core-decorators": "^0.20.0",
     "stackblur-canvas": "^2.2.0"
   },
   "devDependencies": {
-    "vue-tsx-support": "^2.3.2"
   }
 }

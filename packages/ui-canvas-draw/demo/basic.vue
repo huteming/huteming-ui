@@ -6,9 +6,9 @@
 </template>
 
 <script>
-import CanvasDraw from '../index'
+import CanvasDraw from '../src/main'
 import bgAdmission from './images/bg-admission.png'
-import { loadImages } from 'web-util/tool/src/main'
+import { loadImages } from 'packages/ui-tool/src/main'
 
 export default {
     data () {

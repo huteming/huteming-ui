@@ -1,7 +1,7 @@
 import assert from 'assert'
 import sinon from 'sinon'
-import CanvasDraw from 'web-util/canvas-draw/src/main'
-import { formatOptions, drawImage, setContextConfig } from 'web-util/canvas-draw/src/drawImage'
+import CanvasDraw from '../src/main'
+import { formatOptions, drawImage, setContextConfig } from '../src/drawImage'
 
 describe('canvas > drawImage', () => {
     describe('formatOptions', () => {

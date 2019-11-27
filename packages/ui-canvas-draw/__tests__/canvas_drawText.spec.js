@@ -3,8 +3,8 @@ import sinon from 'sinon'
 import {
     getConfig, setContextOptions, parseUnderline, parseType, getRenderText,
     addStatistic, parseThrough, getRenderUnderlines, getRenderThroughes
-} from 'web-util/canvas-draw/src/drawText'
-import CanvasDraw from 'web-util/canvas-draw/src/main'
+} from '../src/drawText'
+import CanvasDraw from '../src/main'
 
 describe('canvas > drawText', () => {
     it('drawText返回配置对象', () => {
