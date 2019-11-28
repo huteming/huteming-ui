@@ -1,15 +1,15 @@
 {
   "name": "@huteming/ui-cell",
-  "private": true,
+  "private": false,
   "version": "2.0.4",
   "description": "> Cell",
   "main": "dist/cell.common.js",
   "scripts": {
-    "prepublishOnly": "node ../../../scripts/prepublishOnly.js cell"
+    "prepublishOnly": "node ../../scripts/build-lib.js cell"
   },
   "author": "",
   "license": "ISC",
-  "devDependencies": {
-    "vue-tsx-support": "^2.3.2"
+  "dependencies": {
+    "@huteming/ui-styles": "^1.0.1"
   }
 }

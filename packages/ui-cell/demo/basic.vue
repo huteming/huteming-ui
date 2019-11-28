@@ -1,23 +1,16 @@
 <template>
-<div class="example-input">
-    <TmInput v-model="value1" placeholder="hello world" @focus="handleLog('force')" @blur="handleLog('blur')" @change="handleLog('change')" />
+<div class="page-demo">
+    <TmCell header="header" body="body" footer="footer" link />
+    <TmCell body="并列自动添加边框" link />
 </div>
 </template>
 
 <script>
-import TmInput from '../index.js'
-
 export default {
     data () {
         return {
             value1: '',
         }
-    },
-
-    watch: {
-        value1 (val) {
-            console.log('watch', val)
-        },
     },
 
     methods: {
@@ -26,15 +19,8 @@ export default {
             // console.log('args', ...args)
         },
     },
-
-    components: {
-        TmInput,
-    },
 }
 </script>
 
 <style lang="scss" scoped>
-.example-input {
-    background-color: #f6f6f6;
-}
 </style>

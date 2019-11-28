@@ -11,6 +11,12 @@ export default [
         docs: () => import('packages/ui-carousel/README.md'),
         example: () => import('packages/ui-carousel/demo/basic.vue'),
     },
+    {
+        path: 'cell',
+        title: '单元格 Cell',
+        docs: () => import('packages/ui-cell/README.md'),
+        example: () => import('packages/ui-cell/demo/basic.vue'),
+    },
     // {
     //     path: 'clocker',
     //     title: '倒计时 clocker',

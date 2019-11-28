@@ -17,7 +17,7 @@ import Anchor from 'packages/ui-anchor/src/main'
 import BtnPay from 'packages/ui-btn-pay/src/main'
 import Carousel from 'packages/ui-carousel/src/main'
 import CarouselItem from 'packages/ui-carousel-item/src/main'
-// export { default as TmCell } from 'web-ui/cell/index'
+import Cell from 'packages/ui-cell/src/main'
 // export { default as TmClocker } from 'web-ui/clocker/index'
 // export { default as TmDialog } from 'web-ui/dialog/index'
 // export { default as TmEmpty } from 'web-ui/empty/index'
@@ -53,6 +53,7 @@ const components = [
     BtnPay,
     Carousel,
     CarouselItem,
+    Cell,
 ]
 
 function install (vue: typeof Vue, config = {}) {
