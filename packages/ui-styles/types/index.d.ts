@@ -26,9 +26,13 @@ export interface StyleProps {
 }
 
 export interface StyleCreater {
-    (styled: any, css: any): object
+    (styled: any, css: any, helper: StyleHelper): object
 }
 
 export interface WithStyles {
     <V extends Vue>(styleCreater: StyleCreater): (CompConstructor: VueClass<V>, options: ComponentOptions<V>) => VueClass<V>
+}
+
+export interface StyleHelper {
+    autofit (px: number): number
 }

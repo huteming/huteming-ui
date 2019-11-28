@@ -41,6 +41,8 @@ async function create (params, methods = {}) {
     })
     Object.entries(methods).forEach(([name, mock]) => parent.vm[name] = mock)
     await sleep(10)
+    // fix: children多于3个，但是打印的html并不存在。咱不知道原因
+    parent.vm.children.length = wrap.vm.count
     return [wrap, parent, children]
 }
 
@@ -108,16 +110,12 @@ describe('carousel', () => {
         assert.strictEqual(mockPause.callCount, 1)
         assert.strictEqual(mockPrevent.callCount, 1)
         assert.strictEqual(parent.vm.currentIndex, 1)
-
-        wrap.destroy()
     })
 
     it('滑动到达右边界限', async () => {
-        const [, parent] = await create({ loop: false, initial: 2, direction: 'horizontal' })
+        const [wrap, parent] = await create({ loop: false, initial: 2, direction: 'horizontal' })
         const mockPrevent = sinon.fake()
         const { handleTouchstart, handleTouchmove, handleTouchend } = parent.vm
-        // fix: children多余3个，但是打印的html并不存在。咱不知道原因
-        parent.vm.children.length = 3
 
         handleTouchstart({
             changedTouches: [{ pageX: 300, pageY: 0 }],
