@@ -1,6 +1,17 @@
 <template>
-<div class="test-carousel">
+<div class="page-demo">
     <button @click="handleDirectionChange">toggle direction: {{ direction }}</button>
+
+    <h3 class="text-center">基础用法</h3>
+    <button @click="$refs.carousel0.setActiveItem(2)">set item 2</button>
+    <button @click="$refs.carousel0.next()">next</button>
+    <button @click="$refs.carousel0.prev()">prev</button>
+
+    <tm-carousel ref="carousel0" :loop="false" :initial="2">
+        <tm-carousel-item  v-for="item in items" :key="item.name">
+            <div class="swiper" :class="item.classes">{{ item.name }}</div>
+        </tm-carousel-item>
+    </tm-carousel>
 
     <h3 class="text-center">async items</h3>
     <button @click="$refs.carousel.setActiveItem(2)">set item 2</button>
@@ -87,7 +98,7 @@ export default {
                 { name: '1', classes: 'swiper-blue' },
                 { name: '2', classes: 'swiper-yellow' },
                 { name: 'hello', classes: 'swiper-pink' },
-                { name: '4', classes: 'swiper-yellow' },
+                // { name: '4', classes: 'swiper-yellow' },
             ],
             asyncItems: [],
         }

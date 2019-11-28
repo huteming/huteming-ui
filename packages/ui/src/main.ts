@@ -15,8 +15,8 @@ import Anchor from 'packages/ui-anchor/src/main'
 // export { default as TmTransitionCollapse } from 'web-ui/transition-collapse/index'
 
 import BtnPay from 'packages/ui-btn-pay/src/main'
-// export { default as TmCarousel } from 'web-ui/carousel/index'
-// export { default as TmCarouselItem } from 'web-ui/carousel-item/index'
+import Carousel from 'packages/ui-carousel/src/main'
+import CarouselItem from 'packages/ui-carousel-item/src/main'
 // export { default as TmCell } from 'web-ui/cell/index'
 // export { default as TmClocker } from 'web-ui/clocker/index'
 // export { default as TmDialog } from 'web-ui/dialog/index'
@@ -51,6 +51,8 @@ const components = [
     Actionsheet,
     Anchor,
     BtnPay,
+    Carousel,
+    CarouselItem,
 ]
 
 function install (vue: typeof Vue, config = {}) {

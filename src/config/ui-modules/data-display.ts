@@ -5,12 +5,12 @@ export default [
     //     docs: () => import('packages/ui-turntable/README.md'),
     //     example: () => import('packages/ui-turntable/demo/basic.vue'),
     // },
-    // {
-    //     path: 'carousel',
-    //     title: '走马灯 carousel',
-    //     docs: () => import('packages/ui-carousel/README.md'),
-    //     example: () => import('packages/ui-carousel/demo/basic.vue'),
-    // },
+    {
+        path: 'carousel',
+        title: '走马灯 Carousel',
+        docs: () => import('packages/ui-carousel/README.md'),
+        example: () => import('packages/ui-carousel/demo/basic.vue'),
+    },
     // {
     //     path: 'clocker',
     //     title: '倒计时 clocker',

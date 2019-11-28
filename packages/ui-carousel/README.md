@@ -2,39 +2,39 @@
 
 -------------
 
-## 引入
+### 引入
 
 ```javascript
-import { TmCarousel, TmCarouselItem } from '@huteming/ui'
+import { Carousel, CarouselItem } from '@huteming/ui'
 
-Vue.use(TmCarousel)
-// Vue.component(TmCarousel.name, TmCarousel)
-Vue.use(TmCarouselItem)
-// Vue.component(TmCarouselItem.name, TmCarouselItem)
+Vue.use(Carousel)
+Vue.use(CarouselItem)
 ```
 
-## 例子
+## 代码演示
+
+### 基础用法
 
 ```html
-<tm-carousel height="6rem" @change="handleChange">
+<tm-carousel height="6rem">
     <tm-carousel-item>
-        <div class="swiper">item</div>
+        <div class="swiper" name="customName">item</div>
     </tm-carousel-item>
 </tm-carousel>
 ```
 
-## Carousel
+## API
 
-### API
+### Props
 
 | 参数 | 说明 | 类型 | 可选值 | 默认值 |
 |------|-------|---------|-------|--------|
-| height | 高度 | String | | |
-| initial | 初始索引 | String, Number | | |
-| loop | 是否循环 | Boolean | | `true` |
-| autoplay | 自动播放 | Boolean | | `false` |
-| interval | 自动播放的时间间隔（毫秒） | Number | | `3000` |
-| direction | 轮播方向 | String | `horizontal`, `vertical` | `horizontal` |
+| height | 高度 | String | - | - |
+| initial | 初始索引 | *string \| number* | - | - |
+| loop | 是否循环 | Boolean | - | `true` |
+| autoplay | 自动播放 | Boolean | - | `false` |
+| interval | 自动播放的时间间隔（毫秒） | Number | - | `3000` |
+| direction | 轮播方向 | String | *horizontal \| vertical* | `horizontal` |
 | disabled-touch | 禁止手势 | Boolean | | `false` |
 
 ### Slot
