@@ -59,4 +59,34 @@ import ui from '@huteming/ui'
 Vue.use(ui)
 ```
 
+### 方式四、通过 CDN 引入
+
+```html
+<!-- 引入 Vue 和 Vant 的 JS 文件 -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.6.10/vue.min.js"></script>
+<script src="https://unpkg.com/@huteming/ui/dist/huteming-ui.umd.js"></script>
+```
+
+```html
+<div id="app">
+  <tm-cell body="快速开始" link></tm-cell>
+</div>
+```
+
+```js
+// 在 #app 标签下渲染一个按钮组件
+new Vue({
+  el: '#app',
+})
+```
+
+## Hello world
+
+### [在线演示](https://codepen.io/huteming/pen/BaaXXLZ)
+
+<iframe height="265" style="width: 100%;" scrolling="no" title="Element demo" src="//codepen.io/huteming/pen/BaaXXLZ/?height=265&theme-id=light&default-tab=html" frameborder="no" allowtransparency="true" allowfullscreen="true">
+  See the Pen <a href='https://codepen.io/huteming/pen/BaaXXLZ'>huteming-ui demo</a> by huteming
+  (<a href='https://codepen.io/huteming'>@huteming</a>) on <a href='https://codepen.io'>CodePen</a>.
+</iframe>
+
 ## 各个组件的使用方法请参阅它们各自的文档。
