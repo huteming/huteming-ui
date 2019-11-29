@@ -1,7 +1,9 @@
 import { AnchorAttr } from 'packages/ui-anchor/types'
+import { VueConstructor } from 'vue'
 
 declare global {
     interface Window {
+        Vue?: VueConstructor
         WeixinJSBridge: {
             invoke: (arg0: string, arg1: object, arg2: (arg0: { err_msg: string }) => void) => void,
         },

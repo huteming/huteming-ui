@@ -1,7 +1,7 @@
 {
   "name": "@huteming/ui",
   "private": false,
-  "version": "2.1.6",
+  "version": "2.2.6",
   "description": "",
   "main": "dist/huteming-ui.common.js",
   "scripts": {
@@ -14,5 +14,8 @@
     "@huteming/ui-anchor": "^2.0.7",
     "@huteming/ui-animation": "^1.0.1",
     "@huteming/ui-api": "^2.0.4"
+  },
+  "publishConfig": {
+    "registry": "https://registry.npmjs.org/"
   }
 }

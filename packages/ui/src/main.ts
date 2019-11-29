@@ -60,6 +60,11 @@ function install (vue: typeof Vue, config = {}) {
     Object.values(components).forEach(item => vue.use(item))
 }
 
+/* istanbul ignore if */
+if (typeof window !== 'undefined' && window.Vue) {
+    install(window.Vue)
+}
+
 export default {
     install,
     Animation,

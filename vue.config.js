@@ -5,6 +5,7 @@ const isProd = process.env.NODE_ENV === 'production'
 const externals = (() => {
     const config = {
         'axios': 'axios',
+        // 'vue': 'window.Vue',
     }
     // if (isProd) {
     //     config['highlight.js'] = 'hljs'
