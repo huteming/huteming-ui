@@ -1,7 +1,7 @@
 {
   "name": "@huteming/ui-actionsheet",
   "private": false,
-  "version": "1.0.2",
+  "version": "1.1.0",
   "description": "> 上拉菜单",
   "main": "src/main.ts",
   "scripts": {
@@ -10,7 +10,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "@huteming/ui-modal": "^1.0.1",
-    "@huteming/ui-styles": "^1.0.1"
+    "@huteming/ui-modal": "^1.1.0",
+    "@huteming/ui-styles": "^1.1.0"
   }
 }

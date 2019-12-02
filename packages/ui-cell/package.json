@@ -1,7 +1,7 @@
 {
   "name": "@huteming/ui-cell",
   "private": false,
-  "version": "2.0.4",
+  "version": "2.1.0",
   "description": "> Cell",
   "main": "dist/cell.common.js",
   "scripts": {
@@ -10,6 +10,6 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "@huteming/ui-styles": "^1.0.1"
+    "@huteming/ui-styles": "^1.1.0"
   }
 }

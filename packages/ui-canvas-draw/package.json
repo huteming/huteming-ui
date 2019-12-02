@@ -1,7 +1,7 @@
 {
   "name": "@huteming/ui-canvas-draw",
   "private": false,
-  "version": "2.1.4",
+  "version": "2.1.5",
   "description": "> 封装 canvas 方法，便于画图导出图片",
   "main": "dist/canvas-draw.common.js",
   "scripts": {
@@ -11,7 +11,5 @@
   "license": "ISC",
   "dependencies": {
     "stackblur-canvas": "^2.2.0"
-  },
-  "devDependencies": {
   }
 }
