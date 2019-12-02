@@ -4,7 +4,7 @@ import { VueClass } from 'vue-class-component/lib/declarations'
 import withTheme from '../withTheme'
 import withPropsState from '../withPropsState'
 import styled, { css } from 'vue-styled-components'
-import { PropsState, StyleProps, StyleCreater, WithStyles, StyleHelper } from '../../types'
+import { PropsState, StyleProps, StyleCreater, StyleHelper } from '../../types'
 
 interface DomProps {
     state?: PropsState
@@ -31,13 +31,16 @@ const helper: StyleHelper = {
     },
 }
 
-const withStyles: WithStyles = function wrapper<V extends Vue> (styleCreater: StyleCreater) {
-    return function (CompConstructor: VueClass<V>, options: ComponentOptions<V> = {}) {
-        const styles: object = styleCreater(_styled, css, helper)
+const withStyles = function wrapper (styleCreater?: StyleCreater) {
+    return function<V extends Vue> (CompConstructor: VueClass<V>, options: ComponentOptions<V> = {}) {
+        const styles: object | undefined = styleCreater && styleCreater(_styled, css, helper)
         const styledDoms: any = {}
-        Object.entries(styles).forEach(([tagName, creater]: any[]) => {
-            styledDoms[tagName] = typeof creater === 'function' ? creater() : creater
-        })
+
+        if (styles) {
+            Object.entries(styles).forEach(([tagName, creater]: any[]) => {
+                styledDoms[tagName] = typeof creater === 'function' ? creater() : creater
+            })
+        }
         CompConstructor.prototype.styledDoms = styledDoms
         CompConstructor.registName = options.name || CompConstructor.name
 

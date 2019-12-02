@@ -89,7 +89,7 @@ export interface StyleCreater {
 }
 
 export interface WithStyles {
-    <V extends Vue>(styleCreater: StyleCreater): (CompConstructor: VueClass<V>, options: ComponentOptions<V>) => VueClass<V>
+    <V extends Vue>(styleCreater?: StyleCreater): (CompConstructor: VueClass<V>, options: ComponentOptions<V>) => VueClass<V>
 }
 
 export interface StyleHelper {
