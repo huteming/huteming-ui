@@ -1,15 +1,18 @@
 {
   "name": "@huteming/ui-icon",
-  "private": true,
+  "private": false,
   "version": "2.0.1",
   "description": "> 图标",
   "main": "dist/icon.common.js",
   "scripts": {
-    "prepublishOnly": "node ../../../scripts/prepublishOnly.js icon"
+    "prepublishOnly": "node ../../scripts/build-lib.js icon"
   },
   "author": "",
   "license": "ISC",
   "devDependencies": {
     "vue-tsx-support": "^2.3.2"
+  },
+  "dependencies": {
+    "@huteming/ui-styles": "^1.0.1"
   }
 }
