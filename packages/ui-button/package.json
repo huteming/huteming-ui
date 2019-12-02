@@ -21,7 +21,7 @@
     "url": "git+https://github.com/huteming/huteming-ui.git"
   },
   "scripts": {
-    "test": "echo \"Error: run tests from root\" && exit 1"
+    "prepublishOnly": "node ../../scripts/build-lib.js button"
   },
   "bugs": {
     "url": "https://github.com/huteming/huteming-ui/issues"

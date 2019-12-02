@@ -24,7 +24,7 @@ import Cell from 'packages/ui-cell/src/main'
 // export { default as TmField } from 'web-ui/field/index'
 // export { default as TmFlex } from '@ui/packages/flex/index'
 // export { default as TmFlexItem } from '@ui/packages/flex-item/index'
-// export { default as TmIcon } from 'web-ui/icon/index'
+import Icon from 'packages/ui-icon/src/main'
 // export { default as TmImage } from 'web-ui/image/index'
 // export { default as TmPanel } from 'web-ui/panel/index'
 // export { default as TmPicker } from 'web-ui/picker/index'
@@ -56,6 +56,7 @@ const components = [
     CarouselItem,
     Cell,
     Button,
+    Icon,
 ]
 
 function install (vue: typeof Vue, config = {}) {
