@@ -16,9 +16,9 @@ export default {
     computed: {
         examplePath () {
             const { origin, pathname } = location
-            const { path } = this.$route.meta
+            const { childPath } = this.$route.meta
 
-            return `${origin}${pathname}#/example/${path}`
+            return `${origin}${pathname}#/example/${childPath}`
         }
     }
 }

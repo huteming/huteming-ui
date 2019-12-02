@@ -1,4 +1,6 @@
-export default [
+import { Link } from '../types'
+
+export default <Link[]>[
     // {
     //     path: 'flex',
     //     title: 'Flex 布局',

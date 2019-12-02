@@ -1,17 +1,23 @@
-export default [
-    {
-        title: '',
-        modules: [
-            {
-                path: 'quickstart',
-                title: '快速开始',
-                docs: () => import('packages/ui/README.md'),
-            },
-            {
-                path: 'changelog',
-                title: '更新日志',
-                docs: () => import('packages/ui/CHANGELOG.md'),
-            },
-        ],
-    },
-]
+import { Config } from './types'
+
+export default <Config>{
+    rootPath: 'guide',
+    headTitle: '指南',
+    sideGroup: [
+        {
+            sideTitle: '',
+            children: [
+                {
+                    childPath: 'quickstart',
+                    chineseName: '快速开始',
+                    doc: () => import('packages/ui/README.md'),
+                },
+                {
+                    childPath: 'changelog',
+                    chineseName: '更新日志',
+                    doc: () => import('packages/ui/CHANGELOG.md'),
+                },
+            ],
+        },
+    ],
+}

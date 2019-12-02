@@ -1,4 +1,6 @@
-export default [
+import { Link } from '../types'
+
+export default <Link[]>[
     // {
     //     path: 'transition-collapse',
     //     title: '折叠动画',

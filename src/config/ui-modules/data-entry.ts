@@ -1,4 +1,6 @@
-export default [
+import { Link } from '../types'
+
+export default <Link[]>[
     // {
     //     path: 'field',
     //     title: '输入框 Field',

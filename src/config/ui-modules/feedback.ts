@@ -1,44 +1,46 @@
-export default [
+import { Link } from '../types'
+
+export default <Link[]>[
     {
-        path: 'actionsheet',
-        title: 'Actionsheet 上拉菜单',
-        docs: () => import('packages/ui-actionsheet/README.md'),
+        childPath: 'actionsheet',
+        chineseName: 'Actionsheet 上拉菜单',
+        doc: () => import('packages/ui-actionsheet/README.md'),
         example: () => import('packages/ui-actionsheet/demo/basic.vue'),
     },
     // {
-    //     path: 'message',
-    //     title: '对话框 Message',
-    //     docs: () => import('packages/ui-message/README.md'),
+    //     childPath: 'message',
+    //     chineseName: '对话框 Message',
+    //     doc: () => import('packages/ui-message/README.md'),
     //     example: () => import('packages/ui-message/demo/basic.vue'),
     // },
     // {
-    //     path: 'dialog',
-    //     title: '弹窗 Dialog',
-    //     docs: () => import('packages/ui-dialog/README.md'),
+    //     childPath: 'dialog',
+    //     chineseName: '弹窗 Dialog',
+    //     doc: () => import('packages/ui-dialog/README.md'),
     //     example: () => import('packages/ui-dialog/demo/basic.vue'),
     // },
     // {
-    //     path: 'toast',
-    //     title: '提示 Toast',
-    //     docs: () => import('packages/ui-toast/README.md'),
+    //     childPath: 'toast',
+    //     chineseName: '提示 Toast',
+    //     doc: () => import('packages/ui-toast/README.md'),
     //     example: () => import('packages/ui-toast/demo/basic.vue'),
     // },
     // {
-    //     path: 'popup',
-    //     title: '弹出层 Popup',
-    //     docs: () => import('packages/ui-popup/README.md'),
+    //     childPath: 'popup',
+    //     chineseName: '弹出层 Popup',
+    //     doc: () => import('packages/ui-popup/README.md'),
     //     example: () => import('packages/ui-popup/demo/basic.vue'),
     // },
     // {
-    //     path: 'loading',
-    //     title: '加载 Loading',
-    //     docs: () => import('packages/ui-loading/README.md'),
+    //     childPath: 'loading',
+    //     chineseName: '加载 Loading',
+    //     doc: () => import('packages/ui-loading/README.md'),
     //     example: () => import('packages/ui-loading/demo/basic.vue'),
     // },
     // {
-    //     path: 'ripple',
-    //     title: '水波纹 ripple',
-    //     docs: () => import('packages/ui-ripple/README.md'),
+    //     childPath: 'ripple',
+    //     chineseName: '水波纹 ripple',
+    //     doc: () => import('packages/ui-ripple/README.md'),
     //     example: () => import('packages/ui-ripple/demo/basic.vue'),
     // },
 ]

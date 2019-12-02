@@ -1,20 +1,20 @@
-import { ConfigPage } from '../config'
+import { Link } from '../types'
 
-export default <ConfigPage[]>[
+export default <Link[]>[
     {
-        path: 'animation',
-        title: '动画 Animation',
-        docs: () => import('packages/ui-animation/README.md'),
+        childPath: 'animation',
+        chineseName: '动画 Animation',
+        doc: () => import('packages/ui-animation/README.md'),
     },
     // {
-    //     path: 'tool',
-    //     title: '工具函数 Tool',
-    //     docs: () => import('packages/ui-tool/README.md'),
+    //     childPath: 'tool',
+    //     chineseName: '工具函数 Tool',
+    //     doc: () => import('packages/ui-tool/README.md'),
     // },
     // {
-    //     path: 'wxsdk',
-    //     title: '微信公众号 sdk',
-    //     docs: () => import('packages/ui-wxsdk/README.md'),
+    //     childPath: 'wxsdk',
+    //     chineseName: '微信公众号 sdk',
+    //     doc: () => import('packages/ui-wxsdk/README.md'),
     //     test: {
     //         'wxsdk': () => import('packages/ui-wxsdk/tests/basic.vue'),
     //         'wxsdk/hide': () => import('packages/ui-wxsdk/tests/hide.vue'),
@@ -24,18 +24,18 @@ export default <ConfigPage[]>[
     //     },
     // },
     // {
-    //     path: 'api',
-    //     title: '常用接口 api',
-    //     docs: () => import('packages/ui-api/README.md'),
+    //     childPath: 'api',
+    //     chineseName: '常用接口 api',
+    //     doc: () => import('packages/ui-api/README.md'),
     // },
     // {
-    //     path: 'image-convertor',
-    //     title: '图片转换器',
-    //     docs: () => import('packages/ui-image-convertor/README.md'),
+    //     childPath: 'image-convertor',
+    //     chineseName: '图片转换器',
+    //     doc: () => import('packages/ui-image-convertor/README.md'),
     // },
     // {
-    //     path: 'element',
-    //     title: 'DOM辅助函数 element',
-    //     docs: () => import('packages/ui-element/README.md'),
+    //     childPath: 'element',
+    //     chineseName: 'DOM辅助函数 element',
+    //     doc: () => import('packages/ui-element/README.md'),
     // },
 ]

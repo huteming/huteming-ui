@@ -1,12 +1,12 @@
 <template>
 <div class="nav">
-    <div class="nav-container" v-for="(item, index) in maps" :key="index">
-        <div class="nav-title">{{ item.title }}</div>
+    <div class="nav-container" v-for="(item, index) in sideGroup" :key="index">
+        <div class="nav-title">{{ item.sideTitle }}</div>
 
-        <div v-for="page in item.modules" :key="page.path">
+        <div v-for="page in item.children" :key="page.path">
             <!-- 在路由中约定: link = type + path -->
-            <router-link class="nav-text" :to="`/${type}/${page.path}`" tag="div" exact>
-                <span>{{ page.title }}</span>
+            <router-link class="nav-text" :to="`/${type}/${page.childPath}`" tag="div" exact>
+                <span>{{ page.chineseName }}</span>
             </router-link>
         </div>
     </div>
@@ -14,14 +14,11 @@
 </template>
 
 <script>
-import ui from '@/config/ui'
-import util from '@/config/util'
-import guide from '@/config/guide'
+import config from 'src/config'
 
 export default {
     data () {
         return {
-            util,
         }
     },
 
@@ -29,17 +26,10 @@ export default {
         type () {
             return this.$route.meta.type
         },
-        maps () {
-            switch (this.type) {
-            case 'guide':
-                return guide
-            case 'component':
-                return ui
-            case 'function':
-                return util
-            default:
-                return []
-            }
+        sideGroup () {
+            const side = config.find(item => item.rootPath === this.type)
+
+            return side.sideGroup || []
         },
     }
 }

@@ -1,37 +1,39 @@
-export default [
+import { Link } from '../types'
+
+export default <Link[]>[
     // {
-    //     path: 'player',
-    //     title: '播放器 Player',
-    //     docs: () => import('packages/ui-player/README.md'),
+    //     childPath: 'player',
+    //     chineseName: '播放器 Player',
+    //     doc: () => import('packages/ui-player/README.md'),
     //     example: () => import('packages/ui-player/demo/basic.vue'),
     // },
     // {
-    //     path: 'validator',
-    //     title: '验证器 Validator',
-    //     docs: () => import('packages/ui-validator/README.md'),
+    //     childPath: 'validator',
+    //     chineseName: '验证器 Validator',
+    //     doc: () => import('packages/ui-validator/README.md'),
     // },
     // {
-    //     path: 'roller',
-    //     title: '概率随机数 Roller',
-    //     docs: () => import('packages/ui-roller/README.md'),
+    //     childPath: 'roller',
+    //     chineseName: '概率随机数 Roller',
+    //     doc: () => import('packages/ui-roller/README.md'),
     // },
     {
-        path: 'canvas-draw',
-        title: 'CanvasDraw',
-        docs: () => import('packages/ui-canvas-draw/README.md'),
+        childPath: 'canvas-draw',
+        chineseName: 'CanvasDraw',
+        doc: () => import('packages/ui-canvas-draw/README.md'),
         example: () => import('packages/ui-canvas-draw/demo/basic.vue'),
-        test: {
+        e2e: {
             'canvas': () => import('packages/ui-canvas-draw/tests/basic.vue'),
         },
     },
     // {
-    //     path: 'storage',
-    //     title: '本地存储 Storage',
-    //     docs: () => import('packages/ui-storage/README.md'),
+    //     childPath: 'storage',
+    //     chineseName: '本地存储 Storage',
+    //     doc: () => import('packages/ui-storage/README.md'),
     // },
     // {
-    //     path: 'request',
-    //     title: 'ajax构造器',
-    //     docs: () => import('packages/ui-request/README.md'),
+    //     childPath: 'request',
+    //     chineseName: 'ajax构造器',
+    //     doc: () => import('packages/ui-request/README.md'),
     // },
 ]

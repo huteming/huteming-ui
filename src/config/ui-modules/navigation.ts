@@ -1,4 +1,6 @@
-export default [
+import { Link } from '../types'
+
+export default <Link[]>[
     // {
     //     path: 'tab',
     //     title: '选项卡 Tab',
