@@ -42,6 +42,7 @@ import Cell from 'packages/ui-cell/src/main'
 // export { default as TmAudioPlayer } from 'web-ui/audio-player/index'
 // export { default as TmVideoPlayer } from 'web-ui/video-player/index'
 // export { default as TmSwitch } from 'web-ui/switch/index'
+import Button from 'packages/ui-button/src/main'
 
 import * as Animation from 'packages/ui-animation/src/main'
 import * as Api from 'packages/ui-api/src/main'
@@ -54,6 +55,7 @@ const components = [
     Carousel,
     CarouselItem,
     Cell,
+    Button,
 ]
 
 function install (vue: typeof Vue, config = {}) {

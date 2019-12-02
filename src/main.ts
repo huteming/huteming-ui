@@ -4,7 +4,7 @@ import router from './router'
 import store from './store'
 import ElementUI from 'element-ui'
 import DemoDivider from './components/Divider.vue'
-import AppDemoBlock from './components/DemoBlock.vue'
+import DemoBlock from './components/block.vue'
 import DemoPlaceholder from './components/Placeholder.vue'
 import AppCell from './components/Cell.vue'
 import './registerServiceWorker'
@@ -15,7 +15,7 @@ import './assets/style/index.scss'
 import ui from 'ui/main'
 
 Vue.component(DemoDivider.name, DemoDivider)
-Vue.component(AppDemoBlock.name, AppDemoBlock)
+Vue.component(DemoBlock.name, DemoBlock)
 Vue.component(DemoPlaceholder.name, DemoPlaceholder)
 Vue.component(AppCell.name, AppCell)
 Vue.use(ui)

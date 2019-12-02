@@ -1,7 +1,7 @@
 // import { autoprefixer } from 'packages/ui-element/src/main'
 import { autoprefixer } from '@huteming/ui-element/src/main'
 import { Vue, Prop, Mixins } from 'vue-property-decorator'
-import { withStyles } from '@huteming/ui-styles'
+import { withStyles } from '@huteming/ui-styles/src/main'
 import { StyleProps } from '@huteming/ui-styles/types'
 import { Carousel } from '../types'
 import { ChildrenMixin } from 'ui/mixins/relation'

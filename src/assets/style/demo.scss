@@ -1,5 +1,14 @@
 .page-demo {
     min-height: 100vh;
+    padding-bottom: 30px;
     // background: #fbf9fe;
     background: #f6f6f6;
+
+    button:not(:last-child) {
+        margin-right: 16px;
+    }
+}
+
+.spacing {
+    height: 15px;
 }

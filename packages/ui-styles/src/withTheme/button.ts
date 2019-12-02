@@ -1,0 +1,36 @@
+import { ThemeButton } from '../../types'
+import themeFont from './font'
+import themeColor from './color'
+
+export default <ThemeButton>{
+    height: '44px',
+    fontSize: themeFont.sizeLarge,
+    lineHeight: '42px',
+    borderRadius: '2px',
+    colorDefault: themeColor.text,
+    colorPrimary: themeColor.white,
+    colorInfo: themeColor.white,
+    colorWarning: themeColor.white,
+    colorDanger: themeColor.white,
+    backgroundColorDefault: themeColor.white,
+    backgroundColorPrimary: themeColor.green,
+    backgroundColorInfo: themeColor.blue,
+    backgroundColorWarning: themeColor.orange,
+    backgroundColorDanger: themeColor.red,
+    borderWidth: '1px',
+    borderColorDefault: themeColor.border,
+    borderColorPrimary: themeColor.green,
+    borderColorInfo: themeColor.blue,
+    borderColorWarning: themeColor.orange,
+    borderColorDanger: themeColor.red,
+    heightLarge: '50px',
+    fontSizeNormal: themeFont.sizeNormal,
+    minWidthSmall: '60px',
+    heightSmall: '30px',
+    paddingSmall: '8px',
+    fontSizeSmall: themeFont.sizeSmall,
+    minWidthMini: '50px',
+    heightMini: '22px',
+    fontSizeMini: themeFont.sizeMini,
+    backgroundColorPlain: themeColor.white,
+}

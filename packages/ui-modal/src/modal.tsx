@@ -1,5 +1,5 @@
 import { Vue } from 'vue-property-decorator'
-import { withStyles } from '@huteming/ui-styles'
+import { withStyles } from '@huteming/ui-styles/src/main'
 import { StyleProps } from '@huteming/ui-styles/types'
 
 const styles = (styled: any, css: any) => {

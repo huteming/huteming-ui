@@ -1,0 +1,33 @@
+{
+  "name": "@huteming/ui-button",
+  "version": "1.0.0",
+  "description": "> 按钮",
+  "author": "Tommy <tommy@jhshuyuan.com>",
+  "homepage": "https://github.com/huteming/huteming-ui#readme",
+  "license": "ISC",
+  "main": "dist/button.common.js",
+  "directories": {
+    "lib": "lib",
+    "test": "__tests__"
+  },
+  "files": [
+    "lib"
+  ],
+  "publishConfig": {
+    "access": "public"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/huteming/huteming-ui.git"
+  },
+  "scripts": {
+    "test": "echo \"Error: run tests from root\" && exit 1"
+  },
+  "bugs": {
+    "url": "https://github.com/huteming/huteming-ui/issues"
+  },
+  "dependencies": {
+    "@huteming/ui-icon": "^2.0.1",
+    "@huteming/ui-styles": "^1.0.1"
+  }
+}

@@ -1,5 +1,5 @@
 import { Vue, Prop } from 'vue-property-decorator'
-import { withStyles } from 'packages/ui-styles/src'
+import { withStyles } from 'packages/ui-styles/src/main'
 import { StyleProps } from 'packages/ui-styles/types'
 
 const styles = (styled: any, css: any) => {

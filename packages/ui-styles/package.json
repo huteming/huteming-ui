@@ -6,7 +6,7 @@
   "author": "Tommy <tommy@jhshuyuan.com>",
   "homepage": "",
   "license": "ISC",
-  "main": "src/index.ts",
+  "main": "dist/styles-common.js",
   "directories": {
     "lib": "lib",
     "test": "__tests__"

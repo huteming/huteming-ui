@@ -1,6 +1,6 @@
 import { Mixins, Prop } from 'vue-property-decorator'
 import { ActionsheetMenu, ComponentActionsheet } from '../types/index'
-import { hairline, withStyles } from '@huteming/ui-styles'
+import { hairline, withStyles } from '@huteming/ui-styles/src/main'
 import MixinModal from '@huteming/ui-modal'
 import { StyleHelper } from '@huteming/ui-styles/types'
 

@@ -1,4 +1,6 @@
 import { Theme } from '../../types'
+import themeButton from './button'
+import themeColor from './color'
 
 function scaleDpr (): number {
     const ua = navigator.userAgent
@@ -20,6 +22,8 @@ const defaultModal = {
 const defaults: Theme = {
     dpr: scaleDpr(),
     modal: defaultModal,
+    button: themeButton,
+    color: themeColor,
 }
 
 function withTheme (options = {}): Theme {

@@ -1,4 +1,10 @@
 export default [
+    {
+        path: 'button',
+        title: '按钮 Button',
+        docs: () => import('packages/ui-button/README.md'),
+        example: () => import('packages/ui-button/demo/basic.vue'),
+    },
     // {
     //     path: 'turntable',
     //     title: '转盘 Turntable',

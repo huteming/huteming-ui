@@ -1,5 +1,5 @@
 import { Vue, Prop, Watch, Mixins } from 'vue-property-decorator'
-import { withStyles } from 'packages/ui-styles/src'
+import { withStyles } from 'packages/ui-styles/src/main'
 import { CarouselItem } from '../types'
 import { ParentMixin } from 'ui/mixins/relation'
 
