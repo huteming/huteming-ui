@@ -1,6 +1,6 @@
 import assert from 'assert'
-import * as tool from 'web-util/tool/src/main'
-import { mockProperty } from '../../helper'
+import * as tool from '../src/main'
+import { mockProperty } from 'tests/helper'
 
 describe('tool > parseQuery', () => {
     mockProperty(window, 'location', {

@@ -1,6 +1,6 @@
 import assert from 'assert'
 import sinon from 'sinon'
-import * as tool from 'web-util/tool/src/main'
+import * as tool from '../src/main'
 
 describe('tool > retry', () => {
     it('第一次正常', async () => {
