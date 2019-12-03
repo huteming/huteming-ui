@@ -62,16 +62,9 @@ describe('tools > deepmerge', () => {
         assert.ok(output === target)
     })
 
-    it('忽略__proto__属性', () => {
-        const target = {
-        }
-        const source = {
-            __proto__: {
-                hello: 'hello',
-            },
-        }
-        const output = deepmerge(target, source, { clone: false })
-
-        assert.deepStrictEqual(output, {})
+    it('source不是对象，则返回原始对象', () => {
+        const target = {}
+        const output = deepmerge(target, null, { clone: false })
+        assert.strictEqual(output, target)
     })
 })

@@ -25,12 +25,12 @@ export default <Link[]>[
         doc: () => import('packages/ui-cell/README.md'),
         example: () => import('packages/ui-cell/demo/basic.vue'),
     },
-    // {
-    //     childPath: 'clocker',
-    //     chineseName: '倒计时 clocker',
-    //     doc: () => import('packages/ui-clocker/README.md'),
-    //     example: () => import('packages/ui-clocker/demo/basic.vue'),
-    // },
+    {
+        childPath: 'clocker',
+        chineseName: '倒计时 Clocker',
+        doc: () => import('packages/ui-clocker/README.md'),
+        example: () => import('packages/ui-clocker/demo/basic.vue'),
+    },
     {
         childPath: 'btn-pay',
         chineseName: '支付按钮 BtnPay',

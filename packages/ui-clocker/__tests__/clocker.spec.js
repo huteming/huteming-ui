@@ -1,12 +1,20 @@
-import TmClocker from 'web-ui/clocker/src/clocker'
+import TmClocker from '../src/main'
 import assert from 'assert'
-import { mount, shallowMount } from '@vue/test-utils'
-import { sleep, Mock } from '../helper'
+import { mount, shallowMount, createLocalVue } from '@vue/test-utils'
+import { sleep, Mock } from 'tests/helper'
 import sinon from 'sinon'
 
 describe('clocker', () => {
     afterEach(() => {
         sinon.restore()
+    })
+
+    it('install', () => {
+        const localVue = createLocalVue()
+        assert.ok(!localVue.component('TmClocker'))
+
+        localVue.use(TmClocker)
+        assert.ok(localVue.component('TmClocker'))
     })
 
     it('create', () => {
@@ -18,7 +26,7 @@ describe('clocker', () => {
             scopedSlots: {
                 default: `
                     <div>
-                        <div id="total">{{ props.total }}</div>
+                        <div id="milliseconds">{{ props.milliseconds }}</div>
                         <div id="days">{{ props.days }}</div>
                         <div id="hours">{{ props.hours }}</div>
                         <div id="minutes">{{ props.minutes }}</div>
@@ -27,58 +35,37 @@ describe('clocker', () => {
                 `,
             },
         })
-        const total = wrapper.find('#total').text()
+        const milliseconds = wrapper.find('#milliseconds').text()
         const days = wrapper.find('#days').text()
         const hours = wrapper.find('#hours').text()
         const minutes = wrapper.find('#minutes').text()
         const seconds = wrapper.find('#seconds').text()
 
         wrapper.destroy()
-        assert.ok(total > 0)
-        assert.ok(days > 0, `total: ${total}; days: ${days}`)
-        assert.ok(hours > 0, `total: ${total}; hours: ${hours}`)
+        assert.ok(milliseconds > 0)
+        assert.ok(days > 0)
+        assert.ok(hours > 0)
         assert.ok(minutes > 0)
         assert.ok(seconds > 0)
     })
 
-    it('format 不存在', () => {
-        const wrapper = shallowMount(TmClocker, {
-            propsData: {
-                startTime: Date.now(),
-                endTime: Date.now() + (3600 + 60 + 10) * (48 + 2) * 1000,
-                format: 'hello',
-            },
-        })
-        assert.strictEqual(wrapper.vm.whole, 'hello')
-    })
-
-    it('normalizedStartTime', () => {
-        const now = new Date()
-        const wrapper = shallowMount(TmClocker, {
-            propsData: {
-                startTime: null,
-                endTime: Date.now() + (3600 + 60 + 10) * (48 + 2) * 1000,
-            },
-        })
-        assert.ok(wrapper.vm.normalizedStartTime - now < 30)
-        wrapper.setProps({ startTime: now })
-        assert.strictEqual(wrapper.vm.normalizedStartTime, Date.parse(now))
-        wrapper.setProps({ startTime: `${now.getFullYear()}-${now.getMonth() + 1}-${now.getDate()} ${now.getHours()}:${now.getMinutes()}:${now.getSeconds()}` })
-        assert.strictEqual(wrapper.vm.normalizedStartTime, Date.parse(now))
-    })
-
     it('normalizedEndTime', () => {
         const end = new Date(Date.now() + (3600 + 60 + 10) * (48 + 2) * 1000)
+        const endstamp = Date.parse(end)
         const wrapper = shallowMount(TmClocker, {
             propsData: {
                 endTime: undefined,
             },
         })
         assert.strictEqual(wrapper.vm.normalizedEndTime, 0)
+
         wrapper.setProps({ endTime: end })
-        assert.strictEqual(wrapper.vm.normalizedEndTime, Date.parse(end))
+        assert.ok(wrapper.vm.normalizedEndTime > endstamp - 5000)
+        assert.ok(wrapper.vm.normalizedEndTime < endstamp + 5000)
+
         wrapper.setProps({ endTime: `${end.getFullYear()}-${end.getMonth() + 1}-${end.getDate()} ${end.getHours()}:${end.getMinutes()}:${end.getSeconds()}` })
-        assert.strictEqual(wrapper.vm.normalizedEndTime, Date.parse(end))
+        assert.ok(wrapper.vm.normalizedEndTime > endstamp - 5000)
+        assert.ok(wrapper.vm.normalizedEndTime < endstamp + 5000)
     })
 
     it('初始开始时间大于结束时间', () => {
@@ -93,7 +80,7 @@ describe('clocker', () => {
         })
         const emitEnd = wrapper.emitted('end')
         assert.ok(emitEnd)
-        assert.strictEqual(wrapper.vm.timer, null)
+        assert.strictEqual(wrapper.vm.timer, 0)
     })
 
     it('event end', async () => {

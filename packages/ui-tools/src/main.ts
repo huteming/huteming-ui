@@ -14,6 +14,29 @@
 // qq: u.match(/\sQQ/i) == " qq" //是否QQ
 const IMG_SUFFIX = 'tommy'
 
+/**
+ * 时间格式转为时间戳
+ */
+export function toTimestamp (time: number | string | Date, defaults: number = 0): number {
+    // 不存在
+    if (!time) {
+        return defaults
+    }
+
+    // 时间字符串
+    if (typeof time === 'string') {
+        return Number(new Date(time.replace(/-/g, '/')))
+    }
+
+    // 时间戳
+    if (typeof time === 'number') {
+        return time
+    }
+
+    // 时间对象
+    return Number(time)
+}
+
 export function isObject (item: any) {
     return item && typeof item === 'object' && !Array.isArray(item)
 }
@@ -23,10 +46,6 @@ export function deepmerge (target: any, source: any, options = { clone: true }) 
 
     if (isObject(target) && isObject(source)) {
         Object.keys(source).forEach(key => {
-            if (key === '__proto__') {
-                return
-            }
-
             if (isObject(source[key]) && key in target) {
                 output[key] = deepmerge(target[key], source[key], options)
             } else {

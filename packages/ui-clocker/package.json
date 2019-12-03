@@ -1,15 +1,16 @@
 {
   "name": "@huteming/ui-clocker",
-  "private": true,
+  "private": false,
   "version": "2.0.1",
   "description": "倒计时",
   "main": "dist/clocker.common.js",
   "scripts": {
-    "prepublishOnly": "node ../../../scripts/prepublishOnly.js clocker"
+    "prepublishOnly": "node ../../scripts/build-lib.js clocker"
   },
   "author": "",
   "license": "ISC",
-  "devDependencies": {
-    "vue-tsx-support": "^2.3.2"
+  "dependencies": {
+    "@huteming/ui-styles": "^1.1.0",
+    "@huteming/ui-tools": "^2.2.2"
   }
 }

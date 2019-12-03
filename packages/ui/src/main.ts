@@ -18,7 +18,7 @@ import BtnPay from 'packages/ui-btn-pay/src/main'
 import Carousel from 'packages/ui-carousel/src/main'
 import CarouselItem from 'packages/ui-carousel-item/src/main'
 import Cell from 'packages/ui-cell/src/main'
-// export { default as TmClocker } from 'web-ui/clocker/index'
+import Clocker from 'packages/ui-clocker/src/main'
 // export { default as TmDialog } from 'web-ui/dialog/index'
 // export { default as TmEmpty } from 'web-ui/empty/index'
 // export { default as TmField } from 'web-ui/field/index'
@@ -58,6 +58,7 @@ const components = [
     Cell,
     Button,
     Icon,
+    Clocker,
 ]
 
 function install (vue: typeof Vue, config = {}) {
