@@ -1,5 +1,5 @@
 import { stringify } from 'qs'
-import { jsonToForm } from 'packages/ui-tool/src/main'
+import { jsonToForm } from '@huteming/ui-tools/src/main'
 import { RequestOptions } from '../types'
 
 export default function (config: RequestOptions): RequestOptions {

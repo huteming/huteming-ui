@@ -20,7 +20,7 @@ const _styled = (tagName: string, domProps: DomProps | Function, cssRules: Funct
     domProps.state = withPropsState()
 
     return styled(tagName, domProps)`${(props: StyleProps) => {
-        props.theme = Object.assign({}, withTheme(), props.theme)
+        props.theme = withTheme(props.theme)
         return cssRules(props)
     }}`
 }

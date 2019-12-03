@@ -8,7 +8,7 @@ export default <Config>{
             sideTitle: '',
             children: [
                 {
-                    childPath: '',
+                    childPath: 'overview',
                     chineseName: '概览',
                     doc: () => import('packages/ui-styles/README.md'),
                     example: () => import('packages/ui-styles/demo/basic.vue'),

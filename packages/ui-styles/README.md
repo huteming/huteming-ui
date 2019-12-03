@@ -1,11 +1,66 @@
-# `@huteming/ui-styles`
+## 代码演示
 
-> TODO: description
+### 自定义变量
 
-## Usage
-
+```html
+<theme-provider :theme="theme">
+    <tm-button>hello</tm-button>
+</theme-provider>
 ```
-const uiStyles = require('@huteming/ui-styles');
 
-// TODO: DEMONSTRATE API
+```js
+import { createTheme, ThemeProvider } from '@huteming/ui-styles'
+
+const theme = createTheme({
+    button: {
+        borderColorDefault: 'lightblue',
+        colorDefault: 'lightBlue',
+    },
+})
+
+export default {
+    data () {
+        return {
+            theme,
+        }
+    },
+}
+```
+
+### 嵌套主题
+
+```html
+<theme-provider :theme="theme">
+    <tm-button>hello</tm-button>
+
+    <theme-provider :theme="innerTheme">
+        <tm-button>inner</tm-button>
+    </theme-provider>
+</theme-provider>
+```
+
+```js
+import { createTheme, ThemeProvider } from '@huteming/ui-styles'
+
+const theme = createTheme({
+    button: {
+        borderColorDefault: 'lightblue',
+        colorDefault: 'lightBlue',
+    },
+})
+const innerTheme = createTheme({
+    button: {
+        borderColorDefault: '#ff9800',
+        colorDefault: '#ff9800',
+    },
+})
+
+export default {
+    data () {
+        return {
+            theme,
+            innerTheme,
+        }
+    },
+}
 ```

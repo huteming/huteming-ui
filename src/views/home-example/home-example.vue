@@ -13,38 +13,16 @@
 </template>
 
 <script>
-import ui from '@/config/ui'
-import util from '@/config/util'
 import AppAccordion from '@/components/accordion'
 
 export default {
     data () {
         return {
+            navs: [],
         }
     },
 
     computed: {
-        navs () {
-            const _util = util.filter(item => !!item.example)
-
-            const res = [
-                {
-                    title: 'Util',
-                    list: _util,
-                },
-            ]
-
-            Object.keys(ui).forEach(title => {
-                res.push({
-                    title,
-                    list: ui[title].filter(item => !!item.example),
-                })
-            })
-
-            console.log(res)
-
-            return res
-        },
     },
 
     methods: {
@@ -54,8 +32,8 @@ export default {
     },
 
     components: {
-        AppAccordion
-    }
+        AppAccordion,
+    },
 }
 </script>
 

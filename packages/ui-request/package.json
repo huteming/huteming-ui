@@ -10,6 +10,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@huteming/ui-tools": "^2.2.2",
     "axios": "^0.18.0",
     "jsonp": "^0.2.1",
     "qs": "^6.6.0"

@@ -1,7 +1,7 @@
 import axios from 'axios'
 import CustomError from './customError'
 import { RequestOptions, Request, RequestError } from '../types'
-import { sleep } from 'packages/ui-tool/src/main'
+import { sleep } from '@huteming/ui-tools/src/main'
 
 export default async function (this: Request, err: RequestError) {
     const config: RequestOptions = err.config

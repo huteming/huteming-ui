@@ -1,6 +1,6 @@
 <template>
 <h1 class="markdown-header">
-    <span>{{ meta.title }}</span>
+    <span>{{ meta.chineseName }}</span>
 
     <template v-if="isComponent">
         <el-button class="markdown-header-icon" circle v-popover:qrcode>

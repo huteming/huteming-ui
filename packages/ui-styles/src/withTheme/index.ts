@@ -1,6 +1,7 @@
 import { Theme } from '../../types'
 import themeButton from './button'
 import themeColor from './color'
+import { deepmerge } from '@huteming/ui-tools/src/main'
 
 function scaleDpr (): number {
     const ua = navigator.userAgent
@@ -27,7 +28,7 @@ const defaults: Theme = {
 }
 
 function withTheme (options = {}): Theme {
-    return Object.assign({}, defaults, options)
+    return deepmerge(defaults, options)
 }
 
 export default withTheme

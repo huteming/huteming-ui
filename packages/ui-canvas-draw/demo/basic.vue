@@ -8,7 +8,7 @@
 <script>
 import CanvasDraw from '../src/main'
 import bgAdmission from './images/bg-admission.png'
-import { loadImages } from 'packages/ui-tool/src/main'
+import { loadImages } from 'packages/ui-tools/src/main'
 
 export default {
     data () {

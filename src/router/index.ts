@@ -46,6 +46,7 @@ const routeGuide: RouteConfig = {
 
 const routeTheme: RouteConfig = {
     path: '/theme',
+    redirect: `/theme/overview`,
     component: () => import('@/views/wrap-docs/wrap-docs.vue'),
     children: [],
 }

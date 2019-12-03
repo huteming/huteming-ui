@@ -5,7 +5,7 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 ## 2.2.2 (2019-12-02)
 
-**Note:** Version bump only for package @huteming/ui-tool
+**Note:** Version bump only for package @huteming/ui-tools
 
 
 

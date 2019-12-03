@@ -1,6 +1,6 @@
 import MixinsModal from 'packages/ui-modal/index'
 import zindexManager from 'ui/utils/zindex-manager'
-import { isVNode, isComponent } from 'packages/ui-tool/src/main'
+import { isVNode, isComponent } from '@huteming/ui-tools/src/main'
 import { Vue, Component } from 'vue-property-decorator'
 import { BeforeClose, BeforeConfirm, BeforeCancel, MessageResponse, MessageType, ActionType, MessageComp } from './declare/type'
 import { OpenModal, CloseModal } from '@huteming/ui-modal/types'

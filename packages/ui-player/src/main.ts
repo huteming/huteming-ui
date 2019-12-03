@@ -3,7 +3,7 @@ import 'video.js/dist/video-js.css'
 import { IEvents, IPlayer, InitOptions } from './declare/types'
 import { autobind } from 'core-decorators'
 import { log } from 'ui/utils/tool'
-import { isIOS, isAndroid, isWeixinBrowser, linkWeixinBridge } from 'packages/ui-tool/src/main'
+import { isIOS, isAndroid, isWeixinBrowser, linkWeixinBridge } from 'packages/ui-tools/src/main'
 
 const defaultOptions = {
     preload: 'none',

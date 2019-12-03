@@ -44,9 +44,10 @@ import Icon from 'packages/ui-icon/src/main'
 // export { default as TmSwitch } from 'web-ui/switch/index'
 import Button from 'packages/ui-button/src/main'
 
-import * as Animation from 'packages/ui-animation/src/main'
-import * as Api from 'packages/ui-api/src/main'
-import CanvasDraw from 'packages/ui-canvas-draw/src/main'
+import * as animation from 'packages/ui-animation/src/main'
+import * as api from 'packages/ui-api/src/main'
+import canvasDraw from 'packages/ui-canvas-draw/src/main'
+import { ThemeProvider } from 'packages/ui-styles/src/main'
 
 const components = [
     Actionsheet,
@@ -61,6 +62,8 @@ const components = [
 
 function install (vue: typeof Vue, config = {}) {
     Object.values(components).forEach(item => vue.use(item))
+
+    vue.component('ThemeProvider', ThemeProvider)
 }
 
 /* istanbul ignore if */
@@ -70,8 +73,11 @@ if (typeof window !== 'undefined' && window.Vue) {
 
 export default {
     install,
-    Animation,
-    Api,
-    CanvasDraw,
+    ThemeProvider,
     ...components,
 }
+
+export const Api = api
+export const Animation = animation
+export const CanvasDraw = canvasDraw
+export { createTheme } from 'packages/ui-styles/src/main'

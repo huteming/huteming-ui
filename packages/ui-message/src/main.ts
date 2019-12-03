@@ -1,6 +1,6 @@
 import Vue from 'vue'
 import MessageComponent from './message'
-import { isVNode, isComponent } from 'packages/ui-tool/src/main'
+import { isVNode, isComponent } from '@huteming/ui-tools/src/main'
 import { MessageOptions, MessageConfig, MessageComp, MessageResponse, MessageBox } from './declare/type'
 
 const defaults = {

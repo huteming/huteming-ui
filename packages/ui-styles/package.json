@@ -1,8 +1,8 @@
 {
   "name": "@huteming/ui-styles",
-  "private": true,
+  "private": false,
   "version": "1.1.0",
-  "description": "> TODO: description",
+  "description": "> 样式定制",
   "author": "Tommy <tommy@jhshuyuan.com>",
   "homepage": "",
   "license": "ISC",
@@ -15,16 +15,18 @@
     "lib"
   ],
   "publishConfig": {
-    "registry": "http://192.168.0.99:4873/"
+    "registry": "https://registry.npmjs.org/"
   },
   "repository": {
     "type": "git",
     "url": "git@47.52.168.43:/srv/web-common.git"
   },
   "scripts": {
-    "test": "echo \"Error: run tests from root\" && exit 1"
+    "prepublishOnly": "node ../../scripts/build-lib.js styles"
   },
   "devDependencies": {
-    "vue-tsx-support": "^2.3.2"
+  },
+  "dependencies": {
+    "@huteming/ui-tools": "^2.2.2"
   }
 }

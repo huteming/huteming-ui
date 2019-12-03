@@ -10,9 +10,9 @@
   "author": "",
   "license": "ISC",
   "devDependencies": {
-    "vue-tsx-support": "^2.3.2"
   },
   "dependencies": {
-    "@huteming/ui-modal": "^1.1.0"
+    "@huteming/ui-modal": "^1.1.0",
+    "@huteming/ui-tools": "^2.2.2"
   }
 }

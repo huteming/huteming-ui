@@ -1,8 +1,8 @@
 import { ThemeColor } from '../../types'
 
 export default <ThemeColor>{
-    black: '#000',
-    white: '#fff',
+    black: '#000000',
+    white: '#ffffff',
     red: '#ee0a24',
     blue: '#1989fa',
     orange: '#ff976a',
