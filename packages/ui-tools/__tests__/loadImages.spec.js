@@ -1,7 +1,7 @@
 import assert from 'assert'
 import sinon from 'sinon'
 import { loadImages, __RewireAPI__ as Rewire } from '../src/main'
-import { imgURI, IMG_FAILURE_SRC, IMG_SUCCESS_SRC } from 'tests/constant'
+import { DATAURI, IMG_FAILURE_SRC, IMG_SUCCESS_SRC } from 'tests/constant'
 import { mockImage } from 'tests/helper'
 const IMG_SUFFIX = 'tommy'
 
@@ -9,10 +9,10 @@ describe('tool > loadImages', () => {
     mockImage()
 
     it('base64位字符串', async () => {
-        const img = await loadImages(imgURI)
+        const img = await loadImages(DATAURI)
         const src = img.getAttribute('src')
 
-        assert.strictEqual(src, imgURI)
+        assert.strictEqual(src, DATAURI)
     })
 
     it('设置跨域属性', async () => {
