@@ -1,5 +1,5 @@
 {
-  "name": "@huteming/util-roller",
+  "name": "@huteming/ui-roller",
   "private": true,
   "version": "2.0.1",
   "description": "提供区间概率算法",

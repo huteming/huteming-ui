@@ -1,15 +1,15 @@
 {
-  "name": "@huteming/ui-turntable",
+  "name": "@huteming/ui-rotate",
   "private": true,
   "version": "1.0.2",
   "description": "> 抽奖转盘",
   "main": "dist/turntable.common.js",
   "scripts": {
-    "prepublishOnly": "node ../../../scripts/prepublishOnly.js turntable"
+    "prepublishOnly": "node ../../scripts/build-lib.js rotate"
   },
   "author": "",
   "license": "ISC",
-  "devDependencies": {
-    "vue-tsx-support": "^2.3.2"
+  "dependencies": {
+    "@huteming/ui-roller": "^2.0.1"
   }
 }

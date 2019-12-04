@@ -7,12 +7,12 @@ export default <Link[]>[
         doc: () => import('packages/ui-button/README.md'),
         example: () => import('packages/ui-button/demo/basic.vue'),
     },
-    // {
-    //     childPath: 'turntable',
-    //     chineseName: '转盘 Turntable',
-    //     doc: () => import('packages/ui-turntable/README.md'),
-    //     example: () => import('packages/ui-turntable/demo/basic.vue'),
-    // },
+    {
+        childPath: 'rotate',
+        chineseName: '转盘 Rotate',
+        doc: () => import('packages/ui-rotate/README.md'),
+        example: () => import('packages/ui-rotate/demo/basic.vue'),
+    },
     {
         childPath: 'carousel',
         chineseName: '走马灯 Carousel',
