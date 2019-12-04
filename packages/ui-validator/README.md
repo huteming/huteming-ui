@@ -1,11 +1,8 @@
-> 验证器
 
--------------------
+### 引用
 
-## 引用
-
-```javascript
-import { Validator } from '@huteming/util'
+```js
+import { Validator } from '@huteming/ui'
 
 const v = new Validator()
 
@@ -14,7 +11,7 @@ v.add(value, errorMessage, options)
 const message = v.done()
 ```
 
-## 示例
+### 代码演示
 
 ```javascript
 const v = new Validator()
@@ -29,7 +26,7 @@ v.add(['enum', 'other'], 'error with array enum', { type: 'array', enum: ['enum'
 const message = v.done()
 ```
 
-## 实例方法
+### 实例方法
 
 | name | 说明 | 参数 |
 |----------|------------|------------|
@@ -57,6 +54,6 @@ const message = v.done()
 | enum | 所有可能值枚举 | Array | | |
 | regexp | type 为 regexp 时, 用作匹配的正则表达式, | String, RegExp | | |
 
-## 验证流程简述
+### 验证流程图示
 
-![avatar](./assets/process.png)
+![avatar](/src/assets/process.png)

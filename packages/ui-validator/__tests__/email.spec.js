@@ -1,5 +1,5 @@
 import assert from 'assert'
-import { email } from 'web-util/validator/src/handlers'
+import { email } from '../src/handlers'
 
 describe('validator > handlers', () => {
     it('email', () => {

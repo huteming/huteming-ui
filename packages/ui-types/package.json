@@ -1,0 +1,14 @@
+{
+  "name": "@huteming/ui-types",
+  "private": true,
+  "version": "1.0.0",
+  "description": "> 提供类型验证方法",
+  "main": "dist/types.common.js",
+  "scripts": {
+    "prepublishOnly": "node ../../scripts/build-lib.js types"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+  }
+}

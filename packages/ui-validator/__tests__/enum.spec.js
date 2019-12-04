@@ -1,5 +1,5 @@
 import assert from 'assert'
-import { enumer } from 'web-util/validator/src/handlers'
+import { enumer } from '../src/handlers'
 
 describe('validator > handlers', () => {
     it('enumer', () => {

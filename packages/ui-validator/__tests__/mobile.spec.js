@@ -1,5 +1,5 @@
 import assert from 'assert'
-import { mobile } from 'web-util/validator/src/handlers'
+import { mobile } from '../src/handlers'
 
 describe('validator > handlers', () => {
     it('mobile', () => {

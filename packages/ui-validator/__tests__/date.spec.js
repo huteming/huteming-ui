@@ -1,5 +1,5 @@
 import assert from 'assert'
-import { date } from 'web-util/validator/src/handlers'
+import { date } from '../src/handlers'
 
 describe('validator > handlers', () => {
     it('date', () => {

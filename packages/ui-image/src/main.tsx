@@ -1,4 +1,4 @@
-import { isHtmlElement, isString } from 'packages/ui-types/src'
+import { isHtmlElement, isString } from '@huteming/ui-types/src/main'
 import { getScrollContainer, on, off, isInContainer } from 'packages/ui-element/src/main'
 import { throttle } from 'throttle-debounce'
 import TmIcon from 'packages/ui-icon/src/main'

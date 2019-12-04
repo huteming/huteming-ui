@@ -7,11 +7,11 @@ export default <Link[]>[
     //     doc: () => import('packages/ui-player/README.md'),
     //     example: () => import('packages/ui-player/demo/basic.vue'),
     // },
-    // {
-    //     childPath: 'validator',
-    //     chineseName: '验证器 Validator',
-    //     doc: () => import('packages/ui-validator/README.md'),
-    // },
+    {
+        childPath: 'validator',
+        chineseName: '验证器 Validator',
+        doc: () => import('packages/ui-validator/README.md'),
+    },
     // {
     //     childPath: 'roller',
     //     chineseName: '概率随机数 Roller',

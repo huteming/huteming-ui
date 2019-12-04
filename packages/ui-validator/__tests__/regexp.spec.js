@@ -1,5 +1,5 @@
 import assert from 'assert'
-import { regexp } from 'web-util/validator/src/handlers'
+import { regexp } from '../src/handlers'
 
 describe('validator > handlers', () => {
     it('regexp', () => {

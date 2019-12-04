@@ -1,4 +1,4 @@
-import Validator from 'web-util/validator/src/main'
+import Validator from '../src/main'
 import assert from 'assert'
 
 describe('validator', () => {

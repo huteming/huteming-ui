@@ -1,112 +1,85 @@
 import assert from 'assert'
-import { boolean } from 'web-util/validator/src/handlers'
+import { required } from '../src/handlers'
 
 describe('validator > handlers', () => {
-    it('boolean', () => {
+    it('required', () => {
         const data = [
             // undefined
             {
                 value: undefined,
                 result: false,
-                msg: 'undefined',
             },
             // null
             {
                 value: null,
                 result: false,
-                msg: 'null',
             },
             // Date
             {
                 value: new Date(),
-                result: false,
-                msg: 'date',
+                result: true,
             },
             // number
             {
                 value: 0,
-                result: false,
-                msg: '数字0',
+                result: true,
             },
             {
                 value: 1,
-                result: false,
-                msg: '数字1',
+                result: true,
             },
             {
                 // eslint-disable-next-line
                 value: new Number(0),
-                result: false,
-                msg: '数字对象0',
+                result: true,
             },
             {
                 // eslint-disable-next-line
                 value: new Number(1),
-                result: false,
-                msg: '数字对象1',
+                result: true,
             },
             // string
             {
                 value: '',
                 result: false,
-                msg: '空字符串',
-            },
-            {
-                value: 'hello',
-                result: false,
-                msg: '非空字符串',
             },
             {
                 value: '1',
-                result: false,
-                msg: '数字字符串',
+                result: true,
             },
             {
                 // eslint-disable-next-line
                 value: new String(''),
                 result: false,
-                msg: '空字符串对象',
             },
             {
                 // eslint-disable-next-line
-                value: new String('hello'),
-                result: false,
-                msg: '非空字符串对象',
-            },
-            {
-                // eslint-disable-next-line
-                value: new String('1'),
-                result: false,
-                msg: '数字字符串对象',
+                value: new String('2'),
+                result: true,
             },
             // boolean
             {
                 value: false,
                 result: true,
-                msg: '布尔false',
             },
             {
                 value: true,
                 result: true,
-                msg: '布尔true',
             },
             {
                 // eslint-disable-next-line
                 value: new Boolean(false),
                 result: true,
-                msg: '布尔对象false',
             },
             {
                 // eslint-disable-next-line
                 value: new Boolean(true),
                 result: true,
-                msg: '布尔对象true',
             },
             // function
             {
                 value: () => {},
-                result: false,
-                msg: '函数',
+                result: true,
             },
             // obj
             {
@@ -116,19 +89,17 @@ describe('validator > handlers', () => {
             },
             {
                 value: { a: 'a' },
-                result: false,
+                result: true,
                 msg: '非空对象',
             },
             // array
             {
                 value: [],
                 result: false,
-                msg: '空数组',
             },
             {
                 value: [1, 2],
-                result: false,
-                msg: '非空数组',
+                result: true,
             },
             {
                 // eslint-disable-next-line
@@ -140,7 +111,7 @@ describe('validator > handlers', () => {
 
         data.forEach(item => {
             const { value, result, msg } = item
-            assert.strictEqual(boolean(value), result, msg)
+            assert.strictEqual(required(value), result, msg)
         })
     })
 })

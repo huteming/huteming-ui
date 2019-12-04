@@ -1,5 +1,5 @@
 import assert from 'assert'
-import { array } from 'web-util/validator/src/handlers'
+import { array } from '../src/handlers'
 
 describe('validator > handlers', () => {
     it('array', () => {
