@@ -1,8 +1,8 @@
 import { mount } from '@vue/test-utils'
-import WorkComponent from '../components/element.vue'
+import WorkComponent from 'tests/components/element.vue'
 import assert from 'assert'
 import sinon from 'sinon'
-import { getScrollContainer, __RewireAPI__ as RewireAPI } from 'web-util/element/src/main'
+import { getScrollContainer, __RewireAPI__ as RewireAPI } from '../src/main'
 const scrollDom = {}
 
 describe('element > getScrollContainer', () => {

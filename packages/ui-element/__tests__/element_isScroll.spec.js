@@ -1,4 +1,4 @@
-import { isScroll, __RewireAPI__ as RewireAPI } from 'web-util/element/src/main'
+import { isScroll, __RewireAPI__ as RewireAPI } from '../src/main'
 import assert from 'assert'
 import sinon from 'sinon'
 

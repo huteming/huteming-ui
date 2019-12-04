@@ -16,7 +16,7 @@
 </template>
 
 <script>
-import { scrollY, scrollTo } from 'web-util/element/src/main'
+import { scrollY, scrollTo } from 'packages/ui-element/src/main'
 
 export default {
     methods: {

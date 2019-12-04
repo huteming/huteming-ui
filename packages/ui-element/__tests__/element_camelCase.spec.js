@@ -1,4 +1,4 @@
-import { camelCase } from 'web-util/element/src/main'
+import { camelCase } from '../src/main'
 import assert from 'assert'
 
 describe('element > camelCase', () => {

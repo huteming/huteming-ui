@@ -5,11 +5,11 @@
   "description": "",
   "main": "dist/collapse.common.js",
   "scripts": {
-    "prepublishOnly": "node ../../../scripts/prepublishOnly.js collapse"
+    "prepublishOnly": "node ../../scripts/build-lib.js collapse"
   },
   "author": "",
   "license": "ISC",
-  "devDependencies": {
-    "vue-tsx-support": "^2.3.2"
+  "dependencies": {
+    "@huteming/ui-tools": "^2.2.2"
   }
 }

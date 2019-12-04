@@ -1,4 +1,4 @@
-import { generateId } from 'web-util/element/src/main'
+import { generateId } from '../src/main'
 import assert from 'assert'
 
 describe('element > generateId', () => {

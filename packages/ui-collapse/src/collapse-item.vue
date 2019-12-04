@@ -22,7 +22,7 @@
 <script lang="ts">
 import TmTransitionCollapse from 'web-ui/transition-collapse/src/app.vue'
 import TmIcon from 'web-ui/icon/src/app.vue'
-import { generateId } from 'web-util/element/src/main'
+import { generateId } from '@huteming/ui-tools/src/main'
 import { Component, Prop, Vue } from 'vue-property-decorator'
 import TmCollapse from '../types/collapse'
 

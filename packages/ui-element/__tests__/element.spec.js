@@ -1,9 +1,9 @@
 import { mount } from '@vue/test-utils'
-import WorkComponent from '../components/element.vue'
-import BasicComponent from '../components/basic.vue'
+import WorkComponent from 'tests/components/element.vue'
+import BasicComponent from 'tests/components/basic.vue'
 import assert from 'assert'
 import sinon from 'sinon'
-import { autoprefixer, scrollX, scrollY, attached, getScrollTop, getScrollLeft, getElementTop, __RewireAPI__ as RewireAPI } from 'web-util/element/src/main'
+import { autoprefixer, scrollX, scrollY, attached, getScrollTop, getScrollLeft, getElementTop, __RewireAPI__ as RewireAPI } from '../src/main'
 const wrapper = mount(WorkComponent)
 const eleContainer = wrapper.vm.$refs.container
 let wrapperBasic

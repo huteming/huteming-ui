@@ -1,6 +1,6 @@
-import { isInContainer } from 'web-util/element/src/main'
+import { isInContainer } from '../src/main'
 import assert from 'assert'
-import { mockProperty } from '../helper'
+import { mockProperty } from 'tests/helper'
 
 describe('element > inInContainer', () => {
     mockProperty(window, 'innerWidth', {

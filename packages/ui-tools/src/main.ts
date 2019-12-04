@@ -14,6 +14,10 @@
 // qq: u.match(/\sQQ/i) == " qq" //是否QQ
 const IMG_SUFFIX = 'tommy'
 
+export function generateId () {
+    return Math.floor(Math.random() * 100000)
+}
+
 /**
  * 时间格式转为时间戳
  */

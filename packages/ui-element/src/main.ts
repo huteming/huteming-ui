@@ -1,10 +1,6 @@
 const SPECIAL_CHARS_REGEXP = /([:\-_]+(.))/g
 const MOZ_HACK_REGEXP = /^moz([A-Z])/
 
-export function generateId () {
-    return Math.floor(Math.random() * 100000)
-}
-
 // export function hasClass (element, cls) {
 //     if (!element || !cls) return false
 

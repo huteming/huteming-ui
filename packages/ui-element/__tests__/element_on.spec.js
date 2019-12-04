@@ -1,4 +1,4 @@
-import { on } from 'web-util/element/src/main'
+import { on } from '../src/main'
 import assert from 'assert'
 import sinon from 'sinon'
 

@@ -1,6 +1,6 @@
-import { getStyle } from 'web-util/element/src/main'
+import { getStyle } from '../src/main'
 import assert from 'assert'
-import { Mock } from '../helper'
+import { Mock } from 'tests/helper'
 
 describe('element > getStyle', () => {
     it('element 为空', () => {
