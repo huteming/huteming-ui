@@ -11,7 +11,7 @@ export type MessageType = 'alert' | 'confirm' | 'prompt'
 export interface MessageResponse {
     action: ActionType
     inputValue: string
-    vm: MessageComp
+    vm: MessageComponent
 }
 
 export interface BeforeClose {
@@ -35,7 +35,7 @@ export interface MessageBox {
     install?: (vue: typeof Vue) => void
 }
 
-export interface MessageComp extends Vue {
+export interface MessageComponent extends Vue {
     show (): void
 }
 

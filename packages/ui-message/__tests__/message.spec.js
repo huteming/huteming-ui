@@ -1,44 +1,25 @@
-import { createWrapper, config } from '@vue/test-utils'
-import Message from 'web-ui/message/src/main'
+import { createWrapper, config, createLocalVue } from '@vue/test-utils'
+import Message from '../src/main'
 import assert from 'assert'
-import { sleep, Mock } from '../helper'
+import { sleep, Mock } from 'tests/helper'
 import sinon from 'sinon'
-import CompBasis from '../components/basic.vue'
+import CompBasis from 'tests/components/basic.vue'
 import Vue from 'vue'
 
 config.stubs.transition = false
 
-describe('message', async () => {
+describe('message', () => {
     let wrapper
 
     beforeEach(() => {
         wrapper = createWrapper(document.body)
     })
 
-    afterEach(() => {
-        const el = document.querySelector('.tm-message')
-        if (!el) return
-        if (el.parentNode) {
-            el.parentNode.removeChild(el)
-        }
-        if (el.__vue__) {
-            el.__vue__.$destroy()
-        }
-    })
-
-    afterEach(() => {
-        sinon.restore()
-    })
-
-    afterAll(() => {
-        const el = document.querySelector('.tm-modal')
-        if (!el) return
-        if (el.parentNode) {
-            el.parentNode.removeChild(el)
-        }
-        if (el.__vue__) {
-            el.__vue__.$destroy()
-        }
+    it('install', () => {
+        const localVue = createLocalVue()
+        assert.ok(!localVue.prototype.$message)
+        localVue.use(Message)
+        assert.ok(localVue.prototype.$message)
     })
 
     it('禁止click冒泡', async () => {
@@ -100,6 +81,32 @@ describe('message', async () => {
         assert.strictEqual(wrapperSubtitle.text(), message)
     })
 
+    it('只显示title,没有message', async () => {
+        Message('', 'title')
+
+        await sleep()
+        const wrapperContainer = wrapper.find('.tm-message')
+        const wrapperTitle = wrapper.find('.tm-message-title')
+        const wrapperSubtitle = wrapper.find('.tm-message-subtitle')
+        assert.ok(wrapperContainer.isVisible())
+        assert.ok(wrapperTitle.exists())
+        assert.ok(!wrapperSubtitle.exists())
+    })
+
+    it('只显示input', async () => {
+        Message.prompt('', '')
+
+        await sleep()
+        const wrapperContainer = wrapper.find('.tm-message')
+        const wrapperTitle = wrapper.find('.tm-message-title')
+        const wrapperSubtitle = wrapper.find('.tm-message-subtitle')
+        const field = wrapper.find('.tm-message-field')
+        assert.ok(wrapperContainer.isVisible())
+        assert.ok(!wrapperTitle.exists())
+        assert.ok(!wrapperSubtitle.exists())
+        assert.ok(field.exists())
+    })
+
     it('点击模态框消失', (done) => {
         const title = 'a title'
         const message = 'a message'
@@ -119,14 +126,8 @@ describe('message', async () => {
 
         sleep()
             .then(() => {
-                const wrapperContainer = wrapper.find('.tm-message')
-                const wrapperTitle = wrapper.find('.tm-message-title')
-                const wrapperSubtitle = wrapper.find('.tm-message-subtitle')
-                assert.ok(wrapperContainer.isVisible())
-                assert.strictEqual(wrapperTitle.text(), title)
-                assert.strictEqual(wrapperSubtitle.text(), message)
-
-                wrapperContainer.trigger('click')
+                const modal = wrapper.find('.tm-message')
+                modal.trigger('click')
             })
     })
 
@@ -139,7 +140,7 @@ describe('message', async () => {
             })
         sleep()
             .then(() => {
-                const wrapperConfirm = wrapper.find('.tm-message-footer-btn__confirm')
+                const wrapperConfirm = wrapper.find('.tm-message-confirm')
                 wrapperConfirm.trigger('click')
             })
     })
@@ -153,7 +154,7 @@ describe('message', async () => {
             })
         sleep()
             .then(() => {
-                const wrapperCancel = wrapper.find('.tm-message-footer-btn__cancel')
+                const wrapperCancel = wrapper.find('.tm-message-cancel')
                 wrapperCancel.trigger('click')
             })
     })
@@ -163,8 +164,8 @@ describe('message', async () => {
         Message.alert('hhh')
         await sleep()
         wrapperMessage = wrapper.find('.tm-message')
-        const wrapperConfirm = wrapper.find('.tm-message-footer-btn__confirm')
-        const wrapperCancel = wrapper.find('.tm-message-footer-btn__cancel')
+        const wrapperConfirm = wrapper.find('.tm-message-confirm')
+        const wrapperCancel = wrapper.find('.tm-message-cancel')
 
         assert.ok(wrapperMessage.exists())
         assert.ok(wrapperConfirm.exists())
@@ -188,8 +189,8 @@ describe('message', async () => {
         Message.confirm('hhh')
         await sleep()
 
-        const wrapperConfirm = wrapper.find('.tm-message-footer-btn__confirm')
-        const wrapperCancel = wrapper.find('.tm-message-footer-btn__cancel')
+        const wrapperConfirm = wrapper.find('.tm-message-confirm')
+        const wrapperCancel = wrapper.find('.tm-message-cancel')
         assert.ok(wrapperCancel.exists())
         assert.ok(wrapperConfirm.exists())
     })
@@ -199,11 +200,27 @@ describe('message', async () => {
         await sleep()
 
         const wrapperInput = wrapper.find('.tm-message-field')
-        const wrapperConfirm = wrapper.find('.tm-message-footer-btn__confirm')
-        const wrapperCancel = wrapper.find('.tm-message-footer-btn__cancel')
+        const wrapperConfirm = wrapper.find('.tm-message-confirm')
+        const wrapperCancel = wrapper.find('.tm-message-cancel')
         assert.ok(wrapperInput.exists())
         assert.ok(wrapperCancel.exists())
         assert.ok(wrapperConfirm.exists())
+    })
+
+    it('prompt点击模态框消失', (done) => {
+        Message.prompt('hello')
+            .then(() => {
+                done(new Error('expect error'))
+            })
+            .catch(({ action, inputValue }) => {
+                assert.strictEqual(action, 'cancel')
+                done()
+            })
+        sleep()
+            .then(() => {
+                const wrapperCancel = wrapper.find('.tm-message')
+                wrapperCancel.trigger('click')
+            })
     })
 
     it('第一个参数支持对象类型', async () => {
@@ -265,15 +282,15 @@ describe('message', async () => {
     it('返回对象中带有输入框值', (done) => {
         const value = 'some value'
         Message({ showInput: true })
-            .then(({ action, inputValue }) => {
+            .then(({ action, inputValue, vm }) => {
                 assert.strictEqual(action, 'confirm')
-                assert.strictEqual(inputValue, value)
+                assert.strictEqual(vm.normalizedInputValue, value)
                 done()
             })
         sleep()
             .then(() => {
-                const wrapperInput = wrapper.find('.tm-message-field__input')
-                const wrapperConfirm = wrapper.find('.tm-message-footer-btn__confirm')
+                const wrapperInput = wrapper.find('input[type="text"]')
+                const wrapperConfirm = wrapper.find('.tm-message-confirm')
                 wrapperInput.setValue(value)
                 wrapperConfirm.trigger('click')
             })
@@ -306,7 +323,7 @@ describe('message', async () => {
             })
         sleep()
             .then(() => {
-                const wrapperCancel = wrapper.find('.tm-message-footer-btn__cancel')
+                const wrapperCancel = wrapper.find('.tm-message-cancel')
                 wrapperCancel.trigger('click')
             })
     })
@@ -338,7 +355,7 @@ describe('message', async () => {
             })
         sleep()
             .then(() => {
-                const wrapperCancel = wrapper.find('.tm-message-footer-btn__confirm')
+                const wrapperCancel = wrapper.find('.tm-message-confirm')
                 wrapperCancel.trigger('click')
             })
     })
@@ -360,5 +377,31 @@ describe('message', async () => {
                 const wrapperMessage = wrapper.find('.tm-message')
                 wrapperMessage.trigger('click')
             })
+    })
+
+    afterEach(() => {
+        const el = document.querySelector('.tm-message')
+        if (!el) return
+        if (el.parentNode) {
+            el.parentNode.removeChild(el)
+        }
+        if (el.__vue__) {
+            el.__vue__.$destroy()
+        }
+    })
+
+    afterEach(() => {
+        sinon.restore()
+    })
+
+    afterAll(() => {
+        const el = document.querySelector('.tm-modal')
+        if (!el) return
+        if (el.parentNode) {
+            el.parentNode.removeChild(el)
+        }
+        if (el.__vue__) {
+            el.__vue__.$destroy()
+        }
     })
 })

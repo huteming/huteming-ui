@@ -1,7 +1,8 @@
 import Vue from 'vue'
-import MessageComponent from './message'
+import TmMessage from './message'
 import { isVNode, isComponent } from '@huteming/ui-tools/src/main'
-import { MessageOptions, MessageConfig, MessageComp, MessageResponse, MessageBox } from './declare/type'
+import { MessageOptions, MessageConfig, MessageComponent, MessageResponse, MessageBox } from '../types'
+import { createModal } from '@huteming/ui-modal/src/main'
 
 const defaults = {
     title: '提示',
@@ -21,10 +22,12 @@ const defaults = {
     beforeCancel: null,
 }
 
-const MessageConstructor = Vue.extend(MessageComponent)
+const MessageConstructor = Vue.extend(TmMessage)
 
 function open (config: MessageConfig, resolve: Function, reject: Function) {
-    const instance: MessageComp = new MessageConstructor({
+    createModal()
+
+    const instance: MessageComponent = new MessageConstructor({
         data: {
             resolve,
             reject,
@@ -33,10 +36,7 @@ function open (config: MessageConfig, resolve: Function, reject: Function) {
     })
 
     document.body.appendChild(instance.$mount().$el)
-
-    Vue.nextTick(() => {
-        instance.show()
-    })
+    instance.show()
 
     return instance
 }
@@ -99,6 +99,10 @@ Message.prompt = (message: string | MessageOptions | object, title?: string | ob
         showCancelButton: true,
         showInput: true,
     }))
+}
+
+Message.install = function (Vue) {
+    Vue.prototype[Message.registName] = Message
 }
 
 export default Message

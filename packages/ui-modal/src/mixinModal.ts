@@ -1,6 +1,6 @@
 import { Vue, Component } from 'vue-property-decorator'
 import { MinxinModal, ModalOptions, clickModal } from '../types'
-import { openModal, closeModal } from './main'
+import { openModal, closeModal } from './utils'
 
 @Component({
     name: 'MixinModal',

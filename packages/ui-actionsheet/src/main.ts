@@ -1,6 +1,6 @@
 import Vue from 'vue'
 import ActionsComponent from './actionsheet'
-import { createModal } from '@huteming/ui-modal'
+import { createModal } from '@huteming/ui-modal/src/main'
 import { ActionsheetOptions, ActionsheetMenu, ComponentActionsheet } from '../types'
 
 function create (resolve: Function, reject: Function, options: ActionsheetOptions): ComponentActionsheet {

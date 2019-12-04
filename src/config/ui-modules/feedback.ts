@@ -7,12 +7,12 @@ export default <Link[]>[
         doc: () => import('packages/ui-actionsheet/README.md'),
         example: () => import('packages/ui-actionsheet/demo/basic.vue'),
     },
-    // {
-    //     childPath: 'message',
-    //     chineseName: '对话框 Message',
-    //     doc: () => import('packages/ui-message/README.md'),
-    //     example: () => import('packages/ui-message/demo/basic.vue'),
-    // },
+    {
+        childPath: 'message',
+        chineseName: '对话框 Message',
+        doc: () => import('packages/ui-message/README.md'),
+        example: () => import('packages/ui-message/demo/basic.vue'),
+    },
     // {
     //     childPath: 'dialog',
     //     chineseName: '弹窗 Dialog',

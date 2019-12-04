@@ -1,12 +1,12 @@
 <template>
 <div class="vnode" :key="key">
-    <tm-flex class="vnode-field">
+    <div class="vnode-field">
         <div class="vnode-decrease" @click="handleDecrease">-</div>
-        <tm-flex-item class="vnode-input">
-            <TmField :value="state.num" :input-style="{ 'text-align': 'center' }" />
-        </tm-flex-item>
-        <tm-flex-item class="vnode-add" @click.native="handleAdd">+</tm-flex-item>
-    </tm-flex>
+        <div class="vnode-input">
+            <input :value="state.num" style="width: 100%;" />
+        </div>
+        <div class="vnode-add" @click="handleAdd">+</div>
+    </div>
 
     <div class="vnode-tip">（VIP学习卡每次只能赠送一张）</div>
 </div>
@@ -42,11 +42,14 @@ export default {
 
 <style lang="scss" scoped>
 .vnode {
+    &-field {
+        display: flex;
+    }
     &-input {
-        width: 2.3rem;
-        height: .8rem;
-        padding: .14rem .2rem;
-        font-size: .36rem;
+        width: 115px;
+        height: 40px;
+        padding: 7px 10px;
+        font-size: 18px;
         color: #202631;
         box-sizing: border-box;
         border-top: 1px solid #E4E4E4;
@@ -55,10 +58,10 @@ export default {
 
     &-decrease,
     &-add {
-        width: .8rem;
-        height: .8rem;
-        font-size: .4rem;
-        line-height: .8rem;
+        width: 40px;
+        height: 40px;
+        font-size: 20px;
+        line-height: 40px;
         color: #E4E4E4;
         text-align: center;
         border: 1px solid #E4E4E4;
@@ -66,9 +69,9 @@ export default {
     }
 
     &-tip {
-        margin-top: .24rem;
-        font-size: .24rem;
-        line-height: .32rem;
+        margin-top: 12px;
+        font-size: 12px;
+        line-height: 16px;
         color: #FF6878;
     }
 }

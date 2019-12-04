@@ -1,6 +1,7 @@
 
 import './global/slide'
 import './global/fade'
+import './global/zoom-in'
 import './global/icon'
 
 export * from './mixins/hairline'

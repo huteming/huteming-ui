@@ -1,5 +1,5 @@
 <template>
-<div class="page">
+<div class="page-demo">
     <button @click="handleCinfig">config</button>
     <button @click="handleAlert">alert</button>
     <button @click="handleConfirm">confirm</button>
@@ -10,8 +10,7 @@
 </template>
 
 <script>
-import Message from '../index'
-import Toast from 'web-ui/toast/index'
+import Message from '../src/main'
 import domVNode from './vnode.vue'
 import Vue from 'vue'
 import store from './store'
@@ -78,7 +77,7 @@ export default {
                 <img src="http://img.zcool.cn/community/0117e2571b8b246ac72538120dd8a4.jpg@1280w_1l_2o_100sh.jpg" width="100" height="100" />
             `, '', options)
                 .then(res => {
-                    Toast('已关闭')
+                    console.log('已关闭')
                 })
         },
         handleConfirm () {

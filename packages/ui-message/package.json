@@ -1,18 +1,17 @@
 {
   "name": "@huteming/ui-message",
-  "private": true,
+  "private": false,
   "version": "2.1.3",
   "description": "> 弹出式提示框，有多种交互形式。",
   "main": "dist/message.common.js",
   "scripts": {
-    "prepublishOnly": "node ../../../scripts/prepublishOnly.js message"
+    "prepublishOnly": "node ../../scripts/build-lib.js message"
   },
   "author": "",
   "license": "ISC",
-  "devDependencies": {
-  },
   "dependencies": {
     "@huteming/ui-modal": "^1.1.0",
+    "@huteming/ui-styles": "^1.1.0",
     "@huteming/ui-tools": "^2.2.2"
   }
 }

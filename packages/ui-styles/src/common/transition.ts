@@ -2,7 +2,7 @@
 export const TransitionEase = 'cubic-bezier(0.4, 0.0, 0.2, 1)'
 // $transition-ease-out: cubic-bezier(0.0, 0.0, 0.2, 1);
 // $transition-ease-in: cubic-bezier(0.4, 0.0, 1, 1);
-// $transition-ease-in-out: cubic-bezier(0.4, 0.0, 0.6, 1); // 主要用在已有的元素离开屏幕后重新返回时
+export const TransitionEaseInOut = 'cubic-bezier(0.4, 0.0, 0.6, 1)' // 主要用在已有的元素离开屏幕后重新返回时
 
 // 整屏
 // $transition-duration-large-enter: 300ms;

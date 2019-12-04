@@ -1,85 +1,172 @@
-import MixinsModal from 'packages/ui-modal/index'
-import zindexManager from 'ui/utils/zindex-manager'
+import MixinsModal from '@huteming/ui-modal/src/main'
 import { isVNode, isComponent } from '@huteming/ui-tools/src/main'
-import { Vue, Component } from 'vue-property-decorator'
-import { BeforeClose, BeforeConfirm, BeforeCancel, MessageResponse, MessageType, ActionType, MessageComp } from './declare/type'
-import { OpenModal, CloseModal } from '@huteming/ui-modal/types'
+import { Mixins } from 'vue-property-decorator'
+import { BeforeClose, BeforeConfirm, BeforeCancel, MessageResponse, MessageType, ActionType, MessageComponent } from '../types'
 import { CreateElement } from 'vue'
+import { withStyles, hairline } from '@huteming/ui-styles/src/main'
+import { StyleProps } from '@huteming/ui-styles/types'
 
-@Component
-export default class Message extends Vue implements MessageComp {
+const styles = (styled: any, css: any) => {
+    return {
+        Root: styled('div', (props: StyleProps) => `
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-sizing: border-box;
+            z-index: ${props.state.zIndex};
+        `),
+        Wrap: styled('div', () => `
+            width: 315px;
+            border-radius: 8px;
+            overflow: hidden;
+            background: #fff;
+        `),
+        Container: styled('div', () => `
+            padding: 20px;
+            display: flex;
+            flex-flow: column wrap;
+            align-items: center;
+        `),
+        Title: styled('div', () => `
+            font-size: 18px;
+            line-height: 25px;
+            color: rgba(0, 0, 0, 1);
+            font-weight: 400;
+        `),
+        Subtitle: styled('div', { isTop: Boolean }, (props: StyleProps) => css`
+            margin-top: ${!props.isTop && '9px'};
+            font-size: 16px;
+            line-height: 24px;
+            color: rgba(93, 93, 103, 1);
+            font-weight: 400;
+        `),
+        Field: styled('div', { isTop: Boolean }, (props: StyleProps) => css`
+            width: 100%;
+            margin-top: ${!props.isTop && '9px'};
+        `),
+        FieldInput: styled('input', () => `
+            width: 100%;
+            padding: 11px 12px;
+            color: #bbb;
+            font-size: 14px;
+            line-height: 14px;
+            background: rgba(255,255,255,1);
+            border-radius: 8px;
+            border: 1px solid rgba(221,221,221,1);
+            outline: none;
+            appearance: none;
+            -webkit-user-modify: read-write-plaintext-only;
+            box-sizing: border-box;
+
+            &::-webkit-input-placeholder { /* WebKit, Blink, Edge */
+                font-size: 14px;
+                line-height: 1.4;
+                color: #bbb;
+            }
+        `),
+        Footer: styled('div', (props: StyleProps) => `
+            position: relative;
+            display: flex;
+            align-items: center;
+            ${hairline(props.theme, 'top', 'rgba(227, 227, 227, 1)')};
+        `),
+        FooterBtn: styled('div', { isCancel: Boolean, isConfirm: Boolean, isHighlight: Boolean }, (props: StyleProps) => css`
+            flex: 1;
+            height: 50px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 17px;
+            line-height: 24px;
+            font-weight: ${props.isHighlight && 'bold'};
+
+            ${props.isCancel && `
+                position: relative;
+                color: rgba(32, 38, 49, 1);
+                ${hairline(props.theme, 'right', 'rgba(227, 227, 227, 1)')};
+            `}
+
+            ${props.isConfirm && `
+                color: rgba(58, 149, 250, 1);
+            `}
+        `),
+    }
+}
+
+class Message extends Mixins(MixinsModal) implements MessageComponent {
     render (h: CreateElement) {
-        const {
-            handleAfterLeave, styles, inputType, title, normalizedInputValue, handleInput, handleTouchmove,
-            inputPlaceholder, handleConfirm, handleCancel, cancelButtonText, confirmButtonText, cancelButtonHighlight,
-            confirmButtonHighlight, showCancelButton, message, showInput, handleClickModal, visible,
-        } = this
+        const { Root, Wrap, Container, Title, Subtitle, Field, FieldInput, Footer, FooterBtn } = this.styledDoms
 
         const domTitle = (() => {
-            if (title) {
-                return <div class="tm-message-title">{ title }</div>
+            if (this.title) {
+                return <Title class="tm-message-title">{ this.title }</Title>
             }
         })()
-        const domMessage = (() => {
-            if (message === '') return
+        const domSubtitle = (() => {
+            if (this.message === '') return
             let html
 
-            if (isVNode(message)) {
-                html = message
-            } else if (isComponent(message)) {
-                html = h(message)
+            if (isVNode(this.message)) {
+                html = this.message
+            } else if (isComponent(this.message)) {
+                html = h(this.message)
             } else {
                 html = h('p', {
                     domProps: {
-                        innerHTML: message,
+                        innerHTML: this.message,
                     },
                 })
             }
 
-            return <div class="tm-message-subtitle">{ html }</div>
+            return <Subtitle ref="subtitle" class="tm-message-subtitle" is-top={ !domTitle }>{ html }</Subtitle>
         })()
         const domField = (() => {
-            if (showInput) {
-                return <div class="tm-message-field">
-                    <input class="tm-message-field__input" type={ inputType } value={ normalizedInputValue } onInput={ handleInput } placeholder={ inputPlaceholder } autofocus />
-                </div>
+            if (this.showInput) {
+                return <Field class="tm-message-field" is-top={ !domTitle && !domSubtitle }>
+                    <FieldInput class="tm-message-input"
+                        type={ this.inputType }
+                        value={ this.normalizedInputValue }
+                        on-input={ this.handleInput }
+                        placeholder={ this.inputPlaceholder }
+                        autofocus />
+                </Field>
             }
         })()
         const domCancel = (() => {
-            if (showCancelButton) {
-                return <div class={ ['tm-message-footer-btn', 'tm-message-footer-btn__cancel', cancelButtonHighlight ? 'text-bold' : ''] } onClick={ handleCancel }>
-                    <span>{ cancelButtonText }</span>
-                </div>
+            if (this.showCancelButton) {
+                return <FooterBtn ref="cancel" class="tm-message-cancel" is-cancel is-highlight={ this.cancelButtonHighlight } onClick={ this.handleCancel }>
+                    <span>{ this.cancelButtonText }</span>
+                </FooterBtn>
             }
         })()
 
         return (
-            <transition name="zoom-in" on-after-leave={ handleAfterLeave }>
-                <div class="tm-message" style={ styles } v-show={ visible } ref="msgbox" on-click={ handleClickModal } on-touchmove={ handleTouchmove }>
-                    <div class="tm-message-wrap">
-                        <div class="tm-message-container">
+            <transition name="zoom-in" on-after-leave={ this.handleAfterLeave }>
+                <Root class="tm-message" v-show={ this.visible } ref="msgbox" on-click={ this.handleClickModal } on-touchmove={ this.handleTouchmove }>
+                    <Wrap>
+                        <Container class="tm-message-container">
                             { domTitle }
-                            { domMessage }
+                            { domSubtitle }
                             { domField }
-                        </div>
+                        </Container>
 
-                        <div class="tm-message-footer">
+                        <Footer class="tm-message-footer">
                             { domCancel }
 
-                            <div class={ ['tm-message-footer-btn', 'tm-message-footer-btn__confirm', confirmButtonHighlight ? 'text-bold' : ''] } onClick={ handleConfirm }>
-                                <span>{ confirmButtonText }</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                            <FooterBtn ref="confirm" class="tm-message-confirm" is-confirm is-highlight={ this.confirmButtonHighlight } onClick={ this.handleConfirm }>
+                                <span>{ this.confirmButtonText }</span>
+                            </FooterBtn>
+                        </Footer>
+                    </Wrap>
+                </Root>
             </transition>
         )
     }
-
-    // eslint-disable-next-line
-    $_openModal!: OpenModal
-    // eslint-disable-next-line
-    $_closeModal!: CloseModal
 
     get messageType (): MessageType {
         const { showCancelButton, showInput } = this
@@ -90,12 +177,6 @@ export default class Message extends Vue implements MessageComp {
             return 'confirm'
         }
         return 'alert'
-    }
-
-    get styles (): object {
-        return {
-            'z-index': this.zIndex,
-        }
     }
 
     handleAfterLeave () {
@@ -110,8 +191,8 @@ export default class Message extends Vue implements MessageComp {
         this.destroyElement()
     }
 
-    handleInput (evt: any) {
-        this.normalizedInputValue = evt.target.value
+    handleInput (value: any) {
+        this.normalizedInputValue = value
     }
 
     handleClickModal (event: Event) {
@@ -143,10 +224,6 @@ export default class Message extends Vue implements MessageComp {
     show () {
         this.$_openModal()
         this.visible = true
-
-        // 必须在调用 openModal 之后
-        // 为了获取动态 zindex
-        this.zIndex = zindexManager.zIndex
     }
 
     hide (action: ActionType) {
@@ -220,10 +297,11 @@ export default class Message extends Vue implements MessageComp {
     beforeConfirm?: BeforeConfirm
     beforeCancel?: BeforeCancel
 
-    zIndex = 9999
     visible = false
     normalizedInputValue = this.inputValue
     resolve!: Function
     reject!: Function
     res!: MessageResponse
 }
+
+export default withStyles(styles)(Message, { name: 'TmMessage' })
