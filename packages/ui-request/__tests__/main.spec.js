@@ -1,5 +1,5 @@
 import moxios from 'moxios'
-import Request, { __RewireAPI__ as RewireAPI } from 'web-util/request/src/main'
+import Request, { __RewireAPI__ as RewireAPI } from '../src/main'
 import assert from 'assert'
 import sinon from 'sinon'
 

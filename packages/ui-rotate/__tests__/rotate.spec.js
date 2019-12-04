@@ -136,7 +136,7 @@ describe('turntable', () => {
         rotate.done = mockDone
         rotate.start()
         rotate.stop()
-        await sleep(50)
+        await sleep(60)
         const expect = mockDone.getCall(0).args[0]
         assert.ok(expect === 1 || expect === 2)
     })

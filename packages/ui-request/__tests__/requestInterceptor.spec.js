@@ -1,5 +1,5 @@
 import assert from 'assert'
-import requestInterceptor from 'web/@util/request/src/requestInterceptor'
+import requestInterceptor from '../src/requestInterceptor'
 import qs from 'qs'
 
 describe('request > requestInterceptor', () => {

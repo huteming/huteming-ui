@@ -1,5 +1,5 @@
 import assert from 'assert'
-import CustomError from 'web/@util/request/src/customError'
+import CustomError from '../src/customError'
 
 describe('request > custom_error', () => {
     it('继承自Error', () => {

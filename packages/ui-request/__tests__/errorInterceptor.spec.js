@@ -1,4 +1,4 @@
-import errorInterceptor, { __RewireAPI__ as RewireAPI } from 'web/@util/request/src/errorInterceptor'
+import errorInterceptor, { __RewireAPI__ as RewireAPI } from '../src/errorInterceptor'
 import assert from 'assert'
 
 describe('request > errorInterceptor', () => {

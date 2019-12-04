@@ -1,6 +1,7 @@
-import successInterceptor from 'web-util/request/src/successInterceptor'
+import successInterceptor from '../src/successInterceptor'
 import assert from 'assert'
 import sinon from 'sinon'
+import { mockProperty, Mock } from 'tests/helper'
 
 describe('request > successInterceptor', () => {
     afterEach(() => {
@@ -112,8 +113,11 @@ describe('request > successInterceptor', () => {
             jhsyAccountAlias: 'a',
         }
         const mockReplace = sinon.fake()
-        const originReplace = window.location.replace
-        window.location.replace = mockReplace
+        const originLocation = window.location
+        delete window.location
+        window.location = {
+            replace: mockReplace,
+        }
 
         successInterceptor.call({ options: mockOptions }, mockRes)
             .then(() => {
@@ -129,7 +133,9 @@ describe('request > successInterceptor', () => {
                 done()
             })
             .finally(() => {
-                window.location.replace = originReplace
+                // window.location.replace = originReplace
+                // mock.restore()
+                window.location = originLocation
             })
     })
 
