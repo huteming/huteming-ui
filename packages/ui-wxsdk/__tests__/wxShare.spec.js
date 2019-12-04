@@ -1,4 +1,4 @@
-import { __RewireAPI__ as WxsdkRewireAPI, wxShare } from 'web-util/wxsdk/src/main'
+import { __RewireAPI__ as WxsdkRewireAPI, wxShare } from '../src/main'
 import assert from 'assert'
 import sinon from 'sinon'
 import qs from 'qs'

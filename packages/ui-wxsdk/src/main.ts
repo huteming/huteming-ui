@@ -1,4 +1,4 @@
-import { parseGeocoder, sign, getPayConfig } from 'packages/ui-api/src/main'
+import { parseGeocoder, sign, getPayConfig } from '@huteming/ui-api/src/main'
 import qs from 'qs'
 import _wxConfig from './wxConfig'
 import _wxSave from './wxSave'

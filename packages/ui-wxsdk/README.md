@@ -1,14 +1,11 @@
-> wxsdk的封装方法
+> 微信[JS-SDK](https://developers.weixin.qq.com/doc/offiaccount/OA_Web_Apps/JS-SDK.html)是`微信公众平台`面向网页开发者提供的基于微信内的网页开发工具包。本仓库是对官方sdk的再封装。方便项目中以`Promise`形式调用，并提供一些默认参数
 
 -----------------------
 
-微信JS-SDK是`微信公众平台`面向网页开发者提供的基于微信内的网页开发工具包。
-本仓库是对官方sdk的再封装。方便项目中以`Promise`形式调用，并提供一些默认参数
-
-## 例子
+### 引用
 
 ```javascript
-import { wxsdk } from '@huteming/util'
+import { wxsdk } from '@huteming/ui'
 
 wxsdk.wxConfig()
 wxsdk.wxShare()

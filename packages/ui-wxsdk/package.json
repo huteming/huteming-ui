@@ -1,19 +1,19 @@
 {
   "name": "@huteming/ui-wxsdk",
-  "private": true,
+  "private": false,
   "version": "2.0.4",
   "description": "wxsdk的封装方法",
   "main": "dist/wxsdk.common.js",
   "scripts": {
-    "prepublishOnly": "node ../../../scripts/prepublishOnly.js wxsdk util"
+    "prepublishOnly": "node ../../scripts/build-lib.js wxsdk"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@huteming/ui-api": "^2.0.5",
     "qs": "^6.9.1"
   },
   "devDependencies": {
-    "@types/qs": "^6.5.3",
-    "vue-tsx-support": "^2.3.2"
+    "@types/qs": "^6.5.3"
   }
 }

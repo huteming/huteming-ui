@@ -1,4 +1,4 @@
-import wxSave from 'web-util/wxsdk/src/wxSave'
+import wxSave from '../src/wxSave'
 import assert from 'assert'
 
 describe('wxsdk > wxSave', () => {

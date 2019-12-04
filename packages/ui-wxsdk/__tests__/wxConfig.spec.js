@@ -1,4 +1,4 @@
-import update, { __RewireAPI__ as RewireAPI, getApiList, register, waiting } from 'web-util/wxsdk/src/wxConfig'
+import update, { __RewireAPI__ as RewireAPI, getApiList, register, waiting } from '../src/wxConfig'
 import assert from 'assert'
 import sinon from 'sinon'
 

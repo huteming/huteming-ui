@@ -11,18 +11,18 @@ export default <Link[]>[
     //     chineseName: '工具函数 Tool',
     //     doc: () => import('packages/ui-tool/README.md'),
     // },
-    // {
-    //     childPath: 'wxsdk',
-    //     chineseName: '微信公众号 sdk',
-    //     doc: () => import('packages/ui-wxsdk/README.md'),
-    //     test: {
-    //         'wxsdk': () => import('packages/ui-wxsdk/tests/basic.vue'),
-    //         'wxsdk/hide': () => import('packages/ui-wxsdk/tests/hide.vue'),
-    //         'wxsdk/location': () => import('packages/ui-wxsdk/tests/location.vue'),
-    //         'wxsdk/share': () => import('packages/ui-wxsdk/tests/share.vue'),
-    //         'wxsdk/pay': () => import('packages/ui-wxsdk/tests/pay.vue'),
-    //     },
-    // },
+    {
+        childPath: 'wxsdk',
+        chineseName: '微信公众号 sdk',
+        doc: () => import('packages/ui-wxsdk/README.md'),
+        // test: {
+        //     'wxsdk': () => import('packages/ui-wxsdk/tests/basic.vue'),
+        //     'wxsdk/hide': () => import('packages/ui-wxsdk/tests/hide.vue'),
+        //     'wxsdk/location': () => import('packages/ui-wxsdk/tests/location.vue'),
+        //     'wxsdk/share': () => import('packages/ui-wxsdk/tests/share.vue'),
+        //     'wxsdk/pay': () => import('packages/ui-wxsdk/tests/pay.vue'),
+        // },
+    },
     // {
     //     childPath: 'api',
     //     chineseName: '常用接口 api',

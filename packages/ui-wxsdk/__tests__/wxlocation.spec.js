@@ -1,4 +1,4 @@
-import { __RewireAPI__ as WxsdkRewireAPI, wxLocation } from 'web-util/wxsdk/src/main'
+import { __RewireAPI__ as WxsdkRewireAPI, wxLocation } from '../src/main'
 import assert from 'assert'
 import sinon from 'sinon'
 const FLAG_FAILURE = 'failure'

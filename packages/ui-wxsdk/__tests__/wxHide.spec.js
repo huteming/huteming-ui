@@ -1,4 +1,4 @@
-import { wxHide } from 'web-util/wxsdk/src/main'
+import { wxHide } from '../src/main'
 import assert from 'assert'
 import sinon from 'sinon'
 
