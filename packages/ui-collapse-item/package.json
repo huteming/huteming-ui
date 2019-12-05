@@ -1,0 +1,14 @@
+{
+  "name": "@huteming/ui-collapse-item",
+  "private": true,
+  "version": "2.0.3",
+  "description": "",
+  "main": "dist/collapse-item.common.js",
+  "scripts": {
+    "prepublishOnly": "node ../../scripts/build-lib.js collapse-item"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+  }
+}

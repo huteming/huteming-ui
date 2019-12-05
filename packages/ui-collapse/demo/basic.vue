@@ -1,67 +1,67 @@
 <template>
 <div class="demo">
-    <tm-divider>基础用法</tm-divider>
+    <demo-divider>基础用法</demo-divider>
 
     <tm-collapse v-model="active" @change="handleChange">
         <tm-collapse-item header="title1">
-            <tm-cell title="hello"></tm-cell>
+            <demo-cell body="hello"></demo-cell>
         </tm-collapse-item>
 
         <tm-collapse-item header="title2">
-            <tm-cell title="hello"></tm-cell>
+            <demo-cell body="hello"></demo-cell>
         </tm-collapse-item>
 
         <tm-collapse-item header="title3">
-            <tm-cell title="hello"></tm-cell>
+            <demo-cell body="hello"></demo-cell>
         </tm-collapse-item>
     </tm-collapse>
 
-    <tm-divider>手风琴</tm-divider>
+    <demo-divider>手风琴</demo-divider>
 
     <tm-collapse v-model="active2" accordion @change="handleChange">
         <tm-collapse-item name="1" header="title1">
-            <tm-cell title="hello"></tm-cell>
+            <demo-cell body="hello"></demo-cell>
         </tm-collapse-item>
 
         <tm-collapse-item name="2" header="title2">
-            <tm-cell title="hello"></tm-cell>
+            <demo-cell body="hello"></demo-cell>
         </tm-collapse-item>
 
         <tm-collapse-item name="3" header="title3">
-            <tm-cell title="hello"></tm-cell>
+            <demo-cell body="hello"></demo-cell>
         </tm-collapse-item>
     </tm-collapse>
 
-    <tm-divider>disabled</tm-divider>
+    <demo-divider>disabled</demo-divider>
 
     <tm-collapse v-model="active3">
         <tm-collapse-item name="1" header="title1" disabled>
-            <tm-cell title="hello"></tm-cell>
+            <demo-cell body="hello"></demo-cell>
         </tm-collapse-item>
 
         <tm-collapse-item name="2" header="title2" disabled>
-            <tm-cell title="hello"></tm-cell>
+            <demo-cell body="hello"></demo-cell>
         </tm-collapse-item>
 
         <tm-collapse-item name="3" header="title3" disabled>
-            <tm-cell title="hello"></tm-cell>
+            <demo-cell body="hello"></demo-cell>
         </tm-collapse-item>
 
         <tm-collapse-item name="4" header="子项目为空" @click="handleClick">
         </tm-collapse-item>
 
         <tm-collapse-item name="5" header="异步" @click="handleClick">
-            <tm-cell title="hello" v-if="num > 0"></tm-cell>
+            <demo-cell body="hello" v-if="num > 0"></demo-cell>
         </tm-collapse-item>
     </tm-collapse>
 
-    <!-- <tm-divider>mock</tm-divider>
+    <!-- <demo-divider>mock</demo-divider>
 
     <tm-collapse v-model="mockValue">
         <tm-collapse-item v-for="item in mockList" :key="item.name" :name="item.name" :header="item.name" :disabled="item.isLocked" @click="handleMock(item)">
-            <tm-cell v-for="child in item.children" :key="child.name" :title="child.name" @click.native="handleMock(child)">
+            <demo-cell v-for="child in item.children" :key="child.name" :body="child.name" @click.native="handleMock(child)">
                 <TmIcon icon="lock" v-if="child.isLocked" />
-            </tm-cell>
+            </demo-cell>
         </tm-collapse-item>
     </tm-collapse> -->
 </div>

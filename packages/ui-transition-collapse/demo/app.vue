@@ -3,7 +3,7 @@
  * 注意点
  * 1、根组件不能定义高度height，否则动画过程不能准确获取高度
  */
-import { easeInOut } from 'web-util/animation/src/main'
+import { easeInOut } from 'packages/ui-animation/src/main'
 
 export default {
     name: 'TmTransitionCollapse',

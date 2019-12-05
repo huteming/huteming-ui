@@ -34,8 +34,8 @@ import Icon from 'packages/ui-icon/src/main'
 // export { default as TmPickerRange } from 'web-ui/picker-range/index'
 // export { default as TmPopup } from 'web-ui/popup/index'
 // export { default as TmToolbar } from 'web-ui/toolbar/index'
-// export { default as TmCollapse } from 'web-ui/collapse/index'
-// export { default as TmCollapseItem } from 'web-ui/collapse-item/index'
+import Collapse from 'packages/ui-collapse/src/main'
+import CollapseItem from 'packages/ui-collapse-item/src/main'
 // export { default as TmNoticeBar } from 'web-ui/notice-bar/index'
 // export { default as TmWingBlank } from 'web-ui/wing-blank/index'
 // export { default as TmWhiteSpace } from 'web-ui/white-space/index'
@@ -60,6 +60,8 @@ const components = [
     Icon,
     Clocker,
     Message,
+    Collapse,
+    CollapseItem,
 ]
 
 function install (vue: typeof Vue, config = {}) {

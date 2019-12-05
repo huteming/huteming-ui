@@ -1,14 +1,26 @@
-<template>
-<div class="tm-collapses">
-    <slot></slot>
-</div>
-</template>
+import { Vue, Prop, Watch, Mixins } from 'vue-property-decorator'
+import { withStyles } from '@huteming/ui-styles/src/main'
+import { ParentMixin } from 'ui/mixins/relation'
 
-<script lang="ts">
-import { Component, Vue, Prop, Watch } from 'vue-property-decorator'
+const styles = (styled: any, css: any) => {
+    return {
+        Root: styled('div', () => `
+            width: 100%;
+            box-sizing: border-box;
+        `)
+    }
+}
 
-@Component
-export default class TmCollapse extends Vue {
+class Collapse extends Mixins(ParentMixin('collapse')) {
+    render () {
+        const { Root } = this.styledDoms
+        return (
+            <Root>
+                { this.$slots.default }
+            </Root>
+        )
+    }
+
     @Prop({ type: [String, Number, Array] }) value: any
     @Prop({ type: Boolean }) accordion: any
 
@@ -44,4 +56,5 @@ export default class TmCollapse extends Vue {
         this.setActiveNames(_activeNames)
     }
 }
-</script>
+
+export default withStyles(styles)(Collapse, { name: 'TmCollapse' })

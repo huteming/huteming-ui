@@ -67,12 +67,12 @@ export default <Link[]>[
     //     doc: () => import('packages/ui-icon/README.md'),
     //     example: () => import('packages/ui-icon/demo/basic.vue'),
     // },
-    // {
-    //     childPath: 'collapse',
-    //     chineseName: '折叠面板 Collapse',
-    //     doc: () => import('packages/ui-collapse/README.md'),
-    //     example: () => import('packages/ui-collapse/demo/basic.vue'),
-    // },
+    {
+        childPath: 'collapse',
+        chineseName: '折叠面板 Collapse',
+        doc: () => import('packages/ui-collapse/README.md'),
+        example: () => import('packages/ui-collapse/demo/basic.vue'),
+    },
     // {
     //     childPath: 'notice-bar',
     //     chineseName: 'NoticeBar 通知栏',

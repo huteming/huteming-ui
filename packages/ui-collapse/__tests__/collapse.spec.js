@@ -1,11 +1,11 @@
-import TmCollapse from 'web-ui/collapse/src/collapse.vue'
-import TmCollapseItem from 'web-ui/collapse/src/collapse-item.vue'
+import TmCollapse from '../src/main'
+import TmCollapseItem from '../../ui-collapse-item/src/main'
 import { createLocalVue, mount } from '@vue/test-utils'
 import assert from 'assert'
-import { sleep } from '../helper'
+import { sleep } from 'tests/helper'
 const localVue = createLocalVue()
-localVue.component(TmCollapse.name, TmCollapse)
-localVue.component(TmCollapseItem.name, TmCollapseItem)
+localVue.use(TmCollapse)
+localVue.use(TmCollapseItem)
 
 describe('collapse', () => {
     it('create', async () => {

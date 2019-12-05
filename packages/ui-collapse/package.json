@@ -10,6 +10,9 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "@huteming/ui-tools": "^2.2.2"
+    "@huteming/ui-icon": "^2.0.2",
+    "@huteming/ui-styles": "^1.1.0",
+    "@huteming/ui-tools": "^2.2.2",
+    "@huteming/ui-transition-collapse": "^2.0.1"
   }
 }

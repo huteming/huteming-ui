@@ -27,7 +27,7 @@ const scaleHairlineCommon = (color: string, top: number | string, right: number 
         position: absolute;
         background-color: ${color};
         display: block;
-        z-index: 1;
+        z-index: 1000;
         top: ${top};
         right: ${right};
         bottom: ${bottom};
