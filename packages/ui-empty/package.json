@@ -5,11 +5,11 @@
   "description": "> 空状态",
   "main": "dist/empty.common.js",
   "scripts": {
-    "prepublishOnly": "node ../../../scripts/prepublishOnly.js empty"
+    "prepublishOnly": "node ../../scripts/build-lib.js empty"
   },
   "author": "",
   "license": "ISC",
-  "devDependencies": {
-    "vue-tsx-support": "^2.3.2"
+  "dependencies": {
+    "@huteming/ui-styles": "^1.1.0"
   }
 }
