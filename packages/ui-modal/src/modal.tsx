@@ -11,7 +11,6 @@ const styles = (styled: any, css: any) => {
             left: 0;
             right: 0;
             background: ${props.theme.modal.background};
-            z-index: ${props.state.zIndex};
         `)
     }
 }
@@ -52,8 +51,8 @@ class TmModal extends Vue {
 
     handleClick (event: Event) {
         event.stopPropagation()
-        if (typeof this.callbackClick === 'function') {
-            this.callbackClick()
+        if (typeof this.click === 'function') {
+            this.click()
         }
     }
 
@@ -66,25 +65,27 @@ class TmModal extends Vue {
      * 动画钩子
      */
     handleBeforeEnter () {
-        if (typeof this.callbackBeforeEnter === 'function') {
-            this.callbackBeforeEnter()
+        if (typeof this.beforeEnter === 'function') {
+            this.beforeEnter()
         }
     }
     handleAfterEnter () {
-        if (typeof this.callbackAfterEnter === 'function') {
-            this.callbackAfterEnter()
+        if (typeof this.afterEnter === 'function') {
+            this.afterEnter()
         }
     }
     handleBeforeLeave () {
-        if (typeof this.callbackBeforeLeave === 'function') {
-            this.callbackBeforeLeave()
+        if (typeof this.beforeLeave === 'function') {
+            this.beforeLeave()
         }
     }
     handleAfterLeave () {
-        this.destroy()
+        if (this.leaveToDestroy) {
+            this.destroy()
+        }
 
-        if (typeof this.callbackAfterLeave === 'function') {
-            this.callbackAfterLeave()
+        if (typeof this.afterLeave === 'function') {
+            this.afterLeave()
         }
     }
     destroy () {
@@ -93,12 +94,13 @@ class TmModal extends Vue {
     }
 
     visible = false
+    leaveToDestroy: boolean = true
 
-    callbackClick?: Function
-    callbackBeforeEnter?: Function
-    callbackAfterEnter?: Function
-    callbackBeforeLeave?: Function
-    callbackAfterLeave?: Function
+    click?: Function
+    beforeEnter?: Function
+    afterEnter?: Function
+    beforeLeave?: Function
+    afterLeave?: Function
 }
 
 export default withStyles(styles)(TmModal, { name: 'TmModal', })

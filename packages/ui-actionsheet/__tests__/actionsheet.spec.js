@@ -1,6 +1,5 @@
 import actionsheet from '../src/main'
 import TmActionsheet from '../src/actionsheet'
-import { closeModal } from '../../ui-modal/src/main'
 import assert from 'assert'
 import sinon from 'sinon'
 import { mount, TransitionStub, createLocalVue } from '@vue/test-utils'
@@ -141,7 +140,6 @@ describe('actionsheet', () => {
 
     afterEach(() => {
         sinon.restore()
-        closeModal()
         cleanDom('.tm-actionsheet')
         cleanDom('.tm-modal')
     })

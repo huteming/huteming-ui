@@ -19,7 +19,7 @@ import Carousel from 'packages/ui-carousel/src/main'
 import CarouselItem from 'packages/ui-carousel-item/src/main'
 import Cell from 'packages/ui-cell/src/main'
 import Clocker from 'packages/ui-clocker/src/main'
-// export { default as TmDialog } from 'web-ui/dialog/index'
+import Dialog from 'packages/ui-dialog/src/main'
 // export { default as TmEmpty } from 'web-ui/empty/index'
 // export { default as TmField } from 'web-ui/field/index'
 // export { default as TmFlex } from '@ui/packages/flex/index'
@@ -62,6 +62,7 @@ const components = [
     Message,
     Collapse,
     CollapseItem,
+    Dialog,
 ]
 
 function install (vue: typeof Vue, config = {}) {

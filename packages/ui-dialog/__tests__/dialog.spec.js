@@ -1,12 +1,14 @@
 /**
  * 由于 modal 是只会创建一个实例，所以必须在每个测试结束关闭 modal
  */
-import TmDialog from 'web-ui/dialog/src/dialog'
-import WorkBasic from '../components/basic'
+import TmDialog from '../src/main'
+import WorkBasic from 'tests/components/basic'
 import assert from 'assert'
-import { mount, config, TransitionStub, shallowMount } from '@vue/test-utils'
-import { sleep, Mock } from '../helper'
+import { mount, config, TransitionStub, shallowMount, createLocalVue } from '@vue/test-utils'
+import { sleep, Mock } from 'tests/helper'
 import sinon from 'sinon'
+const localVue = createLocalVue()
+localVue.use(TmDialog)
 
 config.stubs.transition = false
 
@@ -28,9 +30,10 @@ describe('dialog', () => {
             methods: {
             },
             components: {
-                TmDialog,
                 WorkBasic,
             },
+        }, {
+            localVue,
         })
         const wrapperDialog = wrapper.find(TmDialog)
         const { closePosition, closeOnClickModal } = wrapperDialog.vm
@@ -158,8 +161,8 @@ describe('dialog', () => {
 
         const emitInput = wrapperDialog.emitted('input')
         assert.strictEqual(emitInput.length, 2)
-        assert.deepStrictEqual(emitInput[0], [true])
-        assert.deepStrictEqual(emitInput[1], [false])
+        assert.deepStrictEqual(emitInput[0], [true, false])
+        assert.deepStrictEqual(emitInput[1], [false, true])
     })
 
     it('before close', async () => {

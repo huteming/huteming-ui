@@ -13,12 +13,12 @@ export default <Link[]>[
         doc: () => import('packages/ui-message/README.md'),
         example: () => import('packages/ui-message/demo/basic.vue'),
     },
-    // {
-    //     childPath: 'dialog',
-    //     chineseName: '弹窗 Dialog',
-    //     doc: () => import('packages/ui-dialog/README.md'),
-    //     example: () => import('packages/ui-dialog/demo/basic.vue'),
-    // },
+    {
+        childPath: 'dialog',
+        chineseName: '弹窗 Dialog',
+        doc: () => import('packages/ui-dialog/README.md'),
+        example: () => import('packages/ui-dialog/demo/basic.vue'),
+    },
     // {
     //     childPath: 'toast',
     //     chineseName: '提示 Toast',

@@ -222,7 +222,7 @@ class Message extends Mixins(MixinsModal) implements MessageComponent {
     }
 
     show () {
-        this.$_openModal()
+        this.openModal()
         this.visible = true
     }
 
@@ -235,7 +235,7 @@ class Message extends Mixins(MixinsModal) implements MessageComponent {
         const _beforeAction = action === 'confirm' ? this.beforeConfirm : this.beforeCancel
 
         const done = () => {
-            this.$_closeModal()
+            this.closeModal()
             this.visible = false
         }
         const _beforeClose = () => {

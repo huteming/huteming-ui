@@ -1,6 +1,5 @@
 import Vue from 'vue'
 import ActionsComponent from './actionsheet'
-import { createModal } from '@huteming/ui-modal/src/main'
 import { ActionsheetOptions, ActionsheetMenu, ComponentActionsheet } from '../types'
 
 function create (resolve: Function, reject: Function, options: ActionsheetOptions): ComponentActionsheet {
@@ -26,8 +25,6 @@ function Actionsheet (options: ActionsheetOptions | ActionsheetMenu[]): Promise<
     const config = Object.assign({}, options)
 
     return new Promise((resolve, reject) => {
-        // zIndex 是从全局状态中取得。必须先创建 modal，再创建实例
-        createModal()
         const instance = create(resolve, reject, config)
 
         instance.open()

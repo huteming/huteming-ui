@@ -104,12 +104,12 @@ class TmActionsheet extends Mixins(MixinModal) implements ComponentActionsheet {
     }
 
     open () {
-        this.$_openModal(this.handleClickModal, this.$el)
+        this.openModal(this.handleClickModal)
         this.visible = true
     }
 
     close (actionValue?: any) {
-        this.$_closeModal()
+        this.closeModal()
         this.visible = false
 
         actionValue ? this.resolve(actionValue) : this.reject()

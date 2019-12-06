@@ -1,10 +1,10 @@
 <template>
-<div class="page-example">
+<div class="page-demo">
     <button @click="visibleDialog = true">open</button>
     <button @click="beforeClose = handleBeforeClose; visibleDialog = true">before close</button>
     <button @click="dialogScroll = true">scroll</button>
 
-    <tm-dialog v-model="visibleDialog" :before-close="beforeClose" @close="handleClose" @closed="handleClosed">
+    <tm-dialog v-model="visibleDialog" :before-close="beforeClose" @close="handleClose" @closed="handleClosed" close-on-click-modal>
         <img src="./jinghaokefu.png" alt="" class="image" />
     </tm-dialog>
 
@@ -19,9 +19,6 @@
 </template>
 
 <script>
-import TmDialog from '../index'
-import Toast from 'web-ui/toast/index'
-
 export default {
     data () {
         return {
@@ -45,14 +42,10 @@ export default {
             console.log('closed')
         },
         handleBeforeClose (done) {
-            Toast('close 2s later')
+            console.log('close 2s later')
             setTimeout(done, 2000)
         },
     },
-
-    components: {
-        TmDialog,
-    }
 }
 </script>
 

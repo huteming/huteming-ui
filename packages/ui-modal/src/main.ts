@@ -1,4 +1,3 @@
-import MixinModal from './mixinModal'
+import MixinModal from './mixin'
 
-export * from './utils'
 export default MixinModal

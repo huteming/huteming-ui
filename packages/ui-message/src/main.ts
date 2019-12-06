@@ -2,7 +2,6 @@ import Vue from 'vue'
 import TmMessage from './message'
 import { isVNode, isComponent } from '@huteming/ui-tools/src/main'
 import { MessageOptions, MessageConfig, MessageComponent, MessageResponse, MessageBox } from '../types'
-import { createModal } from '@huteming/ui-modal/src/main'
 
 const defaults = {
     title: '提示',
@@ -25,8 +24,6 @@ const defaults = {
 const MessageConstructor = Vue.extend(TmMessage)
 
 function open (config: MessageConfig, resolve: Function, reject: Function) {
-    createModal()
-
     const instance: MessageComponent = new MessageConstructor({
         data: {
             resolve,
