@@ -5,11 +5,11 @@
   "description": "无限滚动指令",
   "main": "dist/infinite-scroll.common.js",
   "scripts": {
-    "prepublishOnly": "node ../../../scripts/prepublishOnly.js infinite-scroll"
+    "prepublishOnly": "node ../../scripts/build-lib infinite-scroll"
   },
   "author": "",
   "license": "ISC",
-  "devDependencies": {
-    "vue-tsx-support": "^2.3.2"
+  "dependencies": {
+    "@huteming/ui-element": "^2.0.3"
   }
 }

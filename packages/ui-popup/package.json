@@ -5,14 +5,13 @@
   "description": "> 弹出层，可自定义内容。",
   "main": "dist/popup.common.js",
   "scripts": {
-    "prepublishOnly": "node ../../../scripts/prepublishOnly.js popup"
+    "prepublishOnly": "node ../../scripts/build-lib.js popup"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "@huteming/ui-smart-scroll": "^2.0.1"
-  },
-  "devDependencies": {
-    "vue-tsx-support": "^2.3.2"
+    "@huteming/ui-modal": "^1.1.0",
+    "@huteming/ui-smart-scroll": "^2.0.1",
+    "@huteming/ui-styles": "^1.1.0"
   }
 }

@@ -5,14 +5,14 @@
   "description": "> 加载",
   "main": "dist/loading.common.js",
   "scripts": {
-    "prepublishOnly": "node ../../../scripts/prepublishOnly.js loading"
+    "prepublishOnly": "node ../../scripts/build-lib.js loading"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@huteming/ui-element": "^2.0.3",
+    "@huteming/ui-icon": "^2.0.2",
+    "@huteming/ui-styles": "^1.1.0",
     "throttle-debounce": "^2.1.0"
-  },
-  "devDependencies": {
-    "vue-tsx-support": "^2.3.2"
   }
 }

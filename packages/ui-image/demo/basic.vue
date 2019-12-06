@@ -1,35 +1,35 @@
 <template>
 <div class="demo">
     <template v-for="fit in fits">
-        <tm-divider :key="`${fit}-divider`">{{ fit }}</tm-divider>
+        <demo-divider :key="`${fit}-divider`">{{ fit }}</demo-divider>
 
         <TmImage
             class="demo-img"
             :src="url"
             :fit="fit"
-            :key="`${fit}-image`" />
+            :key="`${fit}-image`"
+            alt="origin"
+            @click="handleLoad" />
     </template>
 
-    <tm-divider>占位内容: 初始化为空</tm-divider>
+    <!-- <demo-divider>占位内容: 初始化为空</demo-divider>
     <tm-image class="demo-img" :src="asyncUrl" hold>
     </tm-image>
 
-    <tm-divider>占位内容: 初始化不为空</tm-divider>
+    <demo-divider>占位内容: 初始化不为空</demo-divider>
     <tm-image class="demo-img" :src="url" hold>
     </tm-image>
 
-    <tm-divider>加载失败</tm-divider>
+    <demo-divider>加载失败</demo-divider>
     <tm-image src="hello" class="demo-img">
     </tm-image>
 
-    <tm-divider>懒加载</tm-divider>
-    <TmImage class="demo-img" v-for="url in urls" :key="url" :src="url" lazy @load="handleLoad" />
+    <demo-divider>懒加载</demo-divider>
+    <TmImage class="demo-img" v-for="url in urls" :key="url" :src="url" lazy @load="handleLoad" /> -->
 </div>
 </template>
 
 <script>
-import TmImage from '../index'
-
 export default {
     data () {
         return {
@@ -61,10 +61,6 @@ export default {
         handleLoad (event) {
             console.log('load', event)
         },
-    },
-
-    components: {
-        TmImage,
     },
 }
 </script>

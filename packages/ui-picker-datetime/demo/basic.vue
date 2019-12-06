@@ -1,5 +1,5 @@
 <template>
-<div class="page">
+<div class="page-demo">
     <button class="space" @click="visibleDatetime = true">{{ valueDatetime | date }}</button>
     <tm-picker-datetime
         :visible.sync="visibleDatetime"
@@ -11,8 +11,6 @@
 </template>
 
 <script>
-import TmPickerDatetime from '../index'
-
 export default {
     data () {
         return {
@@ -46,10 +44,6 @@ export default {
             return `${year}-${month}-${date} ${hour}:${minute}`
         }
     },
-
-    components: {
-        TmPickerDatetime,
-    }
 }
 </script>
 

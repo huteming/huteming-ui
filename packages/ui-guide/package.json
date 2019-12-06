@@ -5,11 +5,12 @@
   "description": "> 引导遮层",
   "main": "dist/guide.common.js",
   "scripts": {
-    "prepublishOnly": "node ../../../scripts/prepublishOnly.js guide"
+    "prepublishOnly": "node ../../scripts/build-lib.js guide"
   },
   "author": "",
   "license": "ISC",
-  "devDependencies": {
-    "vue-tsx-support": "^2.3.2"
+  "dependencies": {
+    "@huteming/ui-styles": "^1.1.0",
+    "@huteming/ui-types": "^1.0.0"
   }
 }

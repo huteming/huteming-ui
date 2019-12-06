@@ -1,4 +1,4 @@
-import ComponentGuide from './guide.vue'
+import ComponentGuide from './guide'
 import Vue from 'vue'
 
 const optionsDefault = {

@@ -43,12 +43,12 @@ export default <Link[]>[
     //     doc: () => import('packages/ui-panel/README.md'),
     //     example: () => import('packages/ui-panel/demo/basic.vue'),
     // },
-    // {
-    //     childPath: 'image',
-    //     chineseName: '图片容器 image',
-    //     doc: () => import('packages/ui-image/README.md'),
-    //     example: () => import('packages/ui-image/demo/basic.vue'),
-    // },
+    {
+        childPath: 'image',
+        chineseName: '图片容器 image',
+        doc: () => import('packages/ui-image/README.md'),
+        example: () => import('packages/ui-image/demo/basic.vue'),
+    },
     // {
     //     childPath: 'empty',
     //     chineseName: '空状态 empty',

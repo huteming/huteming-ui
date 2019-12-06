@@ -25,12 +25,12 @@ import Dialog from 'packages/ui-dialog/src/main'
 // export { default as TmFlex } from '@ui/packages/flex/index'
 // export { default as TmFlexItem } from '@ui/packages/flex-item/index'
 import Icon from 'packages/ui-icon/src/main'
-// export { default as TmImage } from 'web-ui/image/index'
+import Image from 'packages/ui-image/src/main'
 // export { default as TmPanel } from 'web-ui/panel/index'
 // export { default as TmPicker } from 'web-ui/picker/index'
 // export { default as TmPickerItem } from 'web-ui/picker-item/index'
 // export { default as TmPickerAddress } from 'web-ui/picker-address/index'
-// export { default as TmPickerDatetime } from 'web-ui/picker-datetime/index'
+import PickerDatetime from 'packages/ui-picker-datetime/src/main'
 // export { default as TmPickerRange } from 'web-ui/picker-range/index'
 // export { default as TmPopup } from 'web-ui/popup/index'
 // export { default as TmToolbar } from 'web-ui/toolbar/index'
@@ -63,6 +63,8 @@ const components = [
     Collapse,
     CollapseItem,
     Dialog,
+    Image,
+    PickerDatetime,
 ]
 
 function install (vue: typeof Vue, config = {}) {

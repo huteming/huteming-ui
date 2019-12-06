@@ -5,11 +5,14 @@
   "description": "> 日期时间选择器，支持自定义类型。",
   "main": "dist/picker-datetime.common.js",
   "scripts": {
-    "prepublishOnly": "node ../../../scripts/prepublishOnly.js picker-datetime"
+    "prepublishOnly": "node ../../scripts/build-lib.js picker-datetime"
   },
   "author": "",
   "license": "ISC",
-  "devDependencies": {
-    "vue-tsx-support": "^2.3.2"
+  "dependencies": {
+    "@huteming/ui-picker": "^1.0.0",
+    "@huteming/ui-popup": "^2.0.1",
+    "@huteming/ui-styles": "^1.1.0",
+    "@huteming/ui-toolbar": "^2.0.1"
   }
 }

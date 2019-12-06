@@ -88,18 +88,16 @@ describe('carousel', () => {
     })
 
     it('异步自动播放', async () => {
-        const [wrap, parent] = await create({ autoplay: false, interval: 15 })
-        await sleep(10)
-
+        const [wrap, parent] = await create({ autoplay: false, interval: 40 })
         assert.strictEqual(parent.vm.currentIndex, 0)
 
         wrap.setData({ autoplay: true })
-        await sleep(20)
+        await sleep(50)
 
         assert.strictEqual(parent.vm.currentIndex, 1)
 
         wrap.setData({ autoplay: false })
-        await sleep(20)
+        await sleep(50)
 
         assert.strictEqual(parent.vm.currentIndex, 1)
     })

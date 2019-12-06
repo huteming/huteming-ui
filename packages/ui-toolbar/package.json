@@ -5,11 +5,11 @@
   "description": "> 操作栏",
   "main": "dist/toolbar.common.js",
   "scripts": {
-    "prepublishOnly": "node ../../../scripts/prepublishOnly.js toolbar"
+    "prepublishOnly": "node ../../scripts/build-lib.js toolbar"
   },
   "author": "",
   "license": "ISC",
-  "devDependencies": {
-    "vue-tsx-support": "^2.3.2"
+  "dependencies": {
+    "@huteming/ui-styles": "^1.1.0"
   }
 }

@@ -1,4 +1,4 @@
-import { attached, getScrollTop, getScrollContainer, getElementTop } from 'packages/ui-element/src/main'
+import { attached, getScrollTop, getScrollContainer, getElementTop } from '@huteming/ui-element/src/main'
 const CTX = '@@InfiniteScroll'
 const defaults = {
     callback: null,
@@ -7,7 +7,7 @@ const defaults = {
 }
 
 export default {
-    name: 'InfiniteScroll',
+    registName: 'InfiniteScroll',
 
     bind (el: any, binding: any, vnode: any) {
         if (typeof binding.value === 'function') {
