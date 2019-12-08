@@ -5,11 +5,13 @@
   "description": "> 通知栏",
   "main": "dist/notice-bar.common.js",
   "scripts": {
-    "prepublishOnly": "node ../../../scripts/prepublishOnly.js notice-bar"
+    "prepublishOnly": "node ../../scripts/build-lib.js notice-bar"
   },
   "author": "",
   "license": "ISC",
-  "devDependencies": {
-    "vue-tsx-support": "^2.3.2"
+  "dependencies": {
+    "@huteming/ui-animation": "^1.0.1",
+    "@huteming/ui-icon": "^2.0.2",
+    "@huteming/ui-styles": "^1.1.0"
   }
 }

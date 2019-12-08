@@ -1,11 +1,12 @@
-import TmTransitionCollapse, { __RewireAPI__ as RewireAPI } from 'web-ui/transition-collapse/src/app.vue'
+import TmTransitionCollapse from '../src/main'
+import { __RewireAPI__ as RewireAPI } from '../src/transition-collapse'
 import assert from 'assert'
 import { createLocalVue, mount } from '@vue/test-utils'
-import { sleep } from '../helper'
+import { sleep } from 'tests/helper'
 import sinon from 'sinon'
 const mockScrollHeight = 100
 const localVue = createLocalVue()
-localVue.component(TmTransitionCollapse.name, TmTransitionCollapse)
+localVue.use(TmTransitionCollapse)
 
 describe('transition-collapse', () => {
     let mockAnimation
@@ -37,6 +38,7 @@ describe('transition-collapse', () => {
             localVue,
             stubs: {
                 'transition-group': false,
+                'transition': false,
             },
         })
         // 模拟高度
@@ -72,6 +74,7 @@ describe('transition-collapse', () => {
             localVue,
             stubs: {
                 'transition-group': false,
+                'transition': false,
             },
         })
         // 模拟高度

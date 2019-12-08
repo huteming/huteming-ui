@@ -1,11 +1,12 @@
-import SmartScroll, { __RewireAPI__ as RewireAPI } from 'web-ui/smart-scroll/src/main'
+import { __RewireAPI__ as RewireAPI } from '../src/smart-scroll'
+import SmartScroll from '../src/main'
 import assert from 'assert'
-import { Mock, mockCancelable } from '../helper'
+import { Mock, mockCancelable } from 'tests/helper'
 import { mount, createLocalVue } from '@vue/test-utils'
 import sinon from 'sinon'
 const scope = '@@SmartScroll'
 const localVue = createLocalVue()
-localVue.directive(SmartScroll.name, SmartScroll)
+localVue.use(SmartScroll)
 
 describe('smart-scroll', () => {
     let mock1

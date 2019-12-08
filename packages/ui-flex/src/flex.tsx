@@ -1,24 +1,41 @@
-import { Prop, Component, Vue, ProvideReactive } from 'vue-property-decorator'
-import styled from 'vue-styled-components'
+import { Prop, Vue, ProvideReactive, Mixins } from 'vue-property-decorator'
+import { withStyles } from 'packages/ui-styles/src/main'
+import { StyleProps } from 'packages/ui-styles/types'
+import { ParentMixin } from 'ui/mixins/relation'
 
-@Component({
-    name: 'TmFlex',
-})
-export default class TmFlex extends Vue {
-    render () {
-        const { $slots, direction, normalizedJustify, normalizedWrap, normalizedAlign, normalizedContent } = this
-        const Container = styled.div`
+const RootProps = {
+    direction: String,
+    wrap: String,
+    justify: String,
+    align: String,
+    alignContent: String,
+}
+
+const styles = (styled: any, css: any) => {
+    return {
+        Root: styled('div', RootProps, (props: StyleProps) => `
             display: flex;
-            flex-direction: ${direction};
-            flex-wrap: ${normalizedWrap};
-            justify-content: ${normalizedJustify};
-            align-items: ${normalizedAlign};
-            align-content: ${normalizedContent};
-        `
+            flex-direction: ${props.direction};
+            flex-wrap: ${props.wrap};
+            justify-content: ${props.justify};
+            align-items: ${props.align};
+            align-content: ${props.alignContent};
+        `)
+    }
+}
+
+class Flex extends Mixins(ParentMixin('flex')) {
+    render () {
+        const { Root } = this.styledDoms
         return (
-            <Container>
-                { $slots.default }
-            </Container>
+            <Root
+                direction={ this.direction }
+                wrap={ this.normalizedWrap }
+                justify={ this.normalizedJustify }
+                align={ this.normalizedAlign }
+                align-content={ this.normalizedContent }>
+                { this.$slots.default }
+            </Root>
         )
     }
 
@@ -110,7 +127,6 @@ export default class TmFlex extends Vue {
 
     @Prop({ type: String, default: '0px' })
     gutter!: string
-
-    @ProvideReactive('gutter')
-    parentGutter = this.gutter
 }
+
+export default withStyles(styles)(Flex, { name: 'TmFlex' })

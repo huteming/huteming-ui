@@ -1,35 +1,57 @@
-import { Component, Prop, Vue, InjectReactive } from 'vue-property-decorator'
+import { Component, Prop, Vue, InjectReactive, Mixins } from 'vue-property-decorator'
 import TmFlex from './flex'
 import styled, { css } from 'vue-styled-components'
+import { withStyles } from 'packages/ui-styles/src/main'
+import { StyleProps } from 'packages/ui-styles/types'
+import { ChildrenMixin } from 'ui/mixins/relation'
 
-@Component({
-    name: 'TmFlexItem',
-})
-export default class TmFlexItem extends Vue {
-    render () {
-        const { normalizedAlign, order, ellipsis, normalizedGrow, shrink, normalizedBasis, normalizedGutter } = this
-        const Container = styled.div`
-            align-self: ${normalizedAlign};
-            order: ${order};
-            flex: ${normalizedGrow} ${shrink} ${normalizedBasis};
-            margin: ${normalizedGutter};
-            ${() => ellipsis && css`
+const RootProps = {
+    align: String,
+    order: Number,
+    grow: Number,
+    shrink: Number,
+    basis: String,
+    gutter: String,
+    ellipsis: [Number, Boolean],
+}
+
+const styles = (styled: any, css: any) => {
+    return {
+        Root: styled('div', RootProps, (props: StyleProps) => `
+            align-self: ${props.align};
+            order: ${props.order};
+            flex: ${props.grow} ${props.shrink} ${props.basis};
+            margin: ${props.gutter};
+            ${() => props.ellipsis && css`
                 overflow : hidden;
                 text-overflow: ellipsis;
                 display: -webkit-box;
-                -webkit-line-clamp: ${typeof ellipsis === 'number' ? ellipsis : 1};
+                -webkit-line-clamp: ${typeof props.ellipsis === 'number' ? props.ellipsis : 1};
                 -webkit-box-orient: vertical;
             `}
-        `
+        `),
+    }
+}
+
+class FlexItem extends Mixins(ChildrenMixin('flex')) {
+    render () {
+        const { Root } = this.styledDoms
         return (
-            <Container>
+            <Root
+                align={ this.normalizedAlign }
+                order={ this.order }
+                grow={ this.normalizedGrow }
+                shrink={ this.shrink }
+                basis={ this.normalizedBasis }
+                gutter={ this.normalizedGutter }
+                ellipsis={ this.ellipsis }>
                 { this.$slots.default }
-            </Container>
+            </Root>
         )
     }
 
     get normalizedGutter (): string {
-        return this.gutter || this.parentGutter
+        return this.gutter || this.parent.gutter
     }
 
     get normalizedAlign (): string {
@@ -57,8 +79,6 @@ export default class TmFlexItem extends Vue {
         return this.basis
     }
 
-    $parent!: TmFlex
-
     @Prop({ type: Number, default: 0 })
     order!: number
 
@@ -83,12 +103,11 @@ export default class TmFlexItem extends Vue {
     @Prop({ type: String })
     gutter: string | undefined
 
-    @InjectReactive('gutter')
-    parentGutter!: string
-
     // 过长省略
     // 可以理解为预设值, 关联 grow, basis
     // 建议不要和 width 混合使用, 因为 width 会覆盖 basis
     @Prop({ type: [Boolean, Number], default: false })
     ellipsis!: boolean | number
 }
+
+export default withStyles(styles)(FlexItem, { name: 'TmFlexItem' })

@@ -1,0 +1,14 @@
+{
+  "name": "@huteming/ui-flex",
+  "version": "1.0.0",
+  "description": "> Flex 是 CSS flex 布局的一个封装。",
+  "main": "lib/flex.common.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@huteming/ui-styles": "^1.1.0"
+  }
+}
