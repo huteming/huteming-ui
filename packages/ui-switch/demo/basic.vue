@@ -15,7 +15,7 @@ import { Vue } from 'vue-property-decorator'
 
 export default class DemoSwitch extends Vue {
     value1: boolean = false
-    value2: boolean = false
+    value2: boolean = true
     value3: boolean = true
 
     handleChange (val: boolean) {

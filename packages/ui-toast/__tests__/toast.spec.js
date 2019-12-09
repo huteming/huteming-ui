@@ -1,7 +1,7 @@
 import { createWrapper } from '@vue/test-utils'
 import assert from 'assert'
-import Toast from 'web-ui/toast/src/main'
-import { sleep } from '../helper'
+import Toast from '../src/main'
+import { sleep } from 'tests/helper'
 import sinon from 'sinon'
 
 describe('toast', () => {
@@ -107,8 +107,7 @@ describe('toast', () => {
         const positions = ['top', 'middle', 'bottom']
         positions.forEach(position => {
             const vm = Toast('qq', { position })
-            const wrapper = createWrapper(vm)
-            assert.ok(wrapper.classes(`tm-toast-${position}`))
+            assert.strictEqual(vm.position, position)
         })
     })
 })

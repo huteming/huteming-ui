@@ -19,8 +19,7 @@
 </template>
 
 <script>
-import ImagePicker from '../index'
-import TmImage from 'web-ui/image/index'
+import TmImage from 'packages/ui-image/src/main'
 
 export default {
     data () {
@@ -57,10 +56,6 @@ export default {
 
     components: {
         TmImage,
-    },
-
-    directives: {
-        ImagePicker,
     },
 }
 </script>

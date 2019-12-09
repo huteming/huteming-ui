@@ -5,11 +5,12 @@
   "description": "> 图片选择器",
   "main": "dist/image-picker.common.js",
   "scripts": {
-    "prepublishOnly": "node ../../../scripts/prepublishOnly.js image-picker"
+    "prepublishOnly": "node ../../scripts/build-lib.js image-picker"
   },
   "author": "",
   "license": "ISC",
-  "devDependencies": {
-    "vue-tsx-support": "^2.3.2"
+  "dependencies": {
+    "@huteming/ui-element": "^2.0.3",
+    "@huteming/ui-styles": "^1.1.0"
   }
 }

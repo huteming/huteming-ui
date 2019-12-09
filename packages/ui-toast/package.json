@@ -5,11 +5,13 @@
   "description": "> 简短的消息提示框，支持自定义位置、持续时间和样式。",
   "main": "dist/toast.common.js",
   "scripts": {
-    "prepublishOnly": "node ../../../scripts/prepublishOnly.js toast"
+    "prepublishOnly": "node ../../scripts/build-lib.js toast"
   },
   "author": "",
   "license": "ISC",
-  "devDependencies": {
-    "vue-tsx-support": "^2.3.2"
+  "dependencies": {
+    "@huteming/ui-icon": "^2.0.2",
+    "@huteming/ui-styles": "^1.1.0",
+    "@huteming/ui-tools": "^2.2.2"
   }
 }

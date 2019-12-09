@@ -14,7 +14,7 @@
 </template>
 
 <script>
-import Toast from '../index'
+import Toast from '../src/main'
 
 export default {
     data () {

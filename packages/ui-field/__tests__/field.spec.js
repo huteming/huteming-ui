@@ -1,16 +1,13 @@
 import assert from 'assert'
-import TmField, { __RewireAPI__ as RewireAPI } from 'web-ui/field/src/app.vue'
-import WorkBasic from '../components/basic.vue'
+import TmField from '../src/main'
+import { __RewireAPI__ as RewireAPI } from '../src/field'
+import WorkBasic from 'tests/components/basic.vue'
 import { mount, createLocalVue } from '@vue/test-utils'
 import sinon from 'sinon'
 const localVue = createLocalVue()
-localVue.component(TmField.name, TmField)
+localVue.use(TmField)
 
 describe('field', () => {
-    it('name', () => {
-        assert.strictEqual(TmField.name, 'TmField')
-    })
-
     it('还原滚动条', () => {
         const mockGetScrollTop = sinon.fake.returns(30)
         const mockScroll = sinon.fake()
@@ -46,7 +43,7 @@ describe('field', () => {
 
     it('event change value', () => {
         const wrapper = mount(TmField)
-        const wrapperInput = wrapper.find('.tm-field__input')
+        const wrapperInput = wrapper.find('input')
         // wrapperInput.setValue('hello')
         wrapperInput.element.value = 'hello'
         wrapperInput.trigger('input')
@@ -74,7 +71,7 @@ describe('field', () => {
             },
         })
         const wrapperField = wrapper.find(TmField)
-        const wrapperInput = wrapper.find('.tm-field__input')
+        const wrapperInput = wrapper.find('input')
         const wrapperBasic = wrapper.find(WorkBasic)
         wrapperInput.element.focus()
         wrapperInput.element.blur()
@@ -88,7 +85,7 @@ describe('field', () => {
 
     it('event compositionstart', () => {
         const wrapper = mount(TmField)
-        const wrapperInput = wrapper.find('.tm-field__input')
+        const wrapperInput = wrapper.find({ ref: 'field' })
         wrapperInput.element.value = 'hello'
         wrapperInput.trigger('compositionstart')
         wrapperInput.trigger('input')
@@ -99,12 +96,23 @@ describe('field', () => {
 
     it('event compositionend', () => {
         const wrapper = mount(TmField)
-        const wrapperInput = wrapper.find('.tm-field__input')
+        const wrapperInput = wrapper.find({ ref: 'field' })
         wrapperInput.element.value = 'hello'
         wrapperInput.trigger('compositionend')
 
         const emitInput = wrapper.emitted('input')
         assert.ok(emitInput)
-        assert.strictEqual(emitInput[0][0], 'hello')
+        assert.deepStrictEqual(emitInput[0], ['hello'])
+    })
+
+    it('设置textarea rows属性', () => {
+        const wrap = mount(TmField, {
+            propsData: {
+                type: 'textarea',
+                rows: 3,
+            },
+        })
+        const textarea = wrap.find('textarea')
+        assert.strictEqual(textarea.attributes('rows'), '3')
     })
 })

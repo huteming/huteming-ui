@@ -19,12 +19,12 @@ export default <Link[]>[
         doc: () => import('packages/ui-dialog/README.md'),
         example: () => import('packages/ui-dialog/demo/basic.vue'),
     },
-    // {
-    //     childPath: 'toast',
-    //     chineseName: '提示 Toast',
-    //     doc: () => import('packages/ui-toast/README.md'),
-    //     example: () => import('packages/ui-toast/demo/basic.vue'),
-    // },
+    {
+        childPath: 'toast',
+        chineseName: '提示 Toast',
+        doc: () => import('packages/ui-toast/README.md'),
+        example: () => import('packages/ui-toast/demo/basic.vue'),
+    },
     // {
     //     childPath: 'popup',
     //     chineseName: '弹出层 Popup',

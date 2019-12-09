@@ -1,5 +1,5 @@
 <template>
-<div class="demo">
+<div class="page-demo">
     <tm-white-space size="xs"></tm-white-space>
     <demo-placeholder>xs</demo-placeholder>
 

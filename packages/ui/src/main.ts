@@ -2,11 +2,11 @@ import Vue from 'vue'
 // export { default as TmTurntable } from 'web-ui/turntable/index'
 import Actionsheet from 'packages/ui-actionsheet/src/main'
 import Message from 'packages/ui-message/src/main'
-// export { default as Toast } from 'web-ui/toast/index'
+import Toast from 'packages/ui-toast/src/main'
 // export { default as Guide } from 'web-ui/guide/index'
 
 import Anchor from 'packages/ui-anchor/src/main'
-// export { default as ImagePicker } from 'web-ui/image-picker/index'
+import ImagePicker from 'packages/ui-image-picker/src/main'
 // export { default as InfiniteScroll } from 'web-ui/infinite-scroll/index'
 // export { default as Loading } from 'web-ui/loading/index'
 // export { default as SmartScroll } from 'web-ui/smart-scroll/index'
@@ -21,7 +21,7 @@ import Cell from 'packages/ui-cell/src/main'
 import Clocker from 'packages/ui-clocker/src/main'
 import Dialog from 'packages/ui-dialog/src/main'
 // export { default as TmEmpty } from 'web-ui/empty/index'
-// export { default as TmField } from 'web-ui/field/index'
+import Field from 'packages/ui-field/src/main'
 // export { default as TmFlex } from '@ui/packages/flex/index'
 // export { default as TmFlexItem } from '@ui/packages/flex-item/index'
 import Icon from 'packages/ui-icon/src/main'
@@ -37,11 +37,11 @@ import PickerDatetime from 'packages/ui-picker-datetime/src/main'
 import Collapse from 'packages/ui-collapse/src/main'
 import CollapseItem from 'packages/ui-collapse-item/src/main'
 // export { default as TmNoticeBar } from 'web-ui/notice-bar/index'
-// export { default as TmWingBlank } from 'web-ui/wing-blank/index'
-// export { default as TmWhiteSpace } from 'web-ui/white-space/index'
+import WingBlank from 'packages/ui-wing-blank/src/main'
+import WhiteSpace from 'packages/ui-white-space/src/main'
 // export { default as TmAudioPlayer } from 'web-ui/audio-player/index'
 // export { default as TmVideoPlayer } from 'web-ui/video-player/index'
-// export { default as TmSwitch } from 'web-ui/switch/index'
+import Switch from 'packages/ui-switch/src/main'
 import Button from 'packages/ui-button/src/main'
 
 import * as animation from 'packages/ui-animation/src/main'
@@ -65,6 +65,12 @@ const components = [
     Dialog,
     Image,
     PickerDatetime,
+    WingBlank,
+    WhiteSpace,
+    Switch,
+    ImagePicker,
+    Field,
+    Toast,
 ]
 
 function install (vue: typeof Vue, config = {}) {

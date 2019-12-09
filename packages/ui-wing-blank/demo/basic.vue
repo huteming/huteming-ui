@@ -1,5 +1,5 @@
 <template>
-<div class="demo">
+<div class="page-demo">
     <tm-wing-blank size="xs">
         <demo-placeholder>xs</demo-placeholder>
     </tm-wing-blank>
@@ -31,4 +31,7 @@
 </template>
 
 <style lang="scss" scoped>
+.height-20 {
+    height: 20px;
+}
 </style>

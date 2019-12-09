@@ -5,6 +5,8 @@ import './global/zoom-in'
 import './global/icon'
 
 export * from './mixins/hairline'
+export { default as placeholder } from './mixins/placeholder'
+
 export { default as withTheme } from './withTheme'
 export { default as createTheme } from './createTheme'
 export { default as withStyles } from './withStyles'
