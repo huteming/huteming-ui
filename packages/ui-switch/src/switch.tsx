@@ -65,6 +65,7 @@ const styles = (styled: any, css: any) => {
 class Switch extends Vue {
     render () {
         const { Root, Core } = this.styledDoms
+
         return (
             <Root class="tm-switch" disabled={ this.disabled }>
                 <input class="tm-switch-input" type="checkbox" disabled={ this.disabled } v-model={ this.currentValue } style="display: none;" />

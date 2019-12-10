@@ -75,8 +75,8 @@ class Dialog extends Mixins(MixinsModal) {
     render () {
         const { Root, Content, Footer, CancelOutRight, CancelOutLeft, CancelInRight, CancelInLeft, CancelBottom, Line } = this.styledDoms
         const DomFooter = (() => {
-            if (this.$slots.name) {
-                return <Footer class="tm-dialog-footer">{ this.$slots.name }</Footer>
+            if (this.$slots.footer) {
+                return <Footer class="tm-dialog-footer">{ this.$slots.footer }</Footer>
             }
         })()
         const DomCancelPosition = (() => {
@@ -100,7 +100,7 @@ class Dialog extends Mixins(MixinsModal) {
                 return (
                     <DomCancelPosition class="tm-dialog-cancel" on-click={ this.handleClose }>
                         <img src={ imgClose } alt="" style="display: block; width: 100%;" />
-                        { this.closePosition === 'out-right' && <Line></Line> }
+                        { this.closePosition === 'out-right' && <Line class="tm-dialog-cancel-line"></Line> }
                     </DomCancelPosition>
                 )
             }

@@ -9,6 +9,7 @@ import { sleep, Mock } from 'tests/helper'
 import sinon from 'sinon'
 const localVue = createLocalVue()
 localVue.use(TmDialog)
+localVue.component(WorkBasic.name, WorkBasic)
 
 config.stubs.transition = false
 
@@ -274,5 +275,55 @@ describe('dialog', () => {
         wrapperModal.trigger('click')
         await sleep(310)
         assert.ok(wrapperDialog.isVisible())
+    })
+
+    it('渲染footer', async () => {
+        const wrapper = mount({
+            template: `
+                <div>
+                    <tm-dialog v-model="visible">
+                        <TestBasic slot="footer" />
+                    </tm-dialog>
+                </div>
+            `,
+            data () {
+                return {
+                    visible: false,
+                }
+            },
+        }, {
+            localVue,
+        })
+        const basic = wrapper.find(WorkBasic)
+        assert.ok(basic.exists())
+    })
+
+    describe('closePosition', () => {
+        void ['out-right', 'out-left', 'in-right', 'in-left', 'bottom', ''].forEach(item => {
+            it(item || 'none', async () => {
+                const wrapper = mount({
+                    template: `
+                        <div>
+                            <tm-dialog v-model="visible" :close-position="closePosition">
+                                <TestBasic slot="footer" />
+                            </tm-dialog>
+                        </div>
+                    `,
+                    data () {
+                        return {
+                            closePosition: item,
+                            visible: false,
+                        }
+                    },
+                }, {
+                    localVue,
+                })
+                const cancel = wrapper.find('.tm-dialog-cancel')
+                assert.strictEqual(cancel.exists(), !!item)
+
+                const line = wrapper.find('.tm-dialog-cancel-line')
+                assert.strictEqual(line.exists(), item === 'out-right')
+            })
+        })
     })
 })

@@ -20,12 +20,6 @@ function getColor (props: StyleProps, type: string) {
     } = props.theme.button
 
     switch (type) {
-    case 'default':
-        return {
-            color: props.theme.button.colorDefault,
-            backgroundColor: props.plain ? backgroundColorPlain : backgroundColorDefault,
-            borderColor: props.theme.button.borderColorDefault,
-        }
     case 'primary':
         return {
             color: props.plain ? backgroundColorPrimary : colorPrimary,
@@ -51,7 +45,11 @@ function getColor (props: StyleProps, type: string) {
             borderColor: props.theme.button.borderColorDanger,
         }
     default:
-        return {}
+        return {
+            color: props.theme.button.colorDefault,
+            backgroundColor: props.plain ? backgroundColorPlain : backgroundColorDefault,
+            borderColor: props.theme.button.borderColorDefault,
+        }
     }
 }
 
@@ -142,7 +140,7 @@ const styles = (styled: any, css: any) => {
                 margin-left: 5px;
                 vertical-align: top;
             `}
-        `)
+        `),
     }
 }
 
@@ -155,16 +153,17 @@ class Button extends Vue {
         })()
         const DomText = (() => {
             if (this.loading) {
-                return this.loadingText && <Text has-icon>{ this.loadingText }</Text>
+                return this.loadingText && <Text class="tm-button-text" has-icon>{ this.loadingText }</Text>
             }
             const content = this.$slots.default || this.text
             if (content) {
-                return <Text has-icon={ !!this.icon }>{ content }</Text>
+                return <Text class="tm-button-text" has-icon={ !!this.icon }>{ content }</Text>
             }
         })()
 
         return (
             <Root
+                class="tm-button"
                 type={ this.type }
                 size={ this.size }
                 shape={ this.shape }

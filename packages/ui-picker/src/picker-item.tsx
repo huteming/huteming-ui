@@ -74,8 +74,9 @@ class PickerItem extends tsx.Component<PickerItemProps> {
                         ...this.renderOptions.map((item, index) => {
                             return (
                                 <Piece
+                                    clsss="tm-picker-item__container-piece"
                                     key={ index }
-                                    class={ item.class }
+                                    hidden={ item.hidden }
                                     style={ item.style }>
                                     { item.label }
                                 </Piece>
@@ -164,12 +165,11 @@ class PickerItem extends tsx.Component<PickerItemProps> {
             const normalizedIndex = index >= 0 ? index : index + length
             const isHidden = i < 0 || i > length - 1
 
-            const classes = isHidden ? 'hidden' : ''
             const styles = {
                 transform: `rotateX(${-20 * i % 360}deg) translateZ(90px)`
             }
 
-            const item = Object.assign({ class: classes, style: styles, index: i }, this.options[normalizedIndex])
+            const item = Object.assign({ hidden: isHidden, style: styles, index: i }, this.options[normalizedIndex])
             data.push(item)
         }
 

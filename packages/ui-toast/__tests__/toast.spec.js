@@ -3,6 +3,8 @@ import assert from 'assert'
 import Toast from '../src/main'
 import { sleep } from 'tests/helper'
 import sinon from 'sinon'
+import Vue from 'vue'
+import TestBasis from 'tests/components/basic.vue'
 
 describe('toast', () => {
     it('create', async () => {
@@ -109,5 +111,31 @@ describe('toast', () => {
             const vm = Toast('qq', { position })
             assert.strictEqual(vm.position, position)
         })
+    })
+
+    it('只有图标', async () => {
+        const vm = Toast.success()
+        const wrap = createWrapper(vm)
+        const text = wrap.find('.tm-toast__text')
+        const icon = wrap.find('.tm-toast__icon')
+        assert.ok(!text.exists())
+        assert.ok(icon.exists())
+    })
+
+    it('message是VNode类型', () => {
+        const ins = new Vue()
+        const h = ins.$createElement
+        const vnode = h(TestBasis)
+        const vm = Toast(vnode)
+        const wrap = createWrapper(vm)
+        const text = wrap.find('.tm-toast__text')
+        assert.ok(text.contains(TestBasis))
+    })
+
+    it('message是组件选项ComponentOptions类型', () => {
+        const vm = Toast(TestBasis)
+        const wrap = createWrapper(vm)
+        const text = wrap.find('.tm-toast__text')
+        assert.ok(text.contains(TestBasis))
     })
 })

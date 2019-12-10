@@ -18,11 +18,9 @@ describe('flex', () => {
             }, {
                 localVue,
             })
-            const wrapFlex = wrap.find(TmFlex)
-            const wrapItem = wrap.find(TmFlexItem)
-
-            // assert.ok(wrapItem.classes('tm-ellipsis'))
-            // assert.ok(wrapItem.attributes('style').indexOf('-webkit-line-clamp') === -1)
+            const child = wrap.find(TmFlexItem)
+            const flexItem = child.find(child.vm.styledDoms.Root)
+            assert.strictEqual((flexItem.vm as any).ellipsis, true)
         })
 
         it('数字等于1', () => {
@@ -35,11 +33,9 @@ describe('flex', () => {
             }, {
                 localVue,
             })
-            const wrapFlex = wrap.find(TmFlex)
-            const wrapItem = wrap.find(TmFlexItem)
-
-            // assert.ok(wrapItem.classes('tm-ellipsis'))
-            // assert.ok(wrapItem.attributes('style').indexOf('-webkit-line-clamp') === -1)
+            const child = wrap.find(TmFlexItem)
+            const flexItem = child.find(child.vm.styledDoms.Root)
+            assert.strictEqual((flexItem.vm as any).ellipsis, 1)
         })
 
         it('数字大于1', () => {
@@ -52,8 +48,9 @@ describe('flex', () => {
             }, {
                 localVue,
             })
-            const wrapFlex = wrap.find(TmFlex)
-            const wrapItem = wrap.find(TmFlexItem)
+            const child = wrap.find(TmFlexItem)
+            const flexItem = child.find(child.vm.styledDoms.Root)
+            assert.strictEqual((flexItem.vm as any).ellipsis, 2)
 
             // assert.ok(wrapItem.classes('tm-ellipsis'))
             // jsdom style 好像暂不支持添加前缀样式
@@ -125,5 +122,91 @@ describe('flex', () => {
         })
         // const wrapperItem = wrapper.find(TmFlexItem)
         // assert.ok(wrapperItem.attributes('style').indexOf('margin: 15px;') > -1)
+    })
+
+    describe('justify', () => {
+        void ['start', 'center', 'end', 'between', 'around', 'space-between', 'space-around'].forEach(item => {
+            it(item, () => {
+                const wrap = mount(TmFlex, {
+                    propsData: {
+                        justify: item,
+                    },
+                })
+                const flex = wrap.find(wrap.vm.styledDoms.Root)
+                const map: any = {
+                    start: 'flex-start',
+                    end: 'flex-end',
+                    between: 'space-between',
+                    around: 'space-around',
+                }
+                assert.strictEqual((flex.vm as any).justify, map[item] || item)
+            })
+        })
+    })
+
+    describe('align', () => {
+        void ['start', 'center', 'end', 'baseline', 'stretch'].forEach(item => {
+            it(item, () => {
+                const wrap = mount(TmFlex, {
+                    propsData: {
+                        align: item,
+                    },
+                })
+                const flex = wrap.find(wrap.vm.styledDoms.Root)
+                const map: any = {
+                    start: 'flex-start',
+                    end: 'flex-end',
+                }
+                assert.strictEqual((flex.vm as any).align, map[item] || item)
+            })
+        })
+    })
+
+    describe('align-content', () => {
+        void ['start', 'end', 'center', 'between', 'around', 'stretch'].forEach(item => {
+            it(item, () => {
+                const wrap = mount(TmFlex, {
+                    propsData: {
+                        alignContent: item,
+                    },
+                })
+                const flex = wrap.find(wrap.vm.styledDoms.Root)
+                const map: any = {
+                    start: 'flex-start',
+                    end: 'flex-end',
+                    between: 'space-between',
+                    around: 'space-around',
+                }
+                assert.strictEqual((flex.vm as any).alignContent, map[item] || item)
+            })
+        })
+    })
+
+    describe('flex-item > align', () => {
+        void ['auto', 'start', 'center', 'end', 'baseline', 'stretch'].forEach(item => {
+            it(item, () => {
+                const wrap = mount({
+                    template: `
+                        <tm-flex>
+                            <tm-flex-item :align="align">flex-item > align</tm-flex-item>
+                        </tm-flex>
+                    `,
+                    data () {
+                        return {
+                            align: item,
+                        }
+                    },
+                }, {
+                    localVue,
+                })
+                const child = wrap.find(TmFlexItem)
+                const flexItem = child.find(child.vm.styledDoms.Root)
+                const map: any = {
+                    start: 'flex-start',
+                    end: 'flex-end',
+                }
+                assert.strictEqual((flexItem.vm as any).align, map[item] || item)
+            })
+        })
     })
 })

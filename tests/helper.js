@@ -1,4 +1,4 @@
-import { IMG_FAILURE_SRC, IMG_SUCCESS_SRC, BLOG_FAILURE, imgURI, IMG_FAILURE_DATAURI } from './constant'
+import { IMG_FAILURE_SRC, IMG_SUCCESS_SRC, BLOG_FAILURE, imgURI, IMG_FAILURE_DATAURI, IMG_LOADING_SRC } from './constant'
 import sinon from 'sinon'
 
 export function cleanDom (selector) {
@@ -81,6 +81,8 @@ export function mockImage () {
         set (src) {
             if (src && (src.indexOf(IMG_FAILURE_SRC) > -1 || src.indexOf(IMG_FAILURE_DATAURI) > -1)) {
                 setTimeout(() => this.onerror(new Error('mocked image error')))
+            } else if (src === IMG_LOADING_SRC) {
+                // hold
             } else {
                 setTimeout(() => this.onload())
             }

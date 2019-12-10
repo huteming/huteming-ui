@@ -1,6 +1,7 @@
 import { Vue } from 'vue-property-decorator'
 import { withStyles } from '@huteming/ui-styles/src/main'
 import { StyleProps } from '@huteming/ui-styles/types'
+import { ModalOptions } from '../types'
 
 const styles = (styled: any, css: any) => {
     return {
@@ -35,11 +36,11 @@ class TmModal extends Vue {
         )
     }
 
-    show (options = {}) {
+    show (options: ModalOptions) {
         this.setData(options)
         this.visible = true
     }
-    hide (options = {}) {
+    hide (options: ModalOptions) {
         this.setData(options)
         this.visible = false
     }
@@ -51,6 +52,7 @@ class TmModal extends Vue {
 
     handleClick (event: Event) {
         event.stopPropagation()
+        /* istanbul ignore else */
         if (typeof this.click === 'function') {
             this.click()
         }
@@ -65,16 +67,19 @@ class TmModal extends Vue {
      * 动画钩子
      */
     handleBeforeEnter () {
+        /* istanbul ignore else */
         if (typeof this.beforeEnter === 'function') {
             this.beforeEnter()
         }
     }
     handleAfterEnter () {
+        /* istanbul ignore else */
         if (typeof this.afterEnter === 'function') {
             this.afterEnter()
         }
     }
     handleBeforeLeave () {
+        /* istanbul ignore else */
         if (typeof this.beforeLeave === 'function') {
             this.beforeLeave()
         }
@@ -84,6 +89,7 @@ class TmModal extends Vue {
             this.destroy()
         }
 
+        /* istanbul ignore else */
         if (typeof this.afterLeave === 'function') {
             this.afterLeave()
         }

@@ -1,8 +1,11 @@
-import { mount } from '@vue/test-utils'
-import TmPickerRange from 'web-ui/picker-range/src/app.vue'
-import TmPickerItem from 'web-ui/picker/src/picker-item.vue'
+import { mount, createLocalVue } from '@vue/test-utils'
+import TmPickerRange from '../src/main'
+import TmPicker from 'packages/ui-picker/src/main'
 import assert from 'assert'
-import { sleep } from '../helper'
+import { sleep } from 'tests/helper'
+const localVue = createLocalVue()
+localVue.use(TmPickerRange)
+const TmPickerItem = TmPicker.item
 
 describe('picker-range', () => {
     let wrapper
@@ -23,12 +26,11 @@ describe('picker-range', () => {
                     visible: true,
                 }
             },
-            components: {
-                TmPickerRange,
-            },
+        }, {
+            localVue,
         })
         await sleep()
-        const wrapperConfirm = wrapper.find('.tm-toolbar-action-confirm')
+        const wrapperConfirm = wrapper.find('.tm-toolbar-confirm')
         assert.ok(wrapperConfirm.isEmpty())
         wrapper.setData({ visible: false })
     })
@@ -112,7 +114,7 @@ describe('picker-range', () => {
             },
         })
         const wrapperItem = wrapper.find(TmPickerItem)
-        const wrapperConfirm = wrapper.find('.tm-toolbar-action-confirm')
+        const wrapperConfirm = wrapper.find('.tm-toolbar-confirm')
         wrapperItem.setData({
             currentValue: '3',
         })
@@ -152,7 +154,7 @@ describe('picker-range', () => {
             },
         })
         const wrapperItem = wrapper.find(TmPickerItem)
-        const wrapperCancel = wrapper.find('.tm-toolbar-action-cancel')
+        const wrapperCancel = wrapper.find('.tm-toolbar-cancel')
         wrapperItem.setData({
             currentValue: '3',
         })

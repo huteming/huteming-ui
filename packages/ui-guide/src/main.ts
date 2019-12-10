@@ -3,7 +3,7 @@ import Vue from 'vue'
 
 const optionsDefault = {
     init: '',
-    complete () {},
+    // complete () {},
 }
 
 export default class Guide {
@@ -36,7 +36,10 @@ export default class Guide {
             })
             instance.$on('close', this._destroy)
             instance.$on('closed', (activeName: any, isComplete: any) => {
-                isComplete && options.complete()
+                /* istanbul ignore else */
+                if (isComplete && typeof options.complete === 'function') {
+                    options.complete()
+                }
             })
 
             document.body.appendChild(instance.$mount().$el)

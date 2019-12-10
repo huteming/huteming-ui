@@ -92,7 +92,9 @@ class Image extends Vue {
         })()
         const DomError = (() => {
             if (this.state === 'error') {
-                return this.$slots.error || <ImageError class="tm-image__error">加载失败</ImageError>
+                return this.$slots.error || (
+                    <ImageError class="tm-image__error">加载失败</ImageError>
+                )
             }
             return null
         })()

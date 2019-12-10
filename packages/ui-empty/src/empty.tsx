@@ -34,13 +34,13 @@ class Empty extends Vue {
     render () {
         const { Root, Container, Description } = this.styledDoms
         return (
-            <Root>
+            <Root class="tm-empty">
                 <Container style={ this.imageStyle }>
                     <img src={ this.image } alt="" />
                 </Container>
 
                 <Description style={ this.descriptionStyle }>
-                    { this.$slots.description }
+                    { this.$slots.description || this.description }
                 </Description>
             </Root>
         )

@@ -75,7 +75,7 @@ class Toast extends Vue {
             <transition name="fade" on-after-leave={ this.handleAfterLeave } ref="transition">
                 <Root class="tm-toast" v-show={ this.visible } position={ this.position } z-index={ this.zIndex }>
                     { domMessage }
-                    { this.icon && <Icon class="tm-toast__icon"><TmIcon icon={ this.icon } /></Icon> }
+                    { this.icon && <Icon class="tm-toast__icon" has-text={ !!domMessage }><TmIcon icon={ this.icon } /></Icon> }
                 </Root>
             </transition>
         )

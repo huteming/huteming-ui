@@ -177,4 +177,29 @@ describe('range', () => {
         assert.strictEqual(wrapperProgress.element.style.width, '0px')
         assert.ok(!wrapper.emitted('change'))
     })
+
+    it('前后渲染额外区域', () => {
+        const wrap = mount(TmRange, {
+            slots: {
+                start: 'hello',
+                end: 'world',
+            }
+        })
+        const start = wrap.find('.tm-range-start')
+        const end = wrap.find('.tm-range-end')
+        assert.ok(start.exists())
+        assert.ok(end.exists())
+    })
+
+    it('显示区间数字', () => {
+        const wrap = mount(TmRange, {
+            propsData: {
+                showValue: true,
+            },
+        })
+        const start = wrap.find('.tm-range-min')
+        const end = wrap.find('.tm-range-max')
+        assert.ok(start.exists())
+        assert.ok(end.exists())
+    })
 })

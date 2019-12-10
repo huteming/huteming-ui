@@ -2,6 +2,7 @@ export const IMG_FAILURE_SRC = 'http://LOAD_FAILURE_SRC'
 export const IMG_SUCCESS_SRC = 'http://LOAD_SUCCESS_SRC'
 export const IMG_SUCCESS_DATAURI = `data:image/png;base64,iV`
 export const IMG_FAILURE_DATAURI = 'data:failure'
+export const IMG_LOADING_SRC = 'http://loading'
 
 export const BLOG_FAILURE = new Blob()
 

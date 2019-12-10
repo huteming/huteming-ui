@@ -17,12 +17,12 @@ const RootProps = {
 
 const styles = (styled: any, css: any) => {
     return {
-        Root: styled('div', RootProps, (props: StyleProps) => `
+        Root: styled('div', RootProps, (props: StyleProps) => css`
             align-self: ${props.align};
             order: ${props.order};
             flex: ${props.grow} ${props.shrink} ${props.basis};
             margin: ${props.gutter};
-            ${() => props.ellipsis && css`
+            ${props.ellipsis && `
                 overflow : hidden;
                 text-overflow: ellipsis;
                 display: -webkit-box;
@@ -38,6 +38,7 @@ class FlexItem extends Mixins(ChildrenMixin('flex')) {
         const { Root } = this.styledDoms
         return (
             <Root
+                class="tm-flex-item"
                 align={ this.normalizedAlign }
                 order={ this.order }
                 grow={ this.normalizedGrow }

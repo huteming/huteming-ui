@@ -128,8 +128,12 @@ class NoticeBar extends Vue {
         }
     }
     start () {
-        const widthContent = (this.$refs.content as HTMLElement).offsetWidth
-        const widthWrap = (this.$refs.wrap as HTMLElement).offsetWidth
+        const contentComp = this.$refs.content as Vue
+        const contentDom = contentComp.$el as HTMLElement
+        const widthContent = contentDom.offsetWidth
+        const wrapComp = this.$refs.wrap as Vue
+        const wrapDom = wrapComp.$el as HTMLElement
+        const widthWrap = wrapDom.offsetWidth
         const diff = widthWrap - widthContent
         if (diff > 0) {
             const distance = diff + EXTRA_DISTANCE

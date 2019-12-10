@@ -1,26 +1,28 @@
-import { mount } from '@vue/test-utils'
-import TmToolbar from 'web-ui/toolbar/src/app.vue'
+import { mount, createLocalVue } from '@vue/test-utils'
+import TmToolbar from '../src/main'
 import assert from 'assert'
+const localVue = createLocalVue()
+localVue.use(TmToolbar)
 
 describe('toolbar', () => {
     it('create', () => {
         const wrapper = mount(TmToolbar)
-        const wrapperCancel = wrapper.find('.tm-toolbar-action-cancel')
-        const wrapperConfirm = wrapper.find('.tm-toolbar-action-confirm')
+        const wrapperCancel = wrapper.find('.tm-toolbar-cancel')
+        const wrapperConfirm = wrapper.find('.tm-toolbar-confirm')
         assert.strictEqual(wrapperCancel.text(), '取消')
         assert.strictEqual(wrapperConfirm.text(), '确定')
     })
 
     it('confirm', () => {
         const wrapper = mount(TmToolbar)
-        const wrapperConfirm = wrapper.find('.tm-toolbar-action-confirm')
+        const wrapperConfirm = wrapper.find('.tm-toolbar-confirm')
         wrapperConfirm.trigger('click')
         assert.ok(wrapper.emitted().confirm)
     })
 
     it('cancel', () => {
         const wrapper = mount(TmToolbar)
-        const wrapperCancel = wrapper.find('.tm-toolbar-action-cancel')
+        const wrapperCancel = wrapper.find('.tm-toolbar-cancel')
         wrapperCancel.trigger('click')
         assert.ok(wrapper.emitted().cancel)
     })
@@ -31,7 +33,7 @@ describe('toolbar', () => {
                 showConfirm: false,
             },
         })
-        const wrapperConfirm = wrapper.find('.tm-toolbar-action-confirm')
+        const wrapperConfirm = wrapper.find('.tm-toolbar-confirm')
         assert.ok(wrapperConfirm.isEmpty())
 
         wrapperConfirm.trigger('click')

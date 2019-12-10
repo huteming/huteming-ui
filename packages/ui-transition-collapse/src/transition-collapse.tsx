@@ -38,12 +38,12 @@ class TransitionCollapse extends Vue {
     }
 
     afterEnter (el: HTMLDivElement) {
-        el.style.overflow = el.dataset.oldOverflow || ''
+        el.style.overflow = el.dataset.oldOverflow as string
         el.style.height = ''
     }
 
     beforeLeave (el: HTMLDivElement) {
-        el.dataset.oldOverflow = el.style.overflow || ''
+        el.dataset.oldOverflow = el.style.overflow as string
 
         el.style.overflow = 'hidden'
         el.style.height = el.scrollHeight + 'px'
@@ -59,7 +59,7 @@ class TransitionCollapse extends Vue {
     }
 
     afterLeave (el: HTMLDivElement) {
-        el.style.overflow = el.dataset.oldOverflow || ''
+        el.style.overflow = el.dataset.oldOverflow as string
         el.style.height = ''
     }
 }

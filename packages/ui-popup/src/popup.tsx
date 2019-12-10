@@ -106,7 +106,7 @@ class Popup extends Mixins(MixinsModal) {
 
     // 是否在 smart-scroll 阻止滚动事件后关闭
     @Prop({ type: [Number, Boolean], default: Infinity })
-    closeOnMove!: number
+    closeOnMove!: number | boolean
 
     visible = this.value
     normalizedVisible = false
@@ -135,10 +135,7 @@ class Popup extends Mixins(MixinsModal) {
         if (typeof _closeOnMove === 'number') {
             return _closeOnMove <= 0 ? Infinity : _closeOnMove
         }
-        if (typeof _closeOnMove === 'boolean') {
-            return _closeOnMove ? 70 : Infinity
-        }
-        return Infinity
+        return _closeOnMove ? 70 : Infinity
     }
 
     @Watch('value')

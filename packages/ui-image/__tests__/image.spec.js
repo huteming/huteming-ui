@@ -2,9 +2,10 @@ import { __RewireAPI__ as RewireAPI } from '../src/image'
 import CompImage from '../src/main'
 import assert from 'assert'
 import { mount, shallowMount, createWrapper, createLocalVue } from '@vue/test-utils'
-import { IMG_SUCCESS_SRC, IMG_FAILURE_SRC } from 'tests/constant'
+import { IMG_SUCCESS_SRC, IMG_FAILURE_SRC, IMG_LOADING_SRC } from 'tests/constant'
 import { sleep, mockImage } from 'tests/helper'
 import sinon from 'sinon'
+import TestBasic from 'tests/components/basic.vue'
 const localVue = createLocalVue()
 localVue.use(CompImage)
 
@@ -53,7 +54,7 @@ describe('Image', () => {
     })
 
     it('load failed', async () => {
-        const wrapper = shallowMount(CompImage, {
+        const wrapper = mount(CompImage, {
             propsData: {
                 src: IMG_FAILURE_SRC,
             },
@@ -397,6 +398,31 @@ describe('Image', () => {
         assert.ok(!wrapperLoading.exists())
         assert.ok(!wrapperError.exists())
         assert.ok(wrapperInner.exists())
+    })
+
+    it('自定义placeholder', async () => {
+        const wrap = mount(CompImage, {
+            propsData: {
+                src: '',
+                hold: true,
+            },
+            slots: {
+                placeholder: TestBasic,
+            },
+        })
+        assert.ok(wrap.contains(TestBasic))
+    })
+
+    it('自定义loading', async () => {
+        const wrap = mount(CompImage, {
+            propsData: {
+                src: IMG_LOADING_SRC,
+            },
+            slots: {
+                loading: TestBasic,
+            },
+        })
+        assert.ok(wrap.contains(TestBasic))
     })
 
     afterEach(() => {

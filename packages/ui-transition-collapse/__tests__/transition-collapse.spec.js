@@ -26,7 +26,7 @@ describe('transition-collapse', () => {
         const wrapper = mount({
             template: `
                 <tm-transition-collapse>
-                    <div id="container" style="overflow: auto;" key="1" v-show="visible"></div>
+                    <div id="container" v-show="visible"></div>
                 </tm-transition-collapse>
             `,
             data () {
@@ -55,7 +55,7 @@ describe('transition-collapse', () => {
         assert.strictEqual(wrapperContainer.element.style.overflow, 'hidden')
         await sleep()
         assert.strictEqual(wrapperContainer.element.style.height, '')
-        assert.strictEqual(wrapperContainer.element.style.overflow, 'auto')
+        assert.strictEqual(wrapperContainer.element.style.overflow, '')
     })
 
     it('close', async () => {

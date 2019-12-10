@@ -29,6 +29,7 @@ class Flex extends Mixins(ParentMixin('flex')) {
         const { Root } = this.styledDoms
         return (
             <Root
+                class="tm-flex"
                 direction={ this.direction }
                 wrap={ this.normalizedWrap }
                 justify={ this.normalizedJustify }
@@ -48,6 +49,10 @@ class Flex extends Mixins(ParentMixin('flex')) {
 
     get normalizedJustify (): string {
         switch (this.justify) {
+        case 'start':
+            return 'flex-start'
+        case 'end':
+            return 'flex-end'
         case 'between':
             return 'space-between'
         case 'around':

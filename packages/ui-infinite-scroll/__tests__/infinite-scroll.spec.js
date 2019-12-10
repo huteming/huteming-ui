@@ -1,6 +1,7 @@
 import assert from 'assert'
-import InfiniteScroll, { __RewireAPI__ as RewireAPI } from '../src/infinite-scroll'
-import { mount, createWrapper } from '@vue/test-utils'
+import { __RewireAPI__ as RewireAPI } from '../src/infinite-scroll'
+import InfiniteScroll from '../src/main'
+import { mount, createWrapper, createLocalVue } from '@vue/test-utils'
 import { sleep, Mock } from 'tests/helper'
 import sinon from 'sinon'
 const scope = '@@InfiniteScroll'
@@ -32,6 +33,13 @@ describe('infinite-scroll', () => {
     afterEach(() => {
         sinon.restore()
         wrapper && wrapper.destroy()
+    })
+
+    it('install', () => {
+        const localVue = createLocalVue()
+        assert.ok(!localVue.directive('InfiniteScroll'))
+        localVue.use(InfiniteScroll)
+        assert.ok(localVue.directive('InfiniteScroll'))
     })
 
     it('create', async () => {

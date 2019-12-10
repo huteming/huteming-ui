@@ -13,12 +13,21 @@ describe('switch', () => {
         assert.ok(localVue.component('TmSwitch'))
     })
 
+    it('create', () => {
+        const wrap = mount(TmSwitch)
+        const root = wrap.find(wrap.vm.styledDoms.Root)
+        assert.ok(root.exists())
+    })
+
     it('value change', async () => {
         const wrapper = mount(TmSwitch, {
             propsData: {
                 value: false,
             },
         })
+        // console.log(wrapper.html())
+        // console.log(wrapper.html())
+        // console.log(wrapper.html())
         assert.strictEqual(wrapper.vm.currentValue, false)
         wrapper.setProps({ value: true })
         await sleep()

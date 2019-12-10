@@ -1,8 +1,15 @@
 import assert from 'assert'
 import output from '../src/main'
 import * as others from '../src/main'
+import { createLocalVue } from '@vue/test-utils'
 
 describe('ui', () => {
+    it('install', () => {
+        const localVue = createLocalVue()
+        assert.ok(!localVue.component('ThemeProvider'))
+        localVue.use(output)
+        assert.ok(localVue.component('ThemeProvider'))
+    })
     it('默认导出组件数组', () => {
         const comps = Object.keys(output)
         assert.strictEqual(comps.length, 23)
