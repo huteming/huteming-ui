@@ -282,7 +282,7 @@ describe('picker', () => {
             preventDefault: sinon.fake(),
         })
         await sleep()
-        assert.strictEqual(wrapperContainer.attributes('style'), 'transform: rotateX(20deg); transition: transform 500ms cubic-bezier(0.19, 1, 0.22, 1);')
+        assert.strictEqual(wrapperContainer.attributes('style'), 'transform: rotateX(20deg); transition: transform 400ms cubic-bezier(0.19, 1, 0.22, 1);')
         assert.strictEqual(wrapper.vm.value, '2')
     })
 
@@ -429,7 +429,7 @@ describe('picker', () => {
             preventDefault: sinon.fake(),
         })
         await sleep()
-        assert.strictEqual(wrapperContainer.attributes('style'), 'transform: rotateX(0deg); transition: transform 500ms cubic-bezier(0.19, 1, 0.22, 1);')
+        assert.strictEqual(wrapperContainer.attributes('style'), 'transform: rotateX(0deg); transition: transform 400ms cubic-bezier(0.19, 1, 0.22, 1);')
         assert.strictEqual(wrapper.vm.value, '1')
     })
 
@@ -492,7 +492,7 @@ describe('picker', () => {
             preventDefault: sinon.fake(),
         })
         await sleep()
-        assert.strictEqual(wrapperContainer.attributes('style'), 'transform: rotateX(40deg); transition: transform 500ms cubic-bezier(0.19, 1, 0.22, 1);')
+        assert.strictEqual(wrapperContainer.attributes('style'), 'transform: rotateX(40deg); transition: transform 400ms cubic-bezier(0.19, 1, 0.22, 1);')
         assert.strictEqual(wrapper.vm.value, '3')
     })
 })

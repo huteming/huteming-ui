@@ -1,8 +1,9 @@
 import MixinsModal from '@huteming/ui-modal/src/main'
 import SmartScroll from '@huteming/ui-smart-scroll/src/main'
-import { Vue, Mixins, Prop, Watch } from 'vue-property-decorator'
-import { withStyles } from '@huteming/ui-styles/src/main'
+import { Mixins, Prop, Watch } from 'vue-property-decorator'
+import { StyledComponent, TypedComponent, DescribedComponent } from '@huteming/ui-styles/src/main'
 import { StyleProps } from '@huteming/ui-styles/types'
+import { PopupProps, PopupEvents, PopupPosition } from '../types'
 
 const styles = (styled: any, css: any) => {
     return {
@@ -68,9 +69,17 @@ const styles = (styled: any, css: any) => {
     }
 }
 
+@DescribedComponent({
+    name: 'TmPopup',
+    inheritAttrs: false,
+    directives: {
+        SmartScroll,
+    },
+})
+@StyledComponent(styles)
 class Popup extends Mixins(MixinsModal) {
     render () {
-        const { Root } = this.styledDoms
+        const { Root } = this.styledComponents
         return (
             <transition name={ this.transition } on-after-leave={ this.handleAfterLeave }>
                 <Root class="tm-popup" v-show={ this.normalizedVisible } position={ this.position } v-smart-scroll={ this.handlePreventMove }>
@@ -95,7 +104,7 @@ class Popup extends Mixins(MixinsModal) {
             return ['middle', 'top', 'bottom', 'left', 'right'].indexOf(val) > -1
         },
     })
-    position!: string
+    position!: PopupPosition
 
     /**
      * 定时消失
@@ -200,10 +209,4 @@ class Popup extends Mixins(MixinsModal) {
     }
 }
 
-export default withStyles(styles)(Popup, {
-    name: 'TmPopup',
-    inheritAttrs: false,
-    directives: {
-        SmartScroll,
-    },
-})
+export default TypedComponent<PopupProps, PopupEvents>(Popup)

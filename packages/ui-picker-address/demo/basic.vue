@@ -1,20 +1,20 @@
 <template>
-<div class="location" @click="visible = true">
-    <span class="location-label">所在地区</span>
+<div class="page-demo">
+    <div class="location" @click="visible = true">
+        <span class="location-label">所在地区</span>
 
-    <div :class="isValidText ? 'location-field' : 'location-placeholder'">
-        <span>{{ showText }}</span>
+        <div :class="isValidText ? 'location-field' : 'location-placeholder'">
+            <span>{{ showText }}</span>
+        </div>
+
+        <img src="./images/arrow.png" alt="" class="location-arrow">
+
+        <TmPickerAddress :visible.sync="visible" v-model="values" :value-text.sync="valuesText" />
     </div>
-
-    <img src="./images/arrow.png" alt="" class="location-arrow">
-
-    <TmPickerAddress :visible.sync="visible" v-model="values" :value-text.sync="valuesText" />
 </div>
 </template>
 
 <script>
-import TmPickerAddress from '../index'
-
 export default {
     data () {
         return {
@@ -33,10 +33,6 @@ export default {
             return this.isValidText ? this.valuesText.join(' ') : '请选择'
         },
     },
-
-    components: {
-        TmPickerAddress,
-    },
 }
 </script>
 
@@ -48,6 +44,7 @@ export default {
     align-items: center;
     justify-content: space-between;
     border: 1px solid rgba(231, 231, 234, 1);
+    background: #fff;
     box-sizing: border-box;
 
     &-label {

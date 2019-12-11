@@ -29,7 +29,7 @@ import Image from 'packages/ui-image/src/main'
 // export { default as TmPanel } from 'web-ui/panel/index'
 // export { default as TmPicker } from 'web-ui/picker/index'
 // export { default as TmPickerItem } from 'web-ui/picker-item/index'
-// export { default as TmPickerAddress } from 'web-ui/picker-address/index'
+import PickerAddress from 'packages/ui-picker-address/src/main'
 import PickerDatetime from 'packages/ui-picker-datetime/src/main'
 // export { default as TmPickerRange } from 'web-ui/picker-range/index'
 // export { default as TmPopup } from 'web-ui/popup/index'
@@ -71,6 +71,7 @@ const components = [
     ImagePicker,
     Field,
     Toast,
+    PickerAddress,
 ]
 
 function install (vue: typeof Vue, config = {}) {

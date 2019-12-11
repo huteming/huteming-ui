@@ -19,11 +19,10 @@ const styles = (styled: any) => {
 class PickerAddress extends Vue {
     render () {
         const { Root } = this.styledDoms
-        const Popup = TmPopup as any
         const Toolbar = TmToolbar as any
         const TmPickerItem = TmPicker.item as any
         return (
-            <Popup value={ this.normalizedVisible } on-input={ (val: boolean) => (this.normalizedVisible = val) } position="bottom" ref="popup">
+            <TmPopup value={ this.normalizedVisible } on-input={ (val: boolean) => (this.normalizedVisible = val) } position="bottom" ref="popup">
                 <Root class="tm-picker-address">
                     <Toolbar title={ this.title } on-confirm={ this.handleConfirm } on-cancel={ this.handleCancel } />
 
@@ -33,7 +32,7 @@ class PickerAddress extends Vue {
                         <TmPickerItem options={ this.areas } value={ this.areaCode } on-input={ (val: string) => (this.areaCode = val) } />
                     </TmPicker>
                 </Root>
-            </Popup>
+            </TmPopup>
         )
     }
 

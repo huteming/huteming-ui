@@ -7,12 +7,12 @@ export default <Link[]>[
     //     doc: () => import('packages/ui-tab/README.md'),
     //     example: () => import('packages/ui-tab/demo/basic.vue'),
     // },
-    // {
-    //     childPath: 'picker-address',
-    //     chineseName: '地址选择 PickerAddress',
-    //     doc: () => import('packages/ui-picker-address/README.md'),
-    //     example: () => import('packages/ui-picker-address/demo/basic.vue'),
-    // },
+    {
+        childPath: 'picker-address',
+        chineseName: '地址选择 PickerAddress',
+        doc: () => import('packages/ui-picker-address/README.md'),
+        example: () => import('packages/ui-picker-address/demo/basic.vue'),
+    },
     {
         childPath: 'picker-datetime',
         chineseName: '日期选择 PickerDatetime',

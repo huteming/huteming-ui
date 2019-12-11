@@ -65,26 +65,21 @@ class PickerItem extends tsx.Component<PickerItemProps> {
     render () {
         const { Root, Container, Piece, Line } = this.styledDoms
         const DomContent = (
-            <template>
-                <Line position="top"></Line>
-                <Line position="bottom"></Line>
-
-                <Container class="tm-picker-item__container" style={ this.styleContainer }>
-                    {
-                        ...this.renderOptions.map((item, index) => {
-                            return (
-                                <Piece
-                                    clsss="tm-picker-item__container-piece"
-                                    key={ index }
-                                    hidden={ item.hidden }
-                                    style={ item.style }>
-                                    { item.label }
-                                </Piece>
-                            )
-                        })
-                    }
-                </Container>
-            </template>
+            <Container class="tm-picker-item__container" style={ this.styleContainer }>
+                {
+                    ...this.renderOptions.map((item, index) => {
+                        return (
+                            <Piece
+                                clsss="tm-picker-item__container-piece"
+                                key={ index }
+                                hidden={ item.hidden }
+                                style={ item.style }>
+                                { item.label }
+                            </Piece>
+                        )
+                    })
+                }
+            </Container>
         )
         const custom = {
             attrs: this.$attrs,
@@ -98,6 +93,8 @@ class PickerItem extends tsx.Component<PickerItemProps> {
                 on-touchmove={ this.handleTouchMove }
                 on-touchend={ this.handleTouchEnd }>
                 { !this.disabled ? DomContent : DomEmpty }
+                { !this.disabled && <Line position="top"></Line> }
+                { !this.disabled && <Line position="bottom"></Line> }
             </Root>
         )
     }
@@ -228,7 +225,7 @@ class PickerItem extends tsx.Component<PickerItemProps> {
         const finger = event.changedTouches[0]
 
         let move = this.startY - finger.pageY
-        let duration = event.timeStamp || Date.now() - this.startTime
+        let duration = (event.timeStamp || Date.now()) - this.startTime
 
         if (duration <= 300) {
             move = move * 1.8

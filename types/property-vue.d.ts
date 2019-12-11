@@ -12,6 +12,7 @@ declare module 'vue/types/vue' {
     }
     interface Vue {
         styledDoms: any
+        styledComponents: any
     }
 }
 declare module 'vue/types/options' {
