@@ -63,6 +63,24 @@ class TmModal extends Vue {
         event.stopPropagation()
     }
 
+    disabledScroll () {
+        /* istanbul ignore else */
+        if (document.scrollingElement) {
+            this.scrollTop = document.scrollingElement.scrollTop
+            document.body.classList.add('tm-disabled-scroll')
+            document.body.style.top = -this.scrollTop + 'px'
+        }
+    }
+
+    restoreScroll () {
+        /* istanbul ignore else */
+        if (document.scrollingElement) {
+            document.body.classList.remove('tm-disabled-scroll')
+            document.scrollingElement.scrollTop = this.scrollTop
+            document.body.style.top = ''
+        }
+    }
+
     /**
      * 动画钩子
      */
@@ -73,12 +91,14 @@ class TmModal extends Vue {
         }
     }
     handleAfterEnter () {
+        this.disabledScroll()
         /* istanbul ignore else */
         if (typeof this.afterEnter === 'function') {
             this.afterEnter()
         }
     }
     handleBeforeLeave () {
+        this.restoreScroll()
         /* istanbul ignore else */
         if (typeof this.beforeLeave === 'function') {
             this.beforeLeave()
@@ -101,6 +121,7 @@ class TmModal extends Vue {
 
     visible = false
     leaveToDestroy: boolean = true
+    scrollTop = 0
 
     click?: Function
     beforeEnter?: Function

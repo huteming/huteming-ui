@@ -6,6 +6,33 @@ import { sleep, Mock, cleanDom } from 'tests/helper'
 import sinon from 'sinon'
 
 describe('modal', () => {
+    let originElement
+    beforeEach(() => {
+        originElement = document.scrollingElement
+        document.scrollingElement = { scrollTop: 55 }
+    })
+
+    it('打开后禁止body滚动', async () => {
+        try {
+            const wrapper = mount(TmModal, {
+                stubs: {
+                    transition: TransitionStub,
+                },
+            })
+            const stub = wrapper.find(TransitionStub)
+            stub.vm.$emit('after-enter')
+
+            assert.ok(document.body.classList.contains('tm-disabled-scroll'))
+            assert.strictEqual(document.body.style.top, '-55px')
+    
+            stub.vm.$emit('before-leave')
+
+            assert.ok(!document.body.classList.contains('tm-disabled-scroll'))
+            assert.strictEqual(document.body.style.top, '')
+        } finally {
+        }
+    })
+
     it('禁止click冒泡', async () => {
         const mockPrevent = sinon.fake()
         const mockClickBody = sinon.fake()
@@ -249,5 +276,7 @@ describe('modal', () => {
 
     afterEach(() => {
         cleanDom('.tm-modal')
+        sinon.restore()
+        document.scrollingElement = originElement
     })
 })

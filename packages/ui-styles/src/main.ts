@@ -3,6 +3,7 @@ import './global/slide'
 import './global/fade'
 import './global/zoom-in'
 import './global/icon'
+import './global/custom'
 
 export * from './mixins/hairline'
 export { default as placeholder } from './mixins/placeholder'

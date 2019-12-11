@@ -1,5 +1,9 @@
 <template>
 <div class="page-demo">
+    <div style="height: 30vh;"></div>
+    <div class="scrollable">
+        <div style="height: 400px;">这里是一个滚动区域</div>
+    </div>
     <button @click="visibleDialog = true">open</button>
     <button @click="beforeClose = handleBeforeClose; visibleDialog = true">before close</button>
     <button @click="dialogScroll = true">scroll</button>
@@ -10,7 +14,7 @@
 
     <tm-dialog v-model="dialogScroll">
         <div class="scrollable">
-            <div style="height: 400px;">hello</div>
+            <div style="height: 400px; width: 200px; background: #fff;">hello</div>
         </div>
     </tm-dialog>
 
