@@ -1,17 +1,17 @@
 import TmIcon from '@huteming/ui-icon/src/main'
 import { Vue } from 'vue-property-decorator'
-import { withStyles } from '@huteming/ui-styles/src/main'
+import { withStyles, zIndex } from '@huteming/ui-styles/src/main'
+import { StyleProps } from '@huteming/ui-styles/types'
 
 const styles = (styled: any, css: any) => {
     return {
-        Root: styled('div', () => `
+        Root: styled('div', { zIndex: String }, (props: StyleProps) => `
             position: absolute;
             top: 0;
             bottom: 0;
             left: 0;
             right: 0;
-            background-color: rgba(255, 255, 255, 1);
-            z-index: 2000,
+            z-index: ${props.zIndex};
         `),
         Icon: styled('div', () => `
             font-size: 25px;
@@ -22,6 +22,7 @@ const styles = (styled: any, css: any) => {
             align-items: center;
             justify-content: center;
             flex-direction: column;
+            background-color: rgba(255, 255, 255, 1);
         `),
         Text: styled('div', () => `
             margin-top: 3px;
@@ -39,8 +40,8 @@ class Loading extends Vue {
                 leave-active-class={ this.leaveActiveClass }
                 on-after-enter={ this.handleAfterEnter }
                 on-after-leave={ this.handleAfterLeave }>
-                <Root class="tm-loading" style={ this.styles } v-show={ this.visible } on-click={ this.handleStop } on-touchmove={ this.handleTouchmove }>
-                    <Content class="tm-loading-content">
+                <Root class="tm-loading" z-index={ this.zIndex } v-show={ this.visible } on-click={ this.handleStop } on-touchmove={ this.handleTouchmove }>
+                    <Content class="tm-loading-content" style={ this.styleContent }>
                         <Icon class="tm-loading__icon">
                             <TmIcon icon="loading" />
                         </Icon>
@@ -53,6 +54,7 @@ class Loading extends Vue {
 
     visible = false
     openTime = 0
+    zIndex = '1000'
 
     text = ''
     textStyle = {}
@@ -60,7 +62,7 @@ class Loading extends Vue {
     openAnimation = true
     closeAnimation = true
 
-    get styles () {
+    get styleContent () {
         return {
             'background': this.background,
         }
@@ -86,6 +88,7 @@ class Loading extends Vue {
         this.destroyElement()
     }
     show () {
+        this.zIndex = zIndex()
         this.visible = true
     }
     hide () {

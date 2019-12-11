@@ -8,7 +8,7 @@ const defaults = {
 }
 
 export default {
-    registName: 'SmartScroll',
+    registName: 'smart-scroll',
 
     bind (el: HTMLElement, binding: DirectiveBinding, vnode: VNode, oldVnode: VNode) {
         (el as any)[ELEMENT_ATTR_NAME] = {

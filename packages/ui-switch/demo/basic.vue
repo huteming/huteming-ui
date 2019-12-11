@@ -1,12 +1,12 @@
 <template>
 <div class="page">
-    <tm-cell body="选项">
+    <demo-cell body="选项">
         <tm-switch v-model="value2" @change="handleChange"></tm-switch>
-    </tm-cell>
+    </demo-cell>
 
-    <tm-cell body="disabled">
+    <demo-cell body="disabled">
         <tm-switch v-model="value3" disabled></tm-switch>
-    </tm-cell>
+    </demo-cell>
 </div>
 </template>
 

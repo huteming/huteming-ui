@@ -1,17 +1,15 @@
-> 空状态
 
--------------
-
-## 引入
+### 引入
 
 ```javascript
-import { TmEmpty } from '@huteming/ui'
+import { Empty } from '@huteming/ui'
 
-Vue.use(TmEmpty)
-// Vue.component(TmEmpty.name, TmEmpty)
+Vue.use(Empty)
 ```
 
-## 例子
+## 代码演示
+
+### 基础用法
 
 ```html
 <div style="height: 400px;">
@@ -23,6 +21,8 @@ Vue.use(TmEmpty)
 
 ## API
 
+### Props
+
 | 参数 | 说明 | 类型 | 可选值 | 默认值 |
 |------|-------|---------|-------|--------|
 | image | 图片 | `String` | | `http://jhsy-img.caizhu.com/empty-default.png` |
@@ -30,8 +30,8 @@ Vue.use(TmEmpty)
 | description | 描述 | String | | |
 | descriptionStyle | 描述样式 | Object | | |
 
-## 插槽
+### Slots
 
 | name | 描述 |
 |------|--------|
-| | 自定义描述 |
+| - | 自定义描述 |

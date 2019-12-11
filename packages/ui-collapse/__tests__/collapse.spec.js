@@ -1,8 +1,8 @@
 import TmCollapse from '../src/main'
-import TmCollapseItem from '../../ui-collapse-item/src/main'
 import { createLocalVue, mount } from '@vue/test-utils'
 import assert from 'assert'
 import { sleep } from 'tests/helper'
+const TmCollapseItem = TmCollapse.item
 const localVue = createLocalVue()
 localVue.use(TmCollapse)
 localVue.use(TmCollapseItem)

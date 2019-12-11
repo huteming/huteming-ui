@@ -1,19 +1,16 @@
-> 选择器，支持多 slot 联动。
 
--------------
-
-## 引入
+### 引入
 
 ```javascript
-import { TmPicker, TmPickerItem } from '@huteming/ui'
+import { Picker } from '@huteming/ui'
 
-Vue.use(TmPicker)
-// Vue.component(TmPicker.name, TmPicker)
-Vue.use(TmPickerItem)
-// Vue.component(TmPickerItem.name, TmPickerItem)
+Vue.use(Picker)
+Vue.use(Picker.item)
 ```
 
-## 例子
+## 代码演示
+
+### 基础用法
 
 ```html
 <tm-picker>
@@ -23,7 +20,7 @@ Vue.use(TmPickerItem)
 
 ## Picker
 
-### Slot
+### Slots
 
 | name | 描述 |
 |------|--------|
@@ -31,7 +28,7 @@ Vue.use(TmPickerItem)
 
 ## PickerItem
 
-### API
+### Props
 
 | 参数 | 说明 | 类型 | 可选值 | 默认值 |
 |-----|--------|------|-------|--------|

@@ -1,17 +1,13 @@
-> 图片选择器
 
--------------
-
-## 引入
+### 引入
 
 ```javascript
-import { ImagePicker } from 'tommy-ui'
+import { ImagePicker } from '@huteming/ui'
 
 Vue.use(ImagePicker)
-// Vue.directive(ImagePicker.name, ImagePicker)
 ```
 
-## 例子
+## 代码演示
 
 ### 单选
 
@@ -66,6 +62,8 @@ export default {
 ```
 
 ## API
+
+### Props
 
 | 参数 | 说明 | 类型 | 可选值 | 默认值 |
 |-----|--------|------|------|---------|

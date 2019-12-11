@@ -25,10 +25,10 @@ const MessageConstructor = Vue.extend(TmMessage)
 
 function open (config: MessageConfig, resolve: Function, reject: Function) {
     const instance: MessageComponent = new MessageConstructor({
+        propsData: config,
         data: {
             resolve,
             reject,
-            ...config,
         },
     })
 

@@ -1,12 +1,12 @@
 import { Link } from '../types'
 
 export default <Link[]>[
-    // {
-    //     childPath: 'flex',
-    //     chineseName: 'Flex 布局',
-    //     doc: () => import('packages/ui-flex/README.md'),
-    //     example: () => import('packages/ui-flex/demo/basic.vue'),
-    // },
+    {
+        childPath: 'flex',
+        chineseName: 'Flex 布局',
+        doc: () => import('packages/ui-flex/README.md'),
+        example: () => import('packages/ui-flex/demo/basic.vue'),
+    },
     {
         childPath: 'wing-blank',
         chineseName: 'WingBlank 两翼留白',

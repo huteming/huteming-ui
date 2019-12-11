@@ -1,12 +1,12 @@
 <template>
-<div class="page">
+<div class="page-demo">
     <TmPickerRange :visible.sync="visible" :options="asyncOptions" v-model="asyncValue" hello="hello" title="标题" />
 
     <div class="desc">出生年份: {{ asyncValue[0] }}</div>
 
     <button @click="visible = true">open</button>
 
-    <tm-divider>空状态</tm-divider>
+    <demo-divider>空状态</demo-divider>
     <button @click="visibleEmpty = true">open</button>
     <TmPickerRange :visible.sync="visibleEmpty" :options="[[]]" hello="hello" title="优惠券" :image="imgYou" description="暂无优惠券" />
 </div>

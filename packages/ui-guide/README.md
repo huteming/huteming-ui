@@ -1,14 +1,18 @@
-> 引导遮层
 
----------------
-
-## 引入
+### 引入
 
 ```javascript
-import { TmGuide } from '@huteming/ui'
+import { Guide } from '@huteming/ui'
+Vue.use(Guide)
+```
 
-// 这是一个构造函数，不是 ui 组件
-const guide = new TmGuide([
+## 代码演示
+
+### 基本用法
+
+```js
+// const guide = this.$guide([
+const guide = new Guide([
     {
         name: '1',
         target: '#target1',
@@ -26,7 +30,7 @@ guide.open()
 guide.close()
 ```
 
-## component 示例
+### component 示例
 
 ```javascript
 export default {
@@ -47,7 +51,9 @@ export default {
 }
 ```
 
-## Attributes
+## API
+
+### Props
 
 | 参数 | 说明 | 类型 | 可选值 | 默认值 |
 |------|-------|---------|-------|--------|
@@ -59,7 +65,7 @@ export default {
 | init | 初始值，对应 name 值。默认为第一个选项 | Any | | |
 | complete | 关闭后执行函数，提前关闭不会执行 | Function(activeName, isComplete) | | |
 
-## Events
+### Events
 
 | name | 说明 |
 |------|-------|

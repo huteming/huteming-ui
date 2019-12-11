@@ -7,7 +7,7 @@ const defaults = {
 }
 
 export default {
-    registName: 'InfiniteScroll',
+    registName: 'infinite-scroll',
 
     bind (el: any, binding: any, vnode: any) {
         if (typeof binding.value === 'function') {

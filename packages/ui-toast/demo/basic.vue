@@ -1,5 +1,5 @@
 <template>
-<div class="page-example">
+<div class="page-demo">
     <button @click="handle1">normal</button>
     <button @click="handle2">timeout 1s</button>
     <button @click="handle5">vnode</button>

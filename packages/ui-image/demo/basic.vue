@@ -1,5 +1,5 @@
 <template>
-<div class="demo">
+<div class="page-demo">
     <template v-for="fit in fits">
         <demo-divider :key="`${fit}-divider`">{{ fit }}</demo-divider>
 

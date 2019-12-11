@@ -1,24 +1,24 @@
-> 操作栏
 
--------------
-
-## 引入
+### 引入
 
 ```javascript
-import { TmToolbar } from '@huteming/ui'
+import { Toolbar } from '@huteming/ui'
 
-Vue.use(TmToolbar)
-// Vue.component(TmToolbar.name, TmToolbar)
+Vue.use(Toolbar)
 ```
 
-## 例子
+## 代码演示
+
+### 基础用法
 
 ```html
-<tm-toolbar title="标题栏" @confirm="handleConfirm" @cancel="handleCancel">
+<tm-toolbar title="标题栏">
 </tm-toolbar>
 ```
 
 ## API
+
+### Props
 
 | 参数 | 说明 | 类型 | 可选值 | 默认值 |
 |------|-------|---------|-------|--------|
@@ -27,7 +27,7 @@ Vue.use(TmToolbar)
 | showConfirm | 是否显示确认按钮 | Boolean | | true |
 | cancelText | 取消按钮文案 | String | | 取消 |
 
-## Events
+### Events
 
 | name | 说明 |
 |------|-------|

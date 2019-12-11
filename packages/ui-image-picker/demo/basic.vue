@@ -1,5 +1,5 @@
 <template>
-<div class="page-example">
+<div class="page-example page-demo">
     <button @click="disabled = !disabled">toggle disabled: {{ disabled }}</button>
 
     <TmImage
@@ -19,8 +19,6 @@
 </template>
 
 <script>
-import TmImage from 'packages/ui-image/src/main'
-
 export default {
     data () {
         return {
@@ -52,10 +50,6 @@ export default {
             alert(width)
             alert(height)
         },
-    },
-
-    components: {
-        TmImage,
     },
 }
 </script>

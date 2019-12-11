@@ -1,5 +1,5 @@
 <template>
-<div class="page">
+<div class="page-demo">
     <div class="desc">出生年份: {{ year3 }}</div>
 
     <tm-picker>

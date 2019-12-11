@@ -69,7 +69,6 @@ class NoticeBar extends Vue {
                         </Action>
                     )
                 }
-                
             </Root>
         )
     }

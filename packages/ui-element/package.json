@@ -5,11 +5,10 @@
   "description": "提供HtmlElement一些辅助方法",
   "main": "dist/element.common.js",
   "scripts": {
-    "prepublishOnly": "node ../../../scripts/prepublishOnly.js element util"
+    "prepublishOnly": "node ../../scripts/build-lib.js element"
   },
   "author": "",
   "license": "ISC",
   "devDependencies": {
-    "vue-tsx-support": "^2.3.2"
   }
 }

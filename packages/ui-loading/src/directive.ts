@@ -83,7 +83,7 @@ function close (parent: any, { duration }: any) {
 }
 
 export default {
-    registName: 'Loading',
+    registName: 'loading',
 
     bind (el: any, binding: any) {
         el[scope] = {

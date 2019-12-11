@@ -12,7 +12,7 @@ describe('ui', () => {
     })
     it('默认导出组件数组', () => {
         const comps = Object.keys(output)
-        assert.strictEqual(comps.length, 24)
+        assert.strictEqual(comps.length, 35)
     })
     it('导出其他方法', () => {
         const comps = Object.keys(others)

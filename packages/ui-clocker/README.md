@@ -1,17 +1,14 @@
-# 倒计时
 
--------------
+### 引入
 
-## 引入
+```js
+import { Clocker } from '@huteming/ui'
 
-```javascript
-import { TmClocker } from '@huteming/ui'
-
-Vue.use(TmClocker)
-// Vue.component(TmClocker.name, TmClocker)
+Vue.use(Clocker)
+// Vue.component(Clocker.name, Clocker)
 ```
 
-## 例子
+### 例子
 
 ```html
 <tm-clocker :start-time="start" :end-time="end" @end="handleEnd">
@@ -28,24 +25,24 @@ Vue.use(TmClocker)
 
 ## API
 
+### Props
+
 | 参数 | 说明 | 类型 | 可选值 | 默认值 |
 |------|-------|---------|-------|--------|
 | startTime | 开始时间 | String, Number, Date | | `now` |
 | endTime | 结束时间 | String, Number, Date | | `now` |
-| format | 时间格式化模板 | String | | `D 天 H 时 M 分 S` |
 
-## slot 对象参数
+### slot 对象参数
 
 | 参数 | 说明 | 类型 | 可选值 | 默认值 |
 |------|-------|---------|-------|--------|
-| whole | 完整时间，根据 format 格式化得到 | String | | |
-| total | 总共剩余秒 | Number | | |
 | days | 剩余天数 | Number | | |
 | hours | 剩余小时，24小时以内 | Number | | |
 | minutes | 剩余分钟，60分钟以内 | Number | | |
-| seconds | 剩余秒，60秒以内 | Number | | |
+| seconds | 剩余秒，60秒以内 | Number | - | - |
+| milliseconds | 剩余总毫秒 | Number | - | -|
 
-## Events
+### Events
 
 | name | 说明 | 参数 |
 |------|-------|---------|

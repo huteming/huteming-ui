@@ -1,5 +1,5 @@
 <template>
-<div class="page-example">
+<div class="page-demo page-example">
     <div class="group" v-for="item in icons" :key="item.icon">
         <TmIcon class="group-icon" :icon="item.icon" :class="item.class" />
         <div class="group-text">{{ item.icon }}</div>
@@ -8,8 +8,6 @@
 </template>
 
 <script>
-import TmIcon from '../index'
-
 export default {
     data () {
         return {
@@ -85,10 +83,6 @@ export default {
                 },
             ],
         }
-    },
-
-    components: {
-        TmIcon,
     },
 }
 </script>

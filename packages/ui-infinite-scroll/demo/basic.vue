@@ -1,5 +1,5 @@
 <template>
-<div class="page">
+<div class="page-demo">
     <div class="container" v-infinite-scroll="{ callback: handleReachBottom, disabled }">
         <div class="item" v-for="item in lists" :key="item">{{ item }}</div>
     </div>
@@ -11,9 +11,6 @@
 </template>
 
 <script>
-import InfiniteScroll from '../index'
-import Toast from 'web-ui/toast/index'
-
 export default {
     data () {
         return {
@@ -27,7 +24,7 @@ export default {
 
     methods: {
         handleReachBottom (done) {
-            Toast('reach')
+            this.$toast('reach')
             setTimeout(() => {
                 const length = this.lists.length
                 for (let i = 1; i < 15; i++) {
@@ -37,14 +34,10 @@ export default {
             }, 2000)
         },
         handleEmit () {
-            Toast('emit')
+            this.$toast('emit')
             this.$emit('infinite-scroll')
         }
     },
-
-    directives: {
-        InfiniteScroll
-    }
 }
 </script>
 
@@ -74,5 +67,6 @@ export default {
     height: 400px;
     overflow: auto;
     -webkit-overflow-scrolling: touch;
+    background: #fff;
 }
 </style>

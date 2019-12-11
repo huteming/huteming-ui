@@ -2,11 +2,16 @@
 
 -------------
 
-## 例子
+### 引入
+
+```js
+import { Flex } from '@huteming/ui'
+Vue.use(Flex)
+```
+
+## 代码演示
 
 ### 基础布局
-
-:::demo
 
 ```html
 <tm-flex class="mb-20">
@@ -17,34 +22,10 @@
         <div class="placeholder">无间距</div>
     </tm-flex-item>
 </tm-flex>
-
-<tm-flex class="mb-20" gutter="0 8px">
-    <tm-flex-item :grow="1">
-        <div class="placeholder">8px间距</div>
-    </tm-flex-item>
-    <tm-flex-item :grow="1">
-        <div class="placeholder">8px间距</div>
-    </tm-flex-item>
-</tm-flex>
-
-<tm-flex gutter="0 8px">
-    <tm-flex-item :grow="1">
-        <div class="placeholder">8px</div>
-    </tm-flex-item>
-    <tm-flex-item :grow="1" gutter="0 15px">
-        <div class="placeholder">自定义15px间距</div>
-    </tm-flex-item>
-    <tm-flex-item :grow="1">
-        <div class="placeholder">8px</div>
-    </tm-flex-item>
-</tm-flex>
 ```
-:::
 
 ### 换行
 
-:::demo 
-
 ```html
 <template>
 <tm-flex wrap="wrap" gutter="0 15px">
@@ -66,14 +47,10 @@
 </tm-flex>
 </template>
 ```
-:::
 
 ### 交叉轴对齐
 
-:::demo 
-
 ```html
-<template>
 <tm-flex wrap="wrap" gutter="0 15px">
     <tm-flex-item>
         <div class="placeholder inline">Block</div>
@@ -91,16 +68,11 @@
         <div class="placeholder inline">Block</div>
     </tm-flex-item>
 </tm-flex>
-</template>
 ```
-:::
 
 ### 主轴对齐
 
-:::demo 
-
 ```html
-<template>
 <tm-flex class="mb-20">
     <tm-flex-item :grow="1">
         <div class="placeholder small"></div>
@@ -124,13 +96,11 @@
         <div class="placeholder large">center</div>
     </tm-flex-item>
 </tm-flex>
-</template>
 ```
-:::
 
-## API
+## Flex
 
-### Flex
+### Props
 
 属性 | 说明 | 类型 | 默认值
 -----|-----|------|------
@@ -141,7 +111,9 @@
 | alignContent | 有多根轴线时的对齐方式，可选 `start`, `center`, `end`, `between`, `around`, `stretch`    | String  | `stretch` |
 | gutter       | 子元素margin值 | String | `0` |
 
-### Flex.Item
+## Flex.item
+
+### Props
 
 |属性 | 说明 | 类型 | 默认值 |
 |----|----|----|----|

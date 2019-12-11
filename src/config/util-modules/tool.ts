@@ -3,7 +3,7 @@ import { Link } from '../types'
 export default <Link[]>[
     {
         childPath: 'animation',
-        chineseName: '动画 Animation',
+        chineseName: 'Animation 动画',
         doc: () => import('packages/ui-animation/README.md'),
     },
     // {

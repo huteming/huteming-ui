@@ -1,3 +1,5 @@
+import { AttachOptions } from '../types'
+
 const SPECIAL_CHARS_REGEXP = /([:\-_]+(.))/g
 const MOZ_HACK_REGEXP = /^moz([A-Z])/
 
@@ -200,7 +202,7 @@ const optionsAttached = {
     timeout: 100,
     maxCount: 10,
 }
-export function attached (element: any, success: any, fail?: any, options: any = {}) {
+export function attached (element: HTMLElement, success: Function, fail?: Function | AttachOptions, options: AttachOptions = {}) {
     // 第三个参数允许传配置对象，此时失败回调取对象中的fail属性
     if (typeof fail === 'object') {
         options = fail
@@ -236,14 +238,17 @@ export function attached (element: any, success: any, fail?: any, options: any =
     setTimeout(tryBind, timeout)
 }
 
-function isAttached (element: any) {
-    element = typeof element === 'string' ? document.querySelector(element) : element
+/**
+ * 判断是否插入html文档
+ */
+function isAttached (el: HTMLElement | string): boolean {
+    const element = typeof el === 'string' ? document.querySelector(el) : el
 
     if (!element) {
         return false
     }
 
-    let currentNode = element.parentNode
+    let currentNode = element.parentNode as HTMLElement
 
     while (currentNode) {
         if (currentNode.tagName === 'HTML') {
@@ -253,7 +258,7 @@ function isAttached (element: any) {
         if (currentNode.nodeType === 11) {
             return false
         }
-        currentNode = currentNode.parentNode
+        currentNode = currentNode.parentNode as HTMLElement
     }
 
     return false

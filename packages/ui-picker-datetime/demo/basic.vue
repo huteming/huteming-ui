@@ -1,6 +1,7 @@
 <template>
 <div class="page-demo">
-    <button class="space" @click="visibleDatetime = true">{{ valueDatetime | date }}</button>
+    <demo-cell :body="valueDatetime | date" @click.native="visibleDatetime = true" link></demo-cell>
+    <demo-divider></demo-divider>
     <tm-picker-datetime
         :visible.sync="visibleDatetime"
         v-model="valueDatetime"

@@ -1,17 +1,14 @@
-> 对话框
-
--------------
-
-## 引入
+### 引入
 
 ```javascript
-import { TmDialog } from '@huteming/ui'
+import { Dialog } from '@huteming/ui'
 
-Vue.use(TmDialog)
-// Vue.component(TmDialog.name, TmDialog)
+Vue.use(Dialog)
 ```
 
-## 例子
+## 代码演示
+
+### 基础用法
 
 ```html
 <tm-dialog v-model="visibleDialog">
@@ -21,21 +18,23 @@ Vue.use(TmDialog)
 
 ## API
 
+### Props
+
 | 参数 | 说明 | 类型 | 可选值 | 默认值 |
 |------|-------|---------|-------|--------|
 | value | 显示状态 | Boolean | | `false` |
 | close-position | 关闭 X 显示位置 | String | `out-right`, `out-left`, `in-right`, `in-left`, `bottom` | |
-| close-on-click-modal | 点击折腾是否关闭 | Boolean | | `true` |
+| close-on-click-modal | 点击折腾是否关闭 | Boolean | | `false` |
 | before-close | 关闭前的回调，会暂停 Dialog 的关闭 | function(done) | | |
 
-## Slot
+### Slots
 
 | 参数 | 说明 |
 |------|-------|
-| | Dialog 的内容 |
+| - | Dialog 的内容 |
 | footer | Dialog 按钮操作区的内容 |
 
-## Events
+### Events
 
 | name | 说明 |
 |------|-------|

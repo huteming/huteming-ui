@@ -1,8 +1,8 @@
 import MixinsModal from '@huteming/ui-modal/src/main'
 import { isVNode, isComponent } from '@huteming/ui-tools/src/main'
-import { Mixins } from 'vue-property-decorator'
+import { Mixins, Prop, Vue } from 'vue-property-decorator'
 import { BeforeClose, BeforeConfirm, BeforeCancel, MessageResponse, MessageType, ActionType, MessageComponent } from '../types'
-import { CreateElement } from 'vue'
+import { CreateElement, VNode, ComponentOptions } from 'vue'
 import { withStyles, hairline } from '@huteming/ui-styles/src/main'
 import { StyleProps } from '@huteming/ui-styles/types'
 
@@ -112,9 +112,9 @@ class Message extends Mixins(MixinsModal) implements MessageComponent {
             let html
 
             if (isVNode(this.message)) {
-                html = this.message
+                html = this.message as VNode
             } else if (isComponent(this.message)) {
-                html = h(this.message)
+                html = h(this.message as ComponentOptions<Vue>)
             } else {
                 html = h('p', {
                     domProps: {
@@ -258,43 +258,58 @@ class Message extends Mixins(MixinsModal) implements MessageComponent {
         this.$el.parentNode && this.$el.parentNode.removeChild(this.$el)
     }
 
-    message = ''
     // 提示框的标题
-    title = '提示'
+    @Prop({ type: String, default: '提示' })
+    title!: string
+
+    @Prop({ type: [String, Object], default: '' })
+    message!: string | VNode | ComponentOptions<Vue>
 
     // 确认按钮的文本
-    confirmButtonText = '确定'
+    @Prop({ type: String, default: '确定' })
+    confirmButtonText!: string
 
     // 是否将确认按钮的文本加粗显示
-    confirmButtonHighlight = false
+    @Prop({ type: Boolean, default: false })
+    confirmButtonHighlight!: boolean
 
     // 是否显示取消按钮
-    showCancelButton = false
+    @Prop({ type: Boolean, default: false })
+    showCancelButton!: boolean
 
     // 取消按钮的文本
-    cancelButtonText = '取消'
+    @Prop({ type: String, default: '取消' })
+    cancelButtonText!: string
 
     // 是否将取消按钮的文本加粗显示
-    cancelButtonHighlight = false
+    @Prop({ type: Boolean, default: false })
+    cancelButtonHighlight!: boolean
 
     // 是否显示一个输入框
-    showInput = false
+    @Prop({ type: Boolean, default: false })
+    showInput!: boolean
 
     // 输入框的类型
-    inputType = 'text'
+    @Prop({ type: String, default: 'text' })
+    inputType!: string
 
     // 输入框的值
-    inputValue = ''
+    @Prop({ type: String, default: '' })
+    inputValue!: string
 
     // 输入框的占位符
-    inputPlaceholder = '请输入'
+    @Prop({ type: String, default: '请输入' })
+    inputPlaceholder!: string
 
     // 是否在点击遮罩时关闭提示框(alert 为 false)
-    closeOnClickModal = true
+    // closeOnClickModal = true
 
     // 关闭前的回调，会暂停 message 的关闭。done 用于关闭 message
+    @Prop({ type: Function })
     beforeClose?: BeforeClose
+    @Prop({ type: Function })
     beforeConfirm?: BeforeConfirm
+    @Prop({ type: Function })
     beforeCancel?: BeforeCancel
 
     visible = false

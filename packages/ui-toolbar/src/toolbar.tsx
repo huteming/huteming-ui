@@ -16,7 +16,7 @@ const styles = (styled: any, css: any) => {
             line-height: 25px;
             color: rgba(32, 38, 49, 1);
         `),
-        Action: styled('div', { type: String }, (props: StyleProps) => `
+        Action: styled('div', { type: String }, (props: StyleProps) => css`
             flex: 1;
             padding-top: 18px;
             padding-bottom: 18px;

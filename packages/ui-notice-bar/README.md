@@ -1,23 +1,25 @@
-> 通知栏
 
----------------
-
-## 例子
+### 引入
 
 ```javascript
-import { TmNoticeBar } from '@huteming/ui'
+import { NoticeBar } from '@huteming/ui'
 
-Vue.use(TmNoticeBar)
-// Vue.component(TmNoticeBar.name, TmNoticeBar)
+Vue.use(NoticeBar)
 ```
+
+## 代码演示
+
+### 基础用法
 
 ```html
 <tm-notice-bar>
-    <span>这是一句绕口令：黑灰化肥会挥发发灰黑化肥挥发；灰黑化肥会挥发发黑灰化肥发挥。 黑灰化肥会挥发发灰黑化肥黑灰挥发化为灰……</span>
+    <span>这是一句绕口令：黑灰化肥会挥发发灰黑化肥挥发；灰黑化肥会挥发发黑灰化肥发挥。 黑灰化肥会挥发发灰黑化肥黑灰挥发化为灰</span>
 </tm-notice-bar>
 ```
 
-## Attributes
+## API
+
+### Props
 
 | 属性 | 说明 | 类型 | 默认值 |
 |-----|-----|------|------|
@@ -26,14 +28,14 @@ Vue.use(TmNoticeBar)
 | duration | 动画持续时间，默认会根据需要滚动距离计算（25ms/px） | Number | |
 | loop | 是否无限滚动 | Boolean | true |
 
-## Slot
+### Slots
 
 | 属性 | 说明 |
 |-----|-----|
 | - | 描述 |
 | action | 操作文案 |
 
-## Slot
+### Slot
 
 | 属性 | 说明 | 回调参数 |
 |-----|-----|--------|

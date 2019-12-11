@@ -1,17 +1,15 @@
-> 选择器
 
--------------
-
-## 引入
+### 引入
 
 ```javascript
-import { TmPickerRange } from '@huteming/ui'
+import { PickerRange } from '@huteming/ui'
 
-Vue.use(TmPickerRange)
-// Vue.component(TmPickerRange.name, TmPickerRange)
+Vue.use(PickerRange)
 ```
 
-## 例子
+## 代码演示
+
+### 基础用法
 
 ```html
 <tm-picker-range :visible.sync="visible" v-model="values" :value-text.sync="valuesText">
@@ -20,6 +18,8 @@ Vue.use(TmPickerRange)
 
 ## API
 
+### Props
+
 | 参数 | 说明 | 类型 | 可选值 | 默认值 |
 |------|-------|---------|-------|--------|
 | visible | 是否打开，支持sync属性 | Boolean | | |
@@ -27,7 +27,7 @@ Vue.use(TmPickerRange)
 | options | 选项。特别注意：这是一个嵌套数组，每个下标都作为一个选项 | Array | | |
 | | 其他 toolbar、empty 属性 | | | |
 
-## 事件
+### Events
 
 | name | 说明 | 参数 |
 |----------|-----------|----------|

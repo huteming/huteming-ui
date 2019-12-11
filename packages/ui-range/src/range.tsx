@@ -8,7 +8,7 @@ const styles = (styled: any, css: any) => {
             display: flex;
             align-items: center;
         `),
-        Content: styled('div', { disabled: Boolean }, (props: StyleProps) => `
+        Content: styled('div', { disabled: Boolean }, (props: StyleProps) => css`
             position: relative;
             flex: 1;
             display: flex;
@@ -94,6 +94,14 @@ class Range extends Vue {
         )
     }
 
+    mounted () {
+        const contentComp = this.$refs.content as Vue
+        const contentDom = contentComp.$el as HTMLElement
+        const thumbComp = this.$refs.thumb as Vue
+        const thumbDom = thumbComp.$el as HTMLElement
+        this.widthProgress = contentDom.offsetWidth - thumbDom.offsetWidth
+    }
+
     @Prop({ type: Number, default: 0 })
     value!: number
 
@@ -147,10 +155,6 @@ class Range extends Vue {
     @Watch('normalizedValue')
     onNormalizedValue (val: number) {
         this.$emit('input', val)
-    }
-
-    mounted () {
-        this.widthProgress = (this.$refs.content as HTMLElement).offsetWidth - (this.$refs.thumb as HTMLElement).offsetWidth
     }
 
     handleTouchstart (event: TouchEvent) {

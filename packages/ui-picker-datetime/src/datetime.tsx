@@ -19,6 +19,29 @@ const MIN_YEAR = CURRENT_YEAR - 10
 const MAX_YEAR = CURRENT_YEAR + 10
 
 class PickerDatetime extends Vue {
+    render () {
+        const { Root } = this.styledDoms
+        const PickerItem = TmPicker.item as any
+        const showDate = this.mode === 'datetime' || this.mode === 'date'
+        const showTime = this.mode === 'datetime' || this.mode === 'time'
+        return (
+            <TmPopup value={ this.normalizedVisible } on-input={ (val: boolean) => (this.normalizedVisible = val) } position="bottom" ref="popup">
+                <Root class="tm-picker-datetime">
+                    <TmToolbar on-confirm={ this.handleConfirm } on-cancel={ this.handleCancel } />
+
+                    <TmPicker>
+                        { showDate && <PickerItem options={ this.yearOptions } value={ this.yearCurrent } on-input={ (val: number) => (this.yearCurrent = val) }></PickerItem> }
+                        { showDate && <PickerItem options={ this.monthOptions } value={ this.monthCurrent } on-input={ (val: number) => (this.monthCurrent = val) }></PickerItem> }
+                        { showDate && <PickerItem options={ this.dateOptions } value={ this.dateCurrent } on-input={ (val: number) => (this.dateCurrent = val) }></PickerItem> }
+
+                        { showTime && <PickerItem options={ this.hourOptions } value={ this.hourCurrent } on-input={ (val: number) => (this.hourCurrent = val) }></PickerItem> }
+                        { showTime && <PickerItem options={ this.minuteOptions } value={ this.minuteCurrent } on-input={ (val: number) => (this.minuteCurrent = val) }></PickerItem> }
+                    </TmPicker>
+                </Root>
+            </TmPopup>
+        )
+    }
+
     @Prop({ type: Boolean, default: false })
     visible!: boolean
 
@@ -52,41 +75,6 @@ class PickerDatetime extends Vue {
     minuteCurrent = 0
 
     normalizedVisible = this.visible
-
-    render () {
-        const { Root } = this.styledDoms
-        const Popup = TmPopup as any
-        const PickerItem = TmPicker.item as any
-        const DomContent = (() => {
-            if (this.mode === 'datetime' || this.mode === 'date') {
-                return <template>
-                    <PickerItem options={ this.yearOptions } value={ this.yearCurrent } on-input={ (val: number) => (this.yearCurrent = val) }></PickerItem>,
-                    <PickerItem options={ this.monthOptions } value={ this.monthCurrent } on-input={ (val: number) => (this.monthCurrent = val) }></PickerItem>,
-                    <PickerItem options={ this.dateOptions } value={ this.dateCurrent } on-input={ (val: number) => (this.dateCurrent = val) }></PickerItem>,
-                </template>
-            }
-        })()
-        const DomTime = (() => {
-            if (this.mode === 'datetime' || this.mode === 'time') {
-                return <template>
-                    <PickerItem options={ this.hourOptions } value={ this.hourCurrent } on-input={ (val: number) => (this.hourCurrent = val) }></PickerItem>
-                    <PickerItem options={ this.minuteOptions } value={ this.minuteCurrent } on-input={ (val: number) => (this.minuteCurrent = val) }></PickerItem>
-                </template>
-            }
-        })()
-        return (
-            <Popup value={ this.normalizedVisible } on-input={ (val: boolean) => (this.normalizedVisible = val) } position="bottom" ref="popup">
-                <Root class="tm-picker-datetime">
-                    <TmToolbar on-confirm={ this.handleConfirm } on-cancel={ this.handleCancel } />
-
-                    <TmPicker>
-                        { DomContent }
-                        { DomTime }
-                    </TmPicker>
-                </Root>
-            </Popup>
-        )
-    }
 
     /**
      * @argument yearCurrent

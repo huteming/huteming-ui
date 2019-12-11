@@ -1,5 +1,5 @@
 <template>
-<div class="page">
+<div class="page-demo">
     <!-- middle -->
     <div style="height: 20px;"></div>
     <button @click="visibleDefault = !visibleDefault">default</button>
@@ -58,8 +58,6 @@
 </template>
 
 <script>
-import Popup from '../index'
-
 export default {
     data () {
         return {
@@ -89,10 +87,6 @@ export default {
         handleClosed () {
             console.log('closed')
         }
-    },
-
-    components: {
-        TmPopup: Popup,
     },
 }
 </script>

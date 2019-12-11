@@ -1,8 +1,5 @@
-> 加载状态
 
--------------
-
-## 引入
+### 引入
 
 ```javascript
 import { Loading } from '@huteming/ui'
@@ -10,13 +7,15 @@ import { Loading } from '@huteming/ui'
 Vue.use(Toast)
 ```
 
-## 指令方式
+## 代码演示
+
+### 基本用法
 
 ```html
 <div v-loading="loading"></div>
 ```
 
-## 服务方式
+### 函数方式调用
 
 ```javascript
 Loading.open(element, options)
@@ -24,6 +23,8 @@ Loading.close(element, options)
 ```
 
 ## API
+
+### Props
 
 | 参数 | 说明 | 类型 | 可选值 | 默认值 |
 |------|-------|---------|-------|--------|

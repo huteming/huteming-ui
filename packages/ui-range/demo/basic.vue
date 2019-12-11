@@ -1,18 +1,18 @@
 <template>
-<div class="page">
-    <tm-range v-model="range7" :min="0" :max="200" :step="2" :bar-height="3" class="spacing">
-        <div slot="start">
-            <div>线宽</div>
-        </div>
+<div class="page-demo">
+    <div class="container" style="padding: 20px; background: #fff;">
+        <tm-range v-model="range1" :min="0" :max="200" :step="2" :bar-height="3" class="spacing">
+            <div slot="start">
+                <div>线宽</div>
+            </div>
 
-        <div slot="end" class="end">value: {{ range7 }}</div>
-    </tm-range>
+            <div slot="end" class="end">value: {{ range1 }}</div>
+        </tm-range>
+    </div>
 </div>
 </template>
 
 <script>
-import TmRange from '../index'
-
 export default {
     data () {
         return {
@@ -33,10 +33,6 @@ export default {
             console.log('change', value)
         }
     },
-
-    components: {
-        TmRange,
-    }
 }
 </script>
 

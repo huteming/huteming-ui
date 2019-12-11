@@ -19,16 +19,16 @@ export default <Link[]>[
         doc: () => import('packages/ui-picker-datetime/README.md'),
         example: () => import('packages/ui-picker-datetime/demo/basic.vue'),
     },
-    // {
-    //     childPath: 'picker-range',
-    //     chineseName: '选择器 PickerRange',
-    //     doc: () => import('packages/ui-picker-range/README.md'),
-    //     example: () => import('packages/ui-picker-range/demo/basic.vue'),
-    // },
-    // {
-    //     childPath: 'picker',
-    //     chineseName: '基础选择器 Picker',
-    //     doc: () => import('packages/ui-picker/README.md'),
-    //     example: () => import('packages/ui-picker/demo/basic.vue'),
-    // },
+    {
+        childPath: 'picker-range',
+        chineseName: '选择器 PickerRange',
+        doc: () => import('packages/ui-picker-range/README.md'),
+        example: () => import('packages/ui-picker-range/demo/basic.vue'),
+    },
+    {
+        childPath: 'picker',
+        chineseName: '基础选择器 Picker',
+        doc: () => import('packages/ui-picker/README.md'),
+        example: () => import('packages/ui-picker/demo/basic.vue'),
+    },
 ]

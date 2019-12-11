@@ -1,21 +1,23 @@
-> 图标
 
--------------
-
-## 例子
+### 引入
 
 ```javascript
-import { TmIcon } from '@huteming/ui'
+import { Icon } from '@huteming/ui'
 
-Vue.use(TmIcon)
-// Vue.component(TmIcon.name, TmIcon)
+Vue.use(Icon)
 ```
+
+## 代码演示
+
+### 基本用法
 
 ```html
 <tm-icon icon="loading"></tm-icon>
 ```
 
 ## API
+
+### Props
 
 | 属性 | 说明 | 类型 | 默认值 |
 |-----|-----|------|------|

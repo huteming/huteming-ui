@@ -1,7 +1,4 @@
-> 简短的消息提示框，支持自定义位置、持续时间和样式。
-
--------------
-## 引入
+### 引入
 
 ```javascript
 import { Toast } from '@huteming/ui'
@@ -9,7 +6,9 @@ import { Toast } from '@huteming/ui'
 Vue.use(Toast)
 ```
 
-## 例子
+## 代码演示
+
+### 基础用法
 
 ```javascript
 this.$toast(options)
@@ -20,6 +19,9 @@ Toast(message)
 ```
 
 ## API
+
+### Props
+
 | 参数 | 说明 | 类型 | 可选值 | 默认值 |
 |------|-------|---------|-------|--------|
 | message | 文本内容 | String | | |

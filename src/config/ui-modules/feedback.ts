@@ -25,18 +25,18 @@ export default <Link[]>[
         doc: () => import('packages/ui-toast/README.md'),
         example: () => import('packages/ui-toast/demo/basic.vue'),
     },
-    // {
-    //     childPath: 'popup',
-    //     chineseName: '弹出层 Popup',
-    //     doc: () => import('packages/ui-popup/README.md'),
-    //     example: () => import('packages/ui-popup/demo/basic.vue'),
-    // },
-    // {
-    //     childPath: 'loading',
-    //     chineseName: '加载 Loading',
-    //     doc: () => import('packages/ui-loading/README.md'),
-    //     example: () => import('packages/ui-loading/demo/basic.vue'),
-    // },
+    {
+        childPath: 'popup',
+        chineseName: '弹出层 Popup',
+        doc: () => import('packages/ui-popup/README.md'),
+        example: () => import('packages/ui-popup/demo/basic.vue'),
+    },
+    {
+        childPath: 'loading',
+        chineseName: '加载 Loading',
+        doc: () => import('packages/ui-loading/README.md'),
+        example: () => import('packages/ui-loading/demo/basic.vue'),
+    },
     // {
     //     childPath: 'ripple',
     //     chineseName: '水波纹 ripple',

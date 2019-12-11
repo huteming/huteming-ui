@@ -37,9 +37,9 @@ describe('infinite-scroll', () => {
 
     it('install', () => {
         const localVue = createLocalVue()
-        assert.ok(!localVue.directive('InfiniteScroll'))
+        assert.ok(!localVue.directive('infinite-scroll'))
         localVue.use(InfiniteScroll)
-        assert.ok(localVue.directive('InfiniteScroll'))
+        assert.ok(localVue.directive('infinite-scroll'))
     })
 
     it('create', async () => {

@@ -1,5 +1,5 @@
 <template>
-<div class="demo">
+<div class="page-demo">
     <button @click="handleStart">start</button>
     <div id="target1" class="hello"></div>
     <div id="target2" class="hello"></div>
@@ -13,7 +13,6 @@ import GuideNavs from './Navs/display'
 import GuidePersonal from './Personal/display'
 import GuideReadPlan from './ReadPlan/display'
 import GuideWallet from './Wallet/display'
-import Guide from '../index'
 
 export default {
     data () {
@@ -24,7 +23,7 @@ export default {
 
     mounted () {
         // 跨页面的引导，参考 bridge.vue 写法
-        this.instance = new Guide([
+        this.instance = this.$guide([
             {
                 name: '1',
                 target: '#target1',

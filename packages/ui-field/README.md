@@ -1,24 +1,24 @@
-> 输入框
 
--------------
-
-## 引入
+### 引入
 
 ```javascript
-import { TmField } from '@huteming/ui'
+import { Field } from '@huteming/ui'
 
-Vue.use(TmField)
-// Vue.component(TmField.name, TmField)
+Vue.use(Field)
 ```
 
-## 例子
+## 代码演示
+
+### 基础用法
 
 ```html
-<tm-field type="textarea" rows="3" v-model="value" @focus="handleLog" @blur="handleLog" @change="handleLog">
+<tm-field type="textarea" rows="3" v-model="value">
 </tm-field>
 ```
 
-### Attributes
+## API
+
+### Props
 
 | 参数 | 说明 | 类型 | 可选值 | 默认值 |
 |------|-------|---------|-------|--------|
@@ -26,7 +26,7 @@ Vue.use(TmField)
 | value | 绑定指 | String, Number | - | - |
 | label | 输入框关联的label文字 | string | | |
 | inputStyle | 输入框样式 | Object | | |
-| | 其他输入框原生属性；如：rows | | | |
+| - | 其他输入框原生属性；如：rows | | | |
 
 ### Events
 

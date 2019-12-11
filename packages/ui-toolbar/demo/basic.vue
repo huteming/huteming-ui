@@ -1,32 +1,25 @@
 <template>
-<div class="demo">
-    <tm-divider>带有标题</tm-divider>
+<div class="page-demo">
+    <demo-divider>带有标题</demo-divider>
     <TmToolbar title="标题栏" @confirm="handleConfirm" @cancel="handleCancel" />
 
-    <tm-divider>无标题</tm-divider>
+    <demo-divider>无标题</demo-divider>
     <TmToolbar />
 
-    <tm-divider>带有标题</tm-divider>
+    <demo-divider>带有标题</demo-divider>
     <TmToolbar title="标题栏" :show-confirm="false" />
 </div>
 </template>
 
 <script>
-import Toast from 'web-ui/toast/index'
-import TmToolbar from '../index'
-
 export default {
     methods: {
         handleConfirm () {
-            Toast('点击确定')
+            this.$toast('点击确定')
         },
         handleCancel () {
-            Toast('点击取消')
+            this.$toast('点击取消')
         },
-    },
-
-    components: {
-        TmToolbar,
     },
 }
 </script>
