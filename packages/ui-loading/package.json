@@ -1,7 +1,7 @@
 {
   "name": "@huteming/ui-loading",
   "private": true,
-  "version": "2.0.1",
+  "version": "2.0.2",
   "description": "> 加载",
   "main": "dist/loading.common.js",
   "scripts": {
@@ -10,9 +10,9 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "@huteming/ui-element": "^2.0.3",
-    "@huteming/ui-icon": "^2.0.2",
-    "@huteming/ui-styles": "^1.1.0",
+    "@huteming/ui-element": "^2.0.4",
+    "@huteming/ui-icon": "^2.1.0",
+    "@huteming/ui-styles": "^1.2.0",
     "throttle-debounce": "^2.1.0"
   }
 }

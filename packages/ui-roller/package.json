@@ -1,14 +1,12 @@
 {
   "name": "@huteming/ui-roller",
   "private": true,
-  "version": "2.0.1",
+  "version": "2.1.0",
   "description": "提供区间概率算法",
   "main": "dist/roller.common.js",
   "scripts": {
     "prepublishOnly": "node ../../scripts/build-lib.js roller"
   },
   "author": "",
-  "license": "ISC",
-  "devDependencies": {
-  }
+  "license": "ISC"
 }

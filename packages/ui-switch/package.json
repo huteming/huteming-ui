@@ -1,7 +1,7 @@
 {
   "name": "@huteming/ui-switch",
   "private": true,
-  "version": "2.0.2",
+  "version": "2.0.3",
   "description": "> 滑动开关。",
   "main": "dist/switch.common.js",
   "scripts": {
@@ -10,6 +10,6 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "@huteming/ui-styles": "^1.1.0"
+    "@huteming/ui-styles": "^1.2.0"
   }
 }

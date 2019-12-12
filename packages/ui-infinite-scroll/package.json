@@ -1,7 +1,7 @@
 {
   "name": "@huteming/ui-infinite-scroll",
   "private": true,
-  "version": "2.0.1",
+  "version": "2.0.2",
   "description": "无限滚动指令",
   "main": "dist/infinite-scroll.common.js",
   "scripts": {
@@ -10,6 +10,6 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "@huteming/ui-element": "^2.0.3"
+    "@huteming/ui-element": "^2.0.4"
   }
 }

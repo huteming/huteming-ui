@@ -1,7 +1,7 @@
 {
   "name": "@huteming/ui-styles",
   "private": false,
-  "version": "1.1.0",
+  "version": "1.2.0",
   "description": "> 样式定制",
   "author": "Tommy <tommy@jhshuyuan.com>",
   "homepage": "",
@@ -24,9 +24,7 @@
   "scripts": {
     "prepublishOnly": "node ../../scripts/build-lib.js styles"
   },
-  "devDependencies": {
-  },
   "dependencies": {
-    "@huteming/ui-tools": "^2.2.2"
+    "@huteming/ui-tools": "^2.3.0"
   }
 }

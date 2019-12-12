@@ -1,6 +1,6 @@
 {
   "name": "@huteming/ui-picker",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "> 选择器，支持多 slot 联动。",
   "main": "lib/picker.common.js",
   "scripts": {
@@ -9,7 +9,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "@huteming/ui-empty": "^2.0.2",
-    "@huteming/ui-styles": "^1.1.0"
+    "@huteming/ui-empty": "^2.0.3",
+    "@huteming/ui-styles": "^1.2.0"
   }
 }

@@ -1,7 +1,7 @@
 {
   "name": "@huteming/ui-collapse",
   "private": true,
-  "version": "2.0.3",
+  "version": "2.0.4",
   "description": "",
   "main": "dist/collapse.common.js",
   "scripts": {
@@ -10,9 +10,9 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "@huteming/ui-icon": "^2.0.2",
-    "@huteming/ui-styles": "^1.1.0",
-    "@huteming/ui-tools": "^2.2.2",
-    "@huteming/ui-transition-collapse": "^2.0.1"
+    "@huteming/ui-icon": "^2.1.0",
+    "@huteming/ui-styles": "^1.2.0",
+    "@huteming/ui-tools": "^2.3.0",
+    "@huteming/ui-transition-collapse": "^2.0.2"
   }
 }

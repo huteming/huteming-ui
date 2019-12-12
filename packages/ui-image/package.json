@@ -1,7 +1,7 @@
 {
   "name": "@huteming/ui-image",
   "private": true,
-  "version": "2.0.1",
+  "version": "2.0.2",
   "description": "> 图片容器",
   "main": "dist/image.common.js",
   "scripts": {
@@ -10,8 +10,8 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "@huteming/ui-styles": "^1.1.0",
-    "@huteming/ui-types": "^1.0.0",
+    "@huteming/ui-styles": "^1.2.0",
+    "@huteming/ui-types": "^1.0.1",
     "throttle-debounce": "^2.1.0"
   },
   "devDependencies": {

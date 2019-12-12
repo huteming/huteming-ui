@@ -1,7 +1,7 @@
 {
   "name": "@huteming/ui-validator",
   "private": false,
-  "version": "2.0.1",
+  "version": "2.0.2",
   "description": "提供验证方法",
   "main": "dist/validator.common.js",
   "scripts": {
@@ -10,6 +10,6 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "@huteming/ui-types": "^1.0.0"
+    "@huteming/ui-types": "^1.0.1"
   }
 }
