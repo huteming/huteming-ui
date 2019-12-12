@@ -231,7 +231,7 @@ class Image extends Vue {
     @Prop({ type: Boolean })
     hold?: boolean
 
-    @Prop({ type: [String, Element] })
+    @Prop({ type: [String, /* no-SSR: HTMLElement */ Object] })
     scrollContainer?: string | Element
 
     state: string = this.hold && !this.src ? 'hold' : 'loading'

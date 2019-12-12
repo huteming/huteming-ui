@@ -1,9 +1,12 @@
 import { Theme } from '../../types'
 import themeButton from './button'
 import themeColor from './color'
-import { deepmerge } from '@huteming/ui-tools/src/main'
+import { deepmerge, isStandardBrowserEnv } from '@huteming/ui-tools/src/main'
 
 function scaleDpr (): number {
+    if (!isStandardBrowserEnv()) {
+        return 1
+    }
     const ua = navigator.userAgent
     const matches = ua.match(/Android[\S\s]+AppleWebkit\/(\d{3})/i)
     const UCversion = ua.match(/U3\/((\d+|\.){5,})/i)

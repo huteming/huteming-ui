@@ -47,12 +47,6 @@ export function easeInOut (...args: any) {
  * @param {*Number} duration 总持续时间毫秒数
  */
 function animation (type: any, from?: any, to?: any, callback?: any, duration: any = 300) {
-    if (!window.requestAnimationFrame) {
-        window.requestAnimationFrame = function (callback) {
-            return setTimeout(callback, 17)
-        }
-    }
-
     from = Number(from)
     to = Number(to)
 

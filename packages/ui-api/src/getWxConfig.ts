@@ -1,8 +1,9 @@
 import request from './request'
+import { isStandardBrowserEnv } from 'ui/utils/tools'
 
 const defaultWX = {
     flag: 'test_tommy',
-    url: window.location.href.split('#')[0],
+    url: isStandardBrowserEnv() ? window.location.href.split('#')[0] : '',
 }
 
 /**

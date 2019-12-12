@@ -15,7 +15,7 @@
     "lib"
   ],
   "publishConfig": {
-    "registry": "http://192.168.0.99:4873/"
+    "registry": "https://registry.npmjs.org/"
   },
   "repository": {
     "type": "git",

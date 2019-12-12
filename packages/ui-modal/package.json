@@ -1,11 +1,11 @@
 {
   "name": "@huteming/ui-modal",
-  "private": true,
+  "private": false,
   "version": "1.2.0",
-  "description": "使用为 mixins",
+  "description": "> 弹窗遮层背景",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "prepublishOnly": "node ../../scripts/build-lib.js modal"
   },
   "author": "",
   "license": "ISC",

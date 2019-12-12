@@ -1,5 +1,6 @@
 import { RequestOptions } from '../types'
 import { AxiosRequestConfig } from 'axios'
+import { isStandardBrowserEnv } from '@huteming/ui-tools/src/main'
 
 const mapHost = new Map([
     ['fejh.jinghao.com', '//jhtest.jinghao.com'],
@@ -7,9 +8,10 @@ const mapHost = new Map([
     ['jhsy.jinghao.com', '//api.jinghao.com'],
     ['tommy.jinghao.com', '//api.jinghao.com']
 ])
+const host = isStandardBrowserEnv() ? window.location.host : ''
 
 const defaults = {
-    baseURL: mapHost.get(window.location.host) || '//jhtest.jinghao.com',
+    baseURL: mapHost.get(host) || '//jhtest.jinghao.com',
     timeout: 8000,
     withCredentials: true,
     jhsyAccountAlias: '',
