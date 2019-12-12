@@ -3,7 +3,7 @@ import { isStandardBrowserEnv } from 'ui/utils/tools'
 
 const defaultWX = {
     flag: 'test_tommy',
-    url: isStandardBrowserEnv() ? window.location.href.split('#')[0] : '',
+    url: '',
 }
 
 /**
@@ -11,6 +11,9 @@ const defaultWX = {
  */
 export default function getWxConfig (options = {}) {
     const params = Object.assign({}, defaultWX, options)
+    if (!params.url && isStandardBrowserEnv()) {
+        params.url = window.location.href.split('#')[0]
+    }
 
     return request.get('/api/user/shareParam', params)
 }

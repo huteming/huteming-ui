@@ -1,0 +1,32 @@
+{
+  "name": "@huteming/ui-card",
+  "version": "1.0.0",
+  "description": "> 卡片",
+  "author": "Tommy <tommy@jhshuyuan.com>",
+  "homepage": "https://github.com/huteming/huteming-ui#readme",
+  "license": "ISC",
+  "main": "lib/ui-card.js",
+  "directories": {
+    "lib": "lib",
+    "test": "__tests__"
+  },
+  "files": [
+    "lib"
+  ],
+  "publishConfig": {
+    "registry": "https://registry.npmjs.org/"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/huteming/huteming-ui.git"
+  },
+  "scripts": {
+    "prepublishOnly": "node ../../scripts/build-lib.js card"
+  },
+  "bugs": {
+    "url": "https://github.com/huteming/huteming-ui/issues"
+  },
+  "dependencies": {
+    "@huteming/ui-styles": "^1.2.0"
+  }
+}

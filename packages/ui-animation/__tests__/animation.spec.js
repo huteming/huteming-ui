@@ -87,25 +87,4 @@ describe('animation', () => {
 
         window.requestAnimationFrame = originAnimation
     })
-
-    it('requestAnimationFrame兼容', () => {
-        const originAnimation = window.requestAnimationFrame
-        const originTimeout = global.setTimeout
-        const mockTimeout = sinon.fake()
-        const mockFn = sinon.fake()
-
-        window.requestAnimationFrame = null
-        global.setTimeout = mockTimeout
-
-        linear(0, 10, sinon.fake(), 10)
-        global.window.requestAnimationFrame(mockFn)
-
-        const spyCall = mockTimeout.getCall(0)
-        const [arg1, arg2] = spyCall.args
-        assert.strictEqual(arg1, mockFn)
-        assert.strictEqual(arg2, 17)
-
-        window.requestAnimationFrame = originAnimation
-        global.setTimeout = originTimeout
-    })
 })

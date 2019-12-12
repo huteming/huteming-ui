@@ -2,7 +2,6 @@ import sinon from 'sinon'
 import assert from 'assert'
 import * as api from '../src/main'
 
-const originHref = window.location.href
 const host = '192.168.0.220'
 const origin = `http://${host}`
 const link = '/#/docs/flex?hello=lll'
@@ -58,69 +57,6 @@ describe('api', () => {
         global.document = originDocument
     })
 
-    describe('sign', () => {
-        it('请求地址', () => {
-            api.sign()
-
-            const spyCall = post.getCall(0)
-            assert.strictEqual(spyCall.args[0], '/api/system/pageStat')
-        })
-
-        it('默认参数', () => {
-            const originTitle = document.title
-            const title = 'sdkjslf'
-            document.title = title
-            api.sign()
-
-            const spyCall = post.getCall(0)
-
-            assert.deepStrictEqual(spyCall.args[1], {
-                itemSign: window.location.href.replace(window.location.origin, ''),
-                itemRemark: title,
-            })
-            document.title = originTitle
-        })
-
-        it('自定义参数', async () => {
-            const itemSign = 'hello'
-            const itemRemark = 'world'
-            api.sign(itemSign, itemRemark)
-
-            const spyCall = post.getCall(0)
-
-            assert.deepStrictEqual(spyCall.args[1], {
-                itemSign,
-                itemRemark,
-            })
-        })
-
-        it('点击事件', () => {
-            const itemSign = 'hello'
-            const itemRemark = 'world'
-            api.sign(itemSign, itemRemark, { type: 'click' })
-
-            const spyCall = post.getCall(0)
-
-            assert.deepStrictEqual(spyCall.args[1], {
-                itemSign: `CLICK#${itemSign}`,
-                itemRemark,
-            })
-        })
-
-        it('分享事件', () => {
-            const itemSign = 'hello'
-            const itemRemark = 'world'
-            api.sign(itemSign, itemRemark, { type: 'share' })
-
-            const spyCall = post.getCall(0)
-
-            assert.deepStrictEqual(spyCall.args[1], {
-                itemSign: `SHARE#${itemSign}`,
-                itemRemark,
-            })
-        })
-    })
-
     describe('getPayConfig', () => {
         it('请求地址', async () => {
             api.getPayConfig('bbb')
@@ -140,42 +76,6 @@ describe('api', () => {
             const spyCall = post.getCall(0)
 
             assert.strictEqual(spyCall.args[1], data)
-        })
-    })
-
-    describe('getWxConfig', () => {
-        it('请求地址', async () => {
-            api.getWxConfig({
-                flag: 'flag',
-                url: 'url'
-            })
-
-            const spyCall = get.getCall(0)
-
-            assert.strictEqual(spyCall.args[0], '/api/user/shareParam')
-        })
-
-        it('自定义参数', async () => {
-            const params = {
-                flag: 'flag',
-                url: 'url',
-            }
-            api.getWxConfig(params)
-
-            const spyCall = get.getCall(0)
-
-            assert.deepStrictEqual(spyCall.args[1], params)
-        })
-
-        it('默认参数', async () => {
-            api.getWxConfig()
-
-            const spyCall = get.getCall(0)
-
-            assert.deepStrictEqual(spyCall.args[1], {
-                flag: 'test_tommy',
-                url: originHref.split('#')[0],
-            })
         })
     })
 

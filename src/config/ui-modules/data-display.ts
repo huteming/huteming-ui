@@ -2,6 +2,12 @@ import { Link } from '../types'
 
 export default <Link[]>[
     {
+        childPath: 'card',
+        chineseName: '卡片 Card',
+        doc: () => import('packages/ui-card/README.md'),
+        example: () => import('packages/ui-card/demo/basic.vue'),
+    },
+    {
         childPath: 'button',
         chineseName: '按钮 Button',
         doc: () => import('packages/ui-button/README.md'),

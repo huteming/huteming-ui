@@ -7,6 +7,7 @@ import './global/custom'
 
 export * from './mixins/hairline'
 export { default as placeholder } from './mixins/placeholder'
+export { default as ellipsis } from './mixins/ellipsis'
 
 export { default as withTheme } from './withTheme'
 export { default as createTheme } from './createTheme'

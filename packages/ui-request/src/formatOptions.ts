@@ -8,10 +8,9 @@ const mapHost = new Map([
     ['jhsy.jinghao.com', '//api.jinghao.com'],
     ['tommy.jinghao.com', '//api.jinghao.com']
 ])
-const host = isStandardBrowserEnv() ? window.location.host : ''
 
 const defaults = {
-    baseURL: mapHost.get(host) || '//jhtest.jinghao.com',
+    baseURL: '',
     timeout: 8000,
     withCredentials: true,
     jhsyAccountAlias: '',
@@ -27,6 +26,10 @@ export default function (options: AxiosRequestConfig): RequestOptions {
     const _options: RequestOptions = Object.assign({}, defaults, {
         headers: Object.assign({}, defaultHeaders, options.headers),
     })
+    /* istanbul ignore else */
+    if (!_options.baseURL && isStandardBrowserEnv()) {
+        _options.baseURL = mapHost.get(window.location.host) || '//jhtest.jinghao.com'
+    }
 
     return _options
 }
