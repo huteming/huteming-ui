@@ -46,60 +46,59 @@ import canvasDraw from 'packages/ui-canvas-draw/src/main'
 import { ThemeProvider } from 'packages/ui-styles/src/main'
 
 const components = [
-    Actionsheet,
-    Anchor,
-    BtnPay,
-    Carousel,
-    CarouselItem,
-    Cell,
-    Button,
-    Icon,
-    Clocker,
-    Message,
-    Collapse,
-    Dialog,
-    Image,
-    PickerDatetime,
-    WingBlank,
-    WhiteSpace,
-    Switch,
-    ImagePicker,
-    Field,
-    Toast,
-    PickerAddress,
-    Empty,
-    Flex,
-    Guide,
-    InfiniteScroll,
-    Loading,
-    NoticeBar,
-    Picker,
-    PickerRange,
-    Popup,
-    Range,
-    SmartScroll,
-    Toolbar,
-    Card,
+  Actionsheet,
+  Anchor,
+  BtnPay,
+  Carousel,
+  CarouselItem,
+  Cell,
+  Button,
+  Icon,
+  Clocker,
+  Message,
+  Collapse,
+  Dialog,
+  Image,
+  PickerDatetime,
+  WingBlank,
+  WhiteSpace,
+  Switch,
+  ImagePicker,
+  Field,
+  Toast,
+  PickerAddress,
+  Empty,
+  Flex,
+  Guide,
+  InfiniteScroll,
+  Loading,
+  NoticeBar,
+  Picker,
+  PickerRange,
+  Popup,
+  Range,
+  SmartScroll,
+  Toolbar,
+  Card,
 ]
 
 function install (vue: typeof Vue, config = {}) {
-    Object.values(components).forEach(item => vue.use(item))
+  Object.values(components).forEach(item => vue.use(item))
 
-    vue.component('ThemeProvider', ThemeProvider)
-    vue.use(Collapse.item)
-    vue.use(Flex.item)
-    vue.use(Picker.item)
+  vue.component('ThemeProvider', ThemeProvider)
+  vue.use(Collapse.item)
+  vue.use(Picker.item)
 }
 
 /* istanbul ignore if */
 if (typeof window !== 'undefined' && window.Vue) {
-    install(window.Vue)
+  install(window.Vue)
 }
 
 export default {
-    install,
-    ThemeProvider,
-    ...components,
+  install,
+  ThemeProvider,
+  ...components,
 }
 
 export const Api = api

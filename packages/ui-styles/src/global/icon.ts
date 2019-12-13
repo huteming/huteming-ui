@@ -1,7 +1,7 @@
 import { injectGlobal } from 'vue-styled-components'
 
 injectGlobal`
-    @impor url(//at.alicdn.com/t/font_1301011_f8zmdjt44d.css);
+    @impor url(http://at.alicdn.com/t/font_1301011_f8zmdjt44d.css);
 
     .tm-icon {
         display: inline-block;
