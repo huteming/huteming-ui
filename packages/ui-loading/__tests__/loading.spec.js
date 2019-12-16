@@ -213,7 +213,7 @@ describe('loading', () => {
         const mockAfterEnter = sinon.fake()
         // 模拟方法，防止动画结束自动执行关闭
         sinon.replace(wrapperLoading.vm, 'handleAfterEnter', mockAfterEnter)
-        // 模拟数据，表示dom为插入文档
+        // 模拟数据，表示dom未插入文档
         wrapperLoading.vm.openTime = 0
 
         wrapper.setData({ loading: false })

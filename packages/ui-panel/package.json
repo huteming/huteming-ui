@@ -1,15 +1,15 @@
 {
   "name": "@huteming/ui-panel",
-  "private": true,
+  "private": false,
   "version": "2.0.1",
   "description": "> 面板",
   "main": "dist/panel.common.js",
   "scripts": {
-    "prepublishOnly": "node ../../../scripts/prepublishOnly.js panel"
+    "prepublishOnly": "node ../../scripts/build-lib.js panel"
   },
   "author": "",
   "license": "ISC",
-  "devDependencies": {
-    "vue-tsx-support": "^2.3.2"
+  "dependencies": {
+    "@huteming/ui-styles": "^1.2.0"
   }
 }

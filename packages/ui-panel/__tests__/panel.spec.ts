@@ -1,19 +1,26 @@
-import { mount } from '@vue/test-utils'
-import CompPanel from 'web-ui/panel/src/app.vue'
-import CompBasic from '../components/basic.vue'
+import { mount, createLocalVue } from '@vue/test-utils'
+import CompPanel from '../src/main'
+import CompBasic from 'tests/components/basic.vue'
 import assert from 'assert'
 
 describe('panel', () => {
+    it('install', () => {
+        const localVue = createLocalVue()
+        assert.ok(!localVue.component('TmPanel'))
+        localVue.use(CompPanel)
+        assert.ok(localVue.component('TmPanel'))
+    })
+
     it('image', () => {
-        const image = 'this is an image url'
+        const poster = 'this is an image url'
         const wrapper = mount(CompPanel, {
             propsData: {
-                image,
+                poster,
             },
         })
-        const wrapperImage = wrapper.find('.tm-panel-image-img')
+        const wrapperImage = wrapper.find('.tm-panel-poster-img')
 
-        assert.strictEqual(wrapperImage.attributes('src'), image)
+        assert.strictEqual(wrapperImage.attributes('src'), poster)
     })
 
     it('title', () => {
@@ -26,19 +33,6 @@ describe('panel', () => {
         const wrapperTitle = wrapper.find('.tm-panel-title')
 
         assert.strictEqual(wrapperTitle.text(), title)
-    })
-
-    it('description', () => {
-        const description = 'lllll'
-        const wrapper = mount(CompPanel, {
-            propsData: {
-                description,
-            },
-        })
-        const wrapperDesc = wrapper.find('.tm-panel-description-text')
-
-        assert.ok(wrapperDesc.exists())
-        assert.strictEqual(wrapperDesc.text(), description)
     })
 
     it('tip', () => {
@@ -78,14 +72,14 @@ describe('panel', () => {
     })
 
     describe('slots', () => {
-        it('image-extra', () => {
+        it('poster-extra', () => {
             const wrapper = mount(CompPanel, {
                 slots: {
-                    'image-extra': CompBasic,
+                    'poster-extra': CompBasic,
                 },
             })
-            const wrapperContainer = wrapper.find('.tm-panel-image')
-            const wrapperImg = wrapper.find('.tm-panel-image-img')
+            const wrapperContainer = wrapper.find('.tm-panel-poster')
+            const wrapperImg = wrapper.find('.tm-panel-poster-img')
 
             assert.ok(wrapperImg.exists())
             assert.ok(wrapperContainer.contains(CompBasic))
@@ -105,13 +99,12 @@ describe('panel', () => {
         it('description', () => {
             const wrapper = mount(CompPanel, {
                 slots: {
-                    description: CompBasic,
+                    default: CompBasic,
                 },
             })
-            const wrapperContainer = wrapper.find('.tm-panel-description-imgs')
+            const root = wrapper.find('.tm-panel')
 
-            assert.ok(wrapperContainer.exists())
-            assert.ok(wrapperContainer.contains(CompBasic))
+            assert.ok(root.contains(CompBasic))
         })
 
         it('btn', () => {

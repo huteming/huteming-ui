@@ -24,7 +24,7 @@ import Field from 'packages/ui-field/src/main'
 import Flex from 'packages/ui-flex/src/main'
 import Icon from 'packages/ui-icon/src/main'
 import Image from 'packages/ui-image/src/main'
-// export { default as TmPanel } from 'web-ui/panel/index'
+import Panel from 'packages/ui-panel/src/main'
 import Picker from 'packages/ui-picker/src/main'
 import PickerAddress from 'packages/ui-picker-address/src/main'
 import PickerDatetime from 'packages/ui-picker-datetime/src/main'
@@ -80,6 +80,7 @@ const components = [
   SmartScroll,
   Toolbar,
   Card,
+  Panel,
 ]
 
 function install (vue: typeof Vue, config = {}) {
