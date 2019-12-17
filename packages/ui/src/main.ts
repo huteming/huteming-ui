@@ -45,6 +45,8 @@ import * as api from 'packages/ui-api/src/main'
 import canvasDraw from 'packages/ui-canvas-draw/src/main'
 import { ThemeProvider } from 'packages/ui-styles/src/main'
 
+import TransitionSlide from 'packages/ui-transition-slide/src/main'
+
 const components = [
   Actionsheet,
   Anchor,
@@ -81,6 +83,7 @@ const components = [
   Toolbar,
   Card,
   Panel,
+  TransitionSlide,
 ]
 
 function install (vue: typeof Vue, config = {}) {
