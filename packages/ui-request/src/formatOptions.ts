@@ -23,7 +23,7 @@ const defaultHeaders = {
 }
 
 export default function (options: AxiosRequestConfig): RequestOptions {
-    const _options: RequestOptions = Object.assign({}, defaults, {
+    const _options: RequestOptions = Object.assign({}, defaults, options, {
         headers: Object.assign({}, defaultHeaders, options.headers),
     })
     /* istanbul ignore else */
