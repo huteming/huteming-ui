@@ -6,6 +6,8 @@ import TmPopup from '../src/main'
 import assert from 'assert'
 import { sleep } from 'tests/helper'
 import sinon from 'sinon'
+import TransitionFade from 'packages/ui-transition-fade/src/main'
+import TransitionSlide from 'packages/ui-transition-slide/src/main'
 const localVue = createLocalVue()
 localVue.use(TmPopup)
 
@@ -122,10 +124,7 @@ describe('popup', () => {
         })
         await sleep()
         const wrapperPopup = wrapper.find(TmPopup)
-        // assert.ok(wrapperPopup.isVisible())
-        assert.strictEqual(wrapperPopup.vm.transition, 'slide-down')
-        await sleep(35)
-        // assert.ok(!wrapperPopup.isVisible())
+        assert.strictEqual(wrapperPopup.vm.transitionComponent, TransitionSlide)
     })
 
     it('bottom', async () => {
@@ -147,8 +146,7 @@ describe('popup', () => {
         })
         await sleep()
         const wrapperPopup = wrapper.find(TmPopup)
-        assert.strictEqual(wrapperPopup.vm.transition, 'slide-up')
-        wrapper.setData({ visible: false })
+        assert.strictEqual(wrapperPopup.vm.transitionComponent, TransitionSlide)
     })
 
     it('left', async () => {
@@ -170,8 +168,7 @@ describe('popup', () => {
         })
         await sleep()
         const wrapperPopup = wrapper.find(TmPopup)
-        assert.strictEqual(wrapperPopup.vm.transition, 'slide-left')
-        wrapper.setData({ visible: false })
+        assert.strictEqual(wrapperPopup.vm.transitionComponent, TransitionSlide)
     })
 
     it('right', async () => {
@@ -193,8 +190,7 @@ describe('popup', () => {
         })
         await sleep()
         const wrapperPopup = wrapper.find(TmPopup)
-        assert.strictEqual(wrapperPopup.vm.transition, 'slide-right')
-        wrapper.setData({ visible: false })
+        assert.strictEqual(wrapperPopup.vm.transitionComponent, TransitionSlide)
     })
 
     it('middle', async () => {
@@ -217,8 +213,7 @@ describe('popup', () => {
         })
         await sleep()
         const wrapperPopup = wrapper.find(TmPopup)
-        assert.strictEqual(wrapperPopup.vm.transition, 'fade')
-        wrapper.setData({ visible: false })
+        assert.strictEqual(wrapperPopup.vm.transitionComponent, TransitionFade)
     })
 
     it('attrs closeOnMove', () => {

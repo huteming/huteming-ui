@@ -1,5 +1,5 @@
 import MixinModal from '../src/main'
-import TmModal from '../src/modal'
+import TmModal, { __RewireAPI__ } from '../src/modal'
 import assert from 'assert'
 import { mount, createWrapper, TransitionStub } from '@vue/test-utils'
 import { sleep, Mock, cleanDom } from 'tests/helper'
@@ -13,11 +13,9 @@ describe('modal', () => {
     })
 
     it('打开后禁止body滚动', async () => {
+        __RewireAPI__.__Rewire__('TransitionFade', TransitionStub)
         try {
             const wrapper = mount(TmModal, {
-                stubs: {
-                    transition: TransitionStub,
-                },
             })
             const stub = wrapper.find(TransitionStub)
             stub.vm.$emit('after-enter')
@@ -30,6 +28,7 @@ describe('modal', () => {
             assert.ok(!document.body.classList.contains('tm-disabled-scroll'))
             assert.strictEqual(document.body.style.top, '')
         } finally {
+            __RewireAPI__.__ResetDependency__('TransitionFade')
         }
     })
 

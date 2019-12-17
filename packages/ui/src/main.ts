@@ -46,6 +46,7 @@ import canvasDraw from 'packages/ui-canvas-draw/src/main'
 import { ThemeProvider } from 'packages/ui-styles/src/main'
 
 import TransitionSlide from 'packages/ui-transition-slide/src/main'
+import TransitionFade from 'packages/ui-transition-fade/src/main'
 
 const components = [
   Actionsheet,
@@ -84,6 +85,7 @@ const components = [
   Card,
   Panel,
   TransitionSlide,
+  TransitionFade,
 ]
 
 function install (vue: typeof Vue, config = {}) {
