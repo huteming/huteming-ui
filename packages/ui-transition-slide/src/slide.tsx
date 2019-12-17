@@ -2,6 +2,7 @@ import Vue from 'vue'
 import anime from 'animejs'
 import { SlideDirection } from '../types'
 import * as tsx from 'vue-tsx-support'
+import { mergeListeners } from 'ui/utils/tools'
 
 export default tsx.componentFactory.create({
   functional: true,
@@ -21,11 +22,12 @@ export default tsx.componentFactory.create({
     const leaveDirection = context.props.leaveDirection as SlideDirection
     const data = {
       props: {
-        name: 'transition-slide',
+        css: false,
+        name: 'tm-transition-slide',
         // mode: 'out-in'
       },
       on: {
-        beforeEnter (el: HTMLElement) {
+        beforeEnter: mergeListeners(context, 'before-enter', (el: HTMLElement) => {
           const mapTranslateX = {
             top: '0',
             bottom: '0',
@@ -39,7 +41,7 @@ export default tsx.componentFactory.create({
             right: '0',
           }
           el.style.transform = `translateX(${mapTranslateX[enterDirection]}) translateY(${mapTranslateY[enterDirection]})`
-        },
+        }),
         enter (el: HTMLElement, done: Function) {
           anime({
             targets: el,
@@ -52,13 +54,13 @@ export default tsx.componentFactory.create({
             },
           })
         },
-        afterEnter (el: HTMLElement) {
+        afterEnter: mergeListeners(context, 'after-enter', (el: HTMLElement) => {
           el.style.transform = ''
-        },
+        }),
 
-        beforeLeave (el: HTMLElement) {
+        beforeLeave: mergeListeners(context, 'before-leave', (el: HTMLElement) => {
           el.style.transform = `translateX(0) translateY(0)`
-        },
+        }),
         leave (el: HTMLElement, done: Function) {
           const mapTranslateX = {
             top: '0',
@@ -83,9 +85,9 @@ export default tsx.componentFactory.create({
             },
           })
         },
-        afterLeave: [context.listeners['after-leave'] as Function, (el: HTMLElement) => {
+        afterLeave: mergeListeners(context, 'after-leave', (el: HTMLElement) => {
           el.style.transform = ''
-        }],
+        }),
       },
     }
     return createElement('transition', data, context.children)

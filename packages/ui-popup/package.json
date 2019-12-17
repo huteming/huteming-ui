@@ -12,6 +12,8 @@
   "dependencies": {
     "@huteming/ui-modal": "^1.2.0",
     "@huteming/ui-smart-scroll": "^2.0.2",
-    "@huteming/ui-styles": "^1.2.0"
+    "@huteming/ui-styles": "^1.2.0",
+    "@huteming/ui-transition-fade": "^1.0.0",
+    "@huteming/ui-transition-slide": "^1.0.0"
   }
 }

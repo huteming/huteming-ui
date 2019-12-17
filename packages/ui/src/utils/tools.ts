@@ -1,7 +1,22 @@
-export function log (...args: any[]) {
-    if (process.env.NODE_ENV !== 'test') {
-        console.log('@huteming Logger [Log]:', ...args)
+import { RenderContext } from 'vue'
+
+export function mergeListeners (context: RenderContext, eventName: string, animate: Function) {
+  const output: Function[] = [animate]
+  const listeners = context.listeners[eventName]
+  if (listeners) {
+    if (Array.isArray(listeners)) {
+      output.push(...listeners)
+    } else {
+      output.push(listeners)
     }
+  }
+  return output
+}
+
+export function log (...args: any[]) {
+  if (process.env.NODE_ENV !== 'test') {
+    console.log('@huteming Logger [Log]:', ...args)
+  }
 }
 
 /**
@@ -9,13 +24,13 @@ export function log (...args: any[]) {
  * https://github.com/axios/axios/blob/13c948e661f4a077bbc788dcb9d3c2c1b403d010/lib/utils.js
  */
 export function isStandardBrowserEnv () {
-    // if (typeof navigator !== 'undefined' && (navigator.product === 'ReactNative' ||
-    //                                          navigator.product === 'NativeScript' ||
-    //                                          navigator.product === 'NS')) {
-    //     return false
-    // }
-    return (
-        typeof window !== 'undefined' &&
-        typeof document !== 'undefined'
-    )
+  // if (typeof navigator !== 'undefined' && (navigator.product === 'ReactNative' ||
+  //                                          navigator.product === 'NativeScript' ||
+  //                                          navigator.product === 'NS')) {
+  //     return false
+  // }
+  return (
+    typeof window !== 'undefined' &&
+    typeof document !== 'undefined'
+  )
 }
