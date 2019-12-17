@@ -1,7 +1,11 @@
 export function isHtmlElement (node: any) {
-    return node && node.nodeType === Node.ELEMENT_NODE
+  return node && node.nodeType === Node.ELEMENT_NODE
 }
 
 export function isString (obj: any) {
-    return Object.prototype.toString.call(obj) === '[object String]'
+  return Object.prototype.toString.call(obj) === '[object String]'
+}
+
+export function isFormData (obj: any) {
+  return Object.prototype.toString.call(obj) === '[object FormData]'
 }
