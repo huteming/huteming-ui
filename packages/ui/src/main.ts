@@ -109,6 +109,6 @@ export default {
 export const Api = api
 export const Animation = animation
 export { default as CanvasDraw } from 'packages/ui-canvas-draw/src/main'
-export { default as Request } from 'packages/ui-request/src/main'
+export { default as Request, onRequest, onResponse, onResponseError, getOptions } from 'packages/ui-request/src/main'
 
 export { createTheme } from 'packages/ui-styles/src/main'

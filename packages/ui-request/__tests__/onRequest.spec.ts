@@ -1,61 +1,62 @@
 import assert from 'assert'
-import requestInterceptor from '../src/requestInterceptor'
+import _onRequest from '../src/onRequest'
 import qs from 'qs'
+import axios from 'axios'
+import getOptions from '../src/getOptions'
+const onRequest = _onRequest(axios.create(), getOptions({}))
 
-describe('request > requestInterceptor', () => {
+describe('request > onRequest', () => {
     it('不处理空数据体', () => {
-        const mockConfig = {
+        const options = getOptions({
             data: null,
-        }
-        const res = requestInterceptor(mockConfig)
-        assert.strictEqual(res, mockConfig)
+        })
+        const res = onRequest(options)
+        assert.strictEqual(res, options)
+        assert.strictEqual(res.data, null)
     })
 
     it('string 不处理', () => {
-        const mockConfig = {
+        const mockConfig = getOptions({
             headers: {},
             data: 'hello',
-        }
-        const res = requestInterceptor(mockConfig)
+        })
+        const res = onRequest(mockConfig)
         assert.strictEqual(res.data, 'hello')
         assert.strictEqual(res.headers['Content-Type'], 'application/x-www-form-urlencoded')
     })
 
     it('FormData 不处理', () => {
         const mockData = new FormData()
-        const mockConfig = {
+        const mockConfig = getOptions({
             headers: {},
             data: mockData,
-        }
-        const res = requestInterceptor(mockConfig)
+        })
+        const res = onRequest(mockConfig)
         assert.strictEqual(res.data, mockData)
         assert.strictEqual(res.headers['Content-Type'], 'multipart/form-data')
     })
 
     it('json to json', () => {
-        const mockData = {
-            _type: 'json',
-            a: 'hello',
-        }
-        const mockConfig = {
-            headers: {},
-            data: mockData,
-        }
-        const res = requestInterceptor(mockConfig)
+        const mockData = getOptions({
+            data: {
+                _type: 'json',
+                a: 'hello',
+            },
+        })
+        const res = onRequest(mockData)
         assert.deepStrictEqual(res.data, { a: 'hello' })
         assert.strictEqual(res.headers['Content-Type'], 'application/json')
     })
 
     it('json to form', () => {
-        const mockData = {
-            _type: 'form',
-            a: 'hello',
-        }
-        const mockConfig = {
+        const mockConfig = getOptions({
             headers: {},
-            data: mockData,
-        }
-        const res = requestInterceptor(mockConfig)
+            data: {
+                _type: 'form',
+                a: 'hello',
+            },
+        })
+        const res = onRequest(mockConfig)
         assert.ok(res.data instanceof FormData)
         assert.ok(!res.data.get('_type'))
         assert.strictEqual(res.data.get('a'), 'hello')
@@ -63,15 +64,14 @@ describe('request > requestInterceptor', () => {
     })
 
     it('json to string', () => {
-        const mockData = {
-            _type: 'string',
-            a: 'hello',
-        }
-        const mockConfig = {
+        const mockConfig = getOptions({
             headers: {},
-            data: mockData,
-        }
-        const res = requestInterceptor(mockConfig)
+            data: {
+                _type: 'string',
+                a: 'hello',
+            },
+        })
+        const res = onRequest(mockConfig)
         assert.strictEqual(res.data, qs.stringify({ a: 'hello' }))
         assert.strictEqual(res.headers['Content-Type'], 'application/x-www-form-urlencoded')
     })

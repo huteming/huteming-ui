@@ -2,14 +2,20 @@ import { stringify } from 'qs'
 import { jsonToForm } from '@huteming/ui-tools/src/main'
 import { RequestOptions } from '../types'
 import { isFormData } from '@huteming/ui-types/src/main'
+import { AxiosInstance } from 'axios'
 
-export default function (config: RequestOptions): RequestOptions {
-  // 在发送请求之前做些什么
-  config = transformData(config)
+export default function (instance: AxiosInstance, options: RequestOptions) {
+  return function (config: RequestOptions): RequestOptions {
+    // 在发送请求之前做些什么
+    config = transformData(config)
 
-  return config
+    return config
+  }
 }
 
+/**
+ * 转换数据体格式
+ */
 function transformData (config: RequestOptions): RequestOptions {
   const data = config.data
 

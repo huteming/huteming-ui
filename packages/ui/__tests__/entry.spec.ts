@@ -16,6 +16,6 @@ describe('ui', () => {
     })
     it('导出其他方法', () => {
         const comps = Object.keys(others)
-        assert.strictEqual(comps.length, 6)
+        assert.strictEqual(comps.length, 10)
     })
 })

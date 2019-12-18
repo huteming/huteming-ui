@@ -17,7 +17,7 @@ describe('request > custom_error', () => {
 
     it('添加flag属性', () => {
         const flag = 1
-        const error = new CustomError('hello', flag)
+        const error = new CustomError('hello', '', flag)
 
         assert.strictEqual(error.flag, flag)
     })
@@ -26,5 +26,11 @@ describe('request > custom_error', () => {
         const error = new CustomError('he')
 
         assert.strictEqual(error.flag, 0)
+    })
+
+    it('添加msg属性', () => {
+        const error = new CustomError('hello', 'world')
+
+        assert.strictEqual(error.msg, 'world')
     })
 })

@@ -1,4 +1,4 @@
-import formatOptions, { __RewireAPI__ } from '../src/formatOptions'
+import formatOptions, { __RewireAPI__ } from '../src/getOptions'
 import assert from 'assert'
 
 describe('request > formatOptions', () => {
