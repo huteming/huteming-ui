@@ -1,89 +1,89 @@
 <template>
-<div class="page-demo page-example">
+  <div class="page-demo page-example">
     <div class="group" v-for="item in icons" :key="item.icon">
-        <TmIcon class="group-icon" :icon="item.icon" :class="item.class" />
-        <div class="group-text">{{ item.icon }}</div>
+      <TmIcon class="group-icon" :icon="item.icon" :class="item.class" />
+      <div class="group-text">{{ item.icon }}</div>
     </div>
-</div>
+  </div>
 </template>
 
 <script>
 export default {
-    data () {
-        return {
-            icons: [
-                {
-                    icon: 'arrow_forward',
-                },
-                {
-                    icon: 'play',
-                },
-                {
-                    icon: 'play_circle_outline',
-                },
-                {
-                    icon: 'pause',
-                },
-                {
-                    icon: 'pause_circle_outline',
-                },
-                {
-                    icon: 'skip_next',
-                },
-                {
-                    icon: 'skip_previous',
-                },
-                {
-                    icon: 'playlist_play',
-                },
-                {
-                    icon: 'replay',
-                },
-                {
-                    icon: 'clear',
-                },
-                {
-                    icon: 'loading',
-                },
-                {
-                    icon: 'qrcode',
-                },
-                {
-                    icon: 'expand_less',
-                },
-                {
-                    icon: 'expand_more',
-                },
-                {
-                    icon: 'volume_up',
-                },
-                {
-                    icon: 'edit',
-                },
-                {
-                    icon: 'thumb_up',
-                },
-                {
-                    icon: 'dehaze',
-                },
-                {
-                    icon: 'lock',
-                },
-                {
-                    icon: 'lock_open',
-                },
-                {
-                    icon: 'menu',
-                },
-                {
-                    icon: 'fast_forward',
-                },
-                {
-                    icon: 'fast_rewind',
-                },
-            ],
-        }
-    },
+  data () {
+    return {
+      icons: [
+        {
+          icon: 'arrow_forward',
+        },
+        {
+          icon: 'play',
+        },
+        {
+          icon: 'play_circle_outline',
+        },
+        {
+          icon: 'pause',
+        },
+        {
+          icon: 'pause_circle_outline',
+        },
+        {
+          icon: 'skip_next',
+        },
+        {
+          icon: 'skip_previous',
+        },
+        {
+          icon: 'playlist_play',
+        },
+        {
+          icon: 'replay',
+        },
+        {
+          icon: 'clear',
+        },
+        {
+          icon: 'loading',
+        },
+        {
+          icon: 'qrcode',
+        },
+        {
+          icon: 'expand_less',
+        },
+        {
+          icon: 'expand_more',
+        },
+        {
+          icon: 'volume_up',
+        },
+        {
+          icon: 'edit',
+        },
+        {
+          icon: 'thumb_up',
+        },
+        {
+          icon: 'dehaze',
+        },
+        {
+          icon: 'lock',
+        },
+        {
+          icon: 'lock_open',
+        },
+        {
+          icon: 'menu',
+        },
+        {
+          icon: 'fast_forward',
+        },
+        {
+          icon: 'fast_rewind',
+        },
+      ],
+    }
+  },
 }
 </script>
 

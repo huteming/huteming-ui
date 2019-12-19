@@ -6,14 +6,14 @@
 
 <script>
 export default {
-    data () {
-        return {
-            img: '',
-        }
-    },
+  data () {
+    return {
+      img: '',
+    }
+  },
 
-    async mounted () {
-    },
+  async mounted () {
+  },
 }
 </script>
 

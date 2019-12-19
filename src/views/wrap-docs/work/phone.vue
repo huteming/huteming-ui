@@ -1,26 +1,26 @@
 <template>
-<div class="phone">
+  <div class="phone">
     <iframe class="phone-page" frameborder="0" :src="examplePath">
     </iframe>
 
     <!-- <el-scrollbar class="phone-page" :wrap-class="$style['container-scrollable']">
         <router-view name="example"></router-view>
     </el-scrollbar> -->
-</div>
+  </div>
 </template>
 
 <script>
 export default {
-    name: 'phone',
+  name: 'phone',
 
-    computed: {
-        examplePath () {
-            const { origin, pathname } = location
-            const { childPath } = this.$route.meta
+  computed: {
+    examplePath () {
+      const { origin, pathname } = location
+      const { childPath } = this.$route.meta
 
-            return `${origin}${pathname}#/example/${childPath}`
-        }
-    }
+      return `${origin}${pathname}#/example/${childPath}`
+    },
+  },
 }
 </script>
 

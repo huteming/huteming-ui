@@ -1,18 +1,18 @@
 <template>
-<div class="placeholder">
+  <div class="placeholder">
     <slot>Block</slot>
-</div>
+  </div>
 </template>
 
 <script>
 export default {
-    name: 'DemoPlaceholder',
+  name: 'DemoPlaceholder',
 }
 </script>
 
 <style lang="scss" scoped>
 .placeholder {
-    text-align: center;
-    background: #fff;
+  text-align: center;
+  background: #fff;
 }
 </style>

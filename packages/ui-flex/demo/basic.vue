@@ -73,7 +73,7 @@
 export default {
   data () {
     return {
-      gutter: '20px'
+      gutter: '20px',
     }
   },
 

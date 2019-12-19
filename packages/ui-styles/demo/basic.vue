@@ -1,36 +1,36 @@
 <template>
-<div class="page-demo">
+  <div class="page-demo">
     <ThemeProvider :theme="theme">
-        <tm-button>hello</tm-button>
+      <tm-button>hello</tm-button>
 
-        <ThemeProvider :theme="innerTheme">
-            <tm-button>inner</tm-button>
-        </ThemeProvider>
+      <ThemeProvider :theme="innerTheme">
+        <tm-button>inner</tm-button>
+      </ThemeProvider>
     </ThemeProvider>
-</div>
+  </div>
 </template>
 
 <script>
 import { createTheme } from '../src/main'
 
 const theme = createTheme({
-    button: {
-        borderColorDefault: 'lightblue',
-        colorDefault: 'lightBlue',
-    },
+  button: {
+    borderColorDefault: 'lightblue',
+    colorDefault: 'lightBlue',
+  },
 })
 
 export default {
-    data () {
-        return {
-            theme,
-            innerTheme: {
-                button: {
-                    borderColorDefault: '#ff9800',
-                    colorDefault: '#ff9800',
-                },
-            },
-        }
-    },
+  data () {
+    return {
+      theme,
+      innerTheme: {
+        button: {
+          borderColorDefault: '#ff9800',
+          colorDefault: '#ff9800',
+        },
+      },
+    }
+  },
 }
 </script>

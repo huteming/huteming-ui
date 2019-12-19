@@ -1,17 +1,17 @@
 <template>
-<div class="demo-block">
+  <div class="demo-block">
     <div class="demo-block-title">{{ title }}</div>
     <slot></slot>
-</div>
+  </div>
 </template>
 
 <script>
 export default {
-    name: 'DemoBlock',
+  name: 'DemoBlock',
 
-    props: {
-        title: String,
-    },
+  props: {
+    title: String,
+  },
 }
 </script>
 

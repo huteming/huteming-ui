@@ -28,52 +28,49 @@
 import Velocity from 'velocity-animate'
 
 export default {
-    props: {
-        title: String,
-        /**
-         * name, path
-         */
-        list: Array
-    },
+  props: {
+    title: String,
+    /**
+     * name, path
+     */
+    list: Array,
+  },
 
-    data () {
-        return {
-            open: false,
-            height: ''
-        }
-    },
+  data () {
+    return {
+      open: false,
+      height: '',
+    }
+  },
 
-    computed: {
-        styles () {
-            return {
-                height: `${this.height}px`
-            }
-        }
+  computed: {
+    styles () {
+      return {
+        height: `${this.height}px`,
+      }
     },
+  },
 
-    methods: {
-        beforeEnter (el) {
-            el.style.height = 0
-        },
-        enter (el, done) {
-            Velocity(el, { height: `${this.list.length * 44}px` }, { duration: 20000, easing: 'ease', complete: done })
-        },
-        afterEnter (el) {
-            el.style.height = ''
-        },
-        beforeLeave (el) {
-            el.style.height = `${this.list.length * 44}px`
-        },
-        leave (el, done) {
-            Velocity(el, { height: 0 }, { duration: 20000, easing: 'ease', complete: done })
-        },
-        afterLeave (el) {
-            el.style.height = ''
-        }
+  methods: {
+    beforeEnter (el) {
+      el.style.height = 0
     },
-
-    components: {
+    enter (el, done) {
+      Velocity(el, { height: `${this.list.length * 44}px` }, { duration: 20000, easing: 'ease', complete: done })
     },
+    afterEnter (el) {
+      el.style.height = ''
+    },
+    beforeLeave (el) {
+      el.style.height = `${this.list.length * 44}px`
+    },
+    leave (el, done) {
+      Velocity(el, { height: 0 }, { duration: 20000, easing: 'ease', complete: done })
+    },
+    afterLeave (el) {
+      el.style.height = ''
+    },
+  },
 }
 </script>
 

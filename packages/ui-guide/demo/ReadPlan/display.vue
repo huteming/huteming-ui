@@ -1,29 +1,26 @@
 <template>
-<div class="display" :style="styles">
+  <div class="display" :style="styles">
     <img src="./images/plan.png" alt="" />
     {{ extra }}
-</div>
+  </div>
 </template>
 
 <script>
 export default {
-    props: {
-        extra: Object,
-        top: {},
-        left: {},
-    },
+  props: {
+    extra: Object,
+    top: {},
+    left: {},
+  },
 
-    computed: {
-        styles () {
-            return {
-                top: `${this.top - 20}px`,
-                left: `${this.left - 20}px`,
-            }
-        },
+  computed: {
+    styles () {
+      return {
+        top: `${this.top - 20}px`,
+        left: `${this.left - 20}px`,
+      }
     },
-
-    mounted () {
-    },
+  },
 }
 </script>
 

@@ -1,39 +1,39 @@
 <template>
 <div class="tm-cell">
-    <div class="tm-cell__hd" v-if="header || $slots.header">
-        <slot name="header">{{ header }}</slot>
-    </div>
+  <div class="tm-cell__hd" v-if="header || $slots.header">
+    <slot name="header">{{ header }}</slot>
+  </div>
 
-    <div class="tm-cell__bd" v-if="body || $slots.body">
-        <slot name="body">{{ body }}</slot>
-    </div>
+  <div class="tm-cell__bd" v-if="body || $slots.body">
+    <slot name="body">{{ body }}</slot>
+  </div>
 
-    <div class="tm-cell__ft" v-if="footer || $slots.default">
-        <slot>{{ footer }}</slot>
-    </div>
+  <div class="tm-cell__ft" v-if="footer || $slots.default">
+    <slot>{{ footer }}</slot>
+  </div>
 
-    <div class="tm-cell__link" v-if="link"></div>
+  <div class="tm-cell__link" v-if="link"></div>
 </div>
 </template>
 
 <script>
 export default {
-    name: 'DemoCell',
+  name: 'DemoCell',
 
-    props: {
-        header: {
-            type: String,
-        },
-        body: {
-            type: String,
-        },
-        footer: {
-            type: String,
-        },
-        link: {
-            type: Boolean,
-        },
+  props: {
+    header: {
+      type: String,
     },
+    body: {
+      type: String,
+    },
+    footer: {
+      type: String,
+    },
+    link: {
+      type: Boolean,
+    },
+  },
 }
 </script>
 

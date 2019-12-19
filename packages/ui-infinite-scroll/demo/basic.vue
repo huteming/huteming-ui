@@ -1,43 +1,43 @@
 <template>
-<div class="page-demo">
+  <div class="page-demo">
     <div class="container" v-infinite-scroll="{ callback: handleReachBottom, disabled }">
-        <div class="item" v-for="item in lists" :key="item">{{ item }}</div>
+      <div class="item" v-for="item in lists" :key="item">{{ item }}</div>
     </div>
 
     <button @click="disabled = !disabled">disabled: {{ disabled }}</button>
 
     <button @click="handleEmit">手动触发事件</button>
-</div>
+  </div>
 </template>
 
 <script>
 export default {
-    data () {
-        return {
-            // lists: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25],
-            // lists: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
-            lists: [1, 2, 3, 4, 5],
-            loading: false,
-            disabled: false,
-        }
-    },
+  data () {
+    return {
+      // lists: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25],
+      // lists: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
+      lists: [1, 2, 3, 4, 5],
+      loading: false,
+      disabled: false,
+    }
+  },
 
-    methods: {
-        handleReachBottom (done) {
-            this.$toast('reach')
-            setTimeout(() => {
-                const length = this.lists.length
-                for (let i = 1; i < 15; i++) {
-                    this.lists.push(length + i)
-                }
-                done()
-            }, 2000)
-        },
-        handleEmit () {
-            this.$toast('emit')
-            this.$emit('infinite-scroll')
+  methods: {
+    handleReachBottom (done) {
+      this.$toast('reach')
+      setTimeout(() => {
+        const length = this.lists.length
+        for (let i = 1; i < 15; i++) {
+          this.lists.push(length + i)
         }
+        done()
+      }, 2000)
     },
+    handleEmit () {
+      this.$toast('emit')
+      this.$emit('infinite-scroll')
+    },
+  },
 }
 </script>
 

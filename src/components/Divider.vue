@@ -1,32 +1,29 @@
 <template>
-<section class="tm-divider">
+  <section class="tm-divider">
     <div class="tm-divider-line"></div>
 
     <div class="tm-divider-tips">
-        <span class="tm-divider-loading" v-if="loading"></span>
+      <span class="tm-divider-loading" v-if="loading"></span>
 
-        <span v-else-if="text || $slots.default">
-            <slot> {{ text }} </slot>
-        </span>
+      <span v-else-if="text || $slots.default">
+        <slot> {{ text }} </slot>
+      </span>
 
-        <span class="tm-divider-dot" v-else></span>
+      <span class="tm-divider-dot" v-else></span>
     </div>
 
     <div class="tm-divider-line"></div>
-</section>
+  </section>
 </template>
 
 <script>
 export default {
-    name: 'DemoDivider',
+  name: 'DemoDivider',
 
-    props: {
-        loading: Boolean,
-        text: String
-    },
-
-    computed: {
-    },
+  props: {
+    loading: Boolean,
+    text: String,
+  },
 }
 </script>
 

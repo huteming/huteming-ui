@@ -1,42 +1,42 @@
 <template>
-<div class="vnode" :key="key">
+  <div class="vnode" :key="key">
     <div class="vnode-field">
-        <div class="vnode-decrease" @click="handleDecrease">-</div>
-        <div class="vnode-input">
-            <input :value="state.num" style="width: 100%;" />
-        </div>
-        <div class="vnode-add" @click="handleAdd">+</div>
+      <div class="vnode-decrease" @click="handleDecrease">-</div>
+      <div class="vnode-input">
+        <input :value="state.num" style="width: 100%;" />
+      </div>
+      <div class="vnode-add" @click="handleAdd">+</div>
     </div>
 
     <div class="vnode-tip">（VIP学习卡每次只能赠送一张）</div>
-</div>
+  </div>
 </template>
 
 <script>
 import store from './store'
 
 export default {
-    data () {
-        return {
-            num: 1,
-            state: store.state,
-            key: Math.random()
-        }
-    },
+  data () {
+    return {
+      num: 1,
+      state: store.state,
+      key: Math.random(),
+    }
+  },
 
-    methods: {
-        handleInput (num) {
-            store.state.num = num
-        },
-        handleAdd () {
-            console.log('add')
-            store.state.num++
-        },
-        handleDecrease () {
-            console.log('de')
-            store.state.num--
-        },
+  methods: {
+    handleInput (num) {
+      store.state.num = num
     },
+    handleAdd () {
+      console.log('add')
+      store.state.num++
+    },
+    handleDecrease () {
+      console.log('de')
+      store.state.num--
+    },
+  },
 }
 </script>
 

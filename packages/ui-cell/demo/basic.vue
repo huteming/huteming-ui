@@ -1,24 +1,24 @@
 <template>
-<div class="page-demo">
+  <div class="page-demo">
     <TmCell header="header" body="body" footer="footer" link />
     <TmCell body="并列自动添加边框" link />
-</div>
+  </div>
 </template>
 
 <script>
 export default {
-    data () {
-        return {
-            value1: '',
-        }
-    },
+  data () {
+    return {
+      value1: '',
+    }
+  },
 
-    methods: {
-        handleLog (action, ...args) {
-            console.log(action)
-            // console.log('args', ...args)
-        },
+  methods: {
+    handleLog (action, ...args) {
+      console.log(action)
+      // console.log('args', ...args)
     },
+  },
 }
 </script>
 

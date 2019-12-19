@@ -28,64 +28,64 @@ import Qrcode from '@/assets/js/qrcode.js'
 import Clipboard from 'clipboard'
 
 export default {
-    data () {
-        return {
-            qrcodeImg: ''
-        }
-    },
-
-    computed: {
-        meta () {
-            return this.$route.meta
-        },
-        examplePath () {
-            const { origin, pathname } = location
-            const { childPath } = this.$route.meta
-
-            return `${origin}${pathname}#/example/${childPath}`
-        },
-        isComponent () {
-            return !!this.$route.meta.example
-        },
-    },
-
-    watch: {
-        '$route': {
-            handler: 'updateQrcode',
-            immediate: true
-        }
-    },
-
-    mounted () {
-        const clipboard = new Clipboard('#copy')
-
-        clipboard.on('success', (e) => {
-            // console.info('Action:', e.action)
-            // console.info('Text:', e.text)
-            // console.info('Trigger:', e.trigger)
-
-            e.clearSelection()
-            this.$message.success('示例地址复制成功')
-        })
-
-        clipboard.on('error', (e) => {
-            // console.error('Action:', e.action)
-            // console.error('Trigger:', e.trigger)
-
-            this.$message.error('示例地址复制失败')
-        })
-    },
-
-    methods: {
-        updateQrcode () {
-            const qrcodeDom = new Qrcode({
-                render: 'canvas',
-                text: this.examplePath
-            })
-
-            this.qrcodeImg = qrcodeDom.toDataURL('image/jpeg', 1.0)
-        },
+  data () {
+    return {
+      qrcodeImg: '',
     }
+  },
+
+  computed: {
+    meta () {
+      return this.$route.meta
+    },
+    examplePath () {
+      const { origin, pathname } = location
+      const { childPath } = this.$route.meta
+
+      return `${origin}${pathname}#/example/${childPath}`
+    },
+    isComponent () {
+      return !!this.$route.meta.example
+    },
+  },
+
+  watch: {
+    '$route': {
+      handler: 'updateQrcode',
+      immediate: true,
+    },
+  },
+
+  mounted () {
+    const clipboard = new Clipboard('#copy')
+
+    clipboard.on('success', (e) => {
+      // console.info('Action:', e.action)
+      // console.info('Text:', e.text)
+      // console.info('Trigger:', e.trigger)
+
+      e.clearSelection()
+      this.$message.success('示例地址复制成功')
+    })
+
+    clipboard.on('error', (e) => {
+      // console.error('Action:', e.action)
+      // console.error('Trigger:', e.trigger)
+
+      this.$message.error('示例地址复制失败')
+    })
+  },
+
+  methods: {
+    updateQrcode () {
+      const qrcodeDom = new Qrcode({
+        render: 'canvas',
+        text: this.examplePath,
+      })
+
+      this.qrcodeImg = qrcodeDom.toDataURL('image/jpeg', 1.0)
+    },
+  },
 }
 </script>
 

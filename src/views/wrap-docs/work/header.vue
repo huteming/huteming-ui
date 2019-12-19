@@ -1,30 +1,30 @@
 <template>
-<header class="header" ref="header">
+  <header class="header" ref="header">
     <div class="header-container">
-        <div class="header-logo">
-            <i class="tm-icon tm-icon-github"></i>
-        </div>
+      <div class="header-logo">
+        <i class="tm-icon tm-icon-github"></i>
+      </div>
 
-        <div class="header-search">
-            <input type="text" placeholder="Search or jump to...">
-        </div>
+      <div class="header-search">
+        <input type="text" placeholder="Search or jump to...">
+      </div>
 
-        <div class="header-links">
-            <router-link class="header-text" tag="div" v-for="item in navbars" :key="item.rootPath" :to="item.rootPath">{{ item.headTitle }}</router-link>
-        </div>
+      <div class="header-links">
+        <router-link class="header-text" tag="div" v-for="item in navbars" :key="item.rootPath" :to="item.rootPath">{{ item.headTitle }}</router-link>
+      </div>
     </div>
-</header>
+  </header>
 </template>
 
 <script>
 import config from 'src/config'
 
 export default {
-    data () {
-        return {
-            navbars: config.map(item => ({ rootPath: `/${item.rootPath}`, headTitle: item.headTitle })),
-        }
-    },
+  data () {
+    return {
+      navbars: config.map(item => ({ rootPath: `/${item.rootPath}`, headTitle: item.headTitle })),
+    }
+  },
 }
 </script>
 

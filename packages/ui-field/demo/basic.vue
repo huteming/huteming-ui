@@ -1,68 +1,65 @@
 <template>
-<div class="demo">
+  <div class="demo">
     <button @click="$refs.field.focus()">click to focus</button>
     <div class="demo-header">表单</div>
 
     <demo-cell title="qq">
-        <TmField ref="field" v-model="value1" placeholder="请输入qq号" @focus="handleLog('force')" @blur="handleLog('blur')" @change="handleLog('change')" />
+      <TmField ref="field" v-model="value1" placeholder="请输入qq号" @focus="handleLog('force')" @blur="handleLog('blur')" @change="handleLog('change')" />
     </demo-cell>
 
     <div class="demo-header">文本域</div>
 
     <demo-cell>
-        <TmField type="textarea" rows="3" v-model="value2" placeholder="请输入文本" @focus="handleLog('force')" @blur="handleLog('blur')" @change="handleLog" />
+      <TmField type="textarea" rows="3" v-model="value2" placeholder="请输入文本" @focus="handleLog('force')" @blur="handleLog('blur')" @change="handleLog" />
     </demo-cell>
 
     <!-- <demo-divider>到底了</demo-divider>
 
     <tm-popup v-model="visible" position="bottom">
-        <demo-cell title="qq">
-            <TmField ref="field" type="textarea" rows="4" v-model="value1" placeholder="请输入qq号" @focus="handleLog('force')" @blur="handleLog('blur')" @change="handleLog('change')" />
-        </demo-cell>
+      <demo-cell title="qq">
+          <TmField ref="field" type="textarea" rows="4" v-model="value1" placeholder="请输入qq号" @focus="handleLog('force')" @blur="handleLog('blur')" @change="handleLog('change')" />
+      </demo-cell>
 
-        <div class="demo-submit" @click="handleSubmit">提交</div>
+      <div class="demo-submit" @click="handleSubmit">提交</div>
     </tm-popup> -->
-</div>
+  </div>
 </template>
 
 <script>
 export default {
-    data () {
-        return {
-            value1: '',
-            value2: '',
-            visible: false,
-        }
-    },
+  data () {
+    return {
+      value1: '',
+      value2: '',
+      visible: false,
+    }
+  },
 
-    watch: {
-        value1 (val) {
-            console.log('watch', val, val.indexOf('\n'))
-        },
-        value2 (val) {
-            console.log('watch', val, val.indexOf('\n'))
-        },
-        async visible (val) {
-            if (val) {
-                await this.$nextTick()
-                this.$refs.field.focus()
-            }
-        },
+  watch: {
+    value1 (val) {
+      console.log('watch', val, val.indexOf('\n'))
     },
+    value2 (val) {
+      console.log('watch', val, val.indexOf('\n'))
+    },
+    async visible (val) {
+      if (val) {
+        await this.$nextTick()
+        this.$refs.field.focus()
+      }
+    },
+  },
 
-    mounted () {
+  methods: {
+    handleBlur () {
     },
-
-    methods: {
-        handleBlur () {
-        },
-        handleSubmit () {
-            this.$message('hello')
-        },
-        handleLog (action, ...args) {
-            console.log(action, ...args)
-        },
+    handleSubmit () {
+      this.$message('hello')
     },
+    handleLog (action, ...args) {
+      console.log(action, ...args)
+    },
+  },
 }
 </script>
 

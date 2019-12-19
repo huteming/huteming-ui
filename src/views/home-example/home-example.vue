@@ -1,39 +1,39 @@
 <template>
-<div class="page-example page-example-home">
+  <div class="page-example page-example-home">
     <div class="title">vue components mobile</div>
 
     <div class="subtitle">vue移动端组件库</div>
 
     <AppAccordion
-        v-for="(item, index) in navs"
-        :key="index"
-        :title="item.title"
-        :list="item.list" />
-</div>
+      v-for="(item, index) in navs"
+      :key="index"
+      :title="item.title"
+      :list="item.list" />
+  </div>
 </template>
 
 <script>
 import AppAccordion from '@/components/accordion'
 
 export default {
-    data () {
-        return {
-            navs: [],
-        }
-    },
+  data () {
+    return {
+      navs: [],
+    }
+  },
 
-    computed: {
-    },
+  computed: {
+  },
 
-    methods: {
-    },
+  methods: {
+  },
 
-    mounted () {
-    },
+  mounted () {
+  },
 
-    components: {
-        AppAccordion,
-    },
+  components: {
+    AppAccordion,
+  },
 }
 </script>
 

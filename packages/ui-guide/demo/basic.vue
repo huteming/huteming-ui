@@ -1,11 +1,11 @@
 <template>
-<div class="page-demo">
+  <div class="page-demo">
     <button @click="handleStart">start</button>
     <div id="target1" class="hello"></div>
     <div id="target2" class="hello"></div>
     <div id="target3" class="hello"></div>
     <div id="target4" class="hello"></div>
-</div>
+  </div>
 </template>
 
 <script>
@@ -15,55 +15,55 @@ import GuideReadPlan from './ReadPlan/display'
 import GuideWallet from './Wallet/display'
 
 export default {
-    data () {
-        return {
-            instance: null,
-        }
-    },
+  data () {
+    return {
+      instance: null,
+    }
+  },
 
-    mounted () {
-        // 跨页面的引导，参考 bridge.vue 写法
-        this.instance = this.$guide([
-            {
-                name: '1',
-                target: '#target1',
-                component: GuideNavs,
-                extra: { title: '1' },
-            },
-            {
-                name: '2',
-                target: '#target2',
-                component: GuideWallet,
-                width: 100,
-                height: 100,
-                extra: { title: '2' },
-            },
-            {
-                name: '3',
-                target: '#target3',
-                component: GuidePersonal,
-                width: 600,
-                height: 600,
-                extra: { title: '3' },
-            },
-            {
-                name: '4',
-                target: '#target4',
-                component: GuideReadPlan,
-                extra: { title: '4' },
-            },
-        ], {
-            complete: () => {
-                console.log('complete')
-            },
-        })
-    },
+  mounted () {
+    // 跨页面的引导，参考 bridge.vue 写法
+    this.instance = this.$guide([
+      {
+        name: '1',
+        target: '#target1',
+        component: GuideNavs,
+        extra: { title: '1' },
+      },
+      {
+        name: '2',
+        target: '#target2',
+        component: GuideWallet,
+        width: 100,
+        height: 100,
+        extra: { title: '2' },
+      },
+      {
+        name: '3',
+        target: '#target3',
+        component: GuidePersonal,
+        width: 600,
+        height: 600,
+        extra: { title: '3' },
+      },
+      {
+        name: '4',
+        target: '#target4',
+        component: GuideReadPlan,
+        extra: { title: '4' },
+      },
+    ], {
+      complete: () => {
+        console.log('complete')
+      },
+    })
+  },
 
-    methods: {
-        handleStart () {
-            this.instance.open()
-        },
+  methods: {
+    handleStart () {
+      this.instance.open()
     },
+  },
 }
 </script>
 

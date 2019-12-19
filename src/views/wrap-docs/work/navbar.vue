@@ -1,37 +1,37 @@
 <template>
-<div class="nav">
+  <div class="nav">
     <div class="nav-container" v-for="(item, index) in sideGroup" :key="index">
-        <div class="nav-title">{{ item.sideTitle }}</div>
+      <div class="nav-title">{{ item.sideTitle }}</div>
 
-        <div v-for="page in item.children" :key="page.path">
-            <!-- 在路由中约定: link = type + path -->
-            <router-link class="nav-text" :to="`/${type}/${page.childPath}`" tag="div" exact>
-                <span>{{ page.chineseName }}</span>
-            </router-link>
-        </div>
+      <div v-for="page in item.children" :key="page.path">
+        <!-- 在路由中约定: link = type + path -->
+        <router-link class="nav-text" :to="`/${type}/${page.childPath}`" tag="div" exact>
+          <span>{{ page.chineseName }}</span>
+        </router-link>
+      </div>
     </div>
-</div>
+  </div>
 </template>
 
 <script>
 import config from 'src/config'
 
 export default {
-    data () {
-        return {
-        }
-    },
-
-    computed: {
-        type () {
-            return this.$route.meta.type
-        },
-        sideGroup () {
-            const side = config.find(item => item.rootPath === this.type)
-
-            return side.sideGroup || []
-        },
+  data () {
+    return {
     }
+  },
+
+  computed: {
+    type () {
+      return this.$route.meta.type
+    },
+    sideGroup () {
+      const side = config.find(item => item.rootPath === this.type)
+
+      return side.sideGroup || []
+    },
+  },
 }
 </script>
 

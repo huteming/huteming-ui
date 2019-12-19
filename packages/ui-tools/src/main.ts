@@ -19,113 +19,113 @@ const IMG_SUFFIX = 'tommy'
  * https://github.com/axios/axios/blob/13c948e661f4a077bbc788dcb9d3c2c1b403d010/lib/utils.js
  */
 export function isStandardBrowserEnv () {
-    // if (typeof navigator !== 'undefined' && (navigator.product === 'ReactNative' ||
-    //                                          navigator.product === 'NativeScript' ||
-    //                                          navigator.product === 'NS')) {
-    //     return false
-    // }
-    return (
-        typeof window !== 'undefined' &&
-        typeof document !== 'undefined'
-    )
+  // if (typeof navigator !== 'undefined' && (navigator.product === 'ReactNative' ||
+  //                                          navigator.product === 'NativeScript' ||
+  //                                          navigator.product === 'NS')) {
+  //     return false
+  // }
+  return (
+    typeof window !== 'undefined' &&
+    typeof document !== 'undefined'
+  )
 }
 
 export function generateId () {
-    return Math.floor(Math.random() * 100000)
+  return Math.floor(Math.random() * 100000)
 }
 
 /**
  * 时间格式转为时间戳
  */
 export function toTimestamp (time: number | string | Date, defaults: number = 0): number {
-    // 不存在
-    if (!time) {
-        return defaults
-    }
+  // 不存在
+  if (!time) {
+    return defaults
+  }
 
-    // 时间字符串
-    if (typeof time === 'string') {
-        return Number(new Date(time.replace(/-/g, '/')))
-    }
+  // 时间字符串
+  if (typeof time === 'string') {
+    return Number(new Date(time.replace(/-/g, '/')))
+  }
 
-    // 时间戳
-    if (typeof time === 'number') {
-        return time
-    }
+  // 时间戳
+  if (typeof time === 'number') {
+    return time
+  }
 
-    // 时间对象
-    return Number(time)
+  // 时间对象
+  return Number(time)
 }
 
 export function isObject (item: any) {
-    return item && typeof item === 'object' && !Array.isArray(item)
+  return item && typeof item === 'object' && !Array.isArray(item)
 }
 
 export function deepmerge (target: any, source: any, options = { clone: true }) {
-    const output = options.clone ? { ...target } : target
+  const output = options.clone ? { ...target } : target
 
-    if (isObject(target) && isObject(source)) {
-        Object.keys(source).forEach(key => {
-            if (isObject(source[key]) && key in target) {
-                output[key] = deepmerge(target[key], source[key], options)
-            } else {
-                output[key] = source[key]
-            }
-        })
-    }
+  if (isObject(target) && isObject(source)) {
+    Object.keys(source).forEach(key => {
+      if (isObject(source[key]) && key in target) {
+        output[key] = deepmerge(target[key], source[key], options)
+      } else {
+        output[key] = source[key]
+      }
+    })
+  }
 
-    return output
+  return output
 }
 
 export function isVNode (node: any): boolean {
-    return node !== null && typeof node === 'object' && Object.prototype.hasOwnProperty.call(node, 'componentOptions')
+  return node !== null && typeof node === 'object' && Object.prototype.hasOwnProperty.call(node, 'componentOptions')
 }
 
 export function isComponent (node: any): boolean {
-    return node !== null && typeof node === 'object' && Object.prototype.hasOwnProperty.call(node, 'render')
+  return node !== null && typeof node === 'object' && Object.prototype.hasOwnProperty.call(node, 'render')
 }
 
 // 首字母大写
 export function firstToUppercase (str: string): string {
-    return str.toLowerCase().replace(/^\S/g, L => L.toUpperCase())
+  return str.toLowerCase().replace(/^\S/g, L => L.toUpperCase())
 }
 
 // 监听微信事件
 export function linkWeixinBridge () {
-    return new Promise((resolve, reject) => {
-        if (window.WeixinJSBridge) {
-            window.WeixinJSBridge.invoke('getNetworkType', {}, resolve)
-        } else {
-            document.addEventListener('WeixinJSBridgeReady', function () {
-                window.WeixinJSBridge.invoke('getNetworkType', {}, resolve)
-            }, false)
-        }
-    })
+  return new Promise((resolve, reject) => {
+    if (window.WeixinJSBridge) {
+      window.WeixinJSBridge.invoke('getNetworkType', {}, resolve)
+    } else {
+      document.addEventListener('WeixinJSBridgeReady', function () {
+        window.WeixinJSBridge.invoke('getNetworkType', {}, resolve)
+      }, false)
+    }
+  })
 }
 
 export function retry (fn: Function, count: number = 1): Function {
-    let args: any
-    let self: object
-    // this: any => https://github.com/Microsoft/TypeScript/issues/16016
-    return async function handler (this: any): Promise<any> {
-        args = arguments
-        self = this
-        try {
-            const res = await fn.apply(self, args)
-            return res
-        } catch (err) {
-            if (count <= 0) {
-                throw err
-            }
-            count--
-            try {
-                const res = await handler.apply(self, args)
-                return res
-            } catch (err) {
-                throw err
-            }
-        }
+  let args: any
+  let self: object
+  // this: any => https://github.com/Microsoft/TypeScript/issues/16016
+  return async function handler (this: any): Promise<any> {
+    args = arguments
+    self = this
+    try {
+      const res = await fn.apply(self, args)
+      return res
+    } catch (err) {
+      if (count <= 0) {
+        throw err
+      }
+      count--
+      try {
+        const res = await handler.apply(self, args)
+        return res
+      } catch (err) {
+        throw err
+      }
     }
+  }
 }
 
 /**
@@ -133,34 +133,34 @@ export function retry (fn: Function, count: number = 1): Function {
  * https://developers.weixin.qq.com/doc/offiaccount/OA_Web_Apps/iOS_WKWebview.html
  */
 export function isWKWebview () {
-    return !!window.__wxjs_is_wkwebview
+  return !!window.__wxjs_is_wkwebview
 }
 
 export async function sleep (time: number) {
-    await new Promise((resolve) => setTimeout(resolve, time))
+  await new Promise((resolve) => setTimeout(resolve, time))
 }
 
 /**
  * 是否IOS终端
  */
 export function isIOS () {
-    const userAgent = window.navigator.userAgent
-    return !!userAgent.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/)
+  const userAgent = window.navigator.userAgent
+  return !!userAgent.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/)
 }
 
 /**
  * 是否安卓终端
  */
 export function isAndroid () {
-    const userAgent = window.navigator.userAgent
-    return userAgent.indexOf('Android') > -1 || userAgent.indexOf('Adr') > -1
+  const userAgent = window.navigator.userAgent
+  return userAgent.indexOf('Android') > -1 || userAgent.indexOf('Adr') > -1
 }
 
 /**
  * 是否微信内
  */
 export function isWeixinBrowser () {
-    return /micromessenger/.test(window.navigator.userAgent.toLowerCase())
+  return /micromessenger/.test(window.navigator.userAgent.toLowerCase())
 }
 
 /**
@@ -169,19 +169,19 @@ export function isWeixinBrowser () {
  * @param {Number} fractionDigits 小数点前保留位数
  */
 export function tofilled (value: any, fractionDigits = 0) {
-    const allowType = new Set(['string', 'number'])
-    if (!allowType.has(typeof value) || value === '' || isNaN(Number(value))) {
-        return ''
-    }
+  const allowType = new Set(['string', 'number'])
+  if (!allowType.has(typeof value) || value === '' || isNaN(Number(value))) {
+    return ''
+  }
 
-    let _value = value.toString()
-    const diff = fractionDigits - _value.split('.')[0].length
+  let _value = value.toString()
+  const diff = fractionDigits - _value.split('.')[0].length
 
-    for (let i = 0; i < diff; i++) {
-        _value = `0${_value}`
-    }
+  for (let i = 0; i < diff; i++) {
+    _value = `0${_value}`
+  }
 
-    return _value
+  return _value
 }
 
 /**
@@ -191,17 +191,17 @@ export function tofilled (value: any, fractionDigits = 0) {
  * @param {Boolean} toNumber 是否转为数字
  */
 export function tofixed (value: any, fractionDigits = 2, toNumber = false) {
-    const allowType = new Set(['string', 'number'])
-    if (!allowType.has(typeof value) || value === '' || isNaN(Number(value))) {
-        return ''
-    }
+  const allowType = new Set(['string', 'number'])
+  if (!allowType.has(typeof value) || value === '' || isNaN(Number(value))) {
+    return ''
+  }
 
-    let _value = value.toString()
-    const _beforeDigits = _value.split('.')[0].length
-    _value = Number(_value).toFixed(fractionDigits)
-    _value = tofilled(_value, _beforeDigits)
+  let _value = value.toString()
+  const _beforeDigits = _value.split('.')[0].length
+  _value = Number(_value).toFixed(fractionDigits)
+  _value = tofilled(_value, _beforeDigits)
 
-    return toNumber ? Number(_value) : _value
+  return toNumber ? Number(_value) : _value
 }
 
 /**
@@ -211,12 +211,12 @@ export function tofixed (value: any, fractionDigits = 2, toNumber = false) {
  *
  * @returns {Promise<Array|String>}
  */
-export function loadImages (urls: any, useCache = true) {
-    if (Array.isArray(urls)) {
-        const promises = urls.map(url => loadImageSingle(url, useCache))
-        return Promise.all(promises)
-    }
-    return loadImageSingle(urls, useCache)
+export function loadImages (urls: string | string[], useCache: boolean = true): Promise<HTMLImageElement | HTMLImageElement[]> {
+  if (Array.isArray(urls)) {
+    const promises = urls.map(url => loadImageSingle(url, useCache))
+    return Promise.all(promises)
+  }
+  return loadImageSingle(urls, useCache)
 }
 
 /**
@@ -226,13 +226,13 @@ export function loadImages (urls: any, useCache = true) {
  * @returns {FormData}
  */
 export const jsonToForm = (data: any) => {
-    const params = new FormData()
+  const params = new FormData()
 
-    for (let key in data) {
-        params.append(key, data[key])
-    }
+  for (let key in data) {
+    params.append(key, data[key])
+  }
 
-    return params
+  return params
 }
 
 /**
@@ -240,41 +240,41 @@ export const jsonToForm = (data: any) => {
  * @param {*String} name 查询参数name
  */
 export function parseQuery (name: string): string {
-    // 这里不用 location.search, 因为地址为 hash 时, search 为空字符串
-    const reg = new RegExp('(^|&)' + name + '=([^&]*)(&|$)')
-    const search = window.location.href.split('?')[1].match(reg)
+  // 这里不用 location.search, 因为地址为 hash 时, search 为空字符串
+  const reg = new RegExp('(^|&)' + name + '=([^&]*)(&|$)')
+  const search = window.location.href.split('?')[1].match(reg)
 
-    return search ? search[2] : ''
+  return search ? search[2] : ''
 }
 
-function loadImageSingle (url: any, useCache: any, retry = 1) {
-    return new Promise((resolve, reject) => {
-        let _url = url
-        const img = new Image()
-        img.setAttribute('crossOrigin', 'anonymous')
+function loadImageSingle (url: any, useCache: any, retry = 1): Promise<HTMLImageElement> {
+  return new Promise((resolve, reject) => {
+    let _url = url
+    const img = new Image()
+    img.setAttribute('crossOrigin', 'anonymous')
 
-        if (!/^data:/i.test(_url)) {
-            const separator = _url.indexOf('?') > -1 ? '&' : '?'
-            _url = `${_url}${separator}timestamp=${useCache ? IMG_SUFFIX : Date.now() * Math.random()}`
-        }
+    if (!/^data:/i.test(_url)) {
+      const separator = _url.indexOf('?') > -1 ? '&' : '?'
+      _url = `${_url}${separator}timestamp=${useCache ? IMG_SUFFIX : Date.now() * Math.random()}`
+    }
 
-        img.onload = () => {
-            resolve(img)
-        }
-        img.onerror = async () => {
-            if (retry <= 0) {
-                reject(new Error(`图片加载失败: ${_url}`))
-                return
-            }
-            try {
-                await sleep(1000)
-                const res = await loadImageSingle(url, useCache, retry - 1)
-                resolve(res)
-            } catch (err) {
-                reject(err)
-            }
-        }
+    img.onload = () => {
+      resolve(img)
+    }
+    img.onerror = async () => {
+      if (retry <= 0) {
+        reject(new Error(`图片加载失败: ${_url}`))
+        return
+      }
+      try {
+        await sleep(1000)
+        const res = await loadImageSingle(url, useCache, retry - 1)
+        resolve(res)
+      } catch (err) {
+        reject(err)
+      }
+    }
 
-        img.src = _url
-    })
+    img.src = _url
+  })
 }
