@@ -1,6 +1,6 @@
 {
   "name": "@huteming/ui-btn-pay",
-  "private": false,
+  "private": true,
   "publishConfig": {
     "access": "public"
   },

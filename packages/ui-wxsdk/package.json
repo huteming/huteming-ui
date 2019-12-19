@@ -1,6 +1,6 @@
 {
   "name": "@huteming/ui-wxsdk",
-  "private": false,
+  "private": true,
   "version": "2.0.5",
   "description": "wxsdk的封装方法",
   "main": "dist/wxsdk.common.js",

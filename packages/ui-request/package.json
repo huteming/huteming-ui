@@ -1,6 +1,6 @@
 {
   "name": "@huteming/ui-request",
-  "private": false,
+  "private": true,
   "version": "2.2.0",
   "description": "提供http请求的封装方法",
   "main": "dist/request.common.js",

@@ -1,6 +1,6 @@
 {
   "name": "@huteming/ui-cell",
-  "private": false,
+  "private": true,
   "version": "2.1.1",
   "description": "> Cell",
   "main": "dist/cell.common.js",

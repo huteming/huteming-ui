@@ -1,6 +1,6 @@
 {
   "name": "@huteming/ui-image-convertor",
-  "private": false,
+  "private": true,
   "version": "2.0.2",
   "description": "> 图片多种格式间的相互转换",
   "main": "dist/image-convertor.common.js",
@@ -10,6 +10,5 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "exif-js": "^2.3.0"
   }
 }

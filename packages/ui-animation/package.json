@@ -1,6 +1,6 @@
 {
   "name": "@huteming/ui-animation",
-  "private": false,
+  "private": true,
   "version": "1.0.1",
   "description": "> 提供动画的简单算法",
   "author": "Tommy <tommy@jhshuyuan.com>",

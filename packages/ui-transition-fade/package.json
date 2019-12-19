@@ -1,5 +1,6 @@
 {
   "name": "@huteming/ui-transition-fade",
+  "private": true,
   "version": "1.0.0",
   "description": "> TODO: description",
   "author": "Tommy <tommy@jhshuyuan.com>",

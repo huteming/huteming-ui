@@ -1,10 +1,11 @@
 {
   "name": "@huteming/ui-picker",
+  "private": true,
   "version": "1.1.0",
   "description": "> 选择器，支持多 slot 联动。",
   "main": "lib/picker.common.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "prepublishOnly": "node ../../scripts/build-lib.js picker"
   },
   "author": "",
   "license": "ISC",

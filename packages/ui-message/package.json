@@ -1,6 +1,6 @@
 {
   "name": "@huteming/ui-message",
-  "private": false,
+  "private": true,
   "version": "2.2.0",
   "description": "> 弹出式提示框，有多种交互形式。",
   "main": "dist/message.common.js",

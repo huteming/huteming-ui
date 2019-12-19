@@ -1,6 +1,6 @@
 {
   "name": "@huteming/ui-styles",
-  "private": false,
+  "private": true,
   "version": "1.2.0",
   "description": "> 样式定制",
   "author": "Tommy <tommy@jhshuyuan.com>",

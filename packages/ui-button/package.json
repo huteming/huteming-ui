@@ -1,5 +1,6 @@
 {
   "name": "@huteming/ui-button",
+  "private": true,
   "version": "1.2.0",
   "description": "> 按钮",
   "author": "Tommy <tommy@jhshuyuan.com>",

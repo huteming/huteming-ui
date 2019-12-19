@@ -1,6 +1,6 @@
 {
   "name": "@huteming/ui-modal",
-  "private": false,
+  "private": true,
   "version": "1.2.0",
   "description": "> 弹窗遮层背景",
   "main": "index.js",

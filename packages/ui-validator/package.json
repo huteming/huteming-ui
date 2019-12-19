@@ -1,6 +1,6 @@
 {
   "name": "@huteming/ui-validator",
-  "private": false,
+  "private": true,
   "version": "2.0.2",
   "description": "提供验证方法",
   "main": "dist/validator.common.js",

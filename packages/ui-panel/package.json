@@ -1,6 +1,6 @@
 {
   "name": "@huteming/ui-panel",
-  "private": false,
+  "private": true,
   "version": "2.0.1",
   "description": "> 面板",
   "main": "dist/panel.common.js",

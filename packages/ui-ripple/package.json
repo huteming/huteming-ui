@@ -5,7 +5,7 @@
   "description": "> 水波纹动画",
   "main": "dist/ripple.common.js",
   "scripts": {
-    "prepublishOnly": "node ../../../scripts/prepublishOnly.js ripple"
+    "prepublishOnly": "node ../../scripts/build-lib ripple"
   },
   "author": "",
   "license": "ISC",
