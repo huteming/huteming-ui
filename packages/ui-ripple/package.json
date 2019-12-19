@@ -1,7 +1,7 @@
 {
   "name": "@huteming/ui-ripple",
   "private": true,
-  "version": "2.0.1",
+  "version": "3.1.0",
   "description": "> 水波纹动画",
   "main": "dist/ripple.common.js",
   "scripts": {

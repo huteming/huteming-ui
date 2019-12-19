@@ -1,7 +1,7 @@
 {
   "name": "@huteming/ui-toast",
   "private": true,
-  "version": "2.0.2",
+  "version": "3.1.0",
   "description": "> 简短的消息提示框，支持自定义位置、持续时间和样式。",
   "main": "dist/toast.common.js",
   "scripts": {
@@ -10,8 +10,8 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "@huteming/ui-icon": "^2.1.0",
-    "@huteming/ui-styles": "^1.2.0",
-    "@huteming/ui-tools": "^2.3.0"
+    "@huteming/ui-icon": "^3.1.0",
+    "@huteming/ui-styles": "^3.1.0",
+    "@huteming/ui-tools": "^3.1.0"
   }
 }

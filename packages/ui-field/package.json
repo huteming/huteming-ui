@@ -1,7 +1,7 @@
 {
   "name": "@huteming/ui-field",
   "private": true,
-  "version": "2.0.2",
+  "version": "3.1.0",
   "description": "> 输入框",
   "main": "dist/field.common.js",
   "scripts": {
@@ -11,6 +11,6 @@
   "license": "ISC",
   "dependencies": {
     "@huteming/ui-element": "^2.0.4",
-    "@huteming/ui-styles": "^1.2.0"
+    "@huteming/ui-styles": "^3.1.0"
   }
 }

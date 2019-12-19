@@ -1,7 +1,7 @@
 {
   "name": "@huteming/ui-wxsdk",
   "private": true,
-  "version": "2.0.5",
+  "version": "3.1.0",
   "description": "wxsdk的封装方法",
   "main": "dist/wxsdk.common.js",
   "scripts": {
@@ -10,7 +10,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "@huteming/ui-api": "^2.0.6",
+    "@huteming/ui-api": "^3.1.0",
     "qs": "^6.9.1"
   },
   "devDependencies": {

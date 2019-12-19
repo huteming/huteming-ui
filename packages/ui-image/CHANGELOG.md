@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# 3.1.0 (2019-12-19)
+
+
+### Features
+
+* 修改适配SSR编译环境 ([b961d72](https://github.com/huteming/huteming-ui/commit/b961d72ddf40360f78627f578d846ac761446388))
+
+
+
+
+
 ## [2.0.2](https://github.com/huteming/huteming-ui/compare/@huteming/ui-image@2.0.1...@huteming/ui-image@2.0.2) (2019-12-12)
 
 **Note:** Version bump only for package @huteming/ui-image

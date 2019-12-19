@@ -1,0 +1,46 @@
+# Change Log
+
+All notable changes to this project will be documented in this file.
+See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
+# 3.1.0 (2019-12-19)
+
+
+### Bug Fixes
+
+* 修复打包压缩后组件注册名字错误的问题 ([9d593af](https://github.com/huteming/huteming-ui/commit/9d593af3a27efa600b8e3847609d21288b25c3e1))
+* **ci:** travis添加sudo权限 ([47cc6bc](https://github.com/huteming/huteming-ui/commit/47cc6bc4ecf5e4118e9935851e379600b68c90eb))
+* **ci:** 修复install指令未初始化依赖 ([279ea6b](https://github.com/huteming/huteming-ui/commit/279ea6b44b7bfa7301cfd39d0c3f34809d23bad7))
+* **ci:** 修正bootstrap指令拼写错误 ([83d4fae](https://github.com/huteming/huteming-ui/commit/83d4fae5aee2edcc7436b7821b9c88bd18812204))
+* **ci:** 修正travis install指令错误 ([319a660](https://github.com/huteming/huteming-ui/commit/319a660955b35661d15e31c0e92c1401a8ebd00d))
+* **request:** 修复自定义配置失败的问题 ([381b099](https://github.com/huteming/huteming-ui/commit/381b0994a54cc1b8a64d440436453f75d84ff1b0))
+* **request:** 修正服务端渲染时没有FormData构造函数的问题 ([bb6d228](https://github.com/huteming/huteming-ui/commit/bb6d228df505ff05b60d77f98d7ed20c331e78aa))
+* android在播放前触发timeupdate导致初始值失效 ([26e45ce](https://github.com/huteming/huteming-ui/commit/26e45cee623b83270ebc953902bf0e4015814391))
+* audio在ios下为了初始化时间引起的播放卡顿 ([9185c74](https://github.com/huteming/huteming-ui/commit/9185c7453c3778ac6e48cc23c17691de04811e74))
+* audio跳跃进度失败时记住进度条失败 ([6fc8932](https://github.com/huteming/huteming-ui/commit/6fc8932ff0e1323d39ab32d445f15d367cf2b710))
+* drawText最大宽度包括初始坐标 ([9a880be](https://github.com/huteming/huteming-ui/commit/9a880bed27dc1457ea7600bec4459c2f06f0c7f8))
+* sass-loader版本更新后配置选项改变 ([f1c56b3](https://github.com/huteming/huteming-ui/commit/f1c56b34d054b0869f63f88d81072112ddaad649))
+* 修复环境变量token读取失败 ([8e89921](https://github.com/huteming/huteming-ui/commit/8e89921324983e77c1f53c708a60bcbdc14a6aaf))
+* 修改travis github_token ([059d8d6](https://github.com/huteming/huteming-ui/commit/059d8d6c71a92175fb60a1bde5a5ff996dff1aa0))
+* 安卓audio在m3u8格式音频初始化时间失效 ([2a05329](https://github.com/huteming/huteming-ui/commit/2a0532942a2f3f0371c7fd26932dd701f0ff316d))
+
+
+### Features
+
+* **flex:** 合并flex,flex-item为flex ([8d38f1a](https://github.com/huteming/huteming-ui/commit/8d38f1a0e31f23cb2b98aa0ef017432b801a6bb1))
+* **modal:** 打开后禁止body滚动 ([64806f7](https://github.com/huteming/huteming-ui/commit/64806f789e060ce1c53309a28b5a35f06d511f8a))
+* **player:** 弃用ui-player ([19d5c9c](https://github.com/huteming/huteming-ui/commit/19d5c9ce47a7e7f06622b469c067b70935552ed4))
+* **rotate:** 重写turntable为构造函数,不再作为组件调用 ([7f0e68d](https://github.com/huteming/huteming-ui/commit/7f0e68d8da696bbd8fce3d682d2b03141ddfe6b3))
+* **styles:** hairline支持自定义位置参数 ([d753895](https://github.com/huteming/huteming-ui/commit/d75389559c4aab9679cf34b28b8070b9aa932bc1))
+* **styles:** ui-styles修正泛型,验证TsxComponent props ([49ea711](https://github.com/huteming/huteming-ui/commit/49ea7110a2e41edb32064c512d8ba732e600c71d))
+* **styles:** 添加TsxComponent属性提示方法 ([2ec5cb6](https://github.com/huteming/huteming-ui/commit/2ec5cb633ddb8c19f9c4301bc42b1bc2dccbb69f))
+* **ui:** 导出主题定制组件(ThemeProvider)和方法(createTheme) ([9e43b89](https://github.com/huteming/huteming-ui/commit/9e43b890136557ee0601862069234f8c89237944))
+* **ui:** 添加button ([464922d](https://github.com/huteming/huteming-ui/commit/464922d672077e761303d87e7fd5f3fbde7e9ef1))
+* **ui:** 添加icon组件 ([e006f5d](https://github.com/huteming/huteming-ui/commit/e006f5dde1cc822bb5ff846d23960f83aa9e0b36))
+* **ui:** 添加动画组件TransitionFade ([ae2a928](https://github.com/huteming/huteming-ui/commit/ae2a928a18a7629d4515ce249c96c170de4472b9))
+* **ui:** 添加动画组件TransitionSlide ([7acd73d](https://github.com/huteming/huteming-ui/commit/7acd73d86fb9a8cf3ae5e0f3b4b87f43d86915bd))
+* **ui:** 添加组件card ([cd60f31](https://github.com/huteming/huteming-ui/commit/cd60f314ffb0aa613e935d7d957d952a9b806353))
+* **ui:** 添加组件panel ([90cb343](https://github.com/huteming/huteming-ui/commit/90cb343b7c9d4b97090e2def305b7c3818f82187))
+* 修改适配SSR编译环境 ([b961d72](https://github.com/huteming/huteming-ui/commit/b961d72ddf40360f78627f578d846ac761446388))
+* **ui:** 通过umd模式引入时自动注册组件 ([e8b1458](https://github.com/huteming/huteming-ui/commit/e8b14583feee5ef8a34afa17cc04752125ab4d01))
+* 样式生成器添加第三个参数helper ([250a11f](https://github.com/huteming/huteming-ui/commit/250a11fc0e9c8078f79b979892edb2cd47ba4597))

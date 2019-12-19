@@ -1,14 +1,12 @@
 {
   "name": "@huteming/ui-image-convertor",
   "private": true,
-  "version": "2.0.2",
+  "version": "3.1.0",
   "description": "> 图片多种格式间的相互转换",
   "main": "dist/image-convertor.common.js",
   "scripts": {
     "prepublishOnly": "node ../../scripts/build-lib.js image-convertor"
   },
   "author": "",
-  "license": "ISC",
-  "dependencies": {
-  }
+  "license": "ISC"
 }

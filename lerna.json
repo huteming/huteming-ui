@@ -2,7 +2,10 @@
   "npmClient": "npm",
   "command": {
     "publish": {
-      "ignoreChanges": ["*.md", "basic.vue"]
+      "ignoreChanges": [
+        "*.md",
+        "basic.vue"
+      ]
     },
     "bootstrap": {
       "hoist": true
@@ -15,5 +18,5 @@
   "packages": [
     "packages/*"
   ],
-  "version": "3.0.0"
+  "version": "3.1.0"
 }
