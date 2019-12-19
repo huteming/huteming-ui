@@ -4,10 +4,42 @@ import { __RewireAPI__ as RewireAPI } from '../src/field'
 import WorkBasic from 'tests/components/basic.vue'
 import { mount, createLocalVue } from '@vue/test-utils'
 import sinon from 'sinon'
+import { sleep } from 'tests/helper'
 const localVue = createLocalVue()
 localVue.use(TmField)
 
 describe('field', () => {
+    it('显示清除控件', async () => {
+        const wrap = mount(TmField, {
+            propsData: {
+                value: '',
+                clearable: true,
+            },
+        })
+        let clear
+        clear = wrap.find(wrap.vm.styledComponents.Clear)
+        assert.strictEqual(clear.exists(), false)
+
+        wrap.setProps({ value: 'hello' })
+        await sleep()
+        clear = wrap.find(wrap.vm.styledComponents.Clear)
+        assert.strictEqual(clear.exists(), true)
+    })
+
+    it('清除事件', async () => {
+        const wrap = mount(TmField, {
+            propsData: {
+                value: 'hello',
+                clearable: true,
+            },
+        })
+        const clear = wrap.find(wrap.vm.styledComponents.Clear)
+        clear.trigger('click')
+        const emitClear = wrap.emitted('clear')
+        assert.ok(emitClear)
+        assert.ok(emitClear[0][0] instanceof Event)
+    })
+
     it('还原滚动条', () => {
         const mockGetScrollTop = sinon.fake.returns(30)
         const mockScroll = sinon.fake()

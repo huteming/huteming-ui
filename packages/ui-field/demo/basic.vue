@@ -1,27 +1,21 @@
 <template>
-  <div class="demo">
+  <div class="page-demo">
     <button @click="$refs.field.focus()">click to focus</button>
-    <div class="demo-header">表单</div>
 
+    <demo-divider>输入框</demo-divider>
     <demo-cell title="qq">
-      <TmField ref="field" v-model="value1" placeholder="请输入qq号" @focus="handleLog('force')" @blur="handleLog('blur')" @change="handleLog('change')" />
+      <TmField ref="field" v-model="value1" placeholder="请输入qq号" @focus="handleLog('force')" @blur="handleLog('blur')" @change="handleLog('change')" slot="body" />
     </demo-cell>
 
-    <div class="demo-header">文本域</div>
-
+    <demo-divider>文本域</demo-divider>
     <demo-cell>
       <TmField type="textarea" rows="3" v-model="value2" placeholder="请输入文本" @focus="handleLog('force')" @blur="handleLog('blur')" @change="handleLog" />
     </demo-cell>
 
-    <!-- <demo-divider>到底了</demo-divider>
-
-    <tm-popup v-model="visible" position="bottom">
-      <demo-cell title="qq">
-          <TmField ref="field" type="textarea" rows="4" v-model="value1" placeholder="请输入qq号" @focus="handleLog('force')" @blur="handleLog('blur')" @change="handleLog('change')" />
-      </demo-cell>
-
-      <div class="demo-submit" @click="handleSubmit">提交</div>
-    </tm-popup> -->
+    <demo-divider>带有清除控件</demo-divider>
+    <demo-cell title="qq">
+      <TmField ref="field" v-model="value3" placeholder="请输入" slot="body" clearable />
+    </demo-cell>
   </div>
 </template>
 
@@ -31,6 +25,7 @@ export default {
     return {
       value1: '',
       value2: '',
+      value3: '',
       visible: false,
     }
   },
