@@ -2,18 +2,18 @@
   "npmClient": "npm",
   "command": {
     "publish": {
-      "message": "chore(release): publish",
       "ignoreChanges": ["*.md", "basic.vue"]
     },
     "bootstrap": {
       "hoist": true
     },
     "version": {
+      "message": "chore(release): %s",
       "conventionalCommits": true
     }
   },
   "packages": [
     "packages/*"
   ],
-  "version": "independent"
+  "version": "3.0.0"
 }
