@@ -6,20 +6,73 @@ const localVue = createLocalVue()
 localVue.use(TmRange)
 
 describe('range', () => {
-    it('create', async () => {
-        const wrapper = mount(TmRange, {
-            propsData: {
-                value: 50,
-            },
-        })
-        wrapper.setData({
-            widthProgress: 100,
-        })
-        await sleep()
-        // console.log(wrapper.html())
-        const wrapperProgress = wrapper.find('.tm-range-progress')
-        assert.strictEqual(wrapperProgress.element.style.width, '50px')
+  it('change事件', async () => {
+    const wrapper = mount(TmRange, {
+      propsData: {
+        value: 0,
+      },
     })
+    wrapper.setData({
+      widthProgress: 100,
+    })
+    const wrapperFinger = wrapper.find('.tm-range-finger')
+
+    wrapperFinger.trigger('touchstart', {
+        changedTouches: [{ pageX: 0 }],
+    })
+    wrapperFinger.trigger('touchmove', {
+        changedTouches: [{ pageX: 20 }],
+    })
+    wrapperFinger.trigger('touchend')
+
+    const emitChange = wrapper.emitted('change')
+    assert.ok(emitChange)
+    assert.deepStrictEqual(emitChange[0], [20])
+  })
+
+  it('moving事件', async () => {
+    const wrapper = mount(TmRange, {
+      propsData: {
+        value: 0,
+      },
+    })
+    wrapper.setData({
+      widthProgress: 100,
+    })
+    const wrapperFinger = wrapper.find('.tm-range-finger')
+    let emitMoving
+
+    wrapperFinger.trigger('touchstart', {
+      changedTouches: [{ pageX: 0 }],
+    })
+    emitMoving = wrapper.emitted('moving')
+    assert.strictEqual(emitMoving.length, 1)
+    assert.deepStrictEqual(emitMoving[0], [0, true])
+
+    wrapperFinger.trigger('touchmove', {
+        changedTouches: [{ pageX: 20 }],
+    })
+    emitMoving = wrapper.emitted('moving')
+    assert.strictEqual(emitMoving.length, 2)
+    assert.deepStrictEqual(emitMoving[1], [20, true])
+
+    wrapperFinger.trigger('touchend')
+    emitMoving = wrapper.emitted('moving')
+    assert.strictEqual(emitMoving.length, 3)
+    assert.deepStrictEqual(emitMoving[2], [20, false])
+  })
+
+  it('create', async () => {
+    const wrapper = mount(TmRange, {
+      propsData: {
+        value: 50,
+      },
+    })
+    wrapper.setData({
+      widthProgress: 100,
+    })
+    assert.strictEqual(wrapper.vm.styleProgress.width, '50px')
+  })
 
     it('value超过最大值,显示比例100%', async () => {
         const wrapper = mount({

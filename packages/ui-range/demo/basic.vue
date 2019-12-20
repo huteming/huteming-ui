@@ -1,7 +1,15 @@
 <template>
   <div class="page-demo">
     <div class="container" style="padding: 20px; background: #fff;">
-      <tm-range v-model="range1" :min="0" :max="200" :step="2" :bar-height="3" class="spacing">
+      <tm-range
+        v-model="range1"
+        :min="0"
+        :max="200"
+        :step="2"
+        :bar-height="3"
+        @moving="handleMoving"
+        @change="handleChange"
+        class="spacing">
         <div slot="start">
           <div>线宽</div>
         </div>
@@ -29,6 +37,9 @@ export default {
   },
 
   methods: {
+    handleMoving (...args) {
+      console.log('moving', ...args)
+    },
     handleChange (value) {
       console.log('change', value)
     },

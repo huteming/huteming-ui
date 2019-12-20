@@ -29,6 +29,13 @@ Vue.use(Range)
 | bar-height | 滑槽的线宽（像素） | Number | | `1` |
 | show-value | 是否在线两侧显示最大最小值 | Boolean | | `false` |
 
+### Events
+
+| 事件名称 | 说明 | 回调参数 |
+|---------|----------|-------------|
+| change | 滑动结束时触发 | (value: number) |
+| moving | 滑动时触发 | (value: number, moving: boolean) |
+
 ### Slots
 
 | name | 描述 |

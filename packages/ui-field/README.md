@@ -24,6 +24,7 @@ Vue.use(Field)
 |------|-------|---------|-------|--------|
 | type | 类型 | String | `text`, `textarea` 和其他 原生 input 的 type 值 | `text` |
 | value | 绑定指 | String, Number | - | - |
+| clearable | 是否显示清除控件 | *boolean* | - | `false` |
 | label | 输入框关联的label文字 | string | | |
 | inputStyle | 输入框样式 | Object | | |
 | - | 其他输入框原生属性；如：rows | | | |
