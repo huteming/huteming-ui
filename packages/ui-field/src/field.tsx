@@ -40,7 +40,6 @@ const styles = (styled: any, css: any) => {
       resize: none;
     `,
     Clear: styled('div', () => `
-      margin-top: 2px;
       margin-left: 7px;
       font-size: 15px;
       line-height: 1;
