@@ -44,23 +44,23 @@ describe('carousel', () => {
         const [wrap, parent, children] = await create({ count: 3 })
 
         assert.strictEqual(parent.vm.currentIndex, 0)
-        assert.strictEqual(children.at(0).attributes('style'), 'transform: translateX(0px); webkit-transform: translateX(0px);')
-        assert.strictEqual(children.at(1).attributes('style'), 'transform: translateX(375px); webkit-transform: translateX(375px);')
-        assert.strictEqual(children.at(2).attributes('style'), 'transform: translateX(-375px); webkit-transform: translateX(-375px);')
+        assert.strictEqual(children.at(0).attributes('style'), 'transform: translateX(0px) scale(1); webkit-transform: translateX(0px) scale(1);')
+        assert.strictEqual(children.at(1).attributes('style'), 'transform: translateX(375px) scale(1); webkit-transform: translateX(375px) scale(1);')
+        assert.strictEqual(children.at(2).attributes('style'), 'transform: translateX(-375px) scale(1); webkit-transform: translateX(-375px) scale(1);')
     })
 
     it('自定义初始化活跃项', async () => {
         const [wrap, parent, children] = await create({ count: 3, initial: 1 })
-        assert.strictEqual(children.at(0).attributes('style'), 'transform: translateX(-375px); webkit-transform: translateX(-375px);')
-        assert.strictEqual(children.at(1).attributes('style'), 'transform: translateX(0px); webkit-transform: translateX(0px);')
-        assert.strictEqual(children.at(2).attributes('style'), 'transform: translateX(375px); webkit-transform: translateX(375px);')
+        assert.strictEqual(children.at(0).attributes('style'), 'transform: translateX(-375px) scale(1); webkit-transform: translateX(-375px) scale(1);')
+        assert.strictEqual(children.at(1).attributes('style'), 'transform: translateX(0px) scale(1); webkit-transform: translateX(0px) scale(1);')
+        assert.strictEqual(children.at(2).attributes('style'), 'transform: translateX(375px) scale(1); webkit-transform: translateX(375px) scale(1);')
     })
 
     it('异步初始化活跃项', async () => {
         const [wrap, parent, children] = await create({ initial: 0 })
         wrap.setData({ initial: 1 })
         await sleep()
-        assert.strictEqual(children.at(1).attributes('style'), 'transform: translateX(0px); webkit-transform: translateX(0px);')
+        assert.strictEqual(children.at(1).attributes('style'), 'transform: translateX(0px) scale(1); webkit-transform: translateX(0px) scale(1);')
     })
 
     it('异步初始化轮播项', async () => {
@@ -75,9 +75,9 @@ describe('carousel', () => {
         children = wrap.findAll(TmCarouselItem)
 
         assert.strictEqual(children.length, 3)
-        assert.strictEqual(children.at(0).attributes('style'), 'transform: translateX(0px); webkit-transform: translateX(0px);')
-        assert.strictEqual(children.at(1).attributes('style'), 'transform: translateX(375px); webkit-transform: translateX(375px);')
-        assert.strictEqual(children.at(2).attributes('style'), 'transform: translateX(-375px); webkit-transform: translateX(-375px);')
+        assert.strictEqual(children.at(0).attributes('style'), 'transform: translateX(0px) scale(1); webkit-transform: translateX(0px) scale(1);')
+        assert.strictEqual(children.at(1).attributes('style'), 'transform: translateX(375px) scale(1); webkit-transform: translateX(375px) scale(1);')
+        assert.strictEqual(children.at(2).attributes('style'), 'transform: translateX(-375px) scale(1); webkit-transform: translateX(-375px) scale(1);')
     })
 
     it('自动播放', async () => {

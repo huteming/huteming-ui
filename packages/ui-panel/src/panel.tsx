@@ -48,14 +48,14 @@ const styles = (styled: any, css: any) => {
     `),
     Tip: styled('div', () => `
       font-size: 10px;
-      line-height: 14px;
+      line-height: 15px;
       color: #C9CCD4;
     `),
     Decoration: styled('div', () => `
       flex: 1;
       margin-left: 5px;
       font-size: 12px;
-      line-height: 17px;
+      line-height: 15px;
       color: #B2BAC4;
       text-align: right;
       text-decoration: line-through;
@@ -63,7 +63,7 @@ const styles = (styled: any, css: any) => {
     Btn: styled('div', () => `
       margin-left: 5px;
       font-size: 14px;
-      line-height: 20px;
+      line-height: 16px;
       color: #3A95FA;
       font-weight: bold;
     `),

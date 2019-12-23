@@ -81,11 +81,11 @@ describe('carousel', () => {
             cancelable: true,
         })
         assert.strictEqual(mockPrevent.callCount, 1)
-        assert.strictEqual(wrapperItem.at(0).attributes('style'), 'transform: translateX(300px); webkit-transform: translateX(300px);')
+        assert.strictEqual(wrapperItem.at(0).attributes('style'), 'transform: translateX(300px) scale(1); webkit-transform: translateX(300px) scale(1);')
 
         handleTouchend()
         await sleep()
-        assert.strictEqual(wrapperItem.at(2).attributes('style'), 'transform: translateX(0px); webkit-transform: translateX(0px);')
+        assert.strictEqual(wrapperItem.at(2).attributes('style'), 'transform: translateX(0px) scale(1); webkit-transform: translateX(0px) scale(1);')
     })
 
     it('滑动到下一帧', async () => {
@@ -168,11 +168,11 @@ describe('carousel', () => {
             preventDefault: mockPrevent,
         })
         assert.strictEqual(mockPrevent.callCount, 0)
-        assert.strictEqual(wrapperItem.at(0).attributes('style'), 'transform: translateX(0px); webkit-transform: translateX(0px);')
+        assert.strictEqual(wrapperItem.at(0).attributes('style'), 'transform: translateX(0px) scale(1); webkit-transform: translateX(0px) scale(1);')
 
         handleTouchend()
         await sleep()
-        assert.strictEqual(wrapperItem.at(0).attributes('style'), 'transform: translateX(0px); webkit-transform: translateX(0px);')
+        assert.strictEqual(wrapperItem.at(0).attributes('style'), 'transform: translateX(0px) scale(1); webkit-transform: translateX(0px) scale(1);')
     })
 
     it('移动距离小于触发事件阈值', async () => {
@@ -207,11 +207,11 @@ describe('carousel', () => {
             preventDefault: mockPrevent,
         })
         assert.strictEqual(mockPrevent.callCount, 0)
-        assert.strictEqual(wrapperItem.at(0).attributes('style'), 'transform: translateX(0px); webkit-transform: translateX(0px);')
+        assert.strictEqual(wrapperItem.at(0).attributes('style'), 'transform: translateX(0px) scale(1); webkit-transform: translateX(0px) scale(1);')
 
         handleTouchend()
         await sleep()
-        assert.strictEqual(wrapperItem.at(0).attributes('style'), 'transform: translateX(0px); webkit-transform: translateX(0px);')
+        assert.strictEqual(wrapperItem.at(0).attributes('style'), 'transform: translateX(0px) scale(1); webkit-transform: translateX(0px) scale(1);')
     })
 
     it('前一次滑动已经定义方向', async () => {
@@ -255,11 +255,11 @@ describe('carousel', () => {
             cancelable: true,
         })
         assert.strictEqual(mockPrevent.callCount, 1)
-        assert.strictEqual(wrapperItem.at(0).attributes('style'), 'transform: translateX(-3px); webkit-transform: translateX(-3px);')
+        assert.strictEqual(wrapperItem.at(0).attributes('style'), 'transform: translateX(-3px) scale(1); webkit-transform: translateX(-3px) scale(1);')
 
         handleTouchend()
         await sleep()
-        assert.strictEqual(wrapperItem.at(0).attributes('style'), 'transform: translateX(0px); webkit-transform: translateX(0px);')
+        assert.strictEqual(wrapperItem.at(0).attributes('style'), 'transform: translateX(0px) scale(1); webkit-transform: translateX(0px) scale(1);')
     })
 
     it('左右滑动 && 定义垂直轮播', async () => {
@@ -297,11 +297,11 @@ describe('carousel', () => {
             preventDefault: mockPrevent,
         })
         assert.strictEqual(mockPrevent.callCount, 0)
-        assert.strictEqual(wrapperItem.at(0).attributes('style'), 'transform: translateY(0px); webkit-transform: translateY(0px);')
+        assert.strictEqual(wrapperItem.at(0).attributes('style'), 'transform: translateY(0px) scale(1); webkit-transform: translateY(0px) scale(1);')
 
         handleTouchend()
         await sleep()
-        assert.strictEqual(wrapperItem.at(0).attributes('style'), 'transform: translateY(0px); webkit-transform: translateY(0px);')
+        assert.strictEqual(wrapperItem.at(0).attributes('style'), 'transform: translateY(0px) scale(1); webkit-transform: translateY(0px) scale(1);')
     })
 
     it('上下滑动 && 定义水平轮播', async () => {
@@ -339,11 +339,11 @@ describe('carousel', () => {
             preventDefault: mockPrevent,
         })
         assert.strictEqual(mockPrevent.callCount, 0)
-        assert.strictEqual(wrapperItem.at(0).attributes('style'), 'transform: translateX(0px); webkit-transform: translateX(0px);')
+        assert.strictEqual(wrapperItem.at(0).attributes('style'), 'transform: translateX(0px) scale(1); webkit-transform: translateX(0px) scale(1);')
 
         handleTouchend()
         await sleep()
-        assert.strictEqual(wrapperItem.at(0).attributes('style'), 'transform: translateX(0px); webkit-transform: translateX(0px);')
+        assert.strictEqual(wrapperItem.at(0).attributes('style'), 'transform: translateX(0px) scale(1); webkit-transform: translateX(0px) scale(1);')
     })
 
     it('loop && 滑动距离不足，还原到左边', async () => {
@@ -384,11 +384,11 @@ describe('carousel', () => {
             cancelable: true,
         })
         assert.strictEqual(mockPrevent.callCount, 1)
-        assert.strictEqual(wrapperItem.at(0).attributes('style'), 'transform: translateX(30px); webkit-transform: translateX(30px);')
+        assert.strictEqual(wrapperItem.at(0).attributes('style'), 'transform: translateX(30px) scale(1); webkit-transform: translateX(30px) scale(1);')
 
         handleTouchend()
         await sleep()
-        assert.strictEqual(wrapperItem.at(0).attributes('style'), 'transform: translateX(0px); webkit-transform: translateX(0px);')
+        assert.strictEqual(wrapperItem.at(0).attributes('style'), 'transform: translateX(0px) scale(1); webkit-transform: translateX(0px) scale(1);')
     })
 
     it('loop && 滑动距离不足，还原到右边', async () => {
@@ -431,11 +431,11 @@ describe('carousel', () => {
             cancelable: true,
         })
         assert.strictEqual(mockPrevent.callCount, 1)
-        assert.strictEqual(wrapperItem.at(2).attributes('style'), 'transform: translateX(-30px); webkit-transform: translateX(-30px);')
+        assert.strictEqual(wrapperItem.at(2).attributes('style'), 'transform: translateX(-30px) scale(1); webkit-transform: translateX(-30px) scale(1);')
 
         handleTouchend()
         await sleep()
-        assert.strictEqual(wrapperItem.at(2).attributes('style'), 'transform: translateX(0px); webkit-transform: translateX(0px);')
+        assert.strictEqual(wrapperItem.at(2).attributes('style'), 'transform: translateX(0px) scale(1); webkit-transform: translateX(0px) scale(1);')
     })
 
     it('非循环 && 滑动距离不足，还原到右边', async () => {
@@ -476,11 +476,11 @@ describe('carousel', () => {
             cancelable: true,
         })
         assert.strictEqual(mockPrevent.callCount, 1)
-        assert.strictEqual(wrapperItem.at(1).attributes('style'), 'transform: translateX(-30px); webkit-transform: translateX(-30px);')
+        assert.strictEqual(wrapperItem.at(1).attributes('style'), 'transform: translateX(-30px) scale(1); webkit-transform: translateX(-30px) scale(1);')
 
         handleTouchend()
         await sleep()
-        assert.strictEqual(wrapperItem.at(1).attributes('style'), 'transform: translateX(0px); webkit-transform: translateX(0px);')
+        assert.strictEqual(wrapperItem.at(1).attributes('style'), 'transform: translateX(0px) scale(1); webkit-transform: translateX(0px) scale(1);')
     })
 
     it('非循环 && 滑动距离不足，还原到左边', async () => {
@@ -521,11 +521,11 @@ describe('carousel', () => {
             preventDefault: mockPrevent,
         })
         assert.strictEqual(mockPrevent.callCount, 1)
-        assert.strictEqual(wrapperItem.at(1).attributes('style'), 'transform: translateX(30px); webkit-transform: translateX(30px);')
+        assert.strictEqual(wrapperItem.at(1).attributes('style'), 'transform: translateX(30px) scale(1); webkit-transform: translateX(30px) scale(1);')
 
         handleTouchend()
         await sleep()
-        assert.strictEqual(wrapperItem.at(1).attributes('style'), 'transform: translateX(0px); webkit-transform: translateX(0px);')
+        assert.strictEqual(wrapperItem.at(1).attributes('style'), 'transform: translateX(0px) scale(1); webkit-transform: translateX(0px) scale(1);')
     })
 
     it('滑动期间暂停自动轮播', async () => {

@@ -11,7 +11,7 @@ export const DATAURI = `data:image/png;base64,iV`
 export const DATAURI_INVALID = 'HELLO'
 export const BLOB = (() => {
     const arr = DATAURI.split(',')
-    const type = arr[0].match(/:(.*?);/)[1]
+    const type = (arr[0].match(/:(.*?);/) as any)[1]
     const bstr = atob(arr[1])
     let n = bstr.length
     const u8arr = new Uint8Array(n)

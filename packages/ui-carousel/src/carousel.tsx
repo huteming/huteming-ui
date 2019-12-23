@@ -1,6 +1,6 @@
-import { Vue, Prop, Watch, Mixins } from 'vue-property-decorator'
+import { Prop, Watch, Mixins } from 'vue-property-decorator'
 import { withStyles } from 'packages/ui-styles/src/main'
-import { CarouselItem } from '../types'
+import { CarouselItem, CarouselType } from '../types'
 import { ParentMixin } from 'ui/mixins/relation'
 
 const styles = (styled: any, css: any) => {
@@ -228,6 +228,9 @@ class Carousel extends Mixins(ParentMixin('carousel')) {
       this.startTimer()
     }
   }
+
+  @Prop({ type: String, default: '' })
+  type!: CarouselType
 
   @Prop({ type: String, default: '' })
   height!: string

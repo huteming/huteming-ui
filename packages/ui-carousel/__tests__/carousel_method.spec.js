@@ -120,13 +120,13 @@ describe('carousel', () => {
         valid = eleCarousel.setActiveItem('item1')
         assert.strictEqual(valid, true)
         await sleep()
-        assert.strictEqual(wrapperItem.at(1).attributes('style'), 'transform: translateX(0px); webkit-transform: translateX(0px);')
+        assert.strictEqual(wrapperItem.at(1).attributes('style'), 'transform: translateX(0px) scale(1); webkit-transform: translateX(0px) scale(1);')
 
         // 参数为字符串，不重复
         valid = eleCarousel.setActiveItem('item2')
         assert.strictEqual(valid, true)
         await sleep()
-        assert.strictEqual(wrapperItem.at(3).attributes('style'), 'transform: translateX(0px); webkit-transform: translateX(0px);')
+        assert.strictEqual(wrapperItem.at(3).attributes('style'), 'transform: translateX(0px) scale(1); webkit-transform: translateX(0px) scale(1);')
 
         // 参数为字符串，不存在
         valid = eleCarousel.setActiveItem('invalid')
@@ -137,19 +137,19 @@ describe('carousel', () => {
         valid = eleCarousel.setActiveItem(-1)
         assert.strictEqual(valid, true)
         await sleep()
-        assert.strictEqual(wrapperItem.at(5).attributes('style'), 'transform: translateX(0px); webkit-transform: translateX(0px);')
+        assert.strictEqual(wrapperItem.at(5).attributes('style'), 'transform: translateX(0px) scale(1); webkit-transform: translateX(0px) scale(1);')
 
         // 参数 大于total
         valid = eleCarousel.setActiveItem(7)
         assert.strictEqual(valid, true)
         await sleep()
-        assert.strictEqual(wrapperItem.at(1).attributes('style'), 'transform: translateX(0px); webkit-transform: translateX(0px);')
+        assert.strictEqual(wrapperItem.at(1).attributes('style'), 'transform: translateX(0px) scale(1); webkit-transform: translateX(0px) scale(1);')
 
         // 参数 大于0 小于total
         valid = eleCarousel.setActiveItem(2)
         assert.strictEqual(valid, true)
         await sleep()
-        assert.strictEqual(wrapperItem.at(2).attributes('style'), 'transform: translateX(0px); webkit-transform: translateX(0px);')
+        assert.strictEqual(wrapperItem.at(2).attributes('style'), 'transform: translateX(0px) scale(1); webkit-transform: translateX(0px) scale(1);')
 
         wrapper.setData({ loop: false })
 
@@ -157,16 +157,16 @@ describe('carousel', () => {
         valid = eleCarousel.setActiveItem(-1)
         assert.strictEqual(valid, true)
         await sleep()
-        assert.strictEqual(wrapperItem.at(0).attributes('style'), 'transform: translateX(0px); webkit-transform: translateX(0px);')
+        assert.strictEqual(wrapperItem.at(0).attributes('style'), 'transform: translateX(0px) scale(1); webkit-transform: translateX(0px) scale(1);')
 
         // // 参数 大于total
         valid = eleCarousel.setActiveItem(7)
         assert.strictEqual(valid, true)
         await sleep()
-        assert.strictEqual(wrapperItem.at(5).attributes('style'), 'transform: translateX(0px); webkit-transform: translateX(0px);')
+        assert.strictEqual(wrapperItem.at(5).attributes('style'), 'transform: translateX(0px) scale(1); webkit-transform: translateX(0px) scale(1);')
     })
 
-    it('setActiveItem', async () => {
+    it('prev&next', async () => {
         let valid
         const wrapper = mount({
             template: `
@@ -198,13 +198,13 @@ describe('carousel', () => {
         assert.strictEqual(valid, true)
         await sleep()
         children = wrapper.findAll(TmCarouselItem)
-        assert.strictEqual(children.at(2).attributes('style'), 'transform: translateX(0px); webkit-transform: translateX(0px);')
+        assert.strictEqual(children.at(2).attributes('style'), 'transform: translateX(0px) scale(1); webkit-transform: translateX(0px) scale(1);')
 
         // next
         valid = carousel.vm.next()
         assert.strictEqual(valid, true)
         await sleep()
-        assert.strictEqual(children.at(0).attributes('style'), 'transform: translateX(0px); webkit-transform: translateX(0px);')
+        assert.strictEqual(children.at(0).attributes('style'), 'transform: translateX(0px) scale(1); webkit-transform: translateX(0px) scale(1);')
     })
 
     it('playSlides', async () => {
@@ -239,7 +239,7 @@ describe('carousel', () => {
         valid = eleCarousel.playSlides()
         assert.strictEqual(valid, true)
         await sleep()
-        assert.strictEqual(wrapperItem.at(1).attributes('style'), 'transform: translateX(0px); webkit-transform: translateX(0px);')
+        assert.strictEqual(wrapperItem.at(1).attributes('style'), 'transform: translateX(0px) scale(1); webkit-transform: translateX(0px) scale(1);')
 
         const timer = wrapperContainer.vm.timer
         valid = eleCarousel.playSlides()
@@ -247,19 +247,19 @@ describe('carousel', () => {
         assert.ok(clearInterval.calledWithExactly(timer))
         assert.strictEqual(wrapperContainer.vm.timer, 0)
         await sleep()
-        assert.strictEqual(wrapperItem.at(2).attributes('style'), 'transform: translateX(0px); webkit-transform: translateX(0px);')
+        assert.strictEqual(wrapperItem.at(2).attributes('style'), 'transform: translateX(0px) scale(1); webkit-transform: translateX(0px) scale(1);')
 
         valid = eleCarousel.playSlides()
         assert.strictEqual(valid, false)
         await sleep()
-        assert.strictEqual(wrapperItem.at(2).attributes('style'), 'transform: translateX(0px); webkit-transform: translateX(0px);')
+        assert.strictEqual(wrapperItem.at(2).attributes('style'), 'transform: translateX(0px) scale(1); webkit-transform: translateX(0px) scale(1);')
 
         wrapper.setData({ loop: true })
 
         valid = eleCarousel.playSlides()
         assert.strictEqual(valid, true)
         await sleep()
-        assert.strictEqual(wrapperItem.at(0).attributes('style'), 'transform: translateX(0px); webkit-transform: translateX(0px);')
+        assert.strictEqual(wrapperItem.at(0).attributes('style'), 'transform: translateX(0px) scale(1); webkit-transform: translateX(0px) scale(1);')
     })
 
     afterEach(() => {

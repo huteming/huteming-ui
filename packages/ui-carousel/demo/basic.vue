@@ -1,54 +1,45 @@
 <template>
   <div class="page-demo">
+    <demo-divider>卡片样式</demo-divider>
+    <tm-carousel class="swiper" type="card">
+      <tm-carousel-item v-for="item in 5" :key="`card-${item}`" class="swiper-item">{{ item }}</tm-carousel-item>
+    </tm-carousel>
+
     <button @click="handleDirectionChange">toggle direction: {{ direction }}</button>
 
-    <h3 class="text-center">基础用法</h3>
+    <demo-divider>基础用法</demo-divider>
     <button @click="$refs.carousel0.setActiveItem(2)">set item 2</button>
     <button @click="$refs.carousel0.next()">next</button>
     <button @click="$refs.carousel0.prev()">prev</button>
 
-    <tm-carousel ref="carousel0" :loop="false" :initial="2">
+    <tm-carousel ref="carousel0">
       <tm-carousel-item  v-for="item in items" :key="item.name">
         <div class="swiper" :class="item.classes">{{ item.name }}</div>
       </tm-carousel-item>
     </tm-carousel>
 
-    <h3 class="text-center">async items</h3>
-    <button @click="$refs.carousel.setActiveItem(2)">set item 2</button>
-    <button @click="$refs.carousel.next()">next</button>
-    <button @click="$refs.carousel.prev()">prev</button>
-
-    <tm-carousel height="6rem" :direction="direction" @change="handleChange" ref="carousel">
+    <demo-divider>异步的子项</demo-divider>
+    <tm-carousel>
       <tm-carousel-item  v-for="item in asyncItems" :key="item.name">
         <div class="swiper" :class="item.classes">{{ item.name }}</div>
       </tm-carousel-item>
     </tm-carousel>
 
-    <h3 class="text-center">initial name</h3>
-
+    <demo-divider>按name属性初始化</demo-divider>
     <tm-carousel initial="hello" :direction="direction">
       <tm-carousel-item  v-for="item in items" :key="item.name" :name="item.name">
         <div class="swiper" :class="item.classes">{{ item.name }}</div>
       </tm-carousel-item>
     </tm-carousel>
 
-    <h3 class="text-center">initial index</h3>
-
-    <tm-carousel :initial="3" :direction="direction">
+    <demo-divider>按默认排序初始化</demo-divider>
+    <tm-carousel :initial="1" :direction="direction">
       <tm-carousel-item  v-for="item in items" :key="item.name">
         <div class="swiper" :class="item.classes">{{ item.name }}</div>
       </tm-carousel-item>
     </tm-carousel>
 
-    <h3 class="text-center">loop false</h3>
-
-    <tm-carousel :loop="false" :direction="direction">
-      <tm-carousel-item  v-for="item in items" :key="item.name">
-        <div class="swiper" :class="item.classes">{{ item.name }}</div>
-      </tm-carousel-item>
-    </tm-carousel>
-
-    <h3 class="text-center">autoplay</h3>
+    <demo-divider>自动播放</demo-divider>
     <button @click="autoplay = !autoplay">toggle</button>
 
     <tm-carousel :autoplay="autoplay" :direction="direction">
@@ -57,16 +48,7 @@
       </tm-carousel-item>
     </tm-carousel>
 
-    <h3 class="text-center">interval 1500</h3>
-
-    <tm-carousel :interval="1500" autoplay :direction="direction">
-      <tm-carousel-item  v-for="item in items" :key="item.name">
-        <div class="swiper" :class="item.classes">{{ item.name }}</div>
-      </tm-carousel-item>
-    </tm-carousel>
-
-    <h3 class="text-center">disabledTouch</h3>
-
+    <demo-divider>禁止手势滑动</demo-divider>
     <tm-carousel disabled-touch autoplay :direction="direction">
       <tm-carousel-item  v-for="item in items" :key="item.name">
         <div class="swiper" :class="item.classes">{{ item.name }}</div>
@@ -129,32 +111,38 @@ export default {
 
 <style lang="scss" scoped>
 .swiper {
-    height: 100%;
-    width: 7.5rem;
-    line-height: 200px;
-    text-align: center;
+  line-height: 200px;
+  text-align: center;
 
-    &-container {
-        padding: 0 20px;
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-    }
+  &-container {
+    padding: 0 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
 
-    &-small {
-        width: 3rem;
-    }
+  &-item:nth-child(2n+1) {
+    background-color: #d3dce6;
+  }
 
-    &-blue {
-        background-color: blue;
-    }
+  &-item:nth-child(2n) {
+    background-color: #99a9bf;
+  }
 
-    &-pink {
-        background-color: pink;
-    }
+  &-small {
+    width: 3rem;
+  }
 
-    &-yellow {
-        background-color: yellow;
-    }
+  &-blue {
+    background-color: blue;
+  }
+
+  &-pink {
+    background-color: pink;
+  }
+
+  &-yellow {
+    background-color: yellow;
+  }
 }
 </style>

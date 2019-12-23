@@ -1,7 +1,7 @@
-import { IMG_FAILURE_SRC, IMG_SUCCESS_SRC, BLOG_FAILURE, imgURI, IMG_FAILURE_DATAURI, IMG_LOADING_SRC } from './constant'
+import { IMG_FAILURE_SRC, IMG_SUCCESS_SRC, BLOG_FAILURE, DATAURI, IMG_FAILURE_DATAURI, IMG_LOADING_SRC } from './constant'
 import sinon from 'sinon'
 
-export function cleanDom (selector) {
+export function cleanDom (selector: any) {
     const el = document.querySelector(selector)
     if (!el) return
     if (el.parentNode) {
@@ -12,11 +12,11 @@ export function cleanDom (selector) {
     }
 }
 
-export function getLastDateOfMonth (year, month) {
+export function getLastDateOfMonth (year: any, month: any) {
     return new Date(year, month + 1, 0).getDate()
 }
 
-export const jsonToForm = (data) => {
+export const jsonToForm = (data: any) => {
     const params = new FormData()
 
     for (let key in data) {
@@ -31,7 +31,12 @@ export async function sleep (time = 20) {
 }
 
 export class Mock {
-    constructor (target, property, define) {
+    target: any
+    property: any
+    originDescriptor: any
+    defineDescriptor: any
+
+    constructor (target: any, property: any, define: any) {
         this.target = target
         this.property = property
         this.originDescriptor = Object.getOwnPropertyDescriptor(target, property) || {
@@ -55,7 +60,7 @@ export class Mock {
     }
 }
 
-export function mockProperty (target, property, define) {
+export function mockProperty (target: any, property: any, define: any) {
     const mock = new Mock(target, property, define)
 
     beforeAll(() => {
@@ -78,7 +83,7 @@ export function mockCancelable (value = true) {
 
 export function mockImage () {
     mockProperty(Image.prototype, 'src', {
-        set (src) {
+        set (src: any) {
             if (src && (src.indexOf(IMG_FAILURE_SRC) > -1 || src.indexOf(IMG_FAILURE_DATAURI) > -1)) {
                 setTimeout(() => this.onerror(new Error('mocked image error')))
             } else if (src === IMG_LOADING_SRC) {
@@ -96,13 +101,13 @@ export function mockImage () {
 
 export function mockFileReader () {
     const mock = new Mock(FileReader.prototype, 'readAsDataURL', {
-        value (file) {
+        value (file: any) {
             if (file && file === BLOG_FAILURE) {
                 setTimeout(() => this.onerror(new Error('mocked FileReader error')))
             } else {
                 setTimeout(() => {
                     sinon.replaceGetter(this, 'result', () => {
-                        return imgURI
+                        return DATAURI
                     })
                     this.onload()
                 })
