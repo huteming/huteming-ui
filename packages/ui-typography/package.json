@@ -1,0 +1,30 @@
+{
+  "name": "@huteming/ui-typography",
+  "private": true,
+  "version": "3.1.0",
+  "description": "> TODO: description",
+  "author": "Tommy <tommy@jhshuyuan.com>",
+  "homepage": "https://github.com/huteming/huteming-ui#readme",
+  "license": "ISC",
+  "main": "lib/ui-typography.js",
+  "directories": {
+    "lib": "lib",
+    "test": "__tests__"
+  },
+  "files": [
+    "lib"
+  ],
+  "publishConfig": {
+    "registry": "https://registry.npmjs.org/"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/huteming/huteming-ui.git"
+  },
+  "scripts": {
+    "prepublishOnly": "node ../../scripts/build-lib typography"
+  },
+  "bugs": {
+    "url": "https://github.com/huteming/huteming-ui/issues"
+  }
+}

@@ -39,6 +39,7 @@ import Switch from 'packages/ui-switch/src/main'
 import Button from 'packages/ui-button/src/main'
 import Range from 'packages/ui-range/src/main'
 import Card from 'packages/ui-card/src/main'
+import Typography from 'packages/ui-typography/src/main'
 
 import * as animation from 'packages/ui-animation/src/main'
 import * as api from 'packages/ui-api/src/main'
@@ -85,6 +86,7 @@ const components = [
   Panel,
   TransitionSlide,
   TransitionFade,
+  Typography,
 ]
 
 function install (vue: typeof Vue, config = {}) {
