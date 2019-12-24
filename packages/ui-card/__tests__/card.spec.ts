@@ -3,22 +3,36 @@ import TmCard from '../src/main'
 import { createLocalVue, mount } from '@vue/test-utils'
 import WorkBasic from 'tests/components/basic.vue'
 const localVue = createLocalVue()
-localVue.use(TmCard)
+const TmCardPosterBar = TmCard.PosterBar
 
 describe('card', () => {
-    it('create', () => {
-        const wrap = mount(TmCard)
-        const desc = wrap.find(wrap.vm.styledComponents.PosterDesc)
-        assert.ok(!desc.exists())
+    it('install', () => {
+      assert.ok(!localVue.component('TmCard'))
+      assert.ok(!localVue.component('TmCardPosterBar'))
+      localVue.use(TmCard)
+      assert.ok(localVue.component('TmCard'))
+      assert.ok(localVue.component('TmCardPosterBar'))
     })
-    it('渲染图片描述区域', () => {
-        const wrap = mount(TmCard, {
-            slots: {
-                default: WorkBasic,
-            },
-        })
-        const desc = wrap.find(wrap.vm.styledComponents.PosterDesc)
-        assert.ok(desc.exists())
-        assert.ok(desc.contains(WorkBasic))
+
+    it('card默认插槽', () => {
+      const wrap = mount(TmCard, {
+        slots: {
+          default: WorkBasic,
+        },
+      })
+      const desc = wrap.find(wrap.vm.styledComponents.Root)
+      assert.ok(desc.exists())
+      assert.ok(desc.contains(WorkBasic))
+    })
+
+    it('poster-bar默认插槽', () => {
+      const wrap = mount(TmCardPosterBar, {
+        slots: {
+          default: WorkBasic,
+        },
+      })
+      const desc = wrap.find(wrap.vm.styledComponents.Root)
+      assert.ok(desc.exists())
+      assert.ok(desc.contains(WorkBasic))
     })
 })

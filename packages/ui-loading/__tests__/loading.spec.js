@@ -248,24 +248,27 @@ describe('loading', () => {
 
     it('等待最小持续时间', async () => {
         const wrapper = mount({
-            template: `
-                <div v-loading="{ loading, duration }">{{ text }}</div>
-            `,
-            data () {
-                return {
-                    loading: true,
-                    duration: 20,
-                    text: 'text',
-                }
-            },
+          template: `
+            <div v-loading="{ loading, duration }">hhh</div>
+          `,
+          data () {
+            return {
+              loading: true,
+              duration: 20,
+            }
+          },
         }, {
-            localVue,
+          localVue,
         })
+        let wrapLoading
         await sleep(50)
         wrapper.setData({ loading: false })
-        await sleep()
-        const wrapperLoading = wrapper.find('.tm-loading')
-        assert.ok(wrapperLoading.exists())
+        await sleep(10)
+        wrapLoading = wrapper.find('.tm-loading')
+        assert.ok(wrapLoading.exists())
+        await sleep(30)
+        wrapLoading = wrapper.find('.tm-loading')
+        assert.ok(!wrapLoading.exists())
     })
 
     it('unbind', async () => {

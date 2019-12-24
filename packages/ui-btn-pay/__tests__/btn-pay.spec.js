@@ -12,31 +12,30 @@ describe('btn-pay', () => {
     })
 
     describe('disabled', () => {
-        it('依旧传递点击事件', () => {
-            const wrapper = mount(CompBtnPay, {
-                propsData: {
-                    btn: 'btn',
-                    disabled: true,
-                },
-            })
-            const wrapperBtn = wrapper.find({ ref: 'btn' })
-            assert.strictEqual(wrapperBtn.attributes('style'), `background: rgb(201, 204, 212);`)
-            wrapperBtn.trigger('click')
-
-            const emitClick = wrapper.emitted('click')
-            assert.ok(emitClick)
+      it('依旧传递点击事件', () => {
+        const wrapper = mount(CompBtnPay, {
+            propsData: {
+                btn: 'btn',
+                disabled: true,
+            },
         })
+        const wrapperBtn = wrapper.find(wrapper.vm.styledComponents.Button)
+        wrapperBtn.trigger('click')
 
-        it('按钮显示disabled样式', () => {
-            const wrapper = mount(CompBtnPay, {
-                propsData: {
-                    btn: 'btn',
-                    disabled: true,
-                },
-            })
-            const wrapperBtn = wrapper.find({ ref: 'btn' })
-            assert.strictEqual(wrapperBtn.attributes('style'), `background: rgb(201, 204, 212);`)
+        const emitClick = wrapper.emitted('click')
+        assert.ok(emitClick)
+      })
+
+      it('按钮显示disabled样式', () => {
+        const wrap = mount(CompBtnPay, {
+            propsData: {
+              btn: 'btn',
+              disabled: true,
+            },
         })
+        const btn = wrap.find(wrap.vm.styledComponents.Button)
+        assert.strictEqual(btn.vm.disabled, true)
+      })
     })
 
     describe('title', () => {

@@ -4,6 +4,7 @@ import { Vue, Prop } from 'vue-property-decorator'
 const styles = (styled: any, css: any) => {
   return {
     Root: styled('div', () => `
+      position: relative;
       width: 160px;
       padding-bottom: 6px;
       background: #fff;
@@ -21,13 +22,6 @@ const styles = (styled: any, css: any) => {
       width: 100%;
       height: 100%;
       object-fit: contain;
-    `),
-    PosterDesc: styled('div', () => `
-      position: absolute;
-      top: 0;
-      bottom: 0;
-      left: 0;
-      right: 0;
     `),
     Title: styled('div', () => `
       min-height: 54px;
@@ -68,17 +62,17 @@ export default class Card extends Vue {
   btn!: string
 
   render () {
-    const { Root, Title, Poster, Footer, Btn, Container, PosterDesc } = this.styledComponents
+    const { Root, Title, Poster, Footer, Btn, Container } = this.styledComponents
     return (
       <Root class="tm-card">
-        <Container>
+        <Container class="tm-card-poster">
           <Poster src={ this.poster } />
-          { this.$slots.default && <PosterDesc>{ this.$slots.default }</PosterDesc> }
         </Container>
-        <Title>{ this.title }</Title>
-        <Footer>
-        <Btn>{ this.btn }</Btn>
+        <Title class="tm-card-title">{ this.title }</Title>
+        <Footer class="tm-card-footer">
+          <Btn class="tm-card-btn">{ this.btn }</Btn>
         </Footer>
+        { this.$slots.default }
       </Root>
     )
   }

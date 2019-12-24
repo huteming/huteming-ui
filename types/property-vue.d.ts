@@ -9,6 +9,7 @@ declare module 'vue/types/vue' {
         registName: string
         install (vue: typeof Vue): void
         item: VueConstructor
+        PosterBar: VueConstructor
     }
     interface Vue {
         styledDoms: any
