@@ -22,5 +22,5 @@ export interface RequestError extends AxiosError {
 }
 
 export interface JSONPResponse {
-    result: object
+    result: any
 }

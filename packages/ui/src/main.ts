@@ -43,6 +43,7 @@ import Typography from 'packages/ui-typography/src/main'
 
 import * as animation from 'packages/ui-animation/src/main'
 import * as api from 'packages/ui-api/src/main'
+import * as iWxsdk from 'packages/ui-wxsdk/src/main'
 import { ThemeProvider } from 'packages/ui-styles/src/main'
 
 import TransitionSlide from 'packages/ui-transition-slide/src/main'
@@ -110,6 +111,7 @@ export default {
 
 export const Api = api
 export const Animation = animation
+export const wxsdk = iWxsdk
 export { default as CanvasDraw } from 'packages/ui-canvas-draw/src/main'
 export { default as Request, onRequest, onResponse, onResponseError, getOptions } from 'packages/ui-request/src/main'
 

@@ -1,105 +1,84 @@
-import { __RewireAPI__ as WxsdkRewireAPI, wxpay } from '../src/main'
+import wxPay, { __RewireAPI__ as WxsdkRewireAPI } from '../src/wxPay'
 import assert from 'assert'
 import sinon from 'sinon'
-import EventEmitter from 'events'
+import { sleep } from 'tests/helper'
 const FLAG_FAILURE = 'failure'
 const FLAG_SUCCESS = 'success'
 const resGetPayConfig = {
-    b: 'a',
-    j: 'e',
+  b: 'a',
+  j: 'e',
 }
-const mockError = new Error('this is an error')
 
-describe('wxsdk > wxpay', () => {
+describe('wxsdk > wxPay', () => {
     let mockInvoke
 
     beforeEach(async () => {
-        mockInvoke = sinon.fake()
+      mockInvoke = sinon.fake()
 
-        WxsdkRewireAPI.__Rewire__('getPayConfig', () => {
-            if (global.__wx === FLAG_FAILURE) {
-                return Promise.reject(mockError)
-            }
-            return Promise.resolve({
-                data: {
-                    data: JSON.stringify(resGetPayConfig),
-                }
-            })
+      WxsdkRewireAPI.__Rewire__('getPayConfig', () => {
+        return Promise.resolve({
+          data: {
+            data: JSON.stringify(resGetPayConfig),
+          }
         })
+      })
 
-        window.WeixinJSBridge = {
-            invoke (str, obj, fn) {
-                mockInvoke(...arguments)
-                if (global.errInvoke === FLAG_FAILURE) {
-                    return fn({ err_msg: 'invoke error' })
-                }
-                fn({ err_msg: 'get_brand_wcpay_request:ok' })
-            },
-        }
+      window.WeixinJSBridge = {
+        invoke (str, obj, fn) {
+          mockInvoke(...arguments)
+          if (global.errInvoke === FLAG_FAILURE) {
+            return fn({ err_msg: 'invoke error' })
+          }
+          fn({ err_msg: 'get_brand_wcpay_request:ok' })
+        },
+      }
     })
 
     afterEach(() => {
         sinon.restore()
         WxsdkRewireAPI.__ResetDependency__('getPayConfig')
-        global.__wx = FLAG_SUCCESS
-        global.errInvoke = FLAG_SUCCESS
+        global.errInvoke = null
         window.WeixinJSBridge = null
     })
 
     it('success', async () => {
-        await wxpay()
+      global.errInvoke === FLAG_SUCCESS
+      await wxPay()
 
-        const [first, second] = mockInvoke.getCall(0).args
-        assert.strictEqual(first, 'getBrandWCPayRequest')
-        assert.deepStrictEqual(second, resGetPayConfig)
+      const [first, second] = mockInvoke.getCall(0).args
+      assert.strictEqual(first, 'getBrandWCPayRequest')
+      assert.deepStrictEqual(second, resGetPayConfig)
     })
 
-    it('document.addEventListener', async () => {
-        const _save = window.WeixinJSBridge
-        window.WeixinJSBridge = undefined
-        const _saveListener = document.addEventListener
+    it('监听WeixinJSBridgeReady', (done) => {
+      global.errInvoke === FLAG_SUCCESS
+      const _save = window.WeixinJSBridge
+      window.WeixinJSBridge = undefined
+      const event = document.createEvent('Event')
+      event.initEvent('WeixinJSBridgeReady', true, false)
 
-        const myEmitter = new EventEmitter()
-        document.addEventListener = (name, fn) => {
-            myEmitter.on(name, fn)
-        }
-
-        const fake = sinon.fake()
-        WxsdkRewireAPI.__Rewire__('onBridgeReady', (data, resolve) => {
-            resolve()
-            return fake
+      wxPay()
+        .then(() => {
+          assert.ok(mockInvoke.called)
+          done()
         })
-
-        await wxpay()
-        myEmitter.emit('WeixinJSBridgeReady')
-        assert.ok(fake.called)
-
-        window.WeixinJSBridge = _save
-        document.addEventListener = _saveListener
-        WxsdkRewireAPI.__ResetDependency__('onBridgeReady')
+      // 保证已经解析getPayConfig，正在等待触发事件
+      sleep(20)
+        .then(() => {
+          window.WeixinJSBridge = _save
+          document.dispatchEvent(event)
+        })
     })
 
-    it('getPayConfig 异常', done => {
-        global.__wx = FLAG_FAILURE
-        wxpay()
-            .then(() => {
-                done(new Error('非期望异常'))
-            })
-            .catch(err => {
-                assert.strictEqual(err, mockError)
-                done()
-            })
-    })
-
-    it('onBridgeReady 异常', done => {
-        global.errInvoke = FLAG_FAILURE
-        wxpay()
-            .then(() => {
-                done(new Error('非期望异常'))
-            })
-            .catch(err => {
-                assert.strictEqual(err.message, '支付失败: invoke error')
-                done()
-            })
+    it('invoke 异常', done => {
+      global.errInvoke = FLAG_FAILURE
+      wxPay()
+        .then(() => {
+          done(new Error('非期望异常'))
+        })
+        .catch(err => {
+          assert.strictEqual(err.message, '支付失败: invoke error')
+          done()
+        })
     })
 })
