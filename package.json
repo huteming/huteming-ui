@@ -70,6 +70,7 @@
     "commitizen": "^4.0.3",
     "coveralls": "^3.0.7",
     "cross-env": "^5.2.0",
+    "csstype": "^2.6.8",
     "cz-lerna-changelog": "^2.0.2",
     "del": "^5.1.0",
     "eslint": "^5.16.0",
