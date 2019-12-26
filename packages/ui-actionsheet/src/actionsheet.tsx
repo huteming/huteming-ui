@@ -2,10 +2,9 @@ import { Mixins, Prop } from 'vue-property-decorator'
 import { ActionsheetMenu, ComponentActionsheet } from '../types/index'
 import { hairline, withStyles } from '@huteming/ui-styles/src/main'
 import MixinModal from '@huteming/ui-modal/src/main'
-import { StyleHelper } from '@huteming/ui-styles/types'
 import TransitionSlide from '@huteming/ui-transition-slide/src/main'
 
-const styles = (styled: any, css: any, helper: StyleHelper) => {
+const styles = (styled: any, css: any) => {
   return {
     Container: styled('div', (props: any) => `
       position: fixed;

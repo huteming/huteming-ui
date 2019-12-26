@@ -1,7 +1,8 @@
-import { ellipsis, StyledComponent, DescribedComponent } from '@huteming/ui-styles/src/main'
+import { StyledComponent, DescribedComponent } from '@huteming/ui-styles/src/main'
 import { Vue, Prop } from 'vue-property-decorator'
+import { StyledComponents } from '@huteming/ui-styles/types'
 
-const styles = (styled: any, css: any) => {
+const styles = (styled: any, css: any, components: StyledComponents) => {
   return {
     Root: styled('div', () => `
       position: relative;
@@ -23,15 +24,9 @@ const styles = (styled: any, css: any) => {
       height: 100%;
       object-fit: contain;
     `),
-    Title: styled('div', () => `
-      min-height: 54px;
+    Title: styled(components.typography.subtitle2, () => `
       padding: 12px 8px 2px;
-      font-size: 14px;
-      line-height: 20px;
       color: #202631;
-      font-weight: bold;
-      box-sizing: border-box;
-      ${ellipsis(2)};
     `),
     Footer: styled('div', () => `
       padding: 0 10px;
@@ -68,7 +63,7 @@ export default class Card extends Vue {
         <Container class="tm-card-poster">
           <Poster src={ this.poster } />
         </Container>
-        <Title class="tm-card-title">{ this.title }</Title>
+        <Title lines={2} class="tm-card-title"><strong>{ this.title }</strong></Title>
         <Footer class="tm-card-footer">
           <Btn class="tm-card-btn">{ this.btn }</Btn>
         </Footer>

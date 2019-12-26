@@ -1,8 +1,8 @@
 import { StyledComponent, DescribedComponent } from 'packages/ui-styles/src/main'
-import { StyleProps } from 'packages/ui-styles/types'
+import { StyleProps, StyledComponents } from 'packages/ui-styles/types'
 import { Vue, Prop } from 'vue-property-decorator'
 
-const styles = (styled: any, css: any) => {
+const styles = (styled: any, css: any, components: StyledComponents) => {
   const rootSize = 16
   const mapVariant: any = {
     h1: `

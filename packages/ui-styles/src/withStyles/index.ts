@@ -5,47 +5,48 @@ import withTheme from '../withTheme'
 import withPropsState from '../withPropsState'
 import styled, { css } from 'vue-styled-components'
 import { PropsState, StyleProps, StyleCreater, StyleHelper } from '../../types'
+import components from '../styledComponent/components'
 
 interface DomProps {
-    state?: PropsState
-    [key: string]: any
+  state?: PropsState
+  [key: string]: any
 }
 
 const _styled = (tagName: string, domProps: DomProps | Function, cssRules: Function) => {
-    if (typeof domProps === 'function') {
-        cssRules = domProps
-        domProps = {}
-    }
-    // 每个组件注入共享状态 state
-    domProps.state = withPropsState()
+  if (typeof domProps === 'function') {
+    cssRules = domProps
+    domProps = {}
+  }
+  // 每个组件注入共享状态 state
+  domProps.state = withPropsState()
 
-    return styled(tagName, domProps)`${(props: StyleProps) => {
-        props.theme = withTheme(props.theme)
-        return cssRules(props)
-    }}`
+  return styled(tagName, domProps)`${(props: StyleProps) => {
+    props.theme = withTheme(props.theme)
+    return cssRules(props)
+  }}`
 }
 
 const helper: StyleHelper = {
-    autofit (px: number) {
-        return document.documentElement.clientWidth / 750 * px
-    },
+  autofit (px: number) {
+    return document.documentElement.clientWidth / 750 * px
+  },
 }
 
 const withStyles = function wrapper (styleCreater?: StyleCreater) {
-    return function<V extends Vue> (CompConstructor: VueClass<V>, options: ComponentOptions<V> = {}) {
-        const styles: object | undefined = styleCreater && styleCreater(_styled, css, helper)
-        const styledDoms: any = {}
+  return function<V extends Vue> (CompConstructor: VueClass<V>, options: ComponentOptions<V> = {}) {
+    const styles: object | undefined = styleCreater && styleCreater(_styled, css, components, helper)
+    const styledDoms: any = {}
 
-        if (styles) {
-            Object.entries(styles).forEach(([tagName, creater]: any[]) => {
-                styledDoms[tagName] = typeof creater === 'function' ? creater() : creater
-            })
-        }
-        CompConstructor.prototype.styledDoms = styledDoms
-        CompConstructor.registName = options.name || CompConstructor.name
-
-        return Component(options)(CompConstructor)
+    if (styles) {
+      Object.entries(styles).forEach(([tagName, creater]: any[]) => {
+        styledDoms[tagName] = typeof creater === 'function' ? creater() : creater
+      })
     }
+    CompConstructor.prototype.styledDoms = styledDoms
+    CompConstructor.registName = options.name || CompConstructor.name
+
+    return Component(options)(CompConstructor)
+  }
 }
 
 export default withStyles
