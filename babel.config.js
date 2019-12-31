@@ -1,20 +1,28 @@
-const plugins = []
+const plugins = [
+  'macros',
+  'babel-plugin-idx',
+]
 const isProduction = process.env.NODE_ENV === 'production'
 const isDocs = process.env.BUILD_TYPE === 'docs'
 
-if (process.env.NODE_ENV === 'test') {
-    plugins.push('babel-plugin-rewire')
-}
+// if (process.env.NODE_ENV === 'test') {
+//   plugins.push('rewire')
+// }
 
 module.exports = {
-    presets: [
-        [
-            '@vue/cli-plugin-babel/preset',
-            {
-                useBuiltIns: isProduction && !isDocs ? false : 'usage',
-            },
-        ]
-    ],
-    plugins,
-    // sourceType: 'unambiguous',
+  env: {
+    test: {
+      plugins: ['rewire'],
+    },
+  },
+  presets: [
+    [
+      '@vue/cli-plugin-babel/preset',
+      {
+        useBuiltIns: isProduction && !isDocs ? false : 'usage',
+      },
+    ]
+  ],
+  plugins,
+  // sourceType: 'unambiguous',
 }

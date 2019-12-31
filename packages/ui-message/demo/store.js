@@ -1,5 +1,5 @@
 export default {
-    state: {
-        num: 1,
-    },
+  state: {
+    num: 1,
+  },
 }

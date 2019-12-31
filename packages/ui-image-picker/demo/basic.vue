@@ -3,7 +3,7 @@
     <button @click="disabled = !disabled">toggle disabled: {{ disabled }}</button>
 
     <TmImage
-      v-image-picker="{ onload: handleLoad, disabled: disabled }"
+      v-image-picker="{ onload: handleLoad, disabled: disabled, before: before, after: after }"
       :src="image"
       style="width: 100px; height: 100px; margin: 0 auto;"
       hold />
@@ -36,7 +36,13 @@ export default {
   },
 
   methods: {
-    handleLoad (dataURL) {
+    before () {
+      console.log('before')
+    },
+    after () {
+      console.log('after')
+    },
+    handleLoad (dataURL, files) {
       this.image = dataURL
     },
     handleLoadMultiple (images) {

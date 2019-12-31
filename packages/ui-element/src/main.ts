@@ -65,67 +65,67 @@ const MOZ_HACK_REGEXP = /^moz([A-Z])/
  * 检测是否在容器内可视
  */
 export function isInContainer (element: any, container: any) {
-    if (!element || !container) return false
+  if (!element || !container) return false
 
-    const elRect = element.getBoundingClientRect()
-    let containerRect
+  const elRect = element.getBoundingClientRect()
+  let containerRect
 
-    if ([window, document, document.documentElement].includes(container)) {
-        containerRect = {
-            top: 0,
-            right: window.innerWidth,
-            bottom: window.innerHeight,
-            left: 0
-        }
-    } else {
-        containerRect = container.getBoundingClientRect()
+  if ([window, document, document.documentElement].includes(container)) {
+    containerRect = {
+      top: 0,
+      right: window.innerWidth,
+      bottom: window.innerHeight,
+      left: 0,
     }
+  } else {
+    containerRect = container.getBoundingClientRect()
+  }
 
-    return elRect.top < containerRect.bottom &&
-        elRect.bottom > containerRect.top &&
-        elRect.right > containerRect.left &&
-        elRect.left < containerRect.right
+  return elRect.top < containerRect.bottom &&
+    elRect.bottom > containerRect.top &&
+    elRect.right > containerRect.left &&
+    elRect.left < containerRect.right
 }
 
 /**
  * 监听事件
  */
 export function on (element: any, event: any, handler: any) {
-    if (element && event && handler) {
-        element.addEventListener(event, handler, false)
-    }
+  if (element && event && handler) {
+    element.addEventListener(event, handler, false)
+  }
 }
 
 /**
  * 移除监听
  */
 export function off (element: any, event: any, handler: any) {
-    if (element && event) {
-        element.removeEventListener(event, handler, false)
-    }
+  if (element && event) {
+    element.removeEventListener(event, handler, false)
+  }
 }
 
 /**
  * 添加样式前缀，一般在自定义 style 时使用
  */
 export function autoprefixer (style: any) {
-    if (typeof style !== 'object') {
-        return style
-    }
-
-    const rules = ['transform', 'transition', 'animation']
-    const prefixes = ['ms-', 'webkit-']
-
-    rules.forEach(rule => {
-        const value = style[rule]
-        if (rule && value) {
-            prefixes.forEach(prefix => {
-                style[prefix + rule] = value
-            })
-        }
-    })
-
+  if (typeof style !== 'object') {
     return style
+  }
+
+  const rules = ['transform', 'transition', 'animation']
+  const prefixes = ['ms-', 'webkit-']
+
+  rules.forEach(rule => {
+    const value = style[rule]
+    if (rule && value) {
+      prefixes.forEach(prefix => {
+        style[prefix + rule] = value
+      })
+    }
+  })
+
+  return style
 }
 
 /**
@@ -135,26 +135,26 @@ export function autoprefixer (style: any) {
  * @param {Number} y y轴方向
  */
 export function scrollX (element: any, x: any) {
-    if (element === window) {
-        document.body && (document.body.scrollLeft = x)
-        document.documentElement && (document.documentElement.scrollLeft = x)
-        return true
-    }
-    element.scrollLeft = x
+  if (element === window) {
+    document.body && (document.body.scrollLeft = x)
+    document.documentElement && (document.documentElement.scrollLeft = x)
+    return true
+  }
+  element.scrollLeft = x
 }
 
 export function scrollY (element: any, x: any) {
-    if (element === window) {
-        document.body && (document.body.scrollTop = x)
-        document.documentElement && (document.documentElement.scrollTop = x)
-        return true
-    }
-    element.scrollTop = x
+  if (element === window) {
+    document.body && (document.body.scrollTop = x)
+    document.documentElement && (document.documentElement.scrollTop = x)
+    return true
+  }
+  element.scrollTop = x
 }
 
 export function scrollTo (element: any, x: any, y: any) {
-    scrollX(element, x)
-    scrollY(element, y)
+  scrollX(element, x)
+  scrollY(element, y)
 }
 
 /**
@@ -162,11 +162,11 @@ export function scrollTo (element: any, x: any, y: any) {
  * @param {Element} element 可滚动dom
  */
 export function getScrollLeft (element: any) {
-    if (element === window) {
-        return Math.max(window.pageXOffset || 0, document.documentElement.scrollLeft, document.body.scrollLeft)
-    }
+  if (element === window) {
+    return Math.max(window.pageXOffset || 0, document.documentElement.scrollLeft, document.body.scrollLeft)
+  }
 
-    return element.scrollLeft
+  return element.scrollLeft
 }
 
 /**
@@ -174,22 +174,22 @@ export function getScrollLeft (element: any) {
  * @param {Element} element 可滚动dom
  */
 export function getScrollTop (element: any) {
-    if (element === window) {
-        return Math.max(window.pageYOffset || 0, document.documentElement.scrollTop, document.body.scrollTop)
-    }
+  if (element === window) {
+    return Math.max(window.pageYOffset || 0, document.documentElement.scrollTop, document.body.scrollTop)
+  }
 
-    return element.scrollTop
+  return element.scrollTop
 }
 
 /**
  * 获取dom距离屏幕上端的位置
  */
 export function getElementTop (element: any) {
-    if (element === window) {
-        return getScrollTop(window)
-    }
+  if (element === window) {
+    return getScrollTop(window)
+  }
 
-    return element.getBoundingClientRect().top + getScrollTop(window)
+  return element.getBoundingClientRect().top + getScrollTop(window)
 }
 
 /**
@@ -199,114 +199,114 @@ export function getElementTop (element: any) {
  * @param {Function} fail 失败回调函数
  */
 const optionsAttached = {
-    timeout: 100,
-    maxCount: 10,
+  timeout: 100,
+  maxCount: 10,
 }
 export function attached (element: HTMLElement, success: Function, fail?: Function | AttachOptions, options: AttachOptions = {}) {
-    // 第三个参数允许传配置对象，此时失败回调取对象中的fail属性
-    if (typeof fail === 'object') {
-        options = fail
-        fail = options.fail
-    }
+  // 第三个参数允许传配置对象，此时失败回调取对象中的fail属性
+  if (typeof fail === 'object') {
+    options = fail
+    fail = options.fail
+  }
 
-    const { timeout, maxCount } = Object.assign({}, optionsAttached, options)
-    let tryCount = 0
+  const { timeout, maxCount } = Object.assign({}, optionsAttached, options)
+  let tryCount = 0
+
+  if (isAttached(element)) {
+    success(tryCount)
+    return true
+  }
+
+  function tryBind () {
+    tryCount++
+
+    if (tryCount > maxCount) {
+      if (typeof fail === 'function') {
+        fail(tryCount)
+      }
+      return false
+    }
 
     if (isAttached(element)) {
-        success(tryCount)
-        return true
-    }
-
-    function tryBind () {
-        tryCount++
-
-        if (tryCount > maxCount) {
-            if (typeof fail === 'function') {
-                fail(tryCount)
-            }
-            return false
-        }
-
-        if (isAttached(element)) {
-            success(tryCount)
-            return true
-        }
-
-        setTimeout(tryBind, timeout)
+      success(tryCount)
+      return true
     }
 
     setTimeout(tryBind, timeout)
+  }
+
+  setTimeout(tryBind, timeout)
 }
 
 /**
  * 判断是否插入html文档
  */
 function isAttached (el: HTMLElement | string): boolean {
-    const element = typeof el === 'string' ? document.querySelector(el) : el
+  const element = typeof el === 'string' ? document.querySelector(el) : el
 
-    if (!element) {
-        return false
-    }
-
-    let currentNode = element.parentNode as HTMLElement
-
-    while (currentNode) {
-        if (currentNode.tagName === 'HTML') {
-            return true
-        }
-        // DocumentFragment
-        if (currentNode.nodeType === 11) {
-            return false
-        }
-        currentNode = currentNode.parentNode as HTMLElement
-    }
-
+  if (!element) {
     return false
+  }
+
+  let currentNode = element.parentNode as HTMLElement
+
+  while (currentNode) {
+    if (currentNode.tagName === 'HTML') {
+      return true
+    }
+    // DocumentFragment
+    if (currentNode.nodeType === 11) {
+      return false
+    }
+    currentNode = currentNode.parentNode as HTMLElement
+  }
+
+  return false
 }
 
 /**
  * 转换为驼峰命名
  */
 export function camelCase (name: any) {
-    return name
-        .replace(SPECIAL_CHARS_REGEXP, function (_: any, separator: any, letter: any, offset: any) {
-            return offset ? letter.toUpperCase() : letter
-        })
-        .replace(MOZ_HACK_REGEXP, 'Moz$1')
+  return name
+    .replace(SPECIAL_CHARS_REGEXP, function (_: any, separator: any, letter: any, offset: any) {
+      return offset ? letter.toUpperCase() : letter
+    })
+    .replace(MOZ_HACK_REGEXP, 'Moz$1')
 }
 
 export function getStyle (element: any, styleName: any) {
-    if (!element || !styleName) return null
+  if (!element || !styleName) return null
 
-    styleName = camelCase(styleName)
-    if (styleName === 'float') {
-        styleName = 'cssFloat'
-    }
+  styleName = camelCase(styleName)
+  if (styleName === 'float') {
+    styleName = 'cssFloat'
+  }
 
-    try {
-        const computed = (<Window>document.defaultView).getComputedStyle(element)
-        return element.style[styleName] || computed ? computed[styleName] : null
-    } catch (e) {
-        return element.style[styleName]
-    }
+  try {
+    const computed = (<Window>document.defaultView).getComputedStyle(element)
+    return element.style[styleName] || computed ? computed[styleName] : null
+  } catch (e) {
+    return element.style[styleName]
+  }
 }
 
 /**
  * 检测是否支持滚动
  */
 export function isScroll (element: any, vertical: any) {
-    let styleName
+  let styleName
 
-    if (vertical === null || vertical === undefined) {
-        styleName = 'overflow'
-    } else if (vertical) {
-        styleName = 'overflow-y'
-    } else {
-        styleName = 'overflow-x'
-    }
-    const overflow = getStyle(element, styleName)
+  if (vertical === null || vertical === undefined) {
+    styleName = 'overflow'
+  } else if (vertical) {
+    styleName = 'overflow-y'
+  } else {
+    styleName = 'overflow-x'
+  }
+  const overflow = getStyle(element, styleName)
 
-    return /(scroll|auto)/.test(overflow)
+  return /(scroll|auto)/.test(overflow)
 }
 
 /**
@@ -316,20 +316,20 @@ export function isScroll (element: any, vertical: any) {
  * @argument {HTMLElement} container 限制顶层容器，默认是window
  */
 export function getScrollContainer (element: any, vertical?: any, container?: any) {
-    let parent = element
+  let parent = element
 
-    while (parent) {
-        if (container && parent === container) {
-            return container
-        }
-        if ([window, document, document.documentElement].includes(parent)) {
-            return window
-        }
-        if (isScroll(parent, vertical)) {
-            return parent
-        }
-        parent = parent.parentNode
+  while (parent) {
+    if (container && parent === container) {
+      return container
     }
+    if ([window, document, document.documentElement].includes(parent)) {
+      return window
+    }
+    if (isScroll(parent, vertical)) {
+      return parent
+    }
+    parent = parent.parentNode
+  }
 
-    return parent
+  return parent
 }
