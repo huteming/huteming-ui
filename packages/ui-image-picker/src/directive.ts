@@ -1,6 +1,8 @@
 import Vue from 'vue'
 import ComponentInput from './image-input'
 import { getStyle } from '@huteming/ui-element/src/main'
+import { ImagePickerInput, ImagePickerOptions } from '../types'
+import { DirectiveBinding } from 'vue/types/options'
 const CTX = '$$ImagePicker'
 
 const defaults = {
@@ -16,21 +18,27 @@ const ConstructorInput = Vue.extend(ComponentInput)
 export default {
   registName: 'ImagePicker',
 
-  inserted (el: any, binding: any) {
+  inserted (el: HTMLElement, binding: DirectiveBinding) {
     const stylePosition = getStyle(el, 'position')
     if (!stylePosition || stylePosition === 'static') {
       console.warn('[@huteming/ui Warn][image-picker]元素定位异常: ', stylePosition)
     }
+    let value: ImagePickerOptions = binding.value || {}
 
-    if (typeof binding.value === 'function') {
-      binding.value = {
-        onload: binding.value,
+    if (typeof value === 'function') {
+      value = {
+        onload: value,
       }
     }
-    const options = Object.assign({}, defaults, binding.value || {})
-
-    const instance = new ConstructorInput({
+    const options = Object.assign({}, defaults, value)
+    const instance: ImagePickerInput = new ConstructorInput({
       propsData: options,
+      data () {
+        return {
+          disabled: options.disabled,
+          max: options.max,
+        }
+      },
     })
 
     el.appendChild(instance.$mount().$el)
@@ -41,15 +49,22 @@ export default {
     }
   },
 
-  componentUpdated (el: any, binding: any) {
-    const { instance } = el[CTX]
+  componentUpdated (el: HTMLElement, binding: DirectiveBinding) {
+    const scope = el[CTX]
+    const value = binding.value
+    /* istanbul ignore if */
+    if (!scope || !value || typeof value === 'function') return
+    const { instance } = scope
 
-    instance.max = binding.value && binding.value.max
-    instance.disabled = binding.value && binding.value.disabled
+    instance.max = value.max
+    instance.disabled = value.disabled
   },
 
-  unbind (el: any) {
-    const { instance } = el[CTX]
+  unbind (el: HTMLElement) {
+    const scope = el[CTX]
+    /* istanbul ignore if */
+    if (!scope) return
+    const { instance } = scope
 
     el.removeChild(instance.$el)
   },

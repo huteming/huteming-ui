@@ -266,7 +266,7 @@ describe('loading', () => {
         await sleep(10)
         wrapLoading = wrapper.find('.tm-loading')
         assert.ok(wrapLoading.exists())
-        await sleep(30)
+        await sleep(50)
         wrapLoading = wrapper.find('.tm-loading')
         assert.ok(!wrapLoading.exists())
     })

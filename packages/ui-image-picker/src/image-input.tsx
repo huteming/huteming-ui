@@ -25,6 +25,7 @@ export default class ImageInput extends Vue {
     const { Root } = this.styledComponents
     return (
       <Root
+        v-model={ this.fileValue }
         class="tm-image-picker"
         type="file"
         accept="image/*"
@@ -38,11 +39,9 @@ export default class ImageInput extends Vue {
   @Prop({ type: Boolean, default: false })
   multiple!: boolean
 
-  @Prop({ type: Boolean, default: false })
-  disabled!: boolean
-
-  @Prop({ type: Number, default: Infinity })
-  max!: number
+  fileValue = ''
+  disabled: boolean = false
+  max: number = Infinity
 
   @Prop({ type: Function })
   onload: Function | undefined
@@ -91,7 +90,7 @@ export default class ImageInput extends Vue {
         })
 
       // fix 选中相同图片时，不触发 change 事件
-      event.target.value = ''
+      this.fileValue = ''
     }
 
     if (typeof this.before !== 'function') {

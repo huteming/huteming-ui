@@ -4,6 +4,7 @@ import { mount, createLocalVue } from '@vue/test-utils'
 import sinon from 'sinon'
 import imgVip from 'tests/images/vip.png'
 import { Mock, sleep } from 'tests/helper'
+const scope = '$$ImagePicker'
 
 const localVue = createLocalVue()
 localVue.use(ImagePicker)
@@ -160,6 +161,8 @@ describe('image-picker', () => {
             onload (dataURI, files) {
               assert.ok(dataURI.startsWith('data:image/png;base64,'))
               assert.strictEqual(files, mockFiles[0])
+              // 期望重置value
+              assert.strictEqual(this.$el[scope].instance.fileValue, '')
               done()
             },
           },
