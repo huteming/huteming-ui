@@ -5,10 +5,10 @@
   </div>
 </template>
 
-<script>
+<script lant="ts">
 import CanvasDraw from '../src/main'
 import bgAdmission from './images/bg-admission.png'
-import { loadImages } from 'packages/ui-tools/src/main'
+import { loadImages } from '../../ui-tools/src/main'
 
 export default {
   data () {
@@ -18,8 +18,9 @@ export default {
   },
 
   async mounted () {
-    this.initText()
+    // this.initText()
     // this.initImage()
+    this.initBaseline()
   },
 
   methods: {
@@ -143,6 +144,20 @@ export default {
       this.img = new CanvasDraw(704, 978)
         .add(ins => {
           ins.drawImage(_imgBg, 0, 0, 704, 978)
+        })
+        .done()
+    },
+    async initBaseline () {
+      this.img = new CanvasDraw(750, 500)
+        .add(ins => {
+          ins.drawLine(0, 100, 750, 100, { color: 'blue' })
+        })
+        .add(ins => {
+          ins.drawText('top', 10, 100, { baseline: 'top', size: 40, lineHeight: 40 })
+          ins.drawText('bottom', 100, 100, { baseline: 'bottom', size: 40, lineHeight: 40 })
+          ins.drawText('middle', 240, 100, { baseline: 'middle', size: 40, lineHeight: 40 })
+          ins.drawText('alphabetic', 380, 100, { baseline: 'alphabetic', size: 40, lineHeight: 40 })
+          ins.drawText('hanging', 580, 100, { baseline: 'hanging', size: 40, lineHeight: 40 })
         })
         .done()
     },

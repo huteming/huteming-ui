@@ -120,50 +120,31 @@ describe('dialog', () => {
     // })
 
     it('create', async () => {
-        const wrapper = mount({
-            template: `
-                <div>
-                    <TmDialog v-model="visible" @open="handleOpen" @close="handleClose" />
-                </div>
-            `,
-            data () {
-                return {
-                    visible: false,
-                    open: false,
-                    clsoe: false,
-                }
-            },
-            methods: {
-                handleOpen () {
-                    this.open = true
-                },
-                handleClose () {
-                    this.close = true
-                },
-            },
-            components: {
-                TmDialog,
-            },
-        })
-        const wrapperDialog = wrapper.find(TmDialog)
-        await sleep()
+      const wrapper = mount(TmDialog, {
+        propsData: {
+          value: false,
+        },
+        stubs: {
+          Transition: TransitionStub,
+        },
+      })
 
-        assert.ok(!wrapperDialog.isVisible())
-        wrapper.setData({ visible: true })
-        await sleep()
+      assert.ok(!wrapper.isVisible())
+      wrapper.setProps({ value: true })
+      await sleep()
 
-        assert.ok(wrapperDialog.isVisible())
-        assert.ok(wrapperDialog.emitted('open'))
-        wrapper.setData({ visible: false })
-        await sleep(50)
+      assert.ok(wrapper.isVisible())
+      assert.ok(wrapper.emitted('open'))
+      wrapper.setProps({ value: false })
+      await sleep()
 
-        assert.ok(!wrapperDialog.isVisible())
-        assert.ok(wrapperDialog.emitted('close'))
+      assert.ok(!wrapper.isVisible())
+      assert.ok(wrapper.emitted('close'))
 
-        const emitInput = wrapperDialog.emitted('input')
-        assert.strictEqual(emitInput.length, 2)
-        assert.deepStrictEqual(emitInput[0], [true, false])
-        assert.deepStrictEqual(emitInput[1], [false, true])
+      const emitInput = wrapper.emitted('input')
+      assert.strictEqual(emitInput.length, 2)
+      assert.deepStrictEqual(emitInput[0], [true, false])
+      assert.deepStrictEqual(emitInput[1], [false, true])
     })
 
     it('before close', async () => {

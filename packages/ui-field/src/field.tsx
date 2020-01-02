@@ -1,9 +1,10 @@
 
 import { getScrollTop, scrollY } from '@huteming/ui-element/src/main'
 import { placeholder, StyledComponent, DescribedComponent } from '@huteming/ui-styles/src/main'
-import { Vue, Prop } from 'vue-property-decorator'
-import { HTMLInputEvent } from '../types'
+import { Vue, Prop, Watch } from 'vue-property-decorator'
+import { HTMLInputEvent, PropAutosize } from '../types'
 import TmIcon from 'packages/ui-icon/src/main'
+import calcTextareaHeight from './calcTextareaHeight'
 
 const styles = (styled: any, css: any) => {
   const BaseInput = styled('input', () => `
@@ -60,7 +61,7 @@ export default class Field extends Vue {
       <Root class="tm-field">
         <DomInput
           ref="field"
-          style={ this.inputStyle }
+          style={ this.styleInput }
           type={ this.type }
           value={ this.nativeInputValue }
           on-compositionstart={ this.handleComposition }
@@ -78,6 +79,10 @@ export default class Field extends Vue {
     )
   }
 
+  mounted () {
+    this.resizeTextarea()
+  }
+
   @Prop({ type: String, default: 'text' })
   type!: string
 
@@ -93,10 +98,14 @@ export default class Field extends Vue {
   @Prop({ type: Boolean, default: false })
   clearable!: boolean
 
+  @Prop({ type: [Boolean, Object], default: false })
+  autosize!: boolean | PropAutosize
+
   isOnComposition = false
   scrollTop = -1
   scrollContainer = null
   focused = false
+  textareaCalcStyle = {}
 
   get nativeInputValue () {
     return this.value === null || this.value === undefined ? '' : this.value
@@ -109,9 +118,39 @@ export default class Field extends Vue {
     )
   }
 
+  get styleInput () {
+    let styles = Object.assign({}, this.inputStyle)
+
+    if (this.type === 'textarea') {
+      styles = Object.assign(styles, this.textareaCalcStyle)
+    }
+
+    return styles
+  }
+
+  @Watch('nativeInputValue')
+  onValueChange () {
+    this.$nextTick(this.resizeTextarea)
+  }
+
   handleClear (event: Event) {
     this.$emit('input', '')
     this.$emit('clear', event)
+  }
+
+  resizeTextarea () {
+    const { autosize, type } = this
+    if (type !== 'textarea') return
+    const textareaComp = this.$refs.field as Vue
+    const textareaEle = textareaComp.$el as HTMLTextAreaElement
+    if (!autosize) {
+      this.textareaCalcStyle = {
+        minHeight: calcTextareaHeight(textareaEle).minHeight,
+      }
+      return
+    }
+    const { minRows, maxRows } = autosize === true ? ({} as PropAutosize) : autosize
+    this.textareaCalcStyle = calcTextareaHeight(textareaEle, minRows, maxRows)
   }
 
   focus () {

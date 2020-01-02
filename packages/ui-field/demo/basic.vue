@@ -3,7 +3,7 @@
     <button @click="$refs.field.focus()">click to focus</button>
 
     <demo-divider>输入框</demo-divider>
-    <demo-cell title="qq">
+    <demo-cell>
       <TmField ref="field" v-model="value1" placeholder="请输入qq号" @focus="handleLog('force')" @blur="handleLog('blur')" @change="handleLog('change')" slot="body" />
     </demo-cell>
 
@@ -13,8 +13,16 @@
     </demo-cell>
 
     <demo-divider>带有清除控件</demo-divider>
-    <demo-cell title="qq">
+    <demo-cell>
       <TmField ref="field" v-model="value3" placeholder="请输入" slot="body" clearable />
+    </demo-cell>
+
+    <demo-divider>高度自适应文本域</demo-divider>
+    <demo-cell>
+      <TmField type="textarea" v-model="value4" placeholder="请输入" slot="body" autosize />
+    </demo-cell>
+    <demo-cell>
+      <TmField type="textarea" v-model="value5" placeholder="请输入" slot="body" :autosize="{ minRows: 2, maxRows: 3 }" />
     </demo-cell>
   </div>
 </template>
@@ -26,6 +34,8 @@ export default {
       value1: '',
       value2: '',
       value3: '',
+      value4: '',
+      value5: '',
       visible: false,
     }
   },
