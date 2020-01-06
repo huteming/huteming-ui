@@ -1,7 +1,7 @@
 {
   "name": "@huteming/jhsy",
   "private": false,
-  "version": "3.1.0",
+  "version": "3.2.0",
   "description": "",
   "main": "dist/jhsy.common.js",
   "scripts": {

@@ -3,6 +3,32 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [3.2.0](https://github.com/huteming/huteming-ui/compare/v3.1.0...v3.2.0) (2020-01-06)
+
+
+### Bug Fixes
+
+* **image-picker:** 修复重置的value类型错误 ([f1601d8](https://github.com/huteming/huteming-ui/commit/f1601d81e07870c499a3408b49fda0023918f43d))
+* **loading:** 修复loading高度不足以覆盖内容区域的问题 ([630130e](https://github.com/huteming/huteming-ui/commit/630130e8b5fec9ea0979271a035654d6666b8ca9))
+
+
+### Features
+
+* 支持自定义样式和组件前缀 ([14d36c5](https://github.com/huteming/huteming-ui/commit/14d36c5d9e1acba40c87eaa4c2301c6819c53285))
+* **card:** 添加CardPosterBar组件作为图片描述容器组件 ([ce93db3](https://github.com/huteming/huteming-ui/commit/ce93db3788ceb548a8546c514651fd67ec3441ee))
+* **carousel:** 轮播carousel支持card样式 ([8a33af3](https://github.com/huteming/huteming-ui/commit/8a33af3bc5f8c12dbd490caf3c489fee810505be))
+* **empty:** empty组件支持不显示图片 ([12b1d86](https://github.com/huteming/huteming-ui/commit/12b1d86312a2b1a6ea0d88e13a16db0a7f02d0ed))
+* **field:** 支持文本域textarea高度自适应属性: autosize ([cdd6935](https://github.com/huteming/huteming-ui/commit/cdd6935bf8dc044f5851c4a79508f633feeb711a))
+* **field:** 添加支持清除控件 ([e4550ff](https://github.com/huteming/huteming-ui/commit/e4550ff65f814df4c9620938d2d9a21187ad4033))
+* **image-picker:** 添加onload前后周期函数before,after ([82660ff](https://github.com/huteming/huteming-ui/commit/82660ff4661eaff01d0c79c62e1d46ceb2630371))
+* **range:** 添加滑动事件moving ([bb26572](https://github.com/huteming/huteming-ui/commit/bb26572b4fe719607ddec7f78bfc78e1f17f0c0d))
+* **styles:** styleCreater添加第三个参数为共用基础组件 ([b24bda8](https://github.com/huteming/huteming-ui/commit/b24bda85e2ca2c27521e753cf0790707ab9cd570))
+* **ui:** 添加排版组件Typography ([7bb8372](https://github.com/huteming/huteming-ui/commit/7bb837274feafb071ad70a4f3530d8d2e1add064))
+
+
+
+
+
 # 3.1.0 (2019-12-19)
 
 

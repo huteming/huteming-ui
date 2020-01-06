@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [3.2.0](https://github.com/huteming/huteming-ui/compare/v3.1.0...v3.2.0) (2020-01-06)
+
+
+### Features
+
+* **empty:** empty组件支持不显示图片 ([12b1d86](https://github.com/huteming/huteming-ui/commit/12b1d86312a2b1a6ea0d88e13a16db0a7f02d0ed))
+
+
+
+
+
 # 3.1.0 (2019-12-19)
 
 **Note:** Version bump only for package @huteming/ui-empty

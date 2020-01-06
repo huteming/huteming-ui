@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [3.2.0](https://github.com/huteming/huteming-ui/compare/v3.1.0...v3.2.0) (2020-01-06)
+
+
+### Features
+
+* **carousel:** 轮播carousel支持card样式 ([8a33af3](https://github.com/huteming/huteming-ui/commit/8a33af3bc5f8c12dbd490caf3c489fee810505be))
+
+
+
+
+
 # 3.1.0 (2019-12-19)
 
 

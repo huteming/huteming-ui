@@ -1,7 +1,7 @@
 {
   "name": "@huteming/ui-anchor",
   "private": true,
-  "version": "3.1.0",
+  "version": "3.2.0",
   "description": "锚点",
   "main": "dist/anchor.common.js",
   "scripts": {
@@ -11,6 +11,6 @@
   "license": "ISC",
   "dependencies": {
     "@huteming/ui-animation": "^3.1.0",
-    "@huteming/ui-element": "^2.0.4"
+    "@huteming/ui-element": "^3.2.0"
   }
 }

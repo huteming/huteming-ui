@@ -8,16 +8,5 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 ### Features
 
-* **card:** 添加CardPosterBar组件作为图片描述容器组件 ([ce93db3](https://github.com/huteming/huteming-ui/commit/ce93db3788ceb548a8546c514651fd67ec3441ee))
 * **styles:** styleCreater添加第三个参数为共用基础组件 ([b24bda8](https://github.com/huteming/huteming-ui/commit/b24bda85e2ca2c27521e753cf0790707ab9cd570))
-
-
-
-
-
-# 3.1.0 (2019-12-19)
-
-
-### Features
-
-* **ui:** 添加组件card ([cd60f31](https://github.com/huteming/huteming-ui/commit/cd60f314ffb0aa613e935d7d957d952a9b806353))
+* **ui:** 添加排版组件Typography ([7bb8372](https://github.com/huteming/huteming-ui/commit/7bb837274feafb071ad70a4f3530d8d2e1add064))

@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [3.2.0](https://github.com/huteming/huteming-ui/compare/v3.1.0...v3.2.0) (2020-01-06)
+
+
+### Features
+
+* 支持自定义样式和组件前缀 ([14d36c5](https://github.com/huteming/huteming-ui/commit/14d36c5d9e1acba40c87eaa4c2301c6819c53285))
+
+
+
+
+
 # 3.1.0 (2019-12-19)
 
 

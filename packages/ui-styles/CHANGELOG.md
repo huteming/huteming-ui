@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [3.2.0](https://47.52.168.43/srv/web-common/compare/v3.1.0...v3.2.0) (2020-01-06)
+
+
+### Features
+
+* 支持自定义样式和组件前缀 ([14d36c5](https://47.52.168.43/srv/web-common/commits/14d36c5d9e1acba40c87eaa4c2301c6819c53285))
+* **styles:** styleCreater添加第三个参数为共用基础组件 ([b24bda8](https://47.52.168.43/srv/web-common/commits/b24bda85e2ca2c27521e753cf0790707ab9cd570))
+
+
+
+
+
 # 3.1.0 (2019-12-19)
 
 
