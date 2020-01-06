@@ -18,7 +18,10 @@ Vue.component(DemoDivider.name, DemoDivider)
 Vue.component(DemoBlock.name, DemoBlock)
 Vue.component(DemoPlaceholder.name, DemoPlaceholder)
 Vue.component(AppCell.name, AppCell)
-Vue.use(ui)
+Vue.use(ui, {
+  // scopeClass: 'jhsy',
+  // scopeComponent: 'App',
+})
 Vue.use(ElementUI)
 Vue.config.productionTip = false
 

@@ -1,4 +1,11 @@
-import { RenderContext } from 'vue'
+import Vue, { RenderContext, VueConstructor } from 'vue'
+
+export function installComponent (name: string, component: VueConstructor) {
+  return function (vue: typeof Vue) {
+    const scope = (vue.prototype.$HUTEMING || {}).scopeComponent || 'Tm'
+    vue.component(`${scope}${name}`, component)
+  }
+}
 
 export function mergeListeners (context: RenderContext, eventName: string, animate: Function) {
   const output: Function[] = [animate]

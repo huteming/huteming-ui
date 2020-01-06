@@ -1,7 +1,9 @@
 import { Prop, Vue } from 'vue-property-decorator'
-import { ellipsis, StyledComponent, DescribedComponent } from 'packages/ui-styles/src/main'
+import { ellipsis, StyledComponent, DescribedComponent, createBEM } from 'packages/ui-styles/src/main'
 import { StyleProps } from 'packages/ui-styles/types'
 import { FlexJustify, FlexAlign, FlexContent, FlexAlignSelf } from '../types/flex'
+const bem = createBEM('flex')
+const bemItem = createBEM('flex-item')
 
 const RootProps = {
   container: Boolean,
@@ -52,7 +54,7 @@ export default class Flex extends Vue {
     return (
       <Root
         ref="root"
-        class={ this.container ? 'tm-flex' : 'tm-flex-item' }
+        class={ this.container ? bem() : bemItem() }
         container={ this.container }
         direction={ this.direction }
         wrap={ this.normalizedWrap }

@@ -91,6 +91,8 @@ const components = [
 ]
 
 function install (vue: typeof Vue, config = {}) {
+  vue.prototype.$HUTEMING = config
+
   Object.values(components).forEach(item => vue.use(item))
 
   vue.component('ThemeProvider', ThemeProvider)

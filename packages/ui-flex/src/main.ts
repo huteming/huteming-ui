@@ -1,7 +1,6 @@
 import Flex from './flex'
+import { installComponent } from 'packages/ui/src/utils/tools'
 
-Flex.install = (Vue) => {
-  Vue.component(Flex.registName, Flex)
-}
+Flex.install = installComponent('Flex', Flex)
 
 export default Flex
