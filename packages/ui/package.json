@@ -1,11 +1,11 @@
 {
-  "name": "@huteming/ui",
+  "name": "@huteming/jhsy",
   "private": false,
   "version": "3.1.0",
   "description": "",
-  "main": "dist/huteming-ui.common.js",
+  "main": "dist/jhsy.common.js",
   "scripts": {
-    "prepublishOnly": "node ../../scripts/build-ui"
+    "prepublishOnly": "node ../../scripts/build-ui jhsy"
   },
   "author": "",
   "license": "ISC",

@@ -21,7 +21,7 @@ import Clocker from 'packages/ui-clocker/src/main'
 import Dialog from 'packages/ui-dialog/src/main'
 import Empty from 'packages/ui-empty/src/main'
 import Field from 'packages/ui-field/src/main'
-import Flex from 'packages/ui-flex/src/main'
+import flex from 'packages/ui-flex/src/main'
 import Icon from 'packages/ui-icon/src/main'
 import Image from 'packages/ui-image/src/main'
 import Panel from 'packages/ui-panel/src/main'
@@ -72,7 +72,7 @@ const components = [
   Toast,
   PickerAddress,
   Empty,
-  Flex,
+  flex,
   Guide,
   InfiniteScroll,
   Loading,
@@ -118,3 +118,5 @@ export { default as CanvasDraw } from 'packages/ui-canvas-draw/src/main'
 export { default as Request, onRequest, onResponse, onResponseError, getOptions } from 'packages/ui-request/src/main'
 
 export { createTheme } from 'packages/ui-styles/src/main'
+
+export const Flex = flex
