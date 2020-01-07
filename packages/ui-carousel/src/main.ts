@@ -1,13 +1,16 @@
 import Carousel from './carousel'
 import CarouselItem from './carousel-item'
+import { installComponent } from 'packages/ui/src/utils/tools'
 
-Carousel.install = (Vue) => {
-    Vue.component(Carousel.registName, Carousel)
-}
-CarouselItem.install = (Vue) => {
-    Vue.component(CarouselItem.registName, CarouselItem)
-}
+const installCarousel = installComponent('Carousel', Carousel)
+const installItem = installComponent('CarouselItem', CarouselItem)
 
+CarouselItem.install = installItem
+
+Carousel.install = function (Vue) {
+  installCarousel(Vue)
+  installItem(Vue)
+}
 Carousel.item = CarouselItem
 
 export default Carousel

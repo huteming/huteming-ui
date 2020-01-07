@@ -15,7 +15,6 @@ import SmartScroll from 'packages/ui-smart-scroll/src/main'
 
 import BtnPay from 'packages/ui-btn-pay/src/main'
 import Carousel from 'packages/ui-carousel/src/main'
-import CarouselItem from 'packages/ui-carousel-item/src/main'
 import Cell from 'packages/ui-cell/src/main'
 import Clocker from 'packages/ui-clocker/src/main'
 import Dialog from 'packages/ui-dialog/src/main'
@@ -54,7 +53,6 @@ const components = [
   Anchor,
   BtnPay,
   Carousel,
-  CarouselItem,
   Cell,
   Button,
   Icon,
@@ -96,7 +94,6 @@ function install (vue: typeof Vue, config = {}) {
   Object.values(components).forEach(item => vue.use(item))
 
   vue.component('ThemeProvider', ThemeProvider)
-  vue.use(Collapse.item)
   vue.use(Picker.item)
 }
 

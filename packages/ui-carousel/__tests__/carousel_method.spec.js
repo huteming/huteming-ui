@@ -1,13 +1,12 @@
 import { mount, shallowMount, createWrapper, createLocalVue } from '@vue/test-utils'
 import TmCarousel from '../src/main'
-import TmCarouselItem from '../../ui-carousel-item/src/main'
 import assert from 'assert'
 import { sleep } from 'tests/helper'
 import sinon from 'sinon'
 
 const localVue = createLocalVue()
+const TmCarouselItem = TmCarousel.item
 localVue.use(TmCarousel)
-localVue.use(TmCarouselItem)
 
 async function create (params, methods = {}) {
     const wrap = mount({
