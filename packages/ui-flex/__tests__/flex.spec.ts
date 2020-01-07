@@ -72,7 +72,7 @@ describe('flex', () => {
     assert.strictEqual(parent.alignSelf, 'auto')
     assert.strictEqual(parent.order, 0)
     assert.strictEqual(parent.grow, 0)
-    assert.strictEqual(parent.shrink, 0)
+    assert.strictEqual(parent.shrink, 1)
     assert.strictEqual(parent.basis, 'auto')
     assert.strictEqual(parent.gutter, '0px')
     assert.strictEqual(parent.ellipsis, false)
