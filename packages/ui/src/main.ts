@@ -39,6 +39,7 @@ import Button from 'packages/ui-button/src/main'
 import Range from 'packages/ui-range/src/main'
 import Card from 'packages/ui-card/src/main'
 import Typography from 'packages/ui-typography/src/main'
+import tag from 'packages/ui-tag/src/main'
 
 import * as animation from 'packages/ui-animation/src/main'
 import * as api from 'packages/ui-api/src/main'
@@ -49,6 +50,7 @@ import TransitionSlide from 'packages/ui-transition-slide/src/main'
 import TransitionFade from 'packages/ui-transition-fade/src/main'
 
 const components = [
+  tag,
   Actionsheet,
   Anchor,
   BtnPay,
@@ -117,3 +119,4 @@ export { default as Request, onRequest, onResponse, onResponseError, getOptions 
 export { createTheme } from 'packages/ui-styles/src/main'
 
 export const Flex = flex
+export const Tag = tag

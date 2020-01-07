@@ -6,6 +6,16 @@ export interface Theme {
   modal: ThemeModal
   button: ThemeButton
   color: ThemeColor
+  font: ThemeFont
+  tag: ThemeTag
+}
+
+export interface ThemeTag {
+  colorDefault: string
+  colorPrimary: string
+  colorSuccess: string
+  colorDanger: string
+  colorWarning: string
 }
 
 export interface ThemeButton {
@@ -67,6 +77,14 @@ export interface ThemeColor {
   grayLight: string
   grayDarker: string
   grayDark: string
+  'gray-1': string
+  'gray-2': string
+  'gray-3': string
+  'gray-4': string
+  'gray-5': string
+  'gray-6': string
+  'gray-7': string
+  'gray-8': string
 }
 
 export interface State {
