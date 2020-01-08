@@ -1,17 +1,17 @@
 import TmIcon from '@huteming/ui-icon/src/main'
 import { Vue } from 'vue-property-decorator'
-import { zIndex, StyledComponent, DescribedComponent } from '@huteming/ui-styles/src/main'
+import { zIndex, StyledComponent, DescribedComponent, createBEM } from '@huteming/ui-styles/src/main'
 import { StyleProps } from '@huteming/ui-styles/types'
+const bem = createBEM('loading')
 
 const styles = (styled: any, css: any) => {
   return {
     Root: styled('div', { zIndex: String }, (props: StyleProps) => `
       position: absolute;
       top: 0;
+      bottom: 0;
       left: 0;
       right: 0;
-      height: 100%;
-      min-height: 150px;
       background-color: rgba(255, 255, 255, 1);
       z-index: ${props.zIndex};
     `),
@@ -19,7 +19,8 @@ const styles = (styled: any, css: any) => {
       font-size: 25px;
     `),
     Content: styled('div', () => `
-      height: 150px;
+      height: 100%;
+      max-height: 150px;
       display: flex;
       align-items: center;
       justify-content: center;
@@ -45,12 +46,12 @@ export default class Loading extends Vue {
         leave-active-class={ this.leaveActiveClass }
         on-after-enter={ this.handleAfterEnter }
         on-after-leave={ this.handleAfterLeave }>
-        <Root class="tm-loading" z-index={ this.zIndex } v-show={ this.visible } on-click={ this.handleStop } on-touchmove={ this.handleTouchmove }>
-          <Content class="tm-loading-content" style={ this.styleContent }>
-            <Icon class="tm-loading__icon">
+        <Root class={ bem() } z-index={ this.zIndex } v-show={ this.visible } on-click={ this.handleStop } on-touchmove={ this.handleTouchmove }>
+          <Content class={ bem('content') } style={ this.styleContent }>
+            <Icon class={ bem('icon') }>
               <TmIcon icon="loading" />
             </Icon>
-            { this.text && <Text class="tm-loading-text" style={ this.textStyle }>{ this.text }</Text> }
+            { this.text && <Text class={ bem('text') } style={ this.textStyle }>{ this.text }</Text> }
           </Content>
         </Root>
       </transition>

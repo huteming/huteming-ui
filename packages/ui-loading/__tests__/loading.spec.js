@@ -340,7 +340,7 @@ describe('loading', () => {
         }, {
             localVue,
         })
-        const text = wrap.find('.tm-loading-text')
+        const text = wrap.find('.tm-loading__text')
         assert.ok(text.exists())
         assert.strictEqual(text.text(), 'hello')
     })

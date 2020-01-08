@@ -28,8 +28,8 @@ export default function createBEM (block: string) {
       modifier = el
       el = ''
     }
-    block = join(block, el, DIVIDER_ELEMENT)
-    return modifier ? [block, suffix(block, modifier)] : block
+    el = join(block, el, DIVIDER_ELEMENT)
+    return modifier ? [el, suffix(el, modifier)] : el
   }
 }
 

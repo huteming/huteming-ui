@@ -146,7 +146,7 @@ export default class Flex extends Vue {
   @Prop({ type: Number, default: 0 })
   grow!: number
 
-  @Prop({ type: Number, default: 1 })
+  @Prop({ type: Number, default: 0 })
   shrink!: number
 
   @Prop({ type: String, default: 'auto' })
