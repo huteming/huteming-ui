@@ -49,6 +49,8 @@ import { ThemeProvider } from 'packages/ui-styles/src/main'
 import TransitionSlide from 'packages/ui-transition-slide/src/main'
 import TransitionFade from 'packages/ui-transition-fade/src/main'
 
+import pack from '../package.json'
+
 const components = [
   tag,
   Actionsheet,
@@ -105,6 +107,7 @@ if (typeof window !== 'undefined' && window.Vue) {
 }
 
 export default {
+  version: pack.version,
   install,
   ThemeProvider,
   ...components,
