@@ -1,7 +1,7 @@
 {
   "name": "@huteming/ui-icon",
   "private": true,
-  "version": "3.2.0",
+  "version": "3.3.0",
   "description": "> 图标",
   "main": "dist/icon.common.js",
   "scripts": {
@@ -13,6 +13,6 @@
     "vue-tsx-support": "^2.3.2"
   },
   "dependencies": {
-    "@huteming/ui-styles": "^3.2.0"
+    "@huteming/ui-styles": "^3.3.0"
   }
 }

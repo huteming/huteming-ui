@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [3.3.0](https://github.com/huteming/huteming-ui/compare/v3.2.0...v3.3.0) (2020-01-09)
+
+
+### Bug Fixes
+
+* **flex:** 修正文字过长不会自动换行,将shrink默认设为1 ([ad7c011](https://github.com/huteming/huteming-ui/commit/ad7c011383551b9f70f820a045a80e85a7a36ac5))
+* **loading:** 修复loading高度超出父元素的问题 ([a356c72](https://github.com/huteming/huteming-ui/commit/a356c72e3829dc9753b01a568d94782e283f5a3e))
+
+
+
+
+
 # [3.2.0](https://github.com/huteming/huteming-ui/compare/v3.1.0...v3.2.0) (2020-01-06)
 
 

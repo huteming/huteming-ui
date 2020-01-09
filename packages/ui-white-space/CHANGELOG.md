@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [3.3.0](https://github.com/huteming/huteming-ui/compare/v3.2.0...v3.3.0) (2020-01-09)
+
+
+### Bug Fixes
+
+* **message:** 修正catch中的vm属性会导致在sentry环境下堆栈溢出,不再导出vm属性 ([c129d12](https://github.com/huteming/huteming-ui/commit/c129d120c1e81f765624f239cbb94c5bd05e0336))
+
+
+
+
+
 # [3.2.0](https://github.com/huteming/huteming-ui/compare/v3.1.0...v3.2.0) (2020-01-06)
 
 
