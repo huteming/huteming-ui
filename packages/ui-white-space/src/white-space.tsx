@@ -1,7 +1,8 @@
 
 import { Vue, Prop } from 'vue-property-decorator'
-import { StyledComponent, DescribedComponent } from '@huteming/ui-styles/src/main'
+import { StyledComponent, DescribedComponent, createBEM } from '@huteming/ui-styles/src/main'
 import { StyleProps } from '@huteming/ui-styles/types'
+const bem = createBEM('white')
 
 const styles = (styled: any, css: any) => {
   return {
@@ -33,7 +34,7 @@ export default class WhiteSpace extends Vue {
   render () {
     const { Root } = this.styledComponents
     return (
-      <Root class="tm-white" size={ this.size } style={ this.styles }>
+      <Root class={ bem() } size={ this.size } style={ this.styles }>
         { this.$slots.default }
       </Root>
     )

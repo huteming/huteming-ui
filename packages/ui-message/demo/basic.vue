@@ -6,6 +6,7 @@
     <button @click="handlePrompt">prompt</button>
     <button @click="handleVNode">VNode</button>
     <button @click="handleComponent">component</button>
+    <div style="height: 100vh;"></div>
   </div>
 </template>
 
@@ -20,6 +21,9 @@ export default {
     return {
       state: store.state,
     }
+  },
+
+  mounted () {
   },
 
   methods: {
