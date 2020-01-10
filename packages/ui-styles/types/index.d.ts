@@ -8,6 +8,13 @@ export interface Theme {
   color: ThemeColor
   font: ThemeFont
   tag: ThemeTag
+  loading: ThemeLoading
+}
+
+export interface ThemeLoading {
+  colorIcon: string
+  colorText: string
+  background: string
 }
 
 export interface ThemeTag {

@@ -1,5 +1,6 @@
 import { AnchorAttr } from 'packages/ui-anchor/types'
 import { ImagePickerScope } from 'packages/ui-image-picker/types'
+import { LoadingScope } from 'packages/ui-loading/types'
 import { VueConstructor } from 'vue'
 
 declare global {
@@ -27,6 +28,7 @@ declare global {
   interface HTMLElement {
     '@@Anchor'?: AnchorAttr
     '$$ImagePicker'?: ImagePickerScope
+    '@@Loading'?: LoadingScope
   }
 }
 

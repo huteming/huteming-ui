@@ -1,5 +1,6 @@
 <template>
-  <transition :name="transitionName" mode="out-in">
+  <!-- <transition :name="transitionName" mode="out-in"> -->
+  <transition>
     <!-- <keep-alive> -->
     <router-view></router-view>
     <!-- </keep-alive> -->

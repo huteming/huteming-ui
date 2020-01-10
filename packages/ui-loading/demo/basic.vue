@@ -3,16 +3,14 @@
     <demo-cell body="loading">
       <tm-switch v-model="loading"></tm-switch>
     </demo-cell>
-    <demo-cell body="use background">
-      <tm-switch v-model="background"></tm-switch>
-    </demo-cell>
     <demo-cell body="use text">
       <tm-field v-model="text" placeholder="请输入"></tm-field>
     </demo-cell>
+    <button @click="handleToggle">快速切换</button>
 
     <demo-divider>分隔线</demo-divider>
 
-    <div v-loading="{ loading, text, background: backgroundStr, duration, openAnimation: true, closeAnimation: true }" style="position: relative; height: 80px;">
+    <div v-loading="{ loading, text, theme }" class="demo-block">
       <h1 v-for="item in count" :key="item">hello world</h1>
     </div>
   </div>
@@ -26,16 +24,12 @@ export default {
     return {
       loading: true,
       text: '',
-      background: false,
-      duration: 1000,
       count: 1,
+      theme: {
+        colorIcon: '#409eff',
+        colorText: '#409eff',
+      },
     }
-  },
-
-  computed: {
-    backgroundStr () {
-      return this.background ? '#000' : ''
-    },
   },
 
   mounted () {
@@ -53,8 +47,29 @@ export default {
     // }, 4000)
   },
 
+  methods: {
+    handleToggle () {
+      this.loading = true
+      setTimeout(() => {
+        this.loading = false
+      }, 50)
+    },
+  },
+
   directives: {
     Loading,
   },
 }
 </script>
+
+<style lang="scss" scoped>
+.demo-block {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 80px;
+  color: #fff;
+  background: lightgreen;
+}
+</style>

@@ -6,6 +6,14 @@ import { RenderContext } from 'vue'
 export default tsx.componentFactory.create({
   functional: true,
   props: {
+    enterDuration: {
+      type: Number,
+      default: 150,
+    },
+    leaveDuration: {
+      type: Number,
+      default: 75,
+    },
   },
 
   render (createElement, context: RenderContext) {
@@ -22,7 +30,7 @@ export default tsx.componentFactory.create({
           anime({
             targets: el,
             opacity: '1',
-            duration: 150,
+            duration: context.props.enterDuration,
             easing: 'cubicBezier(0.4, 0.0, 0.2, 1)',
             complete (anim) {
               done()
@@ -40,7 +48,7 @@ export default tsx.componentFactory.create({
           anime({
             targets: el,
             opacity: '0',
-            duration: 75,
+            duration: context.props.leaveDuration,
             easing: 'cubicBezier(0.4, 0.0, 0.2, 1)',
             complete (anim) {
               done()

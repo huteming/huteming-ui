@@ -232,7 +232,7 @@ describe('loading', () => {
             data () {
                 return {
                     loading: true,
-                    duration: 20,
+                    duration: 0,
                     text: 'text',
                 }
             },

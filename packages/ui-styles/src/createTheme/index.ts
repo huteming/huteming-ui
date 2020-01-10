@@ -1,5 +1,5 @@
 function createTheme (theme: object) {
-    return theme
+  return theme
 }
 
 export default createTheme

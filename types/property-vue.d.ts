@@ -19,6 +19,6 @@ declare module 'vue/types/vue' {
 declare module 'vue/types/options' {
     interface DirectiveOptions {
         // install?: (vue: typeof Vue) => void
-        registName: string
+        // registName: string
     }
 }

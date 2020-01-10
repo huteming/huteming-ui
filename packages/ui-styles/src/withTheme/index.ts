@@ -3,6 +3,7 @@ import themeButton from './button'
 import themeColor from './color'
 import themeFont from './font'
 import themeTag from './tag'
+import themeLoading from './loading'
 import { deepmerge, isStandardBrowserEnv } from '@huteming/ui-tools/src/main'
 
 function scaleDpr (): number {
@@ -32,6 +33,7 @@ const defaults: Theme = {
   color: themeColor,
   font: themeFont,
   tag: themeTag,
+  loading: themeLoading,
 }
 
 function withTheme (options = {}): Theme {

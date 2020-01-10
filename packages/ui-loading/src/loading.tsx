@@ -1,7 +1,9 @@
 import TmIcon from '@huteming/ui-icon/src/main'
-import { Vue } from 'vue-property-decorator'
+import { Vue, Provide } from 'vue-property-decorator'
 import { zIndex, StyledComponent, DescribedComponent, createBEM } from '@huteming/ui-styles/src/main'
 import { StyleProps } from '@huteming/ui-styles/types'
+import TmTransitionFade from 'packages/ui-transition-fade/src/main'
+import { LoadingComp } from '../types'
 const bem = createBEM('loading')
 
 const styles = (styled: any, css: any) => {
@@ -12,11 +14,12 @@ const styles = (styled: any, css: any) => {
       bottom: 0;
       left: 0;
       right: 0;
-      background-color: rgba(255, 255, 255, 1);
+      background: ${props.theme.loading.background};
       z-index: ${props.zIndex};
     `),
-    Icon: styled('div', () => `
+    Icon: styled('div', (props: StyleProps) => `
       font-size: 25px;
+      color: ${props.theme.loading.colorIcon};
     `),
     Content: styled('div', () => `
       height: 100%;
@@ -26,8 +29,9 @@ const styles = (styled: any, css: any) => {
       justify-content: center;
       flex-direction: column;
     `),
-    Text: styled('div', () => `
+    Text: styled('div', (props: StyleProps) => `
       margin-top: 3px;
+      color: ${props.theme.loading.colorText};
     `),
   }
 }
@@ -36,48 +40,39 @@ const styles = (styled: any, css: any) => {
   name: 'TmLoading',
 })
 @StyledComponent(styles)
-export default class Loading extends Vue {
+export default class Loading extends Vue implements LoadingComp {
   render () {
     const { Root, Icon, Content, Text } = this.styledComponents
     return (
-      <transition
-        name="fade"
-        enter-active-class={ this.enterActiveClass }
-        leave-active-class={ this.leaveActiveClass }
-        on-after-enter={ this.handleAfterEnter }
-        on-after-leave={ this.handleAfterLeave }>
+      <TmTransitionFade
+        enterDuration={ this.openAnimation ? 150 : 0 }
+        on-after-leave={ this.handleAfterLeave }
+      >
         <Root class={ bem() } z-index={ this.zIndex } v-show={ this.visible } on-click={ this.handleStop } on-touchmove={ this.handleTouchmove }>
-          <Content class={ bem('content') } style={ this.styleContent }>
+          <Content class={ bem('content') }>
             <Icon class={ bem('icon') }>
               <TmIcon icon="loading" />
             </Icon>
-            { this.text && <Text class={ bem('text') } style={ this.textStyle }>{ this.text }</Text> }
+            { this.text && <Text class={ bem('text') }>{ this.text }</Text> }
           </Content>
         </Root>
-      </transition>
+      </TmTransitionFade>
     )
   }
 
   visible = false
-  openTime = 0
-  zIndex = '1000'
+  zIndex = '9999'
 
   text = ''
-  textStyle = {}
-  background = ''
   openAnimation = true
-  closeAnimation = true
+  loading = false
+  theme = {}
 
-  get styleContent () {
+  @Provide('$theme')
+  $theme () {
     return {
-      'background': this.background,
+      loading: this.theme,
     }
-  }
-  get enterActiveClass () {
-    return this.openAnimation ? 'fade-enter-active' : ''
-  }
-  get leaveActiveClass () {
-    return this.closeAnimation ? 'fade-leave-active' : ''
   }
 
   handleTouchmove (event: Event) {
@@ -86,9 +81,6 @@ export default class Loading extends Vue {
   }
   handleStop (event: Event) {
     event.stopPropagation()
-  }
-  handleAfterEnter () {
-    this.$emit('after-enter')
   }
   handleAfterLeave () {
     this.destroyElement()

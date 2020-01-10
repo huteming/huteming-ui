@@ -1,9 +1,12 @@
-import Loading from './directive'
+import Directive from './directive'
+import Service from './service'
 import Vue from 'vue'
 
-export default Object.assign(Loading, {
+export default {
+  ...Service,
+  ...Directive,
   install (vue: typeof Vue) {
-    vue.prototype.$loading = Loading
-    vue.directive(Loading.registName, Loading)
+    vue.prototype.$loading = Service
+    vue.directive('Loading', Directive)
   },
-})
+}
