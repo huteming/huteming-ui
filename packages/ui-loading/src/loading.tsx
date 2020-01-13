@@ -46,7 +46,6 @@ export default class Loading extends Vue implements LoadingComp {
     return (
       <TmTransitionFade
         enterDuration={ this.openAnimation ? 150 : 0 }
-        on-after-leave={ this.handleAfterLeave }
       >
         <Root class={ bem() } z-index={ this.zIndex } v-show={ this.visible } on-click={ this.handleStop } on-touchmove={ this.handleTouchmove }>
           <Content class={ bem('content') }>
@@ -82,18 +81,11 @@ export default class Loading extends Vue implements LoadingComp {
   handleStop (event: Event) {
     event.stopPropagation()
   }
-  handleAfterLeave () {
-    this.destroyElement()
-  }
   show () {
     this.zIndex = zIndex()
     this.visible = true
   }
   hide () {
     this.visible = false
-  }
-  destroyElement () {
-    this.$destroy()
-    this.$el.parentNode && this.$el.parentNode.removeChild(this.$el)
   }
 }

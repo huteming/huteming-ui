@@ -7,10 +7,11 @@
       <tm-field v-model="text" placeholder="请输入"></tm-field>
     </demo-cell>
     <button @click="handleToggle">快速切换</button>
+    <button @click="handleDestroy">手动销毁</button>
 
     <demo-divider>分隔线</demo-divider>
 
-    <div v-loading="{ loading, text, theme }" class="demo-block">
+    <div v-loading="{ loading, text, theme }" class="demo-block" ref="target">
       <h1 v-for="item in count" :key="item">hello world</h1>
     </div>
   </div>
@@ -48,11 +49,15 @@ export default {
   },
 
   methods: {
+    handleDestroy () {
+      Loading.destroy(this.$refs.target)
+    },
     handleToggle () {
-      this.loading = true
-      setTimeout(() => {
-        this.loading = false
-      }, 50)
+      Loading.open(this.$refs.target)
+      Loading.close(this.$refs.target)
+      // setTimeout(() => {
+      //   Loading.close(this.$refs.target)
+      // }, 50)
     },
   },
 

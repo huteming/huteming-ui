@@ -1,5 +1,5 @@
 import { DirectiveBinding } from 'vue/types/options'
-import { open, close, formatConfig, uninstallScope } from './utils'
+import { open, close, formatConfig, destroy } from './utils'
 
 export default {
   bind (el: HTMLElement, binding: DirectiveBinding) {
@@ -12,11 +12,15 @@ export default {
 
   update (el: HTMLElement, binding: DirectiveBinding) {
     const config = formatConfig(binding.value)
+    const old = formatConfig(binding.oldValue)
 
-    config.loading ? open(el, config) : close(el, config)
+    /* istanbul ignore else */
+    if (config.loading !== old.loading) {
+      config.loading ? open(el, config) : close(el, config)
+    }
   },
 
   unbind (el: HTMLElement) {
-    uninstallScope(el)
+    destroy(el)
   },
 }

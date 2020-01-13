@@ -1,20 +1,20 @@
-import { formatConfig, open, close, uninstallScope } from './utils'
+import { formatConfig, open, close, destroy } from './utils'
 import { LoadingOptions } from '../types'
 
 export default {
-  open (el: HTMLElement, options: boolean | LoadingOptions) {
+  open (el: HTMLElement, options?: LoadingOptions) {
     const config = formatConfig(options)
 
     return open(el, config)
   },
 
-  close (el: HTMLElement, options: boolean | LoadingOptions) {
+  close (el: HTMLElement, options?: LoadingOptions) {
     const config = formatConfig(options)
 
     return close(el, config)
   },
 
-  restore (el: HTMLElement) {
-    uninstallScope(el)
+  destroy (el: HTMLElement) {
+    destroy(el)
   },
 }

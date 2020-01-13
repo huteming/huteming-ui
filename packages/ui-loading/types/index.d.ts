@@ -14,6 +14,9 @@ export interface LoadingOptions {
 export interface LoadingComp extends Vue {
   visible: boolean
   loading: boolean
+  text: string
+  openAnimation: boolean
+  theme: object
   show (): void
   hide (): void
 }
