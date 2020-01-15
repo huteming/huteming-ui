@@ -5,7 +5,6 @@ import withTheme from '../withTheme'
 import withPropsState from '../withPropsState'
 import styled, { css } from 'vue-styled-components'
 import { PropsState, StyleProps, StyleCreater, StyleHelper } from '../../types'
-import components from '../styledComponent/components'
 
 interface DomProps {
   state?: PropsState
@@ -34,7 +33,7 @@ const helper: StyleHelper = {
 
 const withStyles = function wrapper (styleCreater?: StyleCreater) {
   return function<V extends Vue> (CompConstructor: VueClass<V>, options: ComponentOptions<V> = {}) {
-    const styles: object | undefined = styleCreater && styleCreater(_styled, css, components, helper)
+    const styles: object | undefined = styleCreater && styleCreater(_styled, css, helper)
     const styledDoms: any = {}
 
     if (styles) {

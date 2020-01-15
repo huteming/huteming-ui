@@ -1,8 +1,8 @@
-import { StyledComponent, DescribedComponent } from '@huteming/ui-styles/src/main'
+import { StyledComponent, DescribedComponent, typography } from '@huteming/ui-styles/src/main'
 import { Vue, Prop } from 'vue-property-decorator'
-import { StyledComponents } from '@huteming/ui-styles/types'
+import { StyledComponents, StyleProps } from '@huteming/ui-styles/types'
 
-const styles = (styled: any, css: any, components: StyledComponents) => {
+const styles = (styled: any, css: any) => {
   return {
     Root: styled('div', () => `
       position: relative;
@@ -24,7 +24,8 @@ const styles = (styled: any, css: any, components: StyledComponents) => {
       height: 100%;
       object-fit: contain;
     `),
-    Title: styled(components.typography.subtitle2, () => `
+    Title: styled('div', { lines: [Boolean, Number] }, (props: StyleProps) => css`
+      ${typography('subtitle2', props.lines)};
       padding: 12px 8px 2px;
       color: #202631;
     `),

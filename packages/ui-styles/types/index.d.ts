@@ -110,7 +110,7 @@ export interface StyleProps {
 }
 
 export interface StyleCreater {
-  (styled: any, css: any, components: StyledComponents, helper: StyleHelper): object
+  (styled: any, css: any, helper: StyleHelper): object
 }
 
 export interface WithStyles {
@@ -137,4 +137,9 @@ export interface StyledComponents {
     caption: any
     overline: any
   }
+}
+
+export interface ComponentProps {
+  state?: PropsState
+  [key: string]: any
 }

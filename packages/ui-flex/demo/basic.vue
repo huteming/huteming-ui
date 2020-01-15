@@ -1,14 +1,34 @@
 <template>
 <div class="page-demo">
+  <demo-divider>过长自动换行</demo-divider>
+  <div class="bg-white">
+    <tm-flex container>
+      <tm-flex>
+        <div class="placeholder">无间距</div>
+      </tm-flex>
+      <tm-typography>很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长</tm-typography>
+    </tm-flex>
+  </div>
+
+  <!-- <demo-divider>纵向排列过长省略</demo-divider>
+  <div class="bg-white">
+    <tm-flex direction="column" style="height: 300px;" container>
+      <tm-flex>
+        <div class="placeholder">无间距</div>
+      </tm-flex>
+      <tm-flex :grow="1">
+        <tm-typography :ellipsis="2">很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长</tm-typography>
+      </tm-flex>
+    </tm-flex>
+  </div> -->
+
   <demo-divider>过长省略</demo-divider>
   <div class="bg-white">
     <tm-flex container>
       <tm-flex>
         <div class="placeholder">无间距</div>
       </tm-flex>
-      <tm-flex :ellipsis="2">
-        <p>很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长</p>
-      </tm-flex>
+      <tm-typography :ellipsis="2">很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长</tm-typography>
     </tm-flex>
   </div>
 

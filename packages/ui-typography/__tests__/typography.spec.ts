@@ -1,6 +1,7 @@
 import TmTypography from '../src/main'
 import assert from 'assert'
 import { createLocalVue, mount } from '@vue/test-utils'
+import { Root } from '../src/work'
 const localVue = createLocalVue()
 
 describe('typography', () => {
@@ -16,7 +17,7 @@ describe('typography', () => {
         gutterBottom: true
       },
     })
-    const root = wrap.find(wrap.vm.styledComponents.Root)
+    const root = wrap.find(Root)
     assert.strictEqual((root.vm as any).gutterBottom, true)
   })
 
@@ -28,7 +29,7 @@ describe('typography', () => {
             variant: item,
           },
         })
-        const root = wrap.find(wrap.vm.styledComponents.Root)
+        const root = wrap.find(Root)
         assert.strictEqual((root.vm as any).variant, item)
       })
     })
