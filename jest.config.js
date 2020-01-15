@@ -11,8 +11,10 @@ module.exports = {
     moduleNameMapper: {
         '^@/(.*)$': '<rootDir>/src/$1',
         '^src/(.*)$': '<rootDir>/src/$1',
+        '^decorators/(.*)$': '<rootDir>/packages/ui/src/decorators/$1',
+        '^mixins/(.*)$': '<rootDir>/packages/ui/src/mixins/$1',
+        '^utils/(.*)$': '<rootDir>/packages/ui/src/utils/$1',
         '^packages/(.*)$': '<rootDir>/packages/$1',
-        '^ui/(.*)$': '<rootDir>/packages/ui/src/$1',
         '^tests/(.*)$': '<rootDir>/tests/$1',
     },
 

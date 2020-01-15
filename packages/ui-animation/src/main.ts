@@ -5,38 +5,38 @@
  * d: duration（持续时间）。
 */
 export const tween = {
-    linear (t: any, b: any, c: any, d: any) {
-        return c * t / d + b
-    },
-    easeIn (t: any, b: any, c: any, d: any) {
-        return c * (t /= d) * t + b
-    },
-    easeOut (t: any, b: any, c: any, d: any) {
-        return -c * (t /= d) * (t - 2) + b
-    },
-    easeInOut (t: any, b: any, c: any, d: any) {
-        if ((t /= d / 2) < 1) {
-            return c / 2 * t * t + b
-        }
+  linear (t: any, b: any, c: any, d: any) {
+    return c * t / d + b
+  },
+  easeIn (t: any, b: any, c: any, d: any) {
+    return c * (t /= d) * t + b
+  },
+  easeOut (t: any, b: any, c: any, d: any) {
+    return -c * (t /= d) * (t - 2) + b
+  },
+  easeInOut (t: any, b: any, c: any, d: any) {
+    if ((t /= d / 2) < 1) {
+      return c / 2 * t * t + b
+    }
 
-        return -c / 2 * ((--t) * (t - 2) - 1) + b
-    },
+    return -c / 2 * ((--t) * (t - 2) - 1) + b
+  },
 }
 
 export function linear (...args: any[]) {
-    animation('linear', ...args)
+  animation('linear', ...args)
 }
 
 export function easeIn (...args: any) {
-    animation('easeIn', ...args)
+  animation('easeIn', ...args)
 }
 
 export function easeOut (...args: any) {
-    animation('easeOut', ...args)
+  animation('easeOut', ...args)
 }
 
 export function easeInOut (...args: any) {
-    animation('easeInOut', ...args)
+  animation('easeInOut', ...args)
 }
 
 /**
@@ -47,47 +47,47 @@ export function easeInOut (...args: any) {
  * @param {*Number} duration 总持续时间毫秒数
  */
 function animation (type: any, from?: any, to?: any, callback?: any, duration: any = 300) {
-    from = Number(from)
-    to = Number(to)
+  from = Number(from)
+  to = Number(to)
 
-    if (isNaN(from)) {
-        throw new Error('from类型错误。起始位置参数必须为数字')
+  if (isNaN(from)) {
+    throw new Error('from类型错误。起始位置参数必须为数字')
+  }
+
+  if (isNaN(to)) {
+    throw new Error('to类型错误。结束位置参数必须为数字')
+  }
+
+  if (typeof callback !== 'function') {
+    throw new Error('callback 必须是函数')
+  }
+
+  if (from === to) {
+    callback(to, true)
+    return
+  }
+
+  let t = 0
+  let b = from
+  let c = to - from
+  let d = Math.ceil(duration / 17)
+
+  function step () {
+    // 时间递增
+    t++
+
+    // 当前的运动位置
+    const value = (tween as any)[type](t, b, c, d)
+
+    // 运动已到位
+    if (t >= d) {
+      callback(value, true)
+      return
     }
 
-    if (isNaN(to)) {
-        throw new Error('to类型错误。结束位置参数必须为数字')
-    }
+    callback(value, false)
+    window.requestAnimationFrame(step)
+  }
 
-    if (typeof callback !== 'function') {
-        throw new Error('callback 必须是函数')
-    }
-
-    if (from === to) {
-        callback(to, true)
-        return
-    }
-
-    let t = 0
-    let b = from
-    let c = to - from
-    let d = Math.ceil(duration / 17)
-
-    function step () {
-        // 时间递增
-        t++
-
-        // 当前的运动位置
-        const value = (tween as any)[type](t, b, c, d)
-
-        // 运动已到位
-        if (t >= d) {
-            callback(value, true)
-            return
-        }
-
-        callback(value, false)
-        window.requestAnimationFrame(step)
-    }
-
-    step()
+  step()
 }

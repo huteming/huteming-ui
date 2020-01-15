@@ -1,7 +1,6 @@
 import Clocker from './clocker'
+import { installComponent } from 'utils/tools'
 
-Clocker.install = function (Vue) {
-    Vue.component(Clocker.registName, Clocker)
-}
+Clocker.install = installComponent('Clocker', Clocker)
 
 export default Clocker

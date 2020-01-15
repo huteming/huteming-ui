@@ -16,10 +16,12 @@
       "jest"
     ],
     "paths": {
-      "src/*": ["src/*"],
+      "decorators/*": ["packages/ui/src/decorators/*"],
+      "mixins/*": ["packages/ui/src/mixins/*"],
+      "utils/*": ["packages/ui/src/utils/*"],
       "packages/*": ["packages/*"],
-      "ui/*": ["packages/ui/src/*"],
       "tests/*": ["tests/*"],
+      "src/*": ["src/*"],
       "@/*": ["src/*"]
     },
     "lib": [

@@ -1,4 +1,4 @@
-import { stringify } from 'qs'
+import { stringify } from 'utils/tools'
 import { jsonToForm } from '@huteming/ui-tools/src/main'
 import { RequestOptions } from '../types'
 import { isFormData } from '@huteming/ui-types/src/main'

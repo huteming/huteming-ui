@@ -1,7 +1,6 @@
 import Image from './image'
+import { installComponent } from 'utils/tools'
 
-Image.install = function (Vue) {
-    Vue.component(Image.registName, Image)
-}
+Image.install = installComponent('Image', Image)
 
 export default Image

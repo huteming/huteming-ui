@@ -1,7 +1,6 @@
 import Component from './white-space'
+import { installComponent } from 'utils/tools'
 
-Component.install = function (Vue) {
-    Vue.component(Component.registName, Component)
-}
+Component.install = installComponent('WhiteSpace', Component)
 
 export default Component

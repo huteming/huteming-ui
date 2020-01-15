@@ -1,7 +1,6 @@
 import Component from './toolbar'
+import { installComponent } from 'utils/tools'
 
-Component.install = function (Vue) {
-    Vue.component(Component.registName, Component)
-}
+Component.install = installComponent('Toolbar', Component)
 
 export default Component

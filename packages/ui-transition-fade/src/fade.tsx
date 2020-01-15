@@ -1,6 +1,6 @@
 import anime from 'animejs'
 import * as tsx from 'vue-tsx-support'
-import { mergeListeners } from 'ui/utils/tools'
+import { mergeListeners } from 'utils/tools'
 import { RenderContext } from 'vue'
 
 export default tsx.componentFactory.create({

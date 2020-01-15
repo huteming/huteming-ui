@@ -1,5 +1,7 @@
 import Vue, { RenderContext, VueConstructor } from 'vue'
 
+export { parse, stringify } from 'qs'
+
 export function installComponent (name: string, component: VueConstructor) {
   return function (vue: typeof Vue) {
     const scope = (vue.prototype.$HUTEMING || {}).scopeComponent || 'Tm'

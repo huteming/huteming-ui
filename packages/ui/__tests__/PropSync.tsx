@@ -1,5 +1,5 @@
 import { Vue, Component, Watch } from 'vue-property-decorator'
-import PropSync from '../src/utils/PropSync'
+import PropSync from '../src/decorators/PropSync'
 
 @Component
 export default class TestPropSync extends Vue {

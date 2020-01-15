@@ -1,7 +1,6 @@
 import Component from './cell'
+import { installComponent } from 'utils/tools'
 
-Component.install = function (Vue) {
-    Vue.component(Component.registName, Component)
-}
+Component.install = installComponent('Cell', Component)
 
 export default Component

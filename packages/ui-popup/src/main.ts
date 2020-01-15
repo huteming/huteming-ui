@@ -1,7 +1,6 @@
 import Component from './popup'
+import { installComponent } from 'utils/tools'
 
-Component.install = function (Vue) {
-    Vue.component(Component.registName, Component)
-}
+Component.install = installComponent('Popup', Component)
 
 export default Component

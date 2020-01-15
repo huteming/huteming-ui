@@ -33,8 +33,12 @@ module.exports = {
                 // 'vue$': 'vue/dist/vue.esm.js',
                 '@': resolve('src'),
                 'src': resolve('src'),
+                // 组件共用模块
+                'decorators': resolve('packages/ui/src/decorators'),
+                'mixins': resolve('packages/ui/src/mixins'),
+                'utils': resolve('packages/ui/src/utils'),
+                // 常用目录
                 'packages': resolve('./packages'),
-                'ui': resolve('./packages/ui/src'),
                 'tests': resolve('./tests'),
             },
         },

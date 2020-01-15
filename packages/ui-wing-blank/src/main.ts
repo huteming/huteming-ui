@@ -1,7 +1,6 @@
 import WingBlank from './wing-blank'
+import { installComponent } from 'utils/tools'
 
-WingBlank.install = function (Vue) {
-    Vue.component(WingBlank.registName, WingBlank)
-}
+WingBlank.install = installComponent('WingBlank', WingBlank)
 
 export default WingBlank

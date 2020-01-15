@@ -1,7 +1,6 @@
 import Component from './picker-range'
+import { installComponent } from 'utils/tools'
 
-Component.install = function (Vue) {
-    Vue.component(Component.registName, Component)
-}
+Component.install = installComponent('PickerRange', Component)
 
 export default Component

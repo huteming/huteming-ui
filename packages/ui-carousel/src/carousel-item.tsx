@@ -3,7 +3,7 @@ import { Prop, Mixins } from 'vue-property-decorator'
 import { StyledComponent, DescribedComponent } from '@huteming/ui-styles/src/main'
 import { StyleProps } from '@huteming/ui-styles/types'
 import { Carousel } from '../types'
-import { ChildrenMixin } from 'ui/mixins/relation'
+import { ChildrenMixin } from 'mixins/relation'
 const CARD_SCALE = 0.83 // 非中心项目相对中心项目显示比例，这是整体比例
 const CARD_WIDTH_PERCENT = 0.85 // 中心项目显示宽度比例，高度还是父元素100%
 const CARD_STAY_PX = 10 // 子项卡片显示的宽度

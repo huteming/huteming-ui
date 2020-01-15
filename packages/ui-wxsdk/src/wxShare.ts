@@ -1,5 +1,5 @@
 import { sign } from '@huteming/ui-api/src/main'
-import qs from 'qs'
+import { parse, stringify } from 'utils/tools'
 import wxConfig from './wxConfig'
 import { WxShareOptions, WxShareConfig } from '../types'
 
@@ -62,20 +62,20 @@ export default async function wxShare (options: WxShareOptions) {
 // 添加地址栏中的查询参数(渠道参数)到分享地址中
 function setChannelToLink ({ link }: WxShareConfig) {
   const [_url, _search] = link.split('?')
-  const _query = qs.parse(_search)
+  const _query = parse(_search)
 
-  const { mainUnion = '', subUnion = '' } = qs.parse(window.location.href.split('?')[1], { ignoreQueryPrefix: true })
+  const { mainUnion = '', subUnion = '' } = parse(window.location.href.split('?')[1], { ignoreQueryPrefix: true })
 
   _query['mainUnion'] = mainUnion
   _query['subUnion'] = subUnion
 
-  return [_url, '?', qs.stringify(_query)].join('')
+  return [_url, '?', stringify(_query)].join('')
 }
 
 // 自定义查询参数
 function setQueryToLink ({ link, query }: WxShareConfig) {
   const [_url, _search] = link.split('?')
-  const _query = qs.parse(_search)
+  const _query = parse(_search)
 
   query.forEach(({ key, value, force }) => {
     if (force) {
@@ -88,5 +88,5 @@ function setQueryToLink ({ link, query }: WxShareConfig) {
     }
   })
 
-  return [_url, '?', qs.stringify(_query)].join('')
+  return [_url, '?', stringify(_query)].join('')
 }

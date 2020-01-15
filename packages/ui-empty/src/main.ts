@@ -1,7 +1,6 @@
 import Empty from './empty'
+import { installComponent } from 'utils/tools'
 
-Empty.install = function (Vue) {
-    Vue.component(Empty.registName, Empty)
-}
+Empty.install = installComponent('Empty', Empty)
 
 export default Empty

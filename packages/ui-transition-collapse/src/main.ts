@@ -1,7 +1,6 @@
 import TransitionCollapse from './transition-collapse'
+import { installComponent } from 'utils/tools'
 
-TransitionCollapse.install = function (Vue) {
-    Vue.component(TransitionCollapse.registName, TransitionCollapse)
-}
+TransitionCollapse.install = installComponent('TransitionCollapse', TransitionCollapse)
 
 export default TransitionCollapse

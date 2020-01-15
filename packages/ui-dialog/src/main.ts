@@ -1,7 +1,6 @@
 import Dialog from './dialog'
+import { installComponent } from 'utils/tools'
 
-Dialog.install = function (Vue) {
-    Vue.component(Dialog.registName, Dialog)
-}
+Dialog.install = installComponent('Dialog', Dialog)
 
 export default Dialog

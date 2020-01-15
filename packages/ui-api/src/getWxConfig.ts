@@ -1,5 +1,5 @@
 import request from './request'
-import { isStandardBrowserEnv } from 'ui/utils/tools'
+import { isStandardBrowserEnv } from 'utils/tools'
 import { AxiosResponse } from 'axios'
 import { WxConfigResponse } from '../types'
 

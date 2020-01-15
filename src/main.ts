@@ -12,7 +12,7 @@ import 'normalize.css'
 import 'element-ui/lib/theme-chalk/index.css'
 import 'highlight.js/styles/github-gist.css'
 import './assets/style/index.scss'
-import ui from 'ui/main'
+import ui from 'packages/ui/src/main'
 
 Vue.component(DemoDivider.name, DemoDivider)
 Vue.component(DemoBlock.name, DemoBlock)

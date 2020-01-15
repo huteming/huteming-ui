@@ -2,7 +2,7 @@ import Vue from 'vue'
 import anime from 'animejs'
 import { SlideDirection } from '../types'
 import * as tsx from 'vue-tsx-support'
-import { mergeListeners } from 'ui/utils/tools'
+import { mergeListeners } from 'utils/tools'
 
 export default tsx.componentFactory.create({
   functional: true,

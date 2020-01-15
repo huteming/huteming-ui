@@ -6,7 +6,7 @@ import onResponse from './onResponse'
 import onResponseError from './onResponseError'
 import getOptions from './getOptions'
 import jsonp from 'jsonp'
-import { parse, stringify } from 'qs'
+import { parse, stringify } from 'utils/tools'
 
 export default class Request {
   readonly options: RequestOptions

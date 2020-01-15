@@ -1,7 +1,6 @@
 import Component from './btn-pay'
+import { installComponent } from 'utils/tools'
 
-Component.install = (Vue) => {
-    Vue.component(Component.registName, Component)
-}
+Component.install = installComponent('BtnPay', Component)
 
 export default Component

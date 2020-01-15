@@ -1,7 +1,6 @@
 import Datetime from './datetime'
+import { installComponent } from 'utils/tools'
 
-Datetime.install = function (Vue) {
-    Vue.component(Datetime.registName, Datetime)
-}
+Datetime.install = installComponent('PickerDatetime', Datetime)
 
 export default Datetime

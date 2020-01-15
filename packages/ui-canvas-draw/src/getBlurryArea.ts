@@ -11,22 +11,22 @@ import CanvasDraw from './main'
  * @param {*Number} height 截取区域的高度
  */
 export default function getBlurryArea (this: CanvasDraw, radius: number, x: number, y: number, width: number, height: number) {
-    const { ratio, context, options, scale } = this
-    const { designWidth } = options
+  const { ratio, context, options, scale } = this
+  const { designWidth } = options
 
-    const _x = x * ratio * scale
-    const _y = y * ratio * scale
-    const _width = width * ratio * scale
-    const _height = height * ratio * scale
+  const _x = x * ratio * scale
+  const _y = y * ratio * scale
+  const _width = width * ratio * scale
+  const _height = height * ratio * scale
 
-    // 创建相同尺寸参数的 canvas
-    const { canvas: _canvas, context: _context } = createCanvas(width, height, designWidth)
-    // 获取需要模糊处理区域图像数据
-    const data = context.getImageData(_x, _y, _width, _height)
-    // 模糊处理
-    imageDataRGBA(data, 0, 0, data.width, data.height, radius)
-    // 将模糊的图像数据再渲染到画布上面
-    _context.putImageData(data, 0, 0)
+  // 创建相同尺寸参数的 canvas
+  const { canvas: _canvas, context: _context } = createCanvas(width, height, designWidth)
+  // 获取需要模糊处理区域图像数据
+  const data = context.getImageData(_x, _y, _width, _height)
+  // 模糊处理
+  imageDataRGBA(data, 0, 0, data.width, data.height, radius)
+  // 将模糊的图像数据再渲染到画布上面
+  _context.putImageData(data, 0, 0)
 
-    return _canvas
+  return _canvas
 }

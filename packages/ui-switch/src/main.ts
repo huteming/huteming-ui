@@ -1,7 +1,6 @@
 import Component from './switch'
+import { installComponent } from 'utils/tools'
 
-Component.install = function (Vue) {
-    Vue.component(Component.registName, Component)
-}
+Component.install = installComponent('Switch', Component)
 
 export default Component
