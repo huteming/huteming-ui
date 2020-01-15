@@ -1,18 +1,22 @@
 import withPropsState from '../withPropsState'
-import styled from 'vue-styled-components'
+import _styled from 'vue-styled-components'
 import withTheme from '../withTheme'
 import { ComponentProps, StyleProps } from '../../types'
 
-export default function (tagName: string, domProps: ComponentProps | Function, cssRules: Function) {
-  if (typeof domProps === 'function') {
-    cssRules = domProps
-    domProps = {}
+function styled (tagName: string, cssRules: Function): any
+function styled (tagName: string, componentProps: ComponentProps, cssRules: Function): any
+function styled (tagName: string, componentProps: ComponentProps | Function, cssRules?: Function): any {
+  if (typeof componentProps === 'function') {
+    cssRules = componentProps
+    componentProps = {}
   }
   // 每个组件注入共享状态 state
-  domProps.state = withPropsState()
+  componentProps.state = withPropsState()
 
-  return styled(tagName, domProps)`${(props: StyleProps) => {
+  return _styled(tagName, componentProps)`${(props: StyleProps) => {
     props.theme = withTheme(props.theme)
-    return cssRules(props)
+    return (cssRules as Function)(props)
   }}`
 }
+
+export default styled

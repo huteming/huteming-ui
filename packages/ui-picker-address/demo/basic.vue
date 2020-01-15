@@ -20,6 +20,7 @@ export default {
     return {
       visible: false,
 
+      // values: ['11', '1101', '110105'],
       values: [],
       valuesText: [],
     }

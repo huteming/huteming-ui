@@ -1,6 +1,7 @@
 
 import { Vue, Prop } from 'vue-property-decorator'
-import { StyledComponent, DescribedComponent } from '@huteming/ui-styles/src/main'
+import { StyledComponent, DescribedComponent, TypedComponent } from '@huteming/ui-styles/src/main'
+import { EmptyProps } from '../types'
 
 const styles = (styled: any, css: any) => {
   return {
@@ -33,7 +34,7 @@ const styles = (styled: any, css: any) => {
   name: 'TmEmpty',
 })
 @StyledComponent(styles)
-export default class Empty extends Vue {
+class Empty extends Vue {
   render () {
     const { Root, Container, Description } = this.styledComponents
     return (
@@ -66,3 +67,5 @@ export default class Empty extends Vue {
   @Prop({ type: Boolean, default: false })
   hiddenImage!: boolean
 }
+
+export default TypedComponent<EmptyProps>(Empty)
