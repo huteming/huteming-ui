@@ -1,7 +1,7 @@
 {
   "name": "@huteming/ui-picker-address",
   "private": true,
-  "version": "3.3.1",
+  "version": "3.3.2",
   "description": "地址选择器",
   "main": "dist/picker-address.common.js",
   "scripts": {
@@ -10,7 +10,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "@huteming/ui-picker": "^3.3.1",
+    "@huteming/ui-picker": "^3.3.2",
     "@huteming/ui-popup": "^3.3.1",
     "@huteming/ui-styles": "^3.3.1",
     "@huteming/ui-toolbar": "^3.3.1"
