@@ -1,7 +1,8 @@
 
 import { Vue, Prop } from 'vue-property-decorator'
-import { StyledComponent, DescribedComponent, TypedComponent } from '@huteming/ui-styles/src/main'
+import { StyledComponent, DescribedComponent, TypedComponent, createBEM } from 'packages/ui-styles/src/main'
 import { EmptyProps } from '../types'
+const bem = createBEM('empty')
 
 const styles = (styled: any, css: any) => {
   return {
@@ -38,7 +39,7 @@ class Empty extends Vue {
   render () {
     const { Root, Container, Description } = this.styledComponents
     return (
-      <Root class="tm-empty">
+      <Root class={ bem() }>
         {
           !this.hiddenImage && <Container style={ this.imageStyle }>
             <img src={ this.image } alt="" />

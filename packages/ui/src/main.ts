@@ -1,39 +1,35 @@
 import Vue from 'vue'
-import Actionsheet from 'packages/ui-actionsheet/src/main'
-import Message from 'packages/ui-message/src/main'
-import Toast from 'packages/ui-toast/src/main'
-import Guide from 'packages/ui-guide/src/main'
-
-import Anchor from 'packages/ui-anchor/src/main'
-import ImagePicker from 'packages/ui-image-picker/src/main'
+import actionsheet from 'packages/ui-actionsheet/src/main'
+import message from 'packages/ui-message/src/main'
+import toast from 'packages/ui-toast/src/main'
+import guide from 'packages/ui-guide/src/main'
+import anchor from 'packages/ui-anchor/src/main'
+import imagePicker from 'packages/ui-image-picker/src/main'
 import InfiniteScroll from 'packages/ui-infinite-scroll/src/main'
-import Loading from 'packages/ui-loading/src/main'
+import loading from 'packages/ui-loading/src/main'
 import SmartScroll from 'packages/ui-smart-scroll/src/main'
 // export { default as Ripple } from 'web-ui/ripple/index'
-
-// export { default as TmTransitionCollapse } from 'web-ui/transition-collapse/index'
-
-import BtnPay from 'packages/ui-btn-pay/src/main'
-import Carousel from 'packages/ui-carousel/src/main'
-import Cell from 'packages/ui-cell/src/main'
-import Clocker from 'packages/ui-clocker/src/main'
-import Dialog from 'packages/ui-dialog/src/main'
-import Empty from 'packages/ui-empty/src/main'
+import btnPay from 'packages/ui-btn-pay/src/main'
+import carousel from 'packages/ui-carousel/src/main'
+import cell from 'packages/ui-cell/src/main'
+import clocker from 'packages/ui-clocker/src/main'
+import dialog from 'packages/ui-dialog/src/main'
+import empty from 'packages/ui-empty/src/main'
 import Field from 'packages/ui-field/src/main'
 import flex from 'packages/ui-flex/src/main'
-import Icon from 'packages/ui-icon/src/main'
+import icon from 'packages/ui-icon/src/main'
 import Image from 'packages/ui-image/src/main'
 import Panel from 'packages/ui-panel/src/main'
 import Picker from 'packages/ui-picker/src/main'
 import PickerAddress from 'packages/ui-picker-address/src/main'
 import PickerDatetime from 'packages/ui-picker-datetime/src/main'
 import PickerRange from 'packages/ui-picker-range/src/main'
-import Popup from 'packages/ui-popup/src/main'
-import Toolbar from 'packages/ui-toolbar/src/main'
+import popup from 'packages/ui-popup/src/main'
+import toolbar from 'packages/ui-toolbar/src/main'
 import Collapse from 'packages/ui-collapse/src/main'
 import NoticeBar from 'packages/ui-notice-bar/src/main'
-import WingBlank from 'packages/ui-wing-blank/src/main'
-import WhiteSpace from 'packages/ui-white-space/src/main'
+import wingBlank from 'packages/ui-wing-blank/src/main'
+import whiteSpace from 'packages/ui-white-space/src/main'
 import Switch from 'packages/ui-switch/src/main'
 import Button from 'packages/ui-button/src/main'
 import Range from 'packages/ui-range/src/main'
@@ -41,8 +37,8 @@ import Card from 'packages/ui-card/src/main'
 import Typography from 'packages/ui-typography/src/main'
 import tag from 'packages/ui-tag/src/main'
 
-import * as animation from 'packages/ui-animation/src/main'
-import * as api from 'packages/ui-api/src/main'
+import * as Animation from 'packages/ui-animation/src/main'
+import * as Api from 'packages/ui-api/src/main'
 import * as iWxsdk from 'packages/ui-wxsdk/src/main'
 import { ThemeProvider } from 'packages/ui-styles/src/main'
 
@@ -53,38 +49,38 @@ import pack from '../package.json'
 
 const components = [
   tag,
-  Actionsheet,
-  Anchor,
-  BtnPay,
-  Carousel,
-  Cell,
+  actionsheet,
+  anchor,
+  btnPay,
+  carousel,
+  cell,
   Button,
-  Icon,
-  Clocker,
-  Message,
+  icon,
+  clocker,
+  message,
   Collapse,
-  Dialog,
+  dialog,
   Image,
   PickerDatetime,
-  WingBlank,
-  WhiteSpace,
+  wingBlank,
+  whiteSpace,
   Switch,
-  ImagePicker,
+  imagePicker,
   Field,
-  Toast,
+  toast,
   PickerAddress,
-  Empty,
+  empty,
   flex,
-  Guide,
+  guide,
   InfiniteScroll,
-  Loading,
+  loading,
   NoticeBar,
   Picker,
   PickerRange,
-  Popup,
+  popup,
   Range,
   SmartScroll,
-  Toolbar,
+  toolbar,
   Card,
   Panel,
   TransitionSlide,
@@ -113,8 +109,8 @@ export default {
   ...components,
 }
 
-export const Api = api
-export const Animation = animation
+export const api = Api
+export const animation = Animation
 export const wxsdk = iWxsdk
 export { default as CanvasDraw } from 'packages/ui-canvas-draw/src/main'
 export { default as Request, onRequest, onResponse, onResponseError, getOptions } from 'packages/ui-request/src/main'
@@ -123,3 +119,21 @@ export { createTheme } from 'packages/ui-styles/src/main'
 
 export const Flex = flex
 export const Tag = tag
+export const Actionsheet = actionsheet
+export const Message = message
+export const Toast = toast
+export const Guide = guide
+export const Anchor = anchor
+export const BtnPay = btnPay
+export const Carousel = carousel
+export const Cell = cell
+export const Clocker = clocker
+export const Dialog = dialog
+export const Empty = empty
+export const WhiteSpace = whiteSpace
+export const WingBlank = wingBlank
+export const Icon = icon
+export const Loading = loading
+export const Popup = popup
+export const Toolbar = toolbar
+export const ImagePicker = imagePicker
