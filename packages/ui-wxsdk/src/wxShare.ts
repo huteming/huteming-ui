@@ -8,8 +8,8 @@ import { WxShareOptions, WxShareConfig } from '../types'
  */
 const defaultOption = {
   link: window.location.href,
-  // imgUrl: 'http://jhsy-img.caizhu.com/jhsy/images/logo-white.png', // 静好教育
-  imgUrl: 'http://jhsy-img.caizhu.com/fejhsy/images/logo.png', // 静好书院
+  // imgUrl: 'https://jhsy-img.jinghao.com/jhsy/images/logo-white.png', // 静好教育
+  imgUrl: 'https://jhsy-img.jinghao.com/fejhsy/images/logo.png', // 静好书院
   channel: false,
   query: null,
 }

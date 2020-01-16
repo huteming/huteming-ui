@@ -3,14 +3,14 @@
   <demo-divider>基础用法</demo-divider>
   <tm-card
     class="center"
-    poster="http://jhsy-img.caizhu.com/FidWc-ahvxGausDDzAfwv_hCEtXO"
+    poster="https://jhsy-img.jinghao.com/FidWc-ahvxGausDDzAfwv_hCEtXO"
     title="标题最多显示两行, 过长会自动省略, 过长会自动省略, 过长会自动省略"
     btn="￥199"></tm-card>
 
   <demo-divider>图片上添加描述</demo-divider>
   <tm-card
     class="center"
-    poster="http://jhsy-img.caizhu.com/FidWc-ahvxGausDDzAfwv_hCEtXO"
+    poster="https://jhsy-img.jinghao.com/FidWc-ahvxGausDDzAfwv_hCEtXO"
     title="这是标题"
     btn="￥199">
     <tm-card-poster-bar class="fixed">

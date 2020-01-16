@@ -25,7 +25,7 @@ Vue.use(Empty)
 
 | 参数 | 说明 | 类型 | 可选值 | 默认值 |
 |------|-------|---------|-------|--------|
-| image | 图片 | `String` | | `http://jhsy-img.caizhu.com/empty-default.png` |
+| image | 图片 | `String` | | `https://jhsycdn.jinghao.com/components/empty-default.png` |
 | imageStyle | 图片样式 | Object | | |
 | description | 描述 | String | | |
 | descriptionStyle | 描述样式 | Object | | |

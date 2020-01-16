@@ -52,7 +52,7 @@ class Empty extends Vue {
     )
   }
 
-  @Prop({ type: String, default: 'http://jhsy-img.caizhu.com/empty-default.png' })
+  @Prop({ type: String, default: 'https://jhsycdn.jinghao.com/components/empty-default.png' })
   image!: string
 
   @Prop({ type: Object })

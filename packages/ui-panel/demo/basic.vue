@@ -2,7 +2,7 @@
 <div class="page-demo">
     <demo-divider>多行省略</demo-divider>
     <tm-panel
-      poster="http://jhsy-img.caizhu.com/Fr2mInO7RA7KfVwpO6EcL1E7NyE5"
+      poster="https://jhsy-img.jinghao.com/Fr2mInO7RA7KfVwpO6EcL1E7NyE5"
       title="张萌人生效率手册：时间管理课高效人生的法制，时间管理方法论张萌人生效率手册：时间管理课高效人生的法制，时间管理方法论"
       tip="加入学习"
       decoration="￥99"
@@ -11,7 +11,7 @@
 
     <demo-divider>title 单行</demo-divider>
     <tm-panel
-      poster="http://jhsy-img.caizhu.com/Fr2mInO7RA7KfVwpO6EcL1E7NyE5"
+      poster="https://jhsy-img.jinghao.com/Fr2mInO7RA7KfVwpO6EcL1E7NyE5"
       title="张萌人生效率手册"
       tip="加入学习"
       decoration="￥99"
@@ -20,7 +20,7 @@
 
     <demo-divider>tip缺省</demo-divider>
     <tm-panel
-      poster="http://jhsy-img.caizhu.com/Fr2mInO7RA7KfVwpO6EcL1E7NyE5"
+      poster="https://jhsy-img.jinghao.com/Fr2mInO7RA7KfVwpO6EcL1E7NyE5"
       title="张萌人生效率手册：时间管理课高效人生的法制"
       decoration="￥99"
       btn="￥2.99">
@@ -28,17 +28,17 @@
 
     <demo-divider>btn缺省</demo-divider>
     <tm-panel
-      poster="http://jhsy-img.caizhu.com/Fr2mInO7RA7KfVwpO6EcL1E7NyE5"
+      poster="https://jhsy-img.jinghao.com/Fr2mInO7RA7KfVwpO6EcL1E7NyE5"
       title="张萌人生效率手册：时间管理课高效人生的法制">
     </tm-panel>
 
     <demo-divider>间距</demo-divider>
     <tm-panel
-      poster="http://jhsy-img.caizhu.com/Fr2mInO7RA7KfVwpO6EcL1E7NyE5"
+      poster="https://jhsy-img.jinghao.com/Fr2mInO7RA7KfVwpO6EcL1E7NyE5"
       title="张萌人生效率手册：时间管理课高效人生的法制">
     </tm-panel>
     <tm-panel
-      poster="http://jhsy-img.caizhu.com/Fr2mInO7RA7KfVwpO6EcL1E7NyE5"
+      poster="https://jhsy-img.jinghao.com/Fr2mInO7RA7KfVwpO6EcL1E7NyE5"
       title="张萌人生效率手册：时间管理课高效人生的法制">
     </tm-panel>
 </div>

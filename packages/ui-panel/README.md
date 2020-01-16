@@ -13,7 +13,7 @@ Vue.use(Panel)
 
 ```html
 <tm-panel
-  poster="http://jhsy-img.caizhu.com/Fr2mInO7RA7KfVwpO6EcL1E7NyE5"
+  poster="https://jhsy-img.jinghao.com/Fr2mInO7RA7KfVwpO6EcL1E7NyE5"
   title="张萌人生效率手册：时间管理课高效人生的法制，时间管理方法论张萌人生效率手册：时间管理课高效人生的法制，时间管理方法论"
   tip="加入学习"
   decoration="￥99"

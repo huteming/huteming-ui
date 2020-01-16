@@ -39,7 +39,7 @@ describe('wxsdk > wxShare', () => {
     const { link, imgUrl } = await wxShare()
 
     assert.strictEqual(link, window.location.href)
-    assert.strictEqual(imgUrl, 'http://jhsy-img.caizhu.com/fejhsy/images/logo.png')
+    assert.strictEqual(imgUrl, 'https://jhsy-img.jinghao.com/fejhsy/images/logo.png')
   })
 
   it('调用wx.showMenuItems', async () => {
