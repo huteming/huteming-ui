@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.3.1](https://47.52.168.43/srv/web-common/compare/v3.3.0...v3.3.1) (2020-01-16)
+
+
+### Performance Improvements
+
+* **picker-address:** 地址json文件改为异步加载,添加loading状态 ([ee95617](https://47.52.168.43/srv/web-common/commits/ee956178ffe0abd48d7b74a9412dd72b5af2b638))
+
+
+
+
+
 # [3.3.0](https://47.52.168.43/srv/web-common/compare/v3.2.0...v3.3.0) (2020-01-09)
 
 

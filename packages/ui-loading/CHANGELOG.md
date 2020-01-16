@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.3.1](https://github.com/huteming/huteming-ui/compare/v3.3.0...v3.3.1) (2020-01-16)
+
+
+### Performance Improvements
+
+* **loading:** 隐藏时不再销毁dom,直到取消绑定unbind时才销毁 ([daaa39c](https://github.com/huteming/huteming-ui/commit/daaa39c4fb7728d3633c5b0cbf31db968f78df6d))
+
+
+
+
+
 # [3.3.0](https://github.com/huteming/huteming-ui/compare/v3.2.0...v3.3.0) (2020-01-09)
 
 

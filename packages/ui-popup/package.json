@@ -1,7 +1,7 @@
 {
   "name": "@huteming/ui-popup",
   "private": true,
-  "version": "3.3.0",
+  "version": "3.3.1",
   "description": "> 弹出层，可自定义内容。",
   "main": "dist/popup.common.js",
   "scripts": {
@@ -10,10 +10,10 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "@huteming/ui-modal": "^3.3.0",
-    "@huteming/ui-smart-scroll": "^3.1.0",
-    "@huteming/ui-styles": "^3.3.0",
-    "@huteming/ui-transition-fade": "^3.1.0",
-    "@huteming/ui-transition-slide": "^3.1.0"
+    "@huteming/ui-modal": "^3.3.1",
+    "@huteming/ui-smart-scroll": "^3.3.1",
+    "@huteming/ui-styles": "^3.3.1",
+    "@huteming/ui-transition-fade": "^3.3.1",
+    "@huteming/ui-transition-slide": "^3.3.1"
   }
 }

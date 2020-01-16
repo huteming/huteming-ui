@@ -1,7 +1,7 @@
 {
   "name": "@huteming/ui-animation",
   "private": true,
-  "version": "3.1.0",
+  "version": "3.3.1",
   "description": "> 提供动画的简单算法",
   "author": "Tommy <tommy@jhshuyuan.com>",
   "homepage": "https://github.com/huteming/huteming-ui#readme",

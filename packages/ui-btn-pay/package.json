@@ -4,7 +4,7 @@
   "publishConfig": {
     "access": "public"
   },
-  "version": "3.3.0",
+  "version": "3.3.1",
   "description": "> 支付按钮",
   "main": "dist/btn-pay.common.js",
   "scripts": {
@@ -13,6 +13,6 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "@huteming/ui-styles": "^3.3.0"
+    "@huteming/ui-styles": "^3.3.1"
   }
 }
