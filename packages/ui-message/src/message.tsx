@@ -9,7 +9,7 @@ const bem = createBEM('message')
 
 const styles = (styled: any, css: any) => {
   return {
-    Root: styled('div', (props: StyleProps) => `
+    Root: styled('div', () => `
       position: fixed;
       top: 0;
       left: 0;
@@ -19,7 +19,6 @@ const styles = (styled: any, css: any) => {
       align-items: center;
       justify-content: center;
       box-sizing: border-box;
-      z-index: ${props.state.zIndex};
     `),
     Wrap: styled('div', () => `
       width: 315px;
