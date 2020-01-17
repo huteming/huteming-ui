@@ -1,7 +1,7 @@
 {
   "name": "@huteming/ui-field",
   "private": true,
-  "version": "3.3.1",
+  "version": "3.3.3",
   "description": "> 输入框",
   "main": "dist/field.common.js",
   "scripts": {

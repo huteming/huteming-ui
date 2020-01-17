@@ -1,7 +1,7 @@
 {
   "name": "@huteming/ui-noticebar",
   "private": true,
-  "version": "3.3.1",
+  "version": "3.3.3",
   "description": "> 通知栏",
   "main": "dist/noticebar.common.js",
   "scripts": {
