@@ -1,25 +1,15 @@
 import { Vue } from 'vue-property-decorator'
-import { withStyles } from '@huteming/ui-styles/src/main'
-import { StyleProps } from '@huteming/ui-styles/types'
+import { DescribedComponent, createBEM } from '@huteming/ui-styles/src/main'
 import { ModalOptions } from '../types'
 import TransitionFade from '@huteming/ui-transition-fade/src/main'
+import { Container } from './work'
+const bem = createBEM('modal')
 
-const styles = (styled: any, css: any) => {
-  return {
-    Container: styled('div', (props: StyleProps) => `
-      position: fixed;
-      top: 0;
-      bottom: 0;
-      left: 0;
-      right: 0;
-      background: ${props.theme.modal.background};
-    `),
-  }
-}
-
-class TmModal extends Vue {
+@DescribedComponent({
+  name: 'TmModal',
+})
+export default class TmModal extends Vue {
   render () {
-    const { Container } = this.styledDoms
     const {
       handleBeforeEnter, handleAfterEnter, handleBeforeLeave, handleAfterLeave, handleClick, handleTouchmove,
       visible,
@@ -31,7 +21,7 @@ class TmModal extends Vue {
         on-after-enter={ handleAfterEnter }
         on-before-leave={ handleBeforeLeave }
         on-after-leave={ handleAfterLeave }>
-        <Container class="tm-modal" v-show={ visible } on-click={ handleClick } on-touchmove={ handleTouchmove }></Container>
+        <Container class={ bem() } v-show={ visible } on-click={ handleClick } on-touchmove={ handleTouchmove }></Container>
       </TransitionFade>
     )
   }
@@ -129,5 +119,3 @@ class TmModal extends Vue {
   beforeLeave?: Function
   afterLeave?: Function
 }
-
-export default withStyles(styles)(TmModal, { name: 'TmModal' })

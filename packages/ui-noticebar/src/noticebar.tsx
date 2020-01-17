@@ -1,66 +1,32 @@
 import TmIcon from '@huteming/ui-icon/src/main'
 import { linear } from '@huteming/ui-animation/src/main'
-import { withStyles } from '@huteming/ui-styles/src/main'
+import { DescribedComponent, createBEM } from '@huteming/ui-styles/src/main'
 import { Vue, Prop } from 'vue-property-decorator'
-import { StyleProps } from '@huteming/ui-styles/types'
+import { Root, Wrap, Content, Icon, Action } from './work'
+const bem = createBEM('noticebar')
 const TIME_DELAY = 2000
 const TIME_RESTORE = 1000
 const PX_TIME_CONSUMING = 25 // 移动每像素耗时，毫秒
 const EXTRA_DISTANCE = 15 // 额外移动的距离
 
-const styles = (styled: any, css: any) => {
-  return {
-    Root: styled('div', () => `
-      width: 100%;
-      height: 32px;
-      display: flex;
-      align-items: center;
-      font-size: 14px;
-      line-height: 32px;
-      color: rgba(255, 255, 255, 1);
-      font-weight: 500;
-      letter-spacing: .7px;
-      background: rgba(87, 180, 244, 1);
-      overflow: hidden;
-      box-sizing: border-box;
-    `),
-    Icon: styled('div', () => `
-      margin-left: 10px;
-    `),
-    Action: styled('div', () => `
-      padding-right: 8px;
-    `),
-    Content: styled('div', { isTop: Boolean }, (props: StyleProps) => css`
-      flex: 1;
-      margin-right: 15px;
-      margin-left: 10px;
-      overflow: hidden;
-      margin-left: ${!props.isTop && '5px'};
-    `),
-    Wrap: styled('div', () => `
-      position: relative;
-      display: inline-block;
-      white-space: nowrap;
-    `),
-  }
-}
-
-class NoticeBar extends Vue {
+@DescribedComponent({
+  name: 'TmNoticebar',
+})
+export default class NoticeBar extends Vue {
   render () {
-    const { Root, Wrap, Content, Icon, Action } = this.styledDoms
     return (
-      <Root class="tm-notice-bar">
-        { this.icon && <Icon class="tm-notice-bar-icon"><TmIcon icon={ this.icon }/></Icon> }
+      <Root class={ bem() }>
+        { this.icon && <Icon class={ bem('icon') }><TmIcon icon={ this.icon }/></Icon> }
 
-        <Content class="tm-notice-bar-content" is-top={ !this.icon } ref="content">
-          <Wrap class="tm-notice-bar-wrap" style={ this.styleWrap } ref="wrap">
+        <Content class={ bem('content') } is-top={ !this.icon } ref="content">
+          <Wrap class={ bem('wrap') } style={ this.styleWrap } ref="wrap">
             { this.$slots.default }
           </Wrap>
         </Content>
 
         {
           (this.actionIcon || this.$slots.action) && (
-            <Action class="tm-notice-bar-action" on-click={ this.handleClick }>
+            <Action class={ bem('action') } on-click={ this.handleClick }>
               {
                 this.$slots.action || (
                   this.actionIcon && <TmIcon icon={ this.actionIcon } />
@@ -165,5 +131,3 @@ class NoticeBar extends Vue {
     this.$el.parentNode && this.$el.parentNode.removeChild(this.$el)
   }
 }
-
-export default withStyles(styles)(NoticeBar, { name: 'TmNoticeBar' })

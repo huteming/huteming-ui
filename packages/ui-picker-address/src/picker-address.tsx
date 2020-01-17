@@ -32,7 +32,13 @@ export default class PickerAddress extends Vue {
       <TmEmpty description="地址信息获取失败"></TmEmpty>
     )
     return (
-      <TmPopup value={ this.normalizedVisible } on-input={ (val: boolean) => (this.normalizedVisible = val) } position="bottom" ref="popup">
+      <TmPopup
+        value={ this.normalizedVisible }
+        on-input={ (val: boolean) => (this.normalizedVisible = val) }
+        on-opened={ this.handleOpened }
+        position="bottom"
+        ref="popup"
+      >
         <Root class={ bem() }>
           <Toolbar title={ this.title } on-confirm={ this.handleConfirm } on-cancel={ this.handleCancel } />
 
@@ -60,6 +66,10 @@ export default class PickerAddress extends Vue {
 
   @Prop({ type: String, default: '请选择区域' })
   title!: string
+
+  isOpened = false
+  isFetched = false
+  nextState: CodeState = 'loading'
 
   normalizedVisible = false
   provinceOptions: Province[] = []
@@ -132,11 +142,13 @@ export default class PickerAddress extends Vue {
       this.provinceOptions = provinces
       this.citieOptions = cities
       this.areaOptions = areas
-      this.state = 'success'
+      this.nextState = 'success'
     } catch (err) {
       console.error(err)
-      this.state = 'failure'
+      this.nextState = 'failure'
     }
+    this.isFetched = true
+    this.tryToChangeState()
   }
   async initValue () {
     let [provinceCodeInit, cityCodeInit, areaCodeInit] = this.value
@@ -170,5 +182,20 @@ export default class PickerAddress extends Vue {
 
       return one ? areaCodeInit : codeDefault
     })()
+  }
+
+  handleOpened () {
+    this.isOpened = true
+    this.tryToChangeState()
+  }
+
+  /**
+   * 地址资源请求 和 选择器打开 时间未知,
+   * 需要都准备就绪时才改变 state 状态，否则可能造成页面掉帧
+   */
+  tryToChangeState () {
+    if (this.isFetched && this.isOpened) {
+      this.state = this.nextState
+    }
   }
 }

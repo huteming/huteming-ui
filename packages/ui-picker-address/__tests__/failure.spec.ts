@@ -50,7 +50,7 @@ describe('picker-address', () => {
     await sleep()
 
     // 模拟点击
-    const wrapConfirm = wrap.find('.tm-toolbar-confirm')
+    const wrapConfirm = wrap.find('.tm-toolbar__confirm')
     wrapConfirm.trigger('click')
 
     const emitInput = wrap.emitted('input')

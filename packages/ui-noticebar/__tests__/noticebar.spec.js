@@ -1,4 +1,4 @@
-import { __RewireAPI__ as RewireAPI } from '../src/notice-bar'
+import { __RewireAPI__ as RewireAPI } from '../src/noticebar'
 import TmNoticeBar from '../src/main'
 import { createLocalVue, mount } from '@vue/test-utils'
 import assert from 'assert'
@@ -35,7 +35,7 @@ describe('notice-bar', () => {
         })
 
         assert.strictEqual(wrapper.vm.icon, 'volume_up')
-        const wrapperAction = wrapper.find('.tm-notice-bar-action')
+        const wrapperAction = wrapper.find('.tm-noticebar__action')
         assert.ok(!wrapperAction.exists())
         await sleep()
 
@@ -71,9 +71,9 @@ describe('notice-bar', () => {
         const wrapper = mount({
             template: `
                 <div>
-                    <tm-notice-bar mode="closeable">
+                    <tm-noticebar mode="closeable">
                         这是一句绕口令：黑灰化肥会挥发发灰黑化肥挥发；灰黑化肥会挥发发黑灰化肥发挥。
-                    </tm-notice-bar>
+                    </tm-noticebar>
                 </div>
             `
         }, {
@@ -82,7 +82,7 @@ describe('notice-bar', () => {
         const wrapperBar = wrapper.find(TmNoticeBar)
 
         assert.strictEqual(wrapperBar.vm.actionIcon, 'clear')
-        const wrapperAction = wrapperBar.find('.tm-notice-bar-action')
+        const wrapperAction = wrapperBar.find('.tm-noticebar__action')
         assert.ok(wrapperAction.exists())
         wrapperAction.trigger('click')
         assert.ok(!wrapperBar.exists())
@@ -96,9 +96,9 @@ describe('notice-bar', () => {
         const wrapper = mount({
             template: `
                 <div>
-                    <tm-notice-bar mode="link">
+                    <tm-noticebar mode="link">
                         这是一句绕口令：黑灰化肥会挥发发灰黑化肥挥发；灰黑化肥会挥发发黑灰化肥发挥。
-                    </tm-notice-bar>
+                    </tm-noticebar>
                 </div>
             `
         }, {
@@ -107,7 +107,7 @@ describe('notice-bar', () => {
         const wrapperBar = wrapper.find(TmNoticeBar)
 
         assert.strictEqual(wrapperBar.vm.actionIcon, 'arrow_forward')
-        const wrapperAction = wrapperBar.find('.tm-notice-bar-action')
+        const wrapperAction = wrapperBar.find('.tm-noticebar__action')
         assert.ok(wrapperAction.exists())
         wrapperAction.trigger('click')
         assert.ok(wrapperBar.exists())
@@ -118,9 +118,9 @@ describe('notice-bar', () => {
         const wrapper = mount({
             template: `
                 <div>
-                    <tm-notice-bar mode="other">
+                    <tm-noticebar mode="other">
                         这是一句绕口令：黑灰化肥会挥发发灰黑化肥挥发；灰黑化肥会挥发发黑灰化肥发挥。
-                    </tm-notice-bar>
+                    </tm-noticebar>
                 </div>
             `
         }, {
@@ -129,7 +129,7 @@ describe('notice-bar', () => {
         const wrapperBar = wrapper.find(TmNoticeBar)
 
         assert.strictEqual(wrapperBar.vm.actionIcon, 'other')
-        const wrapperAction = wrapperBar.find('.tm-notice-bar-action')
+        const wrapperAction = wrapperBar.find('.tm-noticebar__action')
         assert.ok(wrapperAction.exists())
         wrapperAction.trigger('click')
         assert.ok(wrapperBar.exists())
@@ -140,10 +140,10 @@ describe('notice-bar', () => {
         const wrapper = mount({
             template: `
                 <div>
-                    <tm-notice-bar mode="link">
+                    <tm-noticebar mode="link">
                         这是一句绕口令：黑灰化肥会挥发发灰黑化肥挥发；灰黑化肥会挥发发黑灰化肥发挥。
                         <TestBasic slot="action" />
-                    </tm-notice-bar>
+                    </tm-noticebar>
                 </div>
             `
         }, {
@@ -152,7 +152,7 @@ describe('notice-bar', () => {
         const wrapperBar = wrapper.find(TmNoticeBar)
 
         assert.strictEqual(wrapperBar.vm.actionIcon, 'arrow_forward')
-        const wrapperAction = wrapperBar.find('.tm-notice-bar-action')
+        const wrapperAction = wrapperBar.find('.tm-noticebar__action')
         assert.ok(wrapperAction.exists())
         assert.ok(wrapperAction.contains(TestBasic))
         wrapperAction.trigger('click')

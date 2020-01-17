@@ -1,11 +1,11 @@
 {
-  "name": "@huteming/ui-notice-bar",
+  "name": "@huteming/ui-noticebar",
   "private": true,
   "version": "3.3.1",
   "description": "> 通知栏",
-  "main": "dist/notice-bar.common.js",
+  "main": "dist/noticebar.common.js",
   "scripts": {
-    "prepublishOnly": "node ../../scripts/build-lib.js notice-bar"
+    "prepublishOnly": "node ../../scripts/build-lib.js noticebar"
   },
   "author": "",
   "license": "ISC",

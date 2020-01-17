@@ -16,7 +16,7 @@ describe('ui', () => {
     })
     it('导出其他方法', () => {
       const comps = Object.keys(others)
-      assert.strictEqual(comps.length, 31)
+      assert.strictEqual(comps.length, 47)
     })
 
     it('版本号', () => {

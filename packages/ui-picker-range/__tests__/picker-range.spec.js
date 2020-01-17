@@ -30,7 +30,7 @@ describe('picker-range', () => {
             localVue,
         })
         await sleep()
-        const wrapperConfirm = wrapper.find('.tm-toolbar-confirm')
+        const wrapperConfirm = wrapper.find('.tm-toolbar__confirm')
         assert.ok(wrapperConfirm.isEmpty())
         wrapper.setData({ visible: false })
     })
@@ -114,7 +114,7 @@ describe('picker-range', () => {
             },
         })
         const wrapperItem = wrapper.find(TmPickerItem)
-        const wrapperConfirm = wrapper.find('.tm-toolbar-confirm')
+        const wrapperConfirm = wrapper.find('.tm-toolbar__confirm')
         wrapperItem.setData({
             currentValue: '3',
         })
@@ -154,7 +154,7 @@ describe('picker-range', () => {
             },
         })
         const wrapperItem = wrapper.find(TmPickerItem)
-        const wrapperCancel = wrapper.find('.tm-toolbar-cancel')
+        const wrapperCancel = wrapper.find('.tm-toolbar__cancel')
         wrapperItem.setData({
             currentValue: '3',
         })

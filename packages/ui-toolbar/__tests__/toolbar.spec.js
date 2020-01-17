@@ -7,22 +7,22 @@ localVue.use(TmToolbar)
 describe('toolbar', () => {
     it('create', () => {
         const wrapper = mount(TmToolbar)
-        const wrapperCancel = wrapper.find('.tm-toolbar-cancel')
-        const wrapperConfirm = wrapper.find('.tm-toolbar-confirm')
+        const wrapperCancel = wrapper.find('.tm-toolbar__cancel')
+        const wrapperConfirm = wrapper.find('.tm-toolbar__confirm')
         assert.strictEqual(wrapperCancel.text(), '取消')
         assert.strictEqual(wrapperConfirm.text(), '确定')
     })
 
     it('confirm', () => {
         const wrapper = mount(TmToolbar)
-        const wrapperConfirm = wrapper.find('.tm-toolbar-confirm')
+        const wrapperConfirm = wrapper.find('.tm-toolbar__confirm')
         wrapperConfirm.trigger('click')
         assert.ok(wrapper.emitted().confirm)
     })
 
     it('cancel', () => {
         const wrapper = mount(TmToolbar)
-        const wrapperCancel = wrapper.find('.tm-toolbar-cancel')
+        const wrapperCancel = wrapper.find('.tm-toolbar__cancel')
         wrapperCancel.trigger('click')
         assert.ok(wrapper.emitted().cancel)
     })
@@ -33,7 +33,7 @@ describe('toolbar', () => {
                 showConfirm: false,
             },
         })
-        const wrapperConfirm = wrapper.find('.tm-toolbar-confirm')
+        const wrapperConfirm = wrapper.find('.tm-toolbar__confirm')
         assert.ok(wrapperConfirm.isEmpty())
 
         wrapperConfirm.trigger('click')

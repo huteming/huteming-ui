@@ -1,64 +1,21 @@
 
 import { getScrollTop, scrollY } from '@huteming/ui-element/src/main'
-import { placeholder, StyledComponent, DescribedComponent } from '@huteming/ui-styles/src/main'
+import { DescribedComponent, createBEM } from '@huteming/ui-styles/src/main'
 import { Vue, Prop, Watch } from 'vue-property-decorator'
 import { HTMLInputEvent, PropAutosize } from '../types'
 import TmIcon from 'packages/ui-icon/src/main'
 import calcTextareaHeight from './calcTextareaHeight'
-
-const styles = (styled: any, css: any) => {
-  const BaseInput = styled('input', () => `
-    display: block;
-    flex: 1;
-    margin: 0;
-    padding: 0;
-    font-size: inherit;
-    line-height: 1.41176471;
-    color: inherit;
-    background-color: transparent;
-    border: 0;
-    outline: 0;
-    -webkit-tap-highlight-color: transparent;
-  `)
-
-  return {
-    Root: styled('div', () => `
-      height: 100%;
-      display: flex;
-      align-items: center;
-      box-sizing: border-box;
-      ${placeholder`
-        margin: 0;
-        padding: 0;
-        color: rgba(178, 186, 196, 1);
-      `}
-    `),
-    Input: BaseInput.extend`
-      height: 1.41176471em;
-      -webkit-appearance: none;
-    `,
-    Textarea: BaseInput.withComponent('textarea').extend`
-      resize: none;
-    `,
-    Clear: styled('div', () => `
-      margin-left: 7px;
-      font-size: 15px;
-      line-height: 1;
-      color: #C1C1C1;
-    `),
-  }
-}
+import { Root, Input, Textarea, Clear } from './work'
+const bem = createBEM('field')
 
 @DescribedComponent({
   name: 'TmField',
 })
-@StyledComponent(styles)
 export default class Field extends Vue {
   render () {
-    const { Root, Input, Textarea, Clear } = this.styledComponents
     const DomInput = this.type === 'textarea' ? Textarea : Input
     return (
-      <Root class="tm-field">
+      <Root class={ bem() }>
         <DomInput
           ref="field"
           style={ this.styleInput }

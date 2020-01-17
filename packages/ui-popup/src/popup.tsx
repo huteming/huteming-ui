@@ -1,75 +1,12 @@
 import MixinsModal from '@huteming/ui-modal/src/main'
 import SmartScroll from '@huteming/ui-smart-scroll/src/main'
 import { Mixins, Prop, Watch } from 'vue-property-decorator'
-import { StyledComponent, TypedComponent, DescribedComponent } from '@huteming/ui-styles/src/main'
-import { StyleProps } from '@huteming/ui-styles/types'
+import { TypedComponent, DescribedComponent, createBEM } from '@huteming/ui-styles/src/main'
 import { PopupProps, PopupEvents, PopupPosition } from '../types'
-import TransitionSlide from '@huteming/ui-transition-slide/src/main'
-import TransitionFade from '@huteming/ui-transition-fade/src/main'
-
-const styles = (styled: any, css: any) => {
-  return {
-    Root: styled('div', { position: String }, (props: StyleProps) => css`
-      position: fixed;
-      overflow: auto;
-      -webkit-overflow-scrolling: touch;
-
-      ${props.position === 'middle' && `
-          left: 50%;
-          transform: translate(-50%, 10px);
-          width: 200px;
-          padding: 10px;
-          border-radius: 8px;
-          background: #fff;
-  
-          &::before {
-            display: inline-block;
-            width: 0;
-            height: 0;
-            border: solid transparent;
-            border-width: 10px;
-            border-bottom-color: #fff;
-            content: "";
-            position: absolute;
-            top: -20px;
-            right: 50px;
-          }
-      `}
-
-      ${props.position === 'top' && `
-        top: 0;
-        left: 0;
-        right: 0;
-        padding: 8px;
-        font-size: 14px;
-        line-height: 1.8;
-        color: #fff;
-        text-align: center;
-        background-color: rgba(0, 0, 0, .7);
-      `}
-
-      ${props.position === 'bottom' && `
-        left: 0;
-        right: 0;
-        bottom: 0;
-      `}
-
-      ${props.position === 'left' && `
-        top: 0;
-        bottom: 0;
-        left: 0;
-        width: 300px;
-      `}
-
-      ${props.position === 'right' && `
-        top: 0;
-        bottom: 0;
-        left: 0;
-        right: 0;
-      `}
-    `),
-  }
-}
+import TransitionSlide from 'packages/ui-transition-slide/src/main'
+import TransitionFade from 'packages/ui-transition-fade/src/main'
+import { Root } from './work'
+const bem = createBEM('popup')
 
 @DescribedComponent({
   name: 'TmPopup',
@@ -78,14 +15,17 @@ const styles = (styled: any, css: any) => {
     SmartScroll,
   },
 })
-@StyledComponent(styles)
 class Popup extends Mixins(MixinsModal) {
   render () {
-    const { Root } = this.styledComponents
     const TransitionComp = this.transitionComponent as any
     return (
-      <TransitionComp enterDirection={ this.position } leaveDirection={ this.position } on-after-leave={ this.handleAfterLeave }>
-        <Root class="tm-popup" v-show={ this.normalizedVisible } position={ this.position } v-smart-scroll={ this.handlePreventMove }>
+      <TransitionComp
+        enterDirection={ this.position }
+        leaveDirection={ this.position }
+        on-after-leave={ this.handleAfterLeave }
+        on-after-enter={ this.handleAfterEnter }
+      >
+        <Root class={ bem() } v-show={ this.normalizedVisible } position={ this.position } v-smart-scroll={ this.handlePreventMove }>
           { this.$slots.default }
         </Root>
       </TransitionComp>
@@ -164,6 +104,10 @@ class Popup extends Mixins(MixinsModal) {
     if (moveY > this.normalizedCloseOnMove) {
       this.visible = false
     }
+  }
+
+  handleAfterEnter () {
+    this.$emit('opened')
   }
 
   handleAfterLeave () {

@@ -86,10 +86,10 @@ export default <Link[]>[
     example: () => import('packages/ui-collapse/demo/basic.vue'),
   },
   {
-    childPath: 'notice-bar',
+    childPath: 'noticebar',
     chineseName: 'NoticeBar 通知栏',
-    doc: () => import('packages/ui-notice-bar/README.md'),
-    example: () => import('packages/ui-notice-bar/demo/basic.vue'),
+    doc: () => import('packages/ui-noticebar/README.md'),
+    example: () => import('packages/ui-noticebar/demo/basic.vue'),
   },
   {
     childPath: 'range',

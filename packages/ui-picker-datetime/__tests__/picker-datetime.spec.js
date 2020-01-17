@@ -193,7 +193,7 @@ describe('picker-datetime', () => {
         })
         assert.strictEqual(wrapper.vm.normalizedVisible, true)
         wrapper.setData({ current: value })
-        const wrapperConfirm = wrapper.find('.tm-toolbar-confirm')
+        const wrapperConfirm = wrapper.find('.tm-toolbar__confirm')
         wrapperConfirm.trigger('click')
 
         const emitInput = wrapper.emitted('input')
@@ -216,7 +216,7 @@ describe('picker-datetime', () => {
         })
         assert.strictEqual(wrapper.vm.normalizedVisible, true)
         wrapper.setData({ current: value })
-        const wrapperConfirm = wrapper.find('.tm-toolbar-cancel')
+        const wrapperConfirm = wrapper.find('.tm-toolbar__cancel')
         wrapperConfirm.trigger('click')
 
         assert.strictEqual(wrapper.vm.normalizedVisible, false)

@@ -1,51 +1,55 @@
 /**
  * 由于 modal 是只会创建一个实例，所以必须在每个测试结束关闭 modal
  */
-import { mount, createLocalVue } from '@vue/test-utils'
+import { mount, createLocalVue, TransitionStub } from '@vue/test-utils'
 import TmPopup from '../src/main'
 import assert from 'assert'
 import { sleep } from 'tests/helper'
 import sinon from 'sinon'
 import TransitionFade from 'packages/ui-transition-fade/src/main'
 import TransitionSlide from 'packages/ui-transition-slide/src/main'
+import { __RewireAPI__ as RewireAPI } from '../src/popup'
+
 const localVue = createLocalVue()
 localVue.use(TmPopup)
 
 describe('popup', () => {
-    afterEach(() => {
-        sinon.restore()
-    })
+  afterEach(() => {
+    sinon.restore()
+    RewireAPI.__ResetDependency__('TransitionFade')
+  })
 
-    it('create', async () => {
-        const wrapper = mount({
-            template: `
-                <div>
-                    <TmPopup v-model="visible" position="bottom" />
-                </div>
-            `,
-            data () {
-                return {
-                    visible: true,
-                }
-            },
-            components: {
-                TmPopup,
-            },
-        }, {
-            stubs: {
-                transition: false,
-            },
-        })
-        await sleep()
-        const wrapperPopup = wrapper.find(TmPopup)
-        assert.ok(wrapperPopup.isVisible())
-        assert.ok(wrapperPopup.emitted('open'))
-        wrapper.setData({ visible: false })
-        await sleep(310)
-        assert.ok(!wrapperPopup.isVisible())
-        assert.ok(wrapperPopup.emitted('close'))
-        assert.ok(wrapperPopup.emitted('closed'))
+  it('create', async () => {
+    RewireAPI.__Rewire__('TransitionFade', TransitionStub)
+    const wrapper = mount(TmPopup, {
+      propsData: {
+        value: true,
+      },
     })
+    await sleep()
+    wrapper.find(TransitionStub).vm.$emit('after-enter')
+
+    assert.ok(wrapper.isVisible())
+    assert.ok(wrapper.emitted('open'))
+    assert.ok(wrapper.emitted('opened'))
+  })
+
+  it('close', async () => {
+    RewireAPI.__Rewire__('TransitionFade', TransitionStub)
+    const wrap = mount(TmPopup, {
+      propsData: {
+        value: true,
+      },
+    })
+    await sleep()
+    wrap.setProps({ value: false })
+    wrap.find(TransitionStub).vm.$emit('after-leave')
+    await sleep()
+
+    assert.ok(!wrap.isVisible())
+    assert.ok(wrap.emitted('close'))
+    assert.ok(wrap.emitted('closed'))
+  })
 
     it('beforeClose', async () => {
         const onClose = sinon.fake()

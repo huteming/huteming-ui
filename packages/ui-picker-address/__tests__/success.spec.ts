@@ -4,6 +4,8 @@ import assert from 'assert'
 import { sleep } from 'tests/helper'
 import moxios from 'moxios'
 import sinon from 'sinon'
+import TmPopup from 'packages/ui-popup/src/main'
+
 const mockProvinces: any = [
   {
     "value": "11",
@@ -66,10 +68,12 @@ describe('picker-address', () => {
         visible: true,
       },
       stubs: {
-        TmPopup: TransitionStub,
+        // TmPopup: TransitionStub,
       },
     })
+    wrap.find(TmPopup).vm.$emit('opened')
     await sleep()
+    assert.ok(wrap.isVisible())
     const wrapEmpty = wrap.find('.tm-empty')
     const wrapPicker = wrap.find('.tm-picker')
     assert.ok(!wrapEmpty.exists())
@@ -88,6 +92,7 @@ describe('picker-address', () => {
         TmPopup: TransitionStub,
       },
     })
+    wrap.find(TmPopup).vm.$emit('opened')
     await sleep()
     // 初始值
     assert.strictEqual(wrap.vm.provinceCode, '12')
@@ -107,7 +112,7 @@ describe('picker-address', () => {
       }],
     })
     // 模拟点击
-    const wrapConfirm = wrap.find('.tm-toolbar-confirm')
+    const wrapConfirm = wrap.find('.tm-toolbar__confirm')
     wrapConfirm.trigger('click')
 
     const emitInput = wrap.emitted('input')
@@ -134,6 +139,7 @@ describe('picker-address', () => {
         TmPopup: TransitionStub,
       },
     })
+    wrap.find(TmPopup).vm.$emit('opened')
     await sleep()
 
     // 模拟滑动
@@ -149,7 +155,7 @@ describe('picker-address', () => {
       }],
     })
     // 模拟点击
-    const wrapCancel = wrap.find('.tm-toolbar-cancel')
+    const wrapCancel = wrap.find('.tm-toolbar__cancel')
     wrapCancel.trigger('click')
 
     const emitInput = wrap.emitted('input')
@@ -173,9 +179,10 @@ describe('picker-address', () => {
         TmPopup: TransitionStub,
       },
     })
+    wrap.find(TmPopup).vm.$emit('opened')
     await sleep()
 
-    const wrapConfirm = wrap.find('.tm-toolbar-confirm')
+    const wrapConfirm = wrap.find('.tm-toolbar__confirm')
     wrapConfirm.trigger('click')
 
     const emitInput = wrap.emitted('input')
@@ -191,6 +198,7 @@ describe('picker-address', () => {
         TmPopup: TransitionStub,
       },
     })
+    wrap.find(TmPopup).vm.$emit('opened')
     const spy = sinon.spy(wrap.vm, 'initOptions')
     wrap.setProps({ visible: true })
     await sleep()

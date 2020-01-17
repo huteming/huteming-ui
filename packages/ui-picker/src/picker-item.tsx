@@ -1,76 +1,25 @@
 import TmEmpty from '@huteming/ui-empty/src/main'
 import { Prop, Watch } from 'vue-property-decorator'
-import { withStyles } from '@huteming/ui-styles/src/main'
-import { StyleProps } from '@huteming/ui-styles/types'
+import { DescribedComponent, createBEM } from '@huteming/ui-styles/src/main'
 import { PickerOptions, PickerItemProps } from '../types'
 import * as tsx from 'vue-tsx-support'
+import { ItemRoot, ItemContainer, Piece, Line } from './work'
+const bem = createBEM('picker-item')
 const ITEM_HEIGHT = 34
 
-const styles = (styled: any, css: any) => {
-  return {
-    Root: styled('div', () => `
-      position: relative;
-      width: 100%;
-      height: 220px;
-      text-align: center;
-      overflow: hidden;
-      background: #fff;
-      box-sizing: border-box;
-    `),
-    Container: styled('div', () => `
-      position: absolute;
-      top: 93px;
-      width: 100%;
-      height: 34px;
-      transform-style: preserve-3d;
-      z-index: 1;
-    `),
-    Piece: styled('div', { hidden: Boolean }, (props: StyleProps) => css`
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      font-size: 16px;
-      line-height: 34px;
-      backface-visibility: hidden;
-      overflow: hidden;
-      text-overflow: ellipsis;
-      white-space: nowrap;
-      visibility: ${props.hidden && 'hidden'};
-    `),
-    Line: styled('div', { position: String }, (props: StyleProps) => css`
-      position: absolute;
-      left: 0;
-      width: 100%;
-      background: rgba(255, 255, 255, .5);
-      box-sizing: border-box;
-      z-index: 2;
-
-      ${props.position === 'top' && `
-        top: 0;
-        height: 93px;
-        border-bottom: 1px solid #2c97f1;
-      `}
-
-      ${props.position === 'bottom' && `
-        top: 127px;
-        bottom: 0;
-        border-top: 1px solid #2c97f1;
-      `}
-    `),
-  }
-}
-
-class PickerItem extends tsx.Component<PickerItemProps> {
+@DescribedComponent({
+  name: 'TmPickerItem',
+  inheritAttrs: false,
+})
+export default class PickerItem extends tsx.Component<PickerItemProps> {
   render () {
-    const { Root, Container, Piece, Line } = this.styledDoms
     const DomContent = (
-      <Container class="tm-picker-item__container" style={ this.styleContainer }>
+      <ItemContainer class={ bem('container') } style={ this.styleContainer }>
         {
           ...this.renderOptions.map((item, index) => {
             return (
               <Piece
-                clsss="tm-picker-item__container-piece"
+                class={ bem('piece') }
                 key={ index }
                 hidden={ item.hidden }
                 style={ item.style }>
@@ -79,7 +28,7 @@ class PickerItem extends tsx.Component<PickerItemProps> {
             )
           })
         }
-      </Container>
+      </ItemContainer>
     )
     const custom = {
       attrs: this.$attrs,
@@ -88,14 +37,14 @@ class PickerItem extends tsx.Component<PickerItemProps> {
       <TmEmpty { ...custom }>{ this.$slots.default }</TmEmpty>
     )
     return (
-      <Root class="tm-picker-item"
+      <ItemRoot class={ bem() }
         on-touchstart={ this.handleTouchStart }
         on-touchmove={ this.handleTouchMove }
         on-touchend={ this.handleTouchEnd }>
         { !this.disabled ? DomContent : DomEmpty }
         { !this.disabled && <Line position="top"></Line> }
         { !this.disabled && <Line position="bottom"></Line> }
-      </Root>
+      </ItemRoot>
     )
   }
 
@@ -262,8 +211,3 @@ class PickerItem extends tsx.Component<PickerItemProps> {
     return value
   }
 }
-
-export default withStyles(styles)(PickerItem, {
-  name: 'TmPickerItem',
-  inheritAttrs: false,
-})

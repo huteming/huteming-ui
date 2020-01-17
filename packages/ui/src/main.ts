@@ -5,7 +5,7 @@ import toast from 'packages/ui-toast/src/main'
 import guide from 'packages/ui-guide/src/main'
 import anchor from 'packages/ui-anchor/src/main'
 import imagePicker from 'packages/ui-image-picker/src/main'
-import InfiniteScroll from 'packages/ui-infinite-scroll/src/main'
+import infiniteScroll from 'packages/ui-infinite-scroll/src/main'
 import loading from 'packages/ui-loading/src/main'
 import SmartScroll from 'packages/ui-smart-scroll/src/main'
 // export { default as Ripple } from 'web-ui/ripple/index'
@@ -15,35 +15,35 @@ import cell from 'packages/ui-cell/src/main'
 import clocker from 'packages/ui-clocker/src/main'
 import dialog from 'packages/ui-dialog/src/main'
 import empty from 'packages/ui-empty/src/main'
-import Field from 'packages/ui-field/src/main'
+import field from 'packages/ui-field/src/main'
 import flex from 'packages/ui-flex/src/main'
 import icon from 'packages/ui-icon/src/main'
-import Image from 'packages/ui-image/src/main'
-import Panel from 'packages/ui-panel/src/main'
+import image from 'packages/ui-image/src/main'
+import panel from 'packages/ui-panel/src/main'
 import Picker from 'packages/ui-picker/src/main'
-import PickerAddress from 'packages/ui-picker-address/src/main'
-import PickerDatetime from 'packages/ui-picker-datetime/src/main'
+import pickerAddress from 'packages/ui-picker-address/src/main'
+import pickerDatetime from 'packages/ui-picker-datetime/src/main'
 import PickerRange from 'packages/ui-picker-range/src/main'
 import popup from 'packages/ui-popup/src/main'
 import toolbar from 'packages/ui-toolbar/src/main'
-import Collapse from 'packages/ui-collapse/src/main'
-import NoticeBar from 'packages/ui-notice-bar/src/main'
+import collapse from 'packages/ui-collapse/src/main'
+import noticebar from 'packages/ui-noticebar/src/main'
 import wingBlank from 'packages/ui-wing-blank/src/main'
 import whiteSpace from 'packages/ui-white-space/src/main'
-import Switch from 'packages/ui-switch/src/main'
-import Button from 'packages/ui-button/src/main'
-import Range from 'packages/ui-range/src/main'
-import Card from 'packages/ui-card/src/main'
-import Typography from 'packages/ui-typography/src/main'
+import iSwitch from 'packages/ui-switch/src/main'
+import iButton from 'packages/ui-button/src/main'
+import iRange from 'packages/ui-range/src/main'
+import iCard from 'packages/ui-card/src/main'
+import iTypography from 'packages/ui-typography/src/main'
 import tag from 'packages/ui-tag/src/main'
 
 import * as Animation from 'packages/ui-animation/src/main'
 import * as Api from 'packages/ui-api/src/main'
 import * as iWxsdk from 'packages/ui-wxsdk/src/main'
-import { ThemeProvider } from 'packages/ui-styles/src/main'
+import { ThemeProvider as themeProvider } from 'packages/ui-styles/src/main'
 
-import TransitionSlide from 'packages/ui-transition-slide/src/main'
-import TransitionFade from 'packages/ui-transition-fade/src/main'
+import transitionSlide from 'packages/ui-transition-slide/src/main'
+import transitionFade from 'packages/ui-transition-fade/src/main'
 
 import pack from '../package.json'
 
@@ -54,38 +54,38 @@ const components = [
   btnPay,
   carousel,
   cell,
-  Button,
+  iButton,
   icon,
   clocker,
   message,
-  Collapse,
+  collapse,
   dialog,
-  Image,
-  PickerDatetime,
+  image,
+  pickerDatetime,
   wingBlank,
   whiteSpace,
-  Switch,
+  iSwitch,
   imagePicker,
-  Field,
+  field,
   toast,
-  PickerAddress,
+  pickerAddress,
   empty,
   flex,
   guide,
-  InfiniteScroll,
+  infiniteScroll,
   loading,
-  NoticeBar,
+  noticebar,
   Picker,
   PickerRange,
   popup,
-  Range,
+  iRange,
   SmartScroll,
   toolbar,
-  Card,
-  Panel,
-  TransitionSlide,
-  TransitionFade,
-  Typography,
+  iCard,
+  panel,
+  transitionSlide,
+  transitionFade,
+  iTypography,
 ]
 
 function install (vue: typeof Vue, config = {}) {
@@ -96,7 +96,7 @@ function install (vue: typeof Vue, config = {}) {
 
   Object.values(components).forEach(item => vue.use(item))
 
-  vue.component('ThemeProvider', ThemeProvider)
+  vue.component('ThemeProvider', themeProvider)
   vue.use(Picker.item)
 }
 
@@ -108,7 +108,7 @@ if (typeof window !== 'undefined' && window.Vue) {
 export default {
   version: pack.version,
   install,
-  ThemeProvider,
+  themeProvider,
   ...components,
 }
 
@@ -140,3 +140,19 @@ export const Loading = loading
 export const Popup = popup
 export const Toolbar = toolbar
 export const ImagePicker = imagePicker
+export const PickerAddress = pickerAddress
+export const TransitionSlide = transitionSlide
+export const TransitionFade = transitionFade
+export const ThemeProvider = themeProvider
+export const Noticebar = noticebar
+export const Collapse = collapse
+export const Field = field
+export const InfiniteScroll = infiniteScroll
+export const Image = image
+export const Panel = panel
+export const PickerDatetime = pickerDatetime
+export const Switch = iSwitch
+export const Button = iButton
+export const Card = iCard
+export const Typography = iTypography
+export const Range = iRange
