@@ -6,16 +6,14 @@ import { WxShareOptions, WxShareConfig } from '../types'
 /**
  * 分享。jssdk说明文档：https://mp.weixin.qq.com/wiki?t=resource/res_main&id=mp1421141115
  */
-const defaultOption = {
-  link: window.location.href,
-  // imgUrl: 'https://jhsy-img.jinghao.com/jhsy/images/logo-white.png', // 静好教育
-  imgUrl: 'https://jhsy-img.jinghao.com/fejhsy/images/logo.png', // 静好书院
-  channel: false,
-  query: null,
-}
-
 export default async function wxShare (options: WxShareOptions) {
-  const config = Object.assign({}, defaultOption, options)
+  const config = Object.assign({
+    link: window.location.href,
+    // imgUrl: 'https://jhsy-img.jinghao.com/jhsy/images/logo-white.png', // 静好教育
+    imgUrl: 'https://jhsy-img.jinghao.com/fejhsy/images/logo.png', // 静好书院
+    channel: false,
+    query: null,
+  }, options)
 
   // link
   if (!config.link.startsWith('http')) {

@@ -40,6 +40,8 @@ import tag from 'packages/ui-tag/src/main'
 import * as Animation from 'packages/ui-animation/src/main'
 import * as Api from 'packages/ui-api/src/main'
 import * as iWxsdk from 'packages/ui-wxsdk/src/main'
+import * as iTools from 'packages/ui-tools/src/main'
+import * as iElement from 'packages/ui-element/src/main'
 import { ThemeProvider as themeProvider } from 'packages/ui-styles/src/main'
 
 import transitionSlide from 'packages/ui-transition-slide/src/main'
@@ -115,8 +117,13 @@ export default {
 export const api = Api
 export const animation = Animation
 export const wxsdk = iWxsdk
+export const tools = iTools
+export const element = iElement
 export { default as CanvasDraw } from 'packages/ui-canvas-draw/src/main'
 export { default as Request, onRequest, onResponse, onResponseError, getOptions } from 'packages/ui-request/src/main'
+export { default as Storage } from 'packages/ui-storage/src/main'
+export { default as Validator } from 'packages/ui-validator/src/main'
+export { default as Roller } from 'packages/ui-roller/src/main'
 
 export { createTheme } from 'packages/ui-styles/src/main'
 
