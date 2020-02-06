@@ -1,7 +1,7 @@
 {
   "name": "@huteming/ui-storage",
   "private": true,
-  "version": "3.1.0",
+  "version": "3.3.4",
   "description": "提供本地存储封装方法",
   "main": "dist/storage.common.js",
   "scripts": {
