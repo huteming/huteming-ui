@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.3.5](https://github.com/huteming/huteming-ui/compare/v3.3.4...v3.3.5) (2020-02-14)
+
+
+### Bug Fixes
+
+* **picker-address:** 修复json文件请求可能携带cookir导致cors异常 ([c4e3a54](https://github.com/huteming/huteming-ui/commit/c4e3a542b9b9e316bc2490a5d45c24e89507ec49))
+
+
+
+
+
 ## [3.3.4](https://github.com/huteming/huteming-ui/compare/v3.3.3...v3.3.4) (2020-02-06)
 
 
