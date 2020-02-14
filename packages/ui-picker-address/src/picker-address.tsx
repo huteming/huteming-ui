@@ -138,7 +138,9 @@ export default class PickerAddress extends Vue {
   // 异步初始化选项
   async initOptions () {
     try {
-      const { data: { provinces, cities, areas } } = await axios.get('https://jhsycdn.jinghao.com/components/address.min.json')
+      const { data: { provinces, cities, areas } } = await axios.get('https://jhsycdn.jinghao.com/components/address.min.json', {
+        withCredentials: false,
+      })
       this.provinceOptions = provinces
       this.citieOptions = cities
       this.areaOptions = areas
