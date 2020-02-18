@@ -1,4 +1,4 @@
-import { getPayConfig } from '@huteming/ui-api/src/main'
+import { getPayConfig } from 'packages/ui-api/src/main'
 
 /**
  * 微信支付

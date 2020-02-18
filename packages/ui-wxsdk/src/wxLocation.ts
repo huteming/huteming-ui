@@ -1,4 +1,4 @@
-import { parseGeocoder } from '@huteming/ui-api/src/main'
+import { parseGeocoder } from 'packages/ui-api/src/main'
 import wxConfig from './wxConfig'
 import { WxLocationResponse } from '../types'
 

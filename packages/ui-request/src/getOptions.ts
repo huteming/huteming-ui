@@ -6,7 +6,7 @@ const mapHost = new Map([
   ['fejh.jinghao.com', '//jhtest.jinghao.com'],
   ['fejhdemo.jinghao.com', '//jhdemo.jinghao.com'],
   ['jhsy.jinghao.com', '//api.jinghao.com'],
-  ['tommy.jinghao.com', '//api.jinghao.com'],
+  ['tommy.jinghao.com', '//api-staging.jinghao.com'],
 ])
 
 const defaults = {

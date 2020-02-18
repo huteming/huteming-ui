@@ -1,4 +1,4 @@
-import { sign } from '@huteming/ui-api/src/main'
+import { sign } from 'packages/ui-api/src/main'
 import { parse, stringify } from 'utils/tools'
 import wxConfig from './wxConfig'
 import { WxShareOptions, WxShareConfig } from '../types'
