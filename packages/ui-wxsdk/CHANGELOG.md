@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.3.6](https://github.com/huteming/huteming-ui/compare/v3.3.5...v3.3.6) (2020-02-18)
+
+
+### Bug Fixes
+
+* **request:** 修改预发环境请求域名 ([2b65f27](https://github.com/huteming/huteming-ui/commit/2b65f2764b03ef9ee9ea36eeedb961a60f0a5111))
+
+
+
+
+
 ## [3.3.4](https://github.com/huteming/huteming-ui/compare/v3.3.3...v3.3.4) (2020-02-06)
 
 
