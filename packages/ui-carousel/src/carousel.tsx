@@ -215,9 +215,10 @@ class Carousel extends Mixins(ParentMixin('carousel')) {
       return false
     }
 
-    if (this.move < distance / -3) {
+    const changeThreshold = this.touchThreshold || distance / 4
+    if (this.move < -changeThreshold) {
       this.next()
-    } else if (this.move > distance / 3) {
+    } else if (this.move > changeThreshold) {
       this.prev()
     } else {
       this.moveItemsPosition(this.currentIndex, 0, this.move < 0)
@@ -259,6 +260,9 @@ class Carousel extends Mixins(ParentMixin('carousel')) {
 
   @Prop({ type: Boolean, default: false })
   disabledTouch!: boolean
+
+  @Prop({ type: Number, default: 0 })
+  touchThreshold!: number
 
   currentIndex = -1
   timer = 0

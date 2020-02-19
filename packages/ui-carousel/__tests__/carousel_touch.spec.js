@@ -88,6 +88,50 @@ describe('carousel', () => {
         assert.strictEqual(wrapperItem.at(2).attributes('style'), 'transform: translateX(0px) scale(1); webkit-transform: translateX(0px) scale(1);')
     })
 
+    it('自定义滑动最小阈值', async () => {
+        const mockPause = sinon.fake()
+        const mockPrevent = sinon.fake()
+        const wrapper = mount(TmCarousel, {
+            propsData: {
+                touchThreshold: 1000,
+            },
+            localVue,
+            slots: {
+                default: [
+                    '<tm-carousel-item name="item1">1</tm-carousel-item>',
+                    '<tm-carousel-item name="item2">2</tm-carousel-item>',
+                    '<tm-carousel-item name="item3">3</tm-carousel-item>',
+                ],
+            },
+            methods: {
+                pauseTimer: mockPause,
+            },
+        })
+        sinon.replaceGetter(wrapper.element, 'offsetWidth', () => {
+            return 750
+        })
+        await sleep()
+        const wrapperItem = wrapper.findAll(TmCarouselItem)
+        const { handleTouchstart, handleTouchmove, handleTouchend } = wrapper.vm
+
+        handleTouchstart({
+            changedTouches: [{ pageX: 0, pageY: 0 }],
+        })
+        assert.strictEqual(mockPause.callCount, 1)
+
+        handleTouchmove({
+            changedTouches: [{ pageX: 300, pageY: 1 }],
+            preventDefault: mockPrevent,
+            cancelable: true,
+        })
+        assert.strictEqual(mockPrevent.callCount, 1)
+        assert.strictEqual(wrapperItem.at(0).attributes('style'), 'transform: translateX(300px) scale(1); webkit-transform: translateX(300px) scale(1);')
+
+        handleTouchend()
+        await sleep()
+        assert.strictEqual(wrapperItem.at(0).attributes('style'), 'transform: translateX(0px) scale(1); webkit-transform: translateX(0px) scale(1);')
+    })
+
     it('滑动到下一帧', async () => {
         const mockPause = sinon.fake()
         const [wrap, parent] = await create({}, { pauseTimer: mockPause })
