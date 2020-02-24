@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [3.4.0](https://github.com/huteming/huteming-ui/compare/v3.3.6...v3.4.0) (2020-02-24)
+
+**Note:** Version bump only for package @huteming/jhsy
+
+
+
+
+
 ## [3.3.6](https://github.com/huteming/huteming-ui/compare/v3.3.5...v3.3.6) (2020-02-18)
 
 **Note:** Version bump only for package @huteming/jhsy

@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [3.4.0](https://github.com/huteming/huteming-ui/compare/v3.3.6...v3.4.0) (2020-02-24)
+
+
+### Features
+
+* **carousel:** 添加滑动触发的阈值属性 ([ab16efc](https://github.com/huteming/huteming-ui/commit/ab16efcf1a91944bd6365fa26ca8062285c6af57))
+
+
+
+
+
 ## [3.3.1](https://github.com/huteming/huteming-ui/compare/v3.3.0...v3.3.1) (2020-01-16)
 
 **Note:** Version bump only for package @huteming/ui-carousel
