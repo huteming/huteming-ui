@@ -1,7 +1,7 @@
 {
   "name": "@huteming/ui-api",
   "private": true,
-  "version": "3.3.6",
+  "version": "3.5.0",
   "description": "> 提供一些项目内常用的 http 请求",
   "main": "dist/api.common.js",
   "scripts": {
@@ -10,6 +10,6 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "@huteming/ui-request": "^3.3.6"
+    "@huteming/ui-request": "^3.5.0"
   }
 }

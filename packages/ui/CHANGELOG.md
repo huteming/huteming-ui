@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [3.5.0](https://github.com/huteming/huteming-ui/compare/v3.4.0...v3.5.0) (2020-02-26)
+
+
+### Features
+
+* **api:** 拦截埋点sign的请求异常 ([d96f8d2](https://github.com/huteming/huteming-ui/commit/d96f8d284d28f84765a5d189500e38883d0d700f))
+
+
+
+
+
 # [3.4.0](https://github.com/huteming/huteming-ui/compare/v3.3.6...v3.4.0) (2020-02-24)
 
 **Note:** Version bump only for package @huteming/jhsy
