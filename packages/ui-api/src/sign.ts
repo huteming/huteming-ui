@@ -27,4 +27,5 @@ export default function sign (itemSign: string, itemRemark: string, options = {}
     itemRemark,
   }
   return request.post('/api/system/pageStat', params)
+    .catch(() => {})
 }

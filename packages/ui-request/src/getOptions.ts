@@ -3,10 +3,16 @@ import { AxiosRequestConfig } from 'axios'
 import { isStandardBrowserEnv } from '@huteming/ui-tools/src/main'
 
 const mapHost = new Map([
-  ['fejh.jinghao.com', '//jhtest.jinghao.com'],
   ['fejhdemo.jinghao.com', '//jhdemo.jinghao.com'],
+  // 测试环境
+  ['fejh.jinghao.com', '//jhtest.jinghao.com'],
+  // 生产环境
   ['jhsy.jinghao.com', '//api.jinghao.com'],
+  // 预发环境
   ['tommy.jinghao.com', '//api-staging.jinghao.com'],
+  // 测试环境接口在内网，可能会无法请求
+  // 本地修改 hosts 请求预发环境，模拟测试环境
+  ['preissue.jinghao.com', '//api-staging.jinghao.com'],
 ])
 
 const defaults = {

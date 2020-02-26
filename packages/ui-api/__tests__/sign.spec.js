@@ -9,8 +9,10 @@ const title = 'title'
 
 describe('sign', () => {
   let post
+  let postError
   let originWindow
   let originDocument
+  let isError = false
 
   beforeEach(() => {
     originWindow = global.window
@@ -27,18 +29,28 @@ describe('sign', () => {
       title,
     }
 
-    post = sinon.fake()
+    post = sinon.fake.resolves('mock post success')
+    postError = sinon.fake.rejects(new Error('mock post error'))
 
     RewireAPI.__Rewire__('request', {
-      post,
+      post (...args) {
+        return isError ? postError(...args) : post(...args)
+      },
     })
   })
 
   afterEach(() => {
-      sinon.restore()
-      RewireAPI.__ResetDependency__('request')
-      global.window = originWindow
-      global.document = originDocument
+    isError = false
+    sinon.restore()
+    RewireAPI.__ResetDependency__('request')
+    global.window = originWindow
+    global.document = originDocument
+  })
+
+  it('拦截请求异常', async () => {
+    isError = true
+
+    await sign('a', 'b')
   })
 
   it('请求地址', () => {
