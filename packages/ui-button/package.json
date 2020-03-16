@@ -1,7 +1,7 @@
 {
   "name": "@huteming/ui-button",
   "private": true,
-  "version": "3.3.1",
+  "version": "3.5.1",
   "description": "> 按钮",
   "author": "Tommy <tommy@jhshuyuan.com>",
   "homepage": "https://github.com/huteming/huteming-ui#readme",
@@ -28,7 +28,7 @@
     "url": "https://github.com/huteming/huteming-ui/issues"
   },
   "dependencies": {
-    "@huteming/ui-icon": "^3.3.1",
-    "@huteming/ui-styles": "^3.3.1"
+    "@huteming/ui-icon": "^3.5.1",
+    "@huteming/ui-styles": "^3.5.1"
   }
 }

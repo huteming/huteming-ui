@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.5.1](https://github.com/huteming/huteming-ui/compare/v3.5.0...v3.5.1) (2020-03-16)
+
+
+### Bug Fixes
+
+* **tools:** 修复地址中没有查询参数时格式化异常 ([f7c68dd](https://github.com/huteming/huteming-ui/commit/f7c68dd636517807b170880e6d8d27d8b4890e39))
+
+
+
+
+
 # [3.2.0](https://github.com/huteming/huteming-ui/compare/v3.1.0...v3.2.0) (2020-01-06)
 
 **Note:** Version bump only for package @huteming/ui-tools

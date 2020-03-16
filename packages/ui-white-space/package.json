@@ -1,7 +1,7 @@
 {
   "name": "@huteming/ui-white-space",
   "private": true,
-  "version": "3.3.1",
+  "version": "3.5.1",
   "description": "> 两翼留白",
   "main": "dist/white-space.common.js",
   "scripts": {
@@ -10,6 +10,6 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "@huteming/ui-styles": "^3.3.1"
+    "@huteming/ui-styles": "^3.5.1"
   }
 }

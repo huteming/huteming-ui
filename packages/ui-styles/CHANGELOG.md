@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.5.1](https://47.52.168.43/srv/web-common/compare/v3.5.0...v3.5.1) (2020-03-16)
+
+**Note:** Version bump only for package @huteming/ui-styles
+
+
+
+
+
 ## [3.3.1](https://47.52.168.43/srv/web-common/compare/v3.3.0...v3.3.1) (2020-01-16)
 
 
