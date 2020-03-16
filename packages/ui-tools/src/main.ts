@@ -242,7 +242,11 @@ export const jsonToForm = (data: any) => {
 export function parseQuery (name: string): string {
   // 这里不用 location.search, 因为地址为 hash 时, search 为空字符串
   const reg = new RegExp('(^|&)' + name + '=([^&]*)(&|$)')
-  const search = window.location.href.split('?')[1].match(reg)
+  const query = window.location.href.split('?')[1]
+  if (!query) {
+    return ''
+  }
+  const search = query.match(reg)
 
   return search ? search[2] : ''
 }
