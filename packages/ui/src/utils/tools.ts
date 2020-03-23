@@ -9,6 +9,12 @@ export function installComponent (name: string, component: VueConstructor) {
   }
 }
 
+export function installPrototype (name: string, attrs: any) {
+  return function (vue: typeof Vue) {
+    vue.prototype[name] = attrs
+  }
+}
+
 export function mergeListeners (context: RenderContext, eventName: string, animate: Function) {
   const output: Function[] = [animate]
   const listeners = context.listeners[eventName]

@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import ActionsComponent from './actionsheet'
 import { ActionsheetOptions, ActionsheetMenu, ComponentActionsheet } from '../types'
+import { installPrototype } from 'utils/tools'
 
 function create (resolve: Function, reject: Function, options: ActionsheetOptions): ComponentActionsheet {
   const ActionsConstructor = Vue.extend(ActionsComponent)
@@ -31,10 +32,6 @@ function Actionsheet (options: ActionsheetOptions | ActionsheetMenu[]): Promise<
   })
 }
 
-Actionsheet.registName = '$actionsheet'
-
-Actionsheet.install = function (vue: typeof Vue) {
-  vue.prototype[Actionsheet.registName] = Actionsheet
-}
+Actionsheet.install = installPrototype('$actionsheet', Actionsheet)
 
 export default Actionsheet
