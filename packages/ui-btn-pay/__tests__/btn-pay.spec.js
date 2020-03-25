@@ -2,6 +2,7 @@ import { mount, createLocalVue } from '@vue/test-utils'
 import CompBtnPay from '../src/btn-pay'
 import WorkBasic from 'tests/components/basic'
 import assert from 'assert'
+import { Button } from '../src/work'
 const localVue = createLocalVue()
 
 describe('btn-pay', () => {
@@ -19,7 +20,7 @@ describe('btn-pay', () => {
                 disabled: true,
             },
         })
-        const wrapperBtn = wrapper.find(wrapper.vm.styledComponents.Button)
+        const wrapperBtn = wrapper.find(Button)
         wrapperBtn.trigger('click')
 
         const emitClick = wrapper.emitted('click')
@@ -33,7 +34,7 @@ describe('btn-pay', () => {
               disabled: true,
             },
         })
-        const btn = wrap.find(wrap.vm.styledComponents.Button)
+        const btn = wrap.find(Button)
         assert.strictEqual(btn.vm.disabled, true)
       })
     })
@@ -152,17 +153,17 @@ describe('btn-pay', () => {
     })
 
     describe('btn', () => {
-        it('显示内容', () => {
-            const btn = 'llll'
-            const wrapper = mount(CompBtnPay, {
-                propsData: {
-                    btn,
-                },
-            })
-
-            const wrapperBtn = wrapper.find('.tm-btnpay-btn')
-            assert.strictEqual(wrapperBtn.text(), btn)
+      it('显示内容', () => {
+        const btn = 'llll'
+        const wrapper = mount(CompBtnPay, {
+            propsData: {
+                btn,
+            },
         })
+
+        const wrapperBtn = wrapper.find(Button)
+        assert.strictEqual(wrapperBtn.text(), btn)
+      })
 
         it('自定义内容', () => {
             const wrapper = mount(CompBtnPay, {
@@ -183,22 +184,22 @@ describe('btn-pay', () => {
                 },
             })
 
-            const wrapperBtn = wrapper.find('.tm-btnpay-btn')
+            const wrapperBtn = wrapper.find(Button)
             assert.strictEqual(wrapperBtn.attributes('style'), `color: ${color};`)
         })
     })
 
-    describe('events', () => {
-        it('click', () => {
-            const wrapper = mount(CompBtnPay, {
-                propsData: {
-                    btn: 'btn',
-                },
-            })
-            const wrapperBtn = wrapper.find('.tm-btnpay-btn')
-            wrapperBtn.trigger('click')
+  describe('events', () => {
+    it('click', () => {
+      const wrapper = mount(CompBtnPay, {
+        propsData: {
+          btn: 'btn',
+        },
+      })
+      const wrapperBtn = wrapper.find(Button)
+      wrapperBtn.trigger('click')
 
-            assert.ok(wrapper.emitted('click'))
-        })
+      assert.ok(wrapper.emitted('click'))
     })
+  })
 })

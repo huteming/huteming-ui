@@ -1,8 +1,12 @@
 import { Vue, Prop, Watch } from 'vue-property-decorator'
-import { withStyles } from '@huteming/ui-styles/src/main'
+import { createBEM, DescribedComponent } from '@huteming/ui-styles/src/main'
 import { toTimestamp } from '@huteming/ui-tools/src/main'
+const bem = createBEM('clocker')
 
-class Clocker extends Vue {
+@DescribedComponent({
+  name: 'Clocker',
+})
+export default class Clocker extends Vue {
   render () {
     const DomContent = this.$scopedSlots.default && this.$scopedSlots.default({
       milliseconds: this.milliseconds,
@@ -12,7 +16,7 @@ class Clocker extends Vue {
       seconds: this.seconds,
     })
     return (
-      <div class="tm-clocker">
+      <div class={ bem() }>
         { DomContent }
       </div>
     )
@@ -85,5 +89,3 @@ class Clocker extends Vue {
   timer = 0
   currentTime = 0
 }
-
-export default withStyles()(Clocker, { name: 'TmClocker' })

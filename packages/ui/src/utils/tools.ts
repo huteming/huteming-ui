@@ -2,10 +2,16 @@ import Vue, { RenderContext, VueConstructor } from 'vue'
 
 export { parse, stringify } from 'qs'
 
+function firstUpperCase (str: string) {
+  return str.replace(/\b(\w)(\w*)/g, function ($0, $1, $2) {
+    return $1.toUpperCase() + $2
+  })
+}
+
 export function installComponent (name: string, component: VueConstructor) {
   return function (vue: typeof Vue) {
     const scope = (vue.prototype.$HUTEMING || {}).scopeComponent || 'Tm'
-    vue.component(`${scope}${name}`, component)
+    vue.component(`${scope}${firstUpperCase(name)}`, component)
   }
 }
 

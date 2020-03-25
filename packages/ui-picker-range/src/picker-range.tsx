@@ -1,27 +1,23 @@
 import TmPopup from '@huteming/ui-popup/src/main'
 import TmPicker from '@huteming/ui-picker/src/main'
 import TmToolbar from '@huteming/ui-toolbar/src/main'
-import { withStyles } from '@huteming/ui-styles/src/main'
+import { DescribedComponent, createBEM } from '@huteming/ui-styles/src/main'
 import { Vue, Prop, Watch } from 'vue-property-decorator'
 import { PickerOptions } from '@huteming/ui-picker/types'
+import { Container } from './vars'
+const bem = createBEM('picker-range')
 
-const styles = (styled: any, css: any) => {
-  return {
-    Container: styled('div', () => `
-      position: static;
-      background: #fff;
-    `),
-  }
-}
-
-class PickerRange extends Vue {
+@DescribedComponent({
+  name: 'PickerRange',
+  inheritAttrs: false,
+})
+export default class PickerRange extends Vue {
   render () {
-    const { Container } = this.styledDoms
     const Popup = TmPopup as any
     const PickerItem = TmPicker.item as any
     return (
       <Popup v-model={ this.normalizedVisible } position="bottom" ref="popup">
-        <Container class="tm-picker-range">
+        <Container class={ bem() }>
           <TmToolbar { ...{ attrs: this.$attrs } } on-confirm={ this.handleConfirm } on-cancel={ this.handleCancel } show-confirm={ this.isValid } />
 
           <TmPicker>
@@ -82,8 +78,3 @@ class PickerRange extends Vue {
     this.normalizedVisible = false
   }
 }
-
-export default withStyles(styles)(PickerRange, {
-  name: 'TmPickerRange',
-  inheritAttrs: false,
-})

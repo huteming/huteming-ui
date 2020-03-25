@@ -2,22 +2,23 @@ import assert from 'assert'
 import TmSwitch from '../src/main'
 import { mount, createLocalVue } from '@vue/test-utils'
 import { sleep } from 'tests/helper'
+import { Root } from '../src/vars'
 const localVue = createLocalVue()
 localVue.use(TmSwitch)
 
 describe('switch', () => {
-    it('install', () => {
-        const localVue = createLocalVue()
-        assert.ok(!localVue.component('TmSwitch'))
-        localVue.use(TmSwitch)
-        assert.ok(localVue.component('TmSwitch'))
-    })
+  it('install', () => {
+    const localVue = createLocalVue()
+    assert.ok(!localVue.component('TmSwitch'))
+    localVue.use(TmSwitch)
+    assert.ok(localVue.component('TmSwitch'))
+  })
 
-    it('create', () => {
-        const wrap = mount(TmSwitch)
-        const root = wrap.find(wrap.vm.styledDoms.Root)
-        assert.ok(root.exists())
-    })
+  it('create', () => {
+    const wrap = mount(TmSwitch)
+    const root = wrap.find(Root)
+    assert.ok(root.exists())
+  })
 
     it('value change', async () => {
         const wrapper = mount(TmSwitch, {

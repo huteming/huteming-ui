@@ -19,7 +19,7 @@ Vue.component(DemoBlock.name, DemoBlock)
 Vue.component(DemoPlaceholder.name, DemoPlaceholder)
 Vue.component(AppCell.name, AppCell)
 Vue.use(ui, {
-  // scopeClass: 'jhsy',
+  scopeClass: 'jhsy',
   // scopeComponent: 'App',
 })
 Vue.use(ElementUI)

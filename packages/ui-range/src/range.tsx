@@ -1,96 +1,43 @@
-import { StyledComponent, DescribedComponent } from '@huteming/ui-styles/src/main'
+import { DescribedComponent, createBEM } from '@huteming/ui-styles/src/main'
 import { Vue, Prop, Watch } from 'vue-property-decorator'
-import { StyleProps } from '@huteming/ui-styles/types'
-
-const styles = (styled: any, css: any) => {
-  return {
-    Root: styled('div', () => `
-      display: flex;
-      align-items: center;
-    `),
-    Content: styled('div', { disabled: Boolean }, (props: StyleProps) => css`
-      position: relative;
-      flex: 1;
-      display: flex;
-      align-items: center;
-      opacity: ${props.disabled && '.5'};
-    `),
-    Progress: styled('div', () => `
-      margin-right: -7px;
-      padding-right: 7px;
-      background: #2A73FD;
-      border-radius: 2px 0 0 2px;
-      box-sizing: content-box;
-      z-index: 1;
-    `),
-    Finger: styled('div', () => `
-      flex: 0 0 auto;
-      z-index: 2;
-      margin: -20px;
-      padding: 20px;
-    `),
-    Thumb: styled('div', () => `
-      width: 10px;
-      height: 10px;
-      background: #2A73FD;
-      box-sizing: border-box;
-      border-radius: 50%;
-      cursor: move;
-    `),
-    Runway: styled('div', () => `
-      flex: 1;
-      margin-left: -7px;
-      background: rgba(247, 247, 247, 1);
-      border-radius: 0 2px 2px 0;
-      box-sizing: content-box;
-      z-index: 1;
-    `),
-    Min: styled('div', () => `
-      margin-right: 4px;
-    `),
-    Max: styled('div', () => `
-      margin-left: 4px;
-    `),
-  }
-}
+import { Root, Content, Progress, Finger, Thumb, Runway, Min, Max } from './vars'
+const bem = createBEM('range')
 
 @DescribedComponent({
   name: 'TmRange',
 })
-@StyledComponent(styles)
 export default class Range extends Vue {
   render () {
-    const { Root, Content, Progress, Finger, Thumb, Runway, Min, Max } = this.styledComponents
     const DomStart = (() => {
       if (this.$slots.start) {
-        return <div class="tm-range-start">
+        return <div class={ bem('start') }>
           { this.$slots.start }
         </div>
       }
     })()
     return (
-      <Root class="tm-range">
+      <Root class={ bem() }>
         { DomStart }
-        { this.showValue && <Min class="tm-range-min">{ this.min }</Min> }
+        { this.showValue && <Min class={ bem('min') }>{ this.min }</Min> }
 
-        <Content class="tm-range-content" disabled={ this.disabled } ref="content">
-          <Progress class="tm-range-progress" style={ this.styleProgress }></Progress>
+        <Content class={ bem('content') } disabled={ this.disabled } ref="content">
+          <Progress class={ bem('progress') } style={ this.styleProgress }></Progress>
 
-          <Finger class="tm-range-finger"
+          <Finger class={ bem('finger') }
             on-touchstart={ this.handleTouchstart }
             on-touchmove={ this.handleTouchmove }
             on-touchend={ this.handleTouchend }
           >
-            <Thumb class="tm-range-finger-thumb" ref="thumb"></Thumb>
+            <Thumb class={ bem('thumb') } ref="thumb"></Thumb>
           </Finger>
 
-          <Runway class="tm-range-runway" style={ this.styleRunWay }></Runway>
+          <Runway class={ bem('runway') } style={ this.styleRunWay }></Runway>
         </Content>
 
-        { this.showValue && <Max class="tm-range-max">{ this.max }</Max> }
+        { this.showValue && <Max class={ bem('max') }>{ this.max }</Max> }
 
         {
-          this.$slots.end && <div class="tm-range-end">
+          this.$slots.end && <div class={ bem('end') }>
             { this.$slots.end }
           </div>
         }

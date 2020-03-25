@@ -1,21 +1,16 @@
 import { Prop, Watch, Mixins } from 'vue-property-decorator'
-import { withStyles } from '@huteming/ui-styles/src/main'
+import { DescribedComponent, createBEM } from '@huteming/ui-styles/src/main'
 import { ParentMixin } from 'mixins/relation'
+import { Root } from './work'
+const bem = createBEM('collapse')
 
-const styles = (styled: any, css: any) => {
-  return {
-    Root: styled('div', () => `
-      width: 100%;
-      box-sizing: border-box;
-    `),
-  }
-}
-
-class Collapse extends Mixins(ParentMixin('collapse')) {
+@DescribedComponent({
+  name: 'Collapse',
+})
+export default class Collapse extends Mixins(ParentMixin('collapse')) {
   render () {
-    const { Root } = this.styledDoms
     return (
-      <Root>
+      <Root class={ bem() }>
         { this.$slots.default }
       </Root>
     )
@@ -56,5 +51,3 @@ class Collapse extends Mixins(ParentMixin('collapse')) {
     this.setActiveNames(_activeNames)
   }
 }
-
-export default withStyles(styles)(Collapse, { name: 'TmCollapse' })

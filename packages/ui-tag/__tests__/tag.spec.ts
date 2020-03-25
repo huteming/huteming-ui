@@ -1,6 +1,7 @@
 import assert from 'assert'
 import { createLocalVue, mount } from '@vue/test-utils'
 import TmTag from '../src/main'
+import { Root } from '../src/vars'
 
 const localVue = createLocalVue()
 localVue.use(TmTag)
@@ -19,7 +20,7 @@ describe('tag', () => {
             type: item,
           },
         })
-        const root = wrap.find(wrap.vm.styledComponents.Root)
+        const root = wrap.find(Root)
         assert.strictEqual((root.vm as any).type, item)
       })
     })
@@ -33,7 +34,7 @@ describe('tag', () => {
             size: item,
           },
         })
-        const root = wrap.find(wrap.vm.styledComponents.Root)
+        const root = wrap.find(Root)
         assert.strictEqual((root.vm as any).size, item)
       })
     })
@@ -45,7 +46,7 @@ describe('tag', () => {
         plain: true,
       },
     })
-    const root = wrap.find(wrap.vm.styledComponents.Root)
+    const root = wrap.find(Root)
     assert.strictEqual((root.vm as any).plain, true)
   })
 
@@ -55,7 +56,7 @@ describe('tag', () => {
         round: true,
       },
     })
-    const root = wrap.find(wrap.vm.styledComponents.Root)
+    const root = wrap.find(Root)
     assert.strictEqual((root.vm as any).round, true)
   })
 })

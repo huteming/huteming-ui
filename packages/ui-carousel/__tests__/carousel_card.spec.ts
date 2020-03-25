@@ -32,13 +32,13 @@ async function create (params: object = {}, methods = {}) {
     })
     const parent = wrap.find(TmCarousel)
     const children = wrap.findAll(TmCarouselItem)
-    sinon.replaceGetter(parent.vm.$el, 'offsetWidth', () => {
+    sinon.replaceGetter(parent.vm.$el as HTMLElement, 'offsetWidth', () => {
       return 375
     })
     Object.entries(methods).forEach(([name, mock]) => (parent.vm as any)[name] = mock)
     await sleep(10)
     // fix: children多于3个，但是打印的html并不存在。暂不知道原因
-    parent.vm.children.length = (wrap.vm as any).count
+    parent.vm.$children.length = (wrap.vm as any).count
     return [wrap, parent, children]
 }
 

@@ -1,28 +1,13 @@
-import { StyledComponent, DescribedComponent } from '@huteming/ui-styles/src/main'
+import { DescribedComponent } from '@huteming/ui-styles/src/main'
 import { Vue, Prop } from 'vue-property-decorator'
 import { HTMLInputEvent } from '../types'
-
-const styles = (styled: any) => {
-  return {
-    Root: styled('input', () => `
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      opacity: 0;
-      z-index: 9999;
-    `),
-  }
-}
+import { Root } from './vars'
 
 @DescribedComponent({
-  name: 'TmImageInput',
+  name: 'ImageInput',
 })
-@StyledComponent(styles)
 export default class ImageInput extends Vue {
   render () {
-    const { Root } = this.styledComponents
     return (
       <Root
         v-model={ this.fileValue }

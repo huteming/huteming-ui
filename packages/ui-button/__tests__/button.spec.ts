@@ -2,6 +2,7 @@
 import TmButton from '../src/main'
 import { createLocalVue, mount } from '@vue/test-utils'
 import assert from 'assert'
+import { Text as StyleText } from '../src/work'
 const localVue = createLocalVue()
 localVue.use(TmButton)
 
@@ -92,7 +93,7 @@ describe('button', () => {
             },
         })
         const icon = wrap.find('.tm-icon-loading')
-        const text = wrap.find('.tm-button-text')
+        const text = wrap.find(StyleText)
         assert.strictEqual(icon.exists(), true)
         assert.strictEqual(text.exists(), false)
     })
@@ -105,20 +106,20 @@ describe('button', () => {
             },
         })
         const icon = wrap.find('.tm-icon-loading')
-        const text = wrap.find('.tm-button-text')
+        const text = wrap.find(StyleText)
         assert.strictEqual(icon.exists(), true)
         assert.strictEqual(text.exists(), true)
         assert.strictEqual(text.text(), 'hello')
     })
 
-    it('loadingText', () => {
-        const wrap = mount(TmButton, {
-            propsData: {
-                text: 'hello',
-            },
-        })
-        const text = wrap.find('.tm-button-text')
-        assert.strictEqual(text.exists(), true)
-        assert.strictEqual(text.text(), 'hello')
+  it('loadingText', () => {
+    const wrap = mount(TmButton, {
+        propsData: {
+            text: 'hello',
+        },
     })
+    const text = wrap.find(StyleText)
+    assert.strictEqual(text.exists(), true)
+    assert.strictEqual(text.text(), 'hello')
+  })
 })

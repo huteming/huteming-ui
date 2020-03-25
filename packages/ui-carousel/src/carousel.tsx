@@ -1,28 +1,20 @@
 import { Prop, Watch, Mixins } from 'vue-property-decorator'
-import { withStyles } from 'packages/ui-styles/src/main'
+import { DescribedComponent, createBEM } from 'packages/ui-styles/src/main'
 import { CarouselItem, CarouselType } from '../types'
 import { ParentMixin } from 'mixins/relation'
+import { Root } from './work'
+const bem = createBEM('carousel')
 
-const styles = (styled: any, css: any) => {
-  return {
-    Root: styled('div', () => `
-      position: relative;
-      width: 100%;
-      height: 200px;
-      overflow: hidden;
-    `),
-  }
-}
-
-class Carousel extends Mixins(ParentMixin('carousel')) {
+@DescribedComponent({
+  name: 'Carousel',
+})
+export default class Carousel extends Mixins(ParentMixin('carousel')) {
   $el!: HTMLDivElement
   children!: CarouselItem[]
 
   render () {
-    const { Root } = this.styledDoms
-
     return (
-      <Root style={ this.styles } on-touchstart={ this.handleTouchstart } on-touchmove={ this.handleTouchmove } on-touchend={ this.handleTouchend }>
+      <Root class={ bem() } style={ this.styles } on-touchstart={ this.handleTouchstart } on-touchmove={ this.handleTouchmove } on-touchend={ this.handleTouchend }>
         { this.$slots.default }
       </Root>
     )
@@ -275,5 +267,3 @@ class Carousel extends Mixins(ParentMixin('carousel')) {
   moveDirection = '' // '', vertical, horizontal
   needRespond = false
 }
-
-export default withStyles(styles)(Carousel, { name: 'TmCarousel' })

@@ -2,31 +2,27 @@
 import TmPopup from '@huteming/ui-popup/src/main'
 import TmPicker from '@huteming/ui-picker/src/main'
 import TmToolbar from '@huteming/ui-toolbar/src/main'
-import { withStyles } from '@huteming/ui-styles/src/main'
+import { DescribedComponent, createBEM } from '@huteming/ui-styles/src/main'
 import { Vue, Prop, Watch } from 'vue-property-decorator'
-
-const styles = (styled: any) => {
-  return {
-    Root: styled('div', () => `
-      background: #fff;
-    `),
-  }
-}
+import { Root } from './vars'
+const bem = createBEM('datetime')
 
 const NOW = new Date()
 const CURRENT_YEAR = NOW.getFullYear()
 const MIN_YEAR = CURRENT_YEAR - 10
 const MAX_YEAR = CURRENT_YEAR + 10
 
-class PickerDatetime extends Vue {
+@DescribedComponent({
+  name: 'PickerDatetime',
+})
+export default class PickerDatetime extends Vue {
   render () {
-    const { Root } = this.styledDoms
     const PickerItem = TmPicker.item as any
     const showDate = this.mode === 'datetime' || this.mode === 'date'
     const showTime = this.mode === 'datetime' || this.mode === 'time'
     return (
       <TmPopup value={ this.normalizedVisible } on-input={ (val: boolean) => (this.normalizedVisible = val) } position="bottom" ref="popup">
-        <Root class="tm-picker-datetime">
+        <Root class={ bem() }>
           <TmToolbar on-confirm={ this.handleConfirm } on-cancel={ this.handleCancel } />
 
           <TmPicker>
@@ -226,5 +222,3 @@ class PickerDatetime extends Vue {
     return new Date(year, month + 1, 0).getDate()
   }
 }
-
-export default withStyles(styles)(PickerDatetime, { name: 'TmPickerDatetime' })

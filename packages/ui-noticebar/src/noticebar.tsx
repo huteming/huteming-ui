@@ -10,7 +10,7 @@ const PX_TIME_CONSUMING = 25 // 移动每像素耗时，毫秒
 const EXTRA_DISTANCE = 15 // 额外移动的距离
 
 @DescribedComponent({
-  name: 'TmNoticebar',
+  name: 'Noticebar',
 })
 export default class NoticeBar extends Vue {
   render () {

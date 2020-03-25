@@ -1,6 +1,6 @@
 import Carousel from './carousel'
 import CarouselItem from './carousel-item'
-import { installComponent } from 'packages/ui/src/utils/tools'
+import { installComponent } from 'utils/tools'
 
 const installCarousel = installComponent('Carousel', Carousel)
 const installItem = installComponent('CarouselItem', CarouselItem)

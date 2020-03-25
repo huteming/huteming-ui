@@ -1,7 +1,6 @@
 import Component from './panel'
+import { installComponent } from 'utils/tools'
 
-Component.install = function (Vue) {
-  Vue.component(Component.registName, Component)
-}
+Component.install = installComponent('Panel', Component)
 
 export default Component

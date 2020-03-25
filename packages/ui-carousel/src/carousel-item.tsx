@@ -1,41 +1,29 @@
 import { autoprefixer } from '@huteming/ui-element/src/main'
 import { Prop, Mixins } from 'vue-property-decorator'
-import { StyledComponent, DescribedComponent } from '@huteming/ui-styles/src/main'
-import { StyleProps } from '@huteming/ui-styles/types'
+import { DescribedComponent, createBEM } from '@huteming/ui-styles/src/main'
 import { Carousel } from '../types'
 import { ChildrenMixin } from 'mixins/relation'
-const CARD_SCALE = 0.83 // 非中心项目相对中心项目显示比例，这是整体比例
-const CARD_WIDTH_PERCENT = 0.85 // 中心项目显示宽度比例，高度还是父元素100%
-const CARD_STAY_PX = 10 // 子项卡片显示的宽度
-
-const styles = (styled: any, css: any) => {
-  return {
-    Root: styled('div', { animation: Boolean, type: String, inStage: Boolean }, (props: StyleProps) => css`
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: ${props.type === 'card' ? `${CARD_WIDTH_PERCENT * 100}%` : '100%'};
-      height: 100%;
-      transition: ${props.animation && 'transform 300ms ease-in-out'};
-      z-index: ${props.inStage ? '2' : '1'};
-    `),
-  }
-}
+import { CARD_SCALE, CARD_WIDTH_PERCENT, CARD_STAY_PX, ItemRoot } from './work'
+const bem = createBEM('carousel-item')
 
 @DescribedComponent({
-  name: 'TmCarouselItem',
+  name: 'CarouselItem',
 })
-@StyledComponent(styles)
 export default class CarouselItem extends Mixins(ChildrenMixin('carousel')) {
   parent!: Carousel
 
   render () {
-    const { Root } = this.styledComponents
-
     return (
-      <Root in-stage={ this.inStage } type={ this.parent.type } animation={ this.animation } style={ this.styles } v-show={ this.ready } onClick={ this.handleItemClick }>
+      <ItemRoot
+        class={ bem() }
+        in-stage={ this.inStage }
+        type={ this.parent.type }
+        animation={ this.animation }
+        style={ this.styles }
+        onClick={ this.handleItemClick }
+        v-show={ this.ready }>
         { this.$slots.default }
-      </Root>
+      </ItemRoot>
     )
   }
 

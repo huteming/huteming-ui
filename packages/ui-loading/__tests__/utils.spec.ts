@@ -5,6 +5,7 @@ import sinon from 'sinon'
 import TestBasic from 'tests/components/basic.vue'
 import { Mock, sleep } from 'tests/helper'
 import Vue from 'vue'
+import { Root } from '../src/vars'
 const SCOPE = '@@Loading'
 
 describe('loading > utils', () => {
@@ -64,7 +65,7 @@ describe('loading > utils', () => {
       assert.strictEqual(ins.theme, mockTheme)
 
       // 主题
-      const root = createWrapper(ins).find(ins.styledComponents.Root)
+      const root = createWrapper(ins).find(Root)
       assert.strictEqual((root.vm as any).theme.loading, mockTheme)
     })
 

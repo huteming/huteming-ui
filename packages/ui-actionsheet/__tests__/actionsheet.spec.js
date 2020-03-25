@@ -4,40 +4,41 @@ import assert from 'assert'
 import sinon from 'sinon'
 import { mount, TransitionStub, createLocalVue } from '@vue/test-utils'
 import { sleep, cleanDom } from 'tests/helper'
+import { Header } from '../src/work'
 const localVue = createLocalVue()
-localVue.component(TmActionsheet.name, TmActionsheet)
+localVue.component('TmActionsheet', TmActionsheet)
 const menus = [
-    { label: 'label - 1', value: 'value - 1' },
-    { label: 'label - 2', value: 'value - 2' }
+  { label: 'label - 1', value: 'value - 1' },
+  { label: 'label - 2', value: 'value - 2' },
 ]
 
 describe('actionsheet', () => {
     it('install', () => {
-        localVue.use(actionsheet)
-        assert.strictEqual(localVue.prototype.$actionsheet, actionsheet)
+      localVue.use(actionsheet)
+      assert.strictEqual(localVue.prototype.$actionsheet, actionsheet)
     })
     
     it('closeOnClickModal', async () => {
-        const mockResolve = sinon.fake()
-        const mockReject = sinon.fake()
-        const wrapper = mount({
-            template: `
-                <div>
-                    <TmActionsheet :menus="menus" :close-on-click-modal="closeOnClickModal" />
-                </div>
-            `,
-            data () {
-                return {
-                    menus,
-                    closeOnClickModal: false,
-                }
-            },
-        }, {
-            stubs: {
-                transition: false,
-            },
-            localVue,
-        })
+      const mockResolve = sinon.fake()
+      const mockReject = sinon.fake()
+      const wrapper = mount({
+        template: `
+          <div>
+            <TmActionsheet :menus="menus" :close-on-click-modal="closeOnClickModal" />
+          </div>
+        `,
+        data () {
+            return {
+                menus,
+                closeOnClickModal: false,
+            }
+        },
+      }, {
+          stubs: {
+              transition: false,
+          },
+          localVue,
+      })
         let wrapperAction
         wrapperAction = wrapper.find(TmActionsheet)
         wrapperAction.vm.open()
@@ -83,15 +84,15 @@ describe('actionsheet', () => {
         wrapperAction = wrapper.find(TmActionsheet)
 
         let wrapperTitle
-        wrapperTitle = wrapper.find('.tm-actionsheet-title')
+        wrapperTitle = wrapper.find(Header)
         assert.ok(wrapperTitle.exists())
         wrapper.setProps({ title: '' })
         await sleep()
-        wrapperTitle = wrapper.find('.tm-actionsheet-title')
+        wrapperTitle = wrapper.find(Header)
         assert.ok(!wrapperTitle.exists())
 
         // 可删。为了测试覆盖 resolve 默认值
-        const wrapperConfirm = wrapper.find('.tm-actionsheet-confirm')
+        const wrapperConfirm = wrapper.find('.tm-actionsheet__confirm')
         wrapperConfirm.trigger('click')
     })
 
@@ -111,7 +112,7 @@ describe('actionsheet', () => {
         })
         const wrapperAction = wrapper.find(TmActionsheet)
         wrapperAction.vm.open()
-        const wrapperConfirm = wrapper.find('.tm-actionsheet-confirm')
+        const wrapperConfirm = wrapper.find('.tm-actionsheet__confirm')
         wrapperConfirm.trigger('click')
         assert.ok(mockResolve.calledWithExactly('value - 1'))
     })
@@ -133,14 +134,14 @@ describe('actionsheet', () => {
         let wrapperAction
         wrapperAction = wrapper.find(TmActionsheet)
         wrapperAction.vm.open()
-        const wrapperCancel = wrapper.find('.tm-actionsheet-cancel')
+        const wrapperCancel = wrapper.find('.tm-actionsheet__cancel')
         wrapperCancel.trigger('click')
         assert.ok(mockReject.calledOnce)
     })
 
-    afterEach(() => {
-        sinon.restore()
-        cleanDom('.tm-actionsheet')
-        cleanDom('.tm-modal')
-    })
+  afterEach(() => {
+    sinon.restore()
+    cleanDom('.tm-actionsheet')
+    cleanDom('.tm-modal')
+  })
 })

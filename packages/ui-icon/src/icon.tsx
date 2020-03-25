@@ -1,9 +1,12 @@
 import { Prop } from 'vue-property-decorator'
 import * as tsx from 'vue-tsx-support'
 import { IconProps } from '../types'
-import { withStyles } from '@huteming/ui-styles/src/main'
+import { DescribedComponent } from '@huteming/ui-styles/src/main'
 
-class TmIcon extends tsx.Component<IconProps> {
+@DescribedComponent({
+  name: 'Icon',
+})
+export default class TmIcon extends tsx.Component<IconProps> {
   render () {
     return <i class={ this.classes }></i>
   }
@@ -15,5 +18,3 @@ class TmIcon extends tsx.Component<IconProps> {
     return ['tm-icon', `tm-icon-${this.icon}`]
   }
 }
-
-export default withStyles()(TmIcon, { name: 'TmIcon' })

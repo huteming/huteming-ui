@@ -1,6 +1,7 @@
 import TmFlex from '../src/main'
 import assert from 'assert'
 import { createLocalVue, mount } from '@vue/test-utils'
+import { Root } from '../src/work'
 const localVue = createLocalVue()
 localVue.use(TmFlex)
 
@@ -59,7 +60,7 @@ describe('flex', () => {
     }, {
       localVue,
     })
-    const parent: any = wrapper.find((wrapper.vm.$refs.flex as any).styledComponents.Root).vm
+    const parent: any = wrapper.find(Root).vm
     const child = (wrapper.vm.$refs.flexItem as any).$refs.root
 
     assert.strictEqual(parent.container, true)
@@ -89,7 +90,7 @@ describe('flex', () => {
       }, {
         localVue,
       })
-      const parent: any = wrapper.find((wrapper.vm.$refs.flex as any).styledComponents.Root).vm
+      const parent: any = wrapper.find(Root).vm
       assert.strictEqual(parent.wrap, 'wrap')
     })
     it('nowrap', () => {
@@ -102,7 +103,7 @@ describe('flex', () => {
       }, {
         localVue,
       })
-      const parent: any = wrapper.find((wrapper.vm.$refs.flex as any).styledComponents.Root).vm
+      const parent: any = wrapper.find(Root).vm
       assert.strictEqual(parent.wrap, 'nowrap')
     })
   })
@@ -115,7 +116,7 @@ describe('flex', () => {
             justify: item,
           },
         })
-        const flex = wrap.find(wrap.vm.styledComponents.Root)
+        const flex = wrap.find(Root)
         assert.strictEqual((flex.vm as any).justify, item)
       })
     })

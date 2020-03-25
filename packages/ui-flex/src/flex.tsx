@@ -1,56 +1,15 @@
 import { Prop, Vue } from 'vue-property-decorator'
-import { ellipsis, StyledComponent, DescribedComponent, createBEM } from 'packages/ui-styles/src/main'
-import { StyleProps } from 'packages/ui-styles/types'
+import { DescribedComponent, createBEM } from 'packages/ui-styles/src/main'
 import { FlexJustify, FlexAlign, FlexContent, FlexAlignSelf } from '../types/flex'
+import { Root } from './work'
 const bem = createBEM('flex')
 const bemItem = createBEM('flex-item')
-
-const RootProps = {
-  container: Boolean,
-
-  direction: String,
-  wrap: String,
-  justify: String,
-  align: String,
-  alignContent: String,
-
-  alignSelf: String,
-  order: Number,
-  grow: Number,
-  shrink: Number,
-  basis: String,
-  gutter: String,
-  ellipsis: [Number, Boolean],
-}
-
-const styles = (styled: any, css: any) => {
-  return {
-    Root: styled('div', RootProps, (props: StyleProps) => css`
-      ${props.container && `
-        display: flex;
-      `}
-      flex-flow: ${props.direction} ${props.wrap};
-      align-items: ${props.align};
-      align-content: ${props.alignContent};
-      justify-content: ${props.justify};
-
-      align-self: ${props.alignSelf};
-      order: ${props.order};
-      flex: ${props.grow} ${props.shrink} ${props.basis};
-
-      margin: ${props.gutter};
-      ${props.ellipsis && ellipsis(typeof props.ellipsis === 'number' ? props.ellipsis : 1)}
-    `),
-  }
-}
 
 @DescribedComponent({
   name: 'TmFlex',
 })
-@StyledComponent(styles)
 export default class Flex extends Vue {
   render () {
-    const { Root } = this.styledComponents
     return (
       <Root
         ref="root"

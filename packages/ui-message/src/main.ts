@@ -2,6 +2,7 @@ import Vue from 'vue'
 import TmMessage from './message'
 import { isVNode, isComponent } from '@huteming/ui-tools/src/main'
 import { MessageOptions, MessageConfig, MessageComponent, MessageResponse, MessageBox } from '../types'
+import { installPrototype } from 'utils/tools'
 
 const defaults = {
   title: '提示',
@@ -77,8 +78,6 @@ const Message: MessageBox = function (message: string | MessageOptions | object,
   })
 }
 
-Message.registName = '$message'
-
 Message.alert = (message: string | MessageOptions | object, title?: string | object, options?: MessageOptions) => {
   return Message(message, title, Object.assign({}, options, {
     closeOnClickModal: false,
@@ -98,8 +97,6 @@ Message.prompt = (message: string | MessageOptions | object, title?: string | ob
   }))
 }
 
-Message.install = function (Vue) {
-  Vue.prototype[Message.registName] = Message
-}
+Message.install = installPrototype('$message', Message)
 
 export default Message

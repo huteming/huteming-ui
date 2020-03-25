@@ -1,81 +1,17 @@
 import MixinsModal from '@huteming/ui-modal/src/main'
-import SmartScroll from '@huteming/ui-smart-scroll/src/main'
 import { Prop, Mixins, Watch, Emit } from 'vue-property-decorator'
-import { withStyles } from '@huteming/ui-styles/src/main'
-import { StyleProps } from '@huteming/ui-styles/types'
-import imgClose from './images/icon-close.png'
+import { DescribedComponent, createBEM } from '@huteming/ui-styles/src/main'
+import { Root, Content, Footer, CancelOutRight, CancelOutLeft, CancelInRight, CancelInLeft, CancelBottom, Line } from './work'
+const bem = createBEM('dialog')
 
-const styles = (styled: any, css: any) => {
-  return {
-    Root: styled('div', { time: Number }, (props: StyleProps) => `
-      position: fixed;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      flex-flow: column wrap;
-    `),
-    Content: styled('div', () => `
-      position: relative;
-    `),
-    Footer: styled('div', () => `
-      width: 100%;
-      margin-top: 20px;
-    `),
-    CancelOutRight: styled('div', () => `
-      width: 20px;
-      order: -1;
-      align-self: flex-end;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-    `),
-    CancelOutLeft: styled('div', () => `
-      position: absolute;
-      top: 0;
-      left: 0;
-      transform: translate(-100%, -100%);
-      width: 25px;
-      height: 25px;
-    `),
-    CancelInRight: styled('div', () => `
-      position: absolute;
-      top: 0;
-      right: 0;
-      transform: translate(-50%, 50%);
-      width: 25px;
-      height: 25px;
-    `),
-    CancelInLeft: styled('div', () => `
-      position: absolute;
-      top: 0;
-      left: 0;
-      transform: translate(50%, 50%);
-      width: 25px;
-      height: 25px;
-    `),
-    CancelBottom: styled('div', () => `
-      position: relative;
-      margin-top: 20px;
-      width: 37px;
-      height: 37px;
-    `),
-    Line: styled('div', () => `
-      width: 1px;
-      height: 7px;
-      background: #fff;
-    `),
-  }
-}
-
-class Dialog extends Mixins(MixinsModal) {
+@DescribedComponent({
+  name: 'Dialog',
+})
+export default class Dialog extends Mixins(MixinsModal) {
   render () {
-    const { Root, Content, Footer, CancelOutRight, CancelOutLeft, CancelInRight, CancelInLeft, CancelBottom, Line } = this.styledDoms
     const DomFooter = (() => {
       if (this.$slots.footer) {
-        return <Footer class="tm-dialog-footer">{ this.$slots.footer }</Footer>
+        return <Footer class={ bem('footer') }>{ this.$slots.footer }</Footer>
       }
     })()
     const DomCancelPosition = (() => {
@@ -97,17 +33,17 @@ class Dialog extends Mixins(MixinsModal) {
     const DomCancel = (() => {
       if (DomCancelPosition) {
         return (
-          <DomCancelPosition class="tm-dialog-cancel" on-click={ this.handleClose }>
-            <img src={ imgClose } alt="" style="display: block; width: 100%;" />
-            { this.closePosition === 'out-right' && <Line class="tm-dialog-cancel-line"></Line> }
+          <DomCancelPosition class={ bem('cancel') } on-click={ this.handleClose }>
+            <img src="https://jhsycdn.jinghao.com/components/icon-close.png" alt="" style="display: block; width: 100%;" />
+            { this.closePosition === 'out-right' && <Line class={ bem('line') }></Line> }
           </DomCancelPosition>
         )
       }
     })()
     return (
       <transition name="fade" on-after-leave={ this.handleAfterLeave }>
-        <Root class="tm-dialog" v-show={ this.normalizedVisible } on-click={ this.handleStop }>
-          <Content class="tm-dialog-content">{ this.$slots.default }</Content>
+        <Root class={ bem() } v-show={ this.normalizedVisible } on-click={ this.handleStop }>
+          <Content class={ bem('content') }>{ this.$slots.default }</Content>
           { DomFooter }
           { DomCancel }
         </Root>
@@ -199,10 +135,3 @@ class Dialog extends Mixins(MixinsModal) {
   visible: boolean = this.value
   normalizedVisible: boolean = false
 }
-
-export default withStyles(styles)(Dialog, {
-  name: 'TmDialog',
-  directives: {
-    SmartScroll,
-  },
-})

@@ -2,80 +2,23 @@ import { isHtmlElement, isString } from '@huteming/ui-types/src/main'
 import { getScrollContainer, on, off, isInContainer } from 'packages/ui-element/src/main'
 import { throttle } from 'throttle-debounce'
 import TmIcon from 'packages/ui-icon/src/main'
-import { Component, Vue, Prop, Watch } from 'vue-property-decorator'
-import { withStyles } from 'packages/ui-styles/src/main'
+import { Vue, Prop, Watch } from 'vue-property-decorator'
+import { DescribedComponent, createBEM } from 'packages/ui-styles/src/main'
+import { Root, Placeholder, Loading, ImageError, ImageInner } from './work'
+const bem = createBEM('image')
 
-const styles = (styled: any, css: any) => {
-  return {
-    Root: styled('div', () => `
-      position: relative;
-      overflow: hidden;
-    `),
-    Placeholder: styled('div', () => `
-      position: relative;
-      border-radius: 3px;
-      width: 100%;
-      height: 100%;
-      border: 1px solid #ddd;
-      background-color: #fff;
-      box-sizing: border-box;
-
-      &:before {
-        content: " ";
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        width: 1px;
-        height: 25px;
-        transform: translate(-50%,-50%);
-        background-color: #ccc;
-      }
-
-      &:after {
-        content: " ";
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        width: 25px;
-        height: 1px;
-        transform: translate(-50%,-50%);
-        background-color: #ccc;
-      }
-    `),
-    Loading: styled('div', () => `
-      width: 100%;
-      height: 100%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    `),
-    ImageError: styled('div', () => `
-      width: 100%;
-      height: 100%;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      font-size: 14px;
-      color: #c0c4cc;
-      vertical-align: middle;
-    `),
-    ImageInner: styled('img', () => `
-      width: 100%;
-      height: 100%;
-      vertical-align: top;
-    `),
-  }
-}
-
-class Image extends Vue {
+@DescribedComponent({
+  name: 'TmImage',
+  inheritAttrs: false,
+})
+export default class Image extends Vue {
   render () {
-    const { Root, Placeholder, Loading, ImageError, ImageInner } = this.styledDoms
     const DomHolder = (() => {
       if (this.state === 'hold') {
         if (this.$slots.placeholder) {
           return this.$slots.placeholder
         }
-        return <Placeholder class="tm-image__placeholder"></Placeholder>
+        return <Placeholder class={ bem('placeholder') }></Placeholder>
       }
       return null
     })()
@@ -84,7 +27,7 @@ class Image extends Vue {
         if (this.$slots.loading) {
           return this.$slots.loading
         }
-        return <Loading class="tm-image__loading">
+        return <Loading class={ bem('loading') }>
           <TmIcon icon="loading" />
         </Loading>
       }
@@ -93,14 +36,14 @@ class Image extends Vue {
     const DomError = (() => {
       if (this.state === 'error') {
         return this.$slots.error || (
-          <ImageError class="tm-image__error">加载失败</ImageError>
+          <ImageError class={ bem('error') }>加载失败</ImageError>
         )
       }
       return null
     })()
     const DomImg = (() => {
       return this.state === 'success' && <ImageInner
-        class="tm-image__inner"
+        class={ bem('inner') }
         src={ this.src }
         style={ this.imageStyle }
         attrs={ this.$attrs }
@@ -109,7 +52,7 @@ class Image extends Vue {
     })()
 
     return (
-      <Root class="tm-image">
+      <Root class={ bem() }>
         { DomHolder }
         { DomLoading }
         { DomError }
@@ -241,8 +184,3 @@ class Image extends Vue {
   lazyLoadHandler: Function | null = null
   domScrollContainer: Element | null = null
 }
-
-export default withStyles(styles)(Image, {
-  name: 'TmImage',
-  inheritAttrs: false,
-})

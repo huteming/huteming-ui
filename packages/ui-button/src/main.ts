@@ -1,7 +1,6 @@
 import Button from './button'
+import { installComponent } from 'utils/tools'
 
-Button.install = (Vue) => {
-  Vue.component(Button.registName, Button)
-}
+Button.install = installComponent('button', Button)
 
 export default Button

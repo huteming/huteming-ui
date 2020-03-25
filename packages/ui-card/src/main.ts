@@ -1,15 +1,14 @@
 import Card from './card'
 import CardPosterBar from './card-poster-bar'
+import { installComponent } from 'utils/tools'
+const installPosterBar = installComponent('CardPosterBar', CardPosterBar)
+const installCard = installComponent('Card', Card)
 
-CardPosterBar.install = function (Vue) {
-  Vue.component(CardPosterBar.registName, CardPosterBar)
-}
-
+CardPosterBar.install = installPosterBar
 Card.PosterBar = CardPosterBar
-
 Card.install = function (Vue) {
-  Vue.component(Card.registName, Card)
-  Vue.use(Card.PosterBar)
+  installCard(Vue)
+  installPosterBar(Vue)
 }
 
 export default Card

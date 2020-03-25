@@ -7,6 +7,7 @@ import assert from 'assert'
 import { mount, config, TransitionStub, shallowMount, createLocalVue } from '@vue/test-utils'
 import { sleep, Mock } from 'tests/helper'
 import sinon from 'sinon'
+import { CancelBottom, CancelInLeft, CancelInRight, CancelOutLeft, CancelOutRight, Line } from '../src/work'
 const localVue = createLocalVue()
 localVue.use(TmDialog)
 localVue.component(WorkBasic.name, WorkBasic)
@@ -196,7 +197,7 @@ describe('dialog', () => {
             },
         })
         const wrapperDialog = wrapper.find(TmDialog)
-        const wrapperClose = wrapperDialog.find('.tm-dialog-cancel')
+        const wrapperClose = wrapperDialog.find(CancelBottom)
         await sleep()
         wrapperClose.trigger('click')
         await sleep(310)
@@ -279,32 +280,39 @@ describe('dialog', () => {
         assert.ok(basic.exists())
     })
 
-    describe('closePosition', () => {
-        void ['out-right', 'out-left', 'in-right', 'in-left', 'bottom', ''].forEach(item => {
-            it(item || 'none', async () => {
-                const wrapper = mount({
-                    template: `
-                        <div>
-                            <tm-dialog v-model="visible" :close-position="closePosition">
-                                <TestBasic slot="footer" />
-                            </tm-dialog>
-                        </div>
-                    `,
-                    data () {
-                        return {
-                            closePosition: item,
-                            visible: false,
-                        }
-                    },
-                }, {
-                    localVue,
-                })
-                const cancel = wrapper.find('.tm-dialog-cancel')
-                assert.strictEqual(cancel.exists(), !!item)
-
-                const line = wrapper.find('.tm-dialog-cancel-line')
-                assert.strictEqual(line.exists(), item === 'out-right')
-            })
+  describe('closePosition', () => {
+    void ['out-right', 'out-left', 'in-right', 'in-left', 'bottom', ''].forEach(item => {
+      it(item || 'none', async () => {
+        const wrapper = mount({
+          template: `
+              <div>
+                  <tm-dialog v-model="visible" :close-position="closePosition">
+                      <TestBasic slot="footer" />
+                  </tm-dialog>
+              </div>
+          `,
+          data () {
+              return {
+                  closePosition: item,
+                  visible: false,
+              }
+          },
+        }, {
+            localVue,
         })
+        const dom = {
+          'out-right': CancelOutRight,
+          'out-left': CancelOutLeft,
+          'in-right': CancelInRight,
+          'in-left': CancelInLeft,
+          'bottom': CancelBottom,
+        }
+        const cancel = wrapper.find(dom[item] || CancelBottom)
+        assert.strictEqual(cancel.exists(), !!item)
+
+        const line = wrapper.find(Line)
+        assert.strictEqual(line.exists(), item === 'out-right')
+      })
     })
+  })
 })

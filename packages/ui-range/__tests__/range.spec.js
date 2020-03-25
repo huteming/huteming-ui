@@ -2,6 +2,7 @@ import assert from 'assert'
 import TmRange from '../src/main'
 import { mount, createLocalVue } from '@vue/test-utils'
 import { sleep } from 'tests/helper'
+import { Min, Max, Finger, Progress } from '../src/vars'
 const localVue = createLocalVue()
 localVue.use(TmRange)
 
@@ -15,7 +16,7 @@ describe('range', () => {
     wrapper.setData({
       widthProgress: 100,
     })
-    const wrapperFinger = wrapper.find('.tm-range-finger')
+    const wrapperFinger = wrapper.find(Finger)
 
     wrapperFinger.trigger('touchstart', {
         changedTouches: [{ pageX: 0 }],
@@ -39,7 +40,7 @@ describe('range', () => {
     wrapper.setData({
       widthProgress: 100,
     })
-    const wrapperFinger = wrapper.find('.tm-range-finger')
+    const wrapperFinger = wrapper.find(Finger)
     let emitMoving
 
     wrapperFinger.trigger('touchstart', {
@@ -92,7 +93,7 @@ describe('range', () => {
         })
         await sleep()
         // console.log(wrapper.html())
-        const wrapperProgress = wrapper.find('.tm-range-progress')
+        const wrapperProgress = wrapper.find(Progress)
         // assert.strictEqual(wrapperProgress.element.style.width, '100px')
     })
 
@@ -109,7 +110,7 @@ describe('range', () => {
             value: 60,
         })
         await sleep()
-        const wrapperProgress = wrapper.find('.tm-range-progress')
+        const wrapperProgress = wrapper.find(Progress)
         assert.strictEqual(wrapperProgress.element.style.width, '60px')
     })
 
@@ -123,8 +124,8 @@ describe('range', () => {
             widthProgress: 100,
         })
         await sleep()
-        const wrapperFinger = wrapper.find('.tm-range-finger')
-        const wrapperProgress = wrapper.find('.tm-range-progress')
+        const wrapperFinger = wrapper.find(Finger)
+        const wrapperProgress = wrapper.find(Progress)
 
         wrapperFinger.trigger('touchstart', {
             changedTouches: [{ pageX: 0, pageY: 0 }],
@@ -149,8 +150,8 @@ describe('range', () => {
             widthProgress: 100,
         })
         const vm = wrapper.vm
-        const wrapperFinger = wrapper.find('.tm-range-finger')
-        const wrapperProgress = wrapper.find('.tm-range-progress')
+        const wrapperFinger = wrapper.find(Finger)
+        const wrapperProgress = wrapper.find(Progress)
 
         wrapperFinger.trigger('touchstart', {
             changedTouches: [{ pageX: 0, pageY: 0 }],
@@ -188,8 +189,8 @@ describe('range', () => {
         wrapper.setData({
             widthProgress: 100,
         })
-        const wrapperFinger = wrapper.find('.tm-range-finger')
-        const wrapperProgress = wrapper.find('.tm-range-progress')
+        const wrapperFinger = wrapper.find(Finger)
+        const wrapperProgress = wrapper.find(Progress)
 
         wrapperFinger.trigger('touchstart', {
             changedTouches: [{ pageX: 20 }],
@@ -216,8 +217,8 @@ describe('range', () => {
         wrapper.setData({
             widthProgress: 100,
         })
-        const wrapperFinger = wrapper.find('.tm-range-finger')
-        const wrapperProgress = wrapper.find('.tm-range-progress')
+        const wrapperFinger = wrapper.find(Finger)
+        const wrapperProgress = wrapper.find(Progress)
 
         wrapperFinger.trigger('touchstart', {
             changedTouches: [{ pageX: 0 }],
@@ -233,26 +234,26 @@ describe('range', () => {
 
     it('前后渲染额外区域', () => {
         const wrap = mount(TmRange, {
-            slots: {
-                start: 'hello',
-                end: 'world',
-            }
+          slots: {
+            start: 'hello',
+            end: 'world',
+          }
         })
-        const start = wrap.find('.tm-range-start')
-        const end = wrap.find('.tm-range-end')
+        const start = wrap.find('.tm-range__start')
+        const end = wrap.find('.tm-range__end')
         assert.ok(start.exists())
         assert.ok(end.exists())
     })
 
-    it('显示区间数字', () => {
-        const wrap = mount(TmRange, {
-            propsData: {
-                showValue: true,
-            },
-        })
-        const start = wrap.find('.tm-range-min')
-        const end = wrap.find('.tm-range-max')
-        assert.ok(start.exists())
-        assert.ok(end.exists())
+  it('显示区间数字', () => {
+    const wrap = mount(TmRange, {
+        propsData: {
+            showValue: true,
+        },
     })
+    const start = wrap.find(Min)
+    const end = wrap.find(Max)
+    assert.ok(start.exists())
+    assert.ok(end.exists())
+  })
 })

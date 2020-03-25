@@ -2,6 +2,7 @@ import TmCollapse from '../src/main'
 import { createLocalVue, mount } from '@vue/test-utils'
 import assert from 'assert'
 import { sleep } from 'tests/helper'
+import { Header, Wrap } from '../src/work'
 const TmCollapseItem = TmCollapse.item
 const localVue = createLocalVue()
 localVue.use(TmCollapse)
@@ -25,9 +26,9 @@ describe('collapse', () => {
         }, {
             localVue,
         })
-        const wrapper1 = wrapper.findAll('.tm-collapse-wrap').at(0)
-        const wrapper2 = wrapper.findAll('.tm-collapse-wrap').at(1)
-        const wrapper3 = wrapper.findAll('.tm-collapse-wrap').at(2)
+        const wrapper1 = wrapper.findAll(Wrap).at(0)
+        const wrapper2 = wrapper.findAll(Wrap).at(1)
+        const wrapper3 = wrapper.findAll(Wrap).at(2)
         assert.ok(wrapper1.isVisible())
         assert.ok(!wrapper2.isVisible())
         assert.ok(!wrapper3.isVisible())
@@ -51,7 +52,7 @@ describe('collapse', () => {
             localVue,
         })
         const wrapperContainer = wrapper.find(TmCollapse)
-        const wrapperHeader = wrapper.find('.tm-collapse-header')
+        const wrapperHeader = wrapper.find(Header)
         // open
         wrapperHeader.trigger('click')
         assert.deepStrictEqual(Object.values(wrapper.vm.active), ['1'])
@@ -83,7 +84,7 @@ describe('collapse', () => {
             localVue,
         })
         const wrapperContainer = wrapper.find(TmCollapse)
-        const wrapperHeader = wrapper.find('.tm-collapse-header')
+        const wrapperHeader = wrapper.find(Header)
         // open
         wrapperHeader.trigger('click')
         assert.strictEqual(wrapper.vm.active, '1')
@@ -137,7 +138,7 @@ describe('collapse', () => {
         })
         const wrapperContainer = wrapper.find(TmCollapse)
         const wrapperItem = wrapper.find(TmCollapseItem)
-        const wrapperHeader = wrapper.find('.tm-collapse-header')
+        const wrapperHeader = wrapper.find(Header)
         // open
         wrapperHeader.trigger('click')
         assert.deepStrictEqual(Object.values(wrapper.vm.active), [])
@@ -148,33 +149,33 @@ describe('collapse', () => {
         assert.strictEqual(emitClick[0][0], false)
     })
 
-    it('没有内容', async () => {
-        const wrapper = mount({
-            template: `
-                <tm-collapse v-model="active">
-                    <tm-collapse-item name="1" header="title1"></tm-collapse-item>
-                    <tm-collapse-item name="2" header="title2">title2</tm-collapse-item>
-                    <tm-collapse-item name="3" header="title3">title3</tm-collapse-item>
-                </tm-collapse>
-            `,
-            data () {
-                return {
-                    active: ['1'],
-                }
-            },
-        }, {
-            localVue,
-        })
-        const wrapperContainer = wrapper.find(TmCollapse)
-        const wrapperItem = wrapper.find(TmCollapseItem)
-        const wrapperHeader = wrapper.find('.tm-collapse-header')
-        // open
-        wrapperHeader.trigger('click')
-        assert.deepStrictEqual(Object.values(wrapper.vm.active), ['1'])
-
-        assert.ok(!wrapperContainer.emitted('change'))
-        const emitClick = wrapperItem.emitted('click')
-        assert.strictEqual(emitClick.length, 1)
-        assert.strictEqual(emitClick[0][0], true)
+  it('没有内容', async () => {
+    const wrapper = mount({
+        template: `
+            <tm-collapse v-model="active">
+                <tm-collapse-item name="1" header="title1"></tm-collapse-item>
+                <tm-collapse-item name="2" header="title2">title2</tm-collapse-item>
+                <tm-collapse-item name="3" header="title3">title3</tm-collapse-item>
+            </tm-collapse>
+        `,
+        data () {
+            return {
+                active: ['1'],
+            }
+        },
+    }, {
+        localVue,
     })
+    const wrapperContainer = wrapper.find(TmCollapse)
+    const wrapperItem = wrapper.find(TmCollapseItem)
+    const wrapperHeader = wrapper.find(Header)
+    // open
+    wrapperHeader.trigger('click')
+    assert.deepStrictEqual(Object.values(wrapper.vm.active), ['1'])
+
+    assert.ok(!wrapperContainer.emitted('change'))
+    const emitClick = wrapperItem.emitted('click')
+    assert.strictEqual(emitClick.length, 1)
+    assert.strictEqual(emitClick[0][0], true)
+  })
 })

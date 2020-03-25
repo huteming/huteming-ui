@@ -2,6 +2,7 @@ import assert from 'assert'
 import TmCard from '../src/main'
 import { createLocalVue, mount } from '@vue/test-utils'
 import WorkBasic from 'tests/components/basic.vue'
+import { Root, PosterBarRoot } from '../src/work'
 const localVue = createLocalVue()
 const TmCardPosterBar = TmCard.PosterBar
 
@@ -20,7 +21,7 @@ describe('card', () => {
           default: WorkBasic,
         },
       })
-      const desc = wrap.find(wrap.vm.styledComponents.Root)
+      const desc = wrap.find(Root)
       assert.ok(desc.exists())
       assert.ok(desc.contains(WorkBasic))
     })
@@ -31,7 +32,7 @@ describe('card', () => {
           default: WorkBasic,
         },
       })
-      const desc = wrap.find(wrap.vm.styledComponents.Root)
+      const desc = wrap.find(PosterBarRoot)
       assert.ok(desc.exists())
       assert.ok(desc.contains(WorkBasic))
     })

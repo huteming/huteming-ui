@@ -28,7 +28,7 @@
       <tm-flex>
         <div class="placeholder">无间距</div>
       </tm-flex>
-      <tm-typography :ellipsis="2">很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长</tm-typography>
+      <tm-typography :lines="2">很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长</tm-typography>
     </tm-flex>
   </div>
 

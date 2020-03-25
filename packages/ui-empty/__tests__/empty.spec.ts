@@ -1,6 +1,7 @@
 import assert from 'assert'
 import TmEmpty from '../src/main'
 import { createLocalVue, mount } from '@vue/test-utils'
+import { Container, Description } from '../src/work'
 const localVue = createLocalVue()
 localVue.use(TmEmpty)
 
@@ -11,7 +12,6 @@ describe('empty', () => {
           hiddenImage: true,
         },
       })
-      const { Container } = wrap.vm.styledComponents
       const image = wrap.find(Container)
       assert.strictEqual(image.exists(), false)
   })
@@ -27,7 +27,6 @@ describe('empty', () => {
                 },
             },
         })
-        const { Container, Description } = wrap.vm.styledComponents
         const container = wrap.find(Container)
         const desc = wrap.find(Description)
         assert.strictEqual(container.attributes('style'), 'font-size: 12px;')
@@ -40,19 +39,17 @@ describe('empty', () => {
                 default: 'hello',
             },
         })
-        const { Description } = wrap.vm.styledComponents
         const desc = wrap.find(Description)
         assert.strictEqual(desc.text(), 'hello')
     })
 
     it('description文案', () => {
-        const wrap = mount(TmEmpty, {
-            propsData: {
-                description: 'hello',
-            },
-        })
-        const { Description } = wrap.vm.styledComponents
-        const desc = wrap.find(Description)
-        assert.strictEqual(desc.text(), 'hello')
+      const wrap = mount(TmEmpty, {
+          propsData: {
+            description: 'hello',
+          },
+      })
+      const desc = wrap.find(Description)
+      assert.strictEqual(desc.text(), 'hello')
     })
 })

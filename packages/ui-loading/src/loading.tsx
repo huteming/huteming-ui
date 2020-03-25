@@ -1,48 +1,16 @@
 import TmIcon from '@huteming/ui-icon/src/main'
 import { Vue, Provide } from 'vue-property-decorator'
-import { zIndex, StyledComponent, DescribedComponent, createBEM } from '@huteming/ui-styles/src/main'
-import { StyleProps } from '@huteming/ui-styles/types'
+import { zIndex, DescribedComponent, createBEM } from '@huteming/ui-styles/src/main'
 import TmTransitionFade from 'packages/ui-transition-fade/src/main'
 import { LoadingComp } from '../types'
+import { Root, Icon, Content, Text } from './vars'
 const bem = createBEM('loading')
 
-const styles = (styled: any, css: any) => {
-  return {
-    Root: styled('div', { zIndex: String }, (props: StyleProps) => `
-      position: absolute;
-      top: 0;
-      bottom: 0;
-      left: 0;
-      right: 0;
-      background: ${props.theme.loading.background};
-      z-index: ${props.zIndex};
-    `),
-    Icon: styled('div', (props: StyleProps) => `
-      font-size: 25px;
-      color: ${props.theme.loading.colorIcon};
-    `),
-    Content: styled('div', () => `
-      height: 100%;
-      max-height: 150px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      flex-direction: column;
-    `),
-    Text: styled('div', (props: StyleProps) => `
-      margin-top: 3px;
-      color: ${props.theme.loading.colorText};
-    `),
-  }
-}
-
 @DescribedComponent({
-  name: 'TmLoading',
+  name: 'Loading',
 })
-@StyledComponent(styles)
 export default class Loading extends Vue implements LoadingComp {
   render () {
-    const { Root, Icon, Content, Text } = this.styledComponents
     return (
       <TmTransitionFade
         enterDuration={ this.openAnimation ? 150 : 0 }

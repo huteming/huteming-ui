@@ -1,7 +1,6 @@
 import Typography from './typography'
+import { installComponent } from 'utils/tools'
 
-Typography.install = function (Vue) {
-  Vue.component(Typography.registName, Typography)
-}
+Typography.install = installComponent('Typography', Typography)
 
 export default Typography

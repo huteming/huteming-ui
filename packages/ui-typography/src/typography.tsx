@@ -1,6 +1,7 @@
-import { DescribedComponent, VuePreset } from 'packages/ui-styles/src/main'
+import { DescribedComponent, VuePreset, createBEM } from 'packages/ui-styles/src/main'
 import { Prop } from 'vue-property-decorator'
 import { Root } from './work'
+const bem = createBEM('typography')
 
 @DescribedComponent({
   name: 'TmTypography',
@@ -8,7 +9,7 @@ import { Root } from './work'
 export default class Typography extends VuePreset {
   render () {
     return (
-      <Root gutterBottom={ this.gutterBottom } variant={ this.variant } lines={ this.lines } class="tm-typography">{ this.$slots.default }</Root>
+      <Root gutterBottom={ this.gutterBottom } variant={ this.variant } lines={ this.lines } class={ bem() }>{ this.$slots.default }</Root>
     )
   }
 

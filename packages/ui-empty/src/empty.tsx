@@ -1,43 +1,15 @@
-
 import { Vue, Prop } from 'vue-property-decorator'
-import { StyledComponent, DescribedComponent, TypedComponent, createBEM } from 'packages/ui-styles/src/main'
+import { DescribedComponent, TypedComponent, createBEM } from 'packages/ui-styles/src/main'
 import { EmptyProps } from '../types'
+import { Root, Container, Description } from './work'
 const bem = createBEM('empty')
-
-const styles = (styled: any, css: any) => {
-  return {
-    Root: styled('div', () => `
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-    `),
-    Container: styled('div', () => `
-      height: 100px;
-      margin-bottom: 9px;
-
-      img {
-        height: 100%;
-        vertical-align: middle;
-        border-style: none;
-      }
-    `),
-    Description: styled('div', () => `
-      font-size: 16px;
-      line-height: 22px;
-      color: rgba(178, 186, 196, 1);
-    `),
-  }
-}
 
 @DescribedComponent({
   inheritAttrs: false,
-  name: 'TmEmpty',
+  name: 'Empty',
 })
-@StyledComponent(styles)
 class Empty extends Vue {
   render () {
-    const { Root, Container, Description } = this.styledComponents
     return (
       <Root class={ bem() }>
         {
