@@ -1,7 +1,7 @@
 import axios, { AxiosInstance } from 'axios'
 import CustomError from './customError'
 import { RequestOptions, RequestError } from '../types'
-import { sleep } from '@huteming/ui-tools/src/main'
+import { sleep } from 'packages/ui-tools/src/main'
 
 export default function (instance: AxiosInstance, options: RequestOptions) {
   return async function (err: RequestError) {

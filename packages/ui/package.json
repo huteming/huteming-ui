@@ -11,5 +11,10 @@
   "license": "ISC",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
+  },
+  "peerDependencies": {
+    "axios": "^0.18.0",
+    "jsonp": "^0.2.1",
+    "qs": "^6.6.0"
   }
 }

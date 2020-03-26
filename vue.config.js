@@ -3,15 +3,21 @@ const gitsha = require('child_process').execSync('git rev-parse HEAD').toString(
 
 const isProd = process.env.NODE_ENV === 'production'
 const externals = (() => {
-    const config = {
-        'axios': 'axios',
-        // 'vue': 'window.Vue',
-    }
-    // if (isProd) {
-    //     config['highlight.js'] = 'hljs'
-    // }
+  const config = {
+    'axios': 'axios',
+    'qs': 'qs',
+    'jsonp': 'jsonp',
+    // 'vue-styled-components': 'vue-styled-components',
+    // 'vue-tsx-support': 'vue-tsx-support',
+    // 'vue-property-decorator': 'vue-property-decorator',
+    // 'vue-class-component': 'vue-class-component',
+    // 'vue': 'window.Vue',
+  }
+  // if (isProd) {
+  //     config['highlight.js'] = 'hljs'
+  // }
 
-    return config
+  return config
 })()
 
 function resolve (dir) {
@@ -22,71 +28,71 @@ function resolve (dir) {
 process.env.VUE_APP_RELEASE = gitsha
 
 module.exports = {
-    devServer: {
-        disableHostCheck: true,
-        port: 80,
-    },
+  devServer: {
+    disableHostCheck: true,
+    port: 80,
+  },
 
-    configureWebpack: {
-        resolve: {
-            alias: {
-                // 'vue$': 'vue/dist/vue.esm.js',
-                '@': resolve('src'),
-                'src': resolve('src'),
-                // 组件共用模块
-                'decorators': resolve('packages/ui/src/decorators'),
-                'mixins': resolve('packages/ui/src/mixins'),
-                'utils': resolve('packages/ui/src/utils'),
-                // 常用目录
-                'packages': resolve('./packages'),
-                'tests': resolve('./tests'),
-            },
+  configureWebpack: {
+    resolve: {
+      alias: {
+        // 'vue$': 'vue/dist/vue.esm.js',
+        '@': resolve('src'),
+        'src': resolve('src'),
+        // 组件共用模块
+        'decorators': resolve('packages/ui/src/decorators'),
+        'mixins': resolve('packages/ui/src/mixins'),
+        'utils': resolve('packages/ui/src/utils'),
+        // 常用目录
+        'packages': resolve('./packages'),
+        'tests': resolve('./tests'),
+      },
+    },
+    externals,
+  },
+
+  chainWebpack: config => {
+    /**
+     * 读取 md 文件
+     * https://github.com/QingWei-Li/vue-markdown-loader
+     */
+    config.module.rule('md')
+      .test(/\.md/)
+      .use('vue-loader')
+      .loader('vue-loader')
+      .end()
+      .use('vue-markdown-loader')
+      .loader('@vant/markdown-loader')
+      // .loader(path.resolve(__dirname, './build/md-loader/index.js'))
+
+    /**
+     * fix 热更新失败
+     * https://github.com/vuejs/vue-cli/issues/1559
+     */
+    config.resolve
+      .symlinks(true)
+  },
+
+  css: {
+    extract: true,
+
+    loaderOptions: {
+      /**
+       * 文档
+       * sass-loader: https://github.com/webpack-contrib/sass-loader
+       * node-sass: https://github.com/sass/node-sass
+       */
+      sass: {
+        sassOptions: {
+          // data: `@import "web/assets/scss/index.scss";`
         },
-        externals,
+      },
     },
+  },
 
-    chainWebpack: config => {
-        /**
-         * 读取 md 文件
-         * https://github.com/QingWei-Li/vue-markdown-loader
-         */
-        config.module.rule('md')
-            .test(/\.md/)
-            .use('vue-loader')
-            .loader('vue-loader')
-            .end()
-            .use('vue-markdown-loader')
-            .loader('@vant/markdown-loader')
-            // .loader(path.resolve(__dirname, './build/md-loader/index.js'))
+  productionSourceMap: false,
 
-        /**
-         * fix 热更新失败
-         * https://github.com/vuejs/vue-cli/issues/1559
-         */
-        config.resolve
-            .symlinks(true)
-    },
-
-    css: {
-        extract: true,
-
-        loaderOptions: {
-            /**
-             * 文档
-             * sass-loader: https://github.com/webpack-contrib/sass-loader
-             * node-sass: https://github.com/sass/node-sass
-             */
-            sass: {
-                sassOptions: {
-                    // data: `@import "web/assets/scss/index.scss";`
-                },
-            },
-        },
-    },
-
-    productionSourceMap: false,
-
-    publicPath: process.env.NODE_ENV === 'production'
-        ? '/huteming-ui/'
-        : '/'
+  publicPath: process.env.NODE_ENV === 'production'
+    ? '/huteming-ui/'
+    : '/'
 }

@@ -1,7 +1,7 @@
 import { stringify } from 'utils/tools'
-import { jsonToForm } from '@huteming/ui-tools/src/main'
+import { jsonToForm } from 'packages/ui-tools/src/main'
 import { RequestOptions } from '../types'
-import { isFormData } from '@huteming/ui-types/src/main'
+import { isFormData } from 'packages/ui-types/src/main'
 import { AxiosInstance } from 'axios'
 
 export default function (instance: AxiosInstance, options: RequestOptions) {

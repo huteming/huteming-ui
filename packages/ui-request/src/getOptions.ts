@@ -1,6 +1,6 @@
 import { RequestOptions } from '../types'
 import { AxiosRequestConfig } from 'axios'
-import { isStandardBrowserEnv } from '@huteming/ui-tools/src/main'
+import { isStandardBrowserEnv } from 'packages/ui-tools/src/main'
 
 const mapHost = new Map([
   ['fejhdemo.jinghao.com', '//jhdemo.jinghao.com'],
