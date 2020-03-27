@@ -1,5 +1,5 @@
 import { Prop, Vue } from 'vue-property-decorator'
-import { DescribedComponent, createBEM } from 'packages/ui-styles/src/main'
+import { DescribedComponent, createBEM } from 'packages/ui-styles'
 import { FlexJustify, FlexAlign, FlexContent, FlexAlignSelf } from '../types/flex'
 import { Root } from './work'
 const bem = createBEM('flex')

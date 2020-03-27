@@ -2,6 +2,8 @@ import Vue, { RenderContext, VueConstructor } from 'vue'
 
 export { parse, stringify } from 'qs'
 
+export function noop () {}
+
 function firstUpperCase (str: string) {
   return str.replace(/\b(\w)(\w*)/g, function ($0, $1, $2) {
     return $1.toUpperCase() + $2

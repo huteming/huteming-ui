@@ -14,6 +14,7 @@ const externals = (() => {
       'axios': 'axios',
       'qs': 'qs',
       'jsonp': 'jsonp',
+      'packages/ui-styles': '@huteming/ui/lib/styles',
       // 'vue-styled-components': 'vue-styled-components',
       // 'vue-tsx-support': 'vue-tsx-support',
       // 'vue-property-decorator': 'vue-property-decorator',
@@ -51,6 +52,8 @@ module.exports = {
         // 常用目录
         'packages': resolve('./packages'),
         'tests': resolve('./tests'),
+        // 添加包目录，作为 externals 解析
+        '@huteming/ui': resolve('packages/ui'),
       },
     },
     externals,

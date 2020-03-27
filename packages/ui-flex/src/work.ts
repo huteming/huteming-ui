@@ -1,5 +1,4 @@
-import { styled, css, ellipsis } from 'packages/ui-styles/src/main'
-import { StyleProps } from 'packages/ui-styles/types'
+import { styled, css, ellipsis } from 'packages/ui-styles'
 
 const RootProps = {
   container: Boolean,
@@ -19,7 +18,7 @@ const RootProps = {
   ellipsis: [Number, Boolean],
 }
 
-export const Root = styled('div', RootProps, (props: StyleProps) => css`
+export const Root = styled('div', RootProps, (props) => css`
   ${props.container && `
     display: flex;
   `}

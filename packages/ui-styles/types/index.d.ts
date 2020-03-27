@@ -143,3 +143,7 @@ export interface ComponentProps {
   state?: PropsState
   [key: string]: any
 }
+
+export interface CssRules {
+  (props: StyleProps): any
+}

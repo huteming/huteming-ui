@@ -1,11 +1,12 @@
 import withPropsState from '../withPropsState'
 import _styled from 'vue-styled-components'
 import withTheme from '../withTheme'
-import { ComponentProps, StyleProps } from '../../types'
+import { ComponentProps, StyleProps, CssRules } from '../../types'
+import { noop } from 'utils/tools'
 
-function styled (tagName: string, cssRules: Function): any
-function styled (tagName: string, componentProps: ComponentProps, cssRules: Function): any
-function styled (tagName: string, componentProps: ComponentProps | Function, cssRules?: Function): any {
+function styled (tagName: string, cssRules: CssRules): any
+function styled (tagName: string, componentProps: ComponentProps, cssRules: CssRules): any
+function styled (tagName: string, componentProps: ComponentProps | CssRules, cssRules: CssRules = noop): any {
   if (typeof componentProps === 'function') {
     cssRules = componentProps
     componentProps = {}
@@ -15,7 +16,7 @@ function styled (tagName: string, componentProps: ComponentProps | Function, css
 
   return _styled(tagName, componentProps)`${(props: StyleProps) => {
     props.theme = withTheme(props.theme)
-    return (cssRules as Function)(props)
+    return cssRules(props)
   }}`
 }
 

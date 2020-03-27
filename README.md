@@ -18,3 +18,7 @@
 
 - [github 主页](https://github.com/huteming/huteming-ui)
 - [文档](https://huteming.github.io/huteming-ui/#/guide/quickstart)
+
+## todo
+
+1. 利用 externals 减小打包文件体积
