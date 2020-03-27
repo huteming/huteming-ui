@@ -1,5 +1,5 @@
-import { styled, css } from '@huteming/ui-styles/src/main'
-import { StyleProps } from '@huteming/ui-styles/types'
+import { styled, css } from 'packages/ui-styles/src/main'
+import { StyleProps } from 'packages/ui-styles/types'
 
 export const Root = styled('div', { size: String }, (props: StyleProps) => css`
   position: relative;

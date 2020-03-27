@@ -4,7 +4,7 @@ import themeColor from './color'
 import themeFont from './font'
 import themeTag from './tag'
 import themeLoading from './loading'
-import { deepmerge, isStandardBrowserEnv } from '@huteming/ui-tools/src/main'
+import { deepmerge, isStandardBrowserEnv } from 'packages/ui-tools/src/main'
 
 function scaleDpr (): number {
   if (!isStandardBrowserEnv()) {

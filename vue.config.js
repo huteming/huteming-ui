@@ -1,21 +1,26 @@
 const path = require('path')
 const gitsha = require('child_process').execSync('git rev-parse HEAD').toString().trim()
+const isLib = process.env.BABEL_ENV === 'lib'
 
-const isProd = process.env.NODE_ENV === 'production'
 const externals = (() => {
-  const config = {
-    'axios': 'axios',
-    'qs': 'qs',
-    'jsonp': 'jsonp',
-    // 'vue-styled-components': 'vue-styled-components',
-    // 'vue-tsx-support': 'vue-tsx-support',
-    // 'vue-property-decorator': 'vue-property-decorator',
-    // 'vue-class-component': 'vue-class-component',
-    // 'vue': 'window.Vue',
+  let config = {
   }
   // if (isProd) {
   //     config['highlight.js'] = 'hljs'
   // }
+  if (isLib) {
+    config = {
+      ...config,
+      'axios': 'axios',
+      'qs': 'qs',
+      'jsonp': 'jsonp',
+      // 'vue-styled-components': 'vue-styled-components',
+      // 'vue-tsx-support': 'vue-tsx-support',
+      // 'vue-property-decorator': 'vue-property-decorator',
+      // 'vue-class-component': 'vue-class-component',
+      // 'vue': 'window.Vue',
+    }
+  }
 
   return config
 })()

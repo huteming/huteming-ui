@@ -1,41 +1,15 @@
-import { isHtmlElement, isString } from '@huteming/ui-types/src/main'
-import { withStyles } from '@huteming/ui-styles/src/main'
+import { isHtmlElement, isString } from 'packages/ui-types/src/main'
 import { Vue } from 'vue-property-decorator'
 import { GuideProcess } from '../types'
+import { Root, Container, Line } from './vars'
+import { DescribedComponent } from 'packages/ui-styles/src/main'
 const PADDING_TOP = 5
 const PADDING_LEFT = 5
 
-const styles = (styled: any, css: any) => {
-  return {
-    Root: styled('div', () => `
-      position: fixed;
-      top: 0;
-      bottom: 0;
-      left: 0;
-      right: 0;
-      background-color: transparent;
-      z-index: 9999;
-    `),
-    Container: styled('div', () => `
-      position: absolute;
-      border-radius: 8px;
-      box-sizing: border-box;
-      box-shadow: rgba(0, 0, 0, 0.6) 0px 0px 0px 10000px;
-    `),
-    Line: styled('div', () => `
-      position: absolute;
-      top: -3px;
-      left: -3px;
-      bottom: -3px;
-      right: -3px;
-      border-radius: 11px;
-      border: 3px dotted #fff;
-      box-sizing: border-box;
-    `),
-  }
-}
-
-class Guide extends Vue {
+@DescribedComponent({
+  name: 'TmGuide',
+})
+export default class Guide extends Vue {
   visible = false
   // { name, component, target, extra, before, after }
   process: GuideProcess[] = []
@@ -44,7 +18,6 @@ class Guide extends Vue {
   activeIndex = -1
 
   render () {
-    const { Root, Container, Line } = this.styledDoms
     const ratio = document.documentElement.clientWidth / 750
     const current = this.process[this.activeIndex]
     if (!current) return
@@ -162,7 +135,3 @@ class Guide extends Vue {
     this.$el.parentNode && this.$el.parentNode.removeChild(this.$el)
   }
 }
-
-export default withStyles(styles)(Guide, {
-  name: 'TmGuide',
-})

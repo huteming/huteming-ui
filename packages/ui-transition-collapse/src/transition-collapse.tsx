@@ -3,10 +3,13 @@
  * 1、根组件不能定义高度height，否则动画过程不能准确获取高度
  */
 import { easeInOut } from 'packages/ui-animation/src/main'
-import { withStyles } from '@huteming/ui-styles/src/main'
+import { DescribedComponent } from 'packages/ui-styles/src/main'
 import { Vue } from 'vue-property-decorator'
 
-class TransitionCollapse extends Vue {
+@DescribedComponent({
+  name: 'TmTransitionCollapse',
+})
+export default class TransitionCollapse extends Vue {
   render () {
     return (
       <transition css={ false } name="collapse"
@@ -63,5 +66,3 @@ class TransitionCollapse extends Vue {
     el.style.height = ''
   }
 }
-
-export default withStyles()(TransitionCollapse, { name: 'TmTransitionCollapse' })
