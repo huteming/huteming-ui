@@ -11,6 +11,7 @@
     "test:unit": "vue-cli-service test:unit",
     "test:e2e": "vue-cli-service test:e2e",
     "test:watch": "vue-cli-service test:unit --watch",
+    "test:ui": "backstop test",
     "lint": "vue-cli-service lint",
     "cover": "vue-cli-service test:unit --coverage",
     "publish:lib": "npm run build:lib && npm run publish:entry",
@@ -19,7 +20,8 @@
     "help:inspect": "vue-cli-service inspect --mode development",
     "help:unit": "vue-cli-service test:unit help",
     "commit": "git-cz",
-    "jestConfig": "jest --showConfig"
+    "jestConfig": "jest --showConfig",
+    "init": "backstop init"
   },
   "dependencies": {
     "animejs": "^3.1.0",
@@ -71,6 +73,7 @@
     "babel-plugin-idx": "^2.4.0",
     "babel-plugin-macros": "^2.8.0",
     "babel-plugin-rewire": "^1.2.0",
+    "backstopjs": "^4.5.0",
     "commitizen": "^4.0.3",
     "coveralls": "^3.0.7",
     "cross-env": "^5.2.0",

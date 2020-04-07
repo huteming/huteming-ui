@@ -14,7 +14,7 @@ const externals = (() => {
       'axios': 'axios',
       'qs': 'qs',
       'jsonp': 'jsonp',
-      'packages/ui-styles': '@huteming/ui/lib/styles',
+      'packages/ui-styles': '@huteming/jhsy/lib/styles/styles.common',
       // 'vue-styled-components': 'vue-styled-components',
       // 'vue-tsx-support': 'vue-tsx-support',
       // 'vue-property-decorator': 'vue-property-decorator',
