@@ -3,6 +3,7 @@ import TmIcon from '@huteming/ui-icon/src/main'
 import { Vue, Prop } from 'vue-property-decorator'
 import { isVNode, isComponent } from '@huteming/ui-tools/src/main'
 import { VNode, ComponentOptions, CreateElement } from 'vue'
+import TransitionFade from 'packages/ui-transition-fade/src/main'
 import { Root, Icon, Text } from './work'
 const bem = createBEM('toast')
 
@@ -30,12 +31,12 @@ export default class Toast extends Vue {
       return <Text class={ bem('text') }>{ html }</Text>
     })()
     return (
-      <transition name="fade" on-after-leave={ this.handleAfterLeave } ref="transition">
+      <TransitionFade on-after-leave={ this.handleAfterLeave } ref="transition">
         <Root class={ bem() } v-show={ this.visible } position={ this.position } z-index={ this.zIndex }>
           { domMessage }
           { this.icon && <Icon class={ bem('icon') } has-text={ !!domMessage }><TmIcon icon={ this.icon } /></Icon> }
         </Root>
-      </transition>
+      </TransitionFade>
     )
   }
 

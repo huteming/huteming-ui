@@ -3,6 +3,7 @@ import { Vue } from 'vue-property-decorator'
 import { GuideProcess } from '../types'
 import { Root, Container, Line } from './vars'
 import { DescribedComponent } from 'packages/ui-styles/src/main'
+import TransitionFade from 'packages/ui-transition-fade/src/main'
 const PADDING_TOP = 5
 const PADDING_LEFT = 5
 
@@ -70,14 +71,14 @@ export default class Guide extends Vue {
     }
 
     return (
-      <transition name="fade" on-after-leave={ this.handleAfterLeave }>
+      <TransitionFade on-after-leave={ this.handleAfterLeave }>
         <Root class="tm-guide" on-click={ this.handleClick } v-show={ this.visible } on-touchmove={ this.handleTouchmove }>
           <Container class="tm-guide-container" style={ styles }>
             <Line class="tm-guide-line"></Line>
           </Container>
           <ActiveComponent top={ top } left={ left } width={ width } height={ height } extra={ extra } />
         </Root>
-      </transition>
+      </TransitionFade>
     )
   }
 

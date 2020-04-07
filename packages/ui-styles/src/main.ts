@@ -1,6 +1,4 @@
 
-// import './global/slide'
-import './global/fade'
 import './global/zoom-in'
 import './global/icon'
 import './global/custom'

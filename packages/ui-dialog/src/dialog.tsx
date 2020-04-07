@@ -1,6 +1,7 @@
 import MixinsModal from '@huteming/ui-modal/src/main'
 import { Prop, Mixins, Watch, Emit } from 'vue-property-decorator'
 import { DescribedComponent, createBEM } from '@huteming/ui-styles/src/main'
+import TransitionFade from 'packages/ui-transition-fade/src/main'
 import { Root, Content, Footer, CancelOutRight, CancelOutLeft, CancelInRight, CancelInLeft, CancelBottom, Line } from './work'
 const bem = createBEM('dialog')
 
@@ -41,13 +42,13 @@ export default class Dialog extends Mixins(MixinsModal) {
       }
     })()
     return (
-      <transition name="fade" on-after-leave={ this.handleAfterLeave }>
+      <TransitionFade on-after-leave={ this.handleAfterLeave }>
         <Root class={ bem() } v-show={ this.normalizedVisible } on-click={ this.handleStop }>
           <Content class={ bem('content') }>{ this.$slots.default }</Content>
           { DomFooter }
           { DomCancel }
         </Root>
-      </transition>
+      </TransitionFade>
     )
   }
 
