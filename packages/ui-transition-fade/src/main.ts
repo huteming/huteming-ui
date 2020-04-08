@@ -1,7 +1,6 @@
 import Fade from './fade'
+import { installComponent } from 'utils/tools'
 
-Fade.install = function (Vue) {
-  Vue.component('TmTransitionFade', Fade)
-}
+Fade.install = installComponent('TransitionFade', Fade)
 
 export default Fade

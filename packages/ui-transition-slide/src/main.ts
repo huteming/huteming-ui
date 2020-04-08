@@ -1,7 +1,6 @@
 import Slide from './slide'
+import { installComponent } from 'utils/tools'
 
-Slide.install = function (Vue) {
-  Vue.component('TmTransitionSlide', Slide)
-}
+Slide.install = installComponent('TransitionSlide', Slide)
 
 export default Slide

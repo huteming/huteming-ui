@@ -1,5 +1,3 @@
-
-import './global/zoom-in'
 import './global/icon'
 import './global/custom'
 

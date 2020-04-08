@@ -4,6 +4,7 @@ import { Mixins, Prop, Vue } from 'vue-property-decorator'
 import { BeforeClose, BeforeConfirm, BeforeCancel, MessageResponse, MessageType, ActionType, MessageComponent } from '../types'
 import { CreateElement, VNode, ComponentOptions } from 'vue'
 import { DescribedComponent, createBEM } from '@huteming/ui-styles/src/main'
+import TransitionZoom from 'packages/transition-zoom/src/main'
 import { Root, Wrap, Container, Title, Subtitle, Field, FieldInput, Footer, FooterBtn } from './vars'
 const bem = createBEM('message')
 
@@ -56,7 +57,7 @@ export default class Message extends Mixins(MixinsModal) implements MessageCompo
     })()
 
     return (
-      <transition name="zoom-in" on-after-leave={ this.handleAfterLeave }>
+      <TransitionZoom on-after-leave={ this.handleAfterLeave }>
         <Root class={ bem() } v-show={ this.visible } ref="msgbox" on-click={ this.handleClickModal }>
           <Wrap>
             <Container class={ bem('container') }>
@@ -74,7 +75,7 @@ export default class Message extends Mixins(MixinsModal) implements MessageCompo
             </Footer>
           </Wrap>
         </Root>
-      </transition>
+      </TransitionZoom>
     )
   }
 

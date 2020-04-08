@@ -46,6 +46,7 @@ import { ThemeProvider as themeProvider } from 'packages/ui-styles/src/main'
 
 import transitionSlide from 'packages/ui-transition-slide/src/main'
 import transitionFade from 'packages/ui-transition-fade/src/main'
+import transitionZoom from 'packages/transition-zoom/src/main'
 
 const components = [
   tag,
@@ -85,6 +86,7 @@ const components = [
   panel,
   transitionSlide,
   transitionFade,
+  transitionZoom,
   iTypography,
 ]
 
@@ -161,3 +163,4 @@ export const Button = iButton
 export const Card = iCard
 export const Typography = iTypography
 export const Range = iRange
+export const TransitionZoom = transitionZoom

@@ -1,0 +1,29 @@
+{
+  "name": "transition-zoom",
+  "version": "3.5.1",
+  "description": "> 过渡效果放大缩小",
+  "author": "Tommy <tommy@jhshuyuan.com>",
+  "homepage": "https://github.com/huteming/huteming-ui#readme",
+  "license": "ISC",
+  "main": "lib/transition-zoom.js",
+  "directories": {
+    "lib": "lib",
+    "test": "__tests__"
+  },
+  "files": [
+    "lib"
+  ],
+  "publishConfig": {
+    "registry": "https://registry.npm.taobao.org/"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/huteming/huteming-ui.git"
+  },
+  "scripts": {
+    "test": "echo \"Error: run tests from root\" && exit 1"
+  },
+  "bugs": {
+    "url": "https://github.com/huteming/huteming-ui/issues"
+  }
+}

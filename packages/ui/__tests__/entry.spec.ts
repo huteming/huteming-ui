@@ -12,11 +12,11 @@ describe('ui', () => {
     })
     it('默认导出组件数组', () => {
         const comps = Object.keys(output)
-        assert.strictEqual(comps.length, 41)
+        assert.strictEqual(comps.length, 42)
     })
     it('导出其他方法', () => {
       const comps = Object.keys(others)
-      assert.strictEqual(comps.length, 52)
+      assert.strictEqual(comps.length, 53)
     })
 
     it('版本号', () => {
