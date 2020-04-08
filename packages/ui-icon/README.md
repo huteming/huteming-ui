@@ -1,6 +1,10 @@
 
 ### 引入
 
+```html
+<link rel="stylesheet" href="http://at.alicdn.com/t/font_1301011_f8zmdjt44d.css">
+```
+
 ```javascript
 import { Icon } from '@huteming/ui'
 

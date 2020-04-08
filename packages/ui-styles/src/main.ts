@@ -1,5 +1,3 @@
-import './global/icon'
-
 export * from './mixins/hairline'
 export { default as placeholder } from './mixins/placeholder'
 export { default as ellipsis } from './mixins/ellipsis'
