@@ -1,5 +1,4 @@
 import './global/icon'
-import './global/custom'
 
 export * from './mixins/hairline'
 export { default as placeholder } from './mixins/placeholder'

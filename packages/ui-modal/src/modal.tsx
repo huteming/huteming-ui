@@ -57,7 +57,8 @@ export default class TmModal extends Vue {
     /* istanbul ignore else */
     if (document.scrollingElement) {
       this.scrollTop = document.scrollingElement.scrollTop
-      document.body.classList.add('tm-disabled-scroll')
+      document.body.style.position = 'fixed'
+      document.body.style.width = '100%'
       document.body.style.top = -this.scrollTop + 'px'
     }
   }
@@ -65,8 +66,9 @@ export default class TmModal extends Vue {
   restoreScroll () {
     /* istanbul ignore else */
     if (document.scrollingElement) {
-      document.body.classList.remove('tm-disabled-scroll')
       document.scrollingElement.scrollTop = this.scrollTop
+      document.body.style.position = ''
+      document.body.style.width = ''
       document.body.style.top = ''
     }
   }
