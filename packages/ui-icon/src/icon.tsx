@@ -1,13 +1,11 @@
-import { Prop } from 'vue-property-decorator'
-import * as tsx from 'vue-tsx-support'
-import { IconProps } from '../types'
+import { Prop, Vue } from 'vue-property-decorator'
 import { DescribedComponent } from '@huteming/ui-styles/src/main'
 import { Root } from './vars'
 
 @DescribedComponent({
   name: 'Icon',
 })
-export default class TmIcon extends tsx.Component<IconProps> {
+export default class TmIcon extends Vue {
   render () {
     return <Root class={ this.classes } loading={ this.icon === 'loading' }></Root>
   }

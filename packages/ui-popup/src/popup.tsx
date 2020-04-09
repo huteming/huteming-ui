@@ -1,8 +1,8 @@
 import MixinsModal from '@huteming/ui-modal/src/main'
 import SmartScroll from '@huteming/ui-smart-scroll/src/main'
 import { Mixins, Prop, Watch } from 'vue-property-decorator'
-import { TypedComponent, DescribedComponent, createBEM } from '@huteming/ui-styles/src/main'
-import { PopupProps, PopupEvents, PopupPosition } from '../types'
+import { DescribedComponent, createBEM } from '@huteming/ui-styles/src/main'
+import { PopupPosition } from '../types'
 import TransitionSlide from 'packages/ui-transition-slide/src/main'
 import TransitionFade from 'packages/ui-transition-fade/src/main'
 import { Root } from './work'
@@ -15,7 +15,7 @@ const bem = createBEM('popup')
     SmartScroll,
   },
 })
-class Popup extends Mixins(MixinsModal) {
+export default class Popup extends Mixins(MixinsModal) {
   render () {
     const TransitionComp = this.transitionComponent as any
     return (
@@ -148,5 +148,3 @@ class Popup extends Mixins(MixinsModal) {
     }
   }
 }
-
-export default TypedComponent<PopupProps, PopupEvents>(Popup)

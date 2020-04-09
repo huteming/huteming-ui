@@ -1,6 +1,5 @@
 import { Vue, Prop } from 'vue-property-decorator'
-import { DescribedComponent, TypedComponent, createBEM } from 'packages/ui-styles/src/main'
-import { EmptyProps } from '../types'
+import { DescribedComponent, createBEM } from 'packages/ui-styles/src/main'
 import { Root, Container, Description } from './work'
 const bem = createBEM('empty')
 
@@ -8,7 +7,7 @@ const bem = createBEM('empty')
   inheritAttrs: false,
   name: 'Empty',
 })
-class Empty extends Vue {
+export default class Empty extends Vue {
   render () {
     return (
       <Root class={ bem() }>
@@ -40,5 +39,3 @@ class Empty extends Vue {
   @Prop({ type: Boolean, default: false })
   hiddenImage!: boolean
 }
-
-export default TypedComponent<EmptyProps>(Empty)

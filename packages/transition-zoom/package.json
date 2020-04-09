@@ -1,5 +1,6 @@
 {
   "name": "transition-zoom",
+  "private": true,
   "version": "3.5.1",
   "description": "> 过渡效果放大缩小",
   "author": "Tommy <tommy@jhshuyuan.com>",
