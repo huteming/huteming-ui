@@ -5,7 +5,6 @@
   "description": "",
   "main": "dist/jhsy.common.js",
   "scripts": {
-    "prepublishOnly": "node ../../scripts/build-ui jhsy"
   },
   "author": "",
   "license": "ISC",
