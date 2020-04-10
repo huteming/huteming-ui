@@ -1,4 +1,4 @@
-import { attached, getScrollTop, getScrollContainer, getElementTop } from '@huteming/ui-element/src/main'
+import { attached, getScrollTop, getScrollContainer, getElementTop } from 'packages/ui-element/src/main'
 const CTX = '@@InfiniteScroll'
 const defaults = {
   callback: null,

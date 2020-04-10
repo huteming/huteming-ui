@@ -4,6 +4,8 @@ import themeColor from './color'
 import themeFont from './font'
 import themeTag from './tag'
 import themeLoading from './loading'
+import themeField from './field'
+import themePlaceholder from './placeholder'
 import { deepmerge, isStandardBrowserEnv } from 'packages/ui-tools/src/main'
 
 function scaleDpr (): number {
@@ -34,6 +36,8 @@ const defaults: Theme = {
   font: themeFont,
   tag: themeTag,
   loading: themeLoading,
+  field: themeField,
+  placeholder: themePlaceholder,
 }
 
 function withTheme (options = {}): Theme {

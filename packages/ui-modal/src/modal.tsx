@@ -1,7 +1,7 @@
 import { Vue } from 'vue-property-decorator'
-import { DescribedComponent, createBEM } from '@huteming/ui-styles/src/main'
+import { DescribedComponent, createBEM } from 'packages/ui-styles/src/main'
 import { ModalOptions } from '../types'
-import TransitionFade from '@huteming/ui-transition-fade/src/main'
+import TransitionFade from 'packages/ui-transition-fade/src/main'
 import { Container } from './work'
 const bem = createBEM('modal')
 

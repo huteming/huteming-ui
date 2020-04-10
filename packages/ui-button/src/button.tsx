@@ -1,6 +1,6 @@
 import { Vue, Prop } from 'vue-property-decorator'
-import { DescribedComponent, createBEM } from '@huteming/ui-styles/src/main'
-import TmIcon from '@huteming/ui-icon/src/main'
+import { DescribedComponent, createBEM } from 'packages/ui-styles/src/main'
+import TmIcon from 'packages/ui-icon/src/main'
 import { Root, Text } from './work'
 const bem = createBEM('button')
 

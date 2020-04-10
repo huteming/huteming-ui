@@ -9,6 +9,20 @@ export interface Theme {
   font: ThemeFont
   tag: ThemeTag
   loading: ThemeLoading
+  field: ThemeField
+  placeholder: ThemePlaceholder
+}
+
+export interface ThemePlaceholder {
+  margin: string
+  padding: string
+  color: string
+}
+
+export interface ThemeField {
+  fontSize: string
+  lineHeight: string
+  color: string
 }
 
 export interface ThemeLoading {

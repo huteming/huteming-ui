@@ -1,4 +1,4 @@
-import { isString } from '@huteming/ui-types/src/main'
+import { isString } from 'packages/ui-types/src/main'
 
 /**
  * 判断是否存在，忽略对象

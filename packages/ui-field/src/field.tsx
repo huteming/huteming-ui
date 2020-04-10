@@ -1,6 +1,6 @@
 
-import { getScrollTop, scrollY } from '@huteming/ui-element/src/main'
-import { DescribedComponent, createBEM } from '@huteming/ui-styles/src/main'
+import { getScrollTop, scrollY } from 'packages/ui-element/src/main'
+import { DescribedComponent, createBEM } from 'packages/ui-styles/src/main'
 import { Vue, Prop, Watch } from 'vue-property-decorator'
 import { HTMLInputEvent, PropAutosize } from '../types'
 import TmIcon from 'packages/ui-icon/src/main'

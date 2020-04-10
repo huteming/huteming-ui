@@ -1,8 +1,8 @@
 import { Mixins, Prop } from 'vue-property-decorator'
 import { ActionsheetMenu, ComponentActionsheet } from '../types/index'
-import { DescribedComponent, createBEM } from '@huteming/ui-styles/src/main'
-import MixinModal from '@huteming/ui-modal/src/main'
-import TransitionSlide from '@huteming/ui-transition-slide/src/main'
+import { DescribedComponent, createBEM } from 'packages/ui-styles/src/main'
+import MixinModal from 'packages/ui-modal/src/main'
+import TransitionSlide from 'packages/ui-transition-slide/src/main'
 import { Container, Header, Menu } from './work'
 const bem = createBEM('actionsheet')
 

@@ -1,6 +1,6 @@
-import { autoprefixer } from '@huteming/ui-element/src/main'
+import { autoprefixer } from 'packages/ui-element/src/main'
 import { Prop, Mixins } from 'vue-property-decorator'
-import { DescribedComponent, createBEM } from '@huteming/ui-styles/src/main'
+import { DescribedComponent, createBEM } from 'packages/ui-styles/src/main'
 import { Carousel } from '../types'
 import { ChildrenMixin } from 'mixins/relation'
 import { CARD_SCALE, CARD_WIDTH_PERCENT, CARD_STAY_PX, ItemRoot } from './work'

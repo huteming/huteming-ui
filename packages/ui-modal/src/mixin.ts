@@ -1,7 +1,7 @@
 import { Vue, Component, Prop } from 'vue-property-decorator'
 import { ModalMixin, ModalComponent, ModalOptions, clickModal } from '../types'
 import TmModal from './modal'
-import { zIndex } from '@huteming/ui-styles/src/main'
+import { zIndex } from 'packages/ui-styles/src/main'
 
 @Component({
   name: 'MixinModal',

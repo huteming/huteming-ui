@@ -1,7 +1,6 @@
-import { styled, css } from 'packages/ui-styles/src/main'
-import { StyleProps } from 'packages/ui-styles/types'
+import { styled } from 'packages/ui-styles/src/main'
 
-export const Root = styled('div', { time: Number }, (props: StyleProps) => `
+export const Root = styled('div', { time: Number }, () => `
   position: fixed;
   top: 50%;
   left: 50%;

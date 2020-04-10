@@ -135,14 +135,14 @@ describe('image-picker', () => {
         const mockWarn = sinon.fake()
         sinon.replace(console, 'warn', mockWarn)
         const wrapper = mount({
-            template: `
-                <div id="container" v-image-picker style="position: static;">
-                </div>
-            `,
+          template: `
+            <div id="container" v-image-picker style="position: static;">
+            </div>
+          `,
         }, {
-            localVue,
+          localVue,
         })
-        assert.ok(mockWarn.calledWithExactly('[@huteming/ui Warn][image-picker]元素定位异常: ', 'static'))
+        assert.deepStrictEqual(mockWarn.getCall(0).args, ['[@huteming/ui Warn][image-picker]元素定位异常: ', 'static'])
     })
 
     it('选择图片', (done) => {

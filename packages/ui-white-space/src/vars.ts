@@ -1,7 +1,6 @@
-import { styled, css } from '@huteming/ui-styles/src/main'
-import { StyleProps } from '@huteming/ui-styles/types'
+import { styled, css } from 'packages/ui-styles/src/main'
 
-export const Root = styled('div', { size: String }, (props: StyleProps) => css`
+export const Root = styled('div', { size: String }, (props) => css`
   ${props.size === 'xs' && `
     height: 10px;
   `}

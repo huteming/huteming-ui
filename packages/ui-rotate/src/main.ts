@@ -1,5 +1,5 @@
 import { RotateOptions, Translate, RangeOptions, RangeConfig } from '../types'
-import Roller from '@huteming/ui-roller/src/main'
+import Roller from 'packages/ui-roller/src/main'
 
 /* istanbul ignore next */
 const requestAnimationFrame = window.requestAnimationFrame || window.webkitRequestAnimationFrame

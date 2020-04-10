@@ -1,6 +1,6 @@
 import Vue from 'vue'
 import TmMessage from './message'
-import { isVNode, isComponent } from '@huteming/ui-tools/src/main'
+import { isVNode, isComponent } from 'packages/ui-tools/src/main'
 import { MessageOptions, MessageConfig, MessageComponent, MessageResponse, MessageBox } from '../types'
 import { installPrototype } from 'utils/tools'
 

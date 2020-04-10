@@ -1,7 +1,11 @@
-import { css } from 'vue-styled-components'
+import { Theme } from 'packages/ui-styles/types'
 
-export default function (cssRule: object) {
-  const rule = css(cssRule)
+export default function (theme: Theme) {
+  const rule = `
+    margin: ${theme.placeholder.margin};
+    padding: 20px;
+    color: ${theme.placeholder.color};
+  `
 
   return `
     ::placeholder {

@@ -1,11 +1,20 @@
 import { getPayConfig } from 'packages/ui-api/src/main'
+import { WxPayOptions } from '../types'
 
 /**
  * 微信支付
  */
-export default async function wxPay (params: any) {
+export default async function wxPay (params: any, options: WxPayOptions = {}) {
   const { data: { data } } = await getPayConfig(params)
 
+  if (!options.debug) {
+    await payInProd(data)
+  } else {
+    console.log(params)
+  }
+}
+
+function payInProd (data: any) {
   return new Promise((resolve, reject) => {
     const payHandler = onBridgeReady(data, resolve, reject)
 

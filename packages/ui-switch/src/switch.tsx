@@ -1,6 +1,6 @@
 
 import { Prop, Vue, Watch } from 'vue-property-decorator'
-import { DescribedComponent, createBEM } from '@huteming/ui-styles/src/main'
+import { DescribedComponent, createBEM } from 'packages/ui-styles/src/main'
 import { Root, Core } from './vars'
 const bem = createBEM('switch')
 

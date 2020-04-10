@@ -1,4 +1,4 @@
-import { DescribedComponent, createBEM } from '@huteming/ui-styles/src/main'
+import { DescribedComponent, createBEM } from 'packages/ui-styles/src/main'
 import { Vue, Prop } from 'vue-property-decorator'
 import { Root, Poster, PosterImg, Title, Tip, Decoration, Btn, Footer } from './vars'
 const bem = createBEM('panel')

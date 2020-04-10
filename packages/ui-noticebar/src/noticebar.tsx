@@ -1,6 +1,6 @@
-import TmIcon from '@huteming/ui-icon/src/main'
-import { linear } from '@huteming/ui-animation/src/main'
-import { DescribedComponent, createBEM } from '@huteming/ui-styles/src/main'
+import TmIcon from 'packages/ui-icon/src/main'
+import { linear } from 'packages/ui-animation/src/main'
+import { DescribedComponent, createBEM } from 'packages/ui-styles/src/main'
 import { Vue, Prop } from 'vue-property-decorator'
 import { Root, Wrap, Content, Icon, Action } from './work'
 const bem = createBEM('noticebar')

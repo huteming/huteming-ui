@@ -1,6 +1,6 @@
 import Vue from 'vue'
 import ComponentInput from './image-input'
-import { getStyle } from '@huteming/ui-element/src/main'
+import { getStyle } from 'packages/ui-element/src/main'
 import { ImagePickerInput, ImagePickerOptions } from '../types'
 import { DirectiveBinding } from 'vue/types/options'
 const CTX = '$$ImagePicker'

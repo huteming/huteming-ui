@@ -1,5 +1,5 @@
 import { Prop, Vue } from 'vue-property-decorator'
-import { DescribedComponent } from '@huteming/ui-styles/src/main'
+import { DescribedComponent } from 'packages/ui-styles/src/main'
 import { Root } from './vars'
 
 @DescribedComponent({

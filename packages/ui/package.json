@@ -4,8 +4,7 @@
   "version": "3.5.1",
   "description": "",
   "main": "dist/jhsy.common.js",
-  "scripts": {
-  },
+  "scripts": {},
   "author": "",
   "license": "ISC",
   "publishConfig": {

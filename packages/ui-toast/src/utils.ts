@@ -1,7 +1,7 @@
 import Vue, { VNode, ComponentOptions } from 'vue'
 import ComponentToast from './toast'
 import { ToastOptions, ToastComponent, ExpandMap, ExpandHandler } from '../types'
-import { isVNode, isComponent } from '@huteming/ui-tools/src/main'
+import { isVNode, isComponent } from 'packages/ui-tools/src/main'
 
 const ToastConstructor = Vue.extend(ComponentToast)
 let instance: ToastComponent | null = null

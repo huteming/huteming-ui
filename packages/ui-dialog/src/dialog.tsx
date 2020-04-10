@@ -1,6 +1,6 @@
-import MixinsModal from '@huteming/ui-modal/src/main'
+import MixinsModal from 'packages/ui-modal/src/main'
 import { Prop, Mixins, Watch, Emit } from 'vue-property-decorator'
-import { DescribedComponent, createBEM } from '@huteming/ui-styles/src/main'
+import { DescribedComponent, createBEM } from 'packages/ui-styles/src/main'
 import TransitionFade from 'packages/ui-transition-fade/src/main'
 import { Root, Content, Footer, CancelOutRight, CancelOutLeft, CancelInRight, CancelInLeft, CancelBottom, Line } from './work'
 const bem = createBEM('dialog')

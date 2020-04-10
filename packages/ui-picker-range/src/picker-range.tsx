@@ -1,9 +1,9 @@
-import TmPopup from '@huteming/ui-popup/src/main'
-import TmPicker from '@huteming/ui-picker/src/main'
-import TmToolbar from '@huteming/ui-toolbar/src/main'
-import { DescribedComponent, createBEM } from '@huteming/ui-styles/src/main'
+import TmPopup from 'packages/ui-popup/src/main'
+import TmPicker from 'packages/ui-picker/src/main'
+import TmToolbar from 'packages/ui-toolbar/src/main'
+import { DescribedComponent, createBEM } from 'packages/ui-styles/src/main'
 import { Vue, Prop, Watch } from 'vue-property-decorator'
-import { PickerOptions } from '@huteming/ui-picker/types'
+import { PickerOptions } from 'packages/ui-picker/types'
 import { Container } from './vars'
 const bem = createBEM('picker-range')
 

@@ -1,4 +1,4 @@
-import { DescribedComponent } from '@huteming/ui-styles/src/main'
+import { DescribedComponent } from 'packages/ui-styles/src/main'
 import { Vue } from 'vue-property-decorator'
 import { PosterBarRoot } from './work'
 

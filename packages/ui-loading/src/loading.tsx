@@ -1,6 +1,6 @@
-import TmIcon from '@huteming/ui-icon/src/main'
+import TmIcon from 'packages/ui-icon/src/main'
 import { Vue, Provide } from 'vue-property-decorator'
-import { zIndex, DescribedComponent, createBEM } from '@huteming/ui-styles/src/main'
+import { zIndex, DescribedComponent, createBEM } from 'packages/ui-styles/src/main'
 import TmTransitionFade from 'packages/ui-transition-fade/src/main'
 import { LoadingComp } from '../types'
 import { Root, Icon, Content, Text } from './vars'

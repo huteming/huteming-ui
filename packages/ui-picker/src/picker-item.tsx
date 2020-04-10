@@ -1,6 +1,6 @@
-import TmEmpty from '@huteming/ui-empty/src/main'
+import TmEmpty from 'packages/ui-empty/src/main'
 import { Prop, Watch } from 'vue-property-decorator'
-import { DescribedComponent, createBEM } from '@huteming/ui-styles/src/main'
+import { DescribedComponent, createBEM } from 'packages/ui-styles/src/main'
 import { PickerOptions, PickerItemProps } from '../types'
 import * as tsx from 'vue-tsx-support'
 import { ItemRoot, ItemContainer, Piece, Line } from './work'

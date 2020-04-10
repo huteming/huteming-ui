@@ -13,23 +13,25 @@ describe('modal', () => {
     })
 
     it('打开后禁止body滚动', async () => {
-        __RewireAPI__.__Rewire__('TransitionFade', TransitionStub)
-        try {
-            const wrapper = mount(TmModal, {
-            })
-            const stub = wrapper.find(TransitionStub)
-            stub.vm.$emit('after-enter')
+      __RewireAPI__.__Rewire__('TransitionFade', TransitionStub)
+      try {
+        const wrapper = mount(TmModal, {
+        })
+        const stub = wrapper.find(TransitionStub)
+        stub.vm.$emit('after-enter')
 
-            assert.ok(document.body.classList.contains('tm-disabled-scroll'))
-            assert.strictEqual(document.body.style.top, '-55px')
-    
-            stub.vm.$emit('before-leave')
+        assert.strictEqual(document.body.style.position, 'fixed')
+        assert.strictEqual(document.body.style.width, '100%')
+        assert.strictEqual(document.body.style.top, '-55px')
 
-            assert.ok(!document.body.classList.contains('tm-disabled-scroll'))
-            assert.strictEqual(document.body.style.top, '')
-        } finally {
-            __RewireAPI__.__ResetDependency__('TransitionFade')
-        }
+        stub.vm.$emit('before-leave')
+
+        assert.strictEqual(document.body.style.position, '')
+        assert.strictEqual(document.body.style.width, '')
+        assert.strictEqual(document.body.style.top, '')
+      } finally {
+        __RewireAPI__.__ResetDependency__('TransitionFade')
+      }
     })
 
     it('禁止click冒泡', async () => {

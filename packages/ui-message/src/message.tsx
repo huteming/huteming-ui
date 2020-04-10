@@ -1,9 +1,9 @@
-import MixinsModal from '@huteming/ui-modal/src/main'
-import { isVNode, isComponent } from '@huteming/ui-tools/src/main'
+import MixinsModal from 'packages/ui-modal/src/main'
+import { isVNode, isComponent } from 'packages/ui-tools/src/main'
 import { Mixins, Prop, Vue } from 'vue-property-decorator'
 import { BeforeClose, BeforeConfirm, BeforeCancel, MessageResponse, MessageType, ActionType, MessageComponent } from '../types'
 import { CreateElement, VNode, ComponentOptions } from 'vue'
-import { DescribedComponent, createBEM } from '@huteming/ui-styles/src/main'
+import { DescribedComponent, createBEM } from 'packages/ui-styles/src/main'
 import TransitionZoom from 'packages/transition-zoom/src/main'
 import { Root, Wrap, Container, Title, Subtitle, Field, FieldInput, Footer, FooterBtn } from './vars'
 const bem = createBEM('message')

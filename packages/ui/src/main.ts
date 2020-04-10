@@ -108,7 +108,7 @@ if (typeof window !== 'undefined' && window.Vue) {
 }
 
 export default {
-  version: '3.5.0',
+  version: 'debug',
   install,
   themeProvider,
   ...components,

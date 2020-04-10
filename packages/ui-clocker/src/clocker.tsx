@@ -1,6 +1,6 @@
 import { Vue, Prop, Watch } from 'vue-property-decorator'
-import { createBEM, DescribedComponent } from '@huteming/ui-styles/src/main'
-import { toTimestamp } from '@huteming/ui-tools/src/main'
+import { createBEM, DescribedComponent } from 'packages/ui-styles/src/main'
+import { toTimestamp } from 'packages/ui-tools/src/main'
 const bem = createBEM('clocker')
 
 @DescribedComponent({

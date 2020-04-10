@@ -1,8 +1,8 @@
-import TmTransitionCollapse from '@huteming/ui-transition-collapse/src/main'
-import TmIcon from '@huteming/ui-icon/src/main'
-import { generateId } from '@huteming/ui-tools/src/main'
+import TmTransitionCollapse from 'packages/ui-transition-collapse/src/main'
+import TmIcon from 'packages/ui-icon/src/main'
+import { generateId } from 'packages/ui-tools/src/main'
 import { Prop, Mixins } from 'vue-property-decorator'
-import { DescribedComponent, createBEM } from '@huteming/ui-styles/src/main'
+import { DescribedComponent, createBEM } from 'packages/ui-styles/src/main'
 import { ChildrenMixin } from 'mixins/relation'
 import { ItemRoot, Header, Title, Icon, Wrap, Content } from './work'
 const bem = createBEM('collapse')

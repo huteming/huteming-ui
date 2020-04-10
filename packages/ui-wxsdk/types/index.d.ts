@@ -1,5 +1,9 @@
 export type ConfigType = 'image' | 'location'
 
+export interface WxPayOptions {
+  debug?: boolean
+}
+
 export interface WxLocationResponse {
   lat: number
   lng: number
