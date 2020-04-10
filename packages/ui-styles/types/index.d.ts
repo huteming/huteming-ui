@@ -23,6 +23,7 @@ export interface ThemeField {
   fontSize: string
   lineHeight: string
   color: string
+  textAlign: string
 }
 
 export interface ThemeLoading {

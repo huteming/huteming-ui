@@ -1,10 +1,5 @@
 <template>
   <div class="page-demo">
-    <!-- <div>
-      <ThemeProvider :theme="{ placeholder: { padding: '100px' } }">
-        <TmField ref="field" v-model="value1" placeholder="请输入qq号" />
-      </ThemeProvider>
-    </div> -->
     <button @click="$refs.field.focus()">click to focus</button>
 
     <demo-divider>输入框</demo-divider>
@@ -29,6 +24,13 @@
     <demo-cell>
       <TmField type="textarea" v-model="value5" placeholder="请输入" slot="body" :autosize="{ minRows: 2, maxRows: 3 }" />
     </demo-cell>
+
+    <demo-divider>主题定制</demo-divider>
+    <demo-cell>
+      <ThemeProvider :theme="theme" slot="body">
+        <TmField placeholder="主题定制" />
+      </ThemeProvider>
+    </demo-cell>
   </div>
 </template>
 
@@ -42,6 +44,11 @@ export default {
       value4: '',
       value5: '',
       visible: false,
+      theme: {
+        field: {
+          textAlign: 'right',
+        },
+      },
     }
   },
 

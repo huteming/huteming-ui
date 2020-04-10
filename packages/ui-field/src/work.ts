@@ -15,6 +15,7 @@ const BaseInput = styled('input', (props) => `
   font-size: ${props.theme.field.fontSize};
   line-height: ${props.theme.field.lineHeight};
   color: ${props.theme.field.color};
+  text-align: ${props.theme.field.textAlign};
   background-color: transparent;
   border: 0;
   outline: 0;
