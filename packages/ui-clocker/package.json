@@ -1,7 +1,7 @@
 {
   "name": "@huteming/ui-clocker",
   "private": true,
-  "version": "3.5.1",
+  "version": "3.6.0",
   "description": "倒计时",
   "main": "dist/clocker.common.js",
   "scripts": {
@@ -10,7 +10,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "@huteming/ui-styles": "^3.5.1",
+    "@huteming/ui-styles": "^3.6.0",
     "@huteming/ui-tools": "^3.5.1"
   }
 }

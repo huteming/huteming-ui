@@ -3,6 +3,22 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [3.6.0](https://47.52.168.43/srv/web-common/compare/v3.5.1...v3.6.0) (2020-04-10)
+
+
+### Features
+
+* 主题添加field,placeholder ([e5564b5](https://47.52.168.43/srv/web-common/commits/e5564b5544d48f9cb7b132b6cf5c54553a19c6a5))
+
+
+### Performance Improvements
+
+* 配置externals解析减小打包体积,试用 ([21cb5c2](https://47.52.168.43/srv/web-common/commits/21cb5c297bce6bfa322db8811e7c09ea5f819e3e))
+
+
+
+
+
 ## [3.5.1](https://47.52.168.43/srv/web-common/compare/v3.5.0...v3.5.1) (2020-03-16)
 
 **Note:** Version bump only for package @huteming/ui-styles

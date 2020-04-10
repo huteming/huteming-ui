@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [3.6.0](https://github.com/huteming/huteming-ui/compare/v3.5.1...v3.6.0) (2020-04-10)
+
+
+### Features
+
+* 主题添加field,placeholder ([e5564b5](https://github.com/huteming/huteming-ui/commit/e5564b5544d48f9cb7b132b6cf5c54553a19c6a5))
+
+
+
+
+
 ## [3.5.1](https://github.com/huteming/huteming-ui/compare/v3.5.0...v3.5.1) (2020-03-16)
 
 **Note:** Version bump only for package @huteming/ui-collapse

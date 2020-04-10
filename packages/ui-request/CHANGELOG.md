@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [3.6.0](https://github.com/huteming/huteming-ui/compare/v3.5.1...v3.6.0) (2020-04-10)
+
+
+### Performance Improvements
+
+* 打包时忽略qs,axios,jsonp模块 ([887e41b](https://github.com/huteming/huteming-ui/commit/887e41b42c502445b5d8e5773683e231d7c2d7ee))
+
+
+
+
+
 ## [3.5.1](https://github.com/huteming/huteming-ui/compare/v3.5.0...v3.5.1) (2020-03-16)
 
 **Note:** Version bump only for package @huteming/ui-request

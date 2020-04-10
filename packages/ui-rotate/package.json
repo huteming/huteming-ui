@@ -1,7 +1,7 @@
 {
   "name": "@huteming/ui-rotate",
   "private": true,
-  "version": "3.3.1",
+  "version": "3.6.0",
   "description": "> 抽奖转盘",
   "main": "dist/turntable.common.js",
   "scripts": {

@@ -1,7 +1,7 @@
 {
   "name": "@huteming/ui-empty",
   "private": true,
-  "version": "3.5.1",
+  "version": "3.6.0",
   "description": "> 空状态",
   "main": "dist/empty.common.js",
   "scripts": {
@@ -10,6 +10,6 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "@huteming/ui-styles": "^3.5.1"
+    "@huteming/ui-styles": "^3.6.0"
   }
 }
