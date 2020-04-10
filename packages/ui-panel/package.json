@@ -1,7 +1,7 @@
 {
   "name": "@huteming/ui-panel",
   "private": true,
-  "version": "3.6.0",
+  "version": "3.6.1",
   "description": "> 面板",
   "main": "dist/panel.common.js",
   "scripts": {
@@ -10,6 +10,6 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "@huteming/ui-styles": "^3.6.0"
+    "@huteming/ui-styles": "^3.6.1"
   }
 }

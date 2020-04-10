@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.6.1](https://47.52.168.43/srv/web-common/compare/v3.6.0...v3.6.1) (2020-04-10)
+
+
+### Bug Fixes
+
+* **styles:** 主题测试数据未删除 ([d396f0d](https://47.52.168.43/srv/web-common/commits/d396f0d0070d0514289d80a052aa9766876212e1))
+
+
+
+
+
 # [3.6.0](https://47.52.168.43/srv/web-common/compare/v3.5.1...v3.6.0) (2020-04-10)
 
 

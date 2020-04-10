@@ -1,7 +1,7 @@
 {
   "name": "@huteming/ui-picker-range",
   "private": true,
-  "version": "3.6.0",
+  "version": "3.6.1",
   "description": "> 选择器的封装",
   "main": "dist/picker-range.common.js",
   "scripts": {
@@ -10,9 +10,9 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "@huteming/ui-picker": "^3.6.0",
-    "@huteming/ui-popup": "^3.6.0",
-    "@huteming/ui-styles": "^3.6.0",
-    "@huteming/ui-toolbar": "^3.6.0"
+    "@huteming/ui-picker": "^3.6.1",
+    "@huteming/ui-popup": "^3.6.1",
+    "@huteming/ui-styles": "^3.6.1",
+    "@huteming/ui-toolbar": "^3.6.1"
   }
 }
