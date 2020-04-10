@@ -1,5 +1,10 @@
 <template>
   <div class="page-demo">
+    <!-- <div>
+      <ThemeProvider :theme="{ placeholder: { padding: '100px' } }">
+        <TmField ref="field" v-model="value1" placeholder="请输入qq号" />
+      </ThemeProvider>
+    </div> -->
     <button @click="$refs.field.focus()">click to focus</button>
 
     <demo-divider>输入框</demo-divider>

@@ -3,7 +3,7 @@ import { Theme } from 'packages/ui-styles/types'
 export default function (theme: Theme) {
   const rule = `
     margin: ${theme.placeholder.margin};
-    padding: 20px;
+    padding: ${theme.placeholder.padding};
     color: ${theme.placeholder.color};
   `
 
